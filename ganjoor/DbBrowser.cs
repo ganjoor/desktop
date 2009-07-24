@@ -39,7 +39,7 @@ namespace ganjoor
         public string LastError = string.Empty;
         #endregion 
 
-        #region Properties
+        #region Properties & Methods
         public bool Failed
         {
             get
@@ -181,6 +181,126 @@ namespace ganjoor
                 }
             }
             return lst;
+        }
+        public GanjoorPoem GetPoem(int PoemID)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT cat_id, title, url FROM poem WHERE ID = " + PoemID.ToString(), _con))
+                    {
+                        da.Fill(tbl);
+                        System.Diagnostics.Debug.Assert(tbl.Rows.Count < 2);
+                        if(1 == tbl.Rows.Count)
+                            return
+                                new GanjoorPoem(
+                                PoemID,
+                                Convert.ToInt32(tbl.Rows[0].ItemArray[0]),
+                                tbl.Rows[0].ItemArray[1].ToString(),
+                                tbl.Rows[0].ItemArray[2].ToString().ToString()
+                                );
+                    }
+                }
+            }
+            return null;
+        }
+        public GanjoorPoem GetNextPoem(int PoemID, int CatID)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(
+                        String.Format(
+                        "SELECT ID FROM poem WHERE cat_id = {0} AND id>{1} LIMIT 1"
+                        ,
+                        CatID, PoemID)
+                    , _con))
+                    {
+                        da.Fill(tbl);
+                        if (1 == tbl.Rows.Count)
+                            return
+                                GetPoem(Convert.ToInt32(tbl.Rows[0].ItemArray[0]));
+                    }
+                }
+            }
+            return null;
+        }
+        public GanjoorPoem GetNextPoem(GanjoorPoem poem)
+        {
+            if (null != poem)
+            {
+                return GetNextPoem(poem._ID, poem._CatID);
+            }
+            return null;
+        }
+        public GanjoorPoem GetPreviousPoem(int PoemID, int CatID)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(
+                        String.Format(
+                        "SELECT ID FROM poem WHERE cat_id = {0} AND id<{1} ORDER BY ID DESC LIMIT 1"
+                        ,
+                        CatID, PoemID)
+                    , _con))
+                    {
+                        da.Fill(tbl);
+                        if (1 == tbl.Rows.Count)
+                            return
+                                GetPoem(Convert.ToInt32(tbl.Rows[0].ItemArray[0]));
+                    }
+                }
+            }
+            return null;
+        }
+        public GanjoorPoem GetPreviousPoem(GanjoorPoem poem)
+        {
+            if (null != poem)
+            {
+                return GetPreviousPoem(poem._ID, poem._CatID);
+            }
+            return null;
+        }
+        public GanjoorPoet GetPoet(int PoetID)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet WHERE id = "+PoetID.ToString(), _con))
+                    {
+                        da.Fill(tbl);
+                        System.Diagnostics.Debug.Assert(tbl.Rows.Count < 2);
+                        if (1 == tbl.Rows.Count)
+                            return
+                                new GanjoorPoet(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), tbl.Rows[0].ItemArray[1].ToString(), Convert.ToInt32(tbl.Rows[0].ItemArray[2]));
+                        
+                    }
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        #region Search
+        public DataTable FindPhrase(string phrase)
+        {
+            if (Connected)
+            {
+                DataTable tbl = new DataTable();
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, text FROM verse WHERE text LIKE '%" + phrase + "%'", _con))
+                    {
+                        da.Fill(tbl);                        
+                    }
+                    return tbl;
+                }
+            }
+            return null;
         }
         #endregion
 

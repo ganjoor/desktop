@@ -45,11 +45,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DbBrowser.cs" />
     <Compile Include="GanjoorCat.cs" />
     <Compile Include="GanjoorPoem.cs" />
     <Compile Include="GanjoorPoet.cs" />
     <Compile Include="GanjoorVerse.cs" />
+    <Compile Include="GanjoorViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GanjoorViewer.Designer.cs">
+      <DependentUpon>GanjoorViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GanjoorViewEvents.cs" />
+    <Compile Include="GarnjoorBrowsingHistory.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +72,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GanjoorViewer.resx">
+      <DependentUpon>GanjoorViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -84,9 +105,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\repeat.png" />
+    <None Include="Resources\firefox_alt.png" />
+    <None Include="Resources\comments.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\database_search.png" />
+    <None Include="Resources\fast_forward.png" />
+    <None Include="Resources\rewind.png" />
+    <None Include="Resources\home_next.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

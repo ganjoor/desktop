@@ -59,5 +59,68 @@ namespace ganjoor.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap comments {
+            get {
+                object obj = ResourceManager.GetObject("comments", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap database_search {
+            get {
+                object obj = ResourceManager.GetObject("database_search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap fast_forward {
+            get {
+                object obj = ResourceManager.GetObject("fast_forward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap firefox_alt {
+            get {
+                object obj = ResourceManager.GetObject("firefox_alt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap help {
+            get {
+                object obj = ResourceManager.GetObject("help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap home_next {
+            get {
+                object obj = ResourceManager.GetObject("home_next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap printer {
+            get {
+                object obj = ResourceManager.GetObject("printer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap repeat {
+            get {
+                object obj = ResourceManager.GetObject("repeat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap rewind {
+            get {
+                object obj = ResourceManager.GetObject("rewind", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
