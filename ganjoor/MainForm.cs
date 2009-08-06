@@ -31,7 +31,7 @@ namespace ganjoor
             ganjoorView.ShowHome(true);
         }
 
-        private void ganjoorView_OnPageChanged(string PageString, bool CanGoNextPoem, bool CanGoPreviousPoem, bool HasComments)
+        private void ganjoorView_OnPageChanged(string PageString, bool CanGoNextPoem, bool CanGoPreviousPoem, bool HasComments, bool CanBrowse)
         {
             lblCurrentPage.Text = PageString;
             btnNextPoem.Enabled = CanGoNextPoem;
@@ -39,6 +39,7 @@ namespace ganjoor
             btnComments.Enabled = HasComments;
             btnPrint.Enabled = btnComments.Enabled;
             btnHistoryBack.Enabled = ganjoorView.CanGoBackInHistory;
+            btnViewInSite.Enabled = CanBrowse;
         }
 
         private void btnPreviousPoem_Click(object sender, EventArgs e)
@@ -87,6 +88,22 @@ namespace ganjoor
             {
                 dlg.ShowDialog(this);
             }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            using (Search dlg = new Search())
+            {
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, 10);
+                }
+            }
+        }
+
+        private void btnCopyText_Click(object sender, EventArgs e)
+        {
+            ganjoorView.CopyText();
         }
 
     }
