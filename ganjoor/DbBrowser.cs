@@ -287,15 +287,30 @@ namespace ganjoor
         #endregion
 
         #region Search
-        public DataTable FindPhrase(string phrase)
+        public DataTable FindPoemsContaingPhrase(string phrase, int PageStart, int Count)
         {
             if (Connected)
             {
                 DataTable tbl = new DataTable();
                 {
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, text FROM verse WHERE text LIKE '%" + phrase + "%'", _con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id FROM verse WHERE text LIKE '%" + phrase + "%' GROUP BY poem_id LIMIT "+PageStart.ToString()+","+Count.ToString(), _con))
                     {
                         da.Fill(tbl);                        
+                    }
+                    return tbl;
+                }
+            }
+            return null;
+        }
+        public DataTable FindFirstVerseContaingPhrase(int PoemID, string phrase)
+        {
+            if (Connected)
+            {
+                DataTable tbl = new DataTable();
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT text FROM verse WHERE poem_id="+PoemID+" AND text LIKE'%"+phrase+"%' LIMIT 0,1", _con))
+                    {
+                        da.Fill(tbl);
                     }
                     return tbl;
                 }

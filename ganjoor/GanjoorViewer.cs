@@ -82,9 +82,9 @@ namespace ganjoor
             this.Controls.Clear();
 
 
-            int catsTop;
+            int catsTop = DistanceFromTop;
             int lastDistanceFromRight;
-            ShowCategory(category, out catsTop, out lastDistanceFromRight, true, keepTrack);
+            ShowCategory(category, ref catsTop, out lastDistanceFromRight, true, keepTrack);
 
 
 
@@ -127,7 +127,7 @@ namespace ganjoor
             //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
             Label lblDummy = new Label();
             lblDummy.Text = " ";
-            lblDummy.Location = new Point(DistanceFromRight, poemsTop + poems.Count * DistanceBetweenLines);
+            lblDummy.Location = new Point(200, poemsTop + poems.Count * DistanceBetweenLines);
             lblDummy.BackColor = Color.Transparent;
             this.Controls.Add(lblDummy);
 
@@ -141,13 +141,12 @@ namespace ganjoor
             Cursor = Cursors.Default;
 
             if (null != OnPageChanged)
-                OnPageChanged(_strPage, false, false, false);
+                OnPageChanged(_strPage, false, false, false, true);
         }
-        private void ShowCategory(GanjoorCat category, out int catsTop, out int lastDistanceFromRight, bool highlightCat,bool keepTrack)
+        private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat,bool keepTrack)
         {
             if(keepTrack)
-            UpdateHistory();
-            catsTop = DistanceFromTop;
+            UpdateHistory();            
             lastDistanceFromRight = DistanceFromRight;
 
 
@@ -214,9 +213,9 @@ namespace ganjoor
             this.SuspendLayout();
             this.Controls.Clear();
 
-            int catsTop;
+            int catsTop = DistanceFromTop;
             int lastDistanceFromRight;
-            ShowCategory(_db.GetCategory(poem._CatID), out catsTop, out lastDistanceFromRight, false, keepTrack);
+            ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, keepTrack);
             lastDistanceFromRight += DistanceFromRightStep;
 
             _strPage += " -> " + poem._Title;
@@ -251,7 +250,7 @@ namespace ganjoor
             //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
             Label lblDummy = new Label();
             lblDummy.Text = " ";
-            lblDummy.Location = new Point(DistanceFromRight, catsTop + verses.Count * DistanceBetweenLines);
+            lblDummy.Location = new Point(200, catsTop + verses.Count * DistanceBetweenLines);
             lblDummy.BackColor = Color.Transparent;
             this.Controls.Add(lblDummy);
 
@@ -266,7 +265,7 @@ namespace ganjoor
 
 
             if (null != OnPageChanged)
-                OnPageChanged(_strPage, CanGoToNextPoem, CanGoToPreviousPoem, true);
+                OnPageChanged(_strPage, CanGoToNextPoem, CanGoToPreviousPoem, true, true);
         }
         #endregion
 
@@ -412,6 +411,7 @@ namespace ganjoor
             }
         }
         #endregion
+
         #region Printing
         public void Print(PrintDocument Document)
         {
@@ -455,6 +455,130 @@ namespace ganjoor
 
             }
             return 0;
+        }
+        #endregion
+
+        #region Search
+        public void ShowSearchResults(string phrase, int PageStart, int Count)
+        {
+            Cursor = Cursors.WaitCursor; Application.DoEvents();
+            this.SuspendLayout();
+            this.Controls.Clear();
+            using(DataTable poemsList = _db.FindPoemsContaingPhrase(phrase, PageStart, Count+1))
+            {
+                bool HasMore = poemsList.Rows.Count == Count+1;
+                Count = HasMore ? Count : poemsList.Rows.Count-1;
+                int catsTop = DistanceFromTop;
+                for (int i = 0; i < Count; i++)
+                {
+                    GanjoorPoem poem = _db.GetPoem(Convert.ToInt32(poemsList.Rows[i].ItemArray[0]));
+                    int lastDistanceFromRight;
+                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, false);
+                    lastDistanceFromRight += DistanceFromRightStep;
+                    LinkLabel lblPoem = new LinkLabel();
+                    lblPoem.Tag = poem;
+                    lblPoem.AutoSize = true;
+                    lblPoem.Text = poem._Title;
+                    lblPoem.Location = new Point(lastDistanceFromRight, catsTop);
+                    lblPoem.LinkBehavior = LinkBehavior.HoverUnderline;
+                    lblPoem.BackColor = Color.Transparent;
+                    lblPoem.Click += new EventHandler(lblPoem_Click);
+                    this.Controls.Add(lblPoem);
+
+                    catsTop += DistanceBetweenLines;
+                    lastDistanceFromRight += DistanceFromRightStep;
+
+
+                    List<GanjoorVerse> verses = _db.GetVerses(poem._ID);
+
+                    using (DataTable firsVerse = _db.FindFirstVerseContaingPhrase(poem._ID, phrase))
+                    {
+                        System.Diagnostics.Debug.Assert(firsVerse.Rows.Count == 1);
+                        
+
+                        Label lblVerse = new Label();
+                        lblVerse.AutoSize = true;
+                        lblVerse.Tag = null;
+                        lblVerse.Text = firsVerse.Rows[0].ItemArray[0].ToString();
+                        lblVerse.Location = new Point(lastDistanceFromRight, catsTop);
+                        lblVerse.BackColor = Color.Transparent;
+                        this.Controls.Add(lblVerse);
+                        catsTop += 2*DistanceBetweenLines;
+                    }
+                }
+
+                if (PageStart > 0)
+                {
+                    LinkLabel lblPrevPage = new LinkLabel();
+                    lblPrevPage.Tag = new GanjoorSearchPage(phrase, PageStart - Count);
+                    lblPrevPage.AutoSize = true;
+                    lblPrevPage.Text = "صفحۀ قبل";
+                    lblPrevPage.Location = new Point(200, catsTop);
+                    lblPrevPage.LinkBehavior = LinkBehavior.HoverUnderline;
+                    lblPrevPage.BackColor = Color.Transparent;
+                    lblPrevPage.Click += new EventHandler(lblNextPage_Click);
+                    this.Controls.Add(lblPrevPage);
+
+                }
+
+                if (HasMore)
+                {
+                    LinkLabel lblNextPage = new LinkLabel();
+                    lblNextPage.Tag = new GanjoorSearchPage(phrase, PageStart + Count);
+                    lblNextPage.AutoSize = true;
+                    lblNextPage.Text = "صفحۀ بعد";
+                    lblNextPage.Location = new Point(this.Width - 200, catsTop);
+                    lblNextPage.LinkBehavior = LinkBehavior.HoverUnderline;
+                    lblNextPage.BackColor = Color.Transparent;
+                    lblNextPage.Click += new EventHandler(lblNextPage_Click);
+                    this.Controls.Add(lblNextPage);
+                    catsTop += DistanceBetweenLines;
+                }
+
+                //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
+                Label lblDummy = new Label();
+                lblDummy.Text = " ";
+                lblDummy.Location = new Point(200, catsTop);
+                lblDummy.BackColor = Color.Transparent;
+                this.Controls.Add(lblDummy);
+
+            }
+
+
+            //کلک راست به چپ!
+            foreach (Control ctl in this.Controls)
+                ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
+
+
+            this.ResumeLayout();
+            Cursor = Cursors.Default;
+            _iCurPoem = 0;
+
+
+            _strPage = "نتایج جستجو برای \"" + phrase + "\" صفحۀ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString());
+            if (null != OnPageChanged)
+                OnPageChanged(_strPage,false, false, false, false);
+
+            if (Count < 1)
+                MessageBox.Show("موردی یافت نشد.", "جستجو", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
+        }
+
+        void lblNextPage_Click(object sender, EventArgs e)
+        {
+            GanjoorSearchPage g = (sender as LinkLabel).Tag as GanjoorSearchPage;
+            ShowSearchResults(g._SearchPhrase, g._PageStart, 10);
+        }
+        #endregion
+
+        #region Simple Copy
+        public void CopyText()
+        {
+            string txt = "";
+            foreach (Control ctl in this.Controls)
+                if (ctl is Label)
+                    txt += ctl.Text + "\r\n";
+            Clipboard.SetText(txt);
         }
         #endregion
     }
