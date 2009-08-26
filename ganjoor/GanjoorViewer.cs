@@ -20,6 +20,7 @@ namespace ganjoor
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
 
             _iCurCat = _iCurPoem = 0;
+            _strLastPhrase = "";
             _history = new Stack<GarnjoorBrowsingHistory>();
 
             if (!DesignMode)
@@ -37,6 +38,9 @@ namespace ganjoor
         private int _iCurCat;
         private int _iCurPoem;
         private string _strPage;
+        private int _iCurSearchStart;
+        private int _iCurSearchPageCount;
+        private string _strLastPhrase;
         #endregion
 
         #region Constants
@@ -56,8 +60,27 @@ namespace ganjoor
                     MessageBox.Show(_db.LastError, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                {                    
-                    ShowHome(true);
+                {
+                    if (Properties.Settings.Default.LastCat != 0)
+                    {
+                        if (Properties.Settings.Default.LastPoem != 0)
+                        {
+                            ShowPoem(_db.GetPoem(Properties.Settings.Default.LastPoem), false);
+                        }
+                        else
+                        {
+                            ShowCategory(_db.GetCategory(Properties.Settings.Default.LastCat), false);
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(Properties.Settings.Default.LastSearchPhrase))
+                        {
+                            ShowSearchResults(Properties.Settings.Default.LastSearchPhrase, Properties.Settings.Default.LastSeachStart, Properties.Settings.Default.SearchPageItems, false);
+                        }
+                        else
+                            ShowHome(true);
+                    }
                 }
             }
         }
@@ -77,6 +100,7 @@ namespace ganjoor
 
         private void ShowCategory(GanjoorCat category, bool keepTrack)
         {
+            
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.Controls.Clear();
@@ -139,14 +163,14 @@ namespace ganjoor
 
             this.ResumeLayout();
             Cursor = Cursors.Default;
-
+            _strLastPhrase = null;
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, false, false, false, true);
         }
         private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat,bool keepTrack)
         {
             if(keepTrack)
-            UpdateHistory();            
+                UpdateHistory();            
             lastDistanceFromRight = DistanceFromRight;
 
 
@@ -208,7 +232,7 @@ namespace ganjoor
         }
 
         private void ShowPoem(GanjoorPoem poem, bool keepTrack)
-        {
+        {            
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.Controls.Clear();
@@ -263,7 +287,7 @@ namespace ganjoor
             Cursor = Cursors.Default;
             _iCurPoem = poem._ID;
 
-
+            _strLastPhrase = null;
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, CanGoToNextPoem, CanGoToPreviousPoem, true, true);
         }
@@ -386,11 +410,16 @@ namespace ganjoor
         private void UpdateHistory()
         {
             if (
-                ((_history.Count == 0) && (_iCurCat!=0))
-                ||
-                (_history.Count != 0) && !((_history.Peek()._CatID == _iCurCat) && ((_history.Peek()._PoemID == _iCurPoem)))
+                (_history.Count == 0) || !((_history.Peek()._CatID == _iCurCat) && ((_history.Peek()._PoemID == _iCurPoem)))
                 )
+            {
                 _history.Push(new GarnjoorBrowsingHistory(_iCurCat, _iCurPoem));
+
+            }
+            else if(!string.IsNullOrEmpty(_strLastPhrase))
+            {
+                _history.Push(new GarnjoorBrowsingHistory(_strLastPhrase, _iCurSearchStart, _iCurSearchPageCount));
+            }
         }
         public void GoBackInHistory()//forward twards back!
         {
@@ -401,7 +430,14 @@ namespace ganjoor
                 {
                     if (0 == back._CatID)
                     {
-                        ShowHome(false);
+                        if (0 == back._PageItemsCount)
+                        {
+                            ShowHome(false);
+                        }
+                        else
+                        {
+                            ShowSearchResults(back._SearchPhrase, back._SearchStart, back._PageItemsCount, false);
+                        }
                     }
                     else
                         ShowCategory(_db.GetCategory(back._CatID), false);                        
@@ -461,12 +497,18 @@ namespace ganjoor
         #region Search
         public void ShowSearchResults(string phrase, int PageStart, int Count)
         {
+            ShowSearchResults(phrase, PageStart, Count, true);
+        }
+        public void ShowSearchResults(string phrase, int PageStart, int Count, bool keepTrack)
+        {
+            if (keepTrack)
+                UpdateHistory();
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.Controls.Clear();
             using(DataTable poemsList = _db.FindPoemsContaingPhrase(phrase, PageStart, Count+1))
             {
-                bool HasMore = poemsList.Rows.Count == Count+1;
+                bool HasMore = Count>0 && poemsList.Rows.Count == Count+1;
                 Count = HasMore ? Count : poemsList.Rows.Count-1;
                 int catsTop = DistanceFromTop;
                 for (int i = 0; i < Count; i++)
@@ -510,7 +552,7 @@ namespace ganjoor
                 if (PageStart > 0)
                 {
                     LinkLabel lblPrevPage = new LinkLabel();
-                    lblPrevPage.Tag = new GanjoorSearchPage(phrase, PageStart - Count);
+                    lblPrevPage.Tag = new GanjoorSearchPage(phrase, PageStart - Count, Count);
                     lblPrevPage.AutoSize = true;
                     lblPrevPage.Text = "صفحۀ قبل";
                     lblPrevPage.Location = new Point(200, catsTop);
@@ -524,7 +566,7 @@ namespace ganjoor
                 if (HasMore)
                 {
                     LinkLabel lblNextPage = new LinkLabel();
-                    lblNextPage.Tag = new GanjoorSearchPage(phrase, PageStart + Count);
+                    lblNextPage.Tag = new GanjoorSearchPage(phrase, PageStart + Count, Count);
                     lblNextPage.AutoSize = true;
                     lblNextPage.Text = "صفحۀ بعد";
                     lblNextPage.Location = new Point(this.Width - 200, catsTop);
@@ -535,12 +577,19 @@ namespace ganjoor
                     catsTop += DistanceBetweenLines;
                 }
 
+
                 //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
                 Label lblDummy = new Label();
                 lblDummy.Text = " ";
                 lblDummy.Location = new Point(200, catsTop);
                 lblDummy.BackColor = Color.Transparent;
                 this.Controls.Add(lblDummy);
+
+                _iCurCat = 0;
+                _iCurSearchStart = PageStart;
+                _iCurSearchPageCount = Count;
+                _strLastPhrase = phrase;
+
 
             }
 
@@ -555,7 +604,7 @@ namespace ganjoor
             _iCurPoem = 0;
 
 
-            _strPage = "نتایج جستجو برای \"" + phrase + "\" صفحۀ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString());
+            _strPage = "نتایج جستجو برای \"" + phrase + "\" صفحۀ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString()+ " (مورد " + (PageStart+1).ToString()+" تا "+(PageStart+Count).ToString()+")");
             if (null != OnPageChanged)
                 OnPageChanged(_strPage,false, false, false, false);
 
@@ -567,7 +616,7 @@ namespace ganjoor
         void lblNextPage_Click(object sender, EventArgs e)
         {
             GanjoorSearchPage g = (sender as LinkLabel).Tag as GanjoorSearchPage;
-            ShowSearchResults(g._SearchPhrase, g._PageStart, 10);
+            ShowSearchResults(g._SearchPhrase, g._PageStart, g._MaxItemsCount);
         }
         #endregion
 
@@ -579,6 +628,13 @@ namespace ganjoor
                 if (ctl is Label)
                     txt += ctl.Text + "\r\n";
             Clipboard.SetText(txt);
+        }
+        public void StoreSettings()
+        {
+            Properties.Settings.Default.LastCat = _iCurCat;
+            Properties.Settings.Default.LastPoem = _iCurPoem;
+            Properties.Settings.Default.LastSearchPhrase = _strLastPhrase;
+            Properties.Settings.Default.LastSeachStart = _iCurSearchStart;
         }
         #endregion
     }
