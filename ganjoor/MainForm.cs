@@ -24,6 +24,14 @@ namespace ganjoor
         public MainForm()
         {
             InitializeComponent();
+            this.Bounds = Screen.PrimaryScreen.Bounds;
+            if (Properties.Settings.Default.WindowMaximized)
+                this.WindowState = FormWindowState.Maximized;
+            else
+                if (Properties.Settings.Default.WindowSize.Width != 0)
+                {
+                    this.Bounds = new Rectangle(Properties.Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
+                }
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -96,7 +104,10 @@ namespace ganjoor
             {
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, 10);
+
+                    Properties.Settings.Default.SearchPageItems = dlg.ItemsInPage;
+                    Properties.Settings.Default.Save();
+                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage);
                 }
             }
         }
@@ -104,6 +115,15 @@ namespace ganjoor
         private void btnCopyText_Click(object sender, EventArgs e)
         {
             ganjoorView.CopyText();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ganjoorView.StoreSettings();
+            Properties.Settings.Default.WindowMaximized = (this.WindowState == FormWindowState.Maximized);
+            Properties.Settings.Default.WindowLocation = this.Location;
+            Properties.Settings.Default.WindowSize = this.Size;
+            Properties.Settings.Default.Save();
         }
 
     }
