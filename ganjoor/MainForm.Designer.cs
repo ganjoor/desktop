@@ -116,7 +116,7 @@
             this.toolStripMain.Location = new System.Drawing.Point(0, 24);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(716, 53);
-            this.toolStripMain.TabIndex = 1;
+            this.toolStripMain.TabIndex = 2;
             this.toolStripMain.Text = "نوار ابزار";
             // 
             // btnHome
@@ -354,7 +354,7 @@
             this.mnu.Location = new System.Drawing.Point(0, 0);
             this.mnu.Name = "mnu";
             this.mnu.Size = new System.Drawing.Size(716, 24);
-            this.mnu.TabIndex = 4;
+            this.mnu.TabIndex = 1;
             this.mnu.Text = "منوی اصلی";
             // 
             // mnuNav
