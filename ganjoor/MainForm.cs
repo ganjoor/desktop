@@ -68,6 +68,10 @@ namespace ganjoor
             mnuHistoryBack.Enabled = btnHistoryBack.Enabled;
             mnuViewInSite.Enabled = btnViewInSite.Enabled;
             mnuHighlight.Enabled = btnHighlight.Enabled;
+
+            ganjoorView.Focus();
+
+            
         }
 
         private void btnPreviousPoem_Click(object sender, EventArgs e)

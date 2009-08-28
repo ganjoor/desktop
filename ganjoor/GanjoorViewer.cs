@@ -270,7 +270,7 @@ namespace ganjoor
             int ItemsMatchingPhrase = 0;
             for (int i = 0; i < verses.Count; i++)
             {
-                HighlightLabel lblVerse = new HighlightLabel(highlightWord, Color.LightPink);
+                HighlightLabel lblVerse = new HighlightLabel(highlightWord, Color.LightPink);                
                 lblVerse.AutoSize = true;
                 lblVerse.Tag = verses[i];
                 lblVerse.Text = verses[i]._Text;
@@ -468,17 +468,18 @@ namespace ganjoor
         }
         private void UpdateHistory()
         {
-            if (
-                (_history.Count == 0) || !((_history.Peek()._CatID == _iCurCat) && ((_history.Peek()._PoemID == _iCurPoem)))
-                )
-            {
-                _history.Push(new GarnjoorBrowsingHistory(_iCurCat, _iCurPoem));
-
-            }
-            else if(!string.IsNullOrEmpty(_strLastPhrase))
+            if (!string.IsNullOrEmpty(_strLastPhrase))
             {
                 _history.Push(new GarnjoorBrowsingHistory(_strLastPhrase, _iCurSearchStart, _iCurSearchPageCount));
             }
+            else
+                if (
+                    (_history.Count == 0) || !((_history.Peek()._CatID == _iCurCat) && ((_history.Peek()._PoemID == _iCurPoem)))
+                    )
+                {
+                    _history.Push(new GarnjoorBrowsingHistory(_iCurCat, _iCurPoem));
+
+                }
         }
         public void GoBackInHistory()//forward twards back!
         {
@@ -686,7 +687,17 @@ namespace ganjoor
             {
                 if (_iCurPoem != 0)
                 {
-                    return ShowPoem(_db.GetPoem(_iCurPoem), false, phrase);
+                    int count = 0;
+                    foreach (Control ctl in this.Controls)
+                        if (ctl is HighlightLabel)
+                        {
+                            (ctl as HighlightLabel).Keyword = phrase;
+                            if (ctl.Text.IndexOf(phrase) != -1)
+                                count++;
+                        }
+                    if (count > 0)
+                        this.Invalidate();
+                    return count;
                 }
             }
             return 0;
@@ -715,6 +726,6 @@ namespace ganjoor
             Properties.Settings.Default.LastSeachStart = _iCurSearchStart;
         }
         #endregion
-
+     
     }
 }
