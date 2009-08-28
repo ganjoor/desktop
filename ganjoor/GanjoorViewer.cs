@@ -45,7 +45,7 @@ namespace ganjoor
 
         #region Constants
         private const int DistanceFromTop = 10;
-        private const int DistanceBetweenLines = 20;
+        private static int DistanceBetweenLines = 20;
         private const int DistanceFromRight = 20;
         private const int DistanceFromRightStep = 10;
         #endregion
@@ -165,7 +165,7 @@ namespace ganjoor
             Cursor = Cursors.Default;
             _strLastPhrase = null;
             if (null != OnPageChanged)
-                OnPageChanged(_strPage, false, false, false, true);
+                OnPageChanged(_strPage, false, false, false, true, string.Empty, 0);
         }
         private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat,bool keepTrack)
         {
@@ -227,11 +227,15 @@ namespace ganjoor
             ShowPoem(
                 ((GanjoorPoem)((LinkLabel)sender).Tag)
                 ,
-                true
+                true                
                 );
         }
 
-        private void ShowPoem(GanjoorPoem poem, bool keepTrack)
+        private int ShowPoem(GanjoorPoem poem, bool keepTrack)
+        {
+            return ShowPoem(poem, keepTrack, poem._HighlightText);
+        }
+        private int ShowPoem(GanjoorPoem poem, bool keepTrack, string highlightWord)
         {            
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
@@ -245,6 +249,7 @@ namespace ganjoor
             _strPage += " -> " + poem._Title;
 
             LinkLabel lblPoem = new LinkLabel();
+            poem._HighlightText = string.Empty;
             lblPoem.Tag = poem;
             lblPoem.AutoSize = true;
             lblPoem.Text = poem._Title;
@@ -261,15 +266,25 @@ namespace ganjoor
 
             List<GanjoorVerse> verses = _db.GetVerses(poem._ID);
 
+            Control lblHighlight = null;
+            int ItemsMatchingPhrase = 0;
             for (int i = 0; i < verses.Count; i++)
             {
-                Label lblVerse = new Label();
+                HighlightLabel lblVerse = new HighlightLabel(highlightWord, Color.LightPink);
                 lblVerse.AutoSize = true;
                 lblVerse.Tag = verses[i];
                 lblVerse.Text = verses[i]._Text;
                 lblVerse.Location = new Point(lastDistanceFromRight, catsTop + i * DistanceBetweenLines);
                 lblVerse.BackColor = Color.Transparent;
                 this.Controls.Add(lblVerse);
+
+                if (!string.IsNullOrEmpty(highlightWord))
+                    if (verses[i]._Text.IndexOf(highlightWord) != -1)
+                    {
+                        ItemsMatchingPhrase++;
+                        if(lblHighlight == null)
+                            lblHighlight = lblVerse;
+                    }
             }
             //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
             Label lblDummy = new Label();
@@ -281,15 +296,15 @@ namespace ganjoor
             //کلک راست به چپ!
             foreach (Control ctl in this.Controls)
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
-
-
+            
             this.ResumeLayout();
             Cursor = Cursors.Default;
             _iCurPoem = poem._ID;
 
             _strLastPhrase = null;
             if (null != OnPageChanged)
-                OnPageChanged(_strPage, CanGoToNextPoem, CanGoToPreviousPoem, true, true);
+                OnPageChanged(_strPage, CanGoToNextPoem, CanGoToPreviousPoem, true, true, highlightWord, ItemsMatchingPhrase);
+            return ItemsMatchingPhrase;
         }
         #endregion
 
@@ -299,6 +314,41 @@ namespace ganjoor
             using (LinearGradientBrush brsh = new LinearGradientBrush(this.Bounds, Color.LightGray, Color.White, 0.0f))
             {
                 e.Graphics.FillRectangle(brsh, e.ClipRectangle);
+            }
+        }
+        public override Font Font
+        {
+            get
+            {
+                return base.Font;
+            }
+            set
+            {
+                base.Font = value;
+                DistanceBetweenLines = TextRenderer.MeasureText("ا", value).Width * 2;
+
+                if(_db != null)
+                if (_iCurCat != 0)
+                {
+                    if (_iCurPoem != 0)
+                    {
+                        ShowPoem(_db.GetPoem(_iCurPoem), false);
+                    }
+                    else
+                    {
+                        ShowCategory(_db.GetCategory(_iCurCat), false);
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(_strLastPhrase))
+                    {
+                        ShowSearchResults(_strLastPhrase, _iCurSearchStart, Properties.Settings.Default.SearchPageItems, false);
+                    }
+                    else
+                        ShowHome(false);
+                }
+
             }
         }
         #endregion
@@ -385,6 +435,15 @@ namespace ganjoor
                 if (0 == _iCurPoem)
                     return _db.GetCategory(_iCurCat)._Url;
                 return _db.GetPoem(_iCurPoem)._Url;
+                /*
+                 * using following code you can delete url field in poem table,
+                 * 
+                 * return "http://ganjoor.net/?p=" + _iCurPoem.ToString();
+                 * 
+                 * it causes ganjoor.net to perform a redirect to SEO frinedly url,
+                 * however size of database is reduced only by 2 mb (for 69 mb one) in this way                    
+                 * so I thought it might not condisered harmful to keep current structure.
+                 */
             }
         }
         public string CurrentPoemCommentsUrl
@@ -451,9 +510,16 @@ namespace ganjoor
         #region Printing
         public void Print(PrintDocument Document)
         {
-            Document.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(Document_PrintPage);
+            Document.PrintPage += new PrintPageEventHandler(Document_PrintPage);
             _iRemainingUnprintedLines = 0;
             Document.Print();
+        }
+        public PrintDocument PrepareForPrintPreview()
+        {
+            _iRemainingUnprintedLines = 0;
+            PrintDocument Document= new PrintDocument();
+            Document.PrintPage += new PrintPageEventHandler(Document_PrintPage);
+            return Document;
         }
         void Document_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
@@ -466,10 +532,10 @@ namespace ganjoor
         {
             if (0 != _iCurPoem)
             {
-                int dist = (0 == StartFrom) ? 50 : 25;
+                int dist = (0 == StartFrom) ? (int)(2.5f*DistanceBetweenLines) : DistanceBetweenLines + (int)(0.25f*DistanceBetweenLines);
                 int top = e.PageBounds.Top + 100;
                 int mid = e.PageBounds.Left + e.PageBounds.Width / 2;
-
+                StringFormat format = new StringFormat(StringFormatFlags.DirectionRightToLeft);
                 int line = -1;
                 foreach (Control ctl in this.Controls)
                     if (ctl is Label)
@@ -480,12 +546,13 @@ namespace ganjoor
                             {
                                 e.Graphics.DrawString(ctl.Text, this.Font, Brushes.Black,
                                     new PointF(
-                                        mid - TextRenderer.MeasureText(ctl.Text, this.Font).Width / 2,
-                                        top));
+                                        mid + TextRenderer.MeasureText(ctl.Text, this.Font).Width / 2,
+                                        top),
+                                        format);
                                 top += dist;
                                 if (top > e.PageBounds.Bottom - dist)
                                     return line + 1;
-                                dist = 25;
+                                dist = DistanceBetweenLines + (int)(0.25f * DistanceBetweenLines);//25;
                             }
                         }
 
@@ -514,6 +581,7 @@ namespace ganjoor
                 for (int i = 0; i < Count; i++)
                 {
                     GanjoorPoem poem = _db.GetPoem(Convert.ToInt32(poemsList.Rows[i].ItemArray[0]));
+                    poem._HighlightText = phrase;
                     int lastDistanceFromRight;
                     ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, false);
                     lastDistanceFromRight += DistanceFromRightStep;
@@ -536,9 +604,9 @@ namespace ganjoor
                     using (DataTable firsVerse = _db.FindFirstVerseContaingPhrase(poem._ID, phrase))
                     {
                         System.Diagnostics.Debug.Assert(firsVerse.Rows.Count == 1);
-                        
 
-                        Label lblVerse = new Label();
+
+                        HighlightLabel lblVerse = new HighlightLabel(phrase, Color.LightPink);
                         lblVerse.AutoSize = true;
                         lblVerse.Tag = null;
                         lblVerse.Text = firsVerse.Rows[0].ItemArray[0].ToString();
@@ -606,13 +674,23 @@ namespace ganjoor
 
             _strPage = "نتایج جستجو برای \"" + phrase + "\" صفحۀ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString()+ " (مورد " + (PageStart+1).ToString()+" تا "+(PageStart+Count).ToString()+")");
             if (null != OnPageChanged)
-                OnPageChanged(_strPage,false, false, false, false);
+                OnPageChanged(_strPage,false, false, false, false, string.Empty, 0);
 
             if (Count < 1)
                 MessageBox.Show("موردی یافت نشد.", "جستجو", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
 
         }
-
+        public int HighlightText(string phrase)
+        {
+            if (_iCurCat != 0)
+            {
+                if (_iCurPoem != 0)
+                {
+                    return ShowPoem(_db.GetPoem(_iCurPoem), false, phrase);
+                }
+            }
+            return 0;
+        }
         void lblNextPage_Click(object sender, EventArgs e)
         {
             GanjoorSearchPage g = (sender as LinkLabel).Tag as GanjoorSearchPage;
@@ -637,5 +715,6 @@ namespace ganjoor
             Properties.Settings.Default.LastSeachStart = _iCurSearchStart;
         }
         #endregion
+
     }
 }

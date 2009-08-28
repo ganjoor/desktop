@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Printing;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
@@ -32,6 +33,7 @@ namespace ganjoor
                 {
                     this.Bounds = new Rectangle(Properties.Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
                 }
+            ganjoorView.Font = Properties.Settings.Default.ViewFont;
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -39,7 +41,7 @@ namespace ganjoor
             ganjoorView.ShowHome(true);
         }
 
-        private void ganjoorView_OnPageChanged(string PageString, bool CanGoNextPoem, bool CanGoPreviousPoem, bool HasComments, bool CanBrowse)
+        private void ganjoorView_OnPageChanged(string PageString, bool CanGoNextPoem, bool CanGoPreviousPoem, bool HasComments, bool CanBrowse, string HighlightedText, int ItemsFound)
         {
             lblCurrentPage.Text = PageString;
             btnNextPoem.Enabled = CanGoNextPoem;
@@ -48,6 +50,24 @@ namespace ganjoor
             btnPrint.Enabled = btnComments.Enabled;
             btnHistoryBack.Enabled = ganjoorView.CanGoBackInHistory;
             btnViewInSite.Enabled = CanBrowse;
+            processTextChanged = false;
+            txtHighlight.Text = HighlightedText;
+            lblFoundItemCount.Visible = string.IsNullOrEmpty(HighlightedText);
+            lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", ItemsFound);
+            if (string.IsNullOrEmpty(HighlightedText))
+            {
+                btnHighlight.Checked = false;
+            }
+            processTextChanged = true;
+            btnHighlight.Enabled = HasComments;            
+
+            mnuNextPoem.Enabled = btnNextPoem.Enabled;
+            mnuPreviousPoem.Enabled = btnPreviousPoem.Enabled;
+            mnuComments.Enabled = btnComments.Enabled;
+            mnuPrintPreview.Enabled = mnuPrint.Enabled = btnPrint.Enabled;
+            mnuHistoryBack.Enabled = btnHistoryBack.Enabled;
+            mnuViewInSite.Enabled = btnViewInSite.Enabled;
+            mnuHighlight.Enabled = btnHighlight.Enabled;
         }
 
         private void btnPreviousPoem_Click(object sender, EventArgs e)
@@ -75,11 +95,25 @@ namespace ganjoor
             using (PrintDialog dlg = new PrintDialog())
             {
                 if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
+                {                    
                     using (dlg.Document = new System.Drawing.Printing.PrintDocument())
                     {
                         ganjoorView.Print(dlg.Document);
                     }
+                }
+            }
+        }
+
+        private void mnuPrintPreview_Click(object sender, EventArgs e)
+        {
+            using (PrintPreviewDialog dlg = new PrintPreviewDialog())
+            {
+                dlg.ShowIcon = false;
+                dlg.UseAntiAlias = true;                
+                using (PrintDocument Document = ganjoorView.PrepareForPrintPreview())
+                {
+                    dlg.Document = Document;
+                    dlg.ShowDialog(this);
                 }
             }
         }
@@ -125,6 +159,51 @@ namespace ganjoor
             Properties.Settings.Default.WindowSize = this.Size;
             Properties.Settings.Default.Save();
         }
+
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            using (Options dlg = new Options())
+            {
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    ganjoorView.Font = Properties.Settings.Default.ViewFont;                    
+                }
+            }
+        }
+
+
+        private void btnHighlight_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tlbrSearch.Visible = btnHighlight.Checked)
+            {
+                lblFoundItemCount.Visible = !string.IsNullOrEmpty(txtHighlight.Text);
+                if (!string.IsNullOrEmpty(txtHighlight.Text))
+                    txtHighlight_TextChanged(sender, e);
+                txtHighlight.Focus();
+            }
+        }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mnuHighlight_Click(object sender, EventArgs e)
+        {
+            btnHighlight.Checked = !btnHighlight.Checked;
+        }
+
+        private bool processTextChanged = true;
+        private void txtHighlight_TextChanged(object sender, EventArgs e)
+        {
+            if (processTextChanged)
+            {
+                int count = ganjoorView.HighlightText(txtHighlight.Text);
+                if (lblFoundItemCount.Visible = !string.IsNullOrEmpty(txtHighlight.Text))
+                    lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", count);
+            }
+        }
+
 
     }
 }
