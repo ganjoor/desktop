@@ -116,6 +116,13 @@ namespace ganjoor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap process {
+            get {
+                object obj = ResourceManager.GetObject("process", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap repeat {
             get {
                 object obj = ResourceManager.GetObject("repeat", resourceCulture);
@@ -126,6 +133,13 @@ namespace ganjoor.Properties {
         internal static System.Drawing.Bitmap rewind {
             get {
                 object obj = ResourceManager.GetObject("rewind", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap search {
+            get {
+                object obj = ResourceManager.GetObject("search", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

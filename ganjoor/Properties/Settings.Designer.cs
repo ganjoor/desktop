@@ -118,5 +118,17 @@ namespace ganjoor.Properties {
                 this["WindowSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Tahoma, 8.25pt")]
+        public global::System.Drawing.Font ViewFont {
+            get {
+                return ((global::System.Drawing.Font)(this["ViewFont"]));
+            }
+            set {
+                this["ViewFont"] = value;
+            }
+        }
     }
 }
