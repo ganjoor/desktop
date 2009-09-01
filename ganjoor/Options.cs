@@ -15,6 +15,7 @@ namespace ganjoor
             InitializeComponent();
             ViewFont = Properties.Settings.Default.ViewFont;
             lblFont.Text = ViewFont.Name + "(" +ViewFont.Style.ToString()+") " + ViewFont.Size.ToString();
+            chkHighlightSearchResults.Checked = Properties.Settings.Default.HighlightKeyword;
         }
         private Font ViewFont { set; get; }
 
@@ -34,6 +35,7 @@ namespace ganjoor
         private void btnOK_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.ViewFont = ViewFont;
+            Properties.Settings.Default.HighlightKeyword = chkHighlightSearchResults.Checked;
             Properties.Settings.Default.Save();
         }
     }

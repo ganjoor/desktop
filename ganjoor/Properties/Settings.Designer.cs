@@ -130,5 +130,29 @@ namespace ganjoor.Properties {
                 this["ViewFont"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HighlightKeyword {
+            get {
+                return ((bool)(this["HighlightKeyword"]));
+            }
+            set {
+                this["HighlightKeyword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool WasShowingFavs {
+            get {
+                return ((bool)(this["WasShowingFavs"]));
+            }
+            set {
+                this["WasShowingFavs"] = value;
+            }
+        }
     }
 }

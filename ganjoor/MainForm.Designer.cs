@@ -37,18 +37,19 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnHistoryBack = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFavUnFav = new System.Windows.Forms.ToolStripButton();
+            this.btnFavs = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.btnViewInSite = new System.Windows.Forms.ToolStripButton();
             this.btnComments = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnCopy = new System.Windows.Forms.ToolStripButton();
             this.btnPrint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnCopy = new System.Windows.Forms.ToolStripButton();
             this.btnHighlight = new System.Windows.Forms.ToolStripButton();
             this.btnSearch = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.btnOptions = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnAbout = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lblDummy = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblCurrentPage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -79,6 +80,9 @@
             this.mnuSrch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHighlight = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFavs = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFavUnFav = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuShowFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
@@ -101,21 +105,22 @@
             this.toolStripSeparator2,
             this.btnHistoryBack,
             this.toolStripSeparator4,
+            this.btnFavUnFav,
+            this.btnFavs,
+            this.toolStripSeparator6,
             this.btnViewInSite,
             this.btnComments,
             this.toolStripSeparator3,
+            this.btnCopy,
             this.btnPrint,
             this.toolStripSeparator5,
-            this.btnCopy,
             this.btnHighlight,
             this.btnSearch,
             this.toolStripSeparator7,
-            this.btnOptions,
-            this.toolStripSeparator6,
-            this.btnAbout});
+            this.btnOptions});
             this.toolStripMain.Location = new System.Drawing.Point(0, 24);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(716, 53);
+            this.toolStripMain.Size = new System.Drawing.Size(784, 53);
             this.toolStripMain.TabIndex = 2;
             this.toolStripMain.Text = "نوار ابزار";
             // 
@@ -176,6 +181,31 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 53);
             // 
+            // btnFavUnFav
+            // 
+            this.btnFavUnFav.Image = global::ganjoor.Properties.Resources.favorite_add;
+            this.btnFavUnFav.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFavUnFav.Name = "btnFavUnFav";
+            this.btnFavUnFav.Size = new System.Drawing.Size(71, 50);
+            this.btnFavUnFav.Text = "نشانه‌گذاری";
+            this.btnFavUnFav.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnFavUnFav.Click += new System.EventHandler(this.btnFavUnFav_Click);
+            // 
+            // btnFavs
+            // 
+            this.btnFavs.Image = global::ganjoor.Properties.Resources.favorite;
+            this.btnFavs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFavs.Name = "btnFavs";
+            this.btnFavs.Size = new System.Drawing.Size(53, 50);
+            this.btnFavs.Text = "نشانه‌ها";
+            this.btnFavs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnFavs.Click += new System.EventHandler(this.btnFavs_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 53);
+            // 
             // btnViewInSite
             // 
             this.btnViewInSite.Image = global::ganjoor.Properties.Resources.firefox_alt;
@@ -202,6 +232,16 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 53);
             // 
+            // btnCopy
+            // 
+            this.btnCopy.Image = global::ganjoor.Properties.Resources.note_accept;
+            this.btnCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(56, 50);
+            this.btnCopy.Text = "کپی متن";
+            this.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopyText_Click);
+            // 
             // btnPrint
             // 
             this.btnPrint.Image = global::ganjoor.Properties.Resources.printer;
@@ -216,16 +256,6 @@
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 53);
-            // 
-            // btnCopy
-            // 
-            this.btnCopy.Image = global::ganjoor.Properties.Resources.note_accept;
-            this.btnCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(56, 50);
-            this.btnCopy.Text = "کپی متن";
-            this.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopyText_Click);
             // 
             // btnHighlight
             // 
@@ -263,22 +293,6 @@
             this.btnOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
             // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 53);
-            // 
-            // btnAbout
-            // 
-            this.btnAbout.Image = global::ganjoor.Properties.Resources.help;
-            this.btnAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.RightToLeftAutoMirrorImage = true;
-            this.btnAbout.Size = new System.Drawing.Size(38, 50);
-            this.btnAbout.Text = "درباره";
-            this.btnAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
-            // 
             // statusStrip
             // 
             this.statusStrip.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -289,7 +303,7 @@
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.statusStrip.Size = new System.Drawing.Size(716, 22);
+            this.statusStrip.Size = new System.Drawing.Size(784, 22);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "نوار وضعیت";
@@ -297,7 +311,7 @@
             // lblDummy
             // 
             this.lblDummy.Name = "lblDummy";
-            this.lblDummy.Size = new System.Drawing.Size(672, 17);
+            this.lblDummy.Size = new System.Drawing.Size(740, 17);
             this.lblDummy.Spring = true;
             // 
             // lblCurrentPage
@@ -318,7 +332,7 @@
             this.lblFoundItemCount});
             this.tlbrSearch.Location = new System.Drawing.Point(0, 295);
             this.tlbrSearch.Name = "tlbrSearch";
-            this.tlbrSearch.Size = new System.Drawing.Size(716, 25);
+            this.tlbrSearch.Size = new System.Drawing.Size(784, 25);
             this.tlbrSearch.TabIndex = 3;
             this.tlbrSearch.Text = "نوار ابزار جستجوی محل";
             this.tlbrSearch.Visible = false;
@@ -350,10 +364,11 @@
             this.mnuNav,
             this.mnuTools,
             this.mnuSrch,
+            this.mnuFavs,
             this.mnuHlp});
             this.mnu.Location = new System.Drawing.Point(0, 0);
             this.mnu.Name = "mnu";
-            this.mnu.Size = new System.Drawing.Size(716, 24);
+            this.mnu.Size = new System.Drawing.Size(784, 24);
             this.mnu.TabIndex = 1;
             this.mnu.Text = "منوی اصلی";
             // 
@@ -544,6 +559,31 @@
             this.mnuSearch.Text = "جستجو در همۀ شعرها";
             this.mnuSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // mnuFavs
+            // 
+            this.mnuFavs.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuFavUnFav,
+            this.mnuShowFavs});
+            this.mnuFavs.Name = "mnuFavs";
+            this.mnuFavs.Size = new System.Drawing.Size(61, 20);
+            this.mnuFavs.Text = "نشانه‌ها";
+            // 
+            // mnuFavUnFav
+            // 
+            this.mnuFavUnFav.Image = global::ganjoor.Properties.Resources.favorite_add;
+            this.mnuFavUnFav.Name = "mnuFavUnFav";
+            this.mnuFavUnFav.Size = new System.Drawing.Size(160, 22);
+            this.mnuFavUnFav.Text = "نشانه‌گذاری";
+            this.mnuFavUnFav.Click += new System.EventHandler(this.btnFavUnFav_Click);
+            // 
+            // mnuShowFavs
+            // 
+            this.mnuShowFavs.Image = global::ganjoor.Properties.Resources.favorite;
+            this.mnuShowFavs.Name = "mnuShowFavs";
+            this.mnuShowFavs.Size = new System.Drawing.Size(160, 22);
+            this.mnuShowFavs.Text = "فهرست نشانه‌ها";
+            this.mnuShowFavs.Click += new System.EventHandler(this.btnFavs_Click);
+            // 
             // mnuHlp
             // 
             this.mnuHlp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -570,7 +610,7 @@
             this.ganjoorView.Location = new System.Drawing.Point(0, 77);
             this.ganjoorView.Name = "ganjoorView";
             this.ganjoorView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ganjoorView.Size = new System.Drawing.Size(716, 218);
+            this.ganjoorView.Size = new System.Drawing.Size(784, 218);
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
@@ -578,7 +618,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 342);
+            this.ClientSize = new System.Drawing.Size(784, 342);
             this.Controls.Add(this.ganjoorView);
             this.Controls.Add(this.tlbrSearch);
             this.Controls.Add(this.toolStripMain);
@@ -625,12 +665,9 @@
         private System.Windows.Forms.ToolStripStatusLabel lblCurrentPage;
         private System.Windows.Forms.ToolStripButton btnHistoryBack;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripButton btnAbout;
         private System.Windows.Forms.ToolStripButton btnSearch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripButton btnCopy;
         private System.Windows.Forms.ToolStripButton btnOptions;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton btnHighlight;
         private System.Windows.Forms.ToolStrip tlbrSearch;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
@@ -661,6 +698,13 @@
         private System.Windows.Forms.ToolStripMenuItem mnuAbout;
         private System.Windows.Forms.ToolStripLabel lblFoundItemCount;
         private System.Windows.Forms.ToolStripMenuItem mnuPrintPreview;
+        private System.Windows.Forms.ToolStripButton btnFavUnFav;
+        private System.Windows.Forms.ToolStripButton btnFavs;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton btnCopy;
+        private System.Windows.Forms.ToolStripMenuItem mnuFavs;
+        private System.Windows.Forms.ToolStripMenuItem mnuFavUnFav;
+        private System.Windows.Forms.ToolStripMenuItem mnuShowFavs;
 
 
 

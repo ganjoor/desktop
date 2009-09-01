@@ -17,7 +17,7 @@ namespace ganjoor
                 conString.DataSource = "ganjoor.s3db";
                 conString.DefaultTimeout = 5000;
                 conString.FailIfMissing = true;
-                conString.ReadOnly = true;
+                conString.ReadOnly = false;
                 _con = new SQLiteConnection(conString.ConnectionString);
                 _con.Open();
             }
@@ -26,7 +26,12 @@ namespace ganjoor
                 LastError = exp.ToString();
                 _con = null;
             }
+            if (_con != null)
+            {
+                UpgradeOldDbs();
+            }
         }
+        
         ~DbBrowser()
         {
             if (_con != null)
@@ -145,12 +150,16 @@ namespace ganjoor
                     {
                         da.Fill(tbl);
                         foreach (DataRow row in tbl.Rows)
+                        {
+                            int PID = Convert.ToInt32(row.ItemArray[0]);
                             lst.Add(new GanjoorPoem(
-                                Convert.ToInt32(row.ItemArray[0]),
+                                PID,
                                 CatID,
                                 row.ItemArray[1].ToString(),
-                                row.ItemArray[2].ToString().ToString()
+                                row.ItemArray[2].ToString().ToString(),
+                                IsPoemFaved(PID)
                                 ));
+                        }
                     }
                 }
             }
@@ -198,7 +207,8 @@ namespace ganjoor
                                 PoemID,
                                 Convert.ToInt32(tbl.Rows[0].ItemArray[0]),
                                 tbl.Rows[0].ItemArray[1].ToString(),
-                                tbl.Rows[0].ItemArray[2].ToString().ToString()
+                                tbl.Rows[0].ItemArray[2].ToString().ToString(),
+                                IsPoemFaved(PoemID)
                                 );
                     }
                 }
@@ -316,6 +326,113 @@ namespace ganjoor
                 }
             }
             return null;
+        }
+        #endregion
+
+        #region Fav/UnFav
+        private int MaxFavOrder
+        {
+            get
+            {
+                if (Connected)
+                {
+                    using (DataTable tbl = new DataTable())
+                    {
+                        using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT MAX(pos) FROM fav", _con))
+                        {
+                            da.Fill(tbl);
+                            if (tbl.Rows.Count != 0)
+                                if (tbl.Rows[0].ItemArray[0] is DBNull)
+                                    return -1;
+                                else
+                                    return Convert.ToInt32(tbl.Rows[0].ItemArray[0]);
+                            return -1;
+                        }
+                    }
+                }
+                return -1;
+            }
+        }
+        public bool IsPoemFaved(int PoemID)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT pos FROM fav WHERE poem_id = " + PoemID.ToString(), _con))
+                    {
+                        da.Fill(tbl);
+                        return tbl.Rows.Count != 0;
+                    }
+                }
+
+            }
+            return false;
+        }
+        public void Fav(int PoemID)
+        {
+            if (Connected)
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    cmd.CommandText = "INSERT INTO fav (poem_id, pos) VALUES (" + PoemID.ToString() + ","+(MaxFavOrder+1).ToString()+");";
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void UnFav(int PoemID)
+        {
+            if (Connected)
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    cmd.CommandText = "DELETE FROM fav WHERE poem_id=" + PoemID.ToString();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public bool ToggleFav(int PoemID)
+        {
+            if (IsPoemFaved(PoemID))
+            {
+                UnFav(PoemID);
+                return false;
+            }
+            else
+            {
+                Fav(PoemID);
+                return true;
+            }
+        }
+        public DataTable GetFavs(int PageStart, int Count)
+        {
+            if (Connected)
+            {
+                DataTable tbl = new DataTable();
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id FROM fav ORDER BY pos LIMIT " + PageStart.ToString() + "," + Count.ToString(), _con))
+                    {
+                        da.Fill(tbl);
+                    }
+                    return tbl;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        #region Versioning
+        private void UpgradeOldDbs()
+        {
+            DataRow[] favTable = _con.GetSchema("Tables").Select("Table_Name='fav'");
+            if (favTable.Length == 0)
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    cmd.CommandText = "CREATE TABLE fav (poem_id INTEGER PRIMARY KEY, pos INTEGER);";
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
         #endregion
 

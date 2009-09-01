@@ -41,6 +41,7 @@ namespace ganjoor
         private int _iCurSearchStart;
         private int _iCurSearchPageCount;
         private string _strLastPhrase;
+        private bool _FavsPage;
         #endregion
 
         #region Constants
@@ -50,7 +51,7 @@ namespace ganjoor
         private const int DistanceFromRightStep = 10;
         #endregion
 
-        #region Click Events
+        #region Events
         private void GanjoorViewer_Load(object sender, EventArgs e)
         {
             if (!DesignMode)
@@ -61,6 +62,11 @@ namespace ganjoor
                 }
                 else
                 {
+                    if (Properties.Settings.Default.WasShowingFavs)
+                    {
+                        ShowFavs(Properties.Settings.Default.LastSeachStart, Properties.Settings.Default.SearchPageItems, false);
+                    }
+                    else
                     if (Properties.Settings.Default.LastCat != 0)
                     {
                         if (Properties.Settings.Default.LastPoem != 0)
@@ -165,7 +171,7 @@ namespace ganjoor
             Cursor = Cursors.Default;
             _strLastPhrase = null;
             if (null != OnPageChanged)
-                OnPageChanged(_strPage, false, false, false, true, string.Empty, 0);
+                OnPageChanged(_strPage, false, true, false, false, string.Empty);
         }
         private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat,bool keepTrack)
         {
@@ -219,6 +225,7 @@ namespace ganjoor
                 catsTop += DistanceBetweenLines;
             }
 
+            _FavsPage = false;
             _iCurCat = category._ID;
             _iCurPoem = 0;
         }
@@ -299,11 +306,12 @@ namespace ganjoor
             
             this.ResumeLayout();
             Cursor = Cursors.Default;
+            _FavsPage = false;
             _iCurPoem = poem._ID;
 
             _strLastPhrase = null;
             if (null != OnPageChanged)
-                OnPageChanged(_strPage, CanGoToNextPoem, CanGoToPreviousPoem, true, true, highlightWord, ItemsMatchingPhrase);
+                OnPageChanged(_strPage, true, true, poem._Faved, false, highlightWord);
             return ItemsMatchingPhrase;
         }
         #endregion
@@ -468,9 +476,14 @@ namespace ganjoor
         }
         private void UpdateHistory()
         {
+            if (_FavsPage)
+            {
+                _history.Push(new GarnjoorBrowsingHistory(string.Empty, _iCurSearchStart, _iCurSearchPageCount, true));
+            }
+            else
             if (!string.IsNullOrEmpty(_strLastPhrase))
             {
-                _history.Push(new GarnjoorBrowsingHistory(_strLastPhrase, _iCurSearchStart, _iCurSearchPageCount));
+                _history.Push(new GarnjoorBrowsingHistory(_strLastPhrase, _iCurSearchStart, _iCurSearchPageCount, false));
             }
             else
                 if (
@@ -486,6 +499,11 @@ namespace ganjoor
             if (CanGoBackInHistory)
             {
                 GarnjoorBrowsingHistory back = _history.Pop();
+                if (back._FavsPage)
+                {
+                    ShowFavs(back._SearchStart, back._PageItemsCount, false);
+                }
+                else
                 if (0 == back._PoemID)
                 {
                     if (0 == back._CatID)
@@ -576,8 +594,12 @@ namespace ganjoor
             this.Controls.Clear();
             using(DataTable poemsList = _db.FindPoemsContaingPhrase(phrase, PageStart, Count+1))
             {
+                int CountCopy = Count;
                 bool HasMore = Count>0 && poemsList.Rows.Count == Count+1;
-                Count = HasMore ? Count : poemsList.Rows.Count-1;
+                if (poemsList.Rows.Count <= Count)
+                    Count = poemsList.Rows.Count;
+                else
+                    Count = HasMore ? Count : poemsList.Rows.Count - 1;
                 int catsTop = DistanceFromTop;
                 for (int i = 0; i < Count; i++)
                 {
@@ -621,7 +643,7 @@ namespace ganjoor
                 if (PageStart > 0)
                 {
                     LinkLabel lblPrevPage = new LinkLabel();
-                    lblPrevPage.Tag = new GanjoorSearchPage(phrase, PageStart - Count, Count);
+                    lblPrevPage.Tag = new GanjoorSearchPage(phrase, PageStart - CountCopy, CountCopy);
                     lblPrevPage.AutoSize = true;
                     lblPrevPage.Text = "صفحۀ قبل";
                     lblPrevPage.Location = new Point(200, catsTop);
@@ -654,6 +676,7 @@ namespace ganjoor
                 lblDummy.BackColor = Color.Transparent;
                 this.Controls.Add(lblDummy);
 
+                _FavsPage = false;
                 _iCurCat = 0;
                 _iCurSearchStart = PageStart;
                 _iCurSearchPageCount = Count;
@@ -675,7 +698,7 @@ namespace ganjoor
 
             _strPage = "نتایج جستجو برای \"" + phrase + "\" صفحۀ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString()+ " (مورد " + (PageStart+1).ToString()+" تا "+(PageStart+Count).ToString()+")");
             if (null != OnPageChanged)
-                OnPageChanged(_strPage,false, false, false, false, string.Empty, 0);
+                OnPageChanged(_strPage, false, false, false, false, string.Empty);
 
             if (Count < 1)
                 MessageBox.Show("موردی یافت نشد.", "جستجو", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -695,8 +718,7 @@ namespace ganjoor
                             if (ctl.Text.IndexOf(phrase) != -1)
                                 count++;
                         }
-                    if (count > 0)
-                        this.Invalidate();
+                    this.Invalidate();
                     return count;
                 }
             }
@@ -704,8 +726,17 @@ namespace ganjoor
         }
         void lblNextPage_Click(object sender, EventArgs e)
         {
-            GanjoorSearchPage g = (sender as LinkLabel).Tag as GanjoorSearchPage;
-            ShowSearchResults(g._SearchPhrase, g._PageStart, g._MaxItemsCount);
+            if ((sender as LinkLabel).Tag is GanjoorSearchPage)
+            {
+                GanjoorSearchPage g = (sender as LinkLabel).Tag as GanjoorSearchPage;
+                ShowSearchResults(g._SearchPhrase, g._PageStart, g._MaxItemsCount);
+            }
+            else
+            {
+                GanjoorFavPage g = (sender as LinkLabel).Tag as GanjoorFavPage;
+                ShowFavs(g._PageStart, g._MaxItemsCount);
+            }
+
         }
         #endregion
 
@@ -724,8 +755,136 @@ namespace ganjoor
             Properties.Settings.Default.LastPoem = _iCurPoem;
             Properties.Settings.Default.LastSearchPhrase = _strLastPhrase;
             Properties.Settings.Default.LastSeachStart = _iCurSearchStart;
+            Properties.Settings.Default.WasShowingFavs = _FavsPage;
         }
         #endregion
-     
+
+        #region Fav/UnFave
+        public bool ToggleFav()
+        {
+            return _db.ToggleFav(_iCurPoem);
+        }
+        public void ShowFavs(int PageStart, int Count)
+        {
+            ShowFavs(PageStart, Count, true);
+        }
+        public bool ShowFavs(int PageStart, int Count, bool keepTrack)
+        {
+            if (_FavsPage && _iCurSearchStart == PageStart)
+                return false;
+            if (keepTrack)
+                UpdateHistory();
+            Cursor = Cursors.WaitCursor; Application.DoEvents();
+            this.SuspendLayout();
+            this.Controls.Clear();
+            int CountCopy = Count;
+            using (DataTable poemsList = _db.GetFavs(PageStart, Count + 1))
+            {
+                bool HasMore = Count > 0 && poemsList.Rows.Count == Count + 1;
+                if (poemsList.Rows.Count <= Count)
+                    Count = poemsList.Rows.Count;
+                else
+                    Count = HasMore ? Count : poemsList.Rows.Count - 1;
+                int catsTop = DistanceFromTop;
+                for (int i = 0; i < Count; i++)
+                {
+                    GanjoorPoem poem = _db.GetPoem(Convert.ToInt32(poemsList.Rows[i].ItemArray[0]));
+                    int lastDistanceFromRight;
+                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, false);
+                    lastDistanceFromRight += DistanceFromRightStep;
+                    LinkLabel lblPoem = new LinkLabel();
+                    lblPoem.Tag = poem;
+                    lblPoem.AutoSize = true;
+                    lblPoem.Text = poem._Title;
+                    lblPoem.Location = new Point(lastDistanceFromRight, catsTop);
+                    lblPoem.LinkBehavior = LinkBehavior.HoverUnderline;
+                    lblPoem.BackColor = Color.Transparent;
+                    lblPoem.Click += new EventHandler(lblPoem_Click);
+                    this.Controls.Add(lblPoem);
+
+                    catsTop += DistanceBetweenLines;
+                    lastDistanceFromRight += DistanceFromRightStep;
+
+
+                    List<GanjoorVerse> verses = _db.GetVerses(poem._ID);
+
+
+
+                    HighlightLabel lblVerse = new HighlightLabel();
+                    lblVerse.AutoSize = true;
+                    lblVerse.Tag = null;
+                    lblVerse.Text = _db.GetVerses(poem._ID, 1)[0]._Text;
+                    lblVerse.Location = new Point(lastDistanceFromRight, catsTop);
+                    lblVerse.BackColor = Color.Transparent;
+                    this.Controls.Add(lblVerse);
+                    catsTop += 2 * DistanceBetweenLines;
+
+                }
+
+                if (PageStart > 0)
+                {
+                    LinkLabel lblPrevPage = new LinkLabel();
+                    lblPrevPage.Tag = new GanjoorFavPage(PageStart - CountCopy, CountCopy);
+                    lblPrevPage.AutoSize = true;
+                    lblPrevPage.Text = "صفحۀ قبل";
+                    lblPrevPage.Location = new Point(200, catsTop);
+                    lblPrevPage.LinkBehavior = LinkBehavior.HoverUnderline;
+                    lblPrevPage.BackColor = Color.Transparent;
+                    lblPrevPage.Click += new EventHandler(lblNextPage_Click);
+                    this.Controls.Add(lblPrevPage);
+
+                }
+
+                if (HasMore)
+                {
+                    LinkLabel lblNextPage = new LinkLabel();
+                    lblNextPage.Tag = new GanjoorFavPage(PageStart + Count, Count);
+                    lblNextPage.AutoSize = true;
+                    lblNextPage.Text = "صفحۀ بعد";
+                    lblNextPage.Location = new Point(this.Width - 200, catsTop);
+                    lblNextPage.LinkBehavior = LinkBehavior.HoverUnderline;
+                    lblNextPage.BackColor = Color.Transparent;
+                    lblNextPage.Click += new EventHandler(lblNextPage_Click);
+                    this.Controls.Add(lblNextPage);
+                    catsTop += DistanceBetweenLines;
+                }
+
+
+                //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
+                Label lblDummy = new Label();
+                lblDummy.Text = " ";
+                lblDummy.Location = new Point(200, catsTop);
+                lblDummy.BackColor = Color.Transparent;
+                this.Controls.Add(lblDummy);
+
+                _iCurCat = 0;
+                _iCurSearchStart = PageStart;
+                _iCurSearchPageCount = Count;
+                _FavsPage = true;
+                _strLastPhrase = string.Empty;
+
+
+            }
+
+
+            //کلک راست به چپ!
+            foreach (Control ctl in this.Controls)
+                ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
+
+
+            this.ResumeLayout();
+            Cursor = Cursors.Default;
+
+
+            _strPage = "نشانه‌ها - صفحۀ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
+            if (null != OnPageChanged)
+                OnPageChanged(_strPage, false, false, false, true, string.Empty);
+
+            if (Count < 1)
+                MessageBox.Show("موردی یافت نشد.", "نشانه‌ها", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            return true;
+        }
+        #endregion
+
     }
 }

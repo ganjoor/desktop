@@ -4,5 +4,5 @@ using System.Text;
 
 namespace ganjoor
 {
-    public delegate void PageChangedEvent(string PageString, bool CanGoNextPoem, bool CanGoPreviousPoem, bool HasComments, bool CanBrowse, string highlightedText, int ItemsFound);
+    public delegate void PageChangedEvent(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string highlightedText);
 }

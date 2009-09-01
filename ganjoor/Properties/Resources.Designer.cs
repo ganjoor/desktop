@@ -81,6 +81,27 @@ namespace ganjoor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap favorite {
+            get {
+                object obj = ResourceManager.GetObject("favorite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap favorite_add {
+            get {
+                object obj = ResourceManager.GetObject("favorite_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap favorite_remove {
+            get {
+                object obj = ResourceManager.GetObject("favorite_remove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap firefox_alt {
             get {
                 object obj = ResourceManager.GetObject("firefox_alt", resourceCulture);
