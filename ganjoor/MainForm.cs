@@ -41,25 +41,25 @@ namespace ganjoor
             ganjoorView.ShowHome(true);
         }
 
-        private void ganjoorView_OnPageChanged(string PageString, bool CanGoNextPoem, bool CanGoPreviousPoem, bool HasComments, bool CanBrowse, string HighlightedText, int ItemsFound)
-        {
+        private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string HighlightedText)
+        {            
             lblCurrentPage.Text = PageString;
-            btnNextPoem.Enabled = CanGoNextPoem;
-            btnPreviousPoem.Enabled = CanGoPreviousPoem;
+            btnNextPoem.Enabled = ganjoorView.CanGoToNextPoem;
+            btnPreviousPoem.Enabled = ganjoorView.CanGoToPreviousPoem;
             btnComments.Enabled = HasComments;
             btnPrint.Enabled = btnComments.Enabled;
             btnHistoryBack.Enabled = ganjoorView.CanGoBackInHistory;
             btnViewInSite.Enabled = CanBrowse;
             processTextChanged = false;
             txtHighlight.Text = HighlightedText;
-            lblFoundItemCount.Visible = string.IsNullOrEmpty(HighlightedText);
-            lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", ItemsFound);
-            if (string.IsNullOrEmpty(HighlightedText))
-            {
-                btnHighlight.Checked = false;
-            }
             processTextChanged = true;
-            btnHighlight.Enabled = HasComments;            
+            btnHighlight.Enabled = HasComments;
+
+            mnuShowFavs.Checked = btnFavs.Checked = FavsPage;
+            mnuFavUnFav.Enabled = btnFavUnFav.Enabled = HasComments;
+            mnuFavUnFav.Image = btnFavUnFav.Image = IsFaved ? Properties.Resources.favorite_remove : Properties.Resources.favorite_add;
+            mnuFavUnFav.Text = btnFavUnFav.Text = IsFaved ? "حذف نشانه" : "نشانه‌گذاری";
+            mnuFavUnFav.Checked = btnFavUnFav.Checked = IsFaved;
 
             mnuNextPoem.Enabled = btnNextPoem.Enabled;
             mnuPreviousPoem.Enabled = btnPreviousPoem.Enabled;
@@ -68,6 +68,19 @@ namespace ganjoor
             mnuHistoryBack.Enabled = btnHistoryBack.Enabled;
             mnuViewInSite.Enabled = btnViewInSite.Enabled;
             mnuHighlight.Enabled = btnHighlight.Enabled;
+
+
+            bool highlight = !string.IsNullOrEmpty(HighlightedText) && Properties.Settings.Default.HighlightKeyword;
+            if (highlight)
+            {
+                processTextChanged = false;
+                txtHighlight.Text = HighlightedText;
+                processTextChanged = true;
+                lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", ganjoorView.HighlightText(HighlightedText));
+            }
+            btnHighlight.Checked = highlight;
+            lblFoundItemCount.Visible = highlight;
+
 
             ganjoorView.Focus();
 
@@ -185,6 +198,14 @@ namespace ganjoor
                     txtHighlight_TextChanged(sender, e);
                 txtHighlight.Focus();
             }
+            else
+            {
+                processTextChanged = false;
+                txtHighlight.Text = "";
+                ganjoorView.HighlightText(string.Empty);
+                lblFoundItemCount.Visible = false;
+                processTextChanged = true;
+            }
         }
 
         private void mnuExit_Click(object sender, EventArgs e)
@@ -206,6 +227,19 @@ namespace ganjoor
                 if (lblFoundItemCount.Visible = !string.IsNullOrEmpty(txtHighlight.Text))
                     lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", count);
             }
+        }
+
+        private void btnFavUnFav_Click(object sender, EventArgs e)
+        {
+            bool result = ganjoorView.ToggleFav();
+            mnuFavUnFav.Image = btnFavUnFav.Image = result ? Properties.Resources.favorite_remove : Properties.Resources.favorite_add;
+            mnuFavUnFav.Text = btnFavUnFav.Text = result ? "حذف نشانه" : "نشانه‌گذاری";
+            mnuFavUnFav.Checked = btnFavUnFav.Checked = result;
+        }
+
+        private void btnFavs_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ShowFavs(0, 10);
         }
 
 

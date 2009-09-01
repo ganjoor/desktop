@@ -29,5 +29,11 @@
     <Setting Name="ViewFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Tahoma, 8.25pt</Value>
     </Setting>
+    <Setting Name="HighlightKeyword" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="WasShowingFavs" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

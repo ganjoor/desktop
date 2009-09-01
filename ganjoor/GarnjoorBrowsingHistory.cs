@@ -11,18 +11,20 @@ namespace ganjoor
         public string _SearchPhrase;
         public int _SearchStart;
         public int _PageItemsCount;
+        public bool _FavsPage;
 
         public GarnjoorBrowsingHistory(int CatID, int PoemID)
         {
             _CatID = CatID;
             _PoemID = PoemID;
         }
-        public GarnjoorBrowsingHistory(string SearchPhrase, int SearchStart, int PageItemsCount)
+        public GarnjoorBrowsingHistory(string SearchPhrase, int SearchStart, int PageItemsCount, bool FavsPage)
         {
             _CatID = _PoemID = 0;
             _SearchPhrase = SearchPhrase;
             _SearchStart = SearchStart;
             _PageItemsCount = PageItemsCount;
+            _FavsPage = FavsPage;
         }
     }
 }
