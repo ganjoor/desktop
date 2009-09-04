@@ -32,5 +32,10 @@ namespace ganjoor
         {
             System.Diagnostics.Process.Start("http://dryicons.com/free-icons/preview/aesthetica/");            
         }
+
+        private void lnkHamidReza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.gozir.com/contact/");            
+        }
     }
 }

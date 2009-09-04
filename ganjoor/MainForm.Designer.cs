@@ -31,9 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.btnHome = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.sepHome = new System.Windows.Forms.ToolStripSeparator();
             this.btnPreviousPoem = new System.Windows.Forms.ToolStripButton();
             this.btnNextPoem = new System.Windows.Forms.ToolStripButton();
+            this.btnRandom = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnHistoryBack = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -42,10 +43,11 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.btnViewInSite = new System.Windows.Forms.ToolStripButton();
             this.btnComments = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.sepWeb = new System.Windows.Forms.ToolStripSeparator();
+            this.btnShowBeytNums = new System.Windows.Forms.ToolStripButton();
             this.btnCopy = new System.Windows.Forms.ToolStripButton();
             this.btnPrint = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.sepTools = new System.Windows.Forms.ToolStripSeparator();
             this.btnHighlight = new System.Windows.Forms.ToolStripButton();
             this.btnSearch = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -83,7 +85,11 @@
             this.mnuFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFavUnFav = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuShowFavs = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuShowBeytNums = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
             this.toolStripMain.SuspendLayout();
@@ -99,9 +105,10 @@
             this.toolStripMain.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnHome,
-            this.toolStripSeparator1,
+            this.sepHome,
             this.btnPreviousPoem,
             this.btnNextPoem,
+            this.btnRandom,
             this.toolStripSeparator2,
             this.btnHistoryBack,
             this.toolStripSeparator4,
@@ -110,10 +117,11 @@
             this.toolStripSeparator6,
             this.btnViewInSite,
             this.btnComments,
-            this.toolStripSeparator3,
+            this.sepWeb,
+            this.btnShowBeytNums,
             this.btnCopy,
             this.btnPrint,
-            this.toolStripSeparator5,
+            this.sepTools,
             this.btnHighlight,
             this.btnSearch,
             this.toolStripSeparator7,
@@ -134,10 +142,10 @@
             this.btnHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
-            // toolStripSeparator1
+            // sepHome
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 53);
+            this.sepHome.Name = "sepHome";
+            this.sepHome.Size = new System.Drawing.Size(6, 53);
             // 
             // btnPreviousPoem
             // 
@@ -160,6 +168,16 @@
             this.btnNextPoem.Text = "شعر بعد";
             this.btnNextPoem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNextPoem.Click += new System.EventHandler(this.btnNextPoem_Click);
+            // 
+            // btnRandom
+            // 
+            this.btnRandom.Image = global::ganjoor.Properties.Resources.dices_32;
+            this.btnRandom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(36, 50);
+            this.btnRandom.Text = "فال";
+            this.btnRandom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
             // toolStripSeparator2
             // 
@@ -227,10 +245,21 @@
             this.btnComments.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnComments.Click += new System.EventHandler(this.btnComments_Click);
             // 
-            // toolStripSeparator3
+            // sepWeb
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 53);
+            this.sepWeb.Name = "sepWeb";
+            this.sepWeb.Size = new System.Drawing.Size(6, 53);
+            // 
+            // btnShowBeytNums
+            // 
+            this.btnShowBeytNums.CheckOnClick = true;
+            this.btnShowBeytNums.Image = global::ganjoor.Properties.Resources.calculator_accept;
+            this.btnShowBeytNums.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowBeytNums.Name = "btnShowBeytNums";
+            this.btnShowBeytNums.Size = new System.Drawing.Size(74, 50);
+            this.btnShowBeytNums.Text = "شماره‌گذاری";
+            this.btnShowBeytNums.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnShowBeytNums.CheckedChanged += new System.EventHandler(this.btnShowBeytNums_CheckedChanged);
             // 
             // btnCopy
             // 
@@ -252,10 +281,10 @@
             this.btnPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // toolStripSeparator5
+            // sepTools
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 53);
+            this.sepTools.Name = "sepTools";
+            this.sepTools.Size = new System.Drawing.Size(6, 53);
             // 
             // btnHighlight
             // 
@@ -330,7 +359,7 @@
             this.toolStripLabel1,
             this.txtHighlight,
             this.lblFoundItemCount});
-            this.tlbrSearch.Location = new System.Drawing.Point(0, 295);
+            this.tlbrSearch.Location = new System.Drawing.Point(0, 317);
             this.tlbrSearch.Name = "tlbrSearch";
             this.tlbrSearch.Size = new System.Drawing.Size(784, 25);
             this.tlbrSearch.TabIndex = 3;
@@ -563,7 +592,9 @@
             // 
             this.mnuFavs.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFavUnFav,
-            this.mnuShowFavs});
+            this.mnuShowFavs,
+            this.toolStripSeparator3,
+            this.mnuShowBeytNums});
             this.mnuFavs.Name = "mnuFavs";
             this.mnuFavs.Size = new System.Drawing.Size(61, 20);
             this.mnuFavs.Text = "نشانه‌ها";
@@ -572,7 +603,7 @@
             // 
             this.mnuFavUnFav.Image = global::ganjoor.Properties.Resources.favorite_add;
             this.mnuFavUnFav.Name = "mnuFavUnFav";
-            this.mnuFavUnFav.Size = new System.Drawing.Size(160, 22);
+            this.mnuFavUnFav.Size = new System.Drawing.Size(165, 22);
             this.mnuFavUnFav.Text = "نشانه‌گذاری";
             this.mnuFavUnFav.Click += new System.EventHandler(this.btnFavUnFav_Click);
             // 
@@ -580,37 +611,68 @@
             // 
             this.mnuShowFavs.Image = global::ganjoor.Properties.Resources.favorite;
             this.mnuShowFavs.Name = "mnuShowFavs";
-            this.mnuShowFavs.Size = new System.Drawing.Size(160, 22);
+            this.mnuShowFavs.Size = new System.Drawing.Size(165, 22);
             this.mnuShowFavs.Text = "فهرست نشانه‌ها";
             this.mnuShowFavs.Click += new System.EventHandler(this.btnFavs_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(162, 6);
+            // 
+            // mnuShowBeytNums
+            // 
+            this.mnuShowBeytNums.Image = global::ganjoor.Properties.Resources.calculator_accept;
+            this.mnuShowBeytNums.Name = "mnuShowBeytNums";
+            this.mnuShowBeytNums.Size = new System.Drawing.Size(165, 22);
+            this.mnuShowBeytNums.Text = "شماره‌گذاری ابیات";
+            this.mnuShowBeytNums.Click += new System.EventHandler(this.mnuShowBeytNums_Click);
             // 
             // mnuHlp
             // 
             this.mnuHlp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnCheckForUpdate,
+            this.toolStripSeparator5,
             this.mnuAbout});
             this.mnuHlp.Name = "mnuHlp";
             this.mnuHlp.Size = new System.Drawing.Size(49, 20);
             this.mnuHlp.Text = "راهنما";
+            // 
+            // btnCheckForUpdate
+            // 
+            this.btnCheckForUpdate.Image = global::ganjoor.Properties.Resources.folder_down;
+            this.btnCheckForUpdate.Name = "btnCheckForUpdate";
+            this.btnCheckForUpdate.Size = new System.Drawing.Size(224, 22);
+            this.btnCheckForUpdate.Text = "پرس و جو برای ویرایش جدیدتر";
+            this.btnCheckForUpdate.Click += new System.EventHandler(this.btnCheckForUpdate_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(221, 6);
             // 
             // mnuAbout
             // 
             this.mnuAbout.Image = global::ganjoor.Properties.Resources.help;
             this.mnuAbout.Name = "mnuAbout";
             this.mnuAbout.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.mnuAbout.Size = new System.Drawing.Size(172, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(224, 22);
             this.mnuAbout.Text = "دربارۀ این برنامه";
             this.mnuAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
             // ganjoorView
             // 
             this.ganjoorView.AutoScroll = true;
+            this.ganjoorView.BackColor = System.Drawing.SystemColors.Window;
+            this.ganjoorView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ganjoorView.Cursor = System.Windows.Forms.Cursors.Default;
             this.ganjoorView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ganjoorView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.ganjoorView.ForeColor = System.Drawing.SystemColors.ControlText;
             this.ganjoorView.Location = new System.Drawing.Point(0, 77);
             this.ganjoorView.Name = "ganjoorView";
             this.ganjoorView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ganjoorView.Size = new System.Drawing.Size(784, 218);
+            this.ganjoorView.Size = new System.Drawing.Size(784, 243);
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
@@ -620,10 +682,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 342);
             this.Controls.Add(this.ganjoorView);
-            this.Controls.Add(this.tlbrSearch);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.mnu);
+            this.Controls.Add(this.tlbrSearch);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnu;
@@ -632,6 +694,7 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "گنجور رومیزی";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
@@ -652,7 +715,7 @@
         private System.Windows.Forms.ToolStrip toolStripMain;
         private System.Windows.Forms.ToolStripButton btnHome;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator sepHome;
         private System.Windows.Forms.ToolStripButton btnPreviousPoem;
         private System.Windows.Forms.ToolStripButton btnNextPoem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -660,11 +723,11 @@
         private System.Windows.Forms.ToolStripButton btnComments;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton btnPrint;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator sepWeb;
         private System.Windows.Forms.ToolStripStatusLabel lblDummy;
         private System.Windows.Forms.ToolStripStatusLabel lblCurrentPage;
         private System.Windows.Forms.ToolStripButton btnHistoryBack;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator sepTools;
         private System.Windows.Forms.ToolStripButton btnSearch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripButton btnOptions;
@@ -705,6 +768,12 @@
         private System.Windows.Forms.ToolStripMenuItem mnuFavs;
         private System.Windows.Forms.ToolStripMenuItem mnuFavUnFav;
         private System.Windows.Forms.ToolStripMenuItem mnuShowFavs;
+        private System.Windows.Forms.ToolStripButton btnShowBeytNums;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem mnuShowBeytNums;
+        private System.Windows.Forms.ToolStripMenuItem btnCheckForUpdate;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton btnRandom;
 
 
 

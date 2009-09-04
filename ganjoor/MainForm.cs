@@ -6,6 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Printing;
+using System.Net;
+using System.Xml;
+using System.IO;
+using System.Reflection;
+using ganjoor.Properties;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
@@ -25,15 +30,37 @@ namespace ganjoor
         public MainForm()
         {
             InitializeComponent();
+            tlbrSearch.BringToFront();
+
             this.Bounds = Screen.PrimaryScreen.Bounds;
-            if (Properties.Settings.Default.WindowMaximized)
+            if (Settings.Default.WindowMaximized)
                 this.WindowState = FormWindowState.Maximized;
             else
-                if (Properties.Settings.Default.WindowSize.Width != 0)
+                if (Settings.Default.WindowSize.Width != 0)
                 {
-                    this.Bounds = new Rectangle(Properties.Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
+                    this.Bounds = new Rectangle(Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
                 }
-            ganjoorView.Font = Properties.Settings.Default.ViewFont;
+            
+
+        }
+
+        private void ApplyUserSettings()
+        {
+            ganjoorView.Font = Settings.Default.ViewFont;
+            btnViewInSite.Visible = Settings.Default.BrowseButtonVisible;            
+            btnComments.Visible = Settings.Default.CommentsButtonVisible;
+            sepWeb.Visible = btnViewInSite.Visible || btnComments.Visible;
+            btnCopy.Visible = Settings.Default.CopyButtonVisible;
+            btnPrint.Visible = Settings.Default.PrintButtonVisible;
+            btnShowBeytNums.Visible = Settings.Default.ShowNumsVisible;
+            sepTools.Visible = btnCopy.Visible || btnPrint.Visible || btnShowBeytNums.Visible;
+            btnHome.Visible = sepHome.Visible = Settings.Default.HomeButtonVisible;
+            btnRandom.Visible = Settings.Default.RandomButtonVisible;
+            processTextChanged = false;
+            mnuShowBeytNums.Checked = btnShowBeytNums.Checked = Settings.Default.ShowBeytNums;
+            processTextChanged = true;
+            ganjoorView.ApplyUISettings();
+            ganjoorView.Invalidate();
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -41,11 +68,28 @@ namespace ganjoor
             ganjoorView.ShowHome(true);
         }
 
-        private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string HighlightedText)
+        private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string HighlightedText, object preItem, object nextItem)
         {            
             lblCurrentPage.Text = PageString;
-            btnNextPoem.Enabled = ganjoorView.CanGoToNextPoem;
-            btnPreviousPoem.Enabled = ganjoorView.CanGoToPreviousPoem;
+            if (HasComments)
+            {
+                btnNextPoem.Text = "شعر بعد";
+                btnNextPoem.Enabled = ganjoorView.CanGoToNextPoem;
+                btnNextPoem.Tag = null;
+                btnPreviousPoem.Text = "شعر قبل";
+                btnPreviousPoem.Enabled = ganjoorView.CanGoToPreviousPoem;
+                btnPreviousPoem.Tag = null;
+            }
+            else
+            {
+                btnNextPoem.Text = "صفحۀ بعد";
+                btnNextPoem.Enabled = nextItem != null;
+                btnNextPoem.Tag = nextItem;
+                btnPreviousPoem.Text = "صفحۀ قبل";
+                btnPreviousPoem.Enabled = preItem != null;
+                btnPreviousPoem.Tag = preItem;
+            }
+            mnuShowBeytNums.Enabled = btnShowBeytNums.Enabled = HasComments;
             btnComments.Enabled = HasComments;
             btnPrint.Enabled = btnComments.Enabled;
             btnHistoryBack.Enabled = ganjoorView.CanGoBackInHistory;
@@ -62,7 +106,9 @@ namespace ganjoor
             mnuFavUnFav.Checked = btnFavUnFav.Checked = IsFaved;
 
             mnuNextPoem.Enabled = btnNextPoem.Enabled;
+            mnuNextPoem.Text = btnNextPoem.Text;
             mnuPreviousPoem.Enabled = btnPreviousPoem.Enabled;
+            mnuPreviousPoem.Text = btnPreviousPoem.Text;
             mnuComments.Enabled = btnComments.Enabled;
             mnuPrintPreview.Enabled = mnuPrint.Enabled = btnPrint.Enabled;
             mnuHistoryBack.Enabled = btnHistoryBack.Enabled;
@@ -89,12 +135,26 @@ namespace ganjoor
 
         private void btnPreviousPoem_Click(object sender, EventArgs e)
         {
-            ganjoorView.PreviousPoem();
+            if (btnPreviousPoem.Tag == null)
+            {
+                ganjoorView.PreviousPoem();
+            }
+            else
+            {
+                ganjoorView.ProcessPagingTag(btnPreviousPoem.Tag);
+            }
         }
 
         private void btnNextPoem_Click(object sender, EventArgs e)
         {
-            ganjoorView.NextPoem();
+            if (btnNextPoem.Tag == null)
+            {
+                ganjoorView.NextPoem();
+            }
+            else
+            {
+                ganjoorView.ProcessPagingTag(btnNextPoem.Tag);
+            }
         }
 
         private void btnViewInSite_Click(object sender, EventArgs e)
@@ -153,12 +213,15 @@ namespace ganjoor
         {
             using (Search dlg = new Search())
             {
+                dlg.Poets = ganjoorView.Poets;
+                dlg.PoetOrder = ganjoorView.GetPoetOrder(Properties.Settings.Default.LastSearchPoetID);
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-
+                    Properties.Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
+                    Properties.Settings.Default.LastSearchPhrase = dlg.Phrase;
                     Properties.Settings.Default.SearchPageItems = dlg.ItemsInPage;
                     Properties.Settings.Default.Save();
-                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage);
+                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder));
                 }
             }
         }
@@ -183,7 +246,7 @@ namespace ganjoor
             {
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    ganjoorView.Font = Properties.Settings.Default.ViewFont;                    
+                    ApplyUserSettings();
                 }
             }
         }
@@ -240,6 +303,92 @@ namespace ganjoor
         private void btnFavs_Click(object sender, EventArgs e)
         {
             ganjoorView.ShowFavs(0, 10);
+        }
+
+        private void btnShowBeytNums_CheckedChanged(object sender, EventArgs e)
+        {
+            if (processTextChanged)                
+                ganjoorView.ToggleBeytNums();
+        }
+
+        private void mnuShowBeytNums_Click(object sender, EventArgs e)
+        {
+            mnuShowBeytNums.Checked = btnShowBeytNums.Checked = !btnShowBeytNums.Checked;            
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            ApplyUserSettings();
+            if (Settings.Default.CheckForUpdate)
+                CheckForUpdate(false);
+        }
+
+        private void btnCheckForUpdate_Click(object sender, EventArgs e)
+        {
+            CheckForUpdate(true);
+        }
+
+        private static void CheckForUpdate(bool Prompt)
+        {
+            try
+            {
+                WebRequest req = WebRequest.Create("http://ganjoor.sourceforge.net/version.xml");
+                using (WebResponse response = req.GetResponse())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            XmlDocument doc = new XmlDocument();
+                            doc.LoadXml(reader.ReadToEnd());
+                            int MyVersionMajor = Assembly.GetExecutingAssembly().GetName().Version.Major;
+                            int MyVersionMinor = Assembly.GetExecutingAssembly().GetName().Version.Minor;
+                            int VersionMajor = 0;
+                            int VersionMinor = 0;
+                            string updateUrl = string.Empty;
+                            XmlNode versionNode = doc.GetElementsByTagName("Version")[0];
+                            foreach (XmlNode Node in versionNode.ChildNodes)
+                                if (Node.Name == "Major")
+                                    VersionMajor = Convert.ToInt32(Node.InnerText);
+                                else
+                                    if (Node.Name == "Minor")
+                                        VersionMinor = Convert.ToInt32(Node.InnerText);
+                                    else
+                                        if (Node.Name == "UpdateUrl")
+                                            updateUrl = Node.InnerText;
+                            if (VersionMajor == MyVersionMajor && VersionMinor == MyVersionMinor)
+                            {
+                                if (Prompt)
+                                {
+                                    MessageBox.Show("شما آخرین ویرایش گنجور رومیزی را در اختیار دارید.", "تبریک", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                                }
+                            }
+                            else
+                                if (
+                                MessageBox.Show("ویرایش جدیدتر "+VersionMajor.ToString()+"."+VersionMinor.ToString()+" از نرم‌افزار ارائه شده است. صفحۀ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                                   ==
+                                   DialogResult.Yes
+                                    )
+                                {
+                                    System.Diagnostics.Process.Start(updateUrl);
+                                }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                if (Prompt)
+                {
+                    MessageBox.Show(exp.Message, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnRandom_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ShowRandomPoem();
         }
 
 

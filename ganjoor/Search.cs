@@ -14,6 +14,7 @@ namespace ganjoor
         {
             InitializeComponent();
             numItemsInPage.Value = Properties.Settings.Default.SearchPageItems;
+            txtPhrase.Text = Properties.Settings.Default.LastSearchPhrase;
         }
         public string Phrase
         {
@@ -28,6 +29,30 @@ namespace ganjoor
             {
                 return (int)numItemsInPage.Value;
             }
+        }
+        public string[] Poets
+        {
+            set
+            {
+                cmbPoets.Items.AddRange(value);
+            }
+        }
+        public int PoetOrder
+        {
+            get
+            {
+                return cmbPoets.SelectedIndex;
+            }
+            set
+            {
+                cmbPoets.SelectedIndex = value;
+            }
+        }
+
+
+        private void txtPhrase_TextChanged(object sender, EventArgs e)
+        {
+            btnSearch.Enabled = txtPhrase.Text.Length > 0;
         }
     }
 }

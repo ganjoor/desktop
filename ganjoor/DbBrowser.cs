@@ -277,6 +277,8 @@ namespace ganjoor
         }
         public GanjoorPoet GetPoet(int PoetID)
         {
+            if (PoetID == 0)
+                return new GanjoorPoet(0, "همه", 0);
             if (Connected)
             {
                 using (DataTable tbl = new DataTable())
@@ -297,13 +299,20 @@ namespace ganjoor
         #endregion
 
         #region Search
-        public DataTable FindPoemsContaingPhrase(string phrase, int PageStart, int Count)
+        public DataTable FindPoemsContaingPhrase(string phrase, int PageStart, int Count, int PoetID)
         {
             if (Connected)
             {
                 DataTable tbl = new DataTable();
                 {
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id FROM verse WHERE text LIKE '%" + phrase + "%' GROUP BY poem_id LIMIT "+PageStart.ToString()+","+Count.ToString(), _con))
+                    string strQuery = 
+                        (PoetID == 0)
+                        ?
+                        "SELECT poem_id FROM verse WHERE text LIKE '%" + phrase + "%' GROUP BY poem_id LIMIT "+PageStart.ToString()+","+Count.ToString()
+                        :
+                        "SELECT poem_id FROM (verse INNER JOIN poem ON verse.poem_id=poem.id) INNER JOIN cat ON cat.id =cat_id WHERE verse.text LIKE '%" + phrase + "%' AND poet_id=" + PoetID.ToString() + " GROUP BY poem_id LIMIT " + PageStart.ToString() + "," + Count.ToString()
+                        ;
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
                     {
                         da.Fill(tbl);                        
                     }
@@ -369,38 +378,66 @@ namespace ganjoor
             }
             return false;
         }
+        public bool IsVerseFaved(int PoemID, int VerseID)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT pos FROM fav WHERE poem_id = " + PoemID.ToString() + " AND verse_id=" + VerseID.ToString(), _con))
+                    {
+                        da.Fill(tbl);
+                        return tbl.Rows.Count != 0;
+                    }
+                }
+
+            }
+            return false;
+        }
         public void Fav(int PoemID)
+        {
+            Fav(PoemID, -1);
+        }
+        public void Fav(int PoemID, int VerseID)
         {
             if (Connected)
             {
                 using (SQLiteCommand cmd = new SQLiteCommand(_con))
                 {
-                    cmd.CommandText = "INSERT INTO fav (poem_id, pos) VALUES (" + PoemID.ToString() + ","+(MaxFavOrder+1).ToString()+");";
+                    cmd.CommandText = "INSERT INTO fav (poem_id, pos, verse_id) VALUES (" + PoemID.ToString() + ","+(MaxFavOrder+1).ToString()+","+VerseID.ToString()+");";
                     cmd.ExecuteNonQuery();
                 }
             }
         }
         public void UnFav(int PoemID)
         {
+            UnFav(PoemID, -1);
+        }
+        public void UnFav(int PoemID, int VerseID)
+        {
             if (Connected)
             {
                 using (SQLiteCommand cmd = new SQLiteCommand(_con))
                 {
-                    cmd.CommandText = "DELETE FROM fav WHERE poem_id=" + PoemID.ToString();
+                    if(VerseID != -1)
+                        cmd.CommandText = "DELETE FROM fav WHERE poem_id=" + PoemID.ToString()+" AND verse_id="+VerseID.ToString();
+                    else
+                        cmd.CommandText = "DELETE FROM fav WHERE poem_id=" + PoemID.ToString();
                     cmd.ExecuteNonQuery();
                 }
             }
         }
-        public bool ToggleFav(int PoemID)
+        public bool ToggleFav(int PoemID, int VerseID)
         {
-            if (IsPoemFaved(PoemID))
+            bool faved = VerseID == -1 ? IsPoemFaved(PoemID) : IsVerseFaved(PoemID, VerseID);
+            if (faved)
             {
-                UnFav(PoemID);
+                UnFav(PoemID, VerseID);
                 return false;
             }
             else
             {
-                Fav(PoemID);
+                Fav(PoemID, VerseID);
                 return true;
             }
         }
@@ -410,7 +447,7 @@ namespace ganjoor
             {
                 DataTable tbl = new DataTable();
                 {
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id FROM fav ORDER BY pos LIMIT " + PageStart.ToString() + "," + Count.ToString(), _con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id FROM fav GROUP BY poem_id ORDER BY pos LIMIT " + PageStart.ToString() + "," + Count.ToString(), _con))
                     {
                         da.Fill(tbl);
                     }
@@ -421,16 +458,116 @@ namespace ganjoor
         }
         #endregion
 
+        #region Random Poem
+        public int GetRandomPoem(int CatID)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    string strQuery = "SELECT MIN(id), MAX(id) FROM poem";
+                    if (CatID != 0)
+                        strQuery += " WHERE cat_id=" + CatID;
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    {
+                        da.Fill(tbl);
+                        if (tbl.Rows.Count > 0)
+                        {
+                            Random rnd = new Random(DateTime.Now.TimeOfDay.Milliseconds);
+                            return rnd.Next(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), Convert.ToInt32(tbl.Rows[0].ItemArray[1]));
+                        }                        
+                    }
+                }
+            }
+            return 0;
+        }
+        #endregion
+
         #region Versioning
         private void UpgradeOldDbs()
         {
-            DataRow[] favTable = _con.GetSchema("Tables").Select("Table_Name='fav'");
-            if (favTable.Length == 0)
+            using (DataTable tbl = _con.GetSchema("Tables"))
             {
-                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                DataRow[] favTable = tbl.Select("Table_Name='fav'");
+                
+                if (favTable.Length == 0)
                 {
-                    cmd.CommandText = "CREATE TABLE fav (poem_id INTEGER PRIMARY KEY, pos INTEGER);";
-                    cmd.ExecuteNonQuery();
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = "CREATE TABLE fav (poem_id INTEGER, verse_id INTEGER, pos INTEGER);";
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                        {
+                            cmd.CommandText = "SELECT verse_id FROM fav LIMIT 0,1";
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception exp)
+                    {                        
+                        if (exp.Message.IndexOf("verse_id") != -1)
+                        {
+                            
+                            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                            {
+                                cmd.CommandText = "CREATE TABLE favcpy (poem_id INTEGER, verse_id INTEGER, pos INTEGER);";
+                                cmd.ExecuteNonQuery();
+                            }
+                            using (DataTable fav = new DataTable())
+                            {
+                                using (SQLiteDataAdapter favAd = new SQLiteDataAdapter("SELECT poem_id, pos FROM fav", _con))
+                                {
+                                    favAd.Fill(fav);
+                                    foreach (DataRow row in fav.Rows)
+                                    {
+                                        using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                                        {
+                                            cmd.CommandText = "INSERT INTO favcpy (poem_id, verse_id, pos) VALUES (" + row.ItemArray[0].ToString() + ", -1, " + row.ItemArray[1].ToString() + ")";
+                                            cmd.ExecuteNonQuery();
+                                        }                         
+                                    }
+                                }
+                            }
+                            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                            {
+                                cmd.CommandText = "DROP TABLE fav";
+                                cmd.ExecuteNonQuery();
+                            }
+                            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                            {
+                                cmd.CommandText = "CREATE TABLE fav (poem_id INTEGER, verse_id INTEGER, pos INTEGER);";
+                                cmd.ExecuteNonQuery();
+                            }
+                             
+                            using (DataTable fav = new DataTable())
+                            {
+                                using (SQLiteDataAdapter favAd = new SQLiteDataAdapter("SELECT poem_id, pos, verse_id FROM favcpy", _con))
+                                {
+                                    favAd.Fill(fav);
+                                    foreach (DataRow row in fav.Rows)
+                                    {
+                                        using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                                        {
+                                            cmd.CommandText = "INSERT INTO fav (poem_id, verse_id, pos) VALUES (" + row.ItemArray[0].ToString() + ", -1, " + row.ItemArray[1].ToString() + ")";
+                                            cmd.ExecuteNonQuery();
+                                        }
+                                    }
+                                }
+                            }
+                            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                            {
+                                cmd.CommandText = "DROP TABLE favcpy";
+                                cmd.ExecuteNonQuery();
+                            }
+
+                        }
+                    }
+
                 }
             }
         }

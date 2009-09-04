@@ -9,11 +9,13 @@ namespace ganjoor
         public string _SearchPhrase;
         public int _PageStart;
         public int _MaxItemsCount;
-        public GanjoorSearchPage(string SearchPhrase, int PageStart, int MaxItemsCount)
+        public int _PoetID;
+        public GanjoorSearchPage(string SearchPhrase, int PageStart, int MaxItemsCount, int PoetID)
         {
             _SearchPhrase = SearchPhrase;
             _PageStart = PageStart;
             _MaxItemsCount = MaxItemsCount;
+            _PoetID = PoetID;
         }
     }
 }
