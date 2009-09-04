@@ -154,5 +154,233 @@ namespace ganjoor.Properties {
                 this["WasShowingFavs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BrowseButtonVisible {
+            get {
+                return ((bool)(this["BrowseButtonVisible"]));
+            }
+            set {
+                this["BrowseButtonVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CommentsButtonVisible {
+            get {
+                return ((bool)(this["CommentsButtonVisible"]));
+            }
+            set {
+                this["CommentsButtonVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CopyButtonVisible {
+            get {
+                return ((bool)(this["CopyButtonVisible"]));
+            }
+            set {
+                this["CopyButtonVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PrintButtonVisible {
+            get {
+                return ((bool)(this["PrintButtonVisible"]));
+            }
+            set {
+                this["PrintButtonVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowBeytNums {
+            get {
+                return ((bool)(this["ShowBeytNums"]));
+            }
+            set {
+                this["ShowBeytNums"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowNumsVisible {
+            get {
+                return ((bool)(this["ShowNumsVisible"]));
+            }
+            set {
+                this["ShowNumsVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int MaxPoemsInList {
+            get {
+                return ((int)(this["MaxPoemsInList"]));
+            }
+            set {
+                this["MaxPoemsInList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LastCatStart {
+            get {
+                return ((int)(this["LastCatStart"]));
+            }
+            set {
+                this["LastCatStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GradiantBackground {
+            get {
+                return ((bool)(this["GradiantBackground"]));
+            }
+            set {
+                this["GradiantBackground"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightGray")]
+        public global::System.Drawing.Color GradiantBegin {
+            get {
+                return ((global::System.Drawing.Color)(this["GradiantBegin"]));
+            }
+            set {
+                this["GradiantBegin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color GradiantEnd {
+            get {
+                return ((global::System.Drawing.Color)(this["GradiantEnd"]));
+            }
+            set {
+                this["GradiantEnd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Window")]
+        public global::System.Drawing.Color BackColor {
+            get {
+                return ((global::System.Drawing.Color)(this["BackColor"]));
+            }
+            set {
+                this["BackColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackImagePath {
+            get {
+                return ((string)(this["BackImagePath"]));
+            }
+            set {
+                this["BackImagePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
+        public global::System.Drawing.Color TextColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextColor"]));
+            }
+            set {
+                this["TextColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CheckForUpdate {
+            get {
+                return ((bool)(this["CheckForUpdate"]));
+            }
+            set {
+                this["CheckForUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LastSearchPoetID {
+            get {
+                return ((int)(this["LastSearchPoetID"]));
+            }
+            set {
+                this["LastSearchPoetID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HomeButtonVisible {
+            get {
+                return ((bool)(this["HomeButtonVisible"]));
+            }
+            set {
+                this["HomeButtonVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RandomButtonVisible {
+            get {
+                return ((bool)(this["RandomButtonVisible"]));
+            }
+            set {
+                this["RandomButtonVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RandomOnlyHafez {
+            get {
+                return ((bool)(this["RandomOnlyHafez"]));
+            }
+            set {
+                this["RandomOnlyHafez"] = value;
+            }
+        }
     }
 }

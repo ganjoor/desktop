@@ -60,6 +60,13 @@ namespace ganjoor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap calculator_accept {
+            get {
+                object obj = ResourceManager.GetObject("calculator_accept", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap comments {
             get {
                 object obj = ResourceManager.GetObject("comments", resourceCulture);
@@ -74,9 +81,23 @@ namespace ganjoor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap dices_32 {
+            get {
+                object obj = ResourceManager.GetObject("dices_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap fast_forward {
             get {
                 object obj = ResourceManager.GetObject("fast_forward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap fav {
+            get {
+                object obj = ResourceManager.GetObject("fav", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -105,6 +126,13 @@ namespace ganjoor.Properties {
         internal static System.Drawing.Bitmap firefox_alt {
             get {
                 object obj = ResourceManager.GetObject("firefox_alt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap folder_down {
+            get {
+                object obj = ResourceManager.GetObject("folder_down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
