@@ -29,6 +29,7 @@ namespace ganjoor
             {
                 _db = new DbBrowser();                
             }
+           
         }
         #endregion
 
@@ -115,7 +116,7 @@ namespace ganjoor
             
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
-            this.VerticalScroll.Value = 0;
+            this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
             this.Controls.Clear();
 
 
@@ -294,7 +295,7 @@ namespace ganjoor
         {            
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
-            this.VerticalScroll.Value = 0;
+            this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
             this.Controls.Clear();
 
             int catsTop = DistanceFromTop;
@@ -401,12 +402,13 @@ namespace ganjoor
         #region Fancy Stuff!
         private Color bBegin;
         private Color bEnd;
-        private bool GradiantBackground;
+        private bool GradiantBackground;        
         public void ApplyUISettings()
         {
             this.ForeColor = Properties.Settings.Default.TextColor;
             this.BackColor = Properties.Settings.Default.BackColor;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.BackImagePath))
+            {
                 if (System.IO.File.Exists(Properties.Settings.Default.BackImagePath))
                     try
                     {
@@ -415,7 +417,9 @@ namespace ganjoor
                     catch
                     {
                     }
-            this.BackgroundImageLayout = ImageLayout.Center;
+            }
+            else
+                this.BackgroundImage = null;
             GradiantBackground = Properties.Settings.Default.GradiantBackground;
             if (GradiantBackground)
                 this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
@@ -438,6 +442,16 @@ namespace ganjoor
             }
             else
                 base.OnPaint(e);
+        }
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            if (this.BackgroundImage != null)
+            {
+                e.Graphics.DrawImageUnscaled(this.BackgroundImage, new Rectangle(0,0,this.Width, this.Height));
+            }   
+            else
+                base.OnPaintBackground(e);
+
         }
         public override Font Font
         {
@@ -475,6 +489,12 @@ namespace ganjoor
                 }
 
             }
+        }
+        protected override void OnScroll(ScrollEventArgs se)
+        {
+            if (this.BackgroundImage != null)
+                this.Invalidate();
+            base.OnScroll(se);
         }
         #endregion
 
@@ -712,7 +732,7 @@ namespace ganjoor
                 UpdateHistory();
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
-            this.VerticalScroll.Value = 0;
+            this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
             this.Controls.Clear();
             GanjoorSearchPage prePage=null, nextPage = null;
             using(DataTable poemsList = _db.FindPoemsContaingPhrase(phrase, PageStart, Count+1, PoetID))
@@ -908,7 +928,7 @@ namespace ganjoor
                 UpdateHistory();
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
-            this.VerticalScroll.Value = 0;
+            this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
             this.Controls.Clear();
             int CountCopy = Count;
             GanjoorFavPage prePage = null, nextPage = null;

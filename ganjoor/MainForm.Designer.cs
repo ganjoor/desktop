@@ -92,6 +92,8 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.mnuRandom = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -411,6 +413,8 @@
             this.toolStripSeparator9,
             this.mnuHistoryBack,
             this.toolStripSeparator10,
+            this.mnuRandom,
+            this.toolStripSeparator1,
             this.mnuExit});
             this.mnuNav.Name = "mnuNav";
             this.mnuNav.Size = new System.Drawing.Size(49, 20);
@@ -459,7 +463,7 @@
             // 
             this.mnuHistoryBack.Image = global::ganjoor.Properties.Resources.repeat;
             this.mnuHistoryBack.Name = "mnuHistoryBack";
-            this.mnuHistoryBack.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.mnuHistoryBack.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Left)));
             this.mnuHistoryBack.Size = new System.Drawing.Size(180, 22);
             this.mnuHistoryBack.Text = "برگشت";
             this.mnuHistoryBack.Click += new System.EventHandler(this.btnHistoryBack_Click);
@@ -676,6 +680,19 @@
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
+            // mnuRandom
+            // 
+            this.mnuRandom.Image = global::ganjoor.Properties.Resources.dices_32;
+            this.mnuRandom.Name = "mnuRandom";
+            this.mnuRandom.Size = new System.Drawing.Size(180, 22);
+            this.mnuRandom.Text = "فال";
+            this.mnuRandom.Click += new System.EventHandler(this.btnRandom_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -774,6 +791,8 @@
         private System.Windows.Forms.ToolStripMenuItem btnCheckForUpdate;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton btnRandom;
+        private System.Windows.Forms.ToolStripMenuItem mnuRandom;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 
 
 

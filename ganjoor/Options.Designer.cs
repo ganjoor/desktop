@@ -61,6 +61,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.chkRandomOnlyHafez = new System.Windows.Forms.RadioButton();
             this.chkRandomAll = new System.Windows.Forms.RadioButton();
+            this.btnNoBkImage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -126,7 +127,7 @@
             this.chkHighlightSearchResults.Location = new System.Drawing.Point(15, 136);
             this.chkHighlightSearchResults.Name = "chkHighlightSearchResults";
             this.chkHighlightSearchResults.Size = new System.Drawing.Size(489, 17);
-            this.chkHighlightSearchResults.TabIndex = 18;
+            this.chkHighlightSearchResults.TabIndex = 19;
             this.chkHighlightSearchResults.Text = "کلمۀ جستجو شده را در شعری که پس از کلیک بر روی نتایج جستجو نمایش داده می‌شود برجس" +
                 "ته کن.";
             this.chkHighlightSearchResults.UseVisualStyleBackColor = true;
@@ -138,7 +139,7 @@
             this.label2.Location = new System.Drawing.Point(15, 165);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(132, 13);
-            this.label2.TabIndex = 19;
+            this.label2.TabIndex = 20;
             this.label2.Text = "دکمه‌های اختیاری نوار ابزار:";
             // 
             // chkBrowseButton
@@ -148,7 +149,7 @@
             this.chkBrowseButton.Location = new System.Drawing.Point(250, 165);
             this.chkBrowseButton.Name = "chkBrowseButton";
             this.chkBrowseButton.Size = new System.Drawing.Size(46, 17);
-            this.chkBrowseButton.TabIndex = 22;
+            this.chkBrowseButton.TabIndex = 23;
             this.chkBrowseButton.Text = "مرور";
             this.chkBrowseButton.UseVisualStyleBackColor = true;
             // 
@@ -159,7 +160,7 @@
             this.chkCommentsButton.Location = new System.Drawing.Point(302, 165);
             this.chkCommentsButton.Name = "chkCommentsButton";
             this.chkCommentsButton.Size = new System.Drawing.Size(68, 17);
-            this.chkCommentsButton.TabIndex = 23;
+            this.chkCommentsButton.TabIndex = 24;
             this.chkCommentsButton.Text = "حاشیه‌ها";
             this.chkCommentsButton.UseVisualStyleBackColor = true;
             // 
@@ -170,7 +171,7 @@
             this.chkCopyButton.Location = new System.Drawing.Point(376, 165);
             this.chkCopyButton.Name = "chkCopyButton";
             this.chkCopyButton.Size = new System.Drawing.Size(67, 17);
-            this.chkCopyButton.TabIndex = 24;
+            this.chkCopyButton.TabIndex = 25;
             this.chkCopyButton.Text = "کپی متن";
             this.chkCopyButton.UseVisualStyleBackColor = true;
             // 
@@ -181,7 +182,7 @@
             this.chkPrintButton.Location = new System.Drawing.Point(449, 165);
             this.chkPrintButton.Name = "chkPrintButton";
             this.chkPrintButton.Size = new System.Drawing.Size(45, 17);
-            this.chkPrintButton.TabIndex = 25;
+            this.chkPrintButton.TabIndex = 26;
             this.chkPrintButton.Text = "چاپ";
             this.chkPrintButton.UseVisualStyleBackColor = true;
             // 
@@ -192,7 +193,7 @@
             this.chkShowNumsButton.Location = new System.Drawing.Point(500, 165);
             this.chkShowNumsButton.Name = "chkShowNumsButton";
             this.chkShowNumsButton.Size = new System.Drawing.Size(84, 17);
-            this.chkShowNumsButton.TabIndex = 26;
+            this.chkShowNumsButton.TabIndex = 27;
             this.chkShowNumsButton.Text = "شماره‌گذاری";
             this.chkShowNumsButton.UseVisualStyleBackColor = true;
             // 
@@ -203,7 +204,7 @@
             this.label3.Location = new System.Drawing.Point(12, 195);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(227, 13);
-            this.label3.TabIndex = 27;
+            this.label3.TabIndex = 28;
             this.label3.Text = "حداکثر تعداد عنوانها در فهرست اشعار یک بخش:";
             // 
             // numMaxPoems
@@ -227,7 +228,7 @@
             0});
             this.numMaxPoems.Name = "numMaxPoems";
             this.numMaxPoems.Size = new System.Drawing.Size(51, 21);
-            this.numMaxPoems.TabIndex = 28;
+            this.numMaxPoems.TabIndex = 29;
             this.numMaxPoems.Value = new decimal(new int[] {
             50,
             0,
@@ -326,7 +327,7 @@
             this.lblImagePath.Location = new System.Drawing.Point(79, 103);
             this.lblImagePath.Name = "lblImagePath";
             this.lblImagePath.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblImagePath.Size = new System.Drawing.Size(476, 19);
+            this.lblImagePath.Size = new System.Drawing.Size(444, 19);
             this.lblImagePath.TabIndex = 16;
             this.lblImagePath.Text = "label5";
             this.lblImagePath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -334,7 +335,7 @@
             // btnSelect
             // 
             this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelect.Location = new System.Drawing.Point(562, 101);
+            this.btnSelect.Location = new System.Drawing.Point(529, 101);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(27, 23);
             this.btnSelect.TabIndex = 17;
@@ -381,7 +382,7 @@
             this.chkCheckForUpdate.Location = new System.Drawing.Point(15, 220);
             this.chkCheckForUpdate.Name = "chkCheckForUpdate";
             this.chkCheckForUpdate.Size = new System.Drawing.Size(312, 17);
-            this.chkCheckForUpdate.TabIndex = 29;
+            this.chkCheckForUpdate.TabIndex = 30;
             this.chkCheckForUpdate.Text = "در هنگام شروع برنامه برای یافتن ویرایش جدیدتر پرس و جو کن.";
             this.chkCheckForUpdate.UseVisualStyleBackColor = true;
             // 
@@ -392,7 +393,7 @@
             this.chkHomeButton.Location = new System.Drawing.Point(154, 165);
             this.chkHomeButton.Name = "chkHomeButton";
             this.chkHomeButton.Size = new System.Drawing.Size(45, 17);
-            this.chkHomeButton.TabIndex = 20;
+            this.chkHomeButton.TabIndex = 21;
             this.chkHomeButton.Text = "خانه";
             this.chkHomeButton.UseVisualStyleBackColor = true;
             // 
@@ -403,7 +404,7 @@
             this.chkRandomButton.Location = new System.Drawing.Point(203, 164);
             this.chkRandomButton.Name = "chkRandomButton";
             this.chkRandomButton.Size = new System.Drawing.Size(41, 17);
-            this.chkRandomButton.TabIndex = 21;
+            this.chkRandomButton.TabIndex = 22;
             this.chkRandomButton.Text = "فال";
             this.chkRandomButton.UseVisualStyleBackColor = true;
             // 
@@ -414,7 +415,7 @@
             this.label5.Location = new System.Drawing.Point(15, 250);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(116, 13);
-            this.label5.TabIndex = 30;
+            this.label5.TabIndex = 31;
             this.label5.Text = "دامنۀ عملکرد دکمۀ فال:";
             // 
             // chkRandomOnlyHafez
@@ -424,7 +425,7 @@
             this.chkRandomOnlyHafez.Location = new System.Drawing.Point(137, 249);
             this.chkRandomOnlyHafez.Name = "chkRandomOnlyHafez";
             this.chkRandomOnlyHafez.Size = new System.Drawing.Size(104, 17);
-            this.chkRandomOnlyHafez.TabIndex = 31;
+            this.chkRandomOnlyHafez.TabIndex = 32;
             this.chkRandomOnlyHafez.TabStop = true;
             this.chkRandomOnlyHafez.Text = "فقط غزلیات حافظ";
             this.chkRandomOnlyHafez.UseVisualStyleBackColor = true;
@@ -436,16 +437,28 @@
             this.chkRandomAll.Location = new System.Drawing.Point(251, 250);
             this.chkRandomAll.Name = "chkRandomAll";
             this.chkRandomAll.Size = new System.Drawing.Size(76, 17);
-            this.chkRandomAll.TabIndex = 32;
+            this.chkRandomAll.TabIndex = 33;
             this.chkRandomAll.TabStop = true;
             this.chkRandomAll.Text = "همۀ اشعار";
             this.chkRandomAll.UseVisualStyleBackColor = true;
+            // 
+            // btnNoBkImage
+            // 
+            this.btnNoBkImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNoBkImage.Location = new System.Drawing.Point(563, 101);
+            this.btnNoBkImage.Name = "btnNoBkImage";
+            this.btnNoBkImage.Size = new System.Drawing.Size(27, 23);
+            this.btnNoBkImage.TabIndex = 18;
+            this.btnNoBkImage.Text = "X";
+            this.btnNoBkImage.UseVisualStyleBackColor = true;
+            this.btnNoBkImage.Click += new System.EventHandler(this.btnNoBkImage_Click);
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 314);
+            this.Controls.Add(this.btnNoBkImage);
             this.Controls.Add(this.chkRandomAll);
             this.Controls.Add(this.chkRandomOnlyHafez);
             this.Controls.Add(this.label5);
@@ -531,5 +544,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton chkRandomOnlyHafez;
         private System.Windows.Forms.RadioButton chkRandomAll;
+        private System.Windows.Forms.Button btnNoBkImage;
     }
 }
