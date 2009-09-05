@@ -152,5 +152,10 @@ namespace ganjoor
             InitializeControls();
         }
 
+        private void btnNoBkImage_Click(object sender, EventArgs e)
+        {
+            lblImagePath.Text = "";
+        }
+
     }
 }
