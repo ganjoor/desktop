@@ -31,6 +31,7 @@ namespace ganjoor
         {
             InitializeComponent();
             tlbrSearch.BringToFront();
+            ganjoorView.BringToFront();
 
             this.Bounds = Screen.PrimaryScreen.Bounds;
             if (Settings.Default.WindowMaximized)
@@ -40,7 +41,7 @@ namespace ganjoor
                 {
                     this.Bounds = new Rectangle(Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
                 }
-            
+            ApplyUserSettings();
 
         }
 
@@ -318,7 +319,7 @@ namespace ganjoor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ApplyUserSettings();
+            
             if (Settings.Default.CheckForUpdate)
                 CheckForUpdate(false);
         }

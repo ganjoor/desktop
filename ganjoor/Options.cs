@@ -36,6 +36,9 @@ namespace ganjoor
             btnBackColor.BackColor = Settings.Default.BackColor;
             lblImagePath.Text = Settings.Default.BackImagePath;
             btnTextColor.BackColor = Settings.Default.TextColor;
+            btnLinkColor.BackColor = Settings.Default.LinkColor;
+            btnCurrentLinkColor.BackColor = Settings.Default.CurrentLinkColor;
+            btnHighlightColor.BackColor = Settings.Default.HighlightColor;
             chkCheckForUpdate.Checked = Settings.Default.CheckForUpdate;
             if (!(chkRandomOnlyHafez.Checked = Settings.Default.RandomOnlyHafez))
                 chkRandomAll.Checked = true;
@@ -58,6 +61,9 @@ namespace ganjoor
             Settings.Default.BackColor = btnBackColor.BackColor;
             Settings.Default.BackImagePath = lblImagePath.Text;
             Settings.Default.TextColor = btnTextColor.BackColor;
+            Settings.Default.LinkColor = btnLinkColor.BackColor;
+            Settings.Default.CurrentLinkColor = btnCurrentLinkColor.BackColor;
+            Settings.Default.HighlightColor = btnHighlightColor.BackColor;
             Settings.Default.CheckForUpdate = chkCheckForUpdate.Checked;
             Settings.Default.RandomOnlyHafez = chkRandomOnlyHafez.Checked;
 
@@ -82,7 +88,7 @@ namespace ganjoor
         private void chkGradiantBk_CheckedChanged(object sender, EventArgs e)
         {
             lblGradiantBegin.Enabled = lblGradiantEnd.Enabled = btnGradiantBegin.Enabled = btnGradiantEnd.Enabled = chkGradiantBk.Checked;
-            lblNormalBk.Enabled = btnBackColor.Enabled = lblImagePath.Enabled = lblImage.Enabled = btnSelect.Enabled = !chkGradiantBk.Checked;
+            btnNoBkImage.Enabled = lblNormalBk.Enabled = btnBackColor.Enabled = lblImagePath.Enabled = lblImage.Enabled = btnSelect.Enabled = !chkGradiantBk.Checked;
         }
 
         private void btnGradiantBegin_Click(object sender, EventArgs e)
@@ -155,6 +161,42 @@ namespace ganjoor
         private void btnNoBkImage_Click(object sender, EventArgs e)
         {
             lblImagePath.Text = "";
+        }
+
+        private void btnLinkColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog dlg = new ColorDialog())
+            {
+                dlg.Color = btnLinkColor.BackColor;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    btnLinkColor.BackColor = dlg.Color;
+                }
+            }
+        }
+
+        private void btnCurrentLinkColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog dlg = new ColorDialog())
+            {
+                dlg.Color = btnCurrentLinkColor.BackColor;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    btnCurrentLinkColor.BackColor = dlg.Color;
+                }
+            }
+        }
+
+        private void btnHighlightColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog dlg = new ColorDialog())
+            {
+                dlg.Color = btnHighlightColor.BackColor;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    btnHighlightColor.BackColor = dlg.Color;
+                }
+            }
         }
 
     }
