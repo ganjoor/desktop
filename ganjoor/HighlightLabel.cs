@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -10,7 +11,7 @@ namespace ganjoor
     {
         #region Constructor
         public HighlightLabel() :
-            this(string.Empty, Color.LightPink)
+            this(string.Empty, Settings.Default.HighlightColor)
         {
         }
         public HighlightLabel(string keyword, Color highlightColor)

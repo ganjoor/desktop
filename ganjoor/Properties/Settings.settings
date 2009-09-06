@@ -87,10 +87,19 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="RandomButtonVisible" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="RandomOnlyHafez" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LinkColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Blue</Value>
+    </Setting>
+    <Setting Name="CurrentLinkColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Purple</Value>
+    </Setting>
+    <Setting Name="HighlightColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">LightPink</Value>
     </Setting>
   </Settings>
 </SettingsFile>

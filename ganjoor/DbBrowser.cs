@@ -30,6 +30,7 @@ namespace ganjoor
             {
                 UpgradeOldDbs();
             }
+            rnd = new Random(DateTime.Now.Millisecond);
         }
         
         ~DbBrowser()
@@ -190,7 +191,7 @@ namespace ganjoor
                 }
             }
             return lst;
-        }
+        }        
         public GanjoorPoem GetPoem(int PoemID)
         {
             if (Connected)
@@ -456,6 +457,23 @@ namespace ganjoor
             }
             return null;
         }
+        public GanjoorVerse GetPreferablyAFavVerse(int PoemID)
+        {
+            List<GanjoorVerse> allVerses = GetVerses(PoemID);
+            
+            for (int v = 0; v < allVerses.Count; v++)
+            {
+                GanjoorVerse verse = allVerses[v];
+                if (IsVerseFaved(verse._PoemID, verse._Order))
+                {
+                    return verse;
+                }
+            }
+            if (allVerses.Count != 0)
+                return allVerses[0];
+            return null;
+            
+        }
         #endregion
 
         #region Random Poem
@@ -473,7 +491,6 @@ namespace ganjoor
                         da.Fill(tbl);
                         if (tbl.Rows.Count > 0)
                         {
-                            Random rnd = new Random(DateTime.Now.TimeOfDay.Milliseconds);
                             return rnd.Next(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), Convert.ToInt32(tbl.Rows[0].ItemArray[1]));
                         }                        
                     }
@@ -481,6 +498,7 @@ namespace ganjoor
             }
             return 0;
         }
+        private Random rnd;
         #endregion
 
         #region Versioning

@@ -361,7 +361,7 @@ namespace ganjoor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool RandomButtonVisible {
             get {
                 return ((bool)(this["RandomButtonVisible"]));
@@ -380,6 +380,42 @@ namespace ganjoor.Properties {
             }
             set {
                 this["RandomOnlyHafez"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
+        public global::System.Drawing.Color LinkColor {
+            get {
+                return ((global::System.Drawing.Color)(this["LinkColor"]));
+            }
+            set {
+                this["LinkColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Purple")]
+        public global::System.Drawing.Color CurrentLinkColor {
+            get {
+                return ((global::System.Drawing.Color)(this["CurrentLinkColor"]));
+            }
+            set {
+                this["CurrentLinkColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightPink")]
+        public global::System.Drawing.Color HighlightColor {
+            get {
+                return ((global::System.Drawing.Color)(this["HighlightColor"]));
+            }
+            set {
+                this["HighlightColor"] = value;
             }
         }
     }
