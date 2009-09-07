@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\repeat.png" />
     <None Include="Resources\folder_down.png" />
     <None Include="Resources\dices_32.png" />
     <None Include="Resources\calculator_accept.png" />
@@ -140,7 +141,6 @@
     <None Include="Resources\note_accept.png" />
     <None Include="app.config" />
     <None Include="Resources\help.png" />
-    <None Include="Resources\repeat.png" />
     <None Include="Resources\firefox_alt.png" />
     <None Include="Resources\comments.png" />
     <None Include="Resources\printer.png" />

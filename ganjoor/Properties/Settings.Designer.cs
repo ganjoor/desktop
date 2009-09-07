@@ -418,5 +418,17 @@ namespace ganjoor.Properties {
                 this["HighlightColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsNewVersion {
+            get {
+                return ((bool)(this["IsNewVersion"]));
+            }
+            set {
+                this["IsNewVersion"] = value;
+            }
+        }
     }
 }

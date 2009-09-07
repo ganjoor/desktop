@@ -338,14 +338,16 @@ namespace ganjoor
             int ItemsMatchingPhrase = 0;
             bool ShowBeytNums = Properties.Settings.Default.ShowBeytNums;
             int BeytNum = 0;
-            int versDistanceFromRight = ShowBeytNums ? lastDistanceFromRight + 20 : lastDistanceFromRight;
+            
+            int versDistanceFromRight = ShowBeytNums ? lastDistanceFromRight + TextRenderer.MeasureText((verses.Count).ToString(), this.Font).Width: lastDistanceFromRight;
             for (int i = 0; i < verses.Count; i++)
             {
-                if (ShowBeytNums)
+                
+                if (verses[i]._Position == VersePosition.Right)
                 {
-                    if (verses[i]._Position == VersePosition.Right)
+                    BeytNum++;
+                    if (ShowBeytNums)
                     {
-                        BeytNum++;
                         LinkLabel lblNum = new LinkLabel();
                         lblNum.AutoSize = true;
                         lblNum.Text = BeytNum.ToString();
@@ -371,7 +373,22 @@ namespace ganjoor
                             lblNum.Visible = false;
                         }
                     }
-                }
+                    else
+                    {
+                        if (_db.IsVerseFaved(poem._ID, verses[i]._Order))
+                        {
+                            PictureBox fav = new PictureBox();
+                            fav.BackColor = Color.Transparent;
+                            fav.Image = Properties.Resources.fav;
+                            fav.Size = new Size(16, 16);
+                            fav.Location = new Point(lastDistanceFromRight - 16, catsTop + i * DistanceBetweenLines);
+                            fav.Tag = verses[i];
+                            fav.Cursor = Cursors.Hand;
+                            fav.Click += new EventHandler(lblNum_Click);
+                            this.Controls.Add(fav);
+                        }
+                    }
+                }                
                 HighlightLabel lblVerse = new HighlightLabel(highlightWord, Color.LightPink);                
                 lblVerse.AutoSize = true;
                 lblVerse.Tag = verses[i];
