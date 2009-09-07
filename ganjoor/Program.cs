@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -12,6 +13,12 @@ namespace ganjoor
         [STAThread]
         static void Main()
         {
+            if (Settings.Default.IsNewVersion)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.IsNewVersion = false;
+                Settings.Default.Save();
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

@@ -101,5 +101,8 @@
     <Setting Name="HighlightColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">LightPink</Value>
     </Setting>
+    <Setting Name="IsNewVersion" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

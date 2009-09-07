@@ -154,7 +154,10 @@ namespace ganjoor
 
         private void btnDefault_Click(object sender, EventArgs e)
         {
+            bool showLineNumbers = Settings.Default.ShowBeytNums;
             Settings.Default.Reset();
+            Settings.Default.IsNewVersion = false;
+            Settings.Default.ShowBeytNums = showLineNumbers;
             InitializeControls();
         }
 

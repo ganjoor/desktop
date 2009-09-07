@@ -30,7 +30,6 @@ namespace ganjoor
             {
                 UpgradeOldDbs();
             }
-            rnd = new Random(DateTime.Now.Millisecond);
         }
         
         ~DbBrowser()
@@ -498,7 +497,7 @@ namespace ganjoor
             }
             return 0;
         }
-        private Random rnd;
+        private Random rnd = new Random();
         #endregion
 
         #region Versioning
