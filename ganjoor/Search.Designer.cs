@@ -63,7 +63,7 @@
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSearch.Enabled = false;
-            this.btnSearch.Location = new System.Drawing.Point(314, 33);
+            this.btnSearch.Location = new System.Drawing.Point(15, 88);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 6;
@@ -74,7 +74,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(314, 63);
+            this.btnCancel.Location = new System.Drawing.Point(96, 88);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
@@ -85,7 +85,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(110, 35);
+            this.label2.Location = new System.Drawing.Point(190, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(150, 13);
             this.label2.TabIndex = 2;
@@ -99,7 +99,7 @@
             0,
             0,
             0});
-            this.numItemsInPage.Location = new System.Drawing.Point(266, 33);
+            this.numItemsInPage.Location = new System.Drawing.Point(346, 32);
             this.numItemsInPage.Name = "numItemsInPage";
             this.numItemsInPage.Size = new System.Drawing.Size(42, 21);
             this.numItemsInPage.TabIndex = 3;
@@ -113,7 +113,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 68);
+            this.label3.Location = new System.Drawing.Point(93, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 13);
             this.label3.TabIndex = 4;
@@ -124,7 +124,7 @@
             this.cmbPoets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbPoets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPoets.FormattingEnabled = true;
-            this.cmbPoets.Location = new System.Drawing.Point(101, 65);
+            this.cmbPoets.Location = new System.Drawing.Point(182, 59);
             this.cmbPoets.Name = "cmbPoets";
             this.cmbPoets.Size = new System.Drawing.Size(207, 21);
             this.cmbPoets.TabIndex = 5;
@@ -135,7 +135,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(401, 98);
+            this.ClientSize = new System.Drawing.Size(401, 117);
             this.Controls.Add(this.cmbPoets);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.numItemsInPage);

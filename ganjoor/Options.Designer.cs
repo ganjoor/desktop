@@ -68,6 +68,10 @@
             this.btnCurrentLinkColor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.btnHighlightColor = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnBandLinkColor = new System.Windows.Forms.Button();
+            this.chkScrollToFaved = new System.Windows.Forms.CheckBox();
+            this.chkCenteredViewMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,7 +111,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(15, 277);
+            this.btnOK.Location = new System.Drawing.Point(15, 330);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 0;
@@ -119,7 +123,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(96, 277);
+            this.btnCancel.Location = new System.Drawing.Point(96, 330);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -133,7 +137,7 @@
             this.chkHighlightSearchResults.Location = new System.Drawing.Point(15, 136);
             this.chkHighlightSearchResults.Name = "chkHighlightSearchResults";
             this.chkHighlightSearchResults.Size = new System.Drawing.Size(489, 17);
-            this.chkHighlightSearchResults.TabIndex = 25;
+            this.chkHighlightSearchResults.TabIndex = 27;
             this.chkHighlightSearchResults.Text = "کلمۀ جستجو شده را در شعری که پس از کلیک بر روی نتایج جستجو نمایش داده می‌شود برجس" +
                 "ته کن.";
             this.chkHighlightSearchResults.UseVisualStyleBackColor = true;
@@ -142,20 +146,20 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 165);
+            this.label2.Location = new System.Drawing.Point(15, 191);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(132, 13);
-            this.label2.TabIndex = 26;
+            this.label2.TabIndex = 29;
             this.label2.Text = "دکمه‌های اختیاری نوار ابزار:";
             // 
             // chkBrowseButton
             // 
             this.chkBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkBrowseButton.AutoSize = true;
-            this.chkBrowseButton.Location = new System.Drawing.Point(250, 165);
+            this.chkBrowseButton.Location = new System.Drawing.Point(250, 191);
             this.chkBrowseButton.Name = "chkBrowseButton";
             this.chkBrowseButton.Size = new System.Drawing.Size(46, 17);
-            this.chkBrowseButton.TabIndex = 29;
+            this.chkBrowseButton.TabIndex = 32;
             this.chkBrowseButton.Text = "مرور";
             this.chkBrowseButton.UseVisualStyleBackColor = true;
             // 
@@ -163,10 +167,10 @@
             // 
             this.chkCommentsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCommentsButton.AutoSize = true;
-            this.chkCommentsButton.Location = new System.Drawing.Point(302, 165);
+            this.chkCommentsButton.Location = new System.Drawing.Point(302, 191);
             this.chkCommentsButton.Name = "chkCommentsButton";
             this.chkCommentsButton.Size = new System.Drawing.Size(68, 17);
-            this.chkCommentsButton.TabIndex = 30;
+            this.chkCommentsButton.TabIndex = 33;
             this.chkCommentsButton.Text = "حاشیه‌ها";
             this.chkCommentsButton.UseVisualStyleBackColor = true;
             // 
@@ -174,10 +178,10 @@
             // 
             this.chkCopyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCopyButton.AutoSize = true;
-            this.chkCopyButton.Location = new System.Drawing.Point(376, 165);
+            this.chkCopyButton.Location = new System.Drawing.Point(376, 191);
             this.chkCopyButton.Name = "chkCopyButton";
             this.chkCopyButton.Size = new System.Drawing.Size(67, 17);
-            this.chkCopyButton.TabIndex = 31;
+            this.chkCopyButton.TabIndex = 34;
             this.chkCopyButton.Text = "کپی متن";
             this.chkCopyButton.UseVisualStyleBackColor = true;
             // 
@@ -185,10 +189,10 @@
             // 
             this.chkPrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkPrintButton.AutoSize = true;
-            this.chkPrintButton.Location = new System.Drawing.Point(449, 165);
+            this.chkPrintButton.Location = new System.Drawing.Point(449, 191);
             this.chkPrintButton.Name = "chkPrintButton";
             this.chkPrintButton.Size = new System.Drawing.Size(45, 17);
-            this.chkPrintButton.TabIndex = 32;
+            this.chkPrintButton.TabIndex = 35;
             this.chkPrintButton.Text = "چاپ";
             this.chkPrintButton.UseVisualStyleBackColor = true;
             // 
@@ -196,10 +200,10 @@
             // 
             this.chkShowNumsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowNumsButton.AutoSize = true;
-            this.chkShowNumsButton.Location = new System.Drawing.Point(500, 165);
+            this.chkShowNumsButton.Location = new System.Drawing.Point(500, 191);
             this.chkShowNumsButton.Name = "chkShowNumsButton";
             this.chkShowNumsButton.Size = new System.Drawing.Size(84, 17);
-            this.chkShowNumsButton.TabIndex = 33;
+            this.chkShowNumsButton.TabIndex = 36;
             this.chkShowNumsButton.Text = "شماره‌گذاری";
             this.chkShowNumsButton.UseVisualStyleBackColor = true;
             // 
@@ -207,10 +211,10 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 195);
+            this.label3.Location = new System.Drawing.Point(12, 221);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(227, 13);
-            this.label3.TabIndex = 34;
+            this.label3.TabIndex = 37;
             this.label3.Text = "حداکثر تعداد عنوانها در فهرست اشعار یک بخش:";
             // 
             // numMaxPoems
@@ -221,7 +225,7 @@
             0,
             0,
             0});
-            this.numMaxPoems.Location = new System.Drawing.Point(245, 193);
+            this.numMaxPoems.Location = new System.Drawing.Point(245, 219);
             this.numMaxPoems.Maximum = new decimal(new int[] {
             1500,
             0,
@@ -234,7 +238,7 @@
             0});
             this.numMaxPoems.Name = "numMaxPoems";
             this.numMaxPoems.Size = new System.Drawing.Size(51, 21);
-            this.numMaxPoems.TabIndex = 35;
+            this.numMaxPoems.TabIndex = 38;
             this.numMaxPoems.Value = new decimal(new int[] {
             50,
             0,
@@ -271,7 +275,7 @@
             this.lblNormalBk.Location = new System.Drawing.Point(15, 77);
             this.lblNormalBk.Name = "lblNormalBk";
             this.lblNormalBk.Size = new System.Drawing.Size(84, 13);
-            this.lblNormalBk.TabIndex = 11;
+            this.lblNormalBk.TabIndex = 15;
             this.lblNormalBk.Text = "رنگ زمینۀ عادی:";
             // 
             // lblGradiantEnd
@@ -312,7 +316,7 @@
             this.btnBackColor.Location = new System.Drawing.Point(100, 73);
             this.btnBackColor.Name = "btnBackColor";
             this.btnBackColor.Size = new System.Drawing.Size(28, 23);
-            this.btnBackColor.TabIndex = 12;
+            this.btnBackColor.TabIndex = 16;
             this.btnBackColor.UseVisualStyleBackColor = true;
             this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
             // 
@@ -323,7 +327,7 @@
             this.lblImage.Location = new System.Drawing.Point(12, 106);
             this.lblImage.Name = "lblImage";
             this.lblImage.Size = new System.Drawing.Size(63, 13);
-            this.lblImage.TabIndex = 21;
+            this.lblImage.TabIndex = 23;
             this.lblImage.Text = "تصویر زمینه:";
             // 
             // lblImagePath
@@ -334,7 +338,7 @@
             this.lblImagePath.Name = "lblImagePath";
             this.lblImagePath.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblImagePath.Size = new System.Drawing.Size(444, 19);
-            this.lblImagePath.TabIndex = 22;
+            this.lblImagePath.TabIndex = 24;
             this.lblImagePath.Text = "label5";
             this.lblImagePath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -344,7 +348,7 @@
             this.btnSelect.Location = new System.Drawing.Point(529, 101);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(27, 23);
-            this.btnSelect.TabIndex = 23;
+            this.btnSelect.TabIndex = 25;
             this.btnSelect.Text = "...";
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
@@ -353,7 +357,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(132, 78);
+            this.label4.Location = new System.Drawing.Point(509, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 13);
             this.label4.TabIndex = 13;
@@ -363,7 +367,7 @@
             // 
             this.btnTextColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnTextColor.Location = new System.Drawing.Point(185, 73);
+            this.btnTextColor.Location = new System.Drawing.Point(562, 43);
             this.btnTextColor.Name = "btnTextColor";
             this.btnTextColor.Size = new System.Drawing.Size(28, 23);
             this.btnTextColor.TabIndex = 14;
@@ -373,7 +377,7 @@
             // btnDefault
             // 
             this.btnDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDefault.Location = new System.Drawing.Point(430, 275);
+            this.btnDefault.Location = new System.Drawing.Point(430, 328);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(156, 23);
             this.btnDefault.TabIndex = 2;
@@ -385,10 +389,10 @@
             // 
             this.chkCheckForUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCheckForUpdate.AutoSize = true;
-            this.chkCheckForUpdate.Location = new System.Drawing.Point(15, 220);
+            this.chkCheckForUpdate.Location = new System.Drawing.Point(15, 246);
             this.chkCheckForUpdate.Name = "chkCheckForUpdate";
             this.chkCheckForUpdate.Size = new System.Drawing.Size(312, 17);
-            this.chkCheckForUpdate.TabIndex = 36;
+            this.chkCheckForUpdate.TabIndex = 39;
             this.chkCheckForUpdate.Text = "در هنگام شروع برنامه برای یافتن ویرایش جدیدتر پرس و جو کن.";
             this.chkCheckForUpdate.UseVisualStyleBackColor = true;
             // 
@@ -396,10 +400,10 @@
             // 
             this.chkHomeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkHomeButton.AutoSize = true;
-            this.chkHomeButton.Location = new System.Drawing.Point(154, 165);
+            this.chkHomeButton.Location = new System.Drawing.Point(154, 191);
             this.chkHomeButton.Name = "chkHomeButton";
             this.chkHomeButton.Size = new System.Drawing.Size(45, 17);
-            this.chkHomeButton.TabIndex = 27;
+            this.chkHomeButton.TabIndex = 30;
             this.chkHomeButton.Text = "خانه";
             this.chkHomeButton.UseVisualStyleBackColor = true;
             // 
@@ -407,10 +411,10 @@
             // 
             this.chkRandomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkRandomButton.AutoSize = true;
-            this.chkRandomButton.Location = new System.Drawing.Point(203, 164);
+            this.chkRandomButton.Location = new System.Drawing.Point(203, 190);
             this.chkRandomButton.Name = "chkRandomButton";
             this.chkRandomButton.Size = new System.Drawing.Size(41, 17);
-            this.chkRandomButton.TabIndex = 28;
+            this.chkRandomButton.TabIndex = 31;
             this.chkRandomButton.Text = "فال";
             this.chkRandomButton.UseVisualStyleBackColor = true;
             // 
@@ -418,20 +422,20 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 246);
+            this.label5.Location = new System.Drawing.Point(15, 272);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(116, 13);
-            this.label5.TabIndex = 37;
+            this.label5.TabIndex = 40;
             this.label5.Text = "دامنۀ عملکرد دکمۀ فال:";
             // 
             // chkRandomOnlyHafez
             // 
             this.chkRandomOnlyHafez.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkRandomOnlyHafez.AutoSize = true;
-            this.chkRandomOnlyHafez.Location = new System.Drawing.Point(137, 245);
+            this.chkRandomOnlyHafez.Location = new System.Drawing.Point(137, 271);
             this.chkRandomOnlyHafez.Name = "chkRandomOnlyHafez";
             this.chkRandomOnlyHafez.Size = new System.Drawing.Size(104, 17);
-            this.chkRandomOnlyHafez.TabIndex = 38;
+            this.chkRandomOnlyHafez.TabIndex = 41;
             this.chkRandomOnlyHafez.TabStop = true;
             this.chkRandomOnlyHafez.Text = "فقط غزلیات حافظ";
             this.chkRandomOnlyHafez.UseVisualStyleBackColor = true;
@@ -440,10 +444,10 @@
             // 
             this.chkRandomAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkRandomAll.AutoSize = true;
-            this.chkRandomAll.Location = new System.Drawing.Point(251, 246);
+            this.chkRandomAll.Location = new System.Drawing.Point(251, 272);
             this.chkRandomAll.Name = "chkRandomAll";
             this.chkRandomAll.Size = new System.Drawing.Size(76, 17);
-            this.chkRandomAll.TabIndex = 39;
+            this.chkRandomAll.TabIndex = 42;
             this.chkRandomAll.TabStop = true;
             this.chkRandomAll.Text = "همۀ اشعار";
             this.chkRandomAll.UseVisualStyleBackColor = true;
@@ -454,7 +458,7 @@
             this.btnNoBkImage.Location = new System.Drawing.Point(563, 101);
             this.btnNoBkImage.Name = "btnNoBkImage";
             this.btnNoBkImage.Size = new System.Drawing.Size(27, 23);
-            this.btnNoBkImage.TabIndex = 24;
+            this.btnNoBkImage.TabIndex = 26;
             this.btnNoBkImage.Text = "X";
             this.btnNoBkImage.UseVisualStyleBackColor = true;
             this.btnNoBkImage.Click += new System.EventHandler(this.btnNoBkImage_Click);
@@ -463,20 +467,20 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(216, 78);
+            this.label6.Location = new System.Drawing.Point(139, 78);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(102, 13);
-            this.label6.TabIndex = 15;
+            this.label6.TabIndex = 17;
             this.label6.Text = "رنگ پیوندهای عادی:";
             // 
             // btnLinkColor
             // 
             this.btnLinkColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLinkColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLinkColor.Location = new System.Drawing.Point(320, 73);
+            this.btnLinkColor.Location = new System.Drawing.Point(243, 73);
             this.btnLinkColor.Name = "btnLinkColor";
             this.btnLinkColor.Size = new System.Drawing.Size(28, 23);
-            this.btnLinkColor.TabIndex = 16;
+            this.btnLinkColor.TabIndex = 18;
             this.btnLinkColor.UseVisualStyleBackColor = true;
             this.btnLinkColor.Click += new System.EventHandler(this.btnLinkColor_Click);
             // 
@@ -484,20 +488,20 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(351, 77);
+            this.label7.Location = new System.Drawing.Point(274, 77);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(80, 13);
-            this.label7.TabIndex = 17;
+            this.label7.TabIndex = 19;
             this.label7.Text = "رنگ پیوند جاری:";
             // 
             // btnCurrentLinkColor
             // 
             this.btnCurrentLinkColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCurrentLinkColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCurrentLinkColor.Location = new System.Drawing.Point(434, 72);
+            this.btnCurrentLinkColor.Location = new System.Drawing.Point(357, 72);
             this.btnCurrentLinkColor.Name = "btnCurrentLinkColor";
             this.btnCurrentLinkColor.Size = new System.Drawing.Size(28, 23);
-            this.btnCurrentLinkColor.TabIndex = 18;
+            this.btnCurrentLinkColor.TabIndex = 20;
             this.btnCurrentLinkColor.UseVisualStyleBackColor = true;
             this.btnCurrentLinkColor.Click += new System.EventHandler(this.btnCurrentLinkColor_Click);
             // 
@@ -505,28 +509,76 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(464, 77);
+            this.label8.Location = new System.Drawing.Point(373, 49);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(97, 13);
-            this.label8.TabIndex = 19;
+            this.label8.TabIndex = 11;
             this.label8.Text = "رنگ برجسته‌سازی:";
             // 
             // btnHighlightColor
             // 
             this.btnHighlightColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHighlightColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnHighlightColor.Location = new System.Drawing.Point(562, 72);
+            this.btnHighlightColor.Location = new System.Drawing.Point(471, 44);
             this.btnHighlightColor.Name = "btnHighlightColor";
             this.btnHighlightColor.Size = new System.Drawing.Size(28, 23);
-            this.btnHighlightColor.TabIndex = 20;
+            this.btnHighlightColor.TabIndex = 12;
             this.btnHighlightColor.UseVisualStyleBackColor = true;
             this.btnHighlightColor.Click += new System.EventHandler(this.btnHighlightColor_Click);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(424, 77);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(132, 13);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "رنگ شمارۀ ابیات بین بندها:";
+            // 
+            // btnBandLinkColor
+            // 
+            this.btnBandLinkColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBandLinkColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBandLinkColor.Location = new System.Drawing.Point(562, 72);
+            this.btnBandLinkColor.Name = "btnBandLinkColor";
+            this.btnBandLinkColor.Size = new System.Drawing.Size(28, 23);
+            this.btnBandLinkColor.TabIndex = 22;
+            this.btnBandLinkColor.UseVisualStyleBackColor = true;
+            this.btnBandLinkColor.Click += new System.EventHandler(this.btnBandLinkColor_Click);
+            // 
+            // chkScrollToFaved
+            // 
+            this.chkScrollToFaved.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkScrollToFaved.AutoSize = true;
+            this.chkScrollToFaved.Location = new System.Drawing.Point(15, 161);
+            this.chkScrollToFaved.Name = "chkScrollToFaved";
+            this.chkScrollToFaved.Size = new System.Drawing.Size(467, 17);
+            this.chkScrollToFaved.TabIndex = 28;
+            this.chkScrollToFaved.Text = "نوار لغزنده را به محل اولین بیت نشانه‌گذاری شده در شعر انتخاب شده از فهرست نشانه‌" +
+                "ها بلغزان.";
+            this.chkScrollToFaved.UseVisualStyleBackColor = true;
+            // 
+            // chkCenteredViewMode
+            // 
+            this.chkCenteredViewMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCenteredViewMode.AutoSize = true;
+            this.chkCenteredViewMode.Location = new System.Drawing.Point(18, 297);
+            this.chkCenteredViewMode.Name = "chkCenteredViewMode";
+            this.chkCenteredViewMode.Size = new System.Drawing.Size(322, 17);
+            this.chkCenteredViewMode.TabIndex = 43;
+            this.chkCenteredViewMode.Text = "هر بیت را در یک خط نشان بده (نمایش ابیات به صورت وسط چین).";
+            this.chkCenteredViewMode.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 308);
+            this.ClientSize = new System.Drawing.Size(603, 362);
+            this.Controls.Add(this.chkCenteredViewMode);
+            this.Controls.Add(this.chkScrollToFaved);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.btnBandLinkColor);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnHighlightColor);
             this.Controls.Add(this.label7);
@@ -626,5 +678,9 @@
         private System.Windows.Forms.Button btnCurrentLinkColor;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnHighlightColor;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnBandLinkColor;
+        private System.Windows.Forms.CheckBox chkScrollToFaved;
+        private System.Windows.Forms.CheckBox chkCenteredViewMode;
     }
 }

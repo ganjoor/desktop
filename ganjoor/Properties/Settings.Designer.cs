@@ -133,7 +133,7 @@ namespace ganjoor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool HighlightKeyword {
             get {
                 return ((bool)(this["HighlightKeyword"]));
@@ -428,6 +428,42 @@ namespace ganjoor.Properties {
             }
             set {
                 this["IsNewVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color BandLinkColor {
+            get {
+                return ((global::System.Drawing.Color)(this["BandLinkColor"]));
+            }
+            set {
+                this["BandLinkColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ScrollToFavedVerse {
+            get {
+                return ((bool)(this["ScrollToFavedVerse"]));
+            }
+            set {
+                this["ScrollToFavedVerse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ViewMode {
+            get {
+                return ((int)(this["ViewMode"]));
+            }
+            set {
+                this["ViewMode"] = value;
             }
         }
     }

@@ -30,7 +30,7 @@
       <Value Profile="(Default)">Tahoma, 8.25pt</Value>
     </Setting>
     <Setting Name="HighlightKeyword" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="WasShowingFavs" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -103,6 +103,15 @@
     </Setting>
     <Setting Name="IsNewVersion" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="BandLinkColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+    <Setting Name="ScrollToFavedVerse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ViewMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

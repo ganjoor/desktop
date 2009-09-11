@@ -65,6 +65,7 @@
       <DependentUpon>GanjoorViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="GanjoorViewEvents.cs" />
+    <Compile Include="GanjoorViewMode.cs" />
     <Compile Include="GarnjoorBrowsingHistory.cs" />
     <Compile Include="HighlightLabel.cs">
       <SubType>Component</SubType>

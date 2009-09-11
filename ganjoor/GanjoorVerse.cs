@@ -8,7 +8,8 @@ namespace ganjoor
     {
         Right = 0,//مصرع اول
         Left = 1,// مصرع دوم
-        Centered = 2// مصرع اول یا دوم یا تنهای ابیات ترجیع یا ترکیب
+        CenteredVerse1 = 2,// مصرع اول یا تنهای ابیات ترجیع یا ترکیب
+        CenteredVerse2 = 3,// مصرع دوم ابیات ترجیع یا ترکیب
     }
     class GanjoorVerse
     {
