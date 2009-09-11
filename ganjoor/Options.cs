@@ -39,7 +39,10 @@ namespace ganjoor
             btnLinkColor.BackColor = Settings.Default.LinkColor;
             btnCurrentLinkColor.BackColor = Settings.Default.CurrentLinkColor;
             btnHighlightColor.BackColor = Settings.Default.HighlightColor;
+            btnBandLinkColor.BackColor = Settings.Default.BandLinkColor;
             chkCheckForUpdate.Checked = Settings.Default.CheckForUpdate;
+            chkScrollToFaved.Checked = Settings.Default.ScrollToFavedVerse;
+            chkCenteredViewMode.Checked = GanjoorViewMode.Centered == (GanjoorViewMode)Settings.Default.ViewMode;
             if (!(chkRandomOnlyHafez.Checked = Settings.Default.RandomOnlyHafez))
                 chkRandomAll.Checked = true;
         }
@@ -66,6 +69,9 @@ namespace ganjoor
             Settings.Default.HighlightColor = btnHighlightColor.BackColor;
             Settings.Default.CheckForUpdate = chkCheckForUpdate.Checked;
             Settings.Default.RandomOnlyHafez = chkRandomOnlyHafez.Checked;
+            Settings.Default.BandLinkColor = btnBandLinkColor.BackColor;
+            Settings.Default.ScrollToFavedVerse = chkScrollToFaved.Checked;
+            Settings.Default.ViewMode = chkCenteredViewMode.Checked ? (int)GanjoorViewMode.Centered : (int)GanjoorViewMode.RightAligned;
 
             Properties.Settings.Default.Save();
         }
@@ -198,6 +204,18 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     btnHighlightColor.BackColor = dlg.Color;
+                }
+            }
+        }
+
+        private void btnBandLinkColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog dlg = new ColorDialog())
+            {
+                dlg.Color = btnBandLinkColor.BackColor;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    btnBandLinkColor.BackColor = dlg.Color;
                 }
             }
         }

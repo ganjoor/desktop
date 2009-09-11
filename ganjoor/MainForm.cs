@@ -117,13 +117,24 @@ namespace ganjoor
             mnuHighlight.Enabled = btnHighlight.Enabled;
 
 
-            bool highlight = !string.IsNullOrEmpty(HighlightedText) && Properties.Settings.Default.HighlightKeyword;
+            bool highlight = !string.IsNullOrEmpty(HighlightedText) && Properties.Settings.Default.ScrollToFavedVerse;
             if (highlight)
             {
-                processTextChanged = false;
-                txtHighlight.Text = HighlightedText;
-                processTextChanged = true;
-                lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", ganjoorView.HighlightText(HighlightedText));
+                if (GanjoorViewer.OnlyScrollString != HighlightedText)
+                {
+                    processTextChanged = false;
+                    txtHighlight.Text = HighlightedText;
+                    processTextChanged = true;
+                    lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", ganjoorView.HighlightText(HighlightedText));
+                }
+                else
+                {
+                    processTextChanged = false;
+                    txtHighlight.Text = "";
+                    processTextChanged = true;
+                    ganjoorView.HighlightText(HighlightedText);
+                    highlight = false;
+                }
             }
             btnHighlight.Checked = highlight;
             lblFoundItemCount.Visible = highlight;
@@ -390,8 +401,6 @@ namespace ganjoor
         private void btnRandom_Click(object sender, EventArgs e)
         {
             ganjoorView.ShowRandomPoem();
-        }
-
-
+        }   
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.SQLite;
+using System.Windows.Forms;
+using System.IO;
 
 namespace ganjoor
 {
@@ -501,10 +503,12 @@ namespace ganjoor
         #endregion
 
         #region Versioning
+        private const int DatabaseVersion = 1;
         private void UpgradeOldDbs()
         {
             using (DataTable tbl = _con.GetSchema("Tables"))
             {
+                #region fav table
                 DataRow[] favTable = tbl.Select("Table_Name='fav'");
                 
                 if (favTable.Length == 0)
@@ -586,6 +590,55 @@ namespace ganjoor
                     }
 
                 }
+                #endregion
+                #region version table
+                DataRow[] verTable = tbl.Select("Table_Name='gver'");
+
+                if (verTable.Length == 0 && File.Exists(Path.GetDirectoryName(Application.ExecutablePath)+"\\vg.s3db"))
+                {
+                    MessageBox.Show("پایگاه داده‌های برنامه قدیمی است. فرایند بروزرسانی آن ممکن است تا چند دقیقه طول بکشد. لطفاً صبور باشید.", "لطفاً صبور باشید", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    //Version table does not exist, so our verse table
+                    //position field values are incorrect,
+                    //correct it using vg.s3db file and then create version table
+
+                    SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
+                    conString.DataSource = "vg.s3db";
+                    conString.DefaultTimeout = 5000;
+                    conString.FailIfMissing = true;
+                    conString.ReadOnly = true;
+                    using (SQLiteConnection vgCon = new SQLiteConnection(conString.ConnectionString))
+                    {
+                        vgCon.Open();
+                        using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                        {
+                            cmd.CommandText = "BEGIN TRANSACTION;";
+                            cmd.ExecuteNonQuery();
+                            using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, vorder, position FROM verse", vgCon))
+                            {
+                                using (DataTable tblVerse = new DataTable())
+                                {
+                                    da.Fill(tblVerse);
+                                    int poemID = 0;
+                                    int vOrder = 1;
+                                    int position = 2;
+                                    foreach (DataRow row in tblVerse.Rows)
+                                    {
+                                        cmd.CommandText = "UPDATE verse SET position=" + row.ItemArray[position].ToString() + " WHERE poem_id = " + row.ItemArray[poemID].ToString() + " AND vorder=" + row.ItemArray[vOrder].ToString() + ";";
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                            cmd.CommandText = "CREATE TABLE gver (curver INTEGER);";
+                            cmd.ExecuteNonQuery();
+                            cmd.CommandText = "INSERT INTO gver (curver) VALUES (" + DatabaseVersion.ToString() + ");";
+                            cmd.ExecuteNonQuery();
+                            cmd.CommandText = "COMMIT;";
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\vg.s3db");
+                }
+                #endregion
             }
         }
         #endregion

@@ -68,6 +68,8 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuHistoryBack = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuRandom = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTools = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuViewInSite = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,8 +94,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.mnuRandom = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -473,6 +473,19 @@
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(177, 6);
             // 
+            // mnuRandom
+            // 
+            this.mnuRandom.Image = global::ganjoor.Properties.Resources.dices_32;
+            this.mnuRandom.Name = "mnuRandom";
+            this.mnuRandom.Size = new System.Drawing.Size(180, 22);
+            this.mnuRandom.Text = "فال";
+            this.mnuRandom.Click += new System.EventHandler(this.btnRandom_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
             // mnuExit
             // 
             this.mnuExit.Name = "mnuExit";
@@ -679,19 +692,6 @@
             this.ganjoorView.Size = new System.Drawing.Size(784, 243);
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
-            // 
-            // mnuRandom
-            // 
-            this.mnuRandom.Image = global::ganjoor.Properties.Resources.dices_32;
-            this.mnuRandom.Name = "mnuRandom";
-            this.mnuRandom.Size = new System.Drawing.Size(180, 22);
-            this.mnuRandom.Text = "فال";
-            this.mnuRandom.Click += new System.EventHandler(this.btnRandom_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // MainForm
             // 
