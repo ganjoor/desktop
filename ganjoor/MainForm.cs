@@ -314,7 +314,7 @@ namespace ganjoor
 
         private void btnFavs_Click(object sender, EventArgs e)
         {
-            ganjoorView.ShowFavs(0, 10);
+            ganjoorView.ShowFavs(0, Settings.Default.FavItemsInPage);
         }
 
         private void btnShowBeytNums_CheckedChanged(object sender, EventArgs e)
@@ -401,6 +401,31 @@ namespace ganjoor
         private void btnRandom_Click(object sender, EventArgs e)
         {
             ganjoorView.ShowRandomPoem();
+        }
+
+        private void btnZoomIn_Click(object sender, EventArgs e)
+        {
+            ganjoorView.Visible = false;
+            ganjoorView.Font = Settings.Default.ViewFont = new Font(ganjoorView.Font.Name, Math.Min(144.0f, ganjoorView.Font.Size * 1.1f));
+            ganjoorView.Visible = true;
+        }
+
+        private void btnZoomOut_Click(object sender, EventArgs e)
+        {
+            ganjoorView.Visible = false;
+            ganjoorView.Font = Settings.Default.ViewFont = new Font(ganjoorView.Font.Name, Math.Max(4.0f, ganjoorView.Font.Size * 0.9f));
+            ganjoorView.Visible = true;
+        }
+
+        private void mnuAdd_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "*.s3db|*.s3db";
+                dlg.FileName = Path.GetDirectoryName(Application.ExecutablePath) + "\\new.s3db";
+                if(dlg.ShowDialog(this) == DialogResult.OK)
+                    ganjoorView.ImportDb(dlg.FileName);
+            }
         }   
     }
 }

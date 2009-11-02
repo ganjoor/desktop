@@ -70,7 +70,7 @@ namespace ganjoor
                 {
                     if (Settings.Default.WasShowingFavs)
                     {
-                        ShowFavs(Settings.Default.LastSeachStart, Settings.Default.SearchPageItems, false);
+                        ShowFavs(Settings.Default.LastSeachStart, Settings.Default.FavItemsInPage, false);
                     }
                     else
                     if (Settings.Default.LastCat != 0)
@@ -82,7 +82,8 @@ namespace ganjoor
                         else
                         {
                             GanjoorCat cat = _db.GetCategory(Settings.Default.LastCat);
-                            cat._StartPoem =  Settings.Default.LastCatStart;                            
+                            if(cat != null)
+                                cat._StartPoem =  Settings.Default.LastCatStart;                            
                             ShowCategory(cat, false);
                         }
                     }
@@ -114,7 +115,11 @@ namespace ganjoor
 
         private void ShowCategory(GanjoorCat category, bool keepTrack)
         {
-            
+            if (category == null)
+            {
+                ShowHome(keepTrack);
+                return;
+            }
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
@@ -203,7 +208,7 @@ namespace ganjoor
             for (int i = 0; i < ancestors.Count; i++)
             {
                 _strPage += ancestors[i]._Text;
-                if (0 != category._ID) _strPage += " -> ";
+                if (category!=null && 0 != category._ID) _strPage += " -> ";
 
                 LinkLabel lblCat = new LinkLabel();                
                 lblCat.Tag = ancestors[i];
@@ -222,8 +227,8 @@ namespace ganjoor
 
             catsTop += (ancestors.Count * DistanceBetweenLines);
             //خود این دسته
-            
-            if (category._ID != 0)
+
+            if (category !=null && category._ID != 0)
             {
                 _strPage += category._Text;
 
@@ -245,9 +250,9 @@ namespace ganjoor
                 catsTop += DistanceBetweenLines;
             }
 
-            _FavsPage = false;            
-            _iCurCat = category._ID;
-            _iCurCatStart = category._StartPoem;
+            _FavsPage = false;
+            _iCurCat = category!=null ? category._ID : 0;
+            _iCurCatStart = category!=null ? category._StartPoem : 0;
             _iCurPoem = 0;
         }
         private void lblPoem_Click(object sender, EventArgs e)
@@ -566,15 +571,20 @@ namespace ganjoor
             set
             {
                 base.Font = value;
-                DistanceBetweenLines = TextRenderer.MeasureText("ا", value).Width * 2;
+                AdjustLocationsByFont();
 
-                if (_db != null)
+            }
+        }
+        private void AdjustLocationsByFont()
+        {
+            DistanceBetweenLines = TextRenderer.MeasureText("ا", this.Font).Width * 2;
+            if (_db != null)
+            {
+                if (_FavsPage)
                 {
-                    if (_FavsPage)
-                    {
-                        ShowFavs(_iCurSearchStart, _iCurSearchPageCount, false);
-                    }
-                    else
+                    ShowFavs(_iCurSearchStart, _iCurSearchPageCount, false);
+                }
+                else
                     if (_iCurCat != 0)
                     {
                         if (_iCurPoem != 0)
@@ -597,8 +607,6 @@ namespace ganjoor
                         else
                             ShowHome(false);
                     }
-                }
-
             }
         }
         protected override void OnScroll(ScrollEventArgs se)
@@ -877,8 +885,7 @@ namespace ganjoor
                     catsTop += DistanceBetweenLines;
                     lastDistanceFromRight += DistanceFromRightStep;
 
-
-                    List<GanjoorVerse> verses = _db.GetVerses(poem._ID);
+                    
 
                     using (DataTable firsVerse = _db.FindFirstVerseContaingPhrase(poem._ID, phrase))
                     {
@@ -1266,6 +1273,14 @@ namespace ganjoor
                 ShowPoem(poem, true);
             else
                 ShowRandomPoem();//not any random id exists, so repeat until finding a valid id
+        }
+        #endregion
+
+        #region Import Db
+        public void ImportDb(string fileName)
+        {
+            if (!_db.ImportDb(fileName))
+                MessageBox.Show(_db.LastError);
         }
         #endregion
     }

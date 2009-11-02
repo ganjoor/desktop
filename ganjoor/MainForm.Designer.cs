@@ -53,6 +53,8 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.btnOptions = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.btnZoomIn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnZoomOut = new System.Windows.Forms.ToolStripDropDownButton();
             this.lblDummy = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblCurrentPage = new System.Windows.Forms.ToolStripStatusLabel();
             this.tlbrSearch = new System.Windows.Forms.ToolStrip();
@@ -79,6 +81,9 @@
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPrintPreview = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuZoomIn = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuZoomOut = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSrch = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +99,8 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -328,6 +335,8 @@
             // 
             this.statusStrip.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnZoomIn,
+            this.btnZoomOut,
             this.lblDummy,
             this.lblCurrentPage});
             this.statusStrip.Location = new System.Drawing.Point(0, 320);
@@ -339,10 +348,32 @@
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "نوار وضعیت";
             // 
+            // btnZoomIn
+            // 
+            this.btnZoomIn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnZoomIn.Image = global::ganjoor.Properties.Resources.search_add;
+            this.btnZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnZoomIn.Name = "btnZoomIn";
+            this.btnZoomIn.ShowDropDownArrow = false;
+            this.btnZoomIn.Size = new System.Drawing.Size(20, 20);
+            this.btnZoomIn.Text = "بزرگتر";
+            this.btnZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
+            // 
+            // btnZoomOut
+            // 
+            this.btnZoomOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnZoomOut.Image = global::ganjoor.Properties.Resources.search_remove;
+            this.btnZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnZoomOut.Name = "btnZoomOut";
+            this.btnZoomOut.ShowDropDownArrow = false;
+            this.btnZoomOut.Size = new System.Drawing.Size(20, 20);
+            this.btnZoomOut.Text = "کوچکتر";
+            this.btnZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
+            // 
             // lblDummy
             // 
             this.lblDummy.Name = "lblDummy";
-            this.lblDummy.Size = new System.Drawing.Size(740, 17);
+            this.lblDummy.Size = new System.Drawing.Size(700, 17);
             this.lblDummy.Spring = true;
             // 
             // lblCurrentPage
@@ -504,8 +535,13 @@
             this.toolStripSeparator12,
             this.mnuPrint,
             this.mnuPrintPreview,
+            this.toolStripSeparator14,
+            this.mnuZoomIn,
+            this.mnuZoomOut,
             this.toolStripSeparator13,
-            this.mnuOptions});
+            this.mnuOptions,
+            this.toolStripSeparator15,
+            this.mnuAdd});
             this.mnuTools.Name = "mnuTools";
             this.mnuTools.Size = new System.Drawing.Size(49, 20);
             this.mnuTools.Text = "ابزارها";
@@ -515,7 +551,7 @@
             this.mnuViewInSite.Image = global::ganjoor.Properties.Resources.firefox_alt;
             this.mnuViewInSite.Name = "mnuViewInSite";
             this.mnuViewInSite.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.mnuViewInSite.Size = new System.Drawing.Size(267, 22);
+            this.mnuViewInSite.Size = new System.Drawing.Size(270, 22);
             this.mnuViewInSite.Text = "مرور شعر در گنجور تحت وب";
             this.mnuViewInSite.Click += new System.EventHandler(this.btnViewInSite_Click);
             // 
@@ -524,35 +560,35 @@
             this.mnuComments.Enabled = false;
             this.mnuComments.Image = global::ganjoor.Properties.Resources.comments;
             this.mnuComments.Name = "mnuComments";
-            this.mnuComments.Size = new System.Drawing.Size(267, 22);
+            this.mnuComments.Size = new System.Drawing.Size(270, 22);
             this.mnuComments.Text = "حاشیه‌های این شعر در گنجور تحت وب";
             this.mnuComments.Click += new System.EventHandler(this.btnComments_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(264, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(267, 6);
             // 
             // mnuCopy
             // 
             this.mnuCopy.Image = global::ganjoor.Properties.Resources.note_accept;
             this.mnuCopy.Name = "mnuCopy";
             this.mnuCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.mnuCopy.Size = new System.Drawing.Size(267, 22);
+            this.mnuCopy.Size = new System.Drawing.Size(270, 22);
             this.mnuCopy.Text = "کپی متن";
             this.mnuCopy.Click += new System.EventHandler(this.btnCopyText_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(264, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(267, 6);
             // 
             // mnuPrint
             // 
             this.mnuPrint.Image = global::ganjoor.Properties.Resources.printer;
             this.mnuPrint.Name = "mnuPrint";
             this.mnuPrint.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.mnuPrint.Size = new System.Drawing.Size(267, 22);
+            this.mnuPrint.Size = new System.Drawing.Size(270, 22);
             this.mnuPrint.Text = "چاپ";
             this.mnuPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
@@ -561,20 +597,43 @@
             this.mnuPrintPreview.Name = "mnuPrintPreview";
             this.mnuPrintPreview.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.P)));
-            this.mnuPrintPreview.Size = new System.Drawing.Size(267, 22);
+            this.mnuPrintPreview.Size = new System.Drawing.Size(270, 22);
             this.mnuPrintPreview.Text = "پیش‌نمایش چاپ";
             this.mnuPrintPreview.Click += new System.EventHandler(this.mnuPrintPreview_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(267, 6);
+            // 
+            // mnuZoomIn
+            // 
+            this.mnuZoomIn.Image = global::ganjoor.Properties.Resources.search_add;
+            this.mnuZoomIn.Name = "mnuZoomIn";
+            this.mnuZoomIn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
+            this.mnuZoomIn.Size = new System.Drawing.Size(270, 22);
+            this.mnuZoomIn.Text = "بزرگتر کردن قلم متن";
+            this.mnuZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
+            // 
+            // mnuZoomOut
+            // 
+            this.mnuZoomOut.Image = global::ganjoor.Properties.Resources.search_remove;
+            this.mnuZoomOut.Name = "mnuZoomOut";
+            this.mnuZoomOut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
+            this.mnuZoomOut.Size = new System.Drawing.Size(270, 22);
+            this.mnuZoomOut.Text = "کوچکتر کردن قلم متن";
+            this.mnuZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(264, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(267, 6);
             // 
             // mnuOptions
             // 
             this.mnuOptions.Image = global::ganjoor.Properties.Resources.process;
             this.mnuOptions.Name = "mnuOptions";
-            this.mnuOptions.Size = new System.Drawing.Size(267, 22);
+            this.mnuOptions.Size = new System.Drawing.Size(270, 22);
             this.mnuOptions.Text = "تنظیمات";
             this.mnuOptions.Click += new System.EventHandler(this.btnOptions_Click);
             // 
@@ -693,6 +752,18 @@
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(267, 6);
+            // 
+            // mnuAdd
+            // 
+            this.mnuAdd.Name = "mnuAdd";
+            this.mnuAdd.Size = new System.Drawing.Size(270, 22);
+            this.mnuAdd.Text = "اضافه کردن مجموعه اشعار جدید";
+            this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -793,6 +864,13 @@
         private System.Windows.Forms.ToolStripButton btnRandom;
         private System.Windows.Forms.ToolStripMenuItem mnuRandom;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripDropDownButton btnZoomIn;
+        private System.Windows.Forms.ToolStripDropDownButton btnZoomOut;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripMenuItem mnuZoomIn;
+        private System.Windows.Forms.ToolStripMenuItem mnuZoomOut;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.ToolStripMenuItem mnuAdd;
 
 
 

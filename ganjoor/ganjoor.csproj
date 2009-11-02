@@ -129,6 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\search_remove.png" />
+    <None Include="Resources\search_add.png" />
     <None Include="Resources\repeat.png" />
     <None Include="Resources\folder_down.png" />
     <None Include="Resources\dices_32.png" />

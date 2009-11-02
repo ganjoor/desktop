@@ -72,7 +72,10 @@
             this.btnBandLinkColor = new System.Windows.Forms.Button();
             this.chkScrollToFaved = new System.Windows.Forms.CheckBox();
             this.chkCenteredViewMode = new System.Windows.Forms.CheckBox();
+            this.numMaxFavs = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -392,7 +395,7 @@
             this.chkCheckForUpdate.Location = new System.Drawing.Point(15, 246);
             this.chkCheckForUpdate.Name = "chkCheckForUpdate";
             this.chkCheckForUpdate.Size = new System.Drawing.Size(312, 17);
-            this.chkCheckForUpdate.TabIndex = 39;
+            this.chkCheckForUpdate.TabIndex = 41;
             this.chkCheckForUpdate.Text = "در هنگام شروع برنامه برای یافتن ویرایش جدیدتر پرس و جو کن.";
             this.chkCheckForUpdate.UseVisualStyleBackColor = true;
             // 
@@ -425,7 +428,7 @@
             this.label5.Location = new System.Drawing.Point(15, 272);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(116, 13);
-            this.label5.TabIndex = 40;
+            this.label5.TabIndex = 42;
             this.label5.Text = "دامنۀ عملکرد دکمۀ فال:";
             // 
             // chkRandomOnlyHafez
@@ -435,7 +438,7 @@
             this.chkRandomOnlyHafez.Location = new System.Drawing.Point(137, 271);
             this.chkRandomOnlyHafez.Name = "chkRandomOnlyHafez";
             this.chkRandomOnlyHafez.Size = new System.Drawing.Size(104, 17);
-            this.chkRandomOnlyHafez.TabIndex = 41;
+            this.chkRandomOnlyHafez.TabIndex = 43;
             this.chkRandomOnlyHafez.TabStop = true;
             this.chkRandomOnlyHafez.Text = "فقط غزلیات حافظ";
             this.chkRandomOnlyHafez.UseVisualStyleBackColor = true;
@@ -447,7 +450,7 @@
             this.chkRandomAll.Location = new System.Drawing.Point(251, 272);
             this.chkRandomAll.Name = "chkRandomAll";
             this.chkRandomAll.Size = new System.Drawing.Size(76, 17);
-            this.chkRandomAll.TabIndex = 42;
+            this.chkRandomAll.TabIndex = 44;
             this.chkRandomAll.TabStop = true;
             this.chkRandomAll.Text = "همۀ اشعار";
             this.chkRandomAll.UseVisualStyleBackColor = true;
@@ -566,15 +569,55 @@
             this.chkCenteredViewMode.Location = new System.Drawing.Point(18, 297);
             this.chkCenteredViewMode.Name = "chkCenteredViewMode";
             this.chkCenteredViewMode.Size = new System.Drawing.Size(322, 17);
-            this.chkCenteredViewMode.TabIndex = 43;
+            this.chkCenteredViewMode.TabIndex = 45;
             this.chkCenteredViewMode.Text = "هر بیت را در یک خط نشان بده (نمایش ابیات به صورت وسط چین).";
             this.chkCenteredViewMode.UseVisualStyleBackColor = true;
+            // 
+            // numMaxFavs
+            // 
+            this.numMaxFavs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numMaxFavs.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numMaxFavs.Location = new System.Drawing.Point(535, 219);
+            this.numMaxFavs.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numMaxFavs.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numMaxFavs.Name = "numMaxFavs";
+            this.numMaxFavs.Size = new System.Drawing.Size(51, 21);
+            this.numMaxFavs.TabIndex = 40;
+            this.numMaxFavs.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(334, 221);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(195, 13);
+            this.label10.TabIndex = 39;
+            this.label10.Text = "حدکثر تعداد نشانه‌ها در صفحات نشانه‌ها:";
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 362);
+            this.Controls.Add(this.numMaxFavs);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.chkCenteredViewMode);
             this.Controls.Add(this.chkScrollToFaved);
             this.Controls.Add(this.label9);
@@ -631,6 +674,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "تنظیمات";
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -682,5 +726,7 @@
         private System.Windows.Forms.Button btnBandLinkColor;
         private System.Windows.Forms.CheckBox chkScrollToFaved;
         private System.Windows.Forms.CheckBox chkCenteredViewMode;
+        private System.Windows.Forms.NumericUpDown numMaxFavs;
+        private System.Windows.Forms.Label label10;
     }
 }
