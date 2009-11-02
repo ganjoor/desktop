@@ -45,6 +45,7 @@ namespace ganjoor
             chkCenteredViewMode.Checked = GanjoorViewMode.Centered == (GanjoorViewMode)Settings.Default.ViewMode;
             if (!(chkRandomOnlyHafez.Checked = Settings.Default.RandomOnlyHafez))
                 chkRandomAll.Checked = true;
+            numMaxFavs.Value = Settings.Default.FavItemsInPage;
         }
         private void btnOK_Click(object sender, EventArgs e)
         {
@@ -72,6 +73,7 @@ namespace ganjoor
             Settings.Default.BandLinkColor = btnBandLinkColor.BackColor;
             Settings.Default.ScrollToFavedVerse = chkScrollToFaved.Checked;
             Settings.Default.ViewMode = chkCenteredViewMode.Checked ? (int)GanjoorViewMode.Centered : (int)GanjoorViewMode.RightAligned;
+            Settings.Default.FavItemsInPage = (int)numMaxFavs.Value;
 
             Properties.Settings.Default.Save();
         }
