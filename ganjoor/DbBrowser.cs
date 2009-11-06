@@ -104,6 +104,10 @@ namespace ganjoor
             }
             return null;
         }
+        public int CompareCategoriesByName(GanjoorCat cat1, GanjoorCat cat2)
+        {
+            return cat1._Text.CompareTo(cat2._Text);
+        }
         public List<GanjoorCat> GetSubCategories(int CatID)
         {
             List<GanjoorCat> lst = new List<GanjoorCat>();
@@ -111,7 +115,7 @@ namespace ganjoor
             {
                 using (DataTable tbl = new DataTable())
                 {
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poet_id, text, url, ID FROM cat WHERE parent_id = " + CatID.ToString(), _con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poet_id, text, url, ID FROM cat WHERE parent_id = " + CatID.ToString() , _con))
                     {
                         da.Fill(tbl);
                         foreach (DataRow row in tbl.Rows)
@@ -122,6 +126,8 @@ namespace ganjoor
                                 CatID,
                                 row.ItemArray[2].ToString().ToString()
                                 ));
+                        if (CatID == 0)//home
+                            lst.Sort(CompareCategoriesByName);
                     }
                 }
             }
@@ -594,47 +600,50 @@ namespace ganjoor
                 #region version table
                 DataRow[] verTable = tbl.Select("Table_Name='gver'");
 
-                if (verTable.Length == 0 && File.Exists(Path.GetDirectoryName(Application.ExecutablePath)+"\\vg.s3db"))
+                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\vg.s3db"))
                 {
-                    MessageBox.Show("پایگاه داده‌های برنامه قدیمی است. فرایند بروزرسانی آن ممکن است تا چند دقیقه طول بکشد. لطفاً صبور باشید.", "لطفاً صبور باشید", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                    //Version table does not exist, so our verse table
-                    //position field values are incorrect,
-                    //correct it using vg.s3db file and then create version table
-
-                    SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                    conString.DataSource = "vg.s3db";
-                    conString.DefaultTimeout = 5000;
-                    conString.FailIfMissing = true;
-                    conString.ReadOnly = true;
-                    using (SQLiteConnection vgCon = new SQLiteConnection(conString.ConnectionString))
+                    if (verTable.Length == 0)
                     {
-                        vgCon.Open();
-                        using (SQLiteCommand cmd = new SQLiteCommand(_con))
+
+                        //Version table does not exist, so our verse table
+                        //position field values are incorrect,
+                        //correct it using vg.s3db file and then create version table
+
+                        SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
+                        conString.DataSource = "vg.s3db";
+                        conString.DefaultTimeout = 5000;
+                        conString.FailIfMissing = true;
+                        conString.ReadOnly = true;
+                        using (SQLiteConnection vgCon = new SQLiteConnection(conString.ConnectionString))
                         {
-                            cmd.CommandText = "BEGIN TRANSACTION;";
-                            cmd.ExecuteNonQuery();
-                            using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, vorder, position FROM verse", vgCon))
+                            vgCon.Open();
+                            using (SQLiteCommand cmd = new SQLiteCommand(_con))
                             {
-                                using (DataTable tblVerse = new DataTable())
+                                cmd.CommandText = "BEGIN TRANSACTION;";
+                                cmd.ExecuteNonQuery();
+                                using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, vorder, position FROM verse", vgCon))
                                 {
-                                    da.Fill(tblVerse);
-                                    int poemID = 0;
-                                    int vOrder = 1;
-                                    int position = 2;
-                                    foreach (DataRow row in tblVerse.Rows)
+                                    using (DataTable tblVerse = new DataTable())
                                     {
-                                        cmd.CommandText = "UPDATE verse SET position=" + row.ItemArray[position].ToString() + " WHERE poem_id = " + row.ItemArray[poemID].ToString() + " AND vorder=" + row.ItemArray[vOrder].ToString() + ";";
-                                        cmd.ExecuteNonQuery();
+                                        da.Fill(tblVerse);
+                                        int poemID = 0;
+                                        int vOrder = 1;
+                                        int position = 2;
+                                        foreach (DataRow row in tblVerse.Rows)
+                                        {
+                                            cmd.CommandText = "UPDATE verse SET position=" + row.ItemArray[position].ToString() + " WHERE poem_id = " + row.ItemArray[poemID].ToString() + " AND vorder=" + row.ItemArray[vOrder].ToString() + ";";
+                                            cmd.ExecuteNonQuery();
+                                        }
                                     }
                                 }
+                                cmd.CommandText = "CREATE TABLE gver (curver INTEGER);";
+                                cmd.ExecuteNonQuery();
+                                cmd.CommandText = "INSERT INTO gver (curver) VALUES (" + DatabaseVersion.ToString() + ");";
+                                cmd.ExecuteNonQuery();
+                                cmd.CommandText = "COMMIT;";
+                                cmd.ExecuteNonQuery();
                             }
-                            cmd.CommandText = "CREATE TABLE gver (curver INTEGER);";
-                            cmd.ExecuteNonQuery();
-                            cmd.CommandText = "INSERT INTO gver (curver) VALUES (" + DatabaseVersion.ToString() + ");";
-                            cmd.ExecuteNonQuery();
-                            cmd.CommandText = "COMMIT;";
-                            cmd.ExecuteNonQuery();
-                        }
+                        }                        
                     }
                     File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\vg.s3db");
                 }
@@ -748,6 +757,100 @@ namespace ganjoor
             newConnection.Dispose();
             
             return true;
+        }
+        #endregion
+
+        #region Import/Export Favs
+        public bool ExportFavs(string fileName)
+        {
+            SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
+            conString.DataSource = fileName;
+            conString.DefaultTimeout = 5000;
+            conString.FailIfMissing = false;
+            conString.ReadOnly = false;
+            using (SQLiteConnection connection = new SQLiteConnection(conString.ConnectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand cmd = new SQLiteCommand(connection))
+                {
+                    cmd.CommandText = "CREATE TABLE fav (poem_id INTEGER, verse_id INTEGER, pos INTEGER);";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "BEGIN TRANSACTION;";
+                    cmd.ExecuteNonQuery();
+
+                    using (DataTable tbl = new DataTable())
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, verse_id, pos FROM fav", _con))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            cmd.CommandText = String.Format(
+                                "INSERT INTO fav (poem_id, verse_id, pos) VALUES ({0}, {1}, {2});",
+                                row.ItemArray[0], row.ItemArray[1], row.ItemArray[2]
+                                );
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    cmd.CommandText = "COMMIT;";
+                    cmd.ExecuteNonQuery();
+                }
+
+
+            }
+            return true;
+        }
+        public int ImportMixFavs(string fileName, out int dupFavs)
+        {
+            int ImportedFavs = 0;
+            dupFavs = 0;
+            SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
+            conString.DataSource = fileName;
+            conString.DefaultTimeout = 5000;
+            conString.FailIfMissing = true;
+            conString.ReadOnly = true;
+            using (SQLiteConnection connection = new SQLiteConnection(conString.ConnectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    cmd.CommandText = "BEGIN TRANSACTION;";
+                    cmd.ExecuteNonQuery();
+
+                    using (DataTable tbl = new DataTable())
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, verse_id, pos FROM fav", connection))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            int poemID = Convert.ToInt32(row.ItemArray[0]);
+                            int verseID = Convert.ToInt32(row.ItemArray[1]);
+                            int pos = Convert.ToInt32(row.ItemArray[2]);
+                            if (!this.IsVerseFaved(poemID, verseID))
+                            {
+                                cmd.CommandText = String.Format(
+                                    "INSERT INTO fav (poem_id, verse_id, pos) VALUES ({0}, {1}, {2});",
+                                    poemID, verseID, pos
+                                    );
+                                cmd.ExecuteNonQuery();
+                                ImportedFavs++;
+                            }
+                            else
+                                dupFavs++;
+                        }
+                    }
+
+                    cmd.CommandText = "COMMIT;";
+                    cmd.ExecuteNonQuery();
+                }
+
+
+            }
+
+            return ImportedFavs;
         }
         #endregion
 

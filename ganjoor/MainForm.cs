@@ -360,6 +360,7 @@ namespace ganjoor
                             string updateUrl = string.Empty;
                             XmlNode versionNode = doc.GetElementsByTagName("Version")[0];
                             foreach (XmlNode Node in versionNode.ChildNodes)
+                            {
                                 if (Node.Name == "Major")
                                     VersionMajor = Convert.ToInt32(Node.InnerText);
                                 else
@@ -367,7 +368,15 @@ namespace ganjoor
                                         VersionMinor = Convert.ToInt32(Node.InnerText);
                                     else
                                         if (Node.Name == "UpdateUrl")
-                                            updateUrl = Node.InnerText;
+                                        {
+                                            if (string.IsNullOrEmpty(updateUrl))
+                                                updateUrl = Node.InnerText;
+                                        }
+                                        else 
+                                            if(Node.Name == "UpdateUrl162Plus")
+                                                updateUrl = Node.InnerText;
+                                                
+                            }
                             if (VersionMajor == MyVersionMajor && VersionMinor == MyVersionMinor)
                             {
                                 if (Prompt)
@@ -425,6 +434,28 @@ namespace ganjoor
                 dlg.FileName = Path.GetDirectoryName(Application.ExecutablePath) + "\\new.s3db";
                 if(dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ImportDb(dlg.FileName);
+            }
+        }
+
+        private void mnuExportFavs_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "*.s3db|*.s3db";
+                dlg.FileName = "export.s3db";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                    ganjoorView.ExportFavs(dlg.FileName);
+            }
+        }
+
+        private void mnuImportFavs_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "*.s3db|*.s3db";
+                dlg.FileName = "export.s3db";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                    ganjoorView.ImportMixFavs(dlg.FileName);
             }
         }   
     }

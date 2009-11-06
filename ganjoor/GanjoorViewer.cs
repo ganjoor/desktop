@@ -1276,11 +1276,24 @@ namespace ganjoor
         }
         #endregion
 
-        #region Import Db
+        #region Import Db / Import+Export Favs
         public void ImportDb(string fileName)
         {
-            if (!_db.ImportDb(fileName))
+            if (_db.ImportDb(fileName))
+                ShowHome(true);
+            else
                 MessageBox.Show(_db.LastError);
+        }
+        public void ExportFavs(string fileName)
+        {
+            _db.ExportFavs(fileName);
+        }
+        public void ImportMixFavs(string fileName)
+        {
+            int ignoredFavs;
+            int importedFavs = _db.ImportMixFavs(fileName, out ignoredFavs);
+            MessageBox.Show(String.Format("{0} نشانه اضافه شد و از اضافه کردن {1} به دلیل تکراری بودن صرف نظر شد.", importedFavs, ignoredFavs), "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            ShowFavs(0, Settings.Default.FavItemsInPage);
         }
         #endregion
     }
