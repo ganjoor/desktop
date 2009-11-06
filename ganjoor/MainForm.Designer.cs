@@ -86,6 +86,8 @@
             this.mnuZoomOut = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSrch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHighlight = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSearch = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,9 +100,10 @@
             this.btnCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuExportFavs = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuImportFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -637,6 +640,18 @@
             this.mnuOptions.Text = "تنظیمات";
             this.mnuOptions.Click += new System.EventHandler(this.btnOptions_Click);
             // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(267, 6);
+            // 
+            // mnuAdd
+            // 
+            this.mnuAdd.Name = "mnuAdd";
+            this.mnuAdd.Size = new System.Drawing.Size(270, 22);
+            this.mnuAdd.Text = "اضافه کردن مجموعه اشعار جدید";
+            this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
+            // 
             // mnuSrch
             // 
             this.mnuSrch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -669,6 +684,9 @@
             this.mnuFavs.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFavUnFav,
             this.mnuShowFavs,
+            this.toolStripSeparator16,
+            this.mnuExportFavs,
+            this.mnuImportFavs,
             this.toolStripSeparator3,
             this.mnuShowBeytNums});
             this.mnuFavs.Name = "mnuFavs";
@@ -736,6 +754,25 @@
             this.mnuAbout.Text = "دربارۀ این برنامه";
             this.mnuAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(162, 6);
+            // 
+            // mnuExportFavs
+            // 
+            this.mnuExportFavs.Name = "mnuExportFavs";
+            this.mnuExportFavs.Size = new System.Drawing.Size(165, 22);
+            this.mnuExportFavs.Text = "برون‌ریزی نشانه‌ها";
+            this.mnuExportFavs.Click += new System.EventHandler(this.mnuExportFavs_Click);
+            // 
+            // mnuImportFavs
+            // 
+            this.mnuImportFavs.Name = "mnuImportFavs";
+            this.mnuImportFavs.Size = new System.Drawing.Size(165, 22);
+            this.mnuImportFavs.Text = "دورن‌ریزی نشانه‌ها";
+            this.mnuImportFavs.Click += new System.EventHandler(this.mnuImportFavs_Click);
+            // 
             // ganjoorView
             // 
             this.ganjoorView.AutoScroll = true;
@@ -751,18 +788,6 @@
             this.ganjoorView.Size = new System.Drawing.Size(784, 243);
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
-            // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(267, 6);
-            // 
-            // mnuAdd
-            // 
-            this.mnuAdd.Name = "mnuAdd";
-            this.mnuAdd.Size = new System.Drawing.Size(270, 22);
-            this.mnuAdd.Text = "اضافه کردن مجموعه اشعار جدید";
-            this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
             // 
             // MainForm
             // 
@@ -871,6 +896,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuZoomOut;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem mnuAdd;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
+        private System.Windows.Forms.ToolStripMenuItem mnuExportFavs;
+        private System.Windows.Forms.ToolStripMenuItem mnuImportFavs;
 
 
 

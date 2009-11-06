@@ -37,5 +37,10 @@ namespace ganjoor
         {
             System.Diagnostics.Process.Start("http://www.gozir.com/contact/");            
         }
+
+        private void lnkSources_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://ganjoor.net/sources/");                        
+        }
     }
 }
