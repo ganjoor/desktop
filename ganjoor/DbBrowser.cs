@@ -80,8 +80,13 @@ namespace ganjoor
                         }
                     }
                 }
+                poets.Sort(ComparePoetsByName);
                 return poets;
             }
+        }
+        private static int ComparePoetsByName(GanjoorPoet poet1, GanjoorPoet poet2)
+        {
+            return poet1._Name.CompareTo(poet2._Name);
         }
         public GanjoorCat GetCategory(int CatID)
         {
@@ -104,7 +109,7 @@ namespace ganjoor
             }
             return null;
         }
-        public int CompareCategoriesByName(GanjoorCat cat1, GanjoorCat cat2)
+        private static int CompareCategoriesByName(GanjoorCat cat1, GanjoorCat cat2)
         {
             return cat1._Text.CompareTo(cat2._Text);
         }
