@@ -94,15 +94,15 @@
             this.mnuFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFavUnFav = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuShowFavs = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuExportFavs = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuImportFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuShowBeytNums = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuExportFavs = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuImportFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -709,6 +709,25 @@
             this.mnuShowFavs.Text = "فهرست نشانه‌ها";
             this.mnuShowFavs.Click += new System.EventHandler(this.btnFavs_Click);
             // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(162, 6);
+            // 
+            // mnuExportFavs
+            // 
+            this.mnuExportFavs.Name = "mnuExportFavs";
+            this.mnuExportFavs.Size = new System.Drawing.Size(165, 22);
+            this.mnuExportFavs.Text = "برون‌ریزی نشانه‌ها";
+            this.mnuExportFavs.Click += new System.EventHandler(this.mnuExportFavs_Click);
+            // 
+            // mnuImportFavs
+            // 
+            this.mnuImportFavs.Name = "mnuImportFavs";
+            this.mnuImportFavs.Size = new System.Drawing.Size(165, 22);
+            this.mnuImportFavs.Text = "درون‌ریزی نشانه‌ها";
+            this.mnuImportFavs.Click += new System.EventHandler(this.mnuImportFavs_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -753,25 +772,6 @@
             this.mnuAbout.Size = new System.Drawing.Size(224, 22);
             this.mnuAbout.Text = "دربارۀ این برنامه";
             this.mnuAbout.Click += new System.EventHandler(this.btnAbout_Click);
-            // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(162, 6);
-            // 
-            // mnuExportFavs
-            // 
-            this.mnuExportFavs.Name = "mnuExportFavs";
-            this.mnuExportFavs.Size = new System.Drawing.Size(165, 22);
-            this.mnuExportFavs.Text = "برون‌ریزی نشانه‌ها";
-            this.mnuExportFavs.Click += new System.EventHandler(this.mnuExportFavs_Click);
-            // 
-            // mnuImportFavs
-            // 
-            this.mnuImportFavs.Name = "mnuImportFavs";
-            this.mnuImportFavs.Size = new System.Drawing.Size(165, 22);
-            this.mnuImportFavs.Text = "دورن‌ریزی نشانه‌ها";
-            this.mnuImportFavs.Click += new System.EventHandler(this.mnuImportFavs_Click);
             // 
             // ganjoorView
             // 
