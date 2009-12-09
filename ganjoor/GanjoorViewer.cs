@@ -977,7 +977,7 @@ namespace ganjoor
         }
         public const string OnlyScrollString = "$545#4*77";
         public int HighlightText(string phrase)
-        {            
+        {  
             if (_iCurCat != 0)
             {
                 if (_iCurPoem != 0)
@@ -992,7 +992,6 @@ namespace ganjoor
                             {
                                 if ((ctl.Tag is GanjoorVerse) && _db.IsVerseFaved((ctl.Tag as GanjoorVerse)._PoemID, (ctl.Tag as GanjoorVerse)._Order))
                                 {
-                                    this.AutoScrollPosition = new Point(0, 0);//reset?!
                                     this.AutoScrollPosition = ctl.Location;
                                     return 0;
                                 }
@@ -1006,9 +1005,8 @@ namespace ganjoor
                                     if (index != -1)
                                     {
                                         if (!scrolled)
-                                        {
-                                            this.AutoScrollPosition = new Point(0, 0);//reset?!
-                                            this.AutoScrollPosition = ctl.Location;
+                                        {                                            
+                                            this.AutoScrollPosition = new Point(-this.AutoScrollPosition.X+ctl.Left,  -this.AutoScrollPosition.Y+ ctl.Top);
                                             scrolled = true;
                                         }
                                         count++;
@@ -1020,6 +1018,8 @@ namespace ganjoor
                                 }
                             }
                         }
+                    if (count == 0)
+                        this.AutoScrollPosition = new Point();
                     this.Invalidate();
                     
                     return count;

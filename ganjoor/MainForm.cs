@@ -70,7 +70,7 @@ namespace ganjoor
         }
 
         private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string HighlightedText, object preItem, object nextItem)
-        {            
+        {
             lblCurrentPage.Text = PageString;
             if (HasComments)
             {
@@ -124,6 +124,7 @@ namespace ganjoor
                 {
                     processTextChanged = false;
                     txtHighlight.Text = HighlightedText;
+                    btnHighlight.Checked = highlight;
                     processTextChanged = true;
                     lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", ganjoorView.HighlightText(HighlightedText));
                 }
@@ -131,16 +132,17 @@ namespace ganjoor
                 {
                     processTextChanged = false;
                     txtHighlight.Text = "";
+                    btnHighlight.Checked = highlight;
                     processTextChanged = true;
                     ganjoorView.HighlightText(HighlightedText);
                     highlight = false;
                 }
-            }
-            btnHighlight.Checked = highlight;
+            }            
             lblFoundItemCount.Visible = highlight;
 
 
-            ganjoorView.Focus();
+            txtHighlight.Focus();
+           // ganjoorView.Focus();
 
             
         }
@@ -457,6 +459,8 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ImportMixFavs(dlg.FileName);
             }
-        }   
+        }
+
+
     }
 }
