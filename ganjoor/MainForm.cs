@@ -132,17 +132,18 @@ namespace ganjoor
                 {
                     processTextChanged = false;
                     txtHighlight.Text = "";
-                    btnHighlight.Checked = highlight;
+                    btnHighlight.Checked = false;
                     processTextChanged = true;
                     ganjoorView.HighlightText(HighlightedText);
                     highlight = false;
                 }
             }            
+            else
+                btnHighlight.Checked = false;
             lblFoundItemCount.Visible = highlight;
 
 
             txtHighlight.Focus();
-           // ganjoorView.Focus();
 
             
         }

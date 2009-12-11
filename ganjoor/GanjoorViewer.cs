@@ -19,6 +19,9 @@ namespace ganjoor
         {
             InitializeComponent();
 
+            //scroll using arrow keys:
+            this.PreviewKeyDown += new PreviewKeyDownEventHandler(GanjoorViewer_PreviewKeyDown);
+
             ApplyUISettings();
             
 
@@ -135,7 +138,7 @@ namespace ganjoor
                 lastDistanceFromRight += 2 * DistanceFromRightStep;
             for (int i = 0; i < subcats.Count; i++)
             {
-                LinkLabel lblCat = new LinkLabel();                
+                LinkLabel lblCat = new LinkLabel();
                 lblCat.Tag = subcats[i];
                 lblCat.AutoSize = true;
                 lblCat.Text = subcats[i]._Text;
@@ -174,6 +177,7 @@ namespace ganjoor
             }
 
             //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
+
             Label lblDummy = new Label();
             lblDummy.Text = " ";
             int poemsCount = category._StartPoem + Settings.Default.MaxPoemsInList < poems.Count ? Settings.Default.MaxPoemsInList : poems.Count - category._StartPoem;
@@ -184,15 +188,19 @@ namespace ganjoor
 
             //کلک راست به چپ!
             foreach (Control ctl in this.Controls)
+            {
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
-
-
+            }
+            AssignPreviewKeyDownEvenetToControls();
             this.ResumeLayout();
             Cursor = Cursors.Default;
             _strLastPhrase = null;
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
         }
+
+
+
         private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat,bool keepTrack)
         {
             if(keepTrack)
@@ -472,7 +480,8 @@ namespace ganjoor
             //کلک راست به چپ!
             foreach (Control ctl in this.Controls)
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
-            
+
+            AssignPreviewKeyDownEvenetToControls();
             this.ResumeLayout();
 
             Cursor = Cursors.Default;
@@ -960,7 +969,7 @@ namespace ganjoor
             foreach (Control ctl in this.Controls)
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
 
-
+            AssignPreviewKeyDownEvenetToControls();
             this.ResumeLayout();
             Cursor = Cursors.Default;
             _iCurPoem = 0;
@@ -1187,7 +1196,7 @@ namespace ganjoor
             foreach (Control ctl in this.Controls)
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
 
-
+            AssignPreviewKeyDownEvenetToControls();
             this.ResumeLayout();
             Cursor = Cursors.Default;
 
@@ -1296,5 +1305,56 @@ namespace ganjoor
             ShowFavs(0, Settings.Default.FavItemsInPage);
         }
         #endregion
+
+        #region Scroll Using Arrow Kys
+        private void GanjoorViewer_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            bool isInputKey = true;
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                    if (VerticalScroll.Value + VerticalScroll.SmallChange <= VerticalScroll.Maximum)
+                        VerticalScroll.Value += VerticalScroll.SmallChange;
+                    break;
+                case Keys.Up:
+                    if (VerticalScroll.Value - VerticalScroll.SmallChange >= VerticalScroll.Minimum)
+                        VerticalScroll.Value -= VerticalScroll.SmallChange;
+                    break;                    
+                case Keys.PageDown:                    
+                    for(int i=0; i<2; i++)//!?
+                    if (VerticalScroll.Value + VerticalScroll.LargeChange <= VerticalScroll.Maximum)                        
+                        VerticalScroll.Value += VerticalScroll.LargeChange;
+                    else
+                        VerticalScroll.Value = VerticalScroll.Maximum;
+                    break;
+                case Keys.PageUp:
+                    for (int i = 0; i < 2; i++)//!?
+                    if (VerticalScroll.Value - VerticalScroll.LargeChange >= VerticalScroll.Minimum)
+                        VerticalScroll.Value -= VerticalScroll.LargeChange;
+                    else
+                        VerticalScroll.Value = VerticalScroll.Minimum;
+                    break;                
+                case Keys.Right:
+                    if (HorizontalScroll.Value + HorizontalScroll.SmallChange <= HorizontalScroll.Maximum)
+                        HorizontalScroll.Value += HorizontalScroll.SmallChange;
+                    break;
+                case Keys.Left:
+                    if (HorizontalScroll.Value - HorizontalScroll.SmallChange >= HorizontalScroll.Minimum)
+                        HorizontalScroll.Value -= HorizontalScroll.SmallChange;
+                    break;
+                default:
+                    isInputKey = false;
+                    break;
+            }
+            if (isInputKey)
+                e.IsInputKey = true;
+        }
+        private void AssignPreviewKeyDownEvenetToControls()
+        {
+            foreach (Control ctl in this.Controls)
+                ctl.PreviewKeyDown += GanjoorViewer_PreviewKeyDown;
+        }
+        #endregion
+
     }
 }
