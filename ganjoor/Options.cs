@@ -46,11 +46,12 @@ namespace ganjoor
             if (!(chkRandomOnlyHafez.Checked = Settings.Default.RandomOnlyHafez))
                 chkRandomAll.Checked = true;
             numMaxFavs.Value = Settings.Default.FavItemsInPage;
+            trackBarScrollbarsSpeed.Value = Settings.Default.ScrollingSpeed;
         }
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ViewFont = ViewFont;
-            Properties.Settings.Default.HighlightKeyword = chkHighlightSearchResults.Checked;
+            Settings.Default.ViewFont = ViewFont;
+            Settings.Default.HighlightKeyword = chkHighlightSearchResults.Checked;
             Settings.Default.BrowseButtonVisible = chkBrowseButton.Checked;
             Settings.Default.CommentsButtonVisible = chkCommentsButton.Checked;
             Settings.Default.CopyButtonVisible = chkCopyButton.Checked;
@@ -74,6 +75,7 @@ namespace ganjoor
             Settings.Default.ScrollToFavedVerse = chkScrollToFaved.Checked;
             Settings.Default.ViewMode = chkCenteredViewMode.Checked ? (int)GanjoorViewMode.Centered : (int)GanjoorViewMode.RightAligned;
             Settings.Default.FavItemsInPage = (int)numMaxFavs.Value;
+            Settings.Default.ScrollingSpeed = trackBarScrollbarsSpeed.Value;
 
             Properties.Settings.Default.Save();
         }

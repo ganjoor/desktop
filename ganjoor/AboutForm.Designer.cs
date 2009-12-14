@@ -40,7 +40,8 @@
             // lblAppTitle
             // 
             this.lblAppTitle.AutoSize = true;
-            this.lblAppTitle.Location = new System.Drawing.Point(73, 15);
+            this.lblAppTitle.Location = new System.Drawing.Point(51, 12);
+            this.lblAppTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAppTitle.Name = "lblAppTitle";
             this.lblAppTitle.Size = new System.Drawing.Size(69, 13);
             this.lblAppTitle.TabIndex = 1;
@@ -49,7 +50,8 @@
             // lblAppVersion
             // 
             this.lblAppVersion.AutoSize = true;
-            this.lblAppVersion.Location = new System.Drawing.Point(78, 38);
+            this.lblAppVersion.Location = new System.Drawing.Point(57, 30);
+            this.lblAppVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAppVersion.Name = "lblAppVersion";
             this.lblAppVersion.Size = new System.Drawing.Size(59, 13);
             this.lblAppVersion.TabIndex = 2;
@@ -58,7 +60,8 @@
             // lnkGanjoorOnSFNet
             // 
             this.lnkGanjoorOnSFNet.AutoSize = true;
-            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(44, 63);
+            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(23, 50);
+            this.lnkGanjoorOnSFNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkGanjoorOnSFNet.Name = "lnkGanjoorOnSFNet";
             this.lnkGanjoorOnSFNet.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lnkGanjoorOnSFNet.Size = new System.Drawing.Size(126, 13);
@@ -70,9 +73,10 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(67, 161);
+            this.btnOK.Location = new System.Drawing.Point(56, 129);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(60, 22);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "باشد";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -80,7 +84,8 @@
             // lnkIcons
             // 
             this.lnkIcons.AutoSize = true;
-            this.lnkIcons.Location = new System.Drawing.Point(58, 109);
+            this.lnkIcons.Location = new System.Drawing.Point(37, 87);
+            this.lnkIcons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIcons.Name = "lnkIcons";
             this.lnkIcons.Size = new System.Drawing.Size(98, 13);
             this.lnkIcons.TabIndex = 6;
@@ -91,7 +96,8 @@
             // lnkHamidReza
             // 
             this.lnkHamidReza.AutoSize = true;
-            this.lnkHamidReza.Location = new System.Drawing.Point(64, 86);
+            this.lnkHamidReza.Location = new System.Drawing.Point(43, 69);
+            this.lnkHamidReza.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkHamidReza.Name = "lnkHamidReza";
             this.lnkHamidReza.Size = new System.Drawing.Size(86, 13);
             this.lnkHamidReza.TabIndex = 5;
@@ -102,7 +108,8 @@
             // lnkSources
             // 
             this.lnkSources.AutoSize = true;
-            this.lnkSources.Location = new System.Drawing.Point(47, 136);
+            this.lnkSources.Location = new System.Drawing.Point(26, 109);
+            this.lnkSources.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkSources.Name = "lnkSources";
             this.lnkSources.Size = new System.Drawing.Size(120, 13);
             this.lnkSources.TabIndex = 7;
@@ -113,10 +120,10 @@
             // AboutForm
             // 
             this.AcceptButton = this.btnOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(215, 193);
+            this.ClientSize = new System.Drawing.Size(172, 162);
             this.Controls.Add(this.lnkSources);
             this.Controls.Add(this.lnkHamidReza);
             this.Controls.Add(this.lnkIcons);
@@ -126,6 +133,7 @@
             this.Controls.Add(this.lblAppTitle);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";

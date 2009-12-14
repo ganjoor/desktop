@@ -74,8 +74,11 @@
             this.chkCenteredViewMode = new System.Windows.Forms.CheckBox();
             this.numMaxFavs = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.trackBarScrollbarsSpeed = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollbarsSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -94,7 +97,7 @@
             this.lblFont.Location = new System.Drawing.Point(49, 20);
             this.lblFont.Name = "lblFont";
             this.lblFont.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblFont.Size = new System.Drawing.Size(360, 13);
+            this.lblFont.Size = new System.Drawing.Size(360, 14);
             this.lblFont.TabIndex = 4;
             this.lblFont.Text = "label2";
             this.lblFont.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -114,7 +117,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(15, 330);
+            this.btnOK.Location = new System.Drawing.Point(15, 368);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 0;
@@ -126,7 +129,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(96, 330);
+            this.btnCancel.Location = new System.Drawing.Point(96, 368);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -192,7 +195,7 @@
             // 
             this.chkPrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkPrintButton.AutoSize = true;
-            this.chkPrintButton.Location = new System.Drawing.Point(449, 191);
+            this.chkPrintButton.Location = new System.Drawing.Point(448, 191);
             this.chkPrintButton.Name = "chkPrintButton";
             this.chkPrintButton.Size = new System.Drawing.Size(45, 17);
             this.chkPrintButton.TabIndex = 35;
@@ -252,7 +255,7 @@
             // 
             this.chkGradiantBk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkGradiantBk.AutoSize = true;
-            this.chkGradiantBk.Location = new System.Drawing.Point(15, 48);
+            this.chkGradiantBk.Location = new System.Drawing.Point(16, 48);
             this.chkGradiantBk.Name = "chkGradiantBk";
             this.chkGradiantBk.Size = new System.Drawing.Size(102, 17);
             this.chkGradiantBk.TabIndex = 6;
@@ -335,7 +338,8 @@
             // 
             // lblImagePath
             // 
-            this.lblImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblImagePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblImagePath.Location = new System.Drawing.Point(79, 103);
             this.lblImagePath.Name = "lblImagePath";
@@ -380,7 +384,7 @@
             // btnDefault
             // 
             this.btnDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDefault.Location = new System.Drawing.Point(430, 328);
+            this.btnDefault.Location = new System.Drawing.Point(430, 366);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(156, 23);
             this.btnDefault.TabIndex = 2;
@@ -403,7 +407,7 @@
             // 
             this.chkHomeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkHomeButton.AutoSize = true;
-            this.chkHomeButton.Location = new System.Drawing.Point(154, 191);
+            this.chkHomeButton.Location = new System.Drawing.Point(153, 191);
             this.chkHomeButton.Name = "chkHomeButton";
             this.chkHomeButton.Size = new System.Drawing.Size(45, 17);
             this.chkHomeButton.TabIndex = 30;
@@ -447,7 +451,7 @@
             // 
             this.chkRandomAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkRandomAll.AutoSize = true;
-            this.chkRandomAll.Location = new System.Drawing.Point(251, 272);
+            this.chkRandomAll.Location = new System.Drawing.Point(252, 272);
             this.chkRandomAll.Name = "chkRandomAll";
             this.chkRandomAll.Size = new System.Drawing.Size(76, 17);
             this.chkRandomAll.TabIndex = 44;
@@ -554,7 +558,7 @@
             // 
             this.chkScrollToFaved.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkScrollToFaved.AutoSize = true;
-            this.chkScrollToFaved.Location = new System.Drawing.Point(15, 161);
+            this.chkScrollToFaved.Location = new System.Drawing.Point(16, 161);
             this.chkScrollToFaved.Name = "chkScrollToFaved";
             this.chkScrollToFaved.Size = new System.Drawing.Size(467, 17);
             this.chkScrollToFaved.TabIndex = 28;
@@ -611,11 +615,36 @@
             this.label10.TabIndex = 39;
             this.label10.Text = "حدکثر تعداد نشانه‌ها در صفحات نشانه‌ها:";
             // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(15, 326);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(259, 13);
+            this.label11.TabIndex = 46;
+            this.label11.Text = "سرعت جابجایی نوارهای لغزان با کمک کلیدهای جهتی:";
+            // 
+            // trackBarScrollbarsSpeed
+            // 
+            this.trackBarScrollbarsSpeed.Location = new System.Drawing.Point(284, 320);
+            this.trackBarScrollbarsSpeed.Maximum = 15;
+            this.trackBarScrollbarsSpeed.Minimum = 1;
+            this.trackBarScrollbarsSpeed.Name = "trackBarScrollbarsSpeed";
+            this.trackBarScrollbarsSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trackBarScrollbarsSpeed.Size = new System.Drawing.Size(307, 45);
+            this.trackBarScrollbarsSpeed.TabIndex = 47;
+            this.trackBarScrollbarsSpeed.Value = 1;
+            // 
             // Options
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(603, 362);
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(603, 401);
+            this.Controls.Add(this.trackBarScrollbarsSpeed);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.numMaxFavs);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.chkCenteredViewMode);
@@ -675,6 +704,7 @@
             this.Text = "تنظیمات";
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollbarsSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -728,5 +758,7 @@
         private System.Windows.Forms.CheckBox chkCenteredViewMode;
         private System.Windows.Forms.NumericUpDown numMaxFavs;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TrackBar trackBarScrollbarsSpeed;
     }
 }
