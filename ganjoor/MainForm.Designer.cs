@@ -497,7 +497,7 @@
             // 
             this.mnuHistoryBack.Image = global::ganjoor.Properties.Resources.repeat;
             this.mnuHistoryBack.Name = "mnuHistoryBack";
-            this.mnuHistoryBack.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Left)));
+            this.mnuHistoryBack.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Right)));
             this.mnuHistoryBack.Size = new System.Drawing.Size(180, 22);
             this.mnuHistoryBack.Text = "برگشت";
             this.mnuHistoryBack.Click += new System.EventHandler(this.btnHistoryBack_Click);
@@ -511,6 +511,7 @@
             // 
             this.mnuRandom.Image = global::ganjoor.Properties.Resources.dices_32;
             this.mnuRandom.Name = "mnuRandom";
+            this.mnuRandom.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.mnuRandom.Size = new System.Drawing.Size(180, 22);
             this.mnuRandom.Text = "فال";
             this.mnuRandom.Click += new System.EventHandler(this.btnRandom_Click);
@@ -636,6 +637,7 @@
             // 
             this.mnuOptions.Image = global::ganjoor.Properties.Resources.process;
             this.mnuOptions.Name = "mnuOptions";
+            this.mnuOptions.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
             this.mnuOptions.Size = new System.Drawing.Size(270, 22);
             this.mnuOptions.Text = "تنظیمات";
             this.mnuOptions.Click += new System.EventHandler(this.btnOptions_Click);
@@ -697,7 +699,9 @@
             // 
             this.mnuFavUnFav.Image = global::ganjoor.Properties.Resources.favorite_add;
             this.mnuFavUnFav.Name = "mnuFavUnFav";
-            this.mnuFavUnFav.Size = new System.Drawing.Size(165, 22);
+            this.mnuFavUnFav.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+                        | System.Windows.Forms.Keys.L)));
+            this.mnuFavUnFav.Size = new System.Drawing.Size(233, 22);
             this.mnuFavUnFav.Text = "نشانه‌گذاری";
             this.mnuFavUnFav.Click += new System.EventHandler(this.btnFavUnFav_Click);
             // 
@@ -705,39 +709,42 @@
             // 
             this.mnuShowFavs.Image = global::ganjoor.Properties.Resources.favorite;
             this.mnuShowFavs.Name = "mnuShowFavs";
-            this.mnuShowFavs.Size = new System.Drawing.Size(165, 22);
+            this.mnuShowFavs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+                        | System.Windows.Forms.Keys.B)));
+            this.mnuShowFavs.Size = new System.Drawing.Size(233, 22);
             this.mnuShowFavs.Text = "فهرست نشانه‌ها";
             this.mnuShowFavs.Click += new System.EventHandler(this.btnFavs_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(230, 6);
             // 
             // mnuExportFavs
             // 
             this.mnuExportFavs.Name = "mnuExportFavs";
-            this.mnuExportFavs.Size = new System.Drawing.Size(165, 22);
+            this.mnuExportFavs.Size = new System.Drawing.Size(233, 22);
             this.mnuExportFavs.Text = "برون‌ریزی نشانه‌ها";
             this.mnuExportFavs.Click += new System.EventHandler(this.mnuExportFavs_Click);
             // 
             // mnuImportFavs
             // 
             this.mnuImportFavs.Name = "mnuImportFavs";
-            this.mnuImportFavs.Size = new System.Drawing.Size(165, 22);
+            this.mnuImportFavs.Size = new System.Drawing.Size(233, 22);
             this.mnuImportFavs.Text = "درون‌ریزی نشانه‌ها";
             this.mnuImportFavs.Click += new System.EventHandler(this.mnuImportFavs_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(230, 6);
             // 
             // mnuShowBeytNums
             // 
             this.mnuShowBeytNums.Image = global::ganjoor.Properties.Resources.calculator_accept;
             this.mnuShowBeytNums.Name = "mnuShowBeytNums";
-            this.mnuShowBeytNums.Size = new System.Drawing.Size(165, 22);
+            this.mnuShowBeytNums.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.mnuShowBeytNums.Size = new System.Drawing.Size(233, 22);
             this.mnuShowBeytNums.Text = "شماره‌گذاری ابیات";
             this.mnuShowBeytNums.Click += new System.EventHandler(this.mnuShowBeytNums_Click);
             // 
@@ -783,6 +790,7 @@
             this.ganjoorView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.ganjoorView.ForeColor = System.Drawing.SystemColors.ControlText;
             this.ganjoorView.Location = new System.Drawing.Point(0, 77);
+            this.ganjoorView.Margin = new System.Windows.Forms.Padding(48, 22, 48, 22);
             this.ganjoorView.Name = "ganjoorView";
             this.ganjoorView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ganjoorView.Size = new System.Drawing.Size(784, 243);

@@ -478,5 +478,17 @@ namespace ganjoor.Properties {
                 this["FavItemsInPage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int ScrollingSpeed {
+            get {
+                return ((int)(this["ScrollingSpeed"]));
+            }
+            set {
+                this["ScrollingSpeed"] = value;
+            }
+        }
     }
 }

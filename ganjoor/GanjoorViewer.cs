@@ -191,7 +191,7 @@ namespace ganjoor
             {
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
             }
-            AssignPreviewKeyDownEvenetToControls();
+            AssignPreviewKeyDownEventToControls();
             this.ResumeLayout();
             Cursor = Cursors.Default;
             _strLastPhrase = null;
@@ -481,7 +481,7 @@ namespace ganjoor
             foreach (Control ctl in this.Controls)
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
 
-            AssignPreviewKeyDownEvenetToControls();
+            AssignPreviewKeyDownEventToControls();
             this.ResumeLayout();
 
             Cursor = Cursors.Default;
@@ -548,6 +548,7 @@ namespace ganjoor
                     {
                         (ctl as HighlightLabel).HighlightColor = Settings.Default.HighlightColor;
                     }
+            this.ScrollingSpeed = Math.Max(1, Settings.Default.ScrollingSpeed);
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -969,7 +970,7 @@ namespace ganjoor
             foreach (Control ctl in this.Controls)
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
 
-            AssignPreviewKeyDownEvenetToControls();
+            AssignPreviewKeyDownEventToControls();
             this.ResumeLayout();
             Cursor = Cursors.Default;
             _iCurPoem = 0;
@@ -1196,7 +1197,7 @@ namespace ganjoor
             foreach (Control ctl in this.Controls)
                 ctl.Location = new Point(this.Width - ctl.Right, ctl.Location.Y);
 
-            AssignPreviewKeyDownEvenetToControls();
+            AssignPreviewKeyDownEventToControls();
             this.ResumeLayout();
             Cursor = Cursors.Default;
 
@@ -1306,41 +1307,31 @@ namespace ganjoor
         }
         #endregion
 
-        #region Scroll Using Arrow Kys
+        #region Scroll Using Arrow Keys
         private void GanjoorViewer_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            if (e.Control || e.Alt)
+                return;
             bool isInputKey = true;
             switch (e.KeyCode)
             {
                 case Keys.Down:
-                    if (VerticalScroll.Value + VerticalScroll.SmallChange <= VerticalScroll.Maximum)
-                        VerticalScroll.Value += VerticalScroll.SmallChange;
+                    SetVerticalScrollValue(VerticalScroll.Value + ScrollingSpeed * VerticalScroll.SmallChange);
                     break;
                 case Keys.Up:
-                    if (VerticalScroll.Value - VerticalScroll.SmallChange >= VerticalScroll.Minimum)
-                        VerticalScroll.Value -= VerticalScroll.SmallChange;
+                    SetVerticalScrollValue(VerticalScroll.Value - ScrollingSpeed * VerticalScroll.SmallChange);
                     break;                    
-                case Keys.PageDown:                    
-                    for(int i=0; i<2; i++)//!?
-                    if (VerticalScroll.Value + VerticalScroll.LargeChange <= VerticalScroll.Maximum)                        
-                        VerticalScroll.Value += VerticalScroll.LargeChange;
-                    else
-                        VerticalScroll.Value = VerticalScroll.Maximum;
+                case Keys.PageDown:
+                    SetVerticalScrollValue(VerticalScroll.Value + VerticalScroll.LargeChange);
                     break;
                 case Keys.PageUp:
-                    for (int i = 0; i < 2; i++)//!?
-                    if (VerticalScroll.Value - VerticalScroll.LargeChange >= VerticalScroll.Minimum)
-                        VerticalScroll.Value -= VerticalScroll.LargeChange;
-                    else
-                        VerticalScroll.Value = VerticalScroll.Minimum;
+                    SetVerticalScrollValue(VerticalScroll.Value - VerticalScroll.LargeChange);
                     break;                
                 case Keys.Right:
-                    if (HorizontalScroll.Value + HorizontalScroll.SmallChange <= HorizontalScroll.Maximum)
-                        HorizontalScroll.Value += HorizontalScroll.SmallChange;
+                    SetHorizontalScrollValue(HorizontalScroll.Value + ScrollingSpeed * HorizontalScroll.SmallChange);
                     break;
                 case Keys.Left:
-                    if (HorizontalScroll.Value - HorizontalScroll.SmallChange >= HorizontalScroll.Minimum)
-                        HorizontalScroll.Value -= HorizontalScroll.SmallChange;
+                    SetHorizontalScrollValue(HorizontalScroll.Value - ScrollingSpeed * HorizontalScroll.SmallChange);
                     break;
                 default:
                     isInputKey = false;
@@ -1349,7 +1340,28 @@ namespace ganjoor
             if (isInputKey)
                 e.IsInputKey = true;
         }
-        private void AssignPreviewKeyDownEvenetToControls()
+        private int ScrollingSpeed = 1;
+        private void SetVerticalScrollValue(int newValue)
+        {
+            newValue = Math.Max(this.VerticalScroll.Minimum, Math.Min(newValue, this.VerticalScroll.Maximum));
+            int oldValue = this.VerticalScroll.Value;
+            int i = 0;
+            while (this.VerticalScroll.Value == oldValue && i++ < 3)//!
+            {
+                this.VerticalScroll.Value = newValue;
+            }
+        }
+        private void SetHorizontalScrollValue(int newValue)
+        {
+            newValue = Math.Max(this.HorizontalScroll.Minimum, Math.Min(newValue, this.HorizontalScroll.Maximum));
+            int oldValue = this.HorizontalScroll.Value;
+            int i = 0;
+            while (this.HorizontalScroll.Value == oldValue && i++ < 3)//!
+            {
+                this.HorizontalScroll.Value = newValue;
+            }
+        }
+        private void AssignPreviewKeyDownEventToControls()
         {
             foreach (Control ctl in this.Controls)
                 ctl.PreviewKeyDown += GanjoorViewer_PreviewKeyDown;
