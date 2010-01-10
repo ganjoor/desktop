@@ -102,7 +102,6 @@ namespace ganjoor
         }
         private void lblCat_Click(object sender, EventArgs e)
         {
-
             GanjoorCat category = null;
             if (sender != null)
                 category = ((GanjoorCat)((LinkLabel)sender).Tag);
@@ -116,6 +115,8 @@ namespace ganjoor
 
         private void ShowCategory(GanjoorCat category, bool keepTrack)
         {
+            if (EditMode)
+                Save();
             if (category == null)
             {
                 ShowHome(keepTrack);
@@ -313,7 +314,7 @@ namespace ganjoor
             return ShowPoem(poem, keepTrack, poem._HighlightText);
         }
         private int ShowPoem(GanjoorPoem poem, bool keepTrack, string highlightWord)
-        {            
+        {
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
@@ -1659,7 +1660,7 @@ namespace ganjoor
             }
             return LinePosition;
         }
-        private void Save()
+        public void Save()
         {
             foreach(Control ctl in this.Controls)
                 if (ctl is TextBox)
