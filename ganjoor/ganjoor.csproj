@@ -52,6 +52,13 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DbBrowser.cs" />
+    <Compile Include="EditItemType.cs" />
+    <Compile Include="Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
     <Compile Include="GanjoorCat.cs" />
     <Compile Include="GanjoorFavPage.cs" />
     <Compile Include="GanjoorPoem.cs" />
@@ -82,11 +89,20 @@
     <Compile Include="Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="ItemEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemEditor.Designer.cs">
+      <DependentUpon>ItemEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GanjoorViewer.resx">
       <DependentUpon>GanjoorViewer.cs</DependentUpon>
@@ -97,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemEditor.resx">
+      <DependentUpon>ItemEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,6 +148,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\user.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\back.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\application_edit.png" />
     <None Include="Resources\search_remove.png" />
     <None Include="Resources\search_add.png" />
     <None Include="Resources\repeat.png" />

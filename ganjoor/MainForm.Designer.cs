@@ -52,6 +52,7 @@
             this.btnSearch = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.btnOptions = new System.Windows.Forms.ToolStripButton();
+            this.btnEditor = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.btnZoomIn = new System.Windows.Forms.ToolStripDropDownButton();
             this.btnZoomOut = new System.Windows.Forms.ToolStripDropDownButton();
@@ -87,6 +88,8 @@
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSrch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHighlight = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,7 +140,8 @@
             this.btnHighlight,
             this.btnSearch,
             this.toolStripSeparator7,
-            this.btnOptions});
+            this.btnOptions,
+            this.btnEditor});
             this.toolStripMain.Location = new System.Drawing.Point(0, 24);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(784, 53);
@@ -333,6 +337,17 @@
             this.btnOptions.Text = "تنظیمات";
             this.btnOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
+            // 
+            // btnEditor
+            // 
+            this.btnEditor.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnEditor.Image = global::ganjoor.Properties.Resources.application_edit;
+            this.btnEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEditor.Name = "btnEditor";
+            this.btnEditor.Size = new System.Drawing.Size(54, 50);
+            this.btnEditor.Text = "ویرایشگر";
+            this.btnEditor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnEditor.Click += new System.EventHandler(this.btnEditor_Click);
             // 
             // statusStrip
             // 
@@ -543,9 +558,11 @@
             this.mnuZoomIn,
             this.mnuZoomOut,
             this.toolStripSeparator13,
-            this.mnuOptions,
+            this.mnuEdit,
             this.toolStripSeparator15,
-            this.mnuAdd});
+            this.mnuAdd,
+            this.toolStripSeparator17,
+            this.mnuOptions});
             this.mnuTools.Name = "mnuTools";
             this.mnuTools.Size = new System.Drawing.Size(49, 20);
             this.mnuTools.Text = "ابزارها";
@@ -646,6 +663,19 @@
             // 
             this.toolStripSeparator15.Name = "toolStripSeparator15";
             this.toolStripSeparator15.Size = new System.Drawing.Size(267, 6);
+            // 
+            // mnuEdit
+            // 
+            this.mnuEdit.Image = global::ganjoor.Properties.Resources.application_edit;
+            this.mnuEdit.Name = "mnuEdit";
+            this.mnuEdit.Size = new System.Drawing.Size(270, 22);
+            this.mnuEdit.Text = "ویرایشگر شعر";
+            this.mnuEdit.Click += new System.EventHandler(this.btnEditor_Click);
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(267, 6);
             // 
             // mnuAdd
             // 
@@ -791,6 +821,7 @@
             this.ganjoorView.ForeColor = System.Drawing.SystemColors.ControlText;
             this.ganjoorView.Location = new System.Drawing.Point(0, 77);
             this.ganjoorView.Margin = new System.Windows.Forms.Padding(48, 22, 48, 22);
+            this.ganjoorView.MesraWidth = 0;
             this.ganjoorView.Name = "ganjoorView";
             this.ganjoorView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ganjoorView.Size = new System.Drawing.Size(784, 243);
@@ -907,6 +938,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem mnuExportFavs;
         private System.Windows.Forms.ToolStripMenuItem mnuImportFavs;
+        private System.Windows.Forms.ToolStripMenuItem mnuEdit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
+        private System.Windows.Forms.ToolStripButton btnEditor;
 
 
 

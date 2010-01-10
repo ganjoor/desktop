@@ -47,6 +47,7 @@ namespace ganjoor
 
         private void ApplyUserSettings()
         {
+            ganjoorView.CenteredView = (GanjoorViewMode)(Settings.Default.ViewMode) == GanjoorViewMode.Centered;
             ganjoorView.Font = Settings.Default.ViewFont;
             btnViewInSite.Visible = Settings.Default.BrowseButtonVisible;            
             btnComments.Visible = Settings.Default.CommentsButtonVisible;
@@ -57,8 +58,9 @@ namespace ganjoor
             sepTools.Visible = btnCopy.Visible || btnPrint.Visible || btnShowBeytNums.Visible;
             btnHome.Visible = sepHome.Visible = Settings.Default.HomeButtonVisible;
             btnRandom.Visible = Settings.Default.RandomButtonVisible;
+            btnEditor.Visible = Settings.Default.EditorButtonVisible;
             processTextChanged = false;
-            mnuShowBeytNums.Checked = btnShowBeytNums.Checked = Settings.Default.ShowBeytNums;
+            ganjoorView.ShowBeytNums = mnuShowBeytNums.Checked = btnShowBeytNums.Checked = Settings.Default.ShowBeytNums;
             processTextChanged = true;
             ganjoorView.ApplyUISettings();
             ganjoorView.Invalidate();
@@ -174,7 +176,12 @@ namespace ganjoor
 
         private void btnViewInSite_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(ganjoorView.CurrentPageGanjoorUrl);
+            if (string.IsNullOrEmpty(ganjoorView.CurrentPageGanjoorUrl))
+            {
+                MessageBox.Show("امکان نمایش صفحۀ معادل در سایت گنجور وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            }
+            else
+                System.Diagnostics.Process.Start(ganjoorView.CurrentPageGanjoorUrl);
         }
 
         private void btnComments_Click(object sender, EventArgs e)
@@ -186,9 +193,9 @@ namespace ganjoor
         {
             using (PrintDialog dlg = new PrintDialog())
             {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {                    
-                    using (dlg.Document = new System.Drawing.Printing.PrintDocument())
+                using (dlg.Document = new PrintDocument())
+                {
+                    if (dlg.ShowDialog(this) == DialogResult.OK)
                     {
                         ganjoorView.Print(dlg.Document);
                     }
@@ -322,8 +329,12 @@ namespace ganjoor
 
         private void btnShowBeytNums_CheckedChanged(object sender, EventArgs e)
         {
-            if (processTextChanged)                
-                ganjoorView.ToggleBeytNums();
+            if (processTextChanged)
+            {
+                Settings.Default.ShowBeytNums = !Settings.Default.ShowBeytNums;
+                Settings.Default.Save();
+                ganjoorView.SetShowBeytNums(Settings.Default.ShowBeytNums);
+            }
         }
 
         private void mnuShowBeytNums_Click(object sender, EventArgs e)
@@ -460,6 +471,15 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ImportMixFavs(dlg.FileName);
             }
+        }
+
+        private void btnEditor_Click(object sender, EventArgs e)
+        {
+            ganjoorView.StoreSettings();
+            this.Hide();
+            using (Editor dlg = new Editor())
+                dlg.ShowDialog(this);
+            this.Show();
         }
 
 

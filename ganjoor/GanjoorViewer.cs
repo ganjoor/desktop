@@ -23,22 +23,20 @@ namespace ganjoor
             this.PreviewKeyDown += new PreviewKeyDownEventHandler(GanjoorViewer_PreviewKeyDown);
 
             ApplyUISettings();
-            
 
             _iCurCat = _iCurPoem = 0;
             _strLastPhrase = "";
             _history = new Stack<GarnjoorBrowsingHistory>();
 
-            if (!DesignMode)
+            if (!DesignMode && _db == null)
             {
                 _db = new DbBrowser();                
-            }
-         
+            }         
         }
         #endregion
 
         #region Database Browser
-        private DbBrowser _db;
+        private static DbBrowser _db =  null;
         #endregion
 
         #region Current Things
@@ -55,7 +53,7 @@ namespace ganjoor
 
         #region Constants
         private const int DistanceFromTop = 10;
-        private static int DistanceBetweenLines = 20;
+        private int DistanceBetweenLines = 20;
         private const int DistanceFromRight = 20;
         private const int DistanceFromRightStep = 10;
         #endregion
@@ -199,8 +197,6 @@ namespace ganjoor
                 OnPageChanged(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
         }
 
-
-
         private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat,bool keepTrack)
         {
             if(keepTrack)
@@ -330,14 +326,13 @@ namespace ganjoor
 
             _strPage += " -> " + poem._Title;
 
-            bool centeredView = (GanjoorViewMode)(Settings.Default.ViewMode) == GanjoorViewMode.Centered;
 
             LinkLabel lblPoem = new LinkLabel();            
             poem._HighlightText = string.Empty;
             lblPoem.Tag = poem;
             lblPoem.AutoSize = true;
             lblPoem.Text = poem._Title;
-            if (centeredView)
+            if (CenteredView)
                 lblPoem.Location = new Point(this.Width/2 - TextRenderer.MeasureText(poem._Title, this.Font).Width/2, catsTop);
             else
                 lblPoem.Location = new Point(lastDistanceFromRight, catsTop);
@@ -356,7 +351,6 @@ namespace ganjoor
             List<GanjoorVerse> verses = _db.GetVerses(poem._ID);
 
             
-            bool ShowBeytNums = Settings.Default.ShowBeytNums;
             int WholeBeytNum = 0;
             int BeytNum = 0;
             int BandNum = 0;
@@ -368,40 +362,84 @@ namespace ganjoor
             
             int versDistanceFromRight = ShowBeytNums ? lastDistanceFromRight + TextRenderer.MeasureText((verses.Count).ToString(), this.Font).Width: lastDistanceFromRight;
             for (int i = 0; i < verses.Count; i++)
-            {                
-                HighlightLabel lblVerse = new HighlightLabel();                
-                lblVerse.AutoSize = true;
-                lblVerse.Tag = verses[i];
-                lblVerse.Text = verses[i]._Text;
-                lblVerse.BackColor = Color.Transparent;
-                if (centeredView)
+            {
+                Control lblVerse;
+                if (EditMode)
                 {
-                    switch (verses[i]._Position)
+                    lblVerse = new TextBox();
+                    if (CenteredView)
                     {
-                        case VersePosition.Right:
-                            lblVerse.Location = new Point(this.Width / 2 - 5 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
-                            if (MustHave2ndBandBeyt)
-                            {
-                                MissedMesras++;
+                        lblVerse.Size = new Size(this.MesraWidth, lblVerse.Size.Height);
+                        switch (verses[i]._Position)
+                        {
+                            case VersePosition.Right:
+                                lblVerse.Location = new Point(this.Width / 2 - 5 - this.MesraWidth, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                if (MustHave2ndBandBeyt)
+                                {
+                                    MissedMesras++;
+                                    MustHave2ndBandBeyt = false;
+                                }
+                                break;
+                            case VersePosition.Left:
+                                lblVerse.Location = new Point(this.Width / 2 + 5, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                break;
+                            case VersePosition.CenteredVerse1:
+                                lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth/2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                BandBeytNums++;
+                                MustHave2ndBandBeyt = true;
+                                break;
+                            case VersePosition.CenteredVerse2:
                                 MustHave2ndBandBeyt = false;
-                            }
-                            break;
-                        case VersePosition.Left:
-                            lblVerse.Location = new Point(this.Width / 2 + 5, catsTop + ((i-MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);                            
-                            break;
-                        case VersePosition.CenteredVerse1:
-                            lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width/2, catsTop + ((i-MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
-                            BandBeytNums++;
-                            MustHave2ndBandBeyt = true;
-                            break;
-                        case VersePosition.CenteredVerse2:
-                            MustHave2ndBandBeyt = false;
-                            lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, catsTop + ((i-MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);                            
-                            break;
-                    }                    
+                                lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                break;
+                        }
+                    }
+                    else
+                        lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
                 }
                 else
-                    lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+                {
+                    lblVerse = new HighlightLabel();
+                    lblVerse.BackColor = Color.Transparent;
+                    lblVerse.AutoSize = true;
+                    if (CenteredView)
+                    {
+                        switch (verses[i]._Position)
+                        {
+                            case VersePosition.Right:
+                                lblVerse.Location = new Point(this.Width / 2 - 5 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                if (MustHave2ndBandBeyt)
+                                {
+                                    MissedMesras++;
+                                    MustHave2ndBandBeyt = false;
+                                }
+                                break;
+                            case VersePosition.Left:
+                                lblVerse.Location = new Point(this.Width / 2 + 5, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                break;
+                            case VersePosition.CenteredVerse1:
+                                lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                BandBeytNums++;
+                                MustHave2ndBandBeyt = true;
+                                break;
+                            case VersePosition.CenteredVerse2:
+                                MustHave2ndBandBeyt = false;
+                                lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                break;
+                        }
+                    }
+                    else
+                        lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+
+                }
+
+                lblVerse.Tag = verses[i];
+                lblVerse.Text = verses[i]._Text;
+                if (EditMode)
+                {
+                    lblVerse.Leave += new EventHandler(lblVerse_Leave);
+                    lblVerse.TextChanged += new EventHandler(lblVerse_TextChanged);
+                }
                 this.Controls.Add(lblVerse);
                 
 
@@ -469,7 +507,7 @@ namespace ganjoor
             Label lblDummy = new Label();
             lblDummy.Text = " ";
             int yLocDummy = 
-                centeredView ? 
+                CenteredView ? 
                     catsTop + ((verses.Count - MissedMesras)/ 2 + BandBeytNums) * DistanceBetweenLines
                     :
                     catsTop + verses.Count * DistanceBetweenLines;
@@ -693,9 +731,35 @@ namespace ganjoor
             {
                 if (_db.Connected)
                 {
-                    GanjoorPoet poet = _db.GetPoet(_iCurCat);
+                    GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
                     if (null != poet)
                         return poet._Name;
+                }
+                return string.Empty;
+            }
+        }
+        public string CurrentCategory
+        {
+            get
+            {
+                if (_db.Connected)
+                {
+                    GanjoorCat cat = _db.GetCategory(_iCurCat);
+                    if (null != cat)
+                        return cat._Text;
+                }
+                return string.Empty;
+            }
+        }
+        public string CurrentPoem
+        {
+            get
+            {
+                if (_db.Connected)
+                {
+                    GanjoorPoem poem = _db.GetPoem(_iCurPoem);
+                    if (null != poem)
+                        return poem._Title;
                 }
                 return string.Empty;
             }
@@ -729,6 +793,10 @@ namespace ganjoor
                 return "http://ganjoor.net/?comments_popup=" + _iCurPoem.ToString();
             }
         }
+        [DefaultValue(false)]
+        public bool ShowBeytNums { set; get; }
+        [DefaultValue(false)]
+        public bool CenteredView { set; get; }
         #endregion
 
         #region Browing History
@@ -1236,12 +1304,11 @@ namespace ganjoor
         #endregion
 
         #region Toggle Beyt Nums
-        public void ToggleBeytNums()
+        public void SetShowBeytNums(bool newValue)
         {
             if (_iCurPoem != 0)
             {
-                Settings.Default.ShowBeytNums = !Settings.Default.ShowBeytNums;
-                Settings.Default.Save();
+                ShowBeytNums = newValue;
                 ShowPoem(_db.GetPoem(_iCurPoem), false);
             }
         }
@@ -1365,6 +1432,347 @@ namespace ganjoor
         {
             foreach (Control ctl in this.Controls)
                 ctl.PreviewKeyDown += GanjoorViewer_PreviewKeyDown;
+        }
+        #endregion
+
+        #region Edit Mode
+        [DefaultValue(false)]
+        public bool EditMode { get; set; }
+        [DefaultValue(300)]
+        public int MesraWidth { get; set; }
+        public bool IsInPoetRootPage
+        {
+            get
+            {
+                if (_iCurCat > 0)
+                {
+                    GanjoorCat cat = _db.GetCategory(_iCurCat);
+                    return cat._ParentID == 0;
+                }
+                else
+                    return true;
+            }
+        }
+        public bool NewPoet(string PoetName)
+        {
+            if (_db != null)
+            {
+                int poetID = _db.NewPoet(PoetName);
+                if (-1 != poetID)
+                {
+                    ShowCategory(_db.GetCategory(_db.GetPoet(poetID)._CatID), true);
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+        public bool EditPoet(string NewName)
+        {
+            GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
+            if (null == poet)
+                return false;
+            if (_db.SetPoetName(poet._ID, NewName))
+            {
+                ShowCategory(_db.GetCategory(_iCurCat), false);
+                return true;
+            }
+            return false;
+        }
+        public bool NewCat(string CatName)
+        {
+            GanjoorCat cat = _db.GetCategory(_iCurCat);
+            if (null != cat)
+            {
+                cat = _db.CreateNewCategory(CatName, cat._ID, cat._PoetID);
+                if (cat != null)
+                {
+                    ShowCategory(cat, true);
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+        public bool EditCat(string NewName)
+        {
+            if (_db.SetCatTitle(_iCurCat, NewName))
+            {
+                ShowCategory(_db.GetCategory(_iCurCat), false);
+                return true;
+            }
+            return false;
+        }
+        public bool NewPoem(string PoemName)
+        {
+            GanjoorCat cat = _db.GetCategory(_iCurCat);
+            if (null != cat)
+            {
+                 GanjoorPoem poem = _db.CreateNewPoem(PoemName, _iCurCat);
+                 if (poem != null)
+                {
+                    ShowPoem(poem, true);
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+        public bool EditPoem(string NewTitle)
+        {
+            if (_db.SetPoemTitle(_iCurPoem, NewTitle))
+            {
+                ShowPoem(_db.GetPoem(_iCurPoem), false);
+                return true;
+            }
+            return false;
+        }
+        public bool DeletePoem()
+        {
+            if (_db.DeletePoem(_iCurPoem))
+            {
+                ShowCategory(_db.GetCategory(_iCurCat), true);
+                return true;
+            }
+            return false;
+        }
+        public bool NewNormalLine()
+        {
+            return NewLine(VersePosition.Right);
+        }
+        public bool NewBandLine()
+        {
+            return NewLine(VersePosition.CenteredVerse2);
+        }
+        public bool NewBandVerse()
+        {
+            return NewLine(VersePosition.CenteredVerse1);
+        }
+        private bool NewLine(VersePosition Position)
+        {
+            Save();
+            int LinePosition = GetCurrentLine();
+            GanjoorVerse firstVerse;
+            switch (Position)
+            {
+                case VersePosition.CenteredVerse1:
+                    {
+                        firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.CenteredVerse1);
+                        if (firstVerse == null)
+                            return false;
+                    }
+                    break;
+                case VersePosition.CenteredVerse2:
+                    {
+                        firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.CenteredVerse1);
+                        if (firstVerse == null)
+                            return false;
+
+                        GanjoorVerse secondVerse = _db.CreateNewVerse(_iCurPoem, firstVerse._Order, VersePosition.CenteredVerse2);
+                        if (secondVerse == null)
+                            return false;
+                    }
+                    break;
+                default:
+                    {
+                        firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Right);
+                        if (firstVerse == null)
+                            return false;
+
+                        GanjoorVerse secondVerse = _db.CreateNewVerse(_iCurPoem, firstVerse._Order, VersePosition.Left);
+                        if (secondVerse == null)
+                            return false;
+                    }
+                    break;
+            }
+
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            foreach (Control ctl in this.Controls)
+                if(ctl is TextBox)
+                    if ((ctl.Tag as GanjoorVerse)._Order == firstVerse._Order)
+                    {
+                        ctl.Focus();
+                        break;
+                    }           
+            return true;
+
+        }
+        private int GetCurrentLine()
+        {
+            int LinePosition = 0;
+            int catsTop = 0;
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl is LinkLabel)
+                {
+                    catsTop = Math.Max(ctl.Top, catsTop);
+                }
+                else
+                    if (ctl.Focused)
+                    {
+                        if (ctl is TextBox)
+                        {
+                            GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
+                            if (verseBefore._Position == VersePosition.Right)
+                            {
+                                foreach (Control ctlO in this.Controls)
+                                {
+                                    if (ctlO is TextBox)
+                                    {
+                                        if ((ctlO.Tag as GanjoorVerse)._Order == verseBefore._Order + 1)
+                                        {
+                                            verseBefore = (ctlO.Tag as GanjoorVerse);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                                if (verseBefore._Position == VersePosition.CenteredVerse1)
+                                {
+                                    foreach (Control ctlO in this.Controls)
+                                    {
+                                        if (ctlO is TextBox)
+                                        {
+                                            if ((ctlO.Tag as GanjoorVerse)._Order == verseBefore._Order + 1)
+                                            {
+                                                if ((ctlO.Tag as GanjoorVerse)._Position == VersePosition.CenteredVerse2)
+                                                {
+                                                    verseBefore = (ctlO.Tag as GanjoorVerse);
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            LinePosition = verseBefore._Order;
+                            catsTop = ctl.Top;
+                        }
+                        break;
+                    }
+            }
+            return LinePosition;
+        }
+        private void Save()
+        {
+            foreach(Control ctl in this.Controls)
+                if (ctl is TextBox)
+                {
+                    DRY_SaveVerse(ctl as TextBox);
+                }
+        }
+        private void lblVerse_Leave(object sender, EventArgs e)
+        {
+            DRY_SaveVerse(sender as TextBox);
+        }
+        private static void DRY_SaveVerse(TextBox verseBox)
+        {
+            if (verseBox.CanUndo)
+            {
+                GanjoorVerse verse = verseBox.Tag as GanjoorVerse;
+                _db.SetVerseText(verse._PoemID, verse._Order, verseBox.Text);
+                verseBox.ClearUndo();
+                verseBox.BackColor = Color.White;
+            }
+        }
+        private void lblVerse_TextChanged(object sender, EventArgs e)
+        {
+            TextBox verseBox = sender as TextBox;
+            verseBox.BackColor = Color.LightYellow;
+        }
+        public bool DeleteLine()
+        {
+            List<int> versesToDelete = new List<int>();
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl.Focused)
+                {
+                    if (ctl is TextBox)
+                    {
+                        GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
+                        versesToDelete.Add(verseBefore._Order);
+                        if (verseBefore._Position == VersePosition.Left)
+                        {
+                            versesToDelete.Add(verseBefore._Order-1);
+                        }
+                        else
+                        if (verseBefore._Position == VersePosition.Right)
+                        {
+                            versesToDelete.Add(verseBefore._Order + 1);
+                        }
+                        else
+                            if (verseBefore._Position == VersePosition.CenteredVerse2)
+                            {
+                                versesToDelete.Add(verseBefore._Order - 1);
+                            }
+                            else
+                                if (verseBefore._Position == VersePosition.CenteredVerse1)
+                                {
+                                    foreach (Control ctlO in this.Controls)
+                                    {
+                                        if (ctlO is TextBox)
+                                        {
+                                            if ((ctlO.Tag as GanjoorVerse)._Order == verseBefore._Order + 1)
+                                            {
+                                                if ((ctlO.Tag as GanjoorVerse)._Position == VersePosition.CenteredVerse2)
+                                                {
+                                                    versesToDelete.Add(verseBefore._Order + 1);
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                    }
+                    break;
+                }
+            }
+            if (versesToDelete.Count == 0)
+                return false;
+            if (_db.DeleteVerses(_iCurPoem, versesToDelete))
+            {
+                ShowPoem(_db.GetPoem(_iCurPoem), false);
+                return true;
+            }
+            return false;
+
+        }
+        public bool DeletePoet()
+        {
+            GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
+            if (null == poet)
+                return false;
+            _db.DeletePoet(poet._ID);
+            ShowHome(true);
+            return true;
+        }
+        public bool DeleteCategory()
+        {
+            GanjoorCat cat = _db.GetCategory(_iCurCat);
+            if (null == cat)
+                return false;
+            _db.DeleteCat(_iCurCat);
+            ShowHome(true);
+            return true;
+        }
+        public bool ExportCategory(string fileName)
+        {
+            if (_db.GetCategory(_iCurCat) == null)
+                return false;
+            return _db.ExportCategory(fileName, _iCurCat);
+        }
+        public bool ExportPoet(string fileName)
+        {
+            GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
+            if (null == poet)
+                return false;
+            return _db.ExportPoet(fileName, poet._ID);
         }
         #endregion
 

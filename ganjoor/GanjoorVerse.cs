@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ganjoor
-{
+{    
     enum VersePosition
     {
         Right = 0,//مصرع اول

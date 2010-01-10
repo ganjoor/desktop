@@ -490,5 +490,17 @@ namespace ganjoor.Properties {
                 this["ScrollingSpeed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EditorButtonVisible {
+            get {
+                return ((bool)(this["EditorButtonVisible"]));
+            }
+            set {
+                this["EditorButtonVisible"] = value;
+            }
+        }
     }
 }
