@@ -42,5 +42,10 @@ namespace ganjoor
         {
             System.Diagnostics.Process.Start("http://ganjoor.net/sources/");                        
         }
+
+        private void lnkIconsEditor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://dryicons.com/free-icons/preview/grace-icons-set/");            
+        }
     }
 }

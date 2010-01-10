@@ -35,6 +35,7 @@
             this.lnkIcons = new System.Windows.Forms.LinkLabel();
             this.lnkHamidReza = new System.Windows.Forms.LinkLabel();
             this.lnkSources = new System.Windows.Forms.LinkLabel();
+            this.lnkIconsEditor = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // lblAppTitle
@@ -65,7 +66,7 @@
             this.lnkGanjoorOnSFNet.Name = "lnkGanjoorOnSFNet";
             this.lnkGanjoorOnSFNet.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lnkGanjoorOnSFNet.Size = new System.Drawing.Size(126, 13);
-            this.lnkGanjoorOnSFNet.TabIndex = 4;
+            this.lnkGanjoorOnSFNet.TabIndex = 3;
             this.lnkGanjoorOnSFNet.TabStop = true;
             this.lnkGanjoorOnSFNet.Text = "ganjoor.sourceforge.net";
             this.lnkGanjoorOnSFNet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkGanjoorOnSFNet_LinkClicked);
@@ -73,8 +74,8 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(56, 129);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnOK.Location = new System.Drawing.Point(56, 150);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(60, 22);
             this.btnOK.TabIndex = 0;
@@ -88,7 +89,7 @@
             this.lnkIcons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIcons.Name = "lnkIcons";
             this.lnkIcons.Size = new System.Drawing.Size(98, 13);
-            this.lnkIcons.TabIndex = 6;
+            this.lnkIcons.TabIndex = 5;
             this.lnkIcons.TabStop = true;
             this.lnkIcons.Text = "منبع آیکونهای برنامه";
             this.lnkIcons.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkIcons_LinkClicked);
@@ -100,7 +101,7 @@
             this.lnkHamidReza.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkHamidReza.Name = "lnkHamidReza";
             this.lnkHamidReza.Size = new System.Drawing.Size(86, 13);
-            this.lnkHamidReza.TabIndex = 5;
+            this.lnkHamidReza.TabIndex = 4;
             this.lnkHamidReza.TabStop = true;
             this.lnkHamidReza.Text = "حمیدرضا محمدی";
             this.lnkHamidReza.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkHamidReza_LinkClicked);
@@ -108,7 +109,7 @@
             // lnkSources
             // 
             this.lnkSources.AutoSize = true;
-            this.lnkSources.Location = new System.Drawing.Point(26, 109);
+            this.lnkSources.Location = new System.Drawing.Point(26, 127);
             this.lnkSources.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkSources.Name = "lnkSources";
             this.lnkSources.Size = new System.Drawing.Size(120, 13);
@@ -117,13 +118,26 @@
             this.lnkSources.Text = "منابع متون و اشعار گنجور";
             this.lnkSources.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkSources_LinkClicked);
             // 
+            // lnkIconsEditor
+            // 
+            this.lnkIconsEditor.AutoSize = true;
+            this.lnkIconsEditor.Location = new System.Drawing.Point(16, 107);
+            this.lnkIconsEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lnkIconsEditor.Name = "lnkIconsEditor";
+            this.lnkIconsEditor.Size = new System.Drawing.Size(141, 13);
+            this.lnkIconsEditor.TabIndex = 6;
+            this.lnkIconsEditor.TabStop = true;
+            this.lnkIconsEditor.Text = "منبع آیکونهای بخش ویرایشگر";
+            this.lnkIconsEditor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkIconsEditor_LinkClicked);
+            // 
             // AboutForm
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(172, 162);
+            this.ClientSize = new System.Drawing.Size(172, 183);
+            this.Controls.Add(this.lnkIconsEditor);
             this.Controls.Add(this.lnkSources);
             this.Controls.Add(this.lnkHamidReza);
             this.Controls.Add(this.lnkIcons);
@@ -133,7 +147,7 @@
             this.Controls.Add(this.lblAppTitle);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";
@@ -158,5 +172,6 @@
         private System.Windows.Forms.LinkLabel lnkIcons;
         private System.Windows.Forms.LinkLabel lnkHamidReza;
         private System.Windows.Forms.LinkLabel lnkSources;
+        private System.Windows.Forms.LinkLabel lnkIconsEditor;
     }
 }
