@@ -235,6 +235,11 @@ namespace ganjoor
             }
         }
 
+        private void Editor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ganjoorView.Save();
+        }
+
 
     }
 }
