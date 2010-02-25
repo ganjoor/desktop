@@ -1065,6 +1065,7 @@ namespace ganjoor
                     int count = 0;
                     bool scrolled = false;
                     foreach (Control ctl in this.Controls)
+                    {
                         if (ctl is HighlightLabel)
                         {
                             if (OnlyScroll)
@@ -1084,8 +1085,8 @@ namespace ganjoor
                                     if (index != -1)
                                     {
                                         if (!scrolled)
-                                        {                                            
-                                            this.AutoScrollPosition = new Point(-this.AutoScrollPosition.X+ctl.Left,  -this.AutoScrollPosition.Y+ ctl.Top);
+                                        {
+                                            this.AutoScrollPosition = new Point(-this.AutoScrollPosition.X + ctl.Left, -this.AutoScrollPosition.Y + ctl.Top);
                                             scrolled = true;
                                         }
                                         count++;
@@ -1097,12 +1098,47 @@ namespace ganjoor
                                 }
                             }
                         }
+                    }
                     if (count == 0)
                         this.AutoScrollPosition = new Point();
                     this.Invalidate();
-                    
+
                     return count;
                 }
+            }
+
+            if (_iCurCat == 0 || _iCurPoem == 0)
+            {
+                int count = 0;
+                bool scrolled = false;
+                    foreach (Control ctl in this.Controls)
+                        if (ctl is LinkLabel)
+                        {
+                            if (!string.IsNullOrEmpty(phrase))
+                            {
+                                int index = ctl.Text.IndexOf(phrase);
+                                if (index != -1)
+                                {
+                                    (ctl as LinkLabel).LinkColor = Settings.Default.HighlightColor;
+                                    if (!scrolled)
+                                    {
+                                        this.AutoScrollPosition = new Point(-this.AutoScrollPosition.X + ctl.Left, -this.AutoScrollPosition.Y + ctl.Top);
+                                        scrolled = true;
+                                    }
+                                    count++;
+                                    while ((index + 1 != ctl.Text.Length) && (index = ctl.Text.IndexOf(phrase, index + 1)) != -1)
+                                    {
+                                        count++;
+                                    }
+                                }
+                                else
+                                    (ctl as LinkLabel).LinkColor = Settings.Default.LinkColor;
+                            }
+                            else
+                                (ctl as LinkLabel).LinkColor = Settings.Default.LinkColor;
+
+                        }
+                return count;
             }
             return 0;
         }
