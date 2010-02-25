@@ -100,7 +100,7 @@ namespace ganjoor
             processTextChanged = false;
             txtHighlight.Text = HighlightedText;
             processTextChanged = true;
-            btnHighlight.Enabled = HasComments;
+            btnHighlight.Enabled = true;// HasComments;
 
             mnuShowFavs.Checked = btnFavs.Checked = FavsPage;
             mnuFavUnFav.Enabled = btnFavUnFav.Enabled = HasComments;

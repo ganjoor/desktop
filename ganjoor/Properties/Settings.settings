@@ -99,7 +99,7 @@
       <Value Profile="(Default)">Purple</Value>
     </Setting>
     <Setting Name="HighlightColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">LightPink</Value>
+      <Value Profile="(Default)">Red</Value>
     </Setting>
     <Setting Name="IsNewVersion" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
