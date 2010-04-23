@@ -65,6 +65,7 @@
             this.btnDeleteLine = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.btnReOrderCat = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -181,6 +182,7 @@
             this.btnNewCatSub,
             this.toolStripSeparator8,
             this.btnEditCat,
+            this.btnReOrderCat,
             this.toolStripSeparator9,
             this.btnDeleteCat,
             this.toolStripSeparator11,
@@ -378,6 +380,13 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
+            // btnReOrderCat
+            // 
+            this.btnReOrderCat.Name = "btnReOrderCat";
+            this.btnReOrderCat.Size = new System.Drawing.Size(220, 22);
+            this.btnReOrderCat.Text = "تغییر ترتیب اشعار بخش";
+            this.btnReOrderCat.Click += new System.EventHandler(this.btnReOrderCat_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -439,5 +448,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnExportCat;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem btnExportPoet;
+        private System.Windows.Forms.ToolStripMenuItem btnReOrderCat;
     }
 }
