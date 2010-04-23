@@ -41,7 +41,7 @@ namespace ganjoor
             }
 
             btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
-            btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = !ganjoorView.IsInPoetRootPage;
+            btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = btnReOrderCat.Enabled = !ganjoorView.IsInPoetRootPage;
             btnNewLine.Enabled = btnDeletePoem.Enabled = btnEditPoem.Enabled = HasComments;
         }
 
@@ -238,6 +238,18 @@ namespace ganjoor
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
             ganjoorView.Save();
+        }
+
+        private void btnReOrderCat_Click(object sender, EventArgs e)
+        {
+            ganjoorView.Save();
+            ganjoorView.StoreSettings();
+            this.Hide();
+            using (ReOrderCat dlg = new ReOrderCat())
+            {
+                dlg.ShowDialog(this);
+            }
+            this.Show();
         }
 
 

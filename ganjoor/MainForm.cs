@@ -186,7 +186,12 @@ namespace ganjoor
 
         private void btnComments_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(ganjoorView.CurrentPoemCommentsUrl);
+            if (string.IsNullOrEmpty(ganjoorView.CurrentPageGanjoorUrl))
+            {
+                MessageBox.Show("امکان نمایش صفحۀ معادل در سایت گنجور وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            }
+            else
+                System.Diagnostics.Process.Start(ganjoorView.CurrentPoemCommentsUrl);
         }
 
         private void btnPrint_Click(object sender, EventArgs e)

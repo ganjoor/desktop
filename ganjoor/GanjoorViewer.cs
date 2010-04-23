@@ -879,7 +879,7 @@ namespace ganjoor
             Document.PrintPage += new PrintPageEventHandler(Document_PrintPage);
             return Document;
         }
-        void Document_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void Document_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             _iRemainingUnprintedLines = this.PrintPoem(e, _iRemainingUnprintedLines);
             e.HasMorePages = (0 != _iRemainingUnprintedLines);
