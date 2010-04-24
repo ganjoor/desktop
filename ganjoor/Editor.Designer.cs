@@ -45,6 +45,7 @@
             this.btnNewCatSub = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.btnEditCat = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnReOrderCat = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeleteCat = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
@@ -65,7 +66,7 @@
             this.btnDeleteLine = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnReOrderCat = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnReOrderSubCat = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -183,6 +184,7 @@
             this.toolStripSeparator8,
             this.btnEditCat,
             this.btnReOrderCat,
+            this.btnReOrderSubCat,
             this.toolStripSeparator9,
             this.btnDeleteCat,
             this.toolStripSeparator11,
@@ -213,6 +215,13 @@
             this.btnEditCat.Size = new System.Drawing.Size(220, 22);
             this.btnEditCat.Text = "ویرایش عنوان بخش";
             this.btnEditCat.Click += new System.EventHandler(this.btnEditCat_Click);
+            // 
+            // btnReOrderCat
+            // 
+            this.btnReOrderCat.Name = "btnReOrderCat";
+            this.btnReOrderCat.Size = new System.Drawing.Size(220, 22);
+            this.btnReOrderCat.Text = "تغییر ترتیب اشعار بخش";
+            this.btnReOrderCat.Click += new System.EventHandler(this.btnReOrderCat_Click);
             // 
             // toolStripSeparator9
             // 
@@ -380,12 +389,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnReOrderCat
+            // btnReOrderSubCat
             // 
-            this.btnReOrderCat.Name = "btnReOrderCat";
-            this.btnReOrderCat.Size = new System.Drawing.Size(220, 22);
-            this.btnReOrderCat.Text = "تغییر ترتیب اشعار بخش";
-            this.btnReOrderCat.Click += new System.EventHandler(this.btnReOrderCat_Click);
+            this.btnReOrderSubCat.Name = "btnReOrderSubCat";
+            this.btnReOrderSubCat.Size = new System.Drawing.Size(220, 22);
+            this.btnReOrderSubCat.Text = "تغییر ترتیب زیربخشها";
+            this.btnReOrderSubCat.Click += new System.EventHandler(this.btnReOrderSubCat_Click);
             // 
             // Editor
             // 
@@ -449,5 +458,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem btnExportPoet;
         private System.Windows.Forms.ToolStripMenuItem btnReOrderCat;
+        private System.Windows.Forms.ToolStripMenuItem btnReOrderSubCat;
     }
 }

@@ -1176,6 +1176,30 @@ namespace ganjoor
             }
             return true;
         }
+        public bool SetCatID(int CatID, int NewCatID)
+        {
+            if (!Connected)
+                return false;
+            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+            {
+                cmd.CommandText = String.Format(
+                    "UPDATE cat SET id = {0} WHERE id= {1}",
+                    NewCatID, CatID
+                    );
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = String.Format(
+                    "UPDATE poem SET cat_id = {0} WHERE cat_id= {1}",
+                    NewCatID, CatID
+                    );
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = String.Format(
+                    "UPDATE poet SET cat_id = {0} WHERE cat_id= {1}",
+                    NewCatID, CatID
+                    );
+                cmd.ExecuteNonQuery();
+            }
+            return true;
+        }
         public GanjoorPoem CreateNewPoem(string PoemTitle, int CatID)
         {
             
@@ -1368,7 +1392,7 @@ namespace ganjoor
                 cmd.ExecuteNonQuery();
             }
 
-        }
+        }        
         private void DRY_DeleteCat(GanjoorCat Cat)
         {
             List<GanjoorCat> SubCats = GetSubCategories(Cat._ID);
