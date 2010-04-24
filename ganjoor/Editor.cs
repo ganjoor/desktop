@@ -39,9 +39,8 @@ namespace ganjoor
                 btnPreviousPoem.Enabled = preItem != null;
                 btnPreviousPoem.Tag = preItem;
             }
-
-            btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
-            btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = btnReOrderCat.Enabled = !ganjoorView.IsInPoetRootPage;
+            btnReOrderCat.Enabled = btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
+            btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = !ganjoorView.IsInPoetRootPage;
             btnNewLine.Enabled = btnDeletePoem.Enabled = btnEditPoem.Enabled = HasComments;
         }
 
@@ -250,6 +249,20 @@ namespace ganjoor
                 dlg.ShowDialog(this);
             }
             this.Show();
+            ganjoorView.Font = ganjoorView.Font;
+        }
+
+        private void btnReOrderSubCat_Click(object sender, EventArgs e)
+        {
+            ganjoorView.Save();
+            ganjoorView.StoreSettings();
+            this.Hide();
+            using (ReOrderSubCats dlg = new ReOrderSubCats())
+            {
+                dlg.ShowDialog(this);
+            }
+            this.Show();
+            ganjoorView.Font = ganjoorView.Font;
         }
 
 
