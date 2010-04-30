@@ -41,7 +41,7 @@ namespace ganjoor
             }
             btnReOrderCat.Enabled = btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
             btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = !ganjoorView.IsInPoetRootPage;
-            btnNewLine.Enabled = btnDeletePoem.Enabled = btnEditPoem.Enabled = HasComments;
+            btnImportFromTextFile.Enabled = btnImportFromClipboard.Enabled = chkEachlineOneverse.Enabled = btnNewLine.Enabled = btnDeletePoem.Enabled = btnEditPoem.Enabled = HasComments;
         }
 
         private void btnPreviousPoem_Click(object sender, EventArgs e)
@@ -172,6 +172,11 @@ namespace ganjoor
             ganjoorView.NewBandVerse();
         }
 
+        private void btnNewSingleVerse_Click(object sender, EventArgs e)
+        {
+            ganjoorView.NewSingleVerse();
+        }
+
         private void btnDeleteLine_Click(object sender, EventArgs e)
         {
             ganjoorView.DeleteLine();
@@ -264,6 +269,32 @@ namespace ganjoor
             this.Show();
             ganjoorView.Font = ganjoorView.Font;
         }
+
+        private void btnImportFromTextFile_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "Unicode Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    string srcText = File.ReadAllText(dlg.FileName);
+                    ganjoorView.InsertVerses(srcText.Split(new char[]{(char)10, (char)13}, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked);
+                    ganjoorView.Save();
+                }
+            }
+        }
+
+        private void btnImportFromClipboard_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsText())
+            {
+                ganjoorView.InsertVerses(Clipboard.GetText().Split(new char[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked);
+                ganjoorView.Save();                
+            }
+            else
+                MessageBox.Show("متنی در کلیپ بورد نیست.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
 
 
     }
