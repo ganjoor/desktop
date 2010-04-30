@@ -152,6 +152,7 @@
             // 
             // tlbrMain
             // 
+            this.tlbrMain.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tlbrMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tlbrMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnMoveFirst,
@@ -171,7 +172,7 @@
             this.btnMoveFirst.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveFirst.Image")));
             this.btnMoveFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveFirst.Name = "btnMoveFirst";
-            this.btnMoveFirst.Size = new System.Drawing.Size(121, 22);
+            this.btnMoveFirst.Size = new System.Drawing.Size(131, 22);
             this.btnMoveFirst.Text = "انتقال به ابتدای فهرست";
             this.btnMoveFirst.Click += new System.EventHandler(this.btnMoveFirst_Click);
             // 
@@ -181,7 +182,7 @@
             this.btnMoveLast.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveLast.Image")));
             this.btnMoveLast.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveLast.Name = "btnMoveLast";
-            this.btnMoveLast.Size = new System.Drawing.Size(121, 22);
+            this.btnMoveLast.Size = new System.Drawing.Size(132, 22);
             this.btnMoveLast.Text = "انتقال به انتهای فهرست";
             this.btnMoveLast.Click += new System.EventHandler(this.btnMoveLast_Click);
             // 
@@ -191,7 +192,7 @@
             this.btnMoveUp.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveUp.Image")));
             this.btnMoveUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveUp.Name = "btnMoveUp";
-            this.btnMoveUp.Size = new System.Drawing.Size(74, 22);
+            this.btnMoveUp.Size = new System.Drawing.Size(80, 22);
             this.btnMoveUp.Text = "یک ردیف بالاتر";
             this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
             // 
@@ -201,7 +202,7 @@
             this.btnMoveDown.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveDown.Image")));
             this.btnMoveDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveDown.Name = "btnMoveDown";
-            this.btnMoveDown.Size = new System.Drawing.Size(82, 22);
+            this.btnMoveDown.Size = new System.Drawing.Size(89, 22);
             this.btnMoveDown.Text = "یک ردیف پایین‌تر";
             this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
             // 
@@ -212,7 +213,7 @@
             this.btnSaveOrder.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveOrder.Image")));
             this.btnSaveOrder.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveOrder.Name = "btnSaveOrder";
-            this.btnSaveOrder.Size = new System.Drawing.Size(82, 22);
+            this.btnSaveOrder.Size = new System.Drawing.Size(89, 22);
             this.btnSaveOrder.Text = "ذخیرۀ این ترتیب";
             this.btnSaveOrder.Click += new System.EventHandler(this.btnSaveOrder_Click);
             // 

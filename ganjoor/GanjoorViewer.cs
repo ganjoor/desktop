@@ -1409,6 +1409,13 @@ namespace ganjoor
             else
                 MessageBox.Show(_db.LastError);
         }
+        public void ImportDbUnsafe(string fileName)
+        {
+            if (_db.ImportDbFastUnsafe(fileName))
+                ShowHome(true);
+            else
+                MessageBox.Show(_db.LastError);
+        }
         public void ExportFavs(string fileName)
         {
             _db.ExportFavs(fileName);
@@ -1611,6 +1618,7 @@ namespace ganjoor
             Save();
             int LinePosition = GetCurrentLine();
             VersePosition Position = IsClassicPoem ? VersePosition.Right : VersePosition.Single;
+            _db.BeginBatchOperation();
             foreach (string verse in verses)
             {
                 GanjoorVerse newVerse;
@@ -1643,6 +1651,68 @@ namespace ganjoor
                 _db.SetVerseText(newVerse._PoemID, newVerse._Order, verse);
                 LinePosition = newVerse._Order;
             }
+            _db.CommitBatchOperation();
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            return true;
+        }
+        public bool InsertVerses(string[] verses, int LineCount, bool FullLine)
+        {
+            Save();
+            int LinePosition = GetCurrentLine();
+            VersePosition Position = VersePosition.Right;
+            int numPassed = 0;
+            _db.BeginBatchOperation();
+            foreach (string verse in verses)
+            {
+                GanjoorVerse newVerse;
+                switch (Position)
+                {
+                    case VersePosition.Right:
+                        {
+                            newVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Right);
+                            if (newVerse == null)
+                                return false;
+                            Position = VersePosition.Left;
+                        }
+                        break;
+                    case VersePosition.Left:
+                        {
+                            newVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Left);
+                            if (newVerse == null)
+                                return false;
+                            numPassed++;
+                            Position = (numPassed == LineCount) ? VersePosition.CenteredVerse1 : VersePosition.Right;
+                        }
+                        break;
+                    case VersePosition.CenteredVerse1:
+                        {
+                            newVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.CenteredVerse1);
+                            if (newVerse == null)
+                            {
+                                _db.CommitBatchOperation();
+                                return false;
+                            }
+                            numPassed = 0;
+                            Position = FullLine ? VersePosition.CenteredVerse2 : VersePosition.Right;
+                        }
+                        break;
+                    default://case VersePosition.CenteredVerse2:                    
+                        {
+                            newVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.CenteredVerse2);
+                            if (newVerse == null)
+                            {
+                                _db.CommitBatchOperation();
+                                return false;
+                            }
+                            Position = VersePosition.Right;
+                        }
+                        break;
+
+                }
+                _db.SetVerseText(newVerse._PoemID, newVerse._Order, verse);
+                LinePosition = newVerse._Order;
+            }
+            _db.CommitBatchOperation();
             ShowPoem(_db.GetPoem(_iCurPoem), false);
             return true;
         }
@@ -1651,45 +1721,65 @@ namespace ganjoor
             Save();
             int LinePosition = GetCurrentLine();
             GanjoorVerse firstVerse;
+            _db.BeginBatchOperation();
             switch (Position)
             {
                 case VersePosition.CenteredVerse1:
                     {
                         firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.CenteredVerse1);
                         if (firstVerse == null)
+                        {
+                            _db.CommitBatchOperation();
                             return false;
+                        }
                     }
                     break;
                 case VersePosition.CenteredVerse2:
                     {
                         firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.CenteredVerse1);
                         if (firstVerse == null)
+                        {
+                            _db.CommitBatchOperation();
                             return false;
+                        }
 
                         GanjoorVerse secondVerse = _db.CreateNewVerse(_iCurPoem, firstVerse._Order, VersePosition.CenteredVerse2);
                         if (secondVerse == null)
+                        {
+                            _db.CommitBatchOperation();
                             return false;
+                        }
                     }
                     break;
                 case VersePosition.Single:
                     {
                         firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Single);
                         if (firstVerse == null)
+                        {
+                            _db.CommitBatchOperation();
                             return false;
+                        }
                     }
                     break;
                 default:
                     {
                         firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Right);
                         if (firstVerse == null)
+                        {
+                            _db.CommitBatchOperation();
                             return false;
+                        }
 
                         GanjoorVerse secondVerse = _db.CreateNewVerse(_iCurPoem, firstVerse._Order, VersePosition.Left);
                         if (secondVerse == null)
+                        {
+                            _db.CommitBatchOperation();
                             return false;
+                        }
                     }
                     break;
             }
+            _db.CommitBatchOperation();
             ShowPoem(_db.GetPoem(_iCurPoem), false);
             foreach (Control ctl in this.Controls)
                 if (ctl is TextBox)

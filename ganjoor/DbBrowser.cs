@@ -922,6 +922,108 @@ namespace ganjoor
             
             return true;
         }
+        /// <summary>
+        /// This is the fast old ImportDb function which can be used if user is sure that his/her new db
+        /// does not conflict with main db
+        /// </summary>
+        public bool ImportDbFastUnsafe(string fileName)
+        {
+            SQLiteConnection newConnection;
+            try
+            {
+                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
+                conString.DataSource = fileName;
+                conString.DefaultTimeout = 5000;
+                conString.FailIfMissing = true;
+                conString.ReadOnly = false;
+                newConnection = new SQLiteConnection(conString.ConnectionString);
+                newConnection.Open();
+            }
+            catch (Exception exp)
+            {
+                LastError = exp.ToString();
+                return false;
+            }
+
+            try
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    cmd.CommandText = "BEGIN TRANSACTION;";
+                    cmd.ExecuteNonQuery();
+
+                    using (DataTable tbl = new DataTable())
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, poet_id, text, parent_id, url FROM cat", newConnection))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            cmd.CommandText = String.Format(
+                                "INSERT INTO cat (id, poet_id, text, parent_id, url) VALUES ({0}, {1}, \"{2}\", {3}, \"{4}\");",
+                                row.ItemArray[0], row.ItemArray[1], row.ItemArray[2], row.ItemArray[3], row.ItemArray[4]
+                                );
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    using (DataTable tbl = new DataTable())
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet", newConnection))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            cmd.CommandText = String.Format(
+                                "INSERT INTO poet (id, name, cat_id) VALUES ({0}, \"{1}\", {2});",
+                                row.ItemArray[0], row.ItemArray[1], row.ItemArray[2]
+                                );
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    using (DataTable tbl = new DataTable())
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, cat_id, title, url FROM poem", newConnection))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            cmd.CommandText = String.Format(
+                                "INSERT INTO poem (id, cat_id, title, url) VALUES ({0}, {1}, \"{2}\", \"{3}\");",
+                                row.ItemArray[0], row.ItemArray[1], row.ItemArray[2], row.ItemArray[3]
+                                );
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    using (DataTable tbl = new DataTable())
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, vorder, position, text FROM verse", newConnection))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            cmd.CommandText = String.Format(
+                                "INSERT INTO verse (poem_id, vorder, position, text) VALUES ({0}, {1}, {2}, \"{3}\");",
+                                row.ItemArray[0], row.ItemArray[1], row.ItemArray[2], row.ItemArray[3]
+                                );
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    cmd.CommandText = "COMMIT;";
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception exp)
+            {
+                LastError = exp.ToString();//probable repeated data
+                newConnection.Dispose();
+                return false;
+            }
+
+            newConnection.Dispose();
+
+            return true;
+        }
         #endregion
 
         #region Import/Export Favs
@@ -1352,6 +1454,7 @@ namespace ganjoor
         {
             if (!Connected)
                 return false;
+            Text = Text.Replace("\"", "").Replace("'", "");
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = String.Format(
@@ -1369,6 +1472,7 @@ namespace ganjoor
             GanjoorPoem poem = GetPoem(PoemID);
             if (null == poem)
                 return false;
+            BeginBatchOperation();
             foreach(int vorder in VerseOrders)
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
@@ -1401,6 +1505,7 @@ namespace ganjoor
                     cmd.ExecuteNonQuery();
                 }
             }
+            CommitBatchOperation();
             return true;
         }
         public void DeleteCat(int CatID)
