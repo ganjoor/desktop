@@ -86,11 +86,12 @@
             this.mnuZoomIn = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuZoomOut = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAddUnsafe = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSrch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHighlight = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSearch = new System.Windows.Forms.ToolStripMenuItem();
@@ -561,6 +562,7 @@
             this.mnuEdit,
             this.toolStripSeparator15,
             this.mnuAdd,
+            this.mnuAddUnsafe,
             this.toolStripSeparator17,
             this.mnuOptions});
             this.mnuTools.Name = "mnuTools";
@@ -572,7 +574,7 @@
             this.mnuViewInSite.Image = global::ganjoor.Properties.Resources.firefox_alt;
             this.mnuViewInSite.Name = "mnuViewInSite";
             this.mnuViewInSite.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.mnuViewInSite.Size = new System.Drawing.Size(270, 22);
+            this.mnuViewInSite.Size = new System.Drawing.Size(313, 22);
             this.mnuViewInSite.Text = "مرور شعر در گنجور تحت وب";
             this.mnuViewInSite.Click += new System.EventHandler(this.btnViewInSite_Click);
             // 
@@ -581,35 +583,35 @@
             this.mnuComments.Enabled = false;
             this.mnuComments.Image = global::ganjoor.Properties.Resources.comments;
             this.mnuComments.Name = "mnuComments";
-            this.mnuComments.Size = new System.Drawing.Size(270, 22);
+            this.mnuComments.Size = new System.Drawing.Size(313, 22);
             this.mnuComments.Text = "حاشیه‌های این شعر در گنجور تحت وب";
             this.mnuComments.Click += new System.EventHandler(this.btnComments_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(310, 6);
             // 
             // mnuCopy
             // 
             this.mnuCopy.Image = global::ganjoor.Properties.Resources.note_accept;
             this.mnuCopy.Name = "mnuCopy";
             this.mnuCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.mnuCopy.Size = new System.Drawing.Size(270, 22);
+            this.mnuCopy.Size = new System.Drawing.Size(313, 22);
             this.mnuCopy.Text = "کپی متن";
             this.mnuCopy.Click += new System.EventHandler(this.btnCopyText_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(310, 6);
             // 
             // mnuPrint
             // 
             this.mnuPrint.Image = global::ganjoor.Properties.Resources.printer;
             this.mnuPrint.Name = "mnuPrint";
             this.mnuPrint.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.mnuPrint.Size = new System.Drawing.Size(270, 22);
+            this.mnuPrint.Size = new System.Drawing.Size(313, 22);
             this.mnuPrint.Text = "چاپ";
             this.mnuPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
@@ -618,21 +620,21 @@
             this.mnuPrintPreview.Name = "mnuPrintPreview";
             this.mnuPrintPreview.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.P)));
-            this.mnuPrintPreview.Size = new System.Drawing.Size(270, 22);
+            this.mnuPrintPreview.Size = new System.Drawing.Size(313, 22);
             this.mnuPrintPreview.Text = "پیش‌نمایش چاپ";
             this.mnuPrintPreview.Click += new System.EventHandler(this.mnuPrintPreview_Click);
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator14.Size = new System.Drawing.Size(310, 6);
             // 
             // mnuZoomIn
             // 
             this.mnuZoomIn.Image = global::ganjoor.Properties.Resources.search_add;
             this.mnuZoomIn.Name = "mnuZoomIn";
             this.mnuZoomIn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
-            this.mnuZoomIn.Size = new System.Drawing.Size(270, 22);
+            this.mnuZoomIn.Size = new System.Drawing.Size(313, 22);
             this.mnuZoomIn.Text = "بزرگتر کردن قلم متن";
             this.mnuZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
             // 
@@ -641,48 +643,55 @@
             this.mnuZoomOut.Image = global::ganjoor.Properties.Resources.search_remove;
             this.mnuZoomOut.Name = "mnuZoomOut";
             this.mnuZoomOut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
-            this.mnuZoomOut.Size = new System.Drawing.Size(270, 22);
+            this.mnuZoomOut.Size = new System.Drawing.Size(313, 22);
             this.mnuZoomOut.Text = "کوچکتر کردن قلم متن";
             this.mnuZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(310, 6);
+            // 
+            // mnuEdit
+            // 
+            this.mnuEdit.Image = global::ganjoor.Properties.Resources.application_edit;
+            this.mnuEdit.Name = "mnuEdit";
+            this.mnuEdit.Size = new System.Drawing.Size(313, 22);
+            this.mnuEdit.Text = "ویرایشگر شعر";
+            this.mnuEdit.Click += new System.EventHandler(this.btnEditor_Click);
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(310, 6);
+            // 
+            // mnuAdd
+            // 
+            this.mnuAdd.Name = "mnuAdd";
+            this.mnuAdd.Size = new System.Drawing.Size(313, 22);
+            this.mnuAdd.Text = "اضافه کردن مجموعه اشعار جدید";
+            this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
+            // 
+            // mnuAddUnsafe
+            // 
+            this.mnuAddUnsafe.Name = "mnuAddUnsafe";
+            this.mnuAddUnsafe.Size = new System.Drawing.Size(313, 22);
+            this.mnuAddUnsafe.Text = "اضافه کردن مجموعه اشعار جدید (روش قدیمی)";
+            this.mnuAddUnsafe.Click += new System.EventHandler(this.mnuAddUnsafe_Click);
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(310, 6);
             // 
             // mnuOptions
             // 
             this.mnuOptions.Image = global::ganjoor.Properties.Resources.process;
             this.mnuOptions.Name = "mnuOptions";
             this.mnuOptions.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.mnuOptions.Size = new System.Drawing.Size(270, 22);
+            this.mnuOptions.Size = new System.Drawing.Size(313, 22);
             this.mnuOptions.Text = "تنظیمات";
             this.mnuOptions.Click += new System.EventHandler(this.btnOptions_Click);
-            // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(267, 6);
-            // 
-            // mnuEdit
-            // 
-            this.mnuEdit.Image = global::ganjoor.Properties.Resources.application_edit;
-            this.mnuEdit.Name = "mnuEdit";
-            this.mnuEdit.Size = new System.Drawing.Size(270, 22);
-            this.mnuEdit.Text = "ویرایشگر شعر";
-            this.mnuEdit.Click += new System.EventHandler(this.btnEditor_Click);
-            // 
-            // toolStripSeparator17
-            // 
-            this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(267, 6);
-            // 
-            // mnuAdd
-            // 
-            this.mnuAdd.Name = "mnuAdd";
-            this.mnuAdd.Size = new System.Drawing.Size(270, 22);
-            this.mnuAdd.Text = "اضافه کردن مجموعه اشعار جدید";
-            this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
             // 
             // mnuSrch
             // 
@@ -846,8 +855,8 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "گنجور رومیزی";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -941,6 +950,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripButton btnEditor;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddUnsafe;
 
 
 

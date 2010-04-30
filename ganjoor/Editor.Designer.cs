@@ -72,6 +72,8 @@
             this.btnDeleteLine = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.btnImportFromClipboadStructuredPoem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -274,6 +276,8 @@
             this.btnImportFromTextFile,
             this.btnImportFromClipboard,
             this.chkEachlineOneverse,
+            this.toolStripSeparator14,
+            this.btnImportFromClipboadStructuredPoem,
             this.toolStripSeparator5,
             this.btnDeletePoem});
             this.btnNewPoem.Image = global::ganjoor.Properties.Resources.add;
@@ -443,6 +447,18 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
+            // btnImportFromClipboadStructuredPoem
+            // 
+            this.btnImportFromClipboadStructuredPoem.Name = "btnImportFromClipboadStructuredPoem";
+            this.btnImportFromClipboadStructuredPoem.Size = new System.Drawing.Size(383, 22);
+            this.btnImportFromClipboadStructuredPoem.Text = "درج شعر چند بندی از کلیپ بورد";
+            this.btnImportFromClipboadStructuredPoem.Click += new System.EventHandler(this.btnImportFromClipboadStructuredPoem_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(380, 6);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -511,5 +527,7 @@
         private System.Windows.Forms.ToolStripMenuItem chkEachlineOneverse;
         private System.Windows.Forms.ToolStripMenuItem btnImportFromClipboard;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripMenuItem btnImportFromClipboadStructuredPoem;
     }
 }

@@ -450,7 +450,7 @@ namespace ganjoor
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "*.s3db|*.s3db";
-                dlg.FileName = Path.GetDirectoryName(Application.ExecutablePath) + "\\new.s3db";
+                dlg.FileName = "new.s3db";
                 if(dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ImportDb(dlg.FileName);
             }
@@ -485,6 +485,18 @@ namespace ganjoor
             using (Editor dlg = new Editor())
                 dlg.ShowDialog(this);
             this.Show();
+        }
+
+        private void mnuAddUnsafe_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("در این روش اضافه کردن اشعار آزمونهای جلوگیری از خطا انجام نمی‌شود. به همین دلیل فرایند اضافه شدن شعرها سریع‌تر است. در صورت برخورد به خطا در هنگام استفاده از این روش، از فرمان استاندارد اضافه کردن اشعار استفاده کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "*.s3db|*.s3db";
+                dlg.FileName = "new.s3db";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                    ganjoorView.ImportDbUnsafe(dlg.FileName);
+            }
         }
 
 
