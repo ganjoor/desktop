@@ -77,9 +77,19 @@
             this.label11 = new System.Windows.Forms.Label();
             this.trackBarScrollbarsSpeed = new System.Windows.Forms.TrackBar();
             this.chkEditorButton = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.numMinPoetID = new System.Windows.Forms.NumericUpDown();
+            this.numMinCatID = new System.Windows.Forms.NumericUpDown();
+            this.numMinPoemID = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollbarsSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinPoetID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinCatID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinPoemID)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -118,7 +128,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(15, 368);
+            this.btnOK.Location = new System.Drawing.Point(15, 388);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 0;
@@ -130,7 +140,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(96, 368);
+            this.btnCancel.Location = new System.Drawing.Point(96, 388);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -385,7 +395,7 @@
             // btnDefault
             // 
             this.btnDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDefault.Location = new System.Drawing.Point(430, 366);
+            this.btnDefault.Location = new System.Drawing.Point(430, 386);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(156, 23);
             this.btnDefault.TabIndex = 2;
@@ -648,13 +658,114 @@
             this.chkEditorButton.Text = "ویرایشگر";
             this.chkEditorButton.UseVisualStyleBackColor = true;
             // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(15, 352);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(231, 13);
+            this.label12.TabIndex = 49;
+            this.label12.Text = "کمترین شناسه برای عنوانهای جدید در ویرایشگر:";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(252, 352);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(37, 13);
+            this.label13.TabIndex = 50;
+            this.label13.Text = "شاعر:";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(364, 352);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(37, 13);
+            this.label14.TabIndex = 51;
+            this.label14.Text = "دسته:";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(482, 352);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(33, 13);
+            this.label15.TabIndex = 52;
+            this.label15.Text = "شعر:";
+            // 
+            // numMinPoetID
+            // 
+            this.numMinPoetID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numMinPoetID.Location = new System.Drawing.Point(289, 350);
+            this.numMinPoetID.Maximum = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            0});
+            this.numMinPoetID.Name = "numMinPoetID";
+            this.numMinPoetID.Size = new System.Drawing.Size(74, 21);
+            this.numMinPoetID.TabIndex = 53;
+            this.numMinPoetID.Value = new decimal(new int[] {
+            1001,
+            0,
+            0,
+            0});
+            // 
+            // numMinCatID
+            // 
+            this.numMinCatID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numMinCatID.Location = new System.Drawing.Point(403, 350);
+            this.numMinCatID.Maximum = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            0});
+            this.numMinCatID.Name = "numMinCatID";
+            this.numMinCatID.Size = new System.Drawing.Size(74, 21);
+            this.numMinCatID.TabIndex = 54;
+            this.numMinCatID.Value = new decimal(new int[] {
+            10001,
+            0,
+            0,
+            0});
+            // 
+            // numMinPoemID
+            // 
+            this.numMinPoemID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numMinPoemID.Location = new System.Drawing.Point(516, 350);
+            this.numMinPoemID.Maximum = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            0});
+            this.numMinPoemID.Name = "numMinPoemID";
+            this.numMinPoemID.Size = new System.Drawing.Size(75, 21);
+            this.numMinPoemID.TabIndex = 55;
+            this.numMinPoemID.Value = new decimal(new int[] {
+            100001,
+            0,
+            0,
+            0});
+            // 
             // Options
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(603, 401);
+            this.ClientSize = new System.Drawing.Size(603, 418);
+            this.Controls.Add(this.numMinPoemID);
+            this.Controls.Add(this.numMinCatID);
+            this.Controls.Add(this.numMinPoetID);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.chkEditorButton);
             this.Controls.Add(this.trackBarScrollbarsSpeed);
             this.Controls.Add(this.label11);
@@ -718,6 +829,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollbarsSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinPoetID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinCatID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinPoemID)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -774,5 +888,12 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TrackBar trackBarScrollbarsSpeed;
         private System.Windows.Forms.CheckBox chkEditorButton;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown numMinPoetID;
+        private System.Windows.Forms.NumericUpDown numMinCatID;
+        private System.Windows.Forms.NumericUpDown numMinPoemID;
     }
 }

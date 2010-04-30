@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
 using System.IO;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -912,7 +913,7 @@ namespace ganjoor
             }
             catch (Exception exp)
             {
-                LastError = exp.ToString();//probable repeated data
+                LastError = exp.ToString();//probably repeated data
                 newConnection.Dispose();
                 return false;
             }
@@ -1054,14 +1055,21 @@ namespace ganjoor
                     da.Fill(tbl);
                     if (tbl.Rows.Count == 1)
                     {
-                        NewPoetID = Convert.ToInt32(tbl.Rows[0].ItemArray[0]);
-                        if (NewPoetID < 1000)
-                            NewPoetID = 1001;
+                        try
+                        {
+                            NewPoetID = Convert.ToInt32(tbl.Rows[0].ItemArray[0]);
+                        }
+                        catch
+                        {
+                            NewPoetID = Settings.Default.MinNewPoetID;
+                        }
+                        if (NewPoetID < Settings.Default.MinNewPoetID)
+                            NewPoetID = Settings.Default.MinNewPoetID;
                         else
                             NewPoetID++;
                     }
                     else
-                        NewPoetID = 1001;
+                        NewPoetID = Settings.Default.MinNewPoetID;
                 }
             }
             return NewPoetID;
@@ -1129,14 +1137,21 @@ namespace ganjoor
                         da.Fill(tbl);
                         if (tbl.Rows.Count == 1)
                         {
-                            NewCatID = Convert.ToInt32(tbl.Rows[0].ItemArray[0]);
-                            if (NewCatID < 1000)
-                                NewCatID = 1001;
+                            try
+                            {
+                                NewCatID = Convert.ToInt32(tbl.Rows[0].ItemArray[0]);
+                            }
+                            catch
+                            {
+                                NewCatID = Settings.Default.MinNewCatID;
+                            }
+                            if (NewCatID < Settings.Default.MinNewCatID)
+                                NewCatID = Settings.Default.MinNewCatID;
                             else
                                 NewCatID++;
                         }
                         else
-                            NewCatID = 1001;
+                            NewCatID = Settings.Default.MinNewCatID;
                         CachedMaxCatID = NewCatID;
                     }
                 }
@@ -1228,10 +1243,19 @@ namespace ganjoor
                         da.Fill(tbl);
                         if (tbl.Rows.Count == 1)
                         {
-                            NewPoemID = Convert.ToInt32(tbl.Rows[0].ItemArray[0]) + 1;
+                            try
+                            {
+                                NewPoemID = Convert.ToInt32(tbl.Rows[0].ItemArray[0]) + 1;
+                            }
+                            catch
+                            {
+                                NewPoemID = Settings.Default.MinNewPoemID;
+                            }
+                            if (NewPoemID < Settings.Default.MinNewPoemID)
+                                NewPoemID = Settings.Default.MinNewPoemID;
                         }
                         else
-                            NewPoemID = 100001;
+                            NewPoemID = Settings.Default.MinNewPoemID;
                         CachedMaxPoemID = NewPoemID;
                     }
                 }

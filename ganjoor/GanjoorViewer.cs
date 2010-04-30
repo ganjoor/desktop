@@ -393,6 +393,9 @@ namespace ganjoor
                                 MustHave2ndBandBeyt = false;
                                 lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
                                 break;
+                            case VersePosition.Single:
+                                lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+                                break;
                         }
                     }
                     else
@@ -427,6 +430,10 @@ namespace ganjoor
                                 MustHave2ndBandBeyt = false;
                                 lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
                                 break;
+                            case VersePosition.Single:
+                                lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+                                break;
+
                         }
                     }
                     else
@@ -444,7 +451,7 @@ namespace ganjoor
                 this.Controls.Add(lblVerse);
                 
 
-                if (verses[i]._Position == VersePosition.Right || verses[i]._Position == VersePosition.CenteredVerse1)
+                if (verses[i]._Position == VersePosition.Right || verses[i]._Position == VersePosition.CenteredVerse1 || (verses[i]._Position == VersePosition.Single && !string.IsNullOrEmpty(verses[i]._Text)))
                 {
                     WholeBeytNum++;
                     bool isBand = verses[i]._Position == VersePosition.CenteredVerse1;
@@ -1154,7 +1161,11 @@ namespace ganjoor
             string txt = "";
             foreach (Control ctl in this.Controls)
                 if (ctl is Label)
+                {
+                    if (ctl is LinkLabel && ctl.Tag is GanjoorVerse)
+                        continue;//bypass beyt nums
                     txt += ctl.Text + "\r\n";
+                }
             Clipboard.SetText(txt);
         }
         public void StoreSettings()
@@ -1591,6 +1602,50 @@ namespace ganjoor
         {
             return NewLine(VersePosition.CenteredVerse1);
         }
+        public bool NewSingleVerse()
+        {
+            return NewLine(VersePosition.Single);
+        }
+        public bool InsertVerses(string[] verses, bool IsClassicPoem)
+        {
+            Save();
+            int LinePosition = GetCurrentLine();
+            VersePosition Position = IsClassicPoem ? VersePosition.Right : VersePosition.Single;
+            foreach (string verse in verses)
+            {
+                GanjoorVerse newVerse;
+                switch (Position)
+                {
+                    case VersePosition.Single:
+                        {
+                            newVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Single);
+                            if (newVerse == null)
+                                return false;                            
+                        }
+                        break;
+                    case VersePosition.Right:
+                        {
+                            newVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Right);
+                            if (newVerse == null)
+                                return false;
+                            Position = VersePosition.Left;
+                        }
+                        break;
+                    default:
+                        {
+                            newVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Left);
+                            if (newVerse == null)
+                                return false;
+                            Position = VersePosition.Right;
+                        }
+                        break;
+                }
+                _db.SetVerseText(newVerse._PoemID, newVerse._Order, verse);
+                LinePosition = newVerse._Order;
+            }
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            return true;
+        }
         private bool NewLine(VersePosition Position)
         {
             Save();
@@ -1616,6 +1671,13 @@ namespace ganjoor
                             return false;
                     }
                     break;
+                case VersePosition.Single:
+                    {
+                        firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Single);
+                        if (firstVerse == null)
+                            return false;
+                    }
+                    break;
                 default:
                     {
                         firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Right);
@@ -1628,15 +1690,14 @@ namespace ganjoor
                     }
                     break;
             }
-
             ShowPoem(_db.GetPoem(_iCurPoem), false);
             foreach (Control ctl in this.Controls)
-                if(ctl is TextBox)
+                if (ctl is TextBox)
                     if ((ctl.Tag as GanjoorVerse)._Order == firstVerse._Order)
                     {
                         ctl.Focus();
                         break;
-                    }           
+                    }
             return true;
 
         }

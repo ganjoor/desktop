@@ -48,6 +48,9 @@ namespace ganjoor
                 chkRandomAll.Checked = true;
             numMaxFavs.Value = Settings.Default.FavItemsInPage;
             trackBarScrollbarsSpeed.Value = Settings.Default.ScrollingSpeed;
+            numMinPoetID.Value = Settings.Default.MinNewPoetID;
+            numMinCatID.Value = Settings.Default.MinNewCatID;
+            numMinPoemID.Value = Settings.Default.MinNewPoemID;
         }
         private void btnOK_Click(object sender, EventArgs e)
         {
@@ -78,6 +81,10 @@ namespace ganjoor
             Settings.Default.ViewMode = chkCenteredViewMode.Checked ? (int)GanjoorViewMode.Centered : (int)GanjoorViewMode.RightAligned;
             Settings.Default.FavItemsInPage = (int)numMaxFavs.Value;
             Settings.Default.ScrollingSpeed = trackBarScrollbarsSpeed.Value;
+            Settings.Default.MinNewPoetID = (int)numMinPoetID.Value;
+            Settings.Default.MinNewCatID = (int)numMinCatID.Value;
+            Settings.Default.MinNewPoemID = (int)numMinPoemID.Value;
+
 
             Properties.Settings.Default.Save();
         }
