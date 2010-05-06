@@ -499,6 +499,19 @@ namespace ganjoor
             }
         }
 
+        #region AutoScroll fix found at http://www.devnewsgroups.net/group/microsoft.public.dotnet.framework.windowsforms/topic22846.aspx
+        private Point thumbPos = new Point();
+        private void MainForm_Deactivate(object sender, EventArgs e)
+        {
+            thumbPos = ganjoorView.AutoScrollPosition;
+        }
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            thumbPos.X *= -1;
+            thumbPos.Y *= -1;
+            ganjoorView.AutoScrollPosition = thumbPos;
+        }
+        #endregion
 
     }
 }
