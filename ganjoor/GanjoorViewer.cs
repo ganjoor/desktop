@@ -315,6 +315,8 @@ namespace ganjoor
         }
         private int ShowPoem(GanjoorPoem poem, bool keepTrack, string highlightWord)
         {
+            if (EditMode)
+                Save();
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
@@ -1613,7 +1615,7 @@ namespace ganjoor
         {
             return NewLine(VersePosition.Single);
         }
-        public bool InsertVerses(string[] verses, bool IsClassicPoem)
+        public bool InsertVerses(string[] verses, bool IsClassicPoem, bool IgnoreEmptyLines, bool IgnoreShortLines, int minLength)
         {
             Save();
             int LinePosition = GetCurrentLine();
@@ -1621,6 +1623,10 @@ namespace ganjoor
             _db.BeginBatchOperation();
             foreach (string verse in verses)
             {
+                if (IgnoreEmptyLines && string.IsNullOrEmpty(verse.Trim()))
+                    continue;
+                if (IgnoreShortLines && verse.Trim().Length < minLength)
+                    continue;
                 GanjoorVerse newVerse;
                 switch (Position)
                 {
@@ -1655,7 +1661,7 @@ namespace ganjoor
             ShowPoem(_db.GetPoem(_iCurPoem), false);
             return true;
         }
-        public bool InsertVerses(string[] verses, int LineCount, bool FullLine)
+        public bool InsertVerses(string[] verses, int LineCount, bool FullLine, bool IgnoreEmptyLines, bool IgnoreShortLines, int minLength)
         {
             Save();
             int LinePosition = GetCurrentLine();
@@ -1664,6 +1670,10 @@ namespace ganjoor
             _db.BeginBatchOperation();
             foreach (string verse in verses)
             {
+                if (IgnoreEmptyLines && string.IsNullOrEmpty(verse.Trim()))
+                    continue;
+                if (IgnoreShortLines && verse.Trim().Length < minLength)
+                    continue;
                 GanjoorVerse newVerse;
                 switch (Position)
                 {
@@ -1874,6 +1884,20 @@ namespace ganjoor
             TextBox verseBox = sender as TextBox;
             verseBox.BackColor = Color.LightYellow;
         }
+        public bool DeleteAllLines()
+        {
+            List<GanjoorVerse> Verses = _db.GetVerses(_iCurPoem);
+            List<int> versesToDelete = new List<int>();
+            foreach (GanjoorVerse Verse in Verses)
+                versesToDelete.Add(Verse._Order);
+
+            if (_db.DeleteVerses(_iCurPoem, versesToDelete))
+            {
+                ShowPoem(_db.GetPoem(_iCurPoem), false);
+                return true;
+            }
+            return false;
+        }
         public bool DeleteLine()
         {
             List<int> versesToDelete = new List<int>();
@@ -1926,6 +1950,14 @@ namespace ganjoor
             if (_db.DeleteVerses(_iCurPoem, versesToDelete))
             {
                 ShowPoem(_db.GetPoem(_iCurPoem), false);
+                foreach (Control ctl in this.Controls)
+                    if (ctl is TextBox)
+                    {
+                        ctl.Focus();
+                        break;
+
+                    }
+            
                 return true;
             }
             return false;

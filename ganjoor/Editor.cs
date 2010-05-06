@@ -41,7 +41,7 @@ namespace ganjoor
             }
             btnReOrderCat.Enabled = btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
             btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = !ganjoorView.IsInPoetRootPage;
-            btnImportFromClipboadStructuredPoem.Enabled = btnImportFromTextFile.Enabled = btnImportFromClipboard.Enabled = chkEachlineOneverse.Enabled = btnNewLine.Enabled = btnDeletePoem.Enabled = btnEditPoem.Enabled = HasComments;
+            btnImportFromClipboadStructuredPoem.Enabled = btnImportFromTextFile.Enabled = btnImportFromClipboard.Enabled = chkEachlineOneverse.Enabled = btnNewLine.Enabled = btnDeletePoem.Enabled = btnEditPoem.Enabled = chkIgnoreBlankLines.Enabled = chkIgnoreShortLines.Enabled = HasComments;
         }
 
         private void btnPreviousPoem_Click(object sender, EventArgs e)
@@ -278,7 +278,7 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     string srcText = File.ReadAllText(dlg.FileName);
-                    ganjoorView.InsertVerses(srcText.Split(new char[]{(char)10, (char)13}, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked);
+                    ganjoorView.InsertVerses(srcText.Split(new char[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
                     ganjoorView.Save();
                 }
             }
@@ -288,7 +288,7 @@ namespace ganjoor
         {
             if (Clipboard.ContainsText())
             {
-                ganjoorView.InsertVerses(Clipboard.GetText().Split(new char[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked);
+                ganjoorView.InsertVerses(Clipboard.GetText().Split(new char[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
                 ganjoorView.Save();                
             }
             else
@@ -303,13 +303,25 @@ namespace ganjoor
                 {
                     if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                     {
-                        ganjoorView.InsertVerses(Clipboard.GetText().Split(new char[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), dlg.LinesCount, dlg.FullLine);
+                        ganjoorView.InsertVerses(Clipboard.GetText().Split(new char[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), dlg.LinesCount, dlg.FullLine, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
                         ganjoorView.Save();
                     }
                 }
             }
             else
                 MessageBox.Show("متنی در کلیپ بورد نیست.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnDeleteAllLine_Click(object sender, EventArgs e)
+        {
+            if (
+                MessageBox.Show("آیا از حذف تمام ابیات این شعر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                ==
+                DialogResult.Yes
+                )
+                if (!ganjoorView.DeleteAllLines())
+                    MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
         }
 
 

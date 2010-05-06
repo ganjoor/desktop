@@ -60,6 +60,8 @@
             this.btnImportFromTextFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnImportFromClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.chkEachlineOneverse = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnImportFromClipboadStructuredPoem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeletePoem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -72,8 +74,9 @@
             this.btnDeleteLine = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnImportFromClipboadStructuredPoem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.chkIgnoreBlankLines = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkIgnoreShortLines = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDeleteAllLine = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -276,6 +279,8 @@
             this.btnImportFromTextFile,
             this.btnImportFromClipboard,
             this.chkEachlineOneverse,
+            this.chkIgnoreBlankLines,
+            this.chkIgnoreShortLines,
             this.toolStripSeparator14,
             this.btnImportFromClipboadStructuredPoem,
             this.toolStripSeparator5,
@@ -338,6 +343,18 @@
             this.chkEachlineOneverse.Size = new System.Drawing.Size(383, 22);
             this.chkEachlineOneverse.Text = "شعری که درج می‌شود نیمایی یا آزاد است";
             // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(380, 6);
+            // 
+            // btnImportFromClipboadStructuredPoem
+            // 
+            this.btnImportFromClipboadStructuredPoem.Name = "btnImportFromClipboadStructuredPoem";
+            this.btnImportFromClipboadStructuredPoem.Size = new System.Drawing.Size(383, 22);
+            this.btnImportFromClipboadStructuredPoem.Text = "درج شعر چند بندی از کلیپ بورد";
+            this.btnImportFromClipboadStructuredPoem.Click += new System.EventHandler(this.btnImportFromClipboadStructuredPoem_Click);
+            // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
@@ -363,7 +380,8 @@
             this.btnNewBandVerse,
             this.btnNewSingleVerse,
             this.toolStripSeparator10,
-            this.btnDeleteLine});
+            this.btnDeleteLine,
+            this.btnDeleteAllLine});
             this.btnNewLine.Image = ((System.Drawing.Image)(resources.GetObject("btnNewLine.Image")));
             this.btnNewLine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNewLine.Name = "btnNewLine";
@@ -447,17 +465,26 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnImportFromClipboadStructuredPoem
+            // chkIgnoreBlankLines
             // 
-            this.btnImportFromClipboadStructuredPoem.Name = "btnImportFromClipboadStructuredPoem";
-            this.btnImportFromClipboadStructuredPoem.Size = new System.Drawing.Size(383, 22);
-            this.btnImportFromClipboadStructuredPoem.Text = "درج شعر چند بندی از کلیپ بورد";
-            this.btnImportFromClipboadStructuredPoem.Click += new System.EventHandler(this.btnImportFromClipboadStructuredPoem_Click);
+            this.chkIgnoreBlankLines.CheckOnClick = true;
+            this.chkIgnoreBlankLines.Name = "chkIgnoreBlankLines";
+            this.chkIgnoreBlankLines.Size = new System.Drawing.Size(383, 22);
+            this.chkIgnoreBlankLines.Text = "خطهای خالی نادیده گرفته شوند";
             // 
-            // toolStripSeparator14
+            // chkIgnoreShortLines
             // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(380, 6);
+            this.chkIgnoreShortLines.CheckOnClick = true;
+            this.chkIgnoreShortLines.Name = "chkIgnoreShortLines";
+            this.chkIgnoreShortLines.Size = new System.Drawing.Size(383, 22);
+            this.chkIgnoreShortLines.Text = "خطهای حاوی کمتر از 4 حرف نادیده گرفته شوند";
+            // 
+            // btnDeleteAllLine
+            // 
+            this.btnDeleteAllLine.Name = "btnDeleteAllLine";
+            this.btnDeleteAllLine.Size = new System.Drawing.Size(250, 22);
+            this.btnDeleteAllLine.Text = "حذف تمام ابیات";
+            this.btnDeleteAllLine.Click += new System.EventHandler(this.btnDeleteAllLine_Click);
             // 
             // Editor
             // 
@@ -529,5 +556,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem btnImportFromClipboadStructuredPoem;
+        private System.Windows.Forms.ToolStripMenuItem chkIgnoreBlankLines;
+        private System.Windows.Forms.ToolStripMenuItem chkIgnoreShortLines;
+        private System.Windows.Forms.ToolStripMenuItem btnDeleteAllLine;
     }
 }
