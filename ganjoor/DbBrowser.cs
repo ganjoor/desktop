@@ -1510,16 +1510,12 @@ namespace ganjoor
         }
         public void DeleteCat(int CatID)
         {
+            BeginBatchOperation();
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
-                cmd.CommandText = "BEGIN TRANSACTION;";
-                cmd.ExecuteNonQuery();
-
                 DRY_DeleteCat(GetCategory(CatID));
-
-                cmd.CommandText = "COMMIT;";
-                cmd.ExecuteNonQuery();
             }
+            CommitBatchOperation();
 
         }        
         private void DRY_DeleteCat(GanjoorCat Cat)

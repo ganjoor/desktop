@@ -449,6 +449,7 @@ namespace ganjoor
                 {
                     lblVerse.Leave += new EventHandler(lblVerse_Leave);
                     lblVerse.TextChanged += new EventHandler(lblVerse_TextChanged);
+                    lblVerse.KeyDown += new KeyEventHandler(lblVerse_KeyDown);
                 }
                 this.Controls.Add(lblVerse);
                 
@@ -545,6 +546,76 @@ namespace ganjoor
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, true, true, poem._Faved, false, highlightWord, null, null);
             return string.IsNullOrEmpty(highlightWord) || !Settings.Default.HighlightKeyword ? 0 : HighlightText(highlightWord);
+        }
+        private void lblVerse_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    {
+                        if (sender is TextBox)
+                        {
+                            TextBox txtBox = (sender as TextBox);
+                            int oldSelStart = txtBox.SelectionStart;
+                            GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
+                            int newFocusTag =
+                                (CurrentVerse._Position == VersePosition.Right) || (CurrentVerse._Position == VersePosition.Left)
+                                ?
+                                CurrentVerse._Order - 2
+                                :
+                                CurrentVerse._Order - 1;
+
+                            ActivateTextBox(oldSelStart, newFocusTag);
+                        }
+                    }
+                    break;
+                case Keys.Down:
+                    {
+                        if (sender is TextBox)
+                        {
+                            TextBox txtBox = (sender as TextBox);
+                            int oldSelStart = txtBox.SelectionStart;
+                            GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
+                            int newFocusTag =
+                                (CurrentVerse._Position == VersePosition.Right) || (CurrentVerse._Position == VersePosition.Left)
+                                ?
+                                CurrentVerse._Order + 2
+                                :
+                                CurrentVerse._Order + 1;
+
+                            ActivateTextBox(oldSelStart, newFocusTag);
+                        }
+                    }
+                    break;
+                case Keys.Enter:
+                    {
+                        if (sender is TextBox)
+                        {
+                            TextBox txtBox = (sender as TextBox);
+                            int oldSelStart = txtBox.SelectionStart;
+                            GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
+                            if (CurrentVerse._Position == VersePosition.Right)
+                                ActivateTextBox(oldSelStart, CurrentVerse._Order + 1);
+                            else
+                            {
+                                NewLine(CurrentVerse._Position == VersePosition.Single ?  VersePosition.Single : VersePosition.Right);
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+        private void ActivateTextBox(int SelStart, int verseOrder)
+        {
+            if (verseOrder >= 0)
+                foreach (Control ctl in this.Controls)
+                    if (ctl is TextBox)
+                        if ((ctl.Tag as GanjoorVerse)._Order == verseOrder)
+                        {
+                            (ctl as TextBox).SelectionStart = SelStart;
+                            ctl.Focus();
+                            break;
+                        }
         }
 
         #endregion
@@ -1947,16 +2018,25 @@ namespace ganjoor
             }
             if (versesToDelete.Count == 0)
                 return false;
+            int MinVerseIndex = versesToDelete[0];
             if (_db.DeleteVerses(_iCurPoem, versesToDelete))
             {
                 ShowPoem(_db.GetPoem(_iCurPoem), false);
+                Control lastCtl = null;
                 foreach (Control ctl in this.Controls)
                     if (ctl is TextBox)
                     {
-                        ctl.Focus();
-                        break;
-
+                        if ((ctl.Tag as GanjoorVerse)._Order == MinVerseIndex)
+                        {
+                            lastCtl = ctl;
+                            break;
+                        }
+                        else
+                            lastCtl = ctl;
                     }
+                if (lastCtl != null)
+                    lastCtl.Focus();
+
             
                 return true;
             }

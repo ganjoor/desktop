@@ -59,9 +59,11 @@
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.btnImportFromTextFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnImportFromClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkEachlineOneverse = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.btnImportFromClipboadStructuredPoem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.chkEachlineOneverse = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkIgnoreBlankLines = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkIgnoreShortLines = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeletePoem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -72,11 +74,11 @@
             this.btnNewSingleVerse = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeleteLine = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDeleteAllLine = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnTools = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnMergeTwoTextColumns = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.chkIgnoreBlankLines = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkIgnoreShortLines = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnDeleteAllLine = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,7 +96,8 @@
             this.toolStripSeparator2,
             this.btnNewPoem,
             this.toolStripSeparator3,
-            this.btnNewLine});
+            this.btnNewLine,
+            this.btnTools});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(757, 69);
@@ -278,11 +281,11 @@
             this.toolStripSeparator13,
             this.btnImportFromTextFile,
             this.btnImportFromClipboard,
+            this.btnImportFromClipboadStructuredPoem,
+            this.toolStripSeparator14,
             this.chkEachlineOneverse,
             this.chkIgnoreBlankLines,
             this.chkIgnoreShortLines,
-            this.toolStripSeparator14,
-            this.btnImportFromClipboadStructuredPoem,
             this.toolStripSeparator5,
             this.btnDeletePoem});
             this.btnNewPoem.Image = global::ganjoor.Properties.Resources.add;
@@ -336,6 +339,18 @@
             this.btnImportFromClipboard.Text = "درج محتوی از کلیپ بورد";
             this.btnImportFromClipboard.Click += new System.EventHandler(this.btnImportFromClipboard_Click);
             // 
+            // btnImportFromClipboadStructuredPoem
+            // 
+            this.btnImportFromClipboadStructuredPoem.Name = "btnImportFromClipboadStructuredPoem";
+            this.btnImportFromClipboadStructuredPoem.Size = new System.Drawing.Size(383, 22);
+            this.btnImportFromClipboadStructuredPoem.Text = "درج شعر چند بندی از کلیپ بورد";
+            this.btnImportFromClipboadStructuredPoem.Click += new System.EventHandler(this.btnImportFromClipboadStructuredPoem_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(380, 6);
+            // 
             // chkEachlineOneverse
             // 
             this.chkEachlineOneverse.CheckOnClick = true;
@@ -343,17 +358,19 @@
             this.chkEachlineOneverse.Size = new System.Drawing.Size(383, 22);
             this.chkEachlineOneverse.Text = "شعری که درج می‌شود نیمایی یا آزاد است";
             // 
-            // toolStripSeparator14
+            // chkIgnoreBlankLines
             // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(380, 6);
+            this.chkIgnoreBlankLines.CheckOnClick = true;
+            this.chkIgnoreBlankLines.Name = "chkIgnoreBlankLines";
+            this.chkIgnoreBlankLines.Size = new System.Drawing.Size(383, 22);
+            this.chkIgnoreBlankLines.Text = "خطهای خالی نادیده گرفته شوند";
             // 
-            // btnImportFromClipboadStructuredPoem
+            // chkIgnoreShortLines
             // 
-            this.btnImportFromClipboadStructuredPoem.Name = "btnImportFromClipboadStructuredPoem";
-            this.btnImportFromClipboadStructuredPoem.Size = new System.Drawing.Size(383, 22);
-            this.btnImportFromClipboadStructuredPoem.Text = "درج شعر چند بندی از کلیپ بورد";
-            this.btnImportFromClipboadStructuredPoem.Click += new System.EventHandler(this.btnImportFromClipboadStructuredPoem_Click);
+            this.chkIgnoreShortLines.CheckOnClick = true;
+            this.chkIgnoreShortLines.Name = "chkIgnoreShortLines";
+            this.chkIgnoreShortLines.Size = new System.Drawing.Size(383, 22);
+            this.chkIgnoreShortLines.Text = "خطهای حاوی کمتر از 4 حرف نادیده گرفته شوند";
             // 
             // toolStripSeparator5
             // 
@@ -435,6 +452,32 @@
             this.btnDeleteLine.Text = "حذف بیت جاری";
             this.btnDeleteLine.Click += new System.EventHandler(this.btnDeleteLine_Click);
             // 
+            // btnDeleteAllLine
+            // 
+            this.btnDeleteAllLine.Name = "btnDeleteAllLine";
+            this.btnDeleteAllLine.Size = new System.Drawing.Size(250, 22);
+            this.btnDeleteAllLine.Text = "حذف تمام ابیات";
+            this.btnDeleteAllLine.Click += new System.EventHandler(this.btnDeleteAllLine_Click);
+            // 
+            // btnTools
+            // 
+            this.btnTools.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnMergeTwoTextColumns});
+            this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
+            this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTools.Name = "btnTools";
+            this.btnTools.Size = new System.Drawing.Size(64, 66);
+            this.btnTools.Text = "ابزارها";
+            this.btnTools.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // btnMergeTwoTextColumns
+            // 
+            this.btnMergeTwoTextColumns.Name = "btnMergeTwoTextColumns";
+            this.btnMergeTwoTextColumns.Size = new System.Drawing.Size(271, 22);
+            this.btnMergeTwoTextColumns.Text = "یک در میان چیدن خطوط دو ستون متنی";
+            this.btnMergeTwoTextColumns.Click += new System.EventHandler(this.btnMergeTwoTextColumns_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -465,27 +508,6 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // chkIgnoreBlankLines
-            // 
-            this.chkIgnoreBlankLines.CheckOnClick = true;
-            this.chkIgnoreBlankLines.Name = "chkIgnoreBlankLines";
-            this.chkIgnoreBlankLines.Size = new System.Drawing.Size(383, 22);
-            this.chkIgnoreBlankLines.Text = "خطهای خالی نادیده گرفته شوند";
-            // 
-            // chkIgnoreShortLines
-            // 
-            this.chkIgnoreShortLines.CheckOnClick = true;
-            this.chkIgnoreShortLines.Name = "chkIgnoreShortLines";
-            this.chkIgnoreShortLines.Size = new System.Drawing.Size(383, 22);
-            this.chkIgnoreShortLines.Text = "خطهای حاوی کمتر از 4 حرف نادیده گرفته شوند";
-            // 
-            // btnDeleteAllLine
-            // 
-            this.btnDeleteAllLine.Name = "btnDeleteAllLine";
-            this.btnDeleteAllLine.Size = new System.Drawing.Size(250, 22);
-            this.btnDeleteAllLine.Text = "حذف تمام ابیات";
-            this.btnDeleteAllLine.Click += new System.EventHandler(this.btnDeleteAllLine_Click);
-            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -501,6 +523,8 @@
             this.RightToLeftLayout = true;
             this.Text = "ویرایشگر شعر";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.Editor_Activated);
+            this.Deactivate += new System.EventHandler(this.Editor_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Editor_FormClosing);
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
@@ -559,5 +583,7 @@
         private System.Windows.Forms.ToolStripMenuItem chkIgnoreBlankLines;
         private System.Windows.Forms.ToolStripMenuItem chkIgnoreShortLines;
         private System.Windows.Forms.ToolStripMenuItem btnDeleteAllLine;
+        private System.Windows.Forms.ToolStripSplitButton btnTools;
+        private System.Windows.Forms.ToolStripMenuItem btnMergeTwoTextColumns;
     }
 }
