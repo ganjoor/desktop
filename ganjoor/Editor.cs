@@ -209,7 +209,7 @@ namespace ganjoor
         {
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
-                dlg.Filter = "*.s3db|*.s3db";
+                dlg.Filter = "*.gdb|*.gdb";
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     if (File.Exists(dlg.FileName))
@@ -226,7 +226,7 @@ namespace ganjoor
         {
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
-                dlg.Filter = "*.s3db|*.s3db";
+                dlg.Filter = "*.gdb|*.gdb";
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     if (File.Exists(dlg.FileName))
@@ -322,6 +322,32 @@ namespace ganjoor
                 if (!ganjoorView.DeleteAllLines())
                     MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
+        }
+
+        #region AutoScroll fix found at http://www.devnewsgroups.net/group/microsoft.public.dotnet.framework.windowsforms/topic22846.aspx
+        private Point thumbPos = new Point();
+        private void Editor_Activated(object sender, EventArgs e)
+        {
+            thumbPos.X *= -1;
+            thumbPos.Y *= -1;
+            ganjoorView.AutoScrollPosition = thumbPos;            
+        }
+
+        private void Editor_Deactivate(object sender, EventArgs e)
+        {
+            thumbPos = ganjoorView.AutoScrollPosition;
+        }
+        #endregion
+
+        private void btnMergeTwoTextColumns_Click(object sender, EventArgs e)
+        {
+            using (MrgTwoClmns dlg = new MrgTwoClmns())
+            {
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    ganjoorView.InsertVerses(dlg.ResulText.Split(new char[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), true, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
+                }
+            }
         }
 
 

@@ -104,6 +104,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MrgTwoClmns.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MrgTwoClmns.Designer.cs">
+      <DependentUpon>MrgTwoClmns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Options.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +143,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MrgTwoClmns.resx">
+      <DependentUpon>MrgTwoClmns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
@@ -196,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\tools.png" />
     <None Include="Resources\edit.png" />
     <None Include="Resources\user.png" />
     <None Include="Resources\next.png" />

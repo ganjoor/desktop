@@ -449,8 +449,8 @@ namespace ganjoor
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.Filter = "*.s3db|*.s3db";
-                dlg.FileName = "new.s3db";
+                dlg.Filter = "*.gdb|*.gdb";
+                dlg.FileName = "new.gdb";
                 if(dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ImportDb(dlg.FileName);
             }
@@ -460,8 +460,8 @@ namespace ganjoor
         {
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
-                dlg.Filter = "*.s3db|*.s3db";
-                dlg.FileName = "export.s3db";
+                dlg.Filter = "*.gdb|*.gdb";
+                dlg.FileName = "export.gdb";
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ExportFavs(dlg.FileName);
             }
@@ -471,8 +471,8 @@ namespace ganjoor
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.Filter = "*.s3db|*.s3db";
-                dlg.FileName = "export.s3db";
+                dlg.Filter = "*.gdb|*.gdb|*.*|*.*";
+                dlg.FileName = "export.gdb";
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ImportMixFavs(dlg.FileName);
             }
@@ -492,8 +492,8 @@ namespace ganjoor
             MessageBox.Show("در این روش اضافه کردن اشعار آزمونهای جلوگیری از خطا انجام نمی‌شود. به همین دلیل فرایند اضافه شدن شعرها سریع‌تر است. در صورت برخورد به خطا در هنگام استفاده از این روش، از فرمان استاندارد اضافه کردن اشعار استفاده کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.Filter = "*.s3db|*.s3db";
-                dlg.FileName = "new.s3db";
+                dlg.Filter = "*.gdb|*.gdb|*.s3db|*.s3db";
+                dlg.FileName = "new.gdb";
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ImportDbUnsafe(dlg.FileName);
             }
