@@ -549,7 +549,14 @@ namespace ganjoor
                         da.Fill(tbl);
                         if (tbl.Rows.Count > 0)
                         {
-                            return rnd.Next(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), Convert.ToInt32(tbl.Rows[0].ItemArray[1]));
+                            try
+                            {
+                                return rnd.Next(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), Convert.ToInt32(tbl.Rows[0].ItemArray[1]));
+                            }
+                            catch
+                            {
+                                return -1;//MIN(id) and MAX(id) are DBNull because CatID has been deleted from database
+                            }
                         }                        
                     }
                 }
@@ -1736,6 +1743,23 @@ namespace ganjoor
             foreach (GanjoorCat SubCat in SubCats)
                 ExportCat(SubCat._ID, newConnection);
         }        
+        #endregion
+
+        #region Replace
+        public void Replace(string searchterm, string replacement)
+        {
+            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+            {
+                cmd.CommandText = "UPDATE cat SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "UPDATE poem SET title = REPLACE(title, '" + searchterm + "', '" + replacement + "');";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "UPDATE verse SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
+                cmd.ExecuteNonQuery();
+            }
+        }
         #endregion
     }
 }

@@ -79,6 +79,7 @@
             this.btnMergeTwoTextColumns = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.btnReplaceInDb = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -463,7 +464,8 @@
             // 
             this.btnTools.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btnTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnMergeTwoTextColumns});
+            this.btnMergeTwoTextColumns,
+            this.btnReplaceInDb});
             this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTools.Name = "btnTools";
@@ -507,6 +509,13 @@
             this.ganjoorView.Size = new System.Drawing.Size(757, 309);
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
+            // 
+            // btnReplaceInDb
+            // 
+            this.btnReplaceInDb.Name = "btnReplaceInDb";
+            this.btnReplaceInDb.Size = new System.Drawing.Size(271, 22);
+            this.btnReplaceInDb.Text = "جایگزینی در پایگاه داده‌ها";
+            this.btnReplaceInDb.Click += new System.EventHandler(this.btnReplaceInDb_Click);
             // 
             // Editor
             // 
@@ -585,5 +594,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnDeleteAllLine;
         private System.Windows.Forms.ToolStripSplitButton btnTools;
         private System.Windows.Forms.ToolStripMenuItem btnMergeTwoTextColumns;
+        private System.Windows.Forms.ToolStripMenuItem btnReplaceInDb;
     }
 }
