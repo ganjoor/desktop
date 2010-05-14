@@ -122,6 +122,8 @@ namespace ganjoor
                 ShowHome(keepTrack);
                 return;
             }
+            if (keepTrack)
+                UpdateHistory();            
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
@@ -130,7 +132,7 @@ namespace ganjoor
 
             int catsTop = DistanceFromTop;
             int lastDistanceFromRight;
-            ShowCategory(category, ref catsTop, out lastDistanceFromRight, true, keepTrack);
+            ShowCategory(category, ref catsTop, out lastDistanceFromRight, true);
 
             List<GanjoorCat> subcats = _db.GetSubCategories(category._ID);
             if (subcats.Count != 0)
@@ -198,10 +200,8 @@ namespace ganjoor
                 OnPageChanged(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
         }
 
-        private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat,bool keepTrack)
+        private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat)
         {
-            if(keepTrack)
-                UpdateHistory();            
             lastDistanceFromRight = DistanceFromRight;
 
 
@@ -317,6 +317,8 @@ namespace ganjoor
         {
             if (EditMode)
                 Save();
+            if (keepTrack)
+                UpdateHistory();            
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
@@ -324,7 +326,7 @@ namespace ganjoor
 
             int catsTop = DistanceFromTop;
             int lastDistanceFromRight;
-            ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, keepTrack);
+            ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false);
             lastDistanceFromRight += DistanceFromRightStep;
 
             _strPage += " -> " + poem._Title;
@@ -893,19 +895,19 @@ namespace ganjoor
         {
             if (_FavsPage)
             {
-                _history.Push(new GarnjoorBrowsingHistory(string.Empty, 0, _iCurSearchStart, _iCurSearchPageCount, true));
+                _history.Push(new GarnjoorBrowsingHistory(string.Empty, 0, _iCurSearchStart, _iCurSearchPageCount, true, this.AutoScrollPosition));
             }
             else
             if (!string.IsNullOrEmpty(_strLastPhrase))
             {
-                _history.Push(new GarnjoorBrowsingHistory(_strLastPhrase, _iCurSearchPoet, _iCurSearchStart, _iCurSearchPageCount, false));
+                _history.Push(new GarnjoorBrowsingHistory(_strLastPhrase, _iCurSearchPoet, _iCurSearchStart, _iCurSearchPageCount, false, this.AutoScrollPosition));
             }
             else
                 if (
                     (_history.Count == 0) || !((_history.Peek()._CatID == _iCurCat) && (_history.Peek()._CatPageStart == _iCurCatStart) && ((_history.Peek()._PoemID == _iCurPoem)))
                     )
                 {
-                    _history.Push(new GarnjoorBrowsingHistory(_iCurCat, _iCurPoem, _iCurCatStart));
+                    _history.Push(new GarnjoorBrowsingHistory(_iCurCat, _iCurPoem, _iCurCatStart, this.AutoScrollPosition));
 
                 }
         }
@@ -941,6 +943,7 @@ namespace ganjoor
                 }
                 else
                     ShowPoem(_db.GetPoem(back._PoemID), false);
+                this.AutoScrollPosition = new Point(-back._AutoScrollPosition.X, -back._AutoScrollPosition.Y);
             }
         }
         #endregion
@@ -1027,7 +1030,7 @@ namespace ganjoor
                     GanjoorPoem poem = _db.GetPoem(Convert.ToInt32(poemsList.Rows[i].ItemArray[0]));
                     poem._HighlightText = phrase;
                     int lastDistanceFromRight;
-                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, false);
+                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false);
                     lastDistanceFromRight += DistanceFromRightStep;
                     LinkLabel lblPoem = new LinkLabel();                    
                     lblPoem.Tag = poem;
@@ -1302,7 +1305,7 @@ namespace ganjoor
                     if(Settings.Default.ScrollToFavedVerse)
                         poem._HighlightText = OnlyScrollString;
                     int lastDistanceFromRight;
-                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, false);
+                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false);
                     lastDistanceFromRight += DistanceFromRightStep;
                     LinkLabel lblPoem = new LinkLabel();                    
                     lblPoem.Tag = poem;
@@ -1466,7 +1469,13 @@ namespace ganjoor
         #region Random Poem
         public void ShowRandomPoem()
         {
-            GanjoorPoem poem = _db.GetPoem(_db.GetRandomPoem(Settings.Default.RandomOnlyHafez ? 24 : 0));
+            int PoemID = _db.GetRandomPoem(Settings.Default.RandomOnlyHafez ? 24 : 0);
+            if (PoemID == -1)
+            {
+                MessageBox.Show("خطا در یافتن شعر تصادفی!", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                return;
+            }
+            GanjoorPoem poem = _db.GetPoem(PoemID);
             if (poem != null)
                 ShowPoem(poem, true);
             else

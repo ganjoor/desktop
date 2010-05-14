@@ -167,6 +167,9 @@
     <EmbeddedResource Include="ReOrderSubCats.resx">
       <DependentUpon>ReOrderSubCats.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReplaceInDb.resx">
+      <DependentUpon>ReplaceInDb.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Search.resx">
       <DependentUpon>Search.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +198,12 @@
     </Compile>
     <Compile Include="ReOrderSubCats.Designer.cs">
       <DependentUpon>ReOrderSubCats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReplaceInDb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReplaceInDb.Designer.cs">
+      <DependentUpon>ReplaceInDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Search.cs">
       <SubType>Form</SubType>

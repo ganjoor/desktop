@@ -350,6 +350,13 @@ namespace ganjoor
             }
         }
 
+        private void btnReplaceInDb_Click(object sender, EventArgs e)
+        {
+            using (ReplaceInDb dlg = new ReplaceInDb())
+                dlg.ShowDialog(this);
+               
+        }
+
 
 
     }
