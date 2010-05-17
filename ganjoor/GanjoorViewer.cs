@@ -467,6 +467,7 @@ namespace ganjoor
                     }
                     else
                         BeytNum++;
+                    int xDistance = TextRenderer.MeasureText("345", this.Font).Width;
                     if (ShowBeytNums
                         &&
                         !string.IsNullOrEmpty(verses[i]._Text)//empty verse strings have been seen sometimes, it seems that we have some errors in our database
@@ -477,8 +478,8 @@ namespace ganjoor
                         lblNum.Text = isBand ? BandNum.ToString() : BeytNum.ToString();
                         lblNum.Tag = verses[i];
                         lblNum.BackColor = Color.Transparent;
-                        lblNum.LinkBehavior = LinkBehavior.HoverUnderline;
-                        lblNum.Location = new Point(lastDistanceFromRight, lblVerse.Location.Y);
+                        lblNum.LinkBehavior = LinkBehavior.HoverUnderline;                        
+                        lblNum.Location = new Point(lastDistanceFromRight - xDistance, lblVerse.Location.Y);
                         lblNum.LinkColor = isBand ? Settings.Default.BandLinkColor : Settings.Default.LinkColor;
                         lblNum.ForeColor = lblNum.LinkColor;
                         lblNum.Click += new EventHandler(lblNum_Click);
@@ -488,8 +489,8 @@ namespace ganjoor
                             PictureBox fav = new PictureBox();
                             fav.BackColor = Color.Transparent;
                             fav.Image = Resources.fav;
-                            fav.Size = new Size(16, 16);
-                            fav.Location = new Point(lastDistanceFromRight, lblVerse.Location.Y);
+                            fav.Size = new Size(16, 16);                            
+                            fav.Location = new Point(lastDistanceFromRight - xDistance , lblVerse.Location.Y);
                             fav.Tag = verses[i];
                             fav.Cursor = Cursors.Hand;
                             fav.Click += new EventHandler(lblNum_Click);
@@ -504,8 +505,8 @@ namespace ganjoor
                             PictureBox fav = new PictureBox();
                             fav.BackColor = Color.Transparent;
                             fav.Image = Resources.fav;
-                            fav.Size = new Size(16, 16);
-                            fav.Location = new Point(lastDistanceFromRight - 16, lblVerse.Location.Y);
+                            fav.Size = new Size(16, 16);                            
+                            fav.Location = new Point(lastDistanceFromRight - xDistance , lblVerse.Location.Y);
                             fav.Tag = verses[i];
                             fav.Cursor = Cursors.Hand;
                             fav.Click += new EventHandler(lblNum_Click);
