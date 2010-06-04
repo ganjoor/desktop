@@ -313,7 +313,7 @@ namespace ganjoor
         {
             if (processTextChanged)
             {
-                int count = ganjoorView.HighlightText(txtHighlight.Text);
+                int count = ganjoorView.HighlightText(txtHighlight.Text.Replace('ك', 'ک').Replace('ي', 'ی'));
                 if (lblFoundItemCount.Visible = !string.IsNullOrEmpty(txtHighlight.Text))
                     lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", count);
             }
