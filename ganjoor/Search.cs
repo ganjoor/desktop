@@ -20,7 +20,7 @@ namespace ganjoor
         {
             get
             {
-                return txtPhrase.Text;
+                return txtPhrase.Text.Replace('ك', 'ک').Replace('ي', 'ی');
             }
         }
         public int ItemsInPage
