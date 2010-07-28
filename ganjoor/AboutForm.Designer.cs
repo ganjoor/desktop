@@ -36,12 +36,14 @@
             this.lnkHamidReza = new System.Windows.Forms.LinkLabel();
             this.lnkSources = new System.Windows.Forms.LinkLabel();
             this.lnkIconsEditor = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblAppTitle
             // 
             this.lblAppTitle.AutoSize = true;
-            this.lblAppTitle.Location = new System.Drawing.Point(51, 12);
+            this.lblAppTitle.Location = new System.Drawing.Point(137, 12);
             this.lblAppTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAppTitle.Name = "lblAppTitle";
             this.lblAppTitle.Size = new System.Drawing.Size(69, 13);
@@ -51,7 +53,7 @@
             // lblAppVersion
             // 
             this.lblAppVersion.AutoSize = true;
-            this.lblAppVersion.Location = new System.Drawing.Point(57, 30);
+            this.lblAppVersion.Location = new System.Drawing.Point(143, 30);
             this.lblAppVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAppVersion.Name = "lblAppVersion";
             this.lblAppVersion.Size = new System.Drawing.Size(59, 13);
@@ -61,7 +63,7 @@
             // lnkGanjoorOnSFNet
             // 
             this.lnkGanjoorOnSFNet.AutoSize = true;
-            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(23, 50);
+            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(109, 50);
             this.lnkGanjoorOnSFNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkGanjoorOnSFNet.Name = "lnkGanjoorOnSFNet";
             this.lnkGanjoorOnSFNet.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -74,18 +76,18 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(56, 150);
+            this.btnOK.Location = new System.Drawing.Point(142, 209);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(60, 22);
             this.btnOK.TabIndex = 0;
-            this.btnOK.Text = "باشد";
+            this.btnOK.Text = "تأیید";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
             // lnkIcons
             // 
             this.lnkIcons.AutoSize = true;
-            this.lnkIcons.Location = new System.Drawing.Point(37, 87);
+            this.lnkIcons.Location = new System.Drawing.Point(123, 87);
             this.lnkIcons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIcons.Name = "lnkIcons";
             this.lnkIcons.Size = new System.Drawing.Size(98, 13);
@@ -97,7 +99,7 @@
             // lnkHamidReza
             // 
             this.lnkHamidReza.AutoSize = true;
-            this.lnkHamidReza.Location = new System.Drawing.Point(43, 69);
+            this.lnkHamidReza.Location = new System.Drawing.Point(129, 69);
             this.lnkHamidReza.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkHamidReza.Name = "lnkHamidReza";
             this.lnkHamidReza.Size = new System.Drawing.Size(86, 13);
@@ -109,7 +111,7 @@
             // lnkSources
             // 
             this.lnkSources.AutoSize = true;
-            this.lnkSources.Location = new System.Drawing.Point(26, 127);
+            this.lnkSources.Location = new System.Drawing.Point(112, 127);
             this.lnkSources.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkSources.Name = "lnkSources";
             this.lnkSources.Size = new System.Drawing.Size(120, 13);
@@ -121,7 +123,7 @@
             // lnkIconsEditor
             // 
             this.lnkIconsEditor.AutoSize = true;
-            this.lnkIconsEditor.Location = new System.Drawing.Point(16, 107);
+            this.lnkIconsEditor.Location = new System.Drawing.Point(102, 107);
             this.lnkIconsEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIconsEditor.Name = "lnkIconsEditor";
             this.lnkIconsEditor.Size = new System.Drawing.Size(141, 13);
@@ -130,13 +132,35 @@
             this.lnkIconsEditor.Text = "منبع آیکونهای بخش ویرایشگر";
             this.lnkIconsEditor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkIconsEditor_LinkClicked);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 152);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(333, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "دوستانی که با تایپ آثار شاعران به گسترش گنجور رومیزی کمک کرده‌اند:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(76, 175);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(192, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "آقای علی پی‌سپار (آثار سهراب سپهری)";
+            // 
             // AboutForm
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(172, 183);
+            this.ClientSize = new System.Drawing.Size(344, 242);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lnkIconsEditor);
             this.Controls.Add(this.lnkSources);
             this.Controls.Add(this.lnkHamidReza);
@@ -173,5 +197,7 @@
         private System.Windows.Forms.LinkLabel lnkHamidReza;
         private System.Windows.Forms.LinkLabel lnkSources;
         private System.Windows.Forms.LinkLabel lnkIconsEditor;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

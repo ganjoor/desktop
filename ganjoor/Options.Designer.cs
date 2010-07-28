@@ -399,7 +399,7 @@
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(156, 23);
             this.btnDefault.TabIndex = 2;
-            this.btnDefault.Text = "بازگشت تنظیمات پیش‌فرض";
+            this.btnDefault.Text = "بازگشت پیکربندی پیش‌فرض";
             this.btnDefault.UseVisualStyleBackColor = true;
             this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
             // 
@@ -825,7 +825,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "تنظیمات";
+            this.Text = "پیکربندی";
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollbarsSpeed)).EndInit();

@@ -800,7 +800,7 @@ namespace ganjoor
                                     NewPoetID = RealyNewPoetID;
 
                                     int RealyNewCatID = GenerateNewCatID();
-                                    dicCats.Add(NewCatID, GenerateNewCatID());
+                                    dicCats.Add(NewCatID, RealyNewCatID);
                                     NewCatID = RealyNewCatID;
                                 }
                                 else //no conflict, insertNew
@@ -1518,10 +1518,7 @@ namespace ganjoor
         public void DeleteCat(int CatID)
         {
             BeginBatchOperation();
-            using (SQLiteCommand cmd = new SQLiteCommand(_con))
-            {
-                DRY_DeleteCat(GetCategory(CatID));
-            }
+            DRY_DeleteCat(GetCategory(CatID));
             CommitBatchOperation();
 
         }        
@@ -1750,6 +1747,9 @@ namespace ganjoor
         {
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
+                cmd.CommandText = "UPDATE poet SET name = REPLACE(name, '" + searchterm + "', '" + replacement + "');";
+                cmd.ExecuteNonQuery();
+
                 cmd.CommandText = "UPDATE cat SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
                 cmd.ExecuteNonQuery();
 
@@ -1759,6 +1759,188 @@ namespace ganjoor
                 cmd.CommandText = "UPDATE verse SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
                 cmd.ExecuteNonQuery();
             }
+        }
+        #endregion
+
+        #region Edit IDs
+        private List<int> GetAllSubCats(int CatID)
+        {
+            List<int> subIDs = new List<int>();
+            List<GanjoorCat> subs = GetSubCategories(CatID);
+            foreach (GanjoorCat sub in subs)
+            {
+                subIDs.Add(sub._ID);
+                List<int> subsubs = GetAllSubCats(sub._ID);
+                subIDs.AddRange(subsubs);
+            }
+            return subIDs;
+        }
+        private int GetMainCatID(int PoetID)
+        {
+            GanjoorPoet poet = GetPoet(PoetID);
+            if (poet == null)
+                return -1;
+            return poet._CatID;
+        }
+        private int GetMinPoemID(int MainCatID)
+        {
+            if (MainCatID != -1)
+            {
+                List<int> cats = GetAllSubCats(MainCatID);
+                cats.Add(MainCatID);
+                string strQuery = "SELECT MIN(id) FROM poem WHERE cat_id IN (";
+                for(int i=0; i<cats.Count - 1 ; i++)
+                {
+                    strQuery += cats[i].ToString();
+                    strQuery += ", ";
+                }
+                if (cats.Count - 1 >= 0)
+                {
+                    strQuery += cats[cats.Count - 1].ToString();
+                }
+                strQuery += ");";
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    {
+                        da.Fill(tbl);
+                        if (tbl.Rows.Count > 0)
+                        {
+                            return Convert.ToInt32(tbl.Rows[0].ItemArray[0]);
+                        }
+                    }
+                }
+
+            }
+            return -1;
+        }
+        public void GetMinIDs(int PoetID, out int MinCatID, out int MinPoemID)
+        {
+            MinCatID = GetMainCatID(PoetID);
+            MinPoemID = GetMinPoemID(MinCatID);
+        }
+        public bool ChangePoetID(int PoetID, int NewID)
+        {
+            if (GetPoet(NewID) != null)
+                return false;
+            if (BeginBatchOperation())
+            {
+                using
+                    (
+                    SQLiteCommand cmd = new SQLiteCommand(
+                    String.Format("UPDATE poet SET id = {0} WHERE id = {1}", NewID, PoetID),
+                    _con)
+                    )
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                using
+                    (
+                    SQLiteCommand cmd = new SQLiteCommand(
+                    String.Format("UPDATE cat SET poet_id = {0} WHERE poet_id = {1}", NewID, PoetID),
+                    _con)
+                    )
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                return CommitBatchOperation();
+            }
+            return false;
+        }
+        public bool ChangeCatIDs(int PoetID, int NewStartCatID)
+        {
+            List<int> cats = GetAllSubCats(GetMainCatID(PoetID));
+            cats.Insert(0, GetMainCatID(PoetID));
+            if (BeginBatchOperation())
+            {
+                Dictionary<int, int> ids = new Dictionary<int, int>();
+                int NewCatID = NewStartCatID;
+
+                foreach (int CatID in cats)
+                {
+                    while (GetCategory(NewCatID) != null)
+                        NewCatID++;                    
+                    using
+                        (
+                        SQLiteCommand cmd = new SQLiteCommand(
+                        String.Format("UPDATE cat SET id = {0} WHERE id = {1}", NewCatID, CatID),
+                        _con)
+                        )
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    using
+                        (
+                        SQLiteCommand cmd = new SQLiteCommand(
+                        String.Format("UPDATE cat SET parent_id = {0} WHERE parent_id = {1}", NewCatID, CatID),
+                        _con)
+                        )
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    using
+                        (
+                        SQLiteCommand cmd = new SQLiteCommand(
+                        String.Format("UPDATE poet SET cat_id = {0} WHERE cat_id = {1}", NewCatID, CatID),
+                        _con)
+                        )
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    using
+                        (
+                        SQLiteCommand cmd = new SQLiteCommand(
+                        String.Format("UPDATE poem SET cat_id = {0} WHERE cat_id = {1}", NewCatID, CatID),
+                        _con)
+                        )
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    NewCatID++;
+                }
+                return CommitBatchOperation();
+            }
+            return false;
+        }
+        public bool ChangePoemIDs(int PoetID, int NewStartPoemID)
+        {
+            List<int> cats = GetAllSubCats(GetMainCatID(PoetID));
+            cats.Insert(0, GetMainCatID(PoetID));
+            if (BeginBatchOperation())
+            {
+                int NewPoemID = NewStartPoemID;
+
+                foreach (int CatID in cats)
+                {
+                    List<GanjoorPoem> poems = GetPoems(CatID);
+                    foreach (GanjoorPoem poem in poems)
+                    {
+                        while (GetPoem(NewPoemID) != null)
+                            NewPoemID++;
+                        using
+                            (
+                            SQLiteCommand cmd = new SQLiteCommand(
+                            String.Format("UPDATE poem SET id = {0} WHERE id = {1}", NewPoemID, poem._ID),
+                            _con)
+                            )
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                        using
+                            (
+                            SQLiteCommand cmd = new SQLiteCommand(
+                            String.Format("UPDATE verse SET poem_id = {0} WHERE poem_id = {1}", NewPoemID, poem._ID),
+                            _con)
+                            )
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                        NewPoemID++;
+                    }
+                }
+                return CommitBatchOperation();
+            }
+            return false;
         }
         #endregion
     }
