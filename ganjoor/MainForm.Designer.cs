@@ -334,8 +334,8 @@
             this.btnOptions.Image = global::ganjoor.Properties.Resources.process;
             this.btnOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(51, 50);
-            this.btnOptions.Text = "تنظیمات";
+            this.btnOptions.Size = new System.Drawing.Size(53, 50);
+            this.btnOptions.Text = "پیکربندی";
             this.btnOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
             // 
@@ -690,7 +690,7 @@
             this.mnuOptions.Name = "mnuOptions";
             this.mnuOptions.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
             this.mnuOptions.Size = new System.Drawing.Size(313, 22);
-            this.mnuOptions.Text = "تنظیمات";
+            this.mnuOptions.Text = "پیکربندی";
             this.mnuOptions.Click += new System.EventHandler(this.btnOptions_Click);
             // 
             // mnuSrch

@@ -357,6 +357,25 @@ namespace ganjoor
                
         }
 
+        private void btnChangeIDs_Click(object sender, EventArgs e)
+        {
+            using (IDChanger dlg = new IDChanger())
+            {
+                int PoetID, MinCatID, MinPoemID;
+                ganjoorView.GetIDs(out PoetID, out MinCatID, out MinPoemID);
+                dlg.PoetID = PoetID;
+                dlg.StartCatID = MinCatID;
+                dlg.StartPoemID = MinPoemID;
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    this.Enabled = false;                       
+                    ganjoorView.SetIDs(dlg.PoetID, dlg.StartCatID, dlg.StartPoemID);
+                    this.Enabled = true;
+                }
+
+            }
+        }
+
 
 
     }

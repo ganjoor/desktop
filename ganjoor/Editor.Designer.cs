@@ -77,9 +77,10 @@
             this.btnDeleteAllLine = new System.Windows.Forms.ToolStripMenuItem();
             this.btnTools = new System.Windows.Forms.ToolStripSplitButton();
             this.btnMergeTwoTextColumns = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnReplaceInDb = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnReplaceInDb = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -465,7 +466,8 @@
             this.btnTools.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btnTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnMergeTwoTextColumns,
-            this.btnReplaceInDb});
+            this.btnReplaceInDb,
+            this.btnChangeIDs});
             this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTools.Name = "btnTools";
@@ -479,6 +481,13 @@
             this.btnMergeTwoTextColumns.Size = new System.Drawing.Size(271, 22);
             this.btnMergeTwoTextColumns.Text = "یک در میان چیدن خطوط دو ستون متنی";
             this.btnMergeTwoTextColumns.Click += new System.EventHandler(this.btnMergeTwoTextColumns_Click);
+            // 
+            // btnReplaceInDb
+            // 
+            this.btnReplaceInDb.Name = "btnReplaceInDb";
+            this.btnReplaceInDb.Size = new System.Drawing.Size(271, 22);
+            this.btnReplaceInDb.Text = "جایگزینی در پایگاه داده‌ها";
+            this.btnReplaceInDb.Click += new System.EventHandler(this.btnReplaceInDb_Click);
             // 
             // statusStrip1
             // 
@@ -510,12 +519,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnReplaceInDb
+            // btnChangeIDs
             // 
-            this.btnReplaceInDb.Name = "btnReplaceInDb";
-            this.btnReplaceInDb.Size = new System.Drawing.Size(271, 22);
-            this.btnReplaceInDb.Text = "جایگزینی در پایگاه داده‌ها";
-            this.btnReplaceInDb.Click += new System.EventHandler(this.btnReplaceInDb_Click);
+            this.btnChangeIDs.Name = "btnChangeIDs";
+            this.btnChangeIDs.Size = new System.Drawing.Size(271, 22);
+            this.btnChangeIDs.Text = "تغییر شناسه‌ها";
+            this.btnChangeIDs.Click += new System.EventHandler(this.btnChangeIDs_Click);
             // 
             // Editor
             // 
@@ -595,5 +604,6 @@
         private System.Windows.Forms.ToolStripSplitButton btnTools;
         private System.Windows.Forms.ToolStripMenuItem btnMergeTwoTextColumns;
         private System.Windows.Forms.ToolStripMenuItem btnReplaceInDb;
+        private System.Windows.Forms.ToolStripMenuItem btnChangeIDs;
     }
 }

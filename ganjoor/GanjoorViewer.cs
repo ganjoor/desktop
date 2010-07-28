@@ -686,7 +686,7 @@ namespace ganjoor
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {
-            if (this.BackgroundImage != null)
+            if (this.BackgroundImage != null && this.Width > 0 && this.Height>0)
             {
                 e.Graphics.DrawImageUnscaled(this.BackgroundImage, new Rectangle(0,0,this.Width, this.Height));
             }   
@@ -2083,6 +2083,20 @@ namespace ganjoor
             if (null == poet)
                 return false;
             return _db.ExportPoet(fileName, poet._ID);
+        }
+        public void GetIDs(out int PoetID, out int MinCatID, out int MinPoemID)
+        {
+            GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
+            PoetID = poet == null ? 0 : poet._ID;
+            _db.GetMinIDs(PoetID, out MinCatID, out MinPoemID);
+
+        }
+        public void SetIDs(int PoetID, int MinCatID, int MinPoemID)
+        {
+            _db.ChangePoetID(_db.GetPoetForCat(_iCurCat)._ID, PoetID);
+            _db.ChangeCatIDs(PoetID, MinCatID);
+            _db.ChangePoemIDs(PoetID, MinPoemID);
+            ShowHome(true);
         }
         #endregion
 
