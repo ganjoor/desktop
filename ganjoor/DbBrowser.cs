@@ -658,7 +658,7 @@ namespace ganjoor
                 #region version table
                 DataRow[] verTable = tbl.Select("Table_Name='gver'");
 
-                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\vg.s3db"))
+                if (File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) , "vg.s3db")))
                 {
                     if (verTable.Length == 0)
                     {
@@ -835,7 +835,10 @@ namespace ganjoor
                         da.Fill(tbl);                        
                         foreach (DataRow row in tbl.Rows)
                         {
-                            int PoetID = dicPoets[Convert.ToInt32(row.ItemArray[1])];
+                            int PoetID = Convert.ToInt32(row.ItemArray[1]);
+                            int MappedPoetID;
+                            if(dicPoets.TryGetValue(PoetID, out MappedPoetID))
+                                PoetID = MappedPoetID;
                             int NewCatID = Convert.ToInt32(row.ItemArray[0]);
                             int NewCatParentID = Convert.ToInt32(row.ItemArray[3]);
                             int MappedCatParentID;
