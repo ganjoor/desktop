@@ -362,6 +362,7 @@ namespace ganjoor
             int BandBeytNums = 0;
             bool MustHave2ndBandBeyt = false;
             int MissedMesras = 0;
+            int ParagraphShift = 0;
 
 
             
@@ -375,10 +376,11 @@ namespace ganjoor
                     if (CenteredView)
                     {
                         lblVerse.Size = new Size(this.MesraWidth, lblVerse.Size.Height);
+                        int vTop = catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines + ParagraphShift;
                         switch (verses[i]._Position)
                         {
                             case VersePosition.Right:
-                                lblVerse.Location = new Point(this.Width / 2 - 5 - this.MesraWidth, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                lblVerse.Location = new Point(this.Width / 2 - 5 - this.MesraWidth, vTop);
                                 if (MustHave2ndBandBeyt)
                                 {
                                     MissedMesras++;
@@ -386,19 +388,33 @@ namespace ganjoor
                                 }
                                 break;
                             case VersePosition.Left:
-                                lblVerse.Location = new Point(this.Width / 2 + 5, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                lblVerse.Location = new Point(this.Width / 2 + 5, vTop);
                                 break;
                             case VersePosition.CenteredVerse1:
-                                lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth/2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, vTop);
                                 BandBeytNums++;
                                 MustHave2ndBandBeyt = true;
                                 break;
                             case VersePosition.CenteredVerse2:
                                 MustHave2ndBandBeyt = false;
-                                lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, vTop);
                                 break;
                             case VersePosition.Single:
                                 lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+                                break;
+                            case VersePosition.Paragraph:
+                                {
+                                    int txtHeight = lblVerse.Height;
+                                    (lblVerse as TextBox).Multiline = true;
+                                    Size sz = new Size(this.Width - versDistanceFromRight - 20, Int32.MaxValue);
+                                    sz = TextRenderer.MeasureText(verses[i]._Text, this.Font, sz, TextFormatFlags.WordBreak);
+                                    Size sz2 = TextRenderer.MeasureText("گنجور", this.Font, sz, TextFormatFlags.WordBreak);
+                                    lblVerse.Size = new Size(this.Width - versDistanceFromRight - 20, sz.Height / sz2.Height * txtHeight);
+                                    ParagraphShift += lblVerse.Height;
+                                    lblVerse.Location = new Point(versDistanceFromRight, vTop);
+                                    (lblVerse as TextBox).WordWrap = true;
+                                    MissedMesras++;
+                                }
                                 break;
                         }
                     }
@@ -412,10 +428,11 @@ namespace ganjoor
                     lblVerse.AutoSize = true;
                     if (CenteredView)
                     {
+                        int vTop = catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines + ParagraphShift;
                         switch (verses[i]._Position)
                         {
                             case VersePosition.Right:
-                                lblVerse.Location = new Point(this.Width / 2 - 5 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                lblVerse.Location = new Point(this.Width / 2 - 5 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width, vTop);
                                 if (MustHave2ndBandBeyt)
                                 {
                                     MissedMesras++;
@@ -423,25 +440,48 @@ namespace ganjoor
                                 }
                                 break;
                             case VersePosition.Left:
-                                lblVerse.Location = new Point(this.Width / 2 + 5, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                lblVerse.Location = new Point(this.Width / 2 + 5, vTop);
                                 break;
                             case VersePosition.CenteredVerse1:
-                                lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, vTop);
                                 BandBeytNums++;
                                 MustHave2ndBandBeyt = true;
                                 break;
                             case VersePosition.CenteredVerse2:
                                 MustHave2ndBandBeyt = false;
-                                lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines);
+                                lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, vTop);
                                 break;
                             case VersePosition.Single:
                                 lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+                                break;
+                            case VersePosition.Paragraph:
+                                (lblVerse as Label).AutoSize = false;
+                                {
+                                    int labelHeight = lblVerse.Height;
+                                    Size sz = new Size(this.Width - versDistanceFromRight - 20, Int32.MaxValue);
+                                    sz = TextRenderer.MeasureText(verses[i]._Text, this.Font, sz, TextFormatFlags.WordBreak);
+                                    lblVerse.Size = new Size(this.Width - versDistanceFromRight - 20, sz.Height);
+                                    ParagraphShift += sz.Height;
+                                    lblVerse.Location = new Point(versDistanceFromRight, vTop);
+                                    MissedMesras++;
+                                }
                                 break;
 
                         }
                     }
                     else
-                        lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+                    {
+                        lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines + ParagraphShift);
+                        if (verses[i]._Position == VersePosition.Paragraph)
+                        {
+                            (lblVerse as Label).AutoSize = false;
+                            int labelHeight = lblVerse.Height;
+                            Size sz = new Size(this.Width - versDistanceFromRight - 20, Int32.MaxValue);
+                            sz = TextRenderer.MeasureText(verses[i]._Text, this.Font, sz, TextFormatFlags.WordBreak);
+                            lblVerse.Size = new Size(this.Width - versDistanceFromRight - 20, sz.Height);
+                            ParagraphShift += sz.Height;
+                        }
+                    }
 
                 }
 
@@ -559,16 +599,19 @@ namespace ganjoor
                         if (sender is TextBox)
                         {
                             TextBox txtBox = (sender as TextBox);
-                            int oldSelStart = txtBox.SelectionStart;
-                            GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
-                            int newFocusTag =
-                                (CurrentVerse._Position == VersePosition.Right) || (CurrentVerse._Position == VersePosition.Left)
-                                ?
-                                CurrentVerse._Order - 2
-                                :
-                                CurrentVerse._Order - 1;
+                            if (!txtBox.Multiline)
+                            {
+                                int oldSelStart = txtBox.SelectionStart;
+                                GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
+                                int newFocusTag =
+                                    (CurrentVerse._Position == VersePosition.Right) || (CurrentVerse._Position == VersePosition.Left)
+                                    ?
+                                    CurrentVerse._Order - 2
+                                    :
+                                    CurrentVerse._Order - 1;
 
-                            ActivateTextBox(oldSelStart, newFocusTag);
+                                ActivateTextBox(oldSelStart, newFocusTag);
+                            }
                         }
                     }
                     break;
@@ -577,16 +620,19 @@ namespace ganjoor
                         if (sender is TextBox)
                         {
                             TextBox txtBox = (sender as TextBox);
-                            int oldSelStart = txtBox.SelectionStart;
-                            GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
-                            int newFocusTag =
-                                (CurrentVerse._Position == VersePosition.Right) || (CurrentVerse._Position == VersePosition.Left)
-                                ?
-                                CurrentVerse._Order + 2
-                                :
-                                CurrentVerse._Order + 1;
+                            if (!txtBox.Multiline)
+                            {
+                                int oldSelStart = txtBox.SelectionStart;
+                                GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
+                                int newFocusTag =
+                                    (CurrentVerse._Position == VersePosition.Right) || (CurrentVerse._Position == VersePosition.Left)
+                                    ?
+                                    CurrentVerse._Order + 2
+                                    :
+                                    CurrentVerse._Order + 1;
 
-                            ActivateTextBox(oldSelStart, newFocusTag);
+                                ActivateTextBox(oldSelStart, newFocusTag);
+                            }
                         }
                     }
                     break;
@@ -595,13 +641,16 @@ namespace ganjoor
                         if (sender is TextBox)
                         {
                             TextBox txtBox = (sender as TextBox);
-                            int oldSelStart = txtBox.SelectionStart;
-                            GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
-                            if (CurrentVerse._Position == VersePosition.Right)
-                                ActivateTextBox(oldSelStart, CurrentVerse._Order + 1);
-                            else
+                            if (!txtBox.Multiline)
                             {
-                                NewLine(CurrentVerse._Position == VersePosition.Single ?  VersePosition.Single : VersePosition.Right);
+                                int oldSelStart = txtBox.SelectionStart;
+                                GanjoorVerse CurrentVerse = txtBox.Tag as GanjoorVerse;
+                                if (CurrentVerse._Position == VersePosition.Right)
+                                    ActivateTextBox(oldSelStart, CurrentVerse._Order + 1);
+                                else
+                                {
+                                    NewLine(CurrentVerse._Position == VersePosition.Single ? VersePosition.Single : VersePosition.Right);
+                                }
                             }
                         }
                     }
