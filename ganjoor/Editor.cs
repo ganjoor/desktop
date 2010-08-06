@@ -177,6 +177,12 @@ namespace ganjoor
             ganjoorView.NewSingleVerse();
         }
 
+        private void btnNewParagraph_Click(object sender, EventArgs e)
+        {
+            ganjoorView.NewParagraph();
+        }
+
+
         private void btnDeleteLine_Click(object sender, EventArgs e)
         {
             ganjoorView.DeleteLine();
@@ -375,6 +381,7 @@ namespace ganjoor
 
             }
         }
+
 
 
 

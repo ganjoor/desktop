@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ganjoor
 {
-    class GanjoorPoem
+    public class GanjoorPoem
     {
         public int _ID;
         public int _CatID;

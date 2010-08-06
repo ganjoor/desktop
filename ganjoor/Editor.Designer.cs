@@ -78,9 +78,10 @@
             this.btnTools = new System.Windows.Forms.ToolStripSplitButton();
             this.btnMergeTwoTextColumns = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReplaceInDb = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnNewParagraph = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -398,6 +399,7 @@
             this.btnNewBandLine,
             this.btnNewBandVerse,
             this.btnNewSingleVerse,
+            this.btnNewParagraph,
             this.toolStripSeparator10,
             this.btnDeleteLine,
             this.btnDeleteAllLine});
@@ -489,6 +491,13 @@
             this.btnReplaceInDb.Text = "جایگزینی در پایگاه داده‌ها";
             this.btnReplaceInDb.Click += new System.EventHandler(this.btnReplaceInDb_Click);
             // 
+            // btnChangeIDs
+            // 
+            this.btnChangeIDs.Name = "btnChangeIDs";
+            this.btnChangeIDs.Size = new System.Drawing.Size(271, 22);
+            this.btnChangeIDs.Text = "تغییر شناسه‌ها";
+            this.btnChangeIDs.Click += new System.EventHandler(this.btnChangeIDs_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -519,12 +528,13 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnChangeIDs
+            // btnNewParagraph
             // 
-            this.btnChangeIDs.Name = "btnChangeIDs";
-            this.btnChangeIDs.Size = new System.Drawing.Size(271, 22);
-            this.btnChangeIDs.Text = "تغییر شناسه‌ها";
-            this.btnChangeIDs.Click += new System.EventHandler(this.btnChangeIDs_Click);
+            this.btnNewParagraph.Name = "btnNewParagraph";
+            this.btnNewParagraph.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.btnNewParagraph.Size = new System.Drawing.Size(250, 22);
+            this.btnNewParagraph.Text = "پاراگراف نثر جدید";
+            this.btnNewParagraph.Click += new System.EventHandler(this.btnNewParagraph_Click);
             // 
             // Editor
             // 
@@ -605,5 +615,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnMergeTwoTextColumns;
         private System.Windows.Forms.ToolStripMenuItem btnReplaceInDb;
         private System.Windows.Forms.ToolStripMenuItem btnChangeIDs;
+        private System.Windows.Forms.ToolStripMenuItem btnNewParagraph;
     }
 }

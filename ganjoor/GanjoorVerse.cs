@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ganjoor
-{    
-    enum VersePosition
+{
+    public enum VersePosition
     {
         Right = 0,//مصرع اول
         Left = 1,// مصرع دوم
@@ -13,7 +13,7 @@ namespace ganjoor
         Single = 4, //مصرعهای شعرهای نیمایی یا آزاد
         Paragraph = -1, //نثر
     }
-    class GanjoorVerse
+    public class GanjoorVerse
     {
         public int _PoemID;
         public int _Order;
