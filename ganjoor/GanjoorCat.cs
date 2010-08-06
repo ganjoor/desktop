@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ganjoor
 {
-    class GanjoorCat
+    public class GanjoorCat
     {
         public GanjoorCat(int ID, int PoetID, string Text, int ParentID, string Url) : this(ID, PoetID, Text, ParentID, Url, 0)
         {

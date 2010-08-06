@@ -9,15 +9,19 @@ using ganjoor.Properties;
 
 namespace ganjoor
 {
-    class DbBrowser
+    public class DbBrowser
     {
         #region Constructor
         public DbBrowser()
+            : this("ganjoor.s3db")
+        {
+        }
+        public DbBrowser(string sqliteDatabaseNameFileName)
         {
             try
             {
                 SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                conString.DataSource = "ganjoor.s3db";
+                conString.DataSource = sqliteDatabaseNameFileName;
                 conString.DefaultTimeout = 5000;
                 conString.FailIfMissing = true;
                 conString.ReadOnly = false;

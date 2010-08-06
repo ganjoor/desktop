@@ -400,16 +400,24 @@ namespace ganjoor
                                 lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, vTop);
                                 break;
                             case VersePosition.Single:
-                                lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+                                MissedMesras--;
+                                lblVerse.Location = new Point(versDistanceFromRight, vTop);
                                 break;
                             case VersePosition.Paragraph:
                                 {
                                     int txtHeight = lblVerse.Height;
                                     (lblVerse as TextBox).Multiline = true;
                                     Size sz = new Size(this.Width - versDistanceFromRight - 20, Int32.MaxValue);
-                                    sz = TextRenderer.MeasureText(verses[i]._Text, this.Font, sz, TextFormatFlags.WordBreak);
+                                    string txtMeasure = verses[i]._Text;
+                                    if (string.IsNullOrEmpty(txtMeasure))
+                                    {
+                                        //احتمالاً پاراگراف جدیدی بدون متن
+                                        for (int c = 0; c < 50; c++)
+                                            txtMeasure += "گنجور ";
+                                    }
+                                    sz = TextRenderer.MeasureText(txtMeasure, this.Font, sz, TextFormatFlags.WordBreak);
                                     Size sz2 = TextRenderer.MeasureText("گنجور", this.Font, sz, TextFormatFlags.WordBreak);
-                                    lblVerse.Size = new Size(this.Width - versDistanceFromRight - 20, sz.Height / sz2.Height * txtHeight);
+                                    lblVerse.Size = new Size(this.Width - versDistanceFromRight - 20, sz.Height / sz2.Height * txtHeight);                                    
                                     ParagraphShift += lblVerse.Height;
                                     lblVerse.Location = new Point(versDistanceFromRight, vTop);
                                     (lblVerse as TextBox).WordWrap = true;
@@ -452,7 +460,8 @@ namespace ganjoor
                                 lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, vTop);
                                 break;
                             case VersePosition.Single:
-                                lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines);
+                                MissedMesras--;
+                                lblVerse.Location = new Point(versDistanceFromRight, vTop);
                                 break;
                             case VersePosition.Paragraph:
                                 (lblVerse as Label).AutoSize = false;
@@ -1745,6 +1754,10 @@ namespace ganjoor
         {
             return NewLine(VersePosition.Single);
         }
+        public bool NewParagraph()
+        {
+            return NewLine(VersePosition.Paragraph);
+        }
         public bool InsertVerses(string[] verses, bool IsClassicPoem, bool IgnoreEmptyLines, bool IgnoreShortLines, int minLength)
         {
             Save();
@@ -1892,8 +1905,9 @@ namespace ganjoor
                     }
                     break;
                 case VersePosition.Single:
+                case VersePosition.Paragraph:
                     {
-                        firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, VersePosition.Single);
+                        firstVerse = _db.CreateNewVerse(_iCurPoem, LinePosition, Position);
                         if (firstVerse == null)
                         {
                             _db.CommitBatchOperation();
