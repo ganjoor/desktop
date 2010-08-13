@@ -337,6 +337,19 @@ namespace ganjoor
             lblPoem.Tag = poem;
             lblPoem.AutoSize = true;
             lblPoem.Text = poem._Title;
+            Size szPoemTitleSizeWithWordWrap = TextRenderer.MeasureText(poem._Title, this.Font, new Size(this.Width - lastDistanceFromRight - 20, Int32.MaxValue), TextFormatFlags.WordBreak);
+            Size szPoemTitleSizeWithoutWordWrap = TextRenderer.MeasureText(poem._Title, this.Font, new Size(this.Width - lastDistanceFromRight - 20, Int32.MaxValue), TextFormatFlags.Default);
+            int ParagraphShift = 0;
+            if (szPoemTitleSizeWithWordWrap.Width != szPoemTitleSizeWithoutWordWrap.Width)
+            {
+                Size sz2 = TextRenderer.MeasureText("گنجور", this.Font, new Size(100, lblPoem.Size.Height), TextFormatFlags.WordBreak);
+                ParagraphShift += (szPoemTitleSizeWithWordWrap.Height - lblPoem.Height);
+                lblPoem.AutoSize = false;
+                lblPoem.Size = new Size(this.Width - lastDistanceFromRight - 20, szPoemTitleSizeWithWordWrap.Height);
+                lblPoem.Location = new Point(lastDistanceFromRight, catsTop);
+
+            }
+            else
             if (CenteredView)
                 lblPoem.Location = new Point(this.Width/2 - TextRenderer.MeasureText(poem._Title, this.Font).Width/2, catsTop);
             else
@@ -362,7 +375,6 @@ namespace ganjoor
             int BandBeytNums = 0;
             bool MustHave2ndBandBeyt = false;
             int MissedMesras = 0;
-            int ParagraphShift = 0;
 
 
             
@@ -1198,6 +1210,10 @@ namespace ganjoor
         }
         public const string OnlyScrollString = "$545#4*77";
         public int HighlightText(string phrase)
+        {
+            return HighlightText(phrase, 0);
+        }
+        public int HighlightText(string phrase, int scrollindex)
         {  
             if (_iCurCat != 0)
             {
@@ -1226,7 +1242,7 @@ namespace ganjoor
                                     int index = ctl.Text.IndexOf(phrase);
                                     if (index != -1)
                                     {
-                                        if (!scrolled)
+                                        if (!scrolled && (scrollindex == count))
                                         {
                                             this.AutoScrollPosition = new Point(-this.AutoScrollPosition.X + ctl.Left, -this.AutoScrollPosition.Y + ctl.Top);
                                             scrolled = true;
@@ -1262,7 +1278,7 @@ namespace ganjoor
                                 if (index != -1)
                                 {
                                     (ctl as LinkLabel).LinkColor = Settings.Default.HighlightColor;
-                                    if (!scrolled)
+                                    if (!scrolled && (scrollindex == count))
                                     {
                                         this.AutoScrollPosition = new Point(-this.AutoScrollPosition.X + ctl.Left, -this.AutoScrollPosition.Y + ctl.Top);
                                         scrolled = true;
