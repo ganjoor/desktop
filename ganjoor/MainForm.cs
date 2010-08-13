@@ -73,7 +73,7 @@ namespace ganjoor
 
         private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string HighlightedText, object preItem, object nextItem)
         {
-            lblCurrentPage.Text = PageString;
+            lblCurrentPage.Text = PageString.Length > 100 ? PageString.Substring(0, 100)+" ..." : PageString;
             if (HasComments)
             {
                 btnNextPoem.Text = "شعر بعد";
@@ -128,7 +128,10 @@ namespace ganjoor
                     txtHighlight.Text = HighlightedText;
                     btnHighlight.Checked = highlight;
                     processTextChanged = true;
-                    lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", ganjoorView.HighlightText(HighlightedText));
+                    iLastFoundItems = ganjoorView.HighlightText(HighlightedText);
+                    iLastHighlightedFoundItem = 0;
+                    btnScrollToNext.Visible = iLastFoundItems > 1;
+                    lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", iLastFoundItems);
                 }
                 else
                 {
@@ -136,7 +139,9 @@ namespace ganjoor
                     txtHighlight.Text = "";
                     btnHighlight.Checked = false;
                     processTextChanged = true;
-                    ganjoorView.HighlightText(HighlightedText);
+                    iLastFoundItems = ganjoorView.HighlightText(HighlightedText);
+                    iLastHighlightedFoundItem = 0;
+                    btnScrollToNext.Visible = iLastFoundItems > 1;
                     highlight = false;
                 }
             }            
@@ -293,7 +298,10 @@ namespace ganjoor
                 processTextChanged = false;
                 txtHighlight.Text = "";
                 ganjoorView.HighlightText(string.Empty);
+                iLastFoundItems = 0;
                 lblFoundItemCount.Visible = false;
+                iLastHighlightedFoundItem = 0;
+                btnScrollToNext.Visible = false;
                 processTextChanged = true;
             }
         }
@@ -309,15 +317,34 @@ namespace ganjoor
         }
 
         private bool processTextChanged = true;
+        private int iLastFoundItems = 0;
         private void txtHighlight_TextChanged(object sender, EventArgs e)
         {
             if (processTextChanged)
             {
-                int count = ganjoorView.HighlightText(txtHighlight.Text.Replace('ك', 'ک').Replace('ي', 'ی'));
+                iLastFoundItems = ganjoorView.HighlightText(txtHighlight.Text.Replace('ك', 'ک').Replace('ي', 'ی'));
+                iLastHighlightedFoundItem = 0;                
                 if (lblFoundItemCount.Visible = !string.IsNullOrEmpty(txtHighlight.Text))
-                    lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", count);
+                    lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", iLastFoundItems);
+                btnScrollToNext.Visible = iLastFoundItems > 1;
+
             }
         }
+        private int iLastHighlightedFoundItem = 0;
+        private void btnScrollToNext_Click(object sender, EventArgs e)
+        {
+            iLastHighlightedFoundItem++;
+            ganjoorView.HighlightText(txtHighlight.Text.Replace('ك', 'ک').Replace('ي', 'ی'), iLastHighlightedFoundItem);
+            btnScrollToNext.Visible = (iLastHighlightedFoundItem + 1 < iLastFoundItems);
+        }
+        private void txtHighlight_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                if (btnScrollToNext.Visible)
+                    btnScrollToNext_Click(sender, new EventArgs());
+        }
+
+
 
         private void btnFavUnFav_Click(object sender, EventArgs e)
         {
@@ -512,6 +539,8 @@ namespace ganjoor
             ganjoorView.AutoScrollPosition = thumbPos;
         }
         #endregion
+
+
 
     }
 }
