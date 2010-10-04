@@ -37,7 +37,11 @@
             this.lnkSources = new System.Windows.Forms.LinkLabel();
             this.lnkIconsEditor = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.grdContributers = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewLinkColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.grdContributers)).BeginInit();
             this.SuspendLayout();
             // 
             // lblAppTitle
@@ -76,7 +80,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(142, 209);
+            this.btnOK.Location = new System.Drawing.Point(146, 359);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(60, 22);
@@ -135,22 +139,55 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 152);
+            this.label1.Location = new System.Drawing.Point(6, 160);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(333, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "دوستانی که با تایپ آثار شاعران به گسترش گنجور رومیزی کمک کرده‌اند:";
             // 
-            // label2
+            // grdContributers
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(76, 175);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "آقای علی پی‌سپار (آثار سهراب سپهری)";
+            this.grdContributers.AllowUserToAddRows = false;
+            this.grdContributers.AllowUserToDeleteRows = false;
+            this.grdContributers.AllowUserToOrderColumns = true;
+            this.grdContributers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdContributers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
+            this.grdContributers.Location = new System.Drawing.Point(12, 180);
+            this.grdContributers.Name = "grdContributers";
+            this.grdContributers.ReadOnly = true;
+            this.grdContributers.RowHeadersWidth = 11;
+            this.grdContributers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdContributers.Size = new System.Drawing.Size(323, 165);
+            this.grdContributers.TabIndex = 10;
+            this.grdContributers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdContributers_CellContentClick);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.HeaderText = "نام";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "بخش";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column3.HeaderText = "توضیح بیشتر";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 75;
             // 
             // AboutForm
             // 
@@ -158,8 +195,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(344, 242);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(344, 390);
+            this.Controls.Add(this.grdContributers);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lnkIconsEditor);
             this.Controls.Add(this.lnkSources);
@@ -182,6 +219,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "دربارۀ گنجور رومیزی";
             this.Load += new System.EventHandler(this.AboutForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.grdContributers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,6 +236,9 @@
         private System.Windows.Forms.LinkLabel lnkSources;
         private System.Windows.Forms.LinkLabel lnkIconsEditor;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView grdContributers;
+        private System.Windows.Forms.DataGridViewLinkColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewLinkColumn Column3;
     }
 }

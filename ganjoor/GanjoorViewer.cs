@@ -373,6 +373,7 @@ namespace ganjoor
             int BeytNum = 0;
             int BandNum = 0;
             int BandBeytNums = 0;
+            int WholeNimayeeLines = 0;
             bool MustHave2ndBandBeyt = false;
             int MissedMesras = 0;
 
@@ -412,9 +413,6 @@ namespace ganjoor
                                 lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, vTop);
                                 break;
                             case VersePosition.Single:
-                                MissedMesras--;
-                                lblVerse.Location = new Point(versDistanceFromRight, vTop);
-                                break;
                             case VersePosition.Paragraph:
                                 {
                                     int txtHeight = lblVerse.Height;
@@ -472,9 +470,6 @@ namespace ganjoor
                                 lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, vTop);
                                 break;
                             case VersePosition.Single:
-                                MissedMesras--;
-                                lblVerse.Location = new Point(versDistanceFromRight, vTop);
-                                break;
                             case VersePosition.Paragraph:
                                 (lblVerse as Label).AutoSize = false;
                                 {
@@ -493,7 +488,7 @@ namespace ganjoor
                     else
                     {
                         lblVerse.Location = new Point(versDistanceFromRight, catsTop + i * DistanceBetweenLines + ParagraphShift);
-                        if (verses[i]._Position == VersePosition.Paragraph)
+                        if (verses[i]._Position == VersePosition.Paragraph || verses[i]._Position == VersePosition.Single)
                         {
                             (lblVerse as Label).AutoSize = false;
                             int labelHeight = lblVerse.Height;
@@ -517,61 +512,64 @@ namespace ganjoor
                 this.Controls.Add(lblVerse);
                 
 
-                if (verses[i]._Position == VersePosition.Right || verses[i]._Position == VersePosition.CenteredVerse1 || (verses[i]._Position == VersePosition.Single && !string.IsNullOrEmpty(verses[i]._Text)))
+                if (verses[i]._Position == VersePosition.Right || verses[i]._Position == VersePosition.CenteredVerse1 || (verses[i]._Position == VersePosition.Single))
                 {
-                    WholeBeytNum++;
-                    bool isBand = verses[i]._Position == VersePosition.CenteredVerse1;
-                    if (isBand)
+                    if (!string.IsNullOrEmpty(verses[i]._Text.Trim()))//empty verse strings have been seen sometimes, it seems that we have some errors in our database
                     {
-                        BeytNum = 0;
-                        BandNum++;
-                    }
-                    else
-                        BeytNum++;
-                    int xDistance = TextRenderer.MeasureText("345", this.Font).Width;
-                    if (ShowBeytNums
-                        &&
-                        !string.IsNullOrEmpty(verses[i]._Text)//empty verse strings have been seen sometimes, it seems that we have some errors in our database
-                        )
-                    {
-                        LinkLabel lblNum = new LinkLabel();
-                        lblNum.AutoSize = true;
-                        lblNum.Text = isBand ? BandNum.ToString() : BeytNum.ToString();
-                        lblNum.Tag = verses[i];
-                        lblNum.BackColor = Color.Transparent;
-                        lblNum.LinkBehavior = LinkBehavior.HoverUnderline;                        
-                        lblNum.Location = new Point(lastDistanceFromRight - xDistance, lblVerse.Location.Y);
-                        lblNum.LinkColor = isBand ? Settings.Default.BandLinkColor : Settings.Default.LinkColor;
-                        lblNum.ForeColor = lblNum.LinkColor;
-                        lblNum.Click += new EventHandler(lblNum_Click);
-                        this.Controls.Add(lblNum);
-                        if (_db.IsVerseFaved(poem._ID, verses[i]._Order))
+                        if (verses[i]._Position == VersePosition.Single)
+                            WholeNimayeeLines++;
+                        else
+                            WholeBeytNum++;
+                        bool isBand = verses[i]._Position == VersePosition.CenteredVerse1;
+                        if (isBand)
                         {
-                            PictureBox fav = new PictureBox();
-                            fav.BackColor = Color.Transparent;
-                            fav.Image = Resources.fav;
-                            fav.Size = new Size(16, 16);                            
-                            fav.Location = new Point(lastDistanceFromRight - xDistance , lblVerse.Location.Y);
-                            fav.Tag = verses[i];
-                            fav.Cursor = Cursors.Hand;
-                            fav.Click += new EventHandler(lblNum_Click);
-                            this.Controls.Add(fav);
-                            lblNum.Visible = false;
+                            BeytNum = 0;
+                            BandNum++;
                         }
-                    }
-                    else
-                    {
-                        if (_db.IsVerseFaved(poem._ID, verses[i]._Order))
+                        else
+                            BeytNum++;
+                        int xDistance = TextRenderer.MeasureText("345", this.Font).Width;
+                        if (ShowBeytNums)
                         {
-                            PictureBox fav = new PictureBox();
-                            fav.BackColor = Color.Transparent;
-                            fav.Image = Resources.fav;
-                            fav.Size = new Size(16, 16);                            
-                            fav.Location = new Point(lastDistanceFromRight - xDistance , lblVerse.Location.Y);
-                            fav.Tag = verses[i];
-                            fav.Cursor = Cursors.Hand;
-                            fav.Click += new EventHandler(lblNum_Click);
-                            this.Controls.Add(fav);
+                            LinkLabel lblNum = new LinkLabel();
+                            lblNum.AutoSize = true;
+                            lblNum.Text = isBand ? BandNum.ToString() : BeytNum.ToString();
+                            lblNum.Tag = verses[i];
+                            lblNum.BackColor = Color.Transparent;
+                            lblNum.LinkBehavior = LinkBehavior.HoverUnderline;
+                            lblNum.Location = new Point(lastDistanceFromRight - xDistance, lblVerse.Location.Y);
+                            lblNum.LinkColor = isBand ? Settings.Default.BandLinkColor : Settings.Default.LinkColor;
+                            lblNum.ForeColor = lblNum.LinkColor;
+                            lblNum.Click += new EventHandler(lblNum_Click);
+                            this.Controls.Add(lblNum);
+                            if (_db.IsVerseFaved(poem._ID, verses[i]._Order))
+                            {
+                                PictureBox fav = new PictureBox();
+                                fav.BackColor = Color.Transparent;
+                                fav.Image = Resources.fav;
+                                fav.Size = new Size(16, 16);
+                                fav.Location = new Point(lastDistanceFromRight - xDistance, lblVerse.Location.Y);
+                                fav.Tag = verses[i];
+                                fav.Cursor = Cursors.Hand;
+                                fav.Click += new EventHandler(lblNum_Click);
+                                this.Controls.Add(fav);
+                                lblNum.Visible = false;
+                            }
+                        }
+                        else
+                        {
+                            if (_db.IsVerseFaved(poem._ID, verses[i]._Order))
+                            {
+                                PictureBox fav = new PictureBox();
+                                fav.BackColor = Color.Transparent;
+                                fav.Image = Resources.fav;
+                                fav.Size = new Size(16, 16);
+                                fav.Location = new Point(lastDistanceFromRight - xDistance, lblVerse.Location.Y);
+                                fav.Tag = verses[i];
+                                fav.Cursor = Cursors.Hand;
+                                fav.Click += new EventHandler(lblNum_Click);
+                                this.Controls.Add(fav);
+                            }
                         }
                     }
                 }                
@@ -601,7 +599,15 @@ namespace ganjoor
             _FavsPage = false;
             _iCurPoem = poem._ID;
 
-            _strPage += " (" + WholeBeytNum.ToString() + " بیت";
+            _strPage += " (";
+            if(WholeBeytNum > 0)
+                 _strPage +=  WholeBeytNum.ToString() + " بیت";
+            if (WholeNimayeeLines > 0)
+            {
+                if (WholeBeytNum > 0)
+                    _strPage += "، ";
+                _strPage += WholeNimayeeLines.ToString() + " خط";
+            }
             if (BandNum == 0)
                 _strPage += ")";
             else
@@ -1080,6 +1086,7 @@ namespace ganjoor
         }
         public void ShowSearchResults(string phrase, int PageStart, int Count, int PoetID, bool keepTrack)
         {
+            phrase = GPersianTextSync.Sync(phrase);
             if (keepTrack)
                 UpdateHistory();
             Cursor = Cursors.WaitCursor; Application.DoEvents();
