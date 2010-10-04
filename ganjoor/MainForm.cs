@@ -322,7 +322,7 @@ namespace ganjoor
         {
             if (processTextChanged)
             {
-                iLastFoundItems = ganjoorView.HighlightText(txtHighlight.Text.Replace('ك', 'ک').Replace('ي', 'ی'));
+                iLastFoundItems = ganjoorView.HighlightText(GPersianTextSync.Sync(txtHighlight.Text));
                 iLastHighlightedFoundItem = 0;                
                 if (lblFoundItemCount.Visible = !string.IsNullOrEmpty(txtHighlight.Text))
                     lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", iLastFoundItems);
@@ -334,7 +334,7 @@ namespace ganjoor
         private void btnScrollToNext_Click(object sender, EventArgs e)
         {
             iLastHighlightedFoundItem++;
-            ganjoorView.HighlightText(txtHighlight.Text.Replace('ك', 'ک').Replace('ي', 'ی'), iLastHighlightedFoundItem);
+            ganjoorView.HighlightText(GPersianTextSync.Sync(txtHighlight.Text), iLastHighlightedFoundItem);
             btnScrollToNext.Visible = (iLastHighlightedFoundItem + 1 < iLastFoundItems);
         }
         private void txtHighlight_KeyDown(object sender, KeyEventArgs e)
@@ -539,6 +539,12 @@ namespace ganjoor
             ganjoorView.AutoScrollPosition = thumbPos;
         }
         #endregion
+
+        private void btnDownloadGDBList_Click(object sender, EventArgs e)
+        {
+            using (DownloadGDBList dlg = new DownloadGDBList())
+                dlg.ShowDialog(this);
+        }
 
 
 

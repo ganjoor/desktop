@@ -108,6 +108,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.btnDownloadGDBList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -796,6 +797,7 @@
             // 
             this.mnuHlp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnCheckForUpdate,
+            this.btnDownloadGDBList,
             this.toolStripSeparator5,
             this.mnuAbout});
             this.mnuHlp.Name = "mnuHlp";
@@ -806,21 +808,21 @@
             // 
             this.btnCheckForUpdate.Image = global::ganjoor.Properties.Resources.folder_down;
             this.btnCheckForUpdate.Name = "btnCheckForUpdate";
-            this.btnCheckForUpdate.Size = new System.Drawing.Size(224, 22);
+            this.btnCheckForUpdate.Size = new System.Drawing.Size(235, 22);
             this.btnCheckForUpdate.Text = "پرس و جو برای ویرایش جدیدتر";
             this.btnCheckForUpdate.Click += new System.EventHandler(this.btnCheckForUpdate_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(232, 6);
             // 
             // mnuAbout
             // 
             this.mnuAbout.Image = global::ganjoor.Properties.Resources.help;
             this.mnuAbout.Name = "mnuAbout";
             this.mnuAbout.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.mnuAbout.Size = new System.Drawing.Size(224, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(235, 22);
             this.mnuAbout.Text = "دربارۀ این برنامه";
             this.mnuAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
@@ -841,6 +843,13 @@
             this.ganjoorView.Size = new System.Drawing.Size(784, 243);
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
+            // 
+            // btnDownloadGDBList
+            // 
+            this.btnDownloadGDBList.Name = "btnDownloadGDBList";
+            this.btnDownloadGDBList.Size = new System.Drawing.Size(235, 22);
+            this.btnDownloadGDBList.Text = "دریافت مجموعه‌های جدید اشعار";
+            this.btnDownloadGDBList.Click += new System.EventHandler(this.btnDownloadGDBList_Click);
             // 
             // MainForm
             // 
@@ -958,6 +967,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripButton btnEditor;
         private System.Windows.Forms.ToolStripButton btnScrollToNext;
+        private System.Windows.Forms.ToolStripMenuItem btnDownloadGDBList;
 
 
 
