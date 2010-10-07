@@ -377,6 +377,13 @@ namespace ganjoor
             bool MustHave2ndBandBeyt = false;
             int MissedMesras = 0;
 
+            int MesraWidth = 250;
+            if (EditMode)
+            {
+                for (int i = 0; i < verses.Count; i++)
+                    if(verses[i]._Position != VersePosition.Paragraph && verses[i]._Position != VersePosition.Single)
+                        MesraWidth = Math.Max(MesraWidth, TextRenderer.MeasureText(verses[i]._Text, this.Font).Width);
+            }
 
             
             int versDistanceFromRight = ShowBeytNums ? lastDistanceFromRight + TextRenderer.MeasureText((verses.Count).ToString(), this.Font).Width: lastDistanceFromRight;
@@ -386,14 +393,15 @@ namespace ganjoor
                 if (EditMode)
                 {
                     lblVerse = new TextBox();
+                    lblVerse.Font = this.Font;
                     if (CenteredView)
                     {
-                        lblVerse.Size = new Size(this.MesraWidth, lblVerse.Size.Height);
+                        lblVerse.Size = new Size(MesraWidth, lblVerse.Size.Height);
                         int vTop = catsTop + ((i - MissedMesras) / 2 + BandBeytNums) * DistanceBetweenLines + ParagraphShift;
                         switch (verses[i]._Position)
                         {
                             case VersePosition.Right:
-                                lblVerse.Location = new Point(this.Width / 2 - 5 - this.MesraWidth, vTop);
+                                lblVerse.Location = new Point(this.Width / 2 - 5 - MesraWidth, vTop);
                                 if (MustHave2ndBandBeyt)
                                 {
                                     MissedMesras++;
@@ -404,13 +412,13 @@ namespace ganjoor
                                 lblVerse.Location = new Point(this.Width / 2 + 5, vTop);
                                 break;
                             case VersePosition.CenteredVerse1:
-                                lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, vTop);
+                                lblVerse.Location = new Point(this.Width / 2 - MesraWidth / 2, vTop);
                                 BandBeytNums++;
                                 MustHave2ndBandBeyt = true;
                                 break;
                             case VersePosition.CenteredVerse2:
                                 MustHave2ndBandBeyt = false;
-                                lblVerse.Location = new Point(this.Width / 2 - this.MesraWidth / 2, vTop);
+                                lblVerse.Location = new Point(this.Width / 2 - MesraWidth / 2, vTop);
                                 break;
                             case VersePosition.Single:
                             case VersePosition.Paragraph:
@@ -1657,8 +1665,6 @@ namespace ganjoor
         #region Edit Mode
         [DefaultValue(false)]
         public bool EditMode { get; set; }
-        [DefaultValue(300)]
-        public int MesraWidth { get; set; }
         public bool IsInPoetRootPage
         {
             get
