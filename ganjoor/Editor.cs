@@ -15,8 +15,9 @@ namespace ganjoor
         {
             InitializeComponent();
             this.ganjoorView.ShowBeytNums = false;
-            this.ganjoorView.MesraWidth = 250;
+            //this.ganjoorView.MesraWidth = 250;
             this.ganjoorView.CenteredView = true;
+            this.ganjoorView.Font = ganjoor.Properties.Settings.Default.ViewFont;
         }
 
         private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string highlightedText, object preItem, object nextItem)

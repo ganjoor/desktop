@@ -102,10 +102,11 @@ namespace ganjoor
                                     grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
                                 grdList.Rows[RowIndex].Cells[GRDCLMN_CAT].Value = gdbInfo.CatName;
                                 grdList.Rows[RowIndex].Cells[GRDCLMN_DWNLD].Value = "دریافت";
-                                grdList.Rows[RowIndex].Cells[GRDCLMN_MORE].Value = "ببینید";                               
-                                
-
+                                if(!string.IsNullOrEmpty(gdbInfo.BlogUrl))
+                                    grdList.Rows[RowIndex].Cells[GRDCLMN_MORE].Value = "ببینید";
+                                grdList.FirstDisplayedScrollingRowIndex = RowIndex;
                             }                            
+                            
                         }
                     }
                 }
@@ -124,10 +125,12 @@ namespace ganjoor
             switch(e.ColumnIndex)
             {
                 case GRDCLMN_DWNLD:
-                    Process.Start(_Lst[e.RowIndex].DownloadUrl);
+                    if(!string.IsNullOrEmpty(_Lst[e.RowIndex].DownloadUrl))
+                        Process.Start(_Lst[e.RowIndex].DownloadUrl);
                     break;
                 case GRDCLMN_MORE:
-                    Process.Start(_Lst[e.RowIndex].BlogUrl);
+                    if (!string.IsNullOrEmpty(_Lst[e.RowIndex].BlogUrl))
+                        Process.Start(_Lst[e.RowIndex].BlogUrl);
                     break;
             }
         }

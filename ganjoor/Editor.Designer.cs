@@ -521,7 +521,6 @@
             this.ganjoorView.ForeColor = System.Drawing.SystemColors.ControlText;
             this.ganjoorView.Location = new System.Drawing.Point(0, 69);
             this.ganjoorView.Margin = new System.Windows.Forms.Padding(48, 22, 48, 22);
-            this.ganjoorView.MesraWidth = 0;
             this.ganjoorView.Name = "ganjoorView";
             this.ganjoorView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ganjoorView.Size = new System.Drawing.Size(757, 309);
