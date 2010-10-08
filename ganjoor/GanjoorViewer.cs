@@ -157,10 +157,11 @@ namespace ganjoor
             List<GanjoorPoem> poems = _db.GetPoems(category._ID);
             category._StartPoem = Math.Max(0, category._StartPoem);
             GanjoorCat preCat = category._StartPoem == 0 ? null : new GanjoorCat(category, category._StartPoem - Settings.Default.MaxPoemsInList);
-            GanjoorCat nextCat = category._StartPoem + Settings.Default.MaxPoemsInList < poems.Count ? new GanjoorCat(category, category._StartPoem + Settings.Default.MaxPoemsInList) : null;            
+            GanjoorCat nextCat = category._StartPoem + Settings.Default.MaxPoemsInList < poems.Count ? new GanjoorCat(category, category._StartPoem + Settings.Default.MaxPoemsInList) : null;
+            int ParagraphShift = 0;
             for (int i = category._StartPoem; i < Math.Min(poems.Count, category._StartPoem + Settings.Default.MaxPoemsInList); i++)
-            {
-                
+            {                
+
                 LinkLabel lblPoem = new LinkLabel();                
                 lblPoem.Tag = poems[i];
                 lblPoem.AutoSize = true;
@@ -168,13 +169,33 @@ namespace ganjoor
                 List<GanjoorVerse> v = _db.GetVerses(poems[i]._ID, 1);
                 if (v.Count > 0)
                     lblPoem.Text += " : " + v[0]._Text;
-                lblPoem.Location = new Point(poemsDistanceFromRight, poemsTop + (i-category._StartPoem) * DistanceBetweenLines);
+                lblPoem.Location = new Point(poemsDistanceFromRight, poemsTop + (i - category._StartPoem) * DistanceBetweenLines + ParagraphShift);
+                Size szPoemTitleSizeWithWordWrap = TextRenderer.MeasureText(lblPoem.Text, this.Font, new Size(this.Width - lastDistanceFromRight - 20, Int32.MaxValue), TextFormatFlags.WordBreak);
+                Size szPoemTitleSizeWithoutWordWrap = TextRenderer.MeasureText(lblPoem.Text, this.Font, new Size(this.Width - lastDistanceFromRight - 20, Int32.MaxValue), TextFormatFlags.Default);
+                if (szPoemTitleSizeWithWordWrap.Width != szPoemTitleSizeWithoutWordWrap.Width)
+                {                    
+                    ParagraphShift += (szPoemTitleSizeWithWordWrap.Height - lblPoem.Height / 2);
+                    lblPoem.AutoSize = false;
+                    lblPoem.Size = new Size(this.Width - lastDistanceFromRight - 20, szPoemTitleSizeWithWordWrap.Height);
+                    
+                }
+                
                 lblPoem.LinkBehavior = LinkBehavior.HoverUnderline;
                 lblPoem.BackColor = Color.Transparent;
                 lblPoem.LinkColor = Settings.Default.LinkColor;
                 lblPoem.ForeColor = lblPoem.LinkColor;
                 lblPoem.Click += new EventHandler(lblPoem_Click);
                 this.Controls.Add(lblPoem);
+                if (_db.IsPoemFaved(poems[i]._ID))
+                {
+                    PictureBox fav = new PictureBox();
+                    fav.BackColor = Color.Transparent;
+                    fav.Image = Resources.fav;
+                    fav.Size = new Size(16, 16);
+                    fav.Location = new Point(lblPoem.Location.X - 16, lblPoem.Location.Y + (lblPoem.Size.Height - 16) /2);
+                    this.Controls.Add(fav);
+                }
+
             }
 
             //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
@@ -342,7 +363,6 @@ namespace ganjoor
             int ParagraphShift = 0;
             if (szPoemTitleSizeWithWordWrap.Width != szPoemTitleSizeWithoutWordWrap.Width)
             {
-                Size sz2 = TextRenderer.MeasureText("گنجور", this.Font, new Size(100, lblPoem.Size.Height), TextFormatFlags.WordBreak);
                 ParagraphShift += (szPoemTitleSizeWithWordWrap.Height - lblPoem.Height);
                 lblPoem.AutoSize = false;
                 lblPoem.Size = new Size(this.Width - lastDistanceFromRight - 20, szPoemTitleSizeWithWordWrap.Height);
@@ -1559,7 +1579,22 @@ namespace ganjoor
         #region Random Poem
         public void ShowRandomPoem()
         {
-            int PoemID = _db.GetRandomPoem(Settings.Default.RandomOnlyHafez ? 24 : 0);
+            if (_LastRandomCatID != Settings.Default.RandomCatID)
+            {
+                _LastRandomCatID = Settings.Default.RandomCatID;
+                _LastRandomCatList = new List<int>();
+                if (_LastRandomCatID != 0)
+                {
+                    if (_db.HasAnyPoem(_LastRandomCatID))
+                        _LastRandomCatList.Add(_LastRandomCatID);
+                    foreach (int CatID in _db.GetAllSubCats(_LastRandomCatID))
+                    {
+                        if (_db.HasAnyPoem(CatID))
+                            _LastRandomCatList.Add(CatID);
+                    }
+                }
+            }
+            int PoemID = _db.GetRandomPoem(_LastRandomCatList);
             if (PoemID == -1)
             {
                 MessageBox.Show("خطا در یافتن شعر تصادفی!", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
@@ -1571,6 +1606,8 @@ namespace ganjoor
             else
                 ShowRandomPoem();//not any random id exists, so repeat until finding a valid id
         }
+        private int _LastRandomCatID = 0;
+        private static List<int> _LastRandomCatList = new List<int>();
         #endregion
 
         #region Import Db / Import+Export Favs

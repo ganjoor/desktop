@@ -373,18 +373,6 @@ namespace ganjoor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool RandomOnlyHafez {
-            get {
-                return ((bool)(this["RandomOnlyHafez"]));
-            }
-            set {
-                this["RandomOnlyHafez"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
         public global::System.Drawing.Color LinkColor {
             get {
@@ -536,6 +524,18 @@ namespace ganjoor.Properties {
             }
             set {
                 this["MinNewPoemID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        public int RandomCatID {
+            get {
+                return ((int)(this["RandomCatID"]));
+            }
+            set {
+                this["RandomCatID"] = value;
             }
         }
     }

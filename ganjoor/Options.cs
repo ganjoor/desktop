@@ -15,6 +15,7 @@ namespace ganjoor
         {
             InitializeComponent();
             InitializeControls();
+
         }
 
         private void InitializeControls()
@@ -44,8 +45,8 @@ namespace ganjoor
             chkCheckForUpdate.Checked = Settings.Default.CheckForUpdate;
             chkScrollToFaved.Checked = Settings.Default.ScrollToFavedVerse;
             chkCenteredViewMode.Checked = GanjoorViewMode.Centered == (GanjoorViewMode)Settings.Default.ViewMode;
-            if (!(chkRandomOnlyHafez.Checked = Settings.Default.RandomOnlyHafez))
-                chkRandomAll.Checked = true;
+            _RandomCatID = Settings.Default.RandomCatID;
+            lblRandomCat.Text = RandomCatPath;
             numMaxFavs.Value = Settings.Default.FavItemsInPage;
         }
         private void btnOK_Click(object sender, EventArgs e)
@@ -71,7 +72,7 @@ namespace ganjoor
             Settings.Default.CurrentLinkColor = btnCurrentLinkColor.BackColor;
             Settings.Default.HighlightColor = btnHighlightColor.BackColor;
             Settings.Default.CheckForUpdate = chkCheckForUpdate.Checked;
-            Settings.Default.RandomOnlyHafez = chkRandomOnlyHafez.Checked;
+            Settings.Default.RandomCatID = _RandomCatID;
             Settings.Default.BandLinkColor = btnBandLinkColor.BackColor;
             Settings.Default.ScrollToFavedVerse = chkScrollToFaved.Checked;
             Settings.Default.ViewMode = chkCenteredViewMode.Checked ? (int)GanjoorViewMode.Centered : (int)GanjoorViewMode.RightAligned;
@@ -80,6 +81,7 @@ namespace ganjoor
 
             Properties.Settings.Default.Save();
         }
+        
         private Font ViewFont { set; get; }
 
         private void btnSelectFont_Click(object sender, EventArgs e)
@@ -221,6 +223,39 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     btnBandLinkColor.BackColor = dlg.Color;
+                }
+            }
+        }
+
+        private int _RandomCatID = 0;
+        private string RandomCatPath
+        {
+            get
+            {
+                if (_RandomCatID == 0)
+                    return "همه";
+                DbBrowser db = new DbBrowser();
+                GanjoorCat cat = db.GetCategory(_RandomCatID);
+                if(cat == null)
+                    return "همه";
+                List<GanjoorCat> cats = db.GetParentCategories(cat);
+                string result = "";
+                foreach (GanjoorCat parCat in cats)
+                    result += parCat._Text + " ->";
+                result += cat._Text;
+                return result;
+                    
+            }
+        }
+        private void btnSelectRandomCat_Click(object sender, EventArgs e)
+        {
+            using (CategorySelector dlg = new CategorySelector())
+            {
+                dlg.SelectedCatID = _RandomCatID;
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    _RandomCatID = dlg.SelectedCatID;
+                    lblRandomCat.Text = RandomCatPath;
                 }
             }
         }

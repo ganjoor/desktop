@@ -39,6 +39,7 @@ namespace ganjoor
                 using (SolidBrush hbrsh = new SolidBrush(HighlightColor))
                 {
                     float fx = e.ClipRectangle.Right;//only right to left text for now
+                    float fy = e.ClipRectangle.Y;
                     while (txt.Length > 0)
                     {
                         int index = txt.IndexOf(Keyword);
@@ -65,12 +66,18 @@ namespace ganjoor
                                 txt = txt.Substring(index);
                             }
                         }
-                        SizeF sz = e.Graphics.MeasureString(thisPart, this.Font);
+                        SizeF sz = TextRenderer.MeasureText(thisPart, this.Font, Size.Empty, TextFormatFlags.TextBoxControl | TextFormatFlags.RightToLeft);
                         if (index == 0)
                         {
-                            e.Graphics.FillRectangle(hbrsh, new RectangleF(fx - sz.Width, e.ClipRectangle.Y, sz.Width, e.ClipRectangle.Height));
+                            e.Graphics.FillRectangle(hbrsh, new RectangleF(fx - sz.Width, fy, sz.Width, sz.Height));
                         }
                         fx -= sz.Width;
+                        if (fx <= 0)
+                        {//multiline label
+                            int nLines = (int)sz.Width / this.Width;
+                            fy += nLines * sz.Height;
+                            fx = e.ClipRectangle.Right - (sz.Width - nLines * this.Width);
+                        }
                     }
                 }
             }
