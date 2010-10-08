@@ -70,7 +70,7 @@ namespace ganjoor
 
         private void lnkHamidReza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://www.gozir.com/contact/");            
+            Process.Start("http://ganjoor.net/contact/");            
         }
 
         private void lnkSources_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -98,6 +98,11 @@ namespace ganjoor
                     if (!string.IsNullOrEmpty(link))
                         Process.Start(link);
                 }
+        }
+
+        private void lnkBlog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("http://blog.ganjoor.net");            
         }
     }
 }

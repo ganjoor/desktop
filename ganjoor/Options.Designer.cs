@@ -59,8 +59,6 @@
             this.chkHomeButton = new System.Windows.Forms.CheckBox();
             this.chkRandomButton = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.chkRandomOnlyHafez = new System.Windows.Forms.RadioButton();
-            this.chkRandomAll = new System.Windows.Forms.RadioButton();
             this.btnNoBkImage = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.btnLinkColor = new System.Windows.Forms.Button();
@@ -75,6 +73,8 @@
             this.numMaxFavs = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.chkEditorButton = new System.Windows.Forms.CheckBox();
+            this.lblRandomCat = new System.Windows.Forms.Label();
+            this.btnSelectRandomCat = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).BeginInit();
             this.SuspendLayout();
@@ -433,30 +433,6 @@
             this.label5.TabIndex = 43;
             this.label5.Text = "دامنۀ عملکرد دکمۀ فال:";
             // 
-            // chkRandomOnlyHafez
-            // 
-            this.chkRandomOnlyHafez.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkRandomOnlyHafez.AutoSize = true;
-            this.chkRandomOnlyHafez.Location = new System.Drawing.Point(137, 271);
-            this.chkRandomOnlyHafez.Name = "chkRandomOnlyHafez";
-            this.chkRandomOnlyHafez.Size = new System.Drawing.Size(104, 17);
-            this.chkRandomOnlyHafez.TabIndex = 44;
-            this.chkRandomOnlyHafez.TabStop = true;
-            this.chkRandomOnlyHafez.Text = "فقط غزلیات حافظ";
-            this.chkRandomOnlyHafez.UseVisualStyleBackColor = true;
-            // 
-            // chkRandomAll
-            // 
-            this.chkRandomAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkRandomAll.AutoSize = true;
-            this.chkRandomAll.Location = new System.Drawing.Point(252, 272);
-            this.chkRandomAll.Name = "chkRandomAll";
-            this.chkRandomAll.Size = new System.Drawing.Size(76, 17);
-            this.chkRandomAll.TabIndex = 45;
-            this.chkRandomAll.TabStop = true;
-            this.chkRandomAll.Text = "همۀ اشعار";
-            this.chkRandomAll.UseVisualStyleBackColor = true;
-            // 
             // btnNoBkImage
             // 
             this.btnNoBkImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -571,7 +547,7 @@
             this.chkCenteredViewMode.Location = new System.Drawing.Point(18, 297);
             this.chkCenteredViewMode.Name = "chkCenteredViewMode";
             this.chkCenteredViewMode.Size = new System.Drawing.Size(322, 17);
-            this.chkCenteredViewMode.TabIndex = 46;
+            this.chkCenteredViewMode.TabIndex = 45;
             this.chkCenteredViewMode.Text = "هر بیت را در یک خط نشان بده (نمایش ابیات به صورت وسط چین).";
             this.chkCenteredViewMode.UseVisualStyleBackColor = true;
             // 
@@ -624,6 +600,26 @@
             this.chkEditorButton.Text = "ویرایشگر";
             this.chkEditorButton.UseVisualStyleBackColor = true;
             // 
+            // lblRandomCat
+            // 
+            this.lblRandomCat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRandomCat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblRandomCat.ForeColor = System.Drawing.Color.Green;
+            this.lblRandomCat.Location = new System.Drawing.Point(137, 272);
+            this.lblRandomCat.Name = "lblRandomCat";
+            this.lblRandomCat.Size = new System.Drawing.Size(307, 17);
+            this.lblRandomCat.TabIndex = 46;
+            // 
+            // btnSelectRandomCat
+            // 
+            this.btnSelectRandomCat.Location = new System.Drawing.Point(450, 268);
+            this.btnSelectRandomCat.Name = "btnSelectRandomCat";
+            this.btnSelectRandomCat.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectRandomCat.TabIndex = 47;
+            this.btnSelectRandomCat.Text = "انتخاب";
+            this.btnSelectRandomCat.UseVisualStyleBackColor = true;
+            this.btnSelectRandomCat.Click += new System.EventHandler(this.btnSelectRandomCat_Click);
+            // 
             // Options
             // 
             this.AcceptButton = this.btnOK;
@@ -631,6 +627,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(603, 351);
+            this.Controls.Add(this.btnSelectRandomCat);
+            this.Controls.Add(this.lblRandomCat);
             this.Controls.Add(this.chkEditorButton);
             this.Controls.Add(this.numMaxFavs);
             this.Controls.Add(this.label10);
@@ -645,8 +643,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnLinkColor);
             this.Controls.Add(this.btnNoBkImage);
-            this.Controls.Add(this.chkRandomAll);
-            this.Controls.Add(this.chkRandomOnlyHafez);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.chkRandomButton);
             this.Controls.Add(this.chkHomeButton);
@@ -729,8 +725,6 @@
         private System.Windows.Forms.CheckBox chkHomeButton;
         private System.Windows.Forms.CheckBox chkRandomButton;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.RadioButton chkRandomOnlyHafez;
-        private System.Windows.Forms.RadioButton chkRandomAll;
         private System.Windows.Forms.Button btnNoBkImage;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnLinkColor;
@@ -745,5 +739,7 @@
         private System.Windows.Forms.NumericUpDown numMaxFavs;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox chkEditorButton;
+        private System.Windows.Forms.Label lblRandomCat;
+        private System.Windows.Forms.Button btnSelectRandomCat;
     }
 }

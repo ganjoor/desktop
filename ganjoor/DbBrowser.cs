@@ -158,17 +158,28 @@ namespace ganjoor
             }
             return lst;
         }
+        public bool HasAnyPoem(int CatID)
+        {
+            return GetPoems(CatID, 1).Count == 1;
+        }
         public List<GanjoorPoem> GetPoems(int CatID)
+        {
+            return GetPoems(CatID, 0);
+        }
+        public List<GanjoorPoem> GetPoems(int CatID, int Count)
         {
             List<GanjoorPoem> lst = new List<GanjoorPoem>();
             if (Connected)
             {
                 using (DataTable tbl = new DataTable())
                 {
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(
-                        String.Format(
+                    string strQuery = String.Format(
                         "SELECT ID, title, url FROM poem WHERE cat_id = {0} ORDER BY ID"
-                        , CatID)
+                        , CatID);
+                    if (Count > 0)
+                        strQuery += string.Format(" LIMIT {0}", Count);
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(
+                        strQuery
                         , _con))
                     {
                         da.Fill(tbl);
@@ -539,34 +550,51 @@ namespace ganjoor
         #endregion
 
         #region Random Poem
+        public int GetRandomPoem(List<int> CatIDs)
+        {
+            if (CatIDs.Count == 0)
+                return GetRandomPoem(0);
+            else
+                return GetRandomPoem(CatIDs[rnd.Next(CatIDs.Count - 1)]);
+        }
         public int GetRandomPoem(int CatID)
         {
-            if (Connected)
+            if (_randomCatID != CatID)
             {
-                using (DataTable tbl = new DataTable())
+                if (Connected)
                 {
-                    string strQuery = "SELECT MIN(id), MAX(id) FROM poem";
-                    if (CatID != 0)
-                        strQuery += " WHERE cat_id=" + CatID;
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    using (DataTable tbl = new DataTable())
                     {
-                        da.Fill(tbl);
-                        if (tbl.Rows.Count > 0)
+                        string strQuery = "SELECT MIN(id), MAX(id) FROM poem";
+                        if (CatID != 0)
+                            strQuery += " WHERE cat_id=" + CatID;
+                        using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
                         {
-                            try
+                            da.Fill(tbl);
+                            if (tbl.Rows.Count > 0)
                             {
-                                return rnd.Next(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), Convert.ToInt32(tbl.Rows[0].ItemArray[1]));
+                                try
+                                {
+                                    _randomCatIDMinPoem = Convert.ToInt32(tbl.Rows[0].ItemArray[0]);
+                                    _randomCatIDMaxPoem = Convert.ToInt32(tbl.Rows[0].ItemArray[1]);
+                                    _randomCatID = CatID;
+                                }
+                                catch
+                                {
+                                    return -1;//MIN(id) and MAX(id) are DBNull because CatID has been deleted from database
+                                }
                             }
-                            catch
-                            {
-                                return -1;//MIN(id) and MAX(id) are DBNull because CatID has been deleted from database
-                            }
-                        }                        
+                        }
                     }
                 }
             }
+            if (_randomCatIDMinPoem != -1 && _randomCatIDMaxPoem != -1)
+                return rnd.Next(_randomCatIDMinPoem, _randomCatIDMaxPoem);
             return 0;
         }
+        private int _randomCatID = -1;
+        private int _randomCatIDMinPoem = -1;
+        private int _randomCatIDMaxPoem = -1;
         private Random rnd = new Random();
         #endregion
 
@@ -1198,6 +1226,7 @@ namespace ganjoor
                 if (Poet._ID != PoetID && Poet._Name == NewName)
                     return false;//نام تکراری
             GanjoorPoet poet = GetPoet(PoetID);
+            NewName = NewName.Replace("\"", "\"\"");
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = String.Format(
@@ -1297,6 +1326,7 @@ namespace ganjoor
                         return false;
                 }
             }
+            NewTitle = NewTitle.Replace("\"", "\"\"");
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = String.Format(
@@ -1390,6 +1420,7 @@ namespace ganjoor
             GanjoorPoem poem = GetPoem(PoemID);
             if (null == poem)
                 return false;
+            NewTitle = NewTitle.Replace("\"", "\"\"");
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = String.Format(
@@ -1468,7 +1499,7 @@ namespace ganjoor
         {
             if (!Connected)
                 return false;
-            Text = Text.Replace("\"", "").Replace("'", "");
+            Text = Text.Replace("\"", "\"\"");
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = String.Format(
@@ -1770,7 +1801,7 @@ namespace ganjoor
         #endregion
 
         #region Edit IDs
-        private List<int> GetAllSubCats(int CatID)
+        public List<int> GetAllSubCats(int CatID)
         {
             List<int> subIDs = new List<int>();
             List<GanjoorCat> subs = GetSubCategories(CatID);

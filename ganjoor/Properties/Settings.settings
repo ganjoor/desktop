@@ -89,9 +89,6 @@
     <Setting Name="RandomButtonVisible" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="RandomOnlyHafez" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="LinkColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Blue</Value>
     </Setting>
@@ -130,6 +127,9 @@
     </Setting>
     <Setting Name="MinNewPoemID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100001</Value>
+    </Setting>
+    <Setting Name="RandomCatID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">24</Value>
     </Setting>
   </Settings>
 </SettingsFile>
