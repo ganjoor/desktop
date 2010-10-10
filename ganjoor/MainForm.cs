@@ -386,11 +386,11 @@ namespace ganjoor
             CheckForUpdate(true);
         }
 
-        private static void CheckForUpdate(bool Prompt)
+        private void CheckForUpdate(bool Prompt)
         {
             try
             {
-                WebRequest req = WebRequest.Create("http://ganjoor.sourceforge.net/version.xml");
+                WebRequest req = WebRequest.Create("http://ganjoor.sourceforge.net/version.xml");                
                 using (WebResponse response = req.GetResponse())
                 {
                     using (Stream stream = response.GetResponseStream())
@@ -431,17 +431,50 @@ namespace ganjoor
                                 }
                             }
                             else
+                            {
                                 if (
-                                MessageBox.Show("ویرایش جدیدتر "+VersionMajor.ToString()+"."+VersionMinor.ToString()+" از نرم‌افزار ارائه شده است. صفحۀ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                                MessageBox.Show("ویرایش جدیدتر " + VersionMajor.ToString() + "." + VersionMinor.ToString() + " از نرم‌افزار ارائه شده است. صفحۀ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
                                    ==
                                    DialogResult.Yes
                                     )
                                 {
                                     System.Diagnostics.Process.Start(updateUrl);
+                                    if (!Prompt)//check for new gdbs
+                                        return;
                                 }
-
+                            }
                         }
                     }
+                }
+
+                if (!Prompt)//check for new gdbs
+                {
+                    string strException;
+                    List<GDBInfo> Lst = GDBInfo.RetrieveNewGDBList("http://ganjoor.sourceforge.net/newgdbs.xml", out strException);
+                    if (Lst != null && string.IsNullOrEmpty(strException))
+                    {
+                        List<GDBInfo> finalList = new List<GDBInfo>();
+                        DbBrowser db = new DbBrowser();
+                        foreach(GDBInfo gdb in Lst)
+                            if (
+                                !db.IsInGDBIgnoreList(gdb.CatID)
+                                &&
+                                db.GetCategory(gdb.CatID) == null
+                               )
+                            {
+                                finalList.Add(gdb);
+                            }
+                        if (finalList.Count > 0)
+                        {
+                            using (NewGDBFound dlg = new NewGDBFound(finalList))
+                            {
+                                dlg.ShowDialog(this);
+                                foreach (int CatID in dlg.IgnoreList)
+                                    db.AddToGDBIgnoreList(CatID);
+                            }
+                        }
+                    }
+
                 }
             }
             catch (Exception exp)
@@ -451,7 +484,7 @@ namespace ganjoor
                     MessageBox.Show(exp.Message, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
+        }        
 
         private void btnRandom_Click(object sender, EventArgs e)
         {

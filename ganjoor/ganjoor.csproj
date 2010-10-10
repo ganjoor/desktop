@@ -130,6 +130,12 @@
     <Compile Include="MrgTwoClmns.Designer.cs">
       <DependentUpon>MrgTwoClmns.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewGDBFound.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewGDBFound.Designer.cs">
+      <DependentUpon>NewGDBFound.cs</DependentUpon>
+    </Compile>
     <Compile Include="Options.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MrgTwoClmns.resx">
       <DependentUpon>MrgTwoClmns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewGDBFound.resx">
+      <DependentUpon>NewGDBFound.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options.resx">
       <DependentUpon>Options.cs</DependentUpon>

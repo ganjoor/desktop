@@ -38,6 +38,8 @@ namespace ganjoor
             new string[] {"مهرداد بیات", "http://eshghast.persianblog.ir", "کسایی مروزی", "http://blog.ganjoor.net/1389/05/14/kesayee-marvzi/"},
             new string[] {"آزاده رستمی", "http://asmanii.blogfa.com", "فروغ فرخزاد", "http://blog.ganjoor.net/1389/05/27/foroogh-dg/"},
             new string[] {"الف. رسته", "", "سیمین بهبهانی", "http://blog.ganjoor.net/1389/06/31/dg-simin/"},
+            new string[] {"الف. رسته", "", "عرفی شیرازی", "http://blog.ganjoor.net/1389/07/14/orfi-shirazi/"},
+            new string[] {"رضا رنجبر", "", "رضی‌الدین آرتیمانی", ""},
 
         };
 
