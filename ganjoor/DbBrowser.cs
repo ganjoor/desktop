@@ -690,7 +690,8 @@ namespace ganjoor
                 #region version table
                 DataRow[] verTable = tbl.Select("Table_Name='gver'");
 
-                if (File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) , "vg.s3db")))
+                string vg3db = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "vg.s3db");
+                if (File.Exists(vg3db))
                 {
                     if (verTable.Length == 0)
                     {
@@ -735,14 +736,27 @@ namespace ganjoor
                             }
                         }                        
                     }
-                    File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\vg.s3db");
+                    File.Delete(vg3db);
                 }
                 #endregion
                 #region new poets
-                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\new.s3db"))
+                string newdb = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "new.s3db");
+                if (File.Exists(newdb))
                 {
-                    ImportDb(Path.GetDirectoryName(Application.ExecutablePath) + "\\new.s3db");
-                    File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\new.s3db");
+                    ImportDb(newdb);
+                    File.Delete(newdb);
+                }
+                #endregion
+                #region gdb ignore list
+                DataRow[] gilTable = tbl.Select("Table_Name='gil'");
+
+                if (gilTable.Length == 0)
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = "CREATE TABLE gil (cat_id INTEGER);";
+                        cmd.ExecuteNonQuery();
+                    }
                 }
                 #endregion
             }
@@ -1979,6 +1993,43 @@ namespace ganjoor
                 return CommitBatchOperation();
             }
             return false;
+        }
+        #endregion
+
+        #region GDB Ignore List
+        public bool IsInGDBIgnoreList(int CatID)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(
+                        string.Format("SELECT cat_id FROM gil WHERE cat_id = {0}", CatID)
+                        , _con))
+                    {
+                        da.Fill(tbl);
+                        return tbl.Rows.Count != 0;
+                    }
+                }
+
+            }
+            return false;
+        }
+        public void AddToGDBIgnoreList(int CatID)
+        {
+            if (Connected)
+            {
+                if(!IsInGDBIgnoreList(CatID))
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(
+                        string.Format("INSERT INTO gil (cat_id) VALUES ({0})", CatID)
+                        , _con))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }            
         }
         #endregion
     }

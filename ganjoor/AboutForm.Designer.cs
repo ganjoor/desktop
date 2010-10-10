@@ -82,7 +82,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(146, 365);
+            this.btnOK.Location = new System.Drawing.Point(146, 380);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(60, 22);
@@ -167,7 +167,7 @@
             this.grdContributers.ReadOnly = true;
             this.grdContributers.RowHeadersWidth = 11;
             this.grdContributers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdContributers.Size = new System.Drawing.Size(323, 165);
+            this.grdContributers.Size = new System.Drawing.Size(323, 186);
             this.grdContributers.TabIndex = 9;
             this.grdContributers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdContributers_CellContentClick);
             // 
@@ -214,7 +214,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(348, 398);
+            this.ClientSize = new System.Drawing.Size(348, 410);
             this.Controls.Add(this.lnkBlog);
             this.Controls.Add(this.grdContributers);
             this.Controls.Add(this.label1);

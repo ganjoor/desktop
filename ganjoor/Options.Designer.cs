@@ -396,9 +396,9 @@
             this.chkCheckForUpdate.AutoSize = true;
             this.chkCheckForUpdate.Location = new System.Drawing.Point(15, 246);
             this.chkCheckForUpdate.Name = "chkCheckForUpdate";
-            this.chkCheckForUpdate.Size = new System.Drawing.Size(312, 17);
+            this.chkCheckForUpdate.Size = new System.Drawing.Size(416, 17);
             this.chkCheckForUpdate.TabIndex = 42;
-            this.chkCheckForUpdate.Text = "در هنگام شروع برنامه برای یافتن ویرایش جدیدتر پرس و جو کن.";
+            this.chkCheckForUpdate.Text = "در هنگام شروع برنامه برای یافتن ویرایش جدیدتر و مجموعه اشعار جدید پرس و جو کن.";
             this.chkCheckForUpdate.UseVisualStyleBackColor = true;
             // 
             // chkHomeButton
