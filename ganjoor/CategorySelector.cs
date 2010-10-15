@@ -11,17 +11,32 @@ namespace ganjoor
     public partial class CategorySelector : Form
     {
         public CategorySelector()
+            : this(0)
+        {
+        }
+        public CategorySelector(int PoetID)
         {
             InitializeComponent();
-            FillTree();
+            FillTree(PoetID);
         }
 
-        private void FillTree()
+        private void FillTree(int PoetID)
         {
             DbBrowser db = new DbBrowser();
             treeCats.Nodes.Clear();
-            foreach (GanjoorPoet poet in db.Poets)
+            if (PoetID == 0)
             {
+                treeCats.Nodes.Add("همه").Tag = 0;
+                foreach (GanjoorPoet poet in db.Poets)
+                {
+                    TreeNode newPoet = treeCats.Nodes.Add(poet._Name);
+                    newPoet.Tag = poet._CatID;
+                    AddSubCats(db, newPoet, poet._CatID);
+                }
+            }
+            else
+            {
+                GanjoorPoet poet = db.GetPoet(PoetID);
                 TreeNode newPoet = treeCats.Nodes.Add(poet._Name);
                 newPoet.Tag = poet._CatID;
                 AddSubCats(db, newPoet, poet._CatID);
@@ -46,7 +61,7 @@ namespace ganjoor
             return false;
         }
         private bool SelectCat(int CatID, TreeNode Node)
-        {
+        {            
             if ((int)Node.Tag == CatID)
             {
                 treeCats.SelectedNode = Node;
@@ -68,8 +83,6 @@ namespace ganjoor
             }
             set
             {
-                if (treeCats.Nodes.Count == 0)
-                    FillTree();
                 SelectCat(value);
             }
         }

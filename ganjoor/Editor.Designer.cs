@@ -72,6 +72,7 @@
             this.btnNewBandLine = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNewBandVerse = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNewSingleVerse = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnNewParagraph = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeleteLine = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteAllLine = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,7 +82,7 @@
             this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnNewParagraph = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMoveToCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -290,7 +291,8 @@
             this.chkIgnoreBlankLines,
             this.chkIgnoreShortLines,
             this.toolStripSeparator5,
-            this.btnDeletePoem});
+            this.btnDeletePoem,
+            this.btnMoveToCategory});
             this.btnNewPoem.Image = global::ganjoor.Properties.Resources.add;
             this.btnNewPoem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNewPoem.Name = "btnNewPoem";
@@ -443,6 +445,14 @@
             this.btnNewSingleVerse.Text = "مصرع تنهای جدید (نیمایی/آزاد)";
             this.btnNewSingleVerse.Click += new System.EventHandler(this.btnNewSingleVerse_Click);
             // 
+            // btnNewParagraph
+            // 
+            this.btnNewParagraph.Name = "btnNewParagraph";
+            this.btnNewParagraph.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.btnNewParagraph.Size = new System.Drawing.Size(250, 22);
+            this.btnNewParagraph.Text = "پاراگراف نثر جدید";
+            this.btnNewParagraph.Click += new System.EventHandler(this.btnNewParagraph_Click);
+            // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
@@ -527,13 +537,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnNewParagraph
+            // btnMoveToCategory
             // 
-            this.btnNewParagraph.Name = "btnNewParagraph";
-            this.btnNewParagraph.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.btnNewParagraph.Size = new System.Drawing.Size(250, 22);
-            this.btnNewParagraph.Text = "پاراگراف نثر جدید";
-            this.btnNewParagraph.Click += new System.EventHandler(this.btnNewParagraph_Click);
+            this.btnMoveToCategory.Name = "btnMoveToCategory";
+            this.btnMoveToCategory.Size = new System.Drawing.Size(383, 22);
+            this.btnMoveToCategory.Text = "انتقال شعر به بخش دیگر";
+            this.btnMoveToCategory.Click += new System.EventHandler(this.btnMoveToCategory_Click);
             // 
             // Editor
             // 
@@ -615,5 +624,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnReplaceInDb;
         private System.Windows.Forms.ToolStripMenuItem btnChangeIDs;
         private System.Windows.Forms.ToolStripMenuItem btnNewParagraph;
+        private System.Windows.Forms.ToolStripMenuItem btnMoveToCategory;
     }
 }

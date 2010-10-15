@@ -1445,6 +1445,23 @@ namespace ganjoor
             }
             return true;
         }
+        public bool ChangePoemCategory(int PoemID, int CatID)
+        {
+            if (!Connected)
+                return false;
+            GanjoorPoem poem = GetPoem(PoemID);
+            if (null == poem)
+                return false;
+            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+            {
+                cmd.CommandText = String.Format(
+                    "UPDATE poem SET cat_id = {0} WHERE id=" + PoemID,
+                    CatID
+                    );
+                cmd.ExecuteNonQuery();
+            }
+            return true;
+        }
         public bool DeletePoem(int PoemID)
         {
             if (!Connected)

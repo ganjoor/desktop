@@ -42,7 +42,7 @@ namespace ganjoor
             }
             btnReOrderCat.Enabled = btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
             btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = !ganjoorView.IsInPoetRootPage;
-            btnImportFromClipboadStructuredPoem.Enabled = btnImportFromTextFile.Enabled = btnImportFromClipboard.Enabled = chkEachlineOneverse.Enabled = btnNewLine.Enabled = btnDeletePoem.Enabled = btnEditPoem.Enabled = chkIgnoreBlankLines.Enabled = chkIgnoreShortLines.Enabled = HasComments;
+            btnImportFromClipboadStructuredPoem.Enabled = btnImportFromTextFile.Enabled = btnImportFromClipboard.Enabled = chkEachlineOneverse.Enabled = btnNewLine.Enabled = btnDeletePoem.Enabled = btnMoveToCategory.Enabled = btnEditPoem.Enabled = chkIgnoreBlankLines.Enabled = chkIgnoreShortLines.Enabled = HasComments;
         }
 
         private void btnPreviousPoem_Click(object sender, EventArgs e)
@@ -381,6 +381,18 @@ namespace ganjoor
                 }
 
             }
+        }
+
+        private void btnMoveToCategory_Click(object sender, EventArgs e)
+        {
+            using (CategorySelector dlg = new CategorySelector(ganjoorView.GetCurrentPoetID()))
+            {
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    ganjoorView.MoveToCategory(dlg.SelectedCatID);
+                }
+            }
+
         }
 
 

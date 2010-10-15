@@ -1574,6 +1574,13 @@ namespace ganjoor
             if (Order == 0) return 0;
             return _db.Poets[Order - 1]._ID;
         }
+        public int GetCurrentPoetID()
+        {
+            GanjoorCat cat = _db.GetCategory(_iCurCat);
+            if (cat != null)
+                return cat._PoetID;
+            return 0;
+        }
         #endregion
 
         #region Random Poem
@@ -1602,7 +1609,12 @@ namespace ganjoor
             }
             GanjoorPoem poem = _db.GetPoem(PoemID);
             if (poem != null)
-                ShowPoem(poem, true);
+            {
+                if (_LastRandomCatList.Count==0 || _LastRandomCatList.IndexOf(poem._CatID) != -1)
+                    ShowPoem(poem, true);
+                else
+                    ShowRandomPoem();//this might happen, because _db.GetRandomPoem returns a poem between MIN-MAX poem id of cat and this might be something which is not from CatIDs we wanted 
+            }
             else
                 ShowRandomPoem();//not any random id exists, so repeat until finding a valid id
         }
@@ -2226,6 +2238,13 @@ namespace ganjoor
             _db.ChangeCatIDs(PoetID, MinCatID);
             _db.ChangePoemIDs(PoetID, MinPoemID);
             ShowHome(true);
+        }
+        public void MoveToCategory(int CatID)
+        {
+            if(_db.ChangePoemCategory(_iCurPoem, CatID))
+            {
+                ShowPoem(_db.GetPoem(_iCurPoem), false);
+            }
         }
         #endregion
 

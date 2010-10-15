@@ -241,7 +241,8 @@ namespace ganjoor
                 List<GanjoorCat> cats = db.GetParentCategories(cat);
                 string result = "";
                 foreach (GanjoorCat parCat in cats)
-                    result += parCat._Text + " ->";
+                    if(parCat._ID != 0)                         
+                        result += parCat._Text + " ->";
                 result += cat._Text;
                 return result;
                     
