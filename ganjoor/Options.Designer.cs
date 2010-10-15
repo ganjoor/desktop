@@ -547,7 +547,7 @@
             this.chkCenteredViewMode.Location = new System.Drawing.Point(18, 297);
             this.chkCenteredViewMode.Name = "chkCenteredViewMode";
             this.chkCenteredViewMode.Size = new System.Drawing.Size(322, 17);
-            this.chkCenteredViewMode.TabIndex = 45;
+            this.chkCenteredViewMode.TabIndex = 46;
             this.chkCenteredViewMode.Text = "هر بیت را در یک خط نشان بده (نمایش ابیات به صورت وسط چین).";
             this.chkCenteredViewMode.UseVisualStyleBackColor = true;
             // 
@@ -608,14 +608,14 @@
             this.lblRandomCat.Location = new System.Drawing.Point(137, 272);
             this.lblRandomCat.Name = "lblRandomCat";
             this.lblRandomCat.Size = new System.Drawing.Size(307, 17);
-            this.lblRandomCat.TabIndex = 46;
+            this.lblRandomCat.TabIndex = 44;
             // 
             // btnSelectRandomCat
             // 
             this.btnSelectRandomCat.Location = new System.Drawing.Point(450, 268);
             this.btnSelectRandomCat.Name = "btnSelectRandomCat";
             this.btnSelectRandomCat.Size = new System.Drawing.Size(75, 23);
-            this.btnSelectRandomCat.TabIndex = 47;
+            this.btnSelectRandomCat.TabIndex = 45;
             this.btnSelectRandomCat.Text = "انتخاب";
             this.btnSelectRandomCat.UseVisualStyleBackColor = true;
             this.btnSelectRandomCat.Click += new System.EventHandler(this.btnSelectRandomCat_Click);
