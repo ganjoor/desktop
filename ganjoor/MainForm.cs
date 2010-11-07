@@ -390,7 +390,8 @@ namespace ganjoor
         {
             try
             {
-                WebRequest req = WebRequest.Create("http://ganjoor.sourceforge.net/version.xml");                
+                WebRequest req = WebRequest.Create("http://ganjoor.sourceforge.net/version.xml");
+                GDBInfo.ConfigureProxy(ref req);
                 using (WebResponse response = req.GetResponse())
                 {
                     using (Stream stream = response.GetResponseStream())

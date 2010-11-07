@@ -985,6 +985,13 @@ namespace ganjoor
         public bool ShowBeytNums { set; get; }
         [DefaultValue(false)]
         public bool CenteredView { set; get; }
+        public string LastError
+        {
+            get
+            {
+                return _db.LastError;
+            }
+        }
         #endregion
 
         #region Browing History

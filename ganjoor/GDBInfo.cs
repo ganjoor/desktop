@@ -4,6 +4,7 @@ using System.Text;
 using System.Net;
 using System.Xml;
 using System.IO;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -24,6 +25,7 @@ namespace ganjoor
             try
             {
                 WebRequest req = WebRequest.Create(url);
+                ConfigureProxy(ref req);
                 using (WebResponse response = req.GetResponse())
                 {
                     using (Stream stream = response.GetResponseStream())
@@ -94,5 +96,18 @@ namespace ganjoor
                 return null;
             }
         }
+
+        public static bool ConfigureProxy(ref WebRequest req)
+        {
+            if (!string.IsNullOrEmpty(Settings.Default.HttpProxyServer) && !string.IsNullOrEmpty(Settings.Default.HttpProxyPort))
+            {
+                int port = Convert.ToInt32(Settings.Default.HttpProxyPort);//try?!
+                WebProxy proxy = new WebProxy(Settings.Default.HttpProxyServer, port);
+                req.Proxy = proxy;
+                return true;
+            }
+            return true;
+        }
+
     }
 }

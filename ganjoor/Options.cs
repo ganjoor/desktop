@@ -48,6 +48,8 @@ namespace ganjoor
             _RandomCatID = Settings.Default.RandomCatID;
             lblRandomCat.Text = RandomCatPath;
             numMaxFavs.Value = Settings.Default.FavItemsInPage;
+            txtProxyServer.Text = Settings.Default.HttpProxyServer;
+            txtProxyPort.Text = Settings.Default.HttpProxyPort;
         }
         private void btnOK_Click(object sender, EventArgs e)
         {
@@ -77,6 +79,9 @@ namespace ganjoor
             Settings.Default.ScrollToFavedVerse = chkScrollToFaved.Checked;
             Settings.Default.ViewMode = chkCenteredViewMode.Checked ? (int)GanjoorViewMode.Centered : (int)GanjoorViewMode.RightAligned;
             Settings.Default.FavItemsInPage = (int)numMaxFavs.Value;
+            Settings.Default.HttpProxyServer = txtProxyServer.Text;
+            Settings.Default.HttpProxyPort = txtProxyPort.Text;
+
 
 
             Properties.Settings.Default.Save();

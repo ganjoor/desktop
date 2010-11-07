@@ -75,6 +75,10 @@
             this.chkEditorButton = new System.Windows.Forms.CheckBox();
             this.lblRandomCat = new System.Windows.Forms.Label();
             this.btnSelectRandomCat = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtProxyServer = new System.Windows.Forms.TextBox();
+            this.txtProxyPort = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).BeginInit();
             this.SuspendLayout();
@@ -115,7 +119,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(15, 320);
+            this.btnOK.Location = new System.Drawing.Point(15, 344);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 0;
@@ -127,7 +131,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(96, 320);
+            this.btnCancel.Location = new System.Drawing.Point(96, 344);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -382,7 +386,7 @@
             // btnDefault
             // 
             this.btnDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDefault.Location = new System.Drawing.Point(430, 318);
+            this.btnDefault.Location = new System.Drawing.Point(430, 342);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(156, 23);
             this.btnDefault.TabIndex = 2;
@@ -427,10 +431,10 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 272);
+            this.label5.Location = new System.Drawing.Point(15, 296);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(116, 13);
-            this.label5.TabIndex = 43;
+            this.label5.TabIndex = 47;
             this.label5.Text = "دامنۀ عملکرد دکمۀ فال:";
             // 
             // btnNoBkImage
@@ -544,10 +548,10 @@
             // 
             this.chkCenteredViewMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCenteredViewMode.AutoSize = true;
-            this.chkCenteredViewMode.Location = new System.Drawing.Point(18, 297);
+            this.chkCenteredViewMode.Location = new System.Drawing.Point(18, 321);
             this.chkCenteredViewMode.Name = "chkCenteredViewMode";
             this.chkCenteredViewMode.Size = new System.Drawing.Size(322, 17);
-            this.chkCenteredViewMode.TabIndex = 46;
+            this.chkCenteredViewMode.TabIndex = 50;
             this.chkCenteredViewMode.Text = "هر بیت را در یک خط نشان بده (نمایش ابیات به صورت وسط چین).";
             this.chkCenteredViewMode.UseVisualStyleBackColor = true;
             // 
@@ -605,20 +609,56 @@
             this.lblRandomCat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblRandomCat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblRandomCat.ForeColor = System.Drawing.Color.Green;
-            this.lblRandomCat.Location = new System.Drawing.Point(137, 272);
+            this.lblRandomCat.Location = new System.Drawing.Point(137, 296);
             this.lblRandomCat.Name = "lblRandomCat";
             this.lblRandomCat.Size = new System.Drawing.Size(307, 17);
-            this.lblRandomCat.TabIndex = 44;
+            this.lblRandomCat.TabIndex = 48;
             // 
             // btnSelectRandomCat
             // 
-            this.btnSelectRandomCat.Location = new System.Drawing.Point(450, 268);
+            this.btnSelectRandomCat.Location = new System.Drawing.Point(450, 292);
             this.btnSelectRandomCat.Name = "btnSelectRandomCat";
             this.btnSelectRandomCat.Size = new System.Drawing.Size(75, 23);
-            this.btnSelectRandomCat.TabIndex = 45;
+            this.btnSelectRandomCat.TabIndex = 49;
             this.btnSelectRandomCat.Text = "انتخاب";
             this.btnSelectRandomCat.UseVisualStyleBackColor = true;
             this.btnSelectRandomCat.Click += new System.EventHandler(this.btnSelectRandomCat_Click);
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(14, 271);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(190, 13);
+            this.label11.TabIndex = 43;
+            this.label11.Text = "نشانی سرور پروکسی اتصال به اینترنت:";
+            // 
+            // txtProxyServer
+            // 
+            this.txtProxyServer.Location = new System.Drawing.Point(205, 268);
+            this.txtProxyServer.Name = "txtProxyServer";
+            this.txtProxyServer.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtProxyServer.Size = new System.Drawing.Size(100, 21);
+            this.txtProxyServer.TabIndex = 44;
+            // 
+            // txtProxyPort
+            // 
+            this.txtProxyPort.Location = new System.Drawing.Point(342, 269);
+            this.txtProxyPort.Name = "txtProxyPort";
+            this.txtProxyPort.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtProxyPort.Size = new System.Drawing.Size(52, 21);
+            this.txtProxyPort.TabIndex = 46;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(312, 271);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(32, 13);
+            this.label12.TabIndex = 45;
+            this.label12.Text = "پورت:";
             // 
             // Options
             // 
@@ -626,7 +666,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(603, 351);
+            this.ClientSize = new System.Drawing.Size(603, 379);
+            this.Controls.Add(this.txtProxyPort);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.txtProxyServer);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.btnSelectRandomCat);
             this.Controls.Add(this.lblRandomCat);
             this.Controls.Add(this.chkEditorButton);
@@ -741,5 +785,9 @@
         private System.Windows.Forms.CheckBox chkEditorButton;
         private System.Windows.Forms.Label lblRandomCat;
         private System.Windows.Forms.Button btnSelectRandomCat;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtProxyServer;
+        private System.Windows.Forms.TextBox txtProxyPort;
+        private System.Windows.Forms.Label label12;
     }
 }
