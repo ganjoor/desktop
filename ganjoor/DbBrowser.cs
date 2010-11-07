@@ -12,11 +12,21 @@ namespace ganjoor
     public class DbBrowser
     {
         #region Constructor
-        public DbBrowser()
-            : this("ganjoor.s3db")
+        public DbBrowser()            
         {
+            string filePath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor"), "ganjoor.s3db");
+            if (!File.Exists(filePath))
+            {
+                filePath = "ganjoor.s3db";
+            }
+            Init(filePath);
         }
         public DbBrowser(string sqliteDatabaseNameFileName)
+        {
+            Init(sqliteDatabaseNameFileName);
+        }
+
+        private void Init(string sqliteDatabaseNameFileName)
         {
             try
             {
@@ -28,7 +38,7 @@ namespace ganjoor
                 _con = new SQLiteConnection(conString.ConnectionString);
                 _con.Open();
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 LastError = exp.ToString();
                 _con = null;
@@ -956,7 +966,7 @@ namespace ganjoor
                             int PoemID = dicPoemID[Convert.ToInt32(row.ItemArray[0])];
                             cmd.CommandText = String.Format(
                                 "INSERT INTO verse (poem_id, vorder, position, text) VALUES ({0}, {1}, {2}, \"{3}\");",
-                                PoemID, row.ItemArray[1], row.ItemArray[2], row.ItemArray[3]
+                                PoemID, row.ItemArray[1], row.ItemArray[2], row.ItemArray[3].ToString().Replace("\"", "\"\"")
                                 );
                             cmd.ExecuteNonQuery();
                         }
@@ -1794,7 +1804,7 @@ namespace ganjoor
                     {
                         cmd.CommandText = String.Format(
                             "INSERT INTO verse (poem_id, vorder, position, text) VALUES ({0}, {1}, {2}, \"{3}\");",
-                            row.ItemArray[0], row.ItemArray[1], row.ItemArray[2], row.ItemArray[3]
+                            row.ItemArray[0], row.ItemArray[1], row.ItemArray[2], row.ItemArray[3].ToString().Replace("\"", "\"\"")
                             );
                         cmd.ExecuteNonQuery();
                     }

@@ -40,7 +40,7 @@ namespace ganjoor
             new string[] {"الف. رسته", "", "سیمین بهبهانی", "http://blog.ganjoor.net/1389/06/31/dg-simin/"},
             new string[] {"الف. رسته", "", "عرفی شیرازی", "http://blog.ganjoor.net/1389/07/14/orfi-shirazi/"},
             new string[] {"رضا رنجبر", "", "رضی‌الدین آرتیمانی", ""},
-            new string[] {"علی پی‌سپار", "", "ملاهادی سبزواری", ""},
+            new string[] {"علی پی‌سپار", "", "ملاهادی سبزواری", "http://blog.ganjoor.net/1389/07/23/dg-2-1/"},
 
         };
 

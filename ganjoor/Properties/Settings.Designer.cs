@@ -538,5 +538,29 @@ namespace ganjoor.Properties {
                 this["RandomCatID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HttpProxyServer {
+            get {
+                return ((string)(this["HttpProxyServer"]));
+            }
+            set {
+                this["HttpProxyServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HttpProxyPort {
+            get {
+                return ((string)(this["HttpProxyPort"]));
+            }
+            set {
+                this["HttpProxyPort"] = value;
+            }
+        }
     }
 }

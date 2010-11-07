@@ -76,7 +76,7 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     if(!ganjoorView.NewPoet(dlg.ItemName))
-                        MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     if (!ganjoorView.EditPoet(dlg.ItemName))
-                        MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     if(!ganjoorView.NewCat(dlg.ItemName))
-                        MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
                 }
             }
@@ -115,7 +115,7 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     if (!ganjoorView.EditCat(dlg.ItemName))
-                        MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 }
             }
         }
@@ -127,7 +127,7 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     if (!ganjoorView.NewPoem(dlg.ItemName))
-                        MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
                 }
             }
@@ -141,7 +141,7 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     if (!ganjoorView.EditPoem(dlg.ItemName))
-                        MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 }
             }
         }
@@ -154,7 +154,7 @@ namespace ganjoor
                 DialogResult.Yes
                 )
                 if (!ganjoorView.DeletePoem())
-                    MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
         }
 
@@ -197,7 +197,7 @@ namespace ganjoor
                 DialogResult.Yes
                 )
                 if (!ganjoorView.DeletePoet())
-                    MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
         }
 
@@ -209,7 +209,7 @@ namespace ganjoor
                 DialogResult.Yes
                 )
                 if (!ganjoorView.DeleteCategory())
-                    MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
 
         private void btnExportPoet_Click(object sender, EventArgs e)
@@ -224,7 +224,7 @@ namespace ganjoor
                     if(ganjoorView.ExportPoet(dlg.FileName))
                         MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     else
-                        MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 }
             }
         }
@@ -241,7 +241,7 @@ namespace ganjoor
                     if (ganjoorView.ExportCategory(dlg.FileName))
                         MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     else
-                        MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 }
             }
         }
@@ -327,7 +327,7 @@ namespace ganjoor
                 DialogResult.Yes
                 )
                 if (!ganjoorView.DeleteAllLines())
-                    MessageBox.Show("خطا رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
         }
 
