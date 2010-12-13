@@ -718,10 +718,9 @@ namespace ganjoor
                         using (SQLiteConnection vgCon = new SQLiteConnection(conString.ConnectionString))
                         {
                             vgCon.Open();
+                            BeginBatchOperation();
                             using (SQLiteCommand cmd = new SQLiteCommand(_con))
                             {
-                                cmd.CommandText = "BEGIN TRANSACTION;";
-                                cmd.ExecuteNonQuery();
                                 using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, vorder, position FROM verse", vgCon))
                                 {
                                     using (DataTable tblVerse = new DataTable())
@@ -741,9 +740,8 @@ namespace ganjoor
                                 cmd.ExecuteNonQuery();
                                 cmd.CommandText = "INSERT INTO gver (curver) VALUES (" + DatabaseVersion.ToString() + ");";
                                 cmd.ExecuteNonQuery();
-                                cmd.CommandText = "COMMIT;";
-                                cmd.ExecuteNonQuery();
                             }
+                            CommitBatchOperation();
                         }                        
                     }
                     File.Delete(vg3db);
@@ -801,12 +799,9 @@ namespace ganjoor
             {
                 Dictionary<int, int> dicPoets = new Dictionary<int, int>();
                 Dictionary<int, int> dicCats = new Dictionary<int, int>();
+                BeginBatchOperation();
                 using (SQLiteCommand cmd = new SQLiteCommand(_con))
-                {
-                    cmd.CommandText = "BEGIN TRANSACTION;";
-                    cmd.ExecuteNonQuery();                    
-
-                    
+                {                  
 
                     using (DataTable tbl = new DataTable())
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet", newConnection))
@@ -972,9 +967,7 @@ namespace ganjoor
                         }
                     }
 
-                    cmd.CommandText = "COMMIT;";
-                    cmd.ExecuteNonQuery();
-
+                    CommitBatchOperation();
                 }
             }
             catch (Exception exp)
@@ -1013,10 +1006,9 @@ namespace ganjoor
 
             try
             {
+                BeginBatchOperation();
                 using (SQLiteCommand cmd = new SQLiteCommand(_con))
                 {
-                    cmd.CommandText = "BEGIN TRANSACTION;";
-                    cmd.ExecuteNonQuery();
 
                     using (DataTable tbl = new DataTable())
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, poet_id, text, parent_id, url FROM cat", newConnection))
@@ -1074,10 +1066,9 @@ namespace ganjoor
                         }
                     }
 
-                    cmd.CommandText = "COMMIT;";
-                    cmd.ExecuteNonQuery();
 
                 }
+                CommitBatchOperation();
             }
             catch (Exception exp)
             {
@@ -1111,6 +1102,7 @@ namespace ganjoor
 
                     cmd.CommandText = "BEGIN TRANSACTION;";
                     cmd.ExecuteNonQuery();
+
 
                     using (DataTable tbl = new DataTable())
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, verse_id, pos FROM fav", _con))
@@ -1147,10 +1139,11 @@ namespace ganjoor
             {
                 connection.Open();
 
+                BeginBatchOperation();
                 using (SQLiteCommand cmd = new SQLiteCommand(_con))
                 {
-                    cmd.CommandText = "BEGIN TRANSACTION;";
-                    cmd.ExecuteNonQuery();
+
+                    
 
                     using (DataTable tbl = new DataTable())
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, verse_id, pos FROM fav", connection))
@@ -1175,9 +1168,9 @@ namespace ganjoor
                         }
                     }
 
-                    cmd.CommandText = "COMMIT;";
-                    cmd.ExecuteNonQuery();
                 }
+
+                CommitBatchOperation();
 
 
             }
@@ -1640,7 +1633,16 @@ namespace ganjoor
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = "BEGIN TRANSACTION";
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    //BeginBatchOperation already called
+                    CommitBatchOperation();
+                    cmd.ExecuteNonQuery();
+                }
             }
             return true;
         }
