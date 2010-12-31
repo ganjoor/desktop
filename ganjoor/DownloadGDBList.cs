@@ -55,6 +55,7 @@ namespace ganjoor
                         grdList.Rows[RowIndex].Cells[GRDCLMN_MORE].Value = "ببینید";
                     grdList.FirstDisplayedScrollingRowIndex = RowIndex;
                 }
+                db.CloseDb();
             }            
 
         }

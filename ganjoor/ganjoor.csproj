@@ -77,6 +77,12 @@
     <Compile Include="CategorySelector.Designer.cs">
       <DependentUpon>CategorySelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConflictingPoets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConflictingPoets.Designer.cs">
+      <DependentUpon>ConflictingPoets.cs</DependentUpon>
+    </Compile>
     <Compile Include="DbBrowser.cs" />
     <Compile Include="DownloadGDBList.cs">
       <SubType>Form</SubType>
@@ -107,6 +113,7 @@
     <Compile Include="GanjoorViewMode.cs" />
     <Compile Include="GarnjoorBrowsingHistory.cs" />
     <Compile Include="GDBInfo.cs" />
+    <Compile Include="GINIParser.cs" />
     <Compile Include="GPersianTextSync.cs" />
     <Compile Include="GRhymeFinder.cs" />
     <Compile Include="HighlightLabel.cs">
@@ -123,6 +130,12 @@
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MemoEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MemoEditor.Designer.cs">
+      <DependentUpon>MemoEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="MrgTwoClmns.cs">
       <SubType>Form</SubType>
@@ -163,6 +176,9 @@
     <EmbeddedResource Include="CategorySelector.resx">
       <DependentUpon>CategorySelector.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConflictingPoets.resx">
+      <DependentUpon>ConflictingPoets.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DownloadGDBList.resx">
       <DependentUpon>DownloadGDBList.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,6 +194,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemoEditor.resx">
+      <DependentUpon>MemoEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MrgTwoClmns.resx">
       <DependentUpon>MrgTwoClmns.cs</DependentUpon>

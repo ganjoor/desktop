@@ -32,15 +32,16 @@ namespace ganjoor
             //2-لینک نام
             //3- بخش
             //4- لینک بخش
-
+            new string[] {"سایت رسمی شاملو", "http://www.shamlou.org", "احمد شاملو", "http://blog.ganjoor.net/1389/02/24/dg-1-83/"},
             new string[] {"علی پی‌سپار", "", "سهراب سپهری", "http://blog.ganjoor.net/1389/05/06/dg-1-86/"},
             new string[] {"علی پی‌سپار", "", "امام خمینی", "http://blog.ganjoor.net/1389/05/12/dg-emam/"},
             new string[] {"مهرداد بیات", "http://eshghast.persianblog.ir", "کسایی مروزی", "http://blog.ganjoor.net/1389/05/14/kesayee-marvzi/"},
             new string[] {"آزاده رستمی", "http://asmanii.blogfa.com", "فروغ فرخزاد", "http://blog.ganjoor.net/1389/05/27/foroogh-dg/"},
             new string[] {"الف. رسته", "", "سیمین بهبهانی", "http://blog.ganjoor.net/1389/06/31/dg-simin/"},
             new string[] {"الف. رسته", "", "عرفی شیرازی", "http://blog.ganjoor.net/1389/07/14/orfi-shirazi/"},
-            new string[] {"رضا رنجبر", "", "رضی‌الدین آرتیمانی", ""},
+            new string[] {"رضا رنجبر", "", "رضی‌الدین آرتیمانی", "http://blog.ganjoor.net/1389/07/16/artimani/"},
             new string[] {"علی پی‌سپار", "", "ملاهادی سبزواری", "http://blog.ganjoor.net/1389/07/23/dg-2-1/"},
+            new string[] {"مهران صمدنژاد", "", "نجمه زارع", "http://blog.ganjoor.net/1389/08/26/najmezare/"},
 
         };
 

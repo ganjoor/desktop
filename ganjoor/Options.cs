@@ -249,6 +249,7 @@ namespace ganjoor
                     if(parCat._ID != 0)                         
                         result += parCat._Text + " ->";
                 result += cat._Text;
+                db.CloseDb();
                 return result;
                     
             }

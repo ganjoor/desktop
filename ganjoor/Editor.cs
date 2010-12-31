@@ -40,7 +40,7 @@ namespace ganjoor
                 btnPreviousPoem.Enabled = preItem != null;
                 btnPreviousPoem.Tag = preItem;
             }
-            btnReOrderCat.Enabled = btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
+            btnReOrderCat.Enabled = btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnEditPoetBio.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
             btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = !ganjoorView.IsInPoetRootPage;
             btnImportFromClipboadStructuredPoem.Enabled = btnImportFromTextFile.Enabled = btnImportFromClipboard.Enabled = chkEachlineOneverse.Enabled = btnNewLine.Enabled = btnDeletePoem.Enabled = btnMoveToCategory.Enabled = btnEditPoem.Enabled = chkIgnoreBlankLines.Enabled = chkIgnoreShortLines.Enabled = HasComments;
         }
@@ -106,6 +106,20 @@ namespace ganjoor
                 }
             }
         }
+
+        private void btnEditPoetBio_Click(object sender, EventArgs e)
+        {
+            using (MemoEditor dlg = new MemoEditor(ganjoorView.CurrentPoetBio))
+            {
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    if (!ganjoorView.EditPoetBio(dlg.MemoText))
+                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                }
+            }
+
+        }
+
 
         private void btnEditCat_Click(object sender, EventArgs e)
         {
@@ -394,6 +408,7 @@ namespace ganjoor
             }
 
         }
+
 
 
 
