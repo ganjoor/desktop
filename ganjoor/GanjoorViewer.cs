@@ -275,6 +275,27 @@ namespace ganjoor
 
                 catsTop += DistanceBetweenLines;
             }
+            if (category != null)
+            {
+                GanjoorPoet poet = _db.GetPoet(category._PoetID);
+                if (poet != null && poet._CatID == category._ID)
+                {
+                    HighlightLabel lblBio = new HighlightLabel();
+                    lblBio.BackColor = Color.Transparent;
+                    lblBio.AutoSize = false;
+                    {
+                        int labelHeight = lblBio.Height;
+                        Size sz = new Size(this.Width - lastDistanceFromRight - 20, Int32.MaxValue);
+                        sz = TextRenderer.MeasureText(poet._Bio, this.Font, sz, TextFormatFlags.WordBreak);
+                        lblBio.Size = new Size(this.Width - lastDistanceFromRight - 20, sz.Height);                        
+                        lblBio.Location = new Point(lastDistanceFromRight, catsTop);
+                        lblBio.Text = poet._Bio;
+                        this.Controls.Add(lblBio);
+                        catsTop += sz.Height + 10;
+                    }
+
+                }
+            }
 
             _FavsPage = false;
             _iCurCat = category!=null ? category._ID : 0;
@@ -926,6 +947,20 @@ namespace ganjoor
                 return string.Empty;
             }
         }
+        public string CurrentPoetBio
+        {
+            get
+            {
+                if (_db.Connected)
+                {
+                    GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
+                    if (null != poet)
+                        return poet._Bio;
+                }
+                return string.Empty;
+            }
+        }
+
         public string CurrentCategory
         {
             get
@@ -1632,6 +1667,18 @@ namespace ganjoor
         #region Import Db / Import+Export Favs
         public void ImportDb(string fileName)
         {
+            GanjoorPoet[] cnflts = _db.GetConflictingPoets(fileName);
+            if (cnflts.Length > 0)
+            {
+                using (ConflictingPoets dlg = new ConflictingPoets(cnflts))
+                {
+                    if (dlg.ShowDialog(this.Parent) == DialogResult.Cancel)
+                        return;
+                    cnflts = dlg.DeleteList;
+                    foreach (GanjoorPoet delPoet in cnflts)
+                        _db.DeletePoet(delPoet._ID);
+                }
+            }
             if (_db.ImportDb(fileName))
                 ShowHome(true);
             else
@@ -1756,6 +1803,18 @@ namespace ganjoor
             if (null == poet)
                 return false;
             if (_db.SetPoetName(poet._ID, NewName))
+            {
+                ShowCategory(_db.GetCategory(_iCurCat), false);
+                return true;
+            }
+            return false;
+        }
+        public bool EditPoetBio(string NewBio)
+        {
+            GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
+            if (null == poet)
+                return false;
+            if (_db.ModifyPoetBio(poet._ID, NewBio))
             {
                 ShowCategory(_db.GetCategory(_iCurCat), false);
                 return true;
@@ -2205,7 +2264,35 @@ namespace ganjoor
         {
             GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
             if (null == poet)
-                return false;
+            {
+                //Somethig that should never happen, happened!
+                //So try to fix it hoping not just adding another mess:
+                GanjoorCat cat = _db.GetCategory(_iCurCat);
+                if (null == cat)
+                    return false;
+                while (cat._ParentID != 0)
+                {
+                    cat = _db.GetCategory(cat._ParentID);
+                    if (null == cat)
+                        return false;
+                }
+                //I guess this might be dangerous:
+                GanjoorPoet correspondingPoet = null;
+                foreach(GanjoorPoet p in _db.Poets)
+                    if (p._Name == cat._Text)
+                    {
+                        correspondingPoet = p;
+                        break;
+                    }
+
+                if (_db.GetCategory(correspondingPoet._CatID) == null)
+                    _db.DeletePoet(correspondingPoet._ID);
+
+                _db.DeleteCat(cat._ID);
+                ShowHome(true);
+                return true;
+            }
+                
             _db.DeletePoet(poet._ID);
             ShowHome(true);
             return true;

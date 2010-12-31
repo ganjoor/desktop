@@ -66,6 +66,7 @@
             this.chkIgnoreShortLines = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeletePoem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMoveToCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnNewLine = new System.Windows.Forms.ToolStripSplitButton();
             this.btnNewNormalLine = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +83,7 @@
             this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnMoveToCategory = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditPoetBio = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,6 +140,7 @@
             this.btnNewPoetSub,
             this.toolStripSeparator6,
             this.btnEditPoet,
+            this.btnEditPoetBio,
             this.toolStripSeparator7,
             this.btnDeletePoet,
             this.toolStripSeparator12,
@@ -389,6 +391,13 @@
             this.btnDeletePoem.Text = "حذف شعر";
             this.btnDeletePoem.Click += new System.EventHandler(this.btnDeletePoem_Click);
             // 
+            // btnMoveToCategory
+            // 
+            this.btnMoveToCategory.Name = "btnMoveToCategory";
+            this.btnMoveToCategory.Size = new System.Drawing.Size(383, 22);
+            this.btnMoveToCategory.Text = "انتقال شعر به بخش دیگر";
+            this.btnMoveToCategory.Click += new System.EventHandler(this.btnMoveToCategory_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -537,12 +546,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnMoveToCategory
+            // btnEditPoetBio
             // 
-            this.btnMoveToCategory.Name = "btnMoveToCategory";
-            this.btnMoveToCategory.Size = new System.Drawing.Size(383, 22);
-            this.btnMoveToCategory.Text = "انتقال شعر به بخش دیگر";
-            this.btnMoveToCategory.Click += new System.EventHandler(this.btnMoveToCategory_Click);
+            this.btnEditPoetBio.Name = "btnEditPoetBio";
+            this.btnEditPoetBio.Size = new System.Drawing.Size(199, 22);
+            this.btnEditPoetBio.Text = "ویرایش زندگینامۀ شاعر";
+            this.btnEditPoetBio.Click += new System.EventHandler(this.btnEditPoetBio_Click);
             // 
             // Editor
             // 
@@ -625,5 +634,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnChangeIDs;
         private System.Windows.Forms.ToolStripMenuItem btnNewParagraph;
         private System.Windows.Forms.ToolStripMenuItem btnMoveToCategory;
+        private System.Windows.Forms.ToolStripMenuItem btnEditPoetBio;
     }
 }

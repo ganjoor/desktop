@@ -14,12 +14,27 @@ namespace ganjoor
         #region Constructor
         public DbBrowser()            
         {
-            string filePath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor"), "ganjoor.s3db");
-            if (!File.Exists(filePath))
+            string iniFilePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "ganjoor.ini");
+            if (File.Exists(iniFilePath))
             {
-                filePath = "ganjoor.s3db";
+                GINIParser gParaser = new GINIParser(iniFilePath);
+                try
+                {
+                    _dbfilepath = gParaser.Values["Database"]["Path"];
+                    _dbfilepath = Path.Combine(_dbfilepath, "ganjoor.s3db");
+                }
+                catch
+                {
+                }
             }
-            Init(filePath);
+            if (string.IsNullOrEmpty(_dbfilepath))
+                _dbfilepath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor"), "ganjoor.s3db");
+            if (!File.Exists(_dbfilepath))
+            {
+                _dbfilepath = "ganjoor.s3db";
+            }
+            Init(_dbfilepath);
+
         }
         public DbBrowser(string sqliteDatabaseNameFileName)
         {
@@ -30,6 +45,7 @@ namespace ganjoor
         {
             try
             {
+                _dbfilepath = sqliteDatabaseNameFileName;
                 SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
                 conString.DataSource = sqliteDatabaseNameFileName;
                 conString.DefaultTimeout = 5000;
@@ -52,14 +68,23 @@ namespace ganjoor
         
         ~DbBrowser()
         {
+            CloseDb();
+        }
+
+        public void CloseDb()
+        {
             if (_con != null)
+            {
                 _con.Close();
+                _con = null;
+            }
         }
         #endregion
 
         #region Variables
         private SQLiteConnection _con;
         public string LastError = string.Empty;
+        private string _dbfilepath = string.Empty;
         #endregion 
 
         #region Properties & Methods
@@ -86,12 +111,12 @@ namespace ganjoor
                 {
                     using (DataTable tbl = new DataTable())
                     {
-                        using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet", _con))
+                        using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet", _con))
                         {
                             da.Fill(tbl);
                             foreach (DataRow row in tbl.Rows)
                             {
-                                poets.Add(new GanjoorPoet(Convert.ToInt32(row.ItemArray[0]), row.ItemArray[1].ToString(), Convert.ToInt32(row.ItemArray[2])));
+                                poets.Add(new GanjoorPoet(Convert.ToInt32(row.ItemArray[0]), row.ItemArray[1].ToString(), Convert.ToInt32(row.ItemArray[2]), row.ItemArray[3].ToString()));
                             }
                         }
                     }
@@ -322,7 +347,7 @@ namespace ganjoor
         public GanjoorPoet GetPoetForCat(int CatID)
         {
             if (CatID == 0)
-                return new GanjoorPoet(0, "همه", 0);
+                return new GanjoorPoet(0, "همه", 0, "");
             if (Connected)
             {
                 using (DataTable tbl = new DataTable())
@@ -343,18 +368,18 @@ namespace ganjoor
         public GanjoorPoet GetPoet(int PoetID)
         {
             if (PoetID == 0)
-                return new GanjoorPoet(0, "همه", 0);
+                return new GanjoorPoet(0, "همه", 0, "");
             if (Connected)
             {
                 using (DataTable tbl = new DataTable())
                 {
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet WHERE id = "+PoetID.ToString(), _con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet WHERE id = "+PoetID.ToString(), _con))
                     {
                         da.Fill(tbl);
                         System.Diagnostics.Debug.Assert(tbl.Rows.Count < 2);
                         if (1 == tbl.Rows.Count)
                             return
-                                new GanjoorPoet(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), tbl.Rows[0].ItemArray[1].ToString(), Convert.ToInt32(tbl.Rows[0].ItemArray[2]));
+                                new GanjoorPoet(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), tbl.Rows[0].ItemArray[1].ToString(), Convert.ToInt32(tbl.Rows[0].ItemArray[2]), tbl.Rows[0].ItemArray[3].ToString());
                         
                     }
                 }
@@ -367,13 +392,13 @@ namespace ganjoor
             {
                 using (DataTable tbl = new DataTable())
                 {
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet WHERE name = '" + PoetName + "'", _con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet WHERE name = '" + PoetName + "'", _con))
                     {
                         da.Fill(tbl);
                         System.Diagnostics.Debug.Assert(tbl.Rows.Count < 2);
                         if (1 == tbl.Rows.Count)
                             return
-                                new GanjoorPoet(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), tbl.Rows[0].ItemArray[1].ToString(), Convert.ToInt32(tbl.Rows[0].ItemArray[2]));
+                                new GanjoorPoet(Convert.ToInt32(tbl.Rows[0].ItemArray[0]), tbl.Rows[0].ItemArray[1].ToString(), Convert.ToInt32(tbl.Rows[0].ItemArray[2]), tbl.Rows[0].ItemArray[3].ToString());
 
                     }
                 }
@@ -609,7 +634,7 @@ namespace ganjoor
         #endregion
 
         #region Versioning
-        private const int DatabaseVersion = 1;
+        private const int DatabaseVersion = 2;
         private void UpgradeOldDbs()
         {
             using (DataTable tbl = _con.GetSchema("Tables"))
@@ -698,7 +723,7 @@ namespace ganjoor
                 }
                 #endregion
                 #region version table
-                DataRow[] verTable = tbl.Select("Table_Name='gver'");
+                DataRow[] verTable = tbl.Select("Table_Name='gver'");               
 
                 string vg3db = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "vg.s3db");
                 if (File.Exists(vg3db))
@@ -767,6 +792,55 @@ namespace ganjoor
                     }
                 }
                 #endregion
+                #region poet description field
+                using (SQLiteDataAdapter poetTableChecker = new SQLiteDataAdapter("PRAGMA table_info('poet')", _con))
+                {
+                    using (DataTable poetTableInfo = new DataTable())
+                    {
+                        poetTableChecker.Fill(poetTableInfo);
+                        if (poetTableInfo.Rows.Count == 3)//old poet table
+                        {
+                            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                            {
+                                cmd.CommandText = "ALTER TABLE poet ADD description TEXT;";
+                                cmd.ExecuteNonQuery();
+                            }
+                            try
+                            {
+                                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                                {
+                                    cmd.CommandText = "DELETE FROM gver";
+                                    cmd.ExecuteNonQuery();
+                                    cmd.CommandText = "INSERT INTO gver (curver) VALUES (" + DatabaseVersion.ToString() + ");";//update database version information
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                            catch
+                            {
+                                //this is normal, gdbs do not have gver table
+                            }
+                        }                        
+                    }
+                }
+                if (Path.GetFileNameWithoutExtension(_dbfilepath).ToLower() != "poetinfo")
+                {
+                    string poetInfoDb = Path.Combine(Path.GetDirectoryName(_dbfilepath), "poetinfo.s3db");
+                    if (File.Exists(poetInfoDb))
+                    {
+                        DbBrowser poetInfo = new DbBrowser(poetInfoDb);
+                        BeginBatchOperation();
+                        foreach (GanjoorPoet imPoet in poetInfo.Poets)
+                        {
+                            GanjoorPoet correspondingPoet = this.GetPoet(imPoet._ID);
+                            if (correspondingPoet != null)
+                                this.ModifyPoetBio(correspondingPoet._ID, imPoet._Bio);
+                        }
+                        CommitBatchOperation();
+                        poetInfo.CloseDb();
+                        File.Delete(poetInfoDb);
+                    }
+                }
+                #endregion
             }
         }
         #endregion
@@ -778,6 +852,18 @@ namespace ganjoor
         /// </summary>
         public bool ImportDb(string fileName)
         {
+            try
+            {
+                //this causes openning db to be upgraded
+                DbBrowser dbUpgrader = new DbBrowser(fileName);                
+                dbUpgrader.CloseDb();
+            }
+            catch
+                (Exception exp)
+            {
+                LastError = exp.ToString();
+                return false;
+            }
             SQLiteConnection newConnection;
             try
             {
@@ -804,7 +890,7 @@ namespace ganjoor
                 {                  
 
                     using (DataTable tbl = new DataTable())
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet", newConnection))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet", newConnection))
                     {
                         da.Fill(tbl);
                         foreach (DataRow row in tbl.Rows)
@@ -813,6 +899,7 @@ namespace ganjoor
                             int NewPoetID = Convert.ToInt32(row.ItemArray[0]);
                             string NewPoetName = row.ItemArray[1].ToString();
                             int NewCatID = Convert.ToInt32(row.ItemArray[2]);
+                            string NewPoetBio = row.ItemArray[3].ToString();
                             GanjoorPoet poet = GetPoet(NewPoetName);
                             if (poet != null)
                             {
@@ -872,8 +959,8 @@ namespace ganjoor
                             if(insertNewPoet)
                             {                                
                                 cmd.CommandText = String.Format(
-                                    "INSERT INTO poet (id, name, cat_id) VALUES ({0}, \"{1}\", {2});",
-                                    NewPoetID, NewPoetName, NewCatID
+                                    "INSERT INTO poet (id, name, cat_id, description) VALUES ({0}, \"{1}\", {2}, \"{3}\");",
+                                    NewPoetID, NewPoetName, NewCatID, NewPoetBio
                                     );
                                 cmd.ExecuteNonQuery();
                             }                               
@@ -981,6 +1068,66 @@ namespace ganjoor
             
             return true;
         }
+        public GanjoorPoet[] GetDbPoets(string fileName)
+        {
+            try
+            {
+                DbBrowser dbUpgrader = new DbBrowser(fileName);
+                dbUpgrader.CloseDb();
+            }
+            catch
+            {
+            }
+            List<GanjoorPoet> dbPoets = new List<GanjoorPoet>();
+            SQLiteConnection newConnection = null;
+            try
+            {
+                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
+                conString.DataSource = fileName;
+                conString.DefaultTimeout = 5000;
+                conString.FailIfMissing = true;
+                conString.ReadOnly = false;
+                newConnection = new SQLiteConnection(conString.ConnectionString);
+                newConnection.Open();
+            }
+            catch
+            {
+            }
+
+            using (DataTable tbl = new DataTable())
+            using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet", newConnection))
+            {
+                da.Fill(tbl);
+                foreach (DataRow row in tbl.Rows)
+                {
+                    dbPoets.Add(new GanjoorPoet(Convert.ToInt32(row[0]), row[1].ToString(), Convert.ToInt32(row[2]), row.ItemArray[3].ToString()));
+                }
+            }
+
+            newConnection.Close();
+            newConnection.Dispose();
+
+
+            return dbPoets.ToArray();
+
+        }
+        public GanjoorPoet[] GetConflictingPoets(string fileName)
+        {
+            List<GanjoorPoet> conficts = new List<GanjoorPoet>();
+            if(this.Connected)
+            {
+                GanjoorPoet[] dbPoets = GetDbPoets(fileName);
+                foreach(GanjoorPoet MyPoet in this.Poets)
+                    foreach(GanjoorPoet dbPoet in dbPoets)
+                        if (MyPoet.Equals(dbPoet))
+                        {
+                            conficts.Add(MyPoet);
+                            continue;
+                        }
+                
+            }
+            return conficts.ToArray();
+        }
         /// <summary>
         /// This is the fast old ImportDb function which can be used if user is sure that his/her new db
         /// does not conflict with main db
@@ -1025,14 +1172,14 @@ namespace ganjoor
                     }
 
                     using (DataTable tbl = new DataTable())
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet", newConnection))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet", newConnection))
                     {
                         da.Fill(tbl);
                         foreach (DataRow row in tbl.Rows)
                         {
                             cmd.CommandText = String.Format(
-                                "INSERT INTO poet (id, name, cat_id) VALUES ({0}, \"{1}\", {2});",
-                                row.ItemArray[0], row.ItemArray[1], row.ItemArray[2]
+                                "INSERT INTO poet (id, name, cat_id, description) VALUES ({0}, \"{1}\", {2}, \"{3}\");",
+                                row.ItemArray[0], row.ItemArray[1], row.ItemArray[2], row.ItemArray[3]
                                 );
                             cmd.ExecuteNonQuery();
                         }
@@ -1198,8 +1345,8 @@ namespace ganjoor
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = String.Format(
-                    "INSERT INTO poet (id, name, cat_id) VALUES ({0}, \"{1}\", {2});",
-                    NewPoetID, PoetName, poetCat._ID
+                    "INSERT INTO poet (id, name, cat_id, description) VALUES ({0}, \"{1}\", {2}, \"{3}\");",
+                    NewPoetID, PoetName, poetCat._ID, ""
                     );
                 cmd.ExecuteNonQuery();
             }
@@ -1254,6 +1401,22 @@ namespace ganjoor
                 cmd.CommandText = String.Format(
                     "UPDATE cat SET text = \"{0}\" WHERE id=" + poet._CatID,
                     NewName
+                    );
+                cmd.ExecuteNonQuery();
+            }
+            return true;
+        }
+        public bool ModifyPoetBio(int PoetID, string Bio)
+        {
+            if (!Connected)
+                return false;
+            GanjoorPoet poet = GetPoet(PoetID);
+            Bio = Bio.Replace("\"", "\"\"");
+            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+            {
+                cmd.CommandText = String.Format(
+                    "UPDATE poet SET description = \"{0}\" WHERE id=" + poet._ID,
+                    Bio
                     );
                 cmd.ExecuteNonQuery();
             }
@@ -1596,6 +1759,8 @@ namespace ganjoor
         }        
         private void DRY_DeleteCat(GanjoorCat Cat)
         {
+            if (null == Cat)//sorry!
+                return;
             List<GanjoorCat> SubCats = GetSubCategories(Cat._ID);
             foreach (GanjoorCat SubCat in SubCats)
                 DRY_DeleteCat(SubCat);
@@ -1699,7 +1864,7 @@ namespace ganjoor
                             +
                             "CREATE TABLE poem (id INTEGER PRIMARY KEY, cat_id INTEGER, title NVARCHAR(255), url NVARCHAR(255));"
                             +
-                            "CREATE TABLE [poet] ([id] INTEGER  PRIMARY KEY NOT NULL,[name] NVARCHAR(20)  NULL,[cat_id] INTEGER  NULL  NULL);"
+                            "CREATE TABLE [poet] ([id] INTEGER  PRIMARY KEY NOT NULL,[name] NVARCHAR(20)  NULL,[cat_id] INTEGER  NULL  NULL, [description] TEXT);"
                             +
                             "CREATE TABLE [verse] ([poem_id] INTEGER  NULL,[vorder] INTEGER  NULL,[position] INTEGER  NULL,[text] TEXT  NULL);"
                             +
@@ -1735,14 +1900,14 @@ namespace ganjoor
                     using (SQLiteCommand cmd = new SQLiteCommand(newConnection))
                     {
                         using (DataTable tbl = new DataTable())
-                        using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id FROM poet WHERE cat_id=" + CatID, _con))
+                        using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet WHERE cat_id=" + CatID, _con))
                         {
                             da.Fill(tbl);
                             foreach (DataRow row in tbl.Rows)
                             {
                                 cmd.CommandText = String.Format(
-                                    "INSERT INTO poet (id, name, cat_id) VALUES ({0}, \"{1}\", {2});",
-                                    row.ItemArray[0], row.ItemArray[1], row.ItemArray[2]
+                                    "INSERT INTO poet (id, name, cat_id, description) VALUES ({0}, \"{1}\", {2}, \"{3}\");",
+                                    row.ItemArray[0], row.ItemArray[1], row.ItemArray[2], row.ItemArray[3]
                                     );
                                 cmd.ExecuteNonQuery();
                             }
@@ -1831,6 +1996,10 @@ namespace ganjoor
                 cmd.CommandText = "UPDATE poet SET name = REPLACE(name, '" + searchterm + "', '" + replacement + "');";
                 cmd.ExecuteNonQuery();
 
+                cmd.CommandText = "UPDATE poet SET description = REPLACE(description, '" + searchterm + "', '" + replacement + "');";
+                cmd.ExecuteNonQuery();
+
+
                 cmd.CommandText = "UPDATE cat SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
                 cmd.ExecuteNonQuery();
 
@@ -1902,6 +2071,8 @@ namespace ganjoor
         }
         public bool ChangePoetID(int PoetID, int NewID)
         {
+            if (PoetID == NewID)
+                return true;
             if (GetPoet(NewID) != null)
                 return false;
             if (BeginBatchOperation())
@@ -1930,8 +2101,11 @@ namespace ganjoor
         }
         public bool ChangeCatIDs(int PoetID, int NewStartCatID)
         {
-            List<int> cats = GetAllSubCats(GetMainCatID(PoetID));
-            cats.Insert(0, GetMainCatID(PoetID));
+            int minCatID = GetMainCatID(PoetID);
+            if(minCatID == NewStartCatID)
+                return true;
+            List<int> cats = GetAllSubCats(minCatID);
+            cats.Insert(0, minCatID);
             if (BeginBatchOperation())
             {
                 Dictionary<int, int> ids = new Dictionary<int, int>();
@@ -1985,11 +2159,27 @@ namespace ganjoor
         }
         public bool ChangePoemIDs(int PoetID, int NewStartPoemID)
         {
-            List<int> cats = GetAllSubCats(GetMainCatID(PoetID));
-            cats.Insert(0, GetMainCatID(PoetID));
+            int minCatID = GetMainCatID(PoetID);
+            List<int> cats = GetAllSubCats(minCatID);
+            cats.Insert(0, minCatID);
             if (BeginBatchOperation())
             {
                 int NewPoemID = NewStartPoemID;
+
+                int MinPoemID= NewStartPoemID+1;
+                foreach (int CatID in cats)
+                {
+                    List<GanjoorPoem> poems = GetPoems(CatID);
+                    foreach (GanjoorPoem poem in poems)
+                        if (poem._ID < MinPoemID)
+                            MinPoemID = poem._ID;
+                }
+                if (MinPoemID == NewStartPoemID)
+                {
+                    CommitBatchOperation();
+                    return true;
+                }
+
 
                 foreach (int CatID in cats)
                 {

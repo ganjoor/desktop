@@ -41,6 +41,7 @@ namespace ganjoor
                 newPoet.Tag = poet._CatID;
                 AddSubCats(db, newPoet, poet._CatID);
             }
+            db.CloseDb();
         }
 
         private void AddSubCats(DbBrowser db, TreeNode Node, int CatID)
