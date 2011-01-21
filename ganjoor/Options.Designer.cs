@@ -95,14 +95,17 @@
             // 
             // lblFont
             // 
-            this.lblFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFont.Location = new System.Drawing.Point(49, 20);
+            this.lblFont.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFont.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblFont.Location = new System.Drawing.Point(49, 15);
             this.lblFont.Name = "lblFont";
             this.lblFont.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblFont.Size = new System.Drawing.Size(360, 14);
+            this.lblFont.Size = new System.Drawing.Size(461, 23);
             this.lblFont.TabIndex = 4;
-            this.lblFont.Text = "label2";
-            this.lblFont.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblFont.Text = "...";
+            this.lblFont.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnSelectFont
             // 
@@ -164,9 +167,10 @@
             // 
             this.chkBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkBrowseButton.AutoSize = true;
+            this.chkBrowseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkBrowseButton.Location = new System.Drawing.Point(206, 191);
             this.chkBrowseButton.Name = "chkBrowseButton";
-            this.chkBrowseButton.Size = new System.Drawing.Size(46, 17);
+            this.chkBrowseButton.Size = new System.Drawing.Size(43, 17);
             this.chkBrowseButton.TabIndex = 32;
             this.chkBrowseButton.Text = "مرور";
             this.chkBrowseButton.UseVisualStyleBackColor = true;
@@ -175,9 +179,10 @@
             // 
             this.chkCommentsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCommentsButton.AutoSize = true;
-            this.chkCommentsButton.Location = new System.Drawing.Point(254, 191);
+            this.chkCommentsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCommentsButton.Location = new System.Drawing.Point(256, 191);
             this.chkCommentsButton.Name = "chkCommentsButton";
-            this.chkCommentsButton.Size = new System.Drawing.Size(68, 17);
+            this.chkCommentsButton.Size = new System.Drawing.Size(65, 17);
             this.chkCommentsButton.TabIndex = 33;
             this.chkCommentsButton.Text = "حاشیه‌ها";
             this.chkCommentsButton.UseVisualStyleBackColor = true;
@@ -186,9 +191,10 @@
             // 
             this.chkCopyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCopyButton.AutoSize = true;
-            this.chkCopyButton.Location = new System.Drawing.Point(327, 191);
+            this.chkCopyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCopyButton.Location = new System.Drawing.Point(328, 191);
             this.chkCopyButton.Name = "chkCopyButton";
-            this.chkCopyButton.Size = new System.Drawing.Size(67, 17);
+            this.chkCopyButton.Size = new System.Drawing.Size(64, 17);
             this.chkCopyButton.TabIndex = 34;
             this.chkCopyButton.Text = "کپی متن";
             this.chkCopyButton.UseVisualStyleBackColor = true;
@@ -197,9 +203,10 @@
             // 
             this.chkPrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkPrintButton.AutoSize = true;
+            this.chkPrintButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkPrintButton.Location = new System.Drawing.Point(399, 191);
             this.chkPrintButton.Name = "chkPrintButton";
-            this.chkPrintButton.Size = new System.Drawing.Size(45, 17);
+            this.chkPrintButton.Size = new System.Drawing.Size(42, 17);
             this.chkPrintButton.TabIndex = 35;
             this.chkPrintButton.Text = "چاپ";
             this.chkPrintButton.UseVisualStyleBackColor = true;
@@ -208,9 +215,10 @@
             // 
             this.chkShowNumsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowNumsButton.AutoSize = true;
+            this.chkShowNumsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkShowNumsButton.Location = new System.Drawing.Point(448, 191);
             this.chkShowNumsButton.Name = "chkShowNumsButton";
-            this.chkShowNumsButton.Size = new System.Drawing.Size(84, 17);
+            this.chkShowNumsButton.Size = new System.Drawing.Size(81, 17);
             this.chkShowNumsButton.TabIndex = 36;
             this.chkShowNumsButton.Text = "شماره‌گذاری";
             this.chkShowNumsButton.UseVisualStyleBackColor = true;
@@ -409,9 +417,10 @@
             // 
             this.chkHomeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkHomeButton.AutoSize = true;
-            this.chkHomeButton.Location = new System.Drawing.Point(109, 191);
+            this.chkHomeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkHomeButton.Location = new System.Drawing.Point(112, 191);
             this.chkHomeButton.Name = "chkHomeButton";
-            this.chkHomeButton.Size = new System.Drawing.Size(45, 17);
+            this.chkHomeButton.Size = new System.Drawing.Size(42, 17);
             this.chkHomeButton.TabIndex = 30;
             this.chkHomeButton.Text = "خانه";
             this.chkHomeButton.UseVisualStyleBackColor = true;
@@ -420,9 +429,10 @@
             // 
             this.chkRandomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkRandomButton.AutoSize = true;
-            this.chkRandomButton.Location = new System.Drawing.Point(159, 190);
+            this.chkRandomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkRandomButton.Location = new System.Drawing.Point(161, 191);
             this.chkRandomButton.Name = "chkRandomButton";
-            this.chkRandomButton.Size = new System.Drawing.Size(41, 17);
+            this.chkRandomButton.Size = new System.Drawing.Size(38, 17);
             this.chkRandomButton.TabIndex = 31;
             this.chkRandomButton.Text = "فال";
             this.chkRandomButton.UseVisualStyleBackColor = true;
@@ -597,9 +607,10 @@
             // 
             this.chkEditorButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkEditorButton.AutoSize = true;
-            this.chkEditorButton.Location = new System.Drawing.Point(533, 191);
+            this.chkEditorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkEditorButton.Location = new System.Drawing.Point(536, 191);
             this.chkEditorButton.Name = "chkEditorButton";
-            this.chkEditorButton.Size = new System.Drawing.Size(68, 17);
+            this.chkEditorButton.Size = new System.Drawing.Size(65, 17);
             this.chkEditorButton.TabIndex = 37;
             this.chkEditorButton.Text = "ویرایشگر";
             this.chkEditorButton.UseVisualStyleBackColor = true;
@@ -607,16 +618,17 @@
             // lblRandomCat
             // 
             this.lblRandomCat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRandomCat.AutoEllipsis = true;
             this.lblRandomCat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblRandomCat.ForeColor = System.Drawing.Color.Green;
             this.lblRandomCat.Location = new System.Drawing.Point(137, 296);
             this.lblRandomCat.Name = "lblRandomCat";
-            this.lblRandomCat.Size = new System.Drawing.Size(307, 17);
+            this.lblRandomCat.Size = new System.Drawing.Size(373, 17);
             this.lblRandomCat.TabIndex = 48;
             // 
             // btnSelectRandomCat
             // 
-            this.btnSelectRandomCat.Location = new System.Drawing.Point(450, 292);
+            this.btnSelectRandomCat.Location = new System.Drawing.Point(516, 292);
             this.btnSelectRandomCat.Name = "btnSelectRandomCat";
             this.btnSelectRandomCat.Size = new System.Drawing.Size(75, 23);
             this.btnSelectRandomCat.TabIndex = 49;

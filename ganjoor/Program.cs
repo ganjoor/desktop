@@ -27,7 +27,7 @@ namespace ganjoor
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show("خطای پیشبینی نشده‌ای روی سیستم شما رخ داد. لطفاً محتوای این پیغام را برای ایمیل ganjoor@ganjoor.net ارسال کنید تا دربارۀ آن تحقیق شود: \n با زدن کلید Ctrl+C می‌توانید متن این پنجره را کپی کنید.\n"+e.ExceptionObject.ToString(), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            GAdvisor.AdviseOnUnhandledException(e.ExceptionObject.ToString());
         }
     }
 }

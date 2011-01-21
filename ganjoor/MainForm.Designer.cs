@@ -88,8 +88,6 @@
             this.mnuZoomOut = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSrch = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,12 +101,16 @@
             this.mnuImportFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuShowBeytNums = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuGdb = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDownloadGDBList = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnDownloadGDBList = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnChangeLog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -460,6 +462,7 @@
             this.mnuTools,
             this.mnuSrch,
             this.mnuFavs,
+            this.mnuGdb,
             this.mnuHlp});
             this.mnu.Location = new System.Drawing.Point(0, 0);
             this.mnu.Name = "mnu";
@@ -574,8 +577,6 @@
             this.mnuZoomOut,
             this.toolStripSeparator13,
             this.mnuEdit,
-            this.toolStripSeparator15,
-            this.mnuAdd,
             this.toolStripSeparator17,
             this.mnuOptions});
             this.mnuTools.Name = "mnuTools";
@@ -672,18 +673,6 @@
             this.mnuEdit.Size = new System.Drawing.Size(270, 22);
             this.mnuEdit.Text = "ویرایشگر شعر";
             this.mnuEdit.Click += new System.EventHandler(this.btnEditor_Click);
-            // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(267, 6);
-            // 
-            // mnuAdd
-            // 
-            this.mnuAdd.Name = "mnuAdd";
-            this.mnuAdd.Size = new System.Drawing.Size(270, 22);
-            this.mnuAdd.Text = "اضافه کردن مجموعه اشعار جدید";
-            this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
             // 
             // toolStripSeparator17
             // 
@@ -793,11 +782,40 @@
             this.mnuShowBeytNums.Text = "شماره‌گذاری ابیات";
             this.mnuShowBeytNums.Click += new System.EventHandler(this.mnuShowBeytNums_Click);
             // 
+            // mnuGdb
+            // 
+            this.mnuGdb.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuAdd,
+            this.toolStripSeparator15,
+            this.btnDownloadGDBList});
+            this.mnuGdb.Name = "mnuGdb";
+            this.mnuGdb.Size = new System.Drawing.Size(71, 20);
+            this.mnuGdb.Text = "مجموعه‌ها";
+            // 
+            // mnuAdd
+            // 
+            this.mnuAdd.Name = "mnuAdd";
+            this.mnuAdd.Size = new System.Drawing.Size(266, 22);
+            this.mnuAdd.Text = "اضافه کردن مجموعه‌های اشعار ...";
+            this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(263, 6);
+            // 
+            // btnDownloadGDBList
+            // 
+            this.btnDownloadGDBList.Name = "btnDownloadGDBList";
+            this.btnDownloadGDBList.Size = new System.Drawing.Size(266, 22);
+            this.btnDownloadGDBList.Text = "دریافت فهرست مجموعه‌های اشعار ...";
+            this.btnDownloadGDBList.Click += new System.EventHandler(this.btnDownloadGDBList_Click);
+            // 
             // mnuHlp
             // 
             this.mnuHlp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnCheckForUpdate,
-            this.btnDownloadGDBList,
+            this.btnChangeLog,
             this.toolStripSeparator5,
             this.mnuAbout});
             this.mnuHlp.Name = "mnuHlp";
@@ -808,21 +826,21 @@
             // 
             this.btnCheckForUpdate.Image = global::ganjoor.Properties.Resources.folder_down;
             this.btnCheckForUpdate.Name = "btnCheckForUpdate";
-            this.btnCheckForUpdate.Size = new System.Drawing.Size(235, 22);
+            this.btnCheckForUpdate.Size = new System.Drawing.Size(224, 22);
             this.btnCheckForUpdate.Text = "پرس و جو برای ویرایش جدیدتر";
             this.btnCheckForUpdate.Click += new System.EventHandler(this.btnCheckForUpdate_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(232, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(221, 6);
             // 
             // mnuAbout
             // 
             this.mnuAbout.Image = global::ganjoor.Properties.Resources.help;
             this.mnuAbout.Name = "mnuAbout";
             this.mnuAbout.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.mnuAbout.Size = new System.Drawing.Size(235, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(224, 22);
             this.mnuAbout.Text = "دربارۀ این برنامه";
             this.mnuAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
@@ -830,7 +848,6 @@
             // 
             this.ganjoorView.AutoScroll = true;
             this.ganjoorView.BackColor = System.Drawing.SystemColors.Window;
-            this.ganjoorView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ganjoorView.Cursor = System.Windows.Forms.Cursors.Default;
             this.ganjoorView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ganjoorView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
@@ -843,12 +860,12 @@
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnDownloadGDBList
+            // btnChangeLog
             // 
-            this.btnDownloadGDBList.Name = "btnDownloadGDBList";
-            this.btnDownloadGDBList.Size = new System.Drawing.Size(235, 22);
-            this.btnDownloadGDBList.Text = "دریافت مجموعه‌های جدید اشعار";
-            this.btnDownloadGDBList.Click += new System.EventHandler(this.btnDownloadGDBList_Click);
+            this.btnChangeLog.Name = "btnChangeLog";
+            this.btnChangeLog.Size = new System.Drawing.Size(224, 22);
+            this.btnChangeLog.Text = "فهرست تغییرات";
+            this.btnChangeLog.Click += new System.EventHandler(this.btnChangeLog_Click);
             // 
             // MainForm
             // 
@@ -957,8 +974,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem mnuZoomIn;
         private System.Windows.Forms.ToolStripMenuItem mnuZoomOut;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
-        private System.Windows.Forms.ToolStripMenuItem mnuAdd;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem mnuExportFavs;
         private System.Windows.Forms.ToolStripMenuItem mnuImportFavs;
@@ -966,7 +981,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripButton btnEditor;
         private System.Windows.Forms.ToolStripButton btnScrollToNext;
+        private System.Windows.Forms.ToolStripMenuItem mnuGdb;
+        private System.Windows.Forms.ToolStripMenuItem mnuAdd;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem btnDownloadGDBList;
+        private System.Windows.Forms.ToolStripMenuItem btnChangeLog;
 
 
 

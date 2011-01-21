@@ -12,6 +12,12 @@ namespace ganjoor
     public class DbBrowser
     {
         #region Constructor
+        /// <summary>
+        /// Default constructor searchers for ganjoor.s3db file in path provided
+        /// by ganjoor.ini configuration file in application executable path,
+        /// if it does not exist it searches LocalApplicationData evv. variable path,
+        /// and if there is no ganjoor.s3db in there, it searches application path
+        /// </summary>
         public DbBrowser()            
         {
             string iniFilePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "ganjoor.ini");
@@ -33,14 +39,61 @@ namespace ganjoor
             {
                 _dbfilepath = "ganjoor.s3db";
             }
-            Init(_dbfilepath);
-
+            try
+            {
+                Init(_dbfilepath);
+            }
+            catch (FileNotFoundException exp)//this is where incorrect version of System.Data.SQLite.DLL causes problems
+            {
+                if (exp.FileName.IndexOf("System.Data.SQLite", StringComparison.InvariantCultureIgnoreCase) != -1)
+                    GAdvisor.AdviseOnSQLiteDllNotfound();
+                throw exp;
+            }
         }
+        /// <summary>
+        /// opens EXISTING sqlite poem database
+        /// </summary>
         public DbBrowser(string sqliteDatabaseNameFileName)
         {
             Init(sqliteDatabaseNameFileName);
         }
+        /// <summary>
+        /// creates a new poem database
+        /// </summary>
+        /// <param name="failIfExists">
+        /// if true returns null for existing databases and does not modify them,
+        /// if false opens existing database (it is not overwrited and its data remains unchanged)
+        /// </param>
+        public static DbBrowser CreateNewPoemDatabase(string fileName, bool failIfExists)
+        {
 
+            try
+            {
+                if (File.Exists(fileName))
+                {
+                    if (failIfExists)
+                        return null;
+                }
+                else
+                {
+                    SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
+                    conString.DataSource = fileName;
+                    conString.DefaultTimeout = 5000;
+                    conString.FailIfMissing = false;
+                    conString.ReadOnly = false;
+                    using (SQLiteConnection newConnection = new SQLiteConnection(conString.ConnectionString))
+                    {
+                        newConnection.Open();
+                        CreateEmptyDB(newConnection);
+                    }
+                }
+                return new DbBrowser(fileName);
+            }
+            catch
+            {
+                return null;
+            }
+        }
         private void Init(string sqliteDatabaseNameFileName)
         {
             try
@@ -590,7 +643,7 @@ namespace ganjoor
             if (CatIDs.Count == 0)
                 return GetRandomPoem(0);
             else
-                return GetRandomPoem(CatIDs[rnd.Next(CatIDs.Count - 1)]);
+                return GetRandomPoem(CatIDs[rnd.Next(CatIDs.Count)]);
         }
         public int GetRandomPoem(int CatID)
         {
@@ -1016,6 +1069,21 @@ namespace ganjoor
                                     );
                                 cmd.ExecuteNonQuery();
                             }
+
+                            if (this.GetPoet(PoetID) == null)
+                            {
+                                //missing poet
+                                int poetCat;
+                                if (NewCatParentID == 0)
+                                    poetCat = NewCatID;
+                                else
+                                {
+                                    //this is not good:
+                                    poetCat = NewCatParentID;
+                                }
+                                this.NewPoet("شاعر " + PoetID.ToString(), PoetID, poetCat);
+                            }
+
                         }
                     }
 
@@ -1070,6 +1138,31 @@ namespace ganjoor
         }
         public GanjoorPoet[] GetDbPoets(string fileName)
         {
+            SQLiteConnection newConnection = OpenConnectionForDb(fileName);
+            List<GanjoorPoet> dbPoets = new List<GanjoorPoet>();
+            if (newConnection != null)
+            {
+                using (DataTable tbl = new DataTable())
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet", newConnection))
+                {
+                    da.Fill(tbl);
+                    foreach (DataRow row in tbl.Rows)
+                    {
+                        dbPoets.Add(new GanjoorPoet(Convert.ToInt32(row[0]), row[1].ToString(), Convert.ToInt32(row[2]), row.ItemArray[3].ToString()));
+                    }
+                }
+
+                newConnection.Close();
+                newConnection.Dispose();
+            }
+
+            return dbPoets.ToArray();
+
+        }
+
+        private static SQLiteConnection OpenConnectionForDb(string fileName)
+        {
+            SQLiteConnection newConnection = null;
             try
             {
                 DbBrowser dbUpgrader = new DbBrowser(fileName);
@@ -1078,8 +1171,6 @@ namespace ganjoor
             catch
             {
             }
-            List<GanjoorPoet> dbPoets = new List<GanjoorPoet>();
-            SQLiteConnection newConnection = null;
             try
             {
                 SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
@@ -1092,24 +1183,9 @@ namespace ganjoor
             }
             catch
             {
+                return null;
             }
-
-            using (DataTable tbl = new DataTable())
-            using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, name, cat_id, description FROM poet", newConnection))
-            {
-                da.Fill(tbl);
-                foreach (DataRow row in tbl.Rows)
-                {
-                    dbPoets.Add(new GanjoorPoet(Convert.ToInt32(row[0]), row[1].ToString(), Convert.ToInt32(row[2]), row.ItemArray[3].ToString()));
-                }
-            }
-
-            newConnection.Close();
-            newConnection.Dispose();
-
-
-            return dbPoets.ToArray();
-
+            return newConnection;
         }
         public GanjoorPoet[] GetConflictingPoets(string fileName)
         {
@@ -1128,6 +1204,76 @@ namespace ganjoor
             }
             return conficts.ToArray();
         }
+        public GanjoorCat[] GetDbCats(string fileName)
+        {
+            SQLiteConnection newConnection = OpenConnectionForDb(fileName);
+
+            List<GanjoorCat> dbCats = new List<GanjoorCat>();
+            if (newConnection != null)
+            {
+                using (DataTable tbl = new DataTable())
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT id, poet_id, text, parent_id, url FROM cat", newConnection))
+                {
+                    da.Fill(tbl);
+                    foreach (DataRow row in tbl.Rows)
+                    {
+                        dbCats.Add(new GanjoorCat(Convert.ToInt32(row[0]), Convert.ToInt32(row[1]), row[2].ToString(), Convert.ToInt32(row[3]), row[4].ToString()));
+                    }
+                }
+
+                newConnection.Close();
+                newConnection.Dispose();
+            }
+
+
+            return dbCats.ToArray();
+
+        }
+        public GanjoorCat[] GetCategoriesWithMissingPoet(string fileName)
+        {
+            List<GanjoorCat> missingPoetCats = new List<GanjoorCat>();
+            if (this.Connected)
+            {
+                GanjoorCat[] cats = GetDbCats(fileName);
+                GanjoorPoet[] dbPoets = GetDbPoets(fileName);
+                foreach (GanjoorCat cat in cats)
+                {
+                    bool PoetFoundInTheDb = false;
+                    foreach (GanjoorPoet dbPoet in dbPoets)
+                        if (cat._PoetID == dbPoet._ID)
+                        {
+                            PoetFoundInTheDb = true;
+                            break;
+                        }
+                    if (!PoetFoundInTheDb)
+                    {
+                        bool PoetFound = false;
+                        foreach (GanjoorPoet MyPoet in this.Poets)
+                            if (cat._PoetID == MyPoet._ID)
+                            {
+                                PoetFound = true;
+                                break;
+                            }
+                        if (!PoetFound)
+                            missingPoetCats.Add(cat);
+                    }
+                }
+            }
+            return missingPoetCats.ToArray();
+        }
+        public GanjoorCat[] GetConflictingCats(string fileName)
+        {
+            List<GanjoorCat> conficts = new List<GanjoorCat>();
+            if (this.Connected)
+            {
+                GanjoorCat[] cats = GetDbCats(fileName);
+                foreach (GanjoorCat cat in cats)
+                    if (this.GetCategory(cat._ID) != null)
+                        conficts.Add(cat);
+            }
+            return conficts.ToArray();
+        }
+
         /// <summary>
         /// This is the fast old ImportDb function which can be used if user is sure that his/her new db
         /// does not conflict with main db
@@ -1328,18 +1474,23 @@ namespace ganjoor
 
         #region Editing Options
         private int CachedMaxCatID;
-        private int CachedMaxPoemID;
+        private int CachedMaxPoemID;        
         /// <returns>PoetID</returns>
         public int NewPoet(string PoetName)
+        {
+            return NewPoet(PoetName, -1, -1);
+        }
+        public int NewPoet(string PoetName, int NewPoetID, int NewPoetCatID)
         {
             if (!Connected)
                 return -1;
             foreach (GanjoorPoet Poet in this.Poets)
                 if (Poet._Name == PoetName)
                     return -1;//نام تکراری
-            int NewPoetID = GenerateNewPoetID();
+            if(NewPoetID == -1 || this.GetPoet(NewPoetID)!=null)
+                NewPoetID = GenerateNewPoetID();
 
-            GanjoorCat poetCat = CreateNewCategory(PoetName, 0, NewPoetID);
+            GanjoorCat poetCat = CreateNewCategory(PoetName, 0, NewPoetID, NewPoetCatID);
             if (poetCat == null)
                 return -1;
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
@@ -1424,7 +1575,10 @@ namespace ganjoor
         }
         public GanjoorCat CreateNewCategory(string CategoryName, int ParentCatID, int PoetID)
         {
-            int NewCatID;
+            return CreateNewCategory(CategoryName, ParentCatID, PoetID, -1);
+        }
+        public GanjoorCat CreateNewCategory(string CategoryName, int ParentCatID, int PoetID, int NewCatID)
+        {
             using (DataTable tbl = new DataTable())
             {
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(String.Format("SELECT * FROM cat WHERE parent_id={0} AND text LIKE \"{1}\"", ParentCatID, CategoryName), _con))
@@ -1434,8 +1588,8 @@ namespace ganjoor
                         return null;
                 }
             }
-
-            NewCatID = GenerateNewCatID();
+            if(NewCatID == -1 || this.GetCategory(NewCatID)!=null)
+                NewCatID = GenerateNewCatID();
 
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
@@ -1651,6 +1805,18 @@ namespace ganjoor
             }
             return true;
         }
+        /// <summary>
+        /// Insert a new verse into a poem,
+        /// the new verse will have no TEXT, use SetVerseText to fill its TEXT
+        /// </summary>
+        /// <param name="PoemID">corresponding poem id</param>
+        /// <param name="beforeVerseOrder">
+        /// VORDER field value in VERSE table for the verse you want to insert this new verse after it,
+        /// VORDERs are started from 1 (normaly), order for new verse becomes beforeVerseOrder+1, so
+        /// if this is the first versse of a poem set this parameter to 0, for inserting a verse
+        /// after first verse set it to 1 and ...
+        /// VORDERs for next verses are updated automatically in this function
+        /// </param>
         public GanjoorVerse CreateNewVerse(int PoemID, int beforeVerseOrder, VersePosition Position)
         {
             if (!Connected)
@@ -1855,7 +2021,7 @@ namespace ganjoor
                 return false;
             return Export(fileName, poet._CatID, true);
         }
-        private void CreateEmptyDB(SQLiteConnection connection)
+        private static void CreateEmptyDB(SQLiteConnection connection)
         {
             using (SQLiteCommand cmd = new SQLiteCommand(connection))
             {
@@ -1872,8 +2038,8 @@ namespace ganjoor
                 cmd.ExecuteNonQuery();
             }
         }
-        private bool Export(string fileName, int CatID, bool ExportPoet)
 
+        private bool Export(string fileName, int CatID, bool ExportPoet)
         {
             SQLiteConnection newConnection;
             try

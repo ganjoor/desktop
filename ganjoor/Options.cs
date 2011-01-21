@@ -45,7 +45,7 @@ namespace ganjoor
             chkCheckForUpdate.Checked = Settings.Default.CheckForUpdate;
             chkScrollToFaved.Checked = Settings.Default.ScrollToFavedVerse;
             chkCenteredViewMode.Checked = GanjoorViewMode.Centered == (GanjoorViewMode)Settings.Default.ViewMode;
-            _RandomCatID = Settings.Default.RandomCatID;
+            _RandomCatIDs = Settings.Default.RandomCats;
             lblRandomCat.Text = RandomCatPath;
             numMaxFavs.Value = Settings.Default.FavItemsInPage;
             txtProxyServer.Text = Settings.Default.HttpProxyServer;
@@ -74,7 +74,7 @@ namespace ganjoor
             Settings.Default.CurrentLinkColor = btnCurrentLinkColor.BackColor;
             Settings.Default.HighlightColor = btnHighlightColor.BackColor;
             Settings.Default.CheckForUpdate = chkCheckForUpdate.Checked;
-            Settings.Default.RandomCatID = _RandomCatID;
+            Settings.Default.RandomCats = _RandomCatIDs;
             Settings.Default.BandLinkColor = btnBandLinkColor.BackColor;
             Settings.Default.ScrollToFavedVerse = chkScrollToFaved.Checked;
             Settings.Default.ViewMode = chkCenteredViewMode.Checked ? (int)GanjoorViewMode.Centered : (int)GanjoorViewMode.RightAligned;
@@ -232,23 +232,41 @@ namespace ganjoor
             }
         }
 
-        private int _RandomCatID = 0;
+        private string _RandomCatIDs = "0";
         private string RandomCatPath
         {
             get
             {
-                if (_RandomCatID == 0)
+                if (_RandomCatIDs == "0")
                     return "همه";
                 DbBrowser db = new DbBrowser();
-                GanjoorCat cat = db.GetCategory(_RandomCatID);
-                if(cat == null)
-                    return "همه";
-                List<GanjoorCat> cats = db.GetParentCategories(cat);
+                string[] CatStrs = _RandomCatIDs.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+
+                List<GanjoorCat> SelectedCats = new List<GanjoorCat>();
+                foreach(string CatStr in CatStrs)
+                {
+                    GanjoorCat cat = db.GetCategory(Convert.ToInt32(CatStr));
+                    if(cat != null)
+                        SelectedCats.Add(cat);
+                        
+                }
                 string result = "";
-                foreach (GanjoorCat parCat in cats)
-                    if(parCat._ID != 0)                         
-                        result += parCat._Text + " ->";
-                result += cat._Text;
+                if(SelectedCats.Count == 0)
+                    result = "همه";
+                else
+                {
+                    foreach (GanjoorCat cat in SelectedCats)
+                    {
+                        List<GanjoorCat> cats = db.GetParentCategories(cat);
+                        string catString = "";
+                        foreach (GanjoorCat parCat in cats)
+                            if (parCat._ID != 0)
+                                catString += parCat._Text + " ->";
+                        catString += cat._Text;
+
+                        result += (catString + "؛");
+                    }
+                }
                 db.CloseDb();
                 return result;
                     
@@ -258,10 +276,10 @@ namespace ganjoor
         {
             using (CategorySelector dlg = new CategorySelector())
             {
-                dlg.SelectedCatID = _RandomCatID;
+                dlg.CheckedCatsString = _RandomCatIDs;
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    _RandomCatID = dlg.SelectedCatID;
+                    _RandomCatIDs = dlg.CheckedCatsString;
                     lblRandomCat.Text = RandomCatPath;
                 }
             }

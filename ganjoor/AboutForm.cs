@@ -42,6 +42,9 @@ namespace ganjoor
             new string[] {"رضا رنجبر", "", "رضی‌الدین آرتیمانی", "http://blog.ganjoor.net/1389/07/16/artimani/"},
             new string[] {"علی پی‌سپار", "", "ملاهادی سبزواری", "http://blog.ganjoor.net/1389/07/23/dg-2-1/"},
             new string[] {"مهران صمدنژاد", "", "نجمه زارع", "http://blog.ganjoor.net/1389/08/26/najmezare/"},
+            new string[] {"سجاد مهرابی", "", "سیدحمیدرضا برقعی", "http://blog.ganjoor.net/1389/10/10/borghaee/"},
+            new string[] {"مهران صمدنژاد", "", "خلیل‌الله خلیلی", "http://blog.ganjoor.net/1389/10/17/khalili-robaee/"},
+            new string[] {"علی پی‌سپار", "", "هلالی جغتایی", "http://blog.ganjoor.net/1389/10/28/helali/"},
 
         };
 

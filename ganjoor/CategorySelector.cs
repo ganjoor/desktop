@@ -13,6 +13,7 @@ namespace ganjoor
         public CategorySelector()
             : this(0)
         {
+            treeCats.CheckBoxes = true;
         }
         public CategorySelector(int PoetID)
         {
@@ -85,6 +86,117 @@ namespace ganjoor
             set
             {
                 SelectCat(value);
+            }
+        }
+
+        private void CheckCatList(int[] CatList)
+        {
+            if (CatList.Length == 0)
+                CatList = new int[] { 0 };
+            foreach (TreeNode Node in treeCats.Nodes)
+                CheckCatList(CatList, Node);
+        }
+        private void CheckCatList(int[] CatList, TreeNode Node)
+        {
+            int NodeID = (int)Node.Tag;            
+            foreach(int CatID in CatList)
+                if (CatID == NodeID)
+                {
+                    Node.Checked = true;
+                    CheckUnCheckChildren(Node, true);
+                    Node.ExpandAll();
+                    TreeNode parent = Node.Parent;
+                    while (parent != null)
+                    {
+                        parent.Expand();
+                        parent = parent.Parent;
+                    }
+                    return;
+                }
+            foreach (TreeNode ChildNode in Node.Nodes)
+                CheckCatList(CatList, ChildNode);
+        }
+
+        private void FillWithCheckedList(List<int> outputList)
+        {
+            foreach (TreeNode Node in treeCats.Nodes)
+                FillWithCheckedList(outputList, Node);
+        }
+        private void FillWithCheckedList(List<int> outputList, TreeNode Node)
+        {
+            if (Node.Checked)
+                outputList.Add((int)Node.Tag);
+            else//if a node is check all its children is assumed to be checked
+            foreach (TreeNode ChildNode in Node.Nodes)
+                FillWithCheckedList(outputList, ChildNode);
+        }
+
+        public int[] CheckedCats
+        {
+            set
+            {
+                CheckCatList(value);
+            }
+            get
+            {
+                List<int> checkedCatList = new List<int>();
+                FillWithCheckedList(checkedCatList);
+                return checkedCatList.ToArray();
+            }
+        }
+        /// <summary>
+        /// Sample: "12;23;2;67;"
+        /// </summary>
+        public string CheckedCatsString
+        {
+            set
+            {
+                string[] CatStrs = value.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+                int[] Cats = new int[CatStrs.Length];
+                for (int i = 0; i < CatStrs.Length; i++)
+                    Cats[i] = Convert.ToInt32(CatStrs[i]);
+                CheckedCats = Cats;
+            }
+            get
+            {
+                string result = "";
+                foreach (int Cat in this.CheckedCats)
+                {
+                    result += Cat.ToString();
+                    result += ";";
+                }
+                return result;
+            }
+        }
+
+        private void treeCats_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node.Checked)
+            {
+                int Cat = (int)e.Node.Tag;
+                if (Cat == 0)
+                {
+                    for (int i = 1; i < treeCats.Nodes.Count; i++)
+                        CheckUnCheckChildren(treeCats.Nodes[i], false);
+                }
+                else
+                {
+                    treeCats.Nodes[0].Checked = false;
+                }
+            }
+            CheckUnCheckChildren(e.Node, e.Node.Checked);
+            if (e.Node.Checked)
+                e.Node.ExpandAll();
+            else
+                e.Node.Collapse();
+        }
+
+        private void CheckUnCheckChildren(TreeNode Node, bool check)
+        {
+            foreach (TreeNode ChildNode in Node.Nodes)
+            {
+                ChildNode.Checked = check;
+                CheckUnCheckChildren(ChildNode, check);
             }
         }
 

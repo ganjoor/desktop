@@ -77,6 +77,12 @@
     <Compile Include="CategorySelector.Designer.cs">
       <DependentUpon>CategorySelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConflictingCats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConflictingCats.Designer.cs">
+      <DependentUpon>ConflictingCats.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConflictingPoets.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,7 @@
     <Compile Include="Editor.Designer.cs">
       <DependentUpon>Editor.cs</DependentUpon>
     </Compile>
+    <Compile Include="GAdvisor.cs" />
     <Compile Include="GanjoorCat.cs" />
     <Compile Include="GanjoorFavPage.cs" />
     <Compile Include="GanjoorPoem.cs" />
@@ -175,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CategorySelector.resx">
       <DependentUpon>CategorySelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConflictingCats.resx">
+      <DependentUpon>ConflictingCats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConflictingPoets.resx">
       <DependentUpon>ConflictingPoets.cs</DependentUpon>

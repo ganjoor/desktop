@@ -529,18 +529,6 @@ namespace ganjoor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("24")]
-        public int RandomCatID {
-            get {
-                return ((int)(this["RandomCatID"]));
-            }
-            set {
-                this["RandomCatID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string HttpProxyServer {
             get {
@@ -560,6 +548,18 @@ namespace ganjoor.Properties {
             }
             set {
                 this["HttpProxyPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        public string RandomCats {
+            get {
+                return ((string)(this["RandomCats"]));
+            }
+            set {
+                this["RandomCats"] = value;
             }
         }
     }
