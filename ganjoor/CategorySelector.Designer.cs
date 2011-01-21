@@ -41,6 +41,7 @@
             this.treeCats.RightToLeftLayout = true;
             this.treeCats.Size = new System.Drawing.Size(284, 226);
             this.treeCats.TabIndex = 2;
+            this.treeCats.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeCats_AfterCheck);
             // 
             // btnOK
             // 

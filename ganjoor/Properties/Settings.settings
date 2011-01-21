@@ -128,14 +128,14 @@
     <Setting Name="MinNewPoemID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100001</Value>
     </Setting>
-    <Setting Name="RandomCatID" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">24</Value>
-    </Setting>
     <Setting Name="HttpProxyServer" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="HttpProxyPort" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RandomCats" Type="System.String" Scope="User">
+      <Value Profile="(Default)">24</Value>
     </Setting>
   </Settings>
 </SettingsFile>

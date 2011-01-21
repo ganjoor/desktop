@@ -186,7 +186,13 @@ namespace ganjoor
                 MessageBox.Show("امکان نمایش صفحۀ معادل در سایت گنجور وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             else
-                System.Diagnostics.Process.Start(ganjoorView.CurrentPageGanjoorUrl);
+                try
+                {
+                    System.Diagnostics.Process.Start(ganjoorView.CurrentPageGanjoorUrl);
+                }
+                catch
+                {
+                }
         }
 
         private void btnComments_Click(object sender, EventArgs e)
@@ -196,7 +202,13 @@ namespace ganjoor
                 MessageBox.Show("امکان نمایش صفحۀ معادل در سایت گنجور وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             else
-                System.Diagnostics.Process.Start(ganjoorView.CurrentPoemCommentsUrl);
+                try
+                {
+                    System.Diagnostics.Process.Start(ganjoorView.CurrentPoemCommentsUrl);
+                }
+                catch
+                {
+                }
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -510,10 +522,13 @@ namespace ganjoor
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.Filter = "*.gdb|*.gdb";
-                dlg.FileName = "new.gdb";
-                if(dlg.ShowDialog(this) == DialogResult.OK)
-                    ganjoorView.ImportDb(dlg.FileName);
+                dlg.Filter = "GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db";
+                dlg.Multiselect = true;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    foreach(string FileName in dlg.FileNames)
+                        ganjoorView.ImportDb(FileName);
+                }
             }
         }
 
@@ -578,6 +593,11 @@ namespace ganjoor
         {
             using (DownloadGDBList dlg = new DownloadGDBList())
                 dlg.ShowDialog(this);
+        }
+
+        private void btnChangeLog_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://ganjoor.sourceforge.net/changelog/");
         }
 
 

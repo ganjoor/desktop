@@ -33,6 +33,7 @@ namespace ganjoor
                 _db = new DbBrowser();                
             }         
         }
+
         #endregion
 
         #region Database Browser
@@ -56,6 +57,7 @@ namespace ganjoor
         private int DistanceBetweenLines = 20;
         private const int DistanceFromRight = 20;
         private const int DistanceFromRightStep = 10;
+        private const int MaxPoemPreviewLength = 50;
         #endregion
 
         #region Events
@@ -112,7 +114,6 @@ namespace ganjoor
             ShowCategory(category, true);
 
         }
-
         private void ShowCategory(GanjoorCat category, bool keepTrack)
         {
             if (EditMode)
@@ -127,7 +128,7 @@ namespace ganjoor
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
-            this.Controls.Clear();
+            ClearControls();
 
 
             int catsTop = DistanceFromTop;
@@ -168,7 +169,12 @@ namespace ganjoor
                 lblPoem.Text = poems[i]._Title;
                 List<GanjoorVerse> v = _db.GetVerses(poems[i]._ID, 1);
                 if (v.Count > 0)
-                    lblPoem.Text += " : " + v[0]._Text;
+                {
+                    string vText = v[0]._Text;
+                    if (vText.Length > MaxPoemPreviewLength)
+                        vText = vText.Substring(0, (MaxPoemPreviewLength-4)) + " ...";
+                    lblPoem.Text += " : " + vText;
+                }
                 lblPoem.Location = new Point(poemsDistanceFromRight, poemsTop + (i - category._StartPoem) * DistanceBetweenLines + ParagraphShift);
                 Size szPoemTitleSizeWithWordWrap = TextRenderer.MeasureText(lblPoem.Text, this.Font, new Size(this.Width - lastDistanceFromRight - 20, Int32.MaxValue), TextFormatFlags.WordBreak);
                 Size szPoemTitleSizeWithoutWordWrap = TextRenderer.MeasureText(lblPoem.Text, this.Font, new Size(this.Width - lastDistanceFromRight - 20, Int32.MaxValue), TextFormatFlags.Default);
@@ -364,7 +370,7 @@ namespace ganjoor
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
-            this.Controls.Clear();
+            ClearControls();
 
             int catsTop = DistanceFromTop;
             int lastDistanceFromRight;
@@ -751,26 +757,39 @@ namespace ganjoor
         #region Fancy Stuff!
         private Color bBegin;
         private Color bEnd;
-        private bool GradiantBackground;        
+        private bool GradiantBackground;
+        private TextureBrush BackgroundBrush;
+        
         public void ApplyUISettings()
         {
             this.ForeColor = Settings.Default.TextColor;
             this.BackColor = Settings.Default.BackColor;
+            GradiantBackground = Settings.Default.GradiantBackground;
+            if(!GradiantBackground)
             if (!string.IsNullOrEmpty(Settings.Default.BackImagePath))
             {
                 if (System.IO.File.Exists(Settings.Default.BackImagePath))
+                {
+                    if (this.BackgroundBrush != null)
+                        this.BackgroundBrush.Dispose();
                     try
                     {
-                        this.BackgroundImage = new Bitmap(Settings.Default.BackImagePath);
+                        this.BackgroundBrush = new TextureBrush(new Bitmap(Settings.Default.BackImagePath));
                     }
                     catch
                     {
+                        this.BackgroundBrush = null;
                     }
+                }
             }
             else
-                this.BackgroundImage = null;
-            GradiantBackground = Settings.Default.GradiantBackground;
-            if (GradiantBackground)
+            {
+                if (this.BackgroundBrush != null)
+                    this.BackgroundBrush.Dispose();
+                this.BackgroundBrush = null;
+
+            }
+            if (GradiantBackground || this.BackgroundBrush != null)
                 this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             else
             {
@@ -807,18 +826,12 @@ namespace ganjoor
                 }
             }
             else
-                base.OnPaint(e);
-        }
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            if (this.BackgroundImage != null && this.Width > 0 && this.Height>0)
-            {
-                e.Graphics.DrawImageUnscaled(this.BackgroundImage, new Rectangle(0,0,this.Width, this.Height));
-            }   
-            else
-                base.OnPaintBackground(e);
+                if(BackgroundBrush != null)
+                    e.Graphics.FillRectangle(BackgroundBrush, this.ClientRectangle);
+                else
+                    base.OnPaint(e);
 
-        }
+        }        
         public override Font Font
         {
             get
@@ -865,12 +878,6 @@ namespace ganjoor
                             ShowHome(false);
                     }
             }
-        }
-        protected override void OnScroll(ScrollEventArgs se)
-        {
-            if (this.BackgroundImage != null)
-                this.Invalidate();
-            base.OnScroll(se);
         }
         #endregion
 
@@ -1162,7 +1169,7 @@ namespace ganjoor
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
-            this.Controls.Clear();
+            ClearControls();
             GanjoorSearchPage prePage=null, nextPage = null;
             using(DataTable poemsList = _db.FindPoemsContaingPhrase(phrase, PageStart, Count+1, PoetID))
             {
@@ -1440,7 +1447,7 @@ namespace ganjoor
             Cursor = Cursors.WaitCursor; Application.DoEvents();
             this.SuspendLayout();
             this.VerticalScroll.Value = 0;this.HorizontalScroll.Value = 0;
-            this.Controls.Clear();
+            ClearControls();
             int CountCopy = Count;
             GanjoorFavPage prePage = null, nextPage = null;
             using (DataTable poemsList = _db.GetFavs(PageStart, Count + 1))
@@ -1628,18 +1635,34 @@ namespace ganjoor
         #region Random Poem
         public void ShowRandomPoem()
         {
-            if (_LastRandomCatID != Settings.Default.RandomCatID)
+            if (_LastRandomCatsString != Settings.Default.RandomCats)
             {
-                _LastRandomCatID = Settings.Default.RandomCatID;
-                _LastRandomCatList = new List<int>();
-                if (_LastRandomCatID != 0)
+                _LastRandomCatsString = Settings.Default.RandomCats;
+
+                string[] randomCatStrs = _LastRandomCatsString.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+                int[] randomCats = new int[randomCatStrs.Length];
+                try
                 {
-                    if (_db.HasAnyPoem(_LastRandomCatID))
-                        _LastRandomCatList.Add(_LastRandomCatID);
-                    foreach (int CatID in _db.GetAllSubCats(_LastRandomCatID))
+                    for (int i = 0; i < randomCatStrs.Length; i++)
+                        randomCats[i] = Convert.ToInt32(randomCatStrs[i]);
+                }
+                catch
+                {
+                    randomCats = new int[] { 0 };
+                }
+
+                _LastRandomCatList = new List<int>();
+                foreach (int RandomCatID in randomCats)
+                {
+                    if (RandomCatID != 0)
                     {
-                        if (_db.HasAnyPoem(CatID))
-                            _LastRandomCatList.Add(CatID);
+                        if (_db.HasAnyPoem(RandomCatID))
+                            _LastRandomCatList.Add(RandomCatID);
+                        foreach (int CatID in _db.GetAllSubCats(RandomCatID))
+                        {
+                            if (_db.HasAnyPoem(CatID))
+                                _LastRandomCatList.Add(CatID);
+                        }
                     }
                 }
             }
@@ -1660,7 +1683,7 @@ namespace ganjoor
             else
                 ShowRandomPoem();//not any random id exists, so repeat until finding a valid id
         }
-        private int _LastRandomCatID = 0;
+        private string _LastRandomCatsString = "0";
         private static List<int> _LastRandomCatList = new List<int>();
         #endregion
 
@@ -1678,6 +1701,36 @@ namespace ganjoor
                     foreach (GanjoorPoet delPoet in cnflts)
                         _db.DeletePoet(delPoet._ID);
                 }
+            }
+            GanjoorCat[] catCnlts = _db.GetConflictingCats(fileName);
+            if (catCnlts.Length > 0)
+            {
+                using (ConflictingCats dlg = new ConflictingCats(catCnlts))
+                {
+                    if (dlg.ShowDialog(this.Parent) == DialogResult.Cancel)
+                        return;
+                    catCnlts = dlg.DeleteList;
+                    foreach (GanjoorCat delCat in catCnlts)
+                        _db.DeleteCat(delCat._ID);
+                }
+            }
+            GanjoorCat[] missingPoets = _db.GetCategoriesWithMissingPoet(fileName);
+            if (missingPoets.Length > 0)
+            {
+                if (MessageBox.Show(
+                    "مجموعه‌ای که تلاش می‌کنید آن را اضافه کنید شامل بخشهایی از آثار شاعرانی است که آنها را در گنجور رومیزی خود ندارید."
+                    + Environment.NewLine
+                    + "گنجور رومیزی می‌تواند با ایجاد شاعران جدید تلاش کند این مشکل را حل کند، اما این همیشه حل کنندۀ این مشکل نیست."
+                    + Environment.NewLine
+                    + "آیا می‌خواهید از اضافه کردن این مجموعه صرف نظر کنید؟"
+                    , "هشدار"
+                    , MessageBoxButtons.YesNo
+                    , MessageBoxIcon.Warning
+                    , MessageBoxDefaultButton.Button1
+                    , MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading
+                    ) == DialogResult.Yes
+                    )
+                    return;
             }
             if (_db.ImportDb(fileName))
                 ShowHome(true);
@@ -2339,6 +2392,15 @@ namespace ganjoor
             {
                 ShowPoem(_db.GetPoem(_iCurPoem), false);
             }
+        }
+        #endregion
+
+        #region Clear Controls
+        private void ClearControls()
+        {
+            foreach (Control ctl in this.Controls)
+                ctl.Dispose();                 
+            this.Controls.Clear();
         }
         #endregion
 
