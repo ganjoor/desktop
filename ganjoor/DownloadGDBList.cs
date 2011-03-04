@@ -62,6 +62,7 @@ namespace ganjoor
         private const int GRDCLMN_CAT = 0;
         private const int GRDCLMN_DWNLD = 1;
         private const int GRDCLMN_MORE = 2;
+        private const int GRDCLMN_CHECK = 3;
 
         private void grdList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -75,7 +76,50 @@ namespace ganjoor
                     if (!string.IsNullOrEmpty(_Lst[e.RowIndex].BlogUrl))
                         Process.Start(_Lst[e.RowIndex].BlogUrl);
                     break;
+                case GRDCLMN_CHECK:
+                    grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !Convert.ToBoolean(grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                    break;
             }
         }
+
+        private void grdList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == GRDCLMN_CHECK)
+                EnableDownloadCheckedButton();
+
+        }
+
+        private void EnableDownloadCheckedButton()
+        {            
+            foreach(DataGridViewRow Row in grdList.Rows)
+                if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
+                {
+                    btnDownloadChecked.Enabled = true;
+                    return;
+                }
+            btnDownloadChecked.Enabled = false;
+        }
+
+        private void btnDownloadChecked_Click(object sender, EventArgs e)
+        {
+            dwnldList = new List<GDBInfo>();
+            foreach (DataGridViewRow Row in grdList.Rows)
+                if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
+                    dwnldList.Add(_Lst[Row.Index]);
+        }
+
+
+        public List<GDBInfo> dwnldList
+        {
+            get;
+            set;
+        }
+
+                
+
+        
+
+
+
     }
 }

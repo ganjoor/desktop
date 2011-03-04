@@ -31,6 +31,7 @@ namespace ganjoor
         private const int GRDCLMN_DWNLD = 1;
         private const int GRDCLMN_MORE = 2;
         private const int GRDCLMN_IGNORE = 3;
+        private const int GRDCLMN_CHECK = 4;
 
         private void grdList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -50,6 +51,9 @@ namespace ganjoor
                             break;
                         case GRDCLMN_IGNORE:
                             grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !((bool)grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);//why do I need this?                            
+                            break;
+                        case GRDCLMN_CHECK:
+                            grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !Convert.ToBoolean(grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
                             break;
 
                     }
@@ -75,6 +79,40 @@ namespace ganjoor
                 return Lst;
             }
         }
+
+        private void EnableDownloadCheckedButton()
+        {
+            foreach (DataGridViewRow Row in grdList.Rows)
+                if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
+                {
+                    btnDownloadChecked.Enabled = true;
+                    return;
+                }
+            btnDownloadChecked.Enabled = false;
+        }
+
+        private void grdList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == GRDCLMN_CHECK)
+                EnableDownloadCheckedButton();
+
+        }
+
+        public List<GDBInfo> dwnldList
+        {
+            get;
+            set;
+        }
+
+        private void btnDownloadChecked_Click(object sender, EventArgs e)
+        {
+            dwnldList = new List<GDBInfo>();
+            foreach (DataGridViewRow Row in grdList.Rows)
+                if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
+                    dwnldList.Add(Row.Tag as GDBInfo);
+        }
+
+
 
     }
 }

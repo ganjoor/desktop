@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace ganjoor
 {
@@ -9,7 +10,8 @@ namespace ganjoor
     {
         public static void AdviseOnUnhandledException(string exception)
         {
-            string expMessage = "خطای پیشبینی نشده‌ای روی سیستم شما رخ داد. لطفاً محتوای این پیغام را برای ایمیل ganjoor@ganjoor.net ارسال کنید تا دربارۀ آن تحقیق شود: \r\n با زدن کلید Ctrl+C می‌توانید متن این پنجره را کپی کنید.\r\n";
+            string expMessage = "خطای پیشبینی نشده‌ای روی سیستم شما رخ داد. لطفاً محتوای این پیغام را برای ایمیل ganjoor@ganjoor.net ارسال کنید تا دربارۀ آن تحقیق شود: \r\n با زدن کلید Ctrl+C می‌توانید متن این پنجره را کپی کنید."+ Environment.NewLine;
+            expMessage += "Application Version = " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine;
             expMessage += "Application Path = " + Application.ExecutablePath + Environment.NewLine;
             expMessage += "Windows Version = " + Environment.OSVersion.VersionString + Environment.NewLine;
             expMessage += ((IntPtr.Size == 8) ? "64 bit mode" : (IntPtr.Size == 4) ? "32 bit mode" : "unknown mode") + Environment.NewLine;

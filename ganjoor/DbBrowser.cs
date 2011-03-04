@@ -1942,6 +1942,8 @@ namespace ganjoor
         }
         public void DeletePoet(int PoetID)
         {
+            DeleteCat(this.GetPoet(PoetID)._CatID);
+            /*
             using (DataTable tbl = new DataTable())
             {
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(String.Format("SELECT cat_id FROM poet WHERE id={0}", PoetID), _con))
@@ -1950,7 +1952,7 @@ namespace ganjoor
                     foreach (DataRow Row in tbl.Rows)
                         DeleteCat(Convert.ToInt32(Row.ItemArray[0]));
                 }
-            }
+            }*/
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = String.Format("DELETE FROM poet WHERE id={0};", PoetID);
