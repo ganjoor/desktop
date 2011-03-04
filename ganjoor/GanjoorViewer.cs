@@ -1689,7 +1689,7 @@ namespace ganjoor
 
         #region Import Db / Import+Export Favs
         public void ImportDb(string fileName)
-        {
+        {            
             GanjoorPoet[] cnflts = _db.GetConflictingPoets(fileName);
             if (cnflts.Length > 0)
             {

@@ -11,6 +11,7 @@ using System.Xml;
 using System.IO;
 using System.Reflection;
 using ganjoor.Properties;
+using System.IO.Compression;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
@@ -481,7 +482,14 @@ namespace ganjoor
                         {
                             using (NewGDBFound dlg = new NewGDBFound(finalList))
                             {
-                                dlg.ShowDialog(this);
+                                if(dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                    using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
+                                        if (dwnDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                            foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
+                                            {
+                                                ImportGdb(DownloadedFile);
+                                                File.Delete(DownloadedFile);
+                                            }
                                 foreach (int CatID in dlg.IgnoreList)
                                     db.AddToGDBIgnoreList(CatID);
                             }
@@ -522,14 +530,45 @@ namespace ganjoor
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.Filter = "GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db";
+                dlg.Filter = "All Supported Packages|*.gdb;*.s3db;*.zip|GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db|Zipped GDB Files(*.zip)|*.zip";
                 dlg.Multiselect = true;
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    foreach(string FileName in dlg.FileNames)
-                        ganjoorView.ImportDb(FileName);
+                    foreach (string FileName in dlg.FileNames)
+                    {
+                        ImportGdb(FileName);
+                    }
                 }
             }
+        }
+
+        private void ImportGdb(string FileName)
+        {
+            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
+            {
+                using (ZipStorer zip = ZipStorer.Open(FileName, FileAccess.Read))
+                {
+                    List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
+                    foreach (ZipStorer.ZipFileEntry entry in dir)
+                    {
+                        string gdbFileName = Path.GetFileName(entry.FilenameInZip);
+                        if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
+                        {
+                            string ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+                            if (!Directory.Exists(ganjoorPath))
+                                Directory.CreateDirectory(ganjoorPath);
+                            string gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
+                            if (zip.ExtractFile(entry, gdbExtractPath))
+                            {
+                                ganjoorView.ImportDb(gdbExtractPath);
+                                File.Delete(gdbExtractPath);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+                ganjoorView.ImportDb(FileName);
         }
 
         private void mnuExportFavs_Click(object sender, EventArgs e)
@@ -592,7 +631,16 @@ namespace ganjoor
         private void btnDownloadGDBList_Click(object sender, EventArgs e)
         {
             using (DownloadGDBList dlg = new DownloadGDBList())
-                dlg.ShowDialog(this);
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
+                        if (dwnDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                            foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
+                            {
+                                ImportGdb(DownloadedFile);
+                                File.Delete(DownloadedFile);
+                            }
+                }
         }
 
         private void btnChangeLog_Click(object sender, EventArgs e)
