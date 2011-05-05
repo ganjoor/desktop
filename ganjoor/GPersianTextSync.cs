@@ -12,7 +12,7 @@ namespace ganjoor
                 inputStr
                     .Replace('ك', 'ک')
                     .Replace('ي', 'ی')
-                    .Replace("ۀ", "هٔ")
+                    .Replace("هٔ", "هٔ")
                     .Replace("ه‌ی", "هٔ")
                     .Replace("0", "۰")
                     .Replace("1", "۱")

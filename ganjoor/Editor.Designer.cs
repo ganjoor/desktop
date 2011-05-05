@@ -550,7 +550,7 @@
             // 
             this.btnEditPoetBio.Name = "btnEditPoetBio";
             this.btnEditPoetBio.Size = new System.Drawing.Size(199, 22);
-            this.btnEditPoetBio.Text = "ویرایش زندگینامۀ شاعر";
+            this.btnEditPoetBio.Text = "ویرایش زندگینامهٔ شاعر";
             this.btnEditPoetBio.Click += new System.EventHandler(this.btnEditPoetBio_Click);
             // 
             // Editor

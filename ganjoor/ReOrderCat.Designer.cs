@@ -214,7 +214,7 @@
             this.btnSaveOrder.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveOrder.Name = "btnSaveOrder";
             this.btnSaveOrder.Size = new System.Drawing.Size(89, 22);
-            this.btnSaveOrder.Text = "ذخیرۀ این ترتیب";
+            this.btnSaveOrder.Text = "ذخیرهٔ این ترتیب";
             this.btnSaveOrder.Click += new System.EventHandler(this.btnSaveOrder_Click);
             // 
             // ReOrderCat

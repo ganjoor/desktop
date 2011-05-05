@@ -1226,7 +1226,7 @@ namespace ganjoor
                     prePage = new GanjoorSearchPage(phrase, PageStart - CountCopy, CountCopy, PoetID);
                     lblPrevPage.Tag = prePage;
                     lblPrevPage.AutoSize = true;
-                    lblPrevPage.Text = "صفحۀ قبل";
+                    lblPrevPage.Text = "صفحهٔ قبل";
                     lblPrevPage.Location = new Point(200, catsTop);
                     lblPrevPage.LinkBehavior = LinkBehavior.HoverUnderline;
                     lblPrevPage.BackColor = Color.Transparent;
@@ -1243,7 +1243,7 @@ namespace ganjoor
                     nextPage = new GanjoorSearchPage(phrase, PageStart + Count, Count, PoetID);
                     lblNextPage.Tag = nextPage;
                     lblNextPage.AutoSize = true;
-                    lblNextPage.Text = "صفحۀ بعد";
+                    lblNextPage.Text = "صفحهٔ بعد";
                     lblNextPage.Location = new Point(this.Width - 200, catsTop);
                     lblNextPage.LinkBehavior = LinkBehavior.HoverUnderline;
                     lblNextPage.BackColor = Color.Transparent;
@@ -1283,7 +1283,7 @@ namespace ganjoor
             _iCurPoem = 0;
 
 
-            _strPage = "نتایج جستجو برای \"" + phrase + "\" در آثار " + _db.GetPoet(PoetID)._Name + " صفحۀ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
+            _strPage = "نتایج جستجو برای \"" + phrase + "\" در آثار " + _db.GetPoet(PoetID)._Name + " صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, false, false, false, false, string.Empty, prePage, nextPage);
 
@@ -1498,7 +1498,7 @@ namespace ganjoor
                     prePage = new GanjoorFavPage(PageStart - CountCopy, CountCopy);
                     lblPrevPage.Tag = prePage;
                     lblPrevPage.AutoSize = true;
-                    lblPrevPage.Text = "صفحۀ قبل";
+                    lblPrevPage.Text = "صفحهٔ قبل";
                     lblPrevPage.Location = new Point(200, catsTop);
                     lblPrevPage.LinkBehavior = LinkBehavior.HoverUnderline;
                     lblPrevPage.BackColor = Color.Transparent;
@@ -1515,7 +1515,7 @@ namespace ganjoor
                     nextPage = new GanjoorFavPage(PageStart + Count, Count);
                     lblNextPage.Tag = nextPage;
                     lblNextPage.AutoSize = true;
-                    lblNextPage.Text = "صفحۀ بعد";
+                    lblNextPage.Text = "صفحهٔ بعد";
                     lblNextPage.Location = new Point(this.Width - 200, catsTop);
                     lblNextPage.LinkBehavior = LinkBehavior.HoverUnderline;
                     lblNextPage.BackColor = Color.Transparent;
@@ -1553,7 +1553,7 @@ namespace ganjoor
             Cursor = Cursors.Default;
 
 
-            _strPage = "نشانه‌ها - صفحۀ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
+            _strPage = "نشانه‌ها - صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, false, false, false, true, string.Empty, prePage, nextPage);
 
@@ -1720,7 +1720,7 @@ namespace ganjoor
                 if (MessageBox.Show(
                     "مجموعه‌ای که تلاش می‌کنید آن را اضافه کنید شامل بخشهایی از آثار شاعرانی است که آنها را در گنجور رومیزی خود ندارید."
                     + Environment.NewLine
-                    + "گنجور رومیزی می‌تواند با ایجاد شاعران جدید تلاش کند این مشکل را حل کند، اما این همیشه حل کنندۀ این مشکل نیست."
+                    + "گنجور رومیزی می‌تواند با ایجاد شاعران جدید تلاش کند این مشکل را حل کند، اما این همیشه حل کنندهٔ این مشکل نیست."
                     + Environment.NewLine
                     + "آیا می‌خواهید از اضافه کردن این مجموعه صرف نظر کنید؟"
                     , "هشدار"

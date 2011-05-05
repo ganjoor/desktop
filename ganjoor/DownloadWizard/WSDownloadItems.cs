@@ -1,28 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.ComponentModel;
 
 namespace ganjoor
 {
-    public partial class DownloadingGdbList : Form
+    partial class WSDownloadItems : WizardStage
     {
-        public DownloadingGdbList(List<GDBInfo> Lst)
+    
+        public WSDownloadItems()
+            : base()
         {
             InitializeComponent();
-            foreach (GDBInfo gdbInfo in Lst)
+        }
+
+        public List<GDBInfo> dwnldList
+        {
+            get;
+            set;
+        }
+
+        public override bool NextStageButton
+        {
+            get
             {
-                GdbDownloadInfo ctl = new GdbDownloadInfo(gdbInfo);
-                this.pnlList.Controls.Add(ctl);
-                ctl.Dock = DockStyle.Top;
-                ctl.SendToBack();
+                return false;
             }
         }
 
+        public override bool PreviousStageButton
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public override void OnActivated()
+        {
+            if (dwnldList != null)
+                foreach (GDBInfo gdbInfo in dwnldList)
+                {
+                    GdbDownloadInfo ctl = new GdbDownloadInfo(gdbInfo);
+                    this.pnlList.Controls.Add(ctl);
+                    ctl.Dock = DockStyle.Top;
+                    ctl.SendToBack();
+                }
+
+            BeginNextDownload();
+
+        }
+
+        #region Automatic Next Stage Event
+        public event EventHandler OnStageDone = null;
+        #endregion
 
         private int _DownloadIndex = 0;
         private int _RealDownloadIndex
@@ -43,11 +76,6 @@ namespace ganjoor
             }
         }
 
-        private void DownloadingGdbList_Shown(object sender, EventArgs e)
-        {
-            BeginNextDownload();
-        }
-
         private void BeginNextDownload()
         {
             if (_DownloadIndex < this.pnlList.Controls.Count)
@@ -55,7 +83,9 @@ namespace ganjoor
                 backgroundWorker.RunWorkerAsync();
             }
             else
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                if (this.OnStageDone != null)
+                    OnStageDone(this, new EventArgs());                    
+
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -64,7 +94,7 @@ namespace ganjoor
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
             string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
-                ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl, 
+                ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl,
                 targetDir,
                 this.backgroundWorker);
             if (!string.IsNullOrEmpty(sFileDownloaded))
@@ -85,7 +115,10 @@ namespace ganjoor
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled || !btnStop.Enabled)
-                DialogResult = System.Windows.Forms.DialogResult.OK;
+            {
+                if (this.OnStageDone != null)
+                    OnStageDone(this, new EventArgs());
+            }
             else
             {
                 _DownloadIndex++;
@@ -93,24 +126,20 @@ namespace ganjoor
             }
         }
 
-        private void DownloadingGdbList_FormClosing(object sender, FormClosingEventArgs e)
+        private void btnStop_Click(object sender, EventArgs e)
         {
             if (backgroundWorker.IsBusy)
             {
-                e.Cancel = true;
                 if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
                 {
                     btnStop.Enabled = false;
                     backgroundWorker.CancelAsync();
+                    Application.DoEvents();
                 }
             }
-            else
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
+
     }
 }

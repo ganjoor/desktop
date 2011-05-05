@@ -18,6 +18,47 @@ namespace ganjoor
         public string FileExt { get; set; }
         public DateTime PubDate { get; set; }
 
+        public static bool RetrieveGDBListProperties(string url, out string Name, out string Description)
+        {
+            Name = Description = "";
+            try
+            {
+                WebRequest req = WebRequest.Create(url);
+                ConfigureProxy(ref req);
+                using (WebResponse response = req.GetResponse())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            XmlDocument doc = new XmlDocument();
+                            doc.LoadXml(reader.ReadToEnd());
+
+                            //Should Redirect?
+                            XmlNode redirectNode = doc.GetElementsByTagName("RedirectInfo")[0];
+                            foreach (XmlNode Node in redirectNode.ChildNodes)
+                            {
+                                if (Node.Name == "Url")
+                                    if (!string.IsNullOrEmpty(Node.InnerText))
+                                    {
+                                        return RetrieveGDBListProperties(Node.InnerText, out Name, out Description);
+                                    }
+                            }
+
+                            Name = doc.GetElementsByTagName("Name")[0].InnerText;
+                            Description = doc.GetElementsByTagName("Description")[0].InnerText;
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
 
         public static List<GDBInfo> RetrieveNewGDBList(string url, out string Exception)
         {

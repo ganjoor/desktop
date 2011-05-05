@@ -16,7 +16,7 @@ namespace ganjoor
         public string _Name;
         public int _ID;
         public int _CatID;
-        public string _Bio;
+        public string _Bio;        
         public override bool Equals(object obj)
         {
             if (obj is GanjoorPoet)

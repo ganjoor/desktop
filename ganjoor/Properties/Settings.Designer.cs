@@ -562,5 +562,68 @@ namespace ganjoor.Properties {
                 this["RandomCats"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DownloadButtonVisible {
+            get {
+                return ((bool)(this["DownloadButtonVisible"]));
+            }
+            set {
+                this["DownloadButtonVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection CustomDownloadUrls {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomDownloadUrls"]));
+            }
+            set {
+                this["CustomDownloadUrls"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection CustomDownloadListNames {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomDownloadListNames"]));
+            }
+            set {
+                this["CustomDownloadListNames"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection CustomDownloadListDescriptions {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomDownloadListDescriptions"]));
+            }
+            set {
+                this["CustomDownloadListDescriptions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://ganjoor.sourceforge.net/newgdbs.xml")]
+        public string LastDownloadUrl {
+            get {
+                return ((string)(this["LastDownloadUrl"]));
+            }
+            set {
+                this["LastDownloadUrl"] = value;
+            }
+        }
     }
 }

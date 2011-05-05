@@ -60,6 +60,7 @@ namespace ganjoor
             btnHome.Visible = sepHome.Visible = Settings.Default.HomeButtonVisible;
             btnRandom.Visible = Settings.Default.RandomButtonVisible;
             btnEditor.Visible = Settings.Default.EditorButtonVisible;
+            btnDownload.Visible = Settings.Default.DownloadButtonVisible;
             processTextChanged = false;
             ganjoorView.ShowBeytNums = mnuShowBeytNums.Checked = btnShowBeytNums.Checked = Settings.Default.ShowBeytNums;
             processTextChanged = true;
@@ -86,10 +87,10 @@ namespace ganjoor
             }
             else
             {
-                btnNextPoem.Text = "صفحۀ بعد";
+                btnNextPoem.Text = "صفحهٔ بعد";
                 btnNextPoem.Enabled = nextItem != null;
                 btnNextPoem.Tag = nextItem;
-                btnPreviousPoem.Text = "صفحۀ قبل";
+                btnPreviousPoem.Text = "صفحهٔ قبل";
                 btnPreviousPoem.Enabled = preItem != null;
                 btnPreviousPoem.Tag = preItem;
             }
@@ -184,7 +185,7 @@ namespace ganjoor
         {
             if (string.IsNullOrEmpty(ganjoorView.CurrentPageGanjoorUrl))
             {
-                MessageBox.Show("امکان نمایش صفحۀ معادل در سایت گنجور وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                MessageBox.Show("امکان نمایش صفحهٔ معادل در سایت گنجور وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             else
                 try
@@ -200,7 +201,7 @@ namespace ganjoor
         {
             if (string.IsNullOrEmpty(ganjoorView.CurrentPageGanjoorUrl))
             {
-                MessageBox.Show("امکان نمایش صفحۀ معادل در سایت گنجور وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                MessageBox.Show("امکان نمایش صفحهٔ معادل در سایت گنجور وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             else
                 try
@@ -447,7 +448,7 @@ namespace ganjoor
                             else
                             {
                                 if (
-                                MessageBox.Show("ویرایش جدیدتر " + VersionMajor.ToString() + "." + VersionMinor.ToString() + " از نرم‌افزار ارائه شده است. صفحۀ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                                MessageBox.Show("ویرایش جدیدتر " + VersionMajor.ToString() + "." + VersionMinor.ToString() + " از نرم‌افزار ارائه شده است. صفحهٔ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
                                    ==
                                    DialogResult.Yes
                                     )
@@ -628,24 +629,24 @@ namespace ganjoor
         }
         #endregion
 
-        private void btnDownloadGDBList_Click(object sender, EventArgs e)
-        {
-            using (DownloadGDBList dlg = new DownloadGDBList())
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
-                        if (dwnDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                            foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
-                            {
-                                ImportGdb(DownloadedFile);
-                                File.Delete(DownloadedFile);
-                            }
-                }
-        }
 
         private void btnChangeLog_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://ganjoor.sourceforge.net/changelog/");
+        }
+
+        private void btnDownload_VisibleChanged(object sender, EventArgs e)
+        {
+            sepDownloadOptions.Visible = btnDownload.Visible;
+        }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            using (DownloadWizard wiz = new DownloadWizard())
+            {
+                wiz.ShowDialog(this);
+                ganjoorView.ShowHome(true);
+            }
         }
 
 

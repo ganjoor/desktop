@@ -107,10 +107,12 @@
             this.btnDownloadGDBList = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnChangeLog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnChangeLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDownload = new System.Windows.Forms.ToolStripButton();
+            this.sepDownloadOptions = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -143,6 +145,8 @@
             this.sepTools,
             this.btnHighlight,
             this.btnSearch,
+            this.sepDownloadOptions,
+            this.btnDownload,
             this.toolStripSeparator7,
             this.btnOptions,
             this.btnEditor});
@@ -361,7 +365,7 @@
             this.btnZoomOut,
             this.lblDummy,
             this.lblCurrentPage});
-            this.statusStrip.Location = new System.Drawing.Point(0, 320);
+            this.statusStrip.Location = new System.Drawing.Point(0, 476);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -395,7 +399,7 @@
             // lblDummy
             // 
             this.lblDummy.Name = "lblDummy";
-            this.lblDummy.Size = new System.Drawing.Size(700, 17);
+            this.lblDummy.Size = new System.Drawing.Size(1103, 17);
             this.lblDummy.Spring = true;
             // 
             // lblCurrentPage
@@ -794,6 +798,7 @@
             // 
             // mnuAdd
             // 
+            this.mnuAdd.Image = global::ganjoor.Properties.Resources.database_add;
             this.mnuAdd.Name = "mnuAdd";
             this.mnuAdd.Size = new System.Drawing.Size(266, 22);
             this.mnuAdd.Text = "اضافه کردن مجموعه‌های اشعار ...";
@@ -806,10 +811,11 @@
             // 
             // btnDownloadGDBList
             // 
+            this.btnDownloadGDBList.Image = global::ganjoor.Properties.Resources.database_down;
             this.btnDownloadGDBList.Name = "btnDownloadGDBList";
             this.btnDownloadGDBList.Size = new System.Drawing.Size(266, 22);
             this.btnDownloadGDBList.Text = "دریافت فهرست مجموعه‌های اشعار ...";
-            this.btnDownloadGDBList.Click += new System.EventHandler(this.btnDownloadGDBList_Click);
+            this.btnDownloadGDBList.Click += new System.EventHandler(this.btnDownload_Click);
             // 
             // mnuHlp
             // 
@@ -829,6 +835,13 @@
             this.btnCheckForUpdate.Size = new System.Drawing.Size(224, 22);
             this.btnCheckForUpdate.Text = "پرس و جو برای ویرایش جدیدتر";
             this.btnCheckForUpdate.Click += new System.EventHandler(this.btnCheckForUpdate_Click);
+            // 
+            // btnChangeLog
+            // 
+            this.btnChangeLog.Name = "btnChangeLog";
+            this.btnChangeLog.Size = new System.Drawing.Size(224, 22);
+            this.btnChangeLog.Text = "فهرست تغییرات";
+            this.btnChangeLog.Click += new System.EventHandler(this.btnChangeLog_Click);
             // 
             // toolStripSeparator5
             // 
@@ -856,22 +869,31 @@
             this.ganjoorView.Margin = new System.Windows.Forms.Padding(48, 22, 48, 22);
             this.ganjoorView.Name = "ganjoorView";
             this.ganjoorView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ganjoorView.Size = new System.Drawing.Size(784, 243);
+            this.ganjoorView.Size = new System.Drawing.Size(784, 399);
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnChangeLog
+            // btnDownload
             // 
-            this.btnChangeLog.Name = "btnChangeLog";
-            this.btnChangeLog.Size = new System.Drawing.Size(224, 22);
-            this.btnChangeLog.Text = "فهرست تغییرات";
-            this.btnChangeLog.Click += new System.EventHandler(this.btnChangeLog_Click);
+            this.btnDownload.Image = global::ganjoor.Properties.Resources.database_down;
+            this.btnDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(100, 50);
+            this.btnDownload.Text = "دریافت مجموعه‌ها";
+            this.btnDownload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            this.btnDownload.VisibleChanged += new System.EventHandler(this.btnDownload_VisibleChanged);
+            // 
+            // sepDownloadOptions
+            // 
+            this.sepDownloadOptions.Name = "sepDownloadOptions";
+            this.sepDownloadOptions.Size = new System.Drawing.Size(6, 53);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 342);
+            this.ClientSize = new System.Drawing.Size(784, 498);
             this.Controls.Add(this.ganjoorView);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.statusStrip);
@@ -986,6 +1008,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem btnDownloadGDBList;
         private System.Windows.Forms.ToolStripMenuItem btnChangeLog;
+        private System.Windows.Forms.ToolStripButton btnDownload;
+        private System.Windows.Forms.ToolStripSeparator sepDownloadOptions;
 
 
 

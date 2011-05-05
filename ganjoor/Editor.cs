@@ -33,10 +33,10 @@ namespace ganjoor
             }
             else
             {
-                btnNextPoem.Text = "صفحۀ بعد";
+                btnNextPoem.Text = "صفحهٔ بعد";
                 btnNextPoem.Enabled = nextItem != null;
                 btnNextPoem.Tag = nextItem;
-                btnPreviousPoem.Text = "صفحۀ قبل";
+                btnPreviousPoem.Text = "صفحهٔ قبل";
                 btnPreviousPoem.Enabled = preItem != null;
                 btnPreviousPoem.Tag = preItem;
             }
