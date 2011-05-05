@@ -95,6 +95,20 @@ namespace ganjoor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap database_add {
+            get {
+                object obj = ResourceManager.GetObject("database_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap database_down {
+            get {
+                object obj = ResourceManager.GetObject("database_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap database_search {
             get {
                 object obj = ResourceManager.GetObject("database_search", resourceCulture);

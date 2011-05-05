@@ -51,7 +51,7 @@
             this.label1.Size = new System.Drawing.Size(600, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "تذکر مهم: لطفاً قبل از استفاده از این ابزار از پایگاه داده‌های برنامه پشتیبان تهی" +
-                "ه کنید. محدودۀ عملکرد شامل تمام پایگاه داده‌هاست.";
+                "ه کنید. محدودهٔ عملکرد شامل تمام پایگاه داده‌هاست.";
             // 
             // btnYaKaf
             // 
@@ -71,7 +71,7 @@
             this.btnHeye.Name = "btnHeye";
             this.btnHeye.Size = new System.Drawing.Size(597, 23);
             this.btnHeye.TabIndex = 2;
-            this.btnHeye.Text = "جایگزینی «ۀ» و «ه‌ی» با «هٔ» ";
+            this.btnHeye.Text = "جایگزینی «هٔ» و «ه‌ی» با «هٔ» ";
             this.btnHeye.UseVisualStyleBackColor = true;
             this.btnHeye.Click += new System.EventHandler(this.btnHeye_Click);
             // 

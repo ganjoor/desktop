@@ -120,7 +120,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "محدودۀ جستجو:";
+            this.label3.Text = "محدودهٔ جستجو:";
             // 
             // cmbPoets
             // 

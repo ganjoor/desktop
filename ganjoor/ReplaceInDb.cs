@@ -36,7 +36,7 @@ namespace ganjoor
         private void btnHeye_Click(object sender, EventArgs e)
         {
             _db.BeginBatchOperation();
-            _db.Replace("ۀ", "هٔ");
+            _db.Replace("هٔ", "هٔ");
             _db.Replace("ه‌ی", "هٔ");
 
             _db.CommitBatchOperation();

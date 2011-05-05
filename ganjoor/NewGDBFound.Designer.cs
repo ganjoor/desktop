@@ -152,7 +152,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "مجموعه‌های جدید آمادۀ دریافت";
+            this.Text = "مجموعه‌های جدید آمادهٔ دریافت";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.ResumeLayout(false);

@@ -99,7 +99,7 @@
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.FillWeight = 50F;
-            this.Column2.HeaderText = "حذف آثار موجود پیش از اضافه کردن مجموعۀ جدید";
+            this.Column2.HeaderText = "حذف آثار موجود پیش از اضافه کردن مجموعهٔ جدید";
             this.Column2.Name = "Column2";
             this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;

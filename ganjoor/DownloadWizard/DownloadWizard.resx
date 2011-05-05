@@ -117,20 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>برای دریافت فهرست مجموعه اشعار جدید قابل دریافت برای گنجور رومیزی، پس از اطمینان از اتصال به اینترنت، روی دکمهٔ «دریافت فهرست مجموعه اشعار جدید» کلیک کنید.
-در فهرست دریافتی ردیفهای خاکستری نشان دهندهٔ مجموعه اشعاری است که (احتمالاً) شما آن را در گنجور رومیزی خود دارید. برای دریافت هر کدام از این مجموعه‌ها روی «دریافت» در ردیف مربوطه کلیک کنید، با این کار، در مرورگر پیش‌فرض شما نشانی دریافت باز می‌شود و پس از چند لحظه می‌توانید فایل مورد نظر خود را دریافت کنید. فایل دریافتی را ابتدا از حالت فشرده (zip) خارج کنید و سپس با اجرای فرمان «اضافه کردن مجموعه‌های اشعار...» از منوی «مجموعه‌ها» آن را به گنجور رومیزی خود اضافه کنید. پس از اضافه شدن، گنجور رومیزی به فایل دریافتی شما نیاز ندارد و می‌توانید آن را حذف کنید یا محل نگهداریش را تغییر دهید.</value>
-  </data>
-  <metadata name="Column1.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Column2.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Column3.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Column4.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

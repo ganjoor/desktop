@@ -31,6 +31,7 @@ namespace ganjoor
             chkHomeButton.Checked = Settings.Default.HomeButtonVisible;
             chkRandomButton.Checked = Settings.Default.RandomButtonVisible;
             chkEditorButton.Checked = Settings.Default.EditorButtonVisible;
+            chkDownloadButton.Checked = Settings.Default.DownloadButtonVisible;
             numMaxPoems.Value = Settings.Default.MaxPoemsInList;
             chkGradiantBk.Checked = Settings.Default.GradiantBackground;
             btnGradiantBegin.BackColor = Settings.Default.GradiantBegin;
@@ -63,6 +64,7 @@ namespace ganjoor
             Settings.Default.HomeButtonVisible = chkHomeButton.Checked;
             Settings.Default.RandomButtonVisible = chkRandomButton.Checked;
             Settings.Default.EditorButtonVisible = chkEditorButton.Checked;
+            Settings.Default.DownloadButtonVisible = chkDownloadButton.Checked;
             Settings.Default.MaxPoemsInList = (int)numMaxPoems.Value;
             Settings.Default.GradiantBackground = chkGradiantBk.Checked;
             Settings.Default.GradiantBegin = btnGradiantBegin.BackColor;

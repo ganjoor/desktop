@@ -237,7 +237,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "دربارۀ گنجور رومیزی";
+            this.Text = "دربارهٔ گنجور رومیزی";
             this.Load += new System.EventHandler(this.AboutForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdContributers)).EndInit();
             this.ResumeLayout(false);

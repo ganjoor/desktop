@@ -70,9 +70,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(105, 159);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(303, 13);
+            this.label1.Size = new System.Drawing.Size(315, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "تذکر: شروع دریافت ممکن است کمی طول بکشد. لطفاً صبر کنید.";
+            this.label1.Text = "تذکر: شروع دریافت ممکن است کمی طول بکشد. لطفاً صبور باشید.";
             // 
             // DownloadingGdbList
             // 
