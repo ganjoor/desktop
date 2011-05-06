@@ -32,7 +32,7 @@ namespace ganjoor
             grdList.Rows.Clear();
             Application.DoEvents();
             string strException;
-            _Lst = GDBInfo.RetrieveNewGDBList(url, out strException);
+            _Lst = GDBListProcessor.RetrieveList(url, out strException);
             if (_Lst == null)
             {
                 _Lst = new List<GDBInfo>();

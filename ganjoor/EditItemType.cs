@@ -8,6 +8,7 @@ namespace ganjoor
     {
         Poet = 0,
         Category = 1,
-        Poem = 2
+        Poem = 2,
+        General = 100
     }
 }

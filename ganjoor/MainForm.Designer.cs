@@ -50,6 +50,8 @@
             this.sepTools = new System.Windows.Forms.ToolStripSeparator();
             this.btnHighlight = new System.Windows.Forms.ToolStripButton();
             this.btnSearch = new System.Windows.Forms.ToolStripButton();
+            this.sepDownloadOptions = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDownload = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.btnOptions = new System.Windows.Forms.ToolStripButton();
             this.btnEditor = new System.Windows.Forms.ToolStripButton();
@@ -111,8 +113,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnDownload = new System.Windows.Forms.ToolStripButton();
-            this.sepDownloadOptions = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -331,6 +331,22 @@
             this.btnSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // sepDownloadOptions
+            // 
+            this.sepDownloadOptions.Name = "sepDownloadOptions";
+            this.sepDownloadOptions.Size = new System.Drawing.Size(6, 53);
+            // 
+            // btnDownload
+            // 
+            this.btnDownload.Image = global::ganjoor.Properties.Resources.database_down;
+            this.btnDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(100, 50);
+            this.btnDownload.Text = "دریافت مجموعه‌ها";
+            this.btnDownload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            this.btnDownload.VisibleChanged += new System.EventHandler(this.btnDownload_VisibleChanged);
+            // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
@@ -399,7 +415,7 @@
             // lblDummy
             // 
             this.lblDummy.Name = "lblDummy";
-            this.lblDummy.Size = new System.Drawing.Size(1103, 17);
+            this.lblDummy.Size = new System.Drawing.Size(700, 17);
             this.lblDummy.Spring = true;
             // 
             // lblCurrentPage
@@ -716,7 +732,7 @@
             this.mnuSearch.Name = "mnuSearch";
             this.mnuSearch.ShortcutKeys = System.Windows.Forms.Keys.F3;
             this.mnuSearch.Size = new System.Drawing.Size(222, 22);
-            this.mnuSearch.Text = "جستجو در همۀ شعرها";
+            this.mnuSearch.Text = "جستجو در همهٔ شعرها";
             this.mnuSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // mnuFavs
@@ -854,7 +870,7 @@
             this.mnuAbout.Name = "mnuAbout";
             this.mnuAbout.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.mnuAbout.Size = new System.Drawing.Size(224, 22);
-            this.mnuAbout.Text = "دربارۀ این برنامه";
+            this.mnuAbout.Text = "دربارهٔ این برنامه";
             this.mnuAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
             // ganjoorView
@@ -872,22 +888,7 @@
             this.ganjoorView.Size = new System.Drawing.Size(784, 399);
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
-            // 
-            // btnDownload
-            // 
-            this.btnDownload.Image = global::ganjoor.Properties.Resources.database_down;
-            this.btnDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(100, 50);
-            this.btnDownload.Text = "دریافت مجموعه‌ها";
-            this.btnDownload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-            this.btnDownload.VisibleChanged += new System.EventHandler(this.btnDownload_VisibleChanged);
-            // 
-            // sepDownloadOptions
-            // 
-            this.sepDownloadOptions.Name = "sepDownloadOptions";
-            this.sepDownloadOptions.Size = new System.Drawing.Size(6, 53);
+            this.ganjoorView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ganjoorView_KeyPress);
             // 
             // MainForm
             // 
@@ -923,7 +924,6 @@
             this.PerformLayout();
 
         }
-
         #endregion
 
         private GanjoorViewer ganjoorView;

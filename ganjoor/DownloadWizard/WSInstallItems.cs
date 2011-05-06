@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.IO.Compression;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -131,6 +132,8 @@ namespace ganjoor
                 {
                     grdList.Rows[grdList.Rows.Add()].Cells[0].Value = Path.GetFileName(gdb);
                     ImportGdb(gdb, db);
+                    if (Settings.Default.DeleteDownloadedFiles)
+                        File.Delete(gdb);
                     Application.DoEvents();
                 }
 

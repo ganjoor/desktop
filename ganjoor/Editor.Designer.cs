@@ -37,6 +37,7 @@
             this.btnNewPoetSub = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.btnEditPoet = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditPoetBio = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeletePoet = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
@@ -83,7 +84,7 @@
             this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnEditPoetBio = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -171,6 +172,13 @@
             this.btnEditPoet.Size = new System.Drawing.Size(199, 22);
             this.btnEditPoet.Text = "ویرایش نام شاعر";
             this.btnEditPoet.Click += new System.EventHandler(this.btnEditPoet_Click);
+            // 
+            // btnEditPoetBio
+            // 
+            this.btnEditPoetBio.Name = "btnEditPoetBio";
+            this.btnEditPoetBio.Size = new System.Drawing.Size(199, 22);
+            this.btnEditPoetBio.Text = "ویرایش زندگینامهٔ شاعر";
+            this.btnEditPoetBio.Click += new System.EventHandler(this.btnEditPoetBio_Click);
             // 
             // toolStripSeparator7
             // 
@@ -488,7 +496,8 @@
             this.btnTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnMergeTwoTextColumns,
             this.btnReplaceInDb,
-            this.btnChangeIDs});
+            this.btnChangeIDs,
+            this.btnGDBListEditor});
             this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTools.Name = "btnTools";
@@ -546,12 +555,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnEditPoetBio
+            // btnGDBListEditor
             // 
-            this.btnEditPoetBio.Name = "btnEditPoetBio";
-            this.btnEditPoetBio.Size = new System.Drawing.Size(199, 22);
-            this.btnEditPoetBio.Text = "ویرایش زندگینامهٔ شاعر";
-            this.btnEditPoetBio.Click += new System.EventHandler(this.btnEditPoetBio_Click);
+            this.btnGDBListEditor.Name = "btnGDBListEditor";
+            this.btnGDBListEditor.Size = new System.Drawing.Size(271, 22);
+            this.btnGDBListEditor.Text = "ویرایشگر فهرست مجموعه‌ها";
+            this.btnGDBListEditor.Click += new System.EventHandler(this.btnGDBListEditor_Click);
             // 
             // Editor
             // 
@@ -635,5 +644,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnNewParagraph;
         private System.Windows.Forms.ToolStripMenuItem btnMoveToCategory;
         private System.Windows.Forms.ToolStripMenuItem btnEditPoetBio;
+        private System.Windows.Forms.ToolStripMenuItem btnGDBListEditor;
     }
 }

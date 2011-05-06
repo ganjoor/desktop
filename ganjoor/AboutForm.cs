@@ -19,7 +19,7 @@ namespace ganjoor
 
         private void lnkGanjoorOnSFNet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://ganjoor.sourceforge.net");
+            LaunchUrl("http://ganjoor.sourceforge.net");
         }
 
         private const int DTCLMN_NAME = 0;
@@ -45,6 +45,7 @@ namespace ganjoor
             new string[] {"سجاد مهرابی", "", "سیدحمیدرضا برقعی", "http://blog.ganjoor.net/1389/10/10/borghaee/"},
             new string[] {"مهران صمدنژاد", "", "خلیل‌الله خلیلی", "http://blog.ganjoor.net/1389/10/17/khalili-robaee/"},
             new string[] {"علی پی‌سپار", "", "هلالی جغتایی", "http://blog.ganjoor.net/1389/10/28/helali/"},
+            new string[] {"کامران مشایخی", "", "اشعار ترکی شهریار", "http://blog.ganjoor.net/1390/02/02/shahriar-turki/"},
 
         };
 
@@ -70,24 +71,35 @@ namespace ganjoor
             
         }
 
+        private void LaunchUrl(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            { //?
+            }
+        }
+
         private void lnkIcons_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://dryicons.com/free-icons/preview/aesthetica/");            
+            LaunchUrl("http://dryicons.com/free-icons/preview/aesthetica/");            
         }
 
         private void lnkHamidReza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://ganjoor.net/contact/");            
+            LaunchUrl("http://ganjoor.net/contact/");            
         }
 
         private void lnkSources_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://ganjoor.net/sources/");                        
+            LaunchUrl("http://ganjoor.net/sources/");                        
         }
 
         private void lnkIconsEditor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://dryicons.com/free-icons/preview/grace-icons-set/");            
+            LaunchUrl("http://dryicons.com/free-icons/preview/grace-icons-set/");            
         }
 
         private void grdContributers_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -96,20 +108,20 @@ namespace ganjoor
             {
                 string link = Contributers[e.RowIndex][DTCLMN_LINK];
                 if (!string.IsNullOrEmpty(link))
-                    Process.Start(link);
+                    LaunchUrl(link);
             }
             else
                 if (e.ColumnIndex == GRDCLMN_MORE)
                 {
                     string link = Contributers[e.RowIndex][DTCLMN_MORE];
                     if (!string.IsNullOrEmpty(link))
-                        Process.Start(link);
+                        LaunchUrl(link);
                 }
         }
 
         private void lnkBlog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://blog.ganjoor.net");            
+            LaunchUrl("http://blog.ganjoor.net");            
         }
     }
 }

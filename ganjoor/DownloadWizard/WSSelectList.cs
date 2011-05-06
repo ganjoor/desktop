@@ -40,6 +40,12 @@ namespace ganjoor
         {
             lblListName.Text = DownloadListManager.GetListName(cmbListUrl.Text);
             lblListDescription.Text = DownloadListManager.GetListDescription(cmbListUrl.Text);
+            string moreInfoUrl = DownloadListManager.GetListMoreInfoUrl(cmbListUrl.Text);
+            if (lnkMoreInfo.Visible = !string.IsNullOrEmpty(moreInfoUrl))
+            {
+                lnkMoreInfo.Tag = moreInfoUrl;
+            }
+
         }
 
         private void cmbListUrl_TextChanged(object sender, EventArgs e)
@@ -56,11 +62,30 @@ namespace ganjoor
 
         private void RetriveNameDesc(object sender, EventArgs e)
         {
-            string Name, Desc;
-            if (GDBInfo.RetrieveGDBListProperties(cmbListUrl.Text, out Name, out Desc))
+            if (cmbListUrl.SelectedIndex < 3 && cmbListUrl.Text == cmbListUrl.Items[cmbListUrl.SelectedIndex].ToString())
+                return;
+            string Name, Desc, MoreInfoUrl;
+            if (GDBListProcessor.RetrieveProperties(cmbListUrl.Text, out Name, out Desc, out MoreInfoUrl))
             {
-                DownloadListManager.Cache(cmbListUrl.Text, Name, Desc);
+                DownloadListManager.Cache(cmbListUrl.Text, Name, Desc, MoreInfoUrl);
                 UpdateNameDesc();
+            }
+        }
+
+        private void lnkMoreInfo_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        {
+            if(lnkMoreInfo.Tag != null && lnkMoreInfo.Tag is string)
+            {
+                string moreInfoUrl = lnkMoreInfo.Tag as string;
+                if(!string.IsNullOrEmpty(moreInfoUrl))
+                    try
+                    {
+                        System.Diagnostics.Process.Start(moreInfoUrl);
+                    }
+                    catch
+                    {
+                        //this is normal I guess!
+                    }
             }
         }
 

@@ -32,6 +32,7 @@
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pnlCurrentStage
@@ -50,9 +51,9 @@
             this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPrevious.Location = new System.Drawing.Point(16, 372);
             this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(75, 23);
+            this.btnPrevious.Size = new System.Drawing.Size(75, 24);
             this.btnPrevious.TabIndex = 1;
-            this.btnPrevious.Text = "مرحلۀ قبل";
+            this.btnPrevious.Text = "مرحلهٔ قبل";
             this.btnPrevious.UseVisualStyleBackColor = true;
             this.btnPrevious.Visible = false;
             this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
@@ -62,9 +63,9 @@
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnNext.Location = new System.Drawing.Point(97, 372);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.Size = new System.Drawing.Size(75, 24);
             this.btnNext.TabIndex = 0;
-            this.btnNext.Text = "مرحلۀ بعد";
+            this.btnNext.Text = "مرحلهٔ بعد";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Visible = false;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
@@ -75,10 +76,21 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(594, 372);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 24);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "انصراف";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSettings.Image = global::ganjoor.Properties.Resources.gear16;
+            this.btnSettings.Location = new System.Drawing.Point(563, 372);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(25, 24);
+            this.btnSettings.TabIndex = 4;
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // DownloadWizard
             // 
@@ -87,6 +99,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(681, 403);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
@@ -112,5 +125,6 @@
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSettings;
     }
 }

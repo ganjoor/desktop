@@ -21,6 +21,8 @@ namespace ganjoor
         public DbBrowser()            
         {
             string iniFilePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "ganjoor.ini");
+            if(!File.Exists(iniFilePath))
+                iniFilePath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor"), "ganjoor.ini");
             if (File.Exists(iniFilePath))
             {
                 GINIParser gParaser = new GINIParser(iniFilePath);
@@ -1419,10 +1421,10 @@ namespace ganjoor
             }
             return true;
         }
-        public int ImportMixFavs(string fileName, out int dupFavs)
+        public int ImportMixFavs(string fileName, out int dupFavs, out int errFavs)
         {
             int ImportedFavs = 0;
-            dupFavs = 0;
+            dupFavs = errFavs = 0;
             SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
             conString.DataSource = fileName;
             conString.DefaultTimeout = 5000;
@@ -1447,17 +1449,22 @@ namespace ganjoor
                             int poemID = Convert.ToInt32(row.ItemArray[0]);
                             int verseID = Convert.ToInt32(row.ItemArray[1]);
                             int pos = Convert.ToInt32(row.ItemArray[2]);
-                            if (!this.IsVerseFaved(poemID, verseID))
+                            if (this.GetPoem(poemID) != null)//new check 2011/05/05
                             {
-                                cmd.CommandText = String.Format(
-                                    "INSERT INTO fav (poem_id, verse_id, pos) VALUES ({0}, {1}, {2});",
-                                    poemID, verseID, pos
-                                    );
-                                cmd.ExecuteNonQuery();
-                                ImportedFavs++;
+                                if (!this.IsVerseFaved(poemID, verseID))
+                                {
+                                    cmd.CommandText = String.Format(
+                                        "INSERT INTO fav (poem_id, verse_id, pos) VALUES ({0}, {1}, {2});",
+                                        poemID, verseID, pos
+                                        );
+                                    cmd.ExecuteNonQuery();
+                                    ImportedFavs++;
+                                }
+                                else
+                                    dupFavs++;
                             }
                             else
-                                dupFavs++;
+                                errFavs++;
                         }
                     }
 

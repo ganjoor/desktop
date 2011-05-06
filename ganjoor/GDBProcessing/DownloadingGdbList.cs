@@ -60,7 +60,7 @@ namespace ganjoor
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            string targetDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+            string targetDir = GDBListProcessor.DownloadPath;
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
             string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
