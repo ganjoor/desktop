@@ -125,7 +125,8 @@ namespace ganjoor
 
         public override void OnActivated()
         {
-            Application.DoEvents();
+            if (OnInstallStarted != null)
+                OnInstallStarted(this, new EventArgs());
             DbBrowser db = new DbBrowser();
             if (DownloadedFiles != null)
                 foreach (string gdb in DownloadedFiles)
@@ -136,9 +137,14 @@ namespace ganjoor
                         File.Delete(gdb);
                     Application.DoEvents();
                 }
-
             db.CloseDb();
+            if (OnInstallFinished != null)
+                OnInstallFinished(this, new EventArgs());
         }
+
+        public event EventHandler OnInstallStarted = null;
+        public event EventHandler OnInstallFinished = null;
+
 
 
     }

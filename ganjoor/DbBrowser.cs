@@ -1381,6 +1381,8 @@ namespace ganjoor
         #region Import/Export Favs
         public bool ExportFavs(string fileName)
         {
+            if (File.Exists(fileName))
+                File.Delete(fileName);
             SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
             conString.DataSource = fileName;
             conString.DefaultTimeout = 5000;

@@ -1463,34 +1463,37 @@ namespace ganjoor
                 for (int i = 0; i < Count; i++)
                 {
                     GanjoorPoem poem = _db.GetPoem(Convert.ToInt32(poemsList.Rows[i].ItemArray[0]));
-                    if(Settings.Default.ScrollToFavedVerse)
-                        poem._HighlightText = OnlyScrollString;
-                    int lastDistanceFromRight;
-                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false);
-                    lastDistanceFromRight += DistanceFromRightStep;
-                    LinkLabel lblPoem = new LinkLabel();                    
-                    lblPoem.Tag = poem;
-                    lblPoem.AutoSize = true;
-                    lblPoem.Text = poem._Title;
-                    lblPoem.Location = new Point(lastDistanceFromRight, catsTop);
-                    lblPoem.LinkBehavior = LinkBehavior.HoverUnderline;
-                    lblPoem.BackColor = Color.Transparent;
-                    lblPoem.LinkColor = Settings.Default.LinkColor;
-                    lblPoem.ForeColor = lblPoem.LinkColor;
-                    lblPoem.Click += new EventHandler(lblPoem_Click);
-                    this.Controls.Add(lblPoem);
+                    if (poem != null)//this might happen when a poet has been deleted from database
+                    {
+                        if (Settings.Default.ScrollToFavedVerse)
+                            poem._HighlightText = OnlyScrollString;
+                        int lastDistanceFromRight;
+                        ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false);
+                        lastDistanceFromRight += DistanceFromRightStep;
+                        LinkLabel lblPoem = new LinkLabel();
+                        lblPoem.Tag = poem;
+                        lblPoem.AutoSize = true;
+                        lblPoem.Text = poem._Title;
+                        lblPoem.Location = new Point(lastDistanceFromRight, catsTop);
+                        lblPoem.LinkBehavior = LinkBehavior.HoverUnderline;
+                        lblPoem.BackColor = Color.Transparent;
+                        lblPoem.LinkColor = Settings.Default.LinkColor;
+                        lblPoem.ForeColor = lblPoem.LinkColor;
+                        lblPoem.Click += new EventHandler(lblPoem_Click);
+                        this.Controls.Add(lblPoem);
 
-                    catsTop += DistanceBetweenLines;
-                    lastDistanceFromRight += DistanceFromRightStep;                    
+                        catsTop += DistanceBetweenLines;
+                        lastDistanceFromRight += DistanceFromRightStep;
 
-                    HighlightLabel lblVerse = new HighlightLabel();
-                    lblVerse.AutoSize = true;
-                    lblVerse.Tag = null;
-                    lblVerse.Text = _db.GetPreferablyAFavVerse(poem._ID)._Text;
-                    lblVerse.Location = new Point(lastDistanceFromRight, catsTop);
-                    lblVerse.BackColor = Color.Transparent;
-                    this.Controls.Add(lblVerse);
-                    catsTop += 2 * DistanceBetweenLines;
+                        HighlightLabel lblVerse = new HighlightLabel();
+                        lblVerse.AutoSize = true;
+                        lblVerse.Tag = null;
+                        lblVerse.Text = _db.GetPreferablyAFavVerse(poem._ID)._Text;
+                        lblVerse.Location = new Point(lastDistanceFromRight, catsTop);
+                        lblVerse.BackColor = Color.Transparent;
+                        this.Controls.Add(lblVerse);
+                        catsTop += 2 * DistanceBetweenLines;
+                    }
 
                 }
 

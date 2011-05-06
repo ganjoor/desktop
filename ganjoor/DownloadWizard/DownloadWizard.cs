@@ -21,7 +21,21 @@ namespace ganjoor
             WSDownloadItems dwnStage = new WSDownloadItems();
             dwnStage.OnStageDone += new EventHandler(dwnStage_OnStageDone);
             AddStage(dwnStage);
-            AddStage(new WSInstallItems());
+            WSInstallItems instStage = new WSInstallItems();
+            instStage.OnInstallStarted += new EventHandler(instStage_OnInstallStarted);
+            instStage.OnInstallFinished += new EventHandler(instStage_OnInstallFinished);
+            AddStage(instStage);
+        }
+
+
+        private void instStage_OnInstallStarted(object sender, EventArgs e)
+        {
+            btnCancel.Enabled = false; Application.DoEvents();
+        }
+
+        private void instStage_OnInstallFinished(object sender, EventArgs e)
+        {
+            btnCancel.Enabled = true; Application.DoEvents();
         }
 
         private void selStage_OnEnableNextButton(object sender, EventArgs e)
