@@ -14,6 +14,10 @@ namespace ganjoor
         {
         }
         public ItemEditor(EditItemType ItemType)
+            : this(ItemType, "", "")
+        {
+        }
+        public ItemEditor(EditItemType ItemType, string caption, string itemname)
         {
             InitializeComponent();
             txtName.Text = this.ItemName;
@@ -29,6 +33,12 @@ namespace ganjoor
                     this.Text = "ویرایش مشخصات شعر";
                     this.lblCat.Text = "نام شعر:";
                 }
+                else
+                    if (ItemType == EditItemType.General)
+                    {
+                        this.Text = caption;
+                        this.lblCat.Text = itemname;
+                    }
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)

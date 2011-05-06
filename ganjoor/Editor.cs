@@ -409,6 +409,12 @@ namespace ganjoor
 
         }
 
+        private void btnGDBListEditor_Click(object sender, EventArgs e)
+        {
+            using (GDBListEditor dlg = new GDBListEditor())
+                dlg.ShowDialog(this);
+        }
+
 
 
 

@@ -625,5 +625,43 @@ namespace ganjoor.Properties {
                 this["LastDownloadUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring />\r\n</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection CustomDownloadListMoreInfoUrls {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomDownloadListMoreInfoUrls"]));
+            }
+            set {
+                this["CustomDownloadListMoreInfoUrls"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DownloadPath {
+            get {
+                return ((string)(this["DownloadPath"]));
+            }
+            set {
+                this["DownloadPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DeleteDownloadedFiles {
+            get {
+                return ((bool)(this["DeleteDownloadedFiles"]));
+            }
+            set {
+                this["DeleteDownloadedFiles"] = value;
+            }
+        }
     }
 }

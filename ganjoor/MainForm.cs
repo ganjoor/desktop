@@ -317,6 +317,7 @@ namespace ganjoor
                 iLastHighlightedFoundItem = 0;
                 btnScrollToNext.Visible = false;
                 processTextChanged = true;
+                ganjoorView.Focus();
             }
         }
 
@@ -405,7 +406,7 @@ namespace ganjoor
             try
             {
                 WebRequest req = WebRequest.Create("http://ganjoor.sourceforge.net/version.xml");
-                GDBInfo.ConfigureProxy(ref req);
+                GConnectionManager.ConfigureProxy(ref req);
                 using (WebResponse response = req.GetResponse())
                 {
                     using (Stream stream = response.GetResponseStream())
@@ -465,7 +466,7 @@ namespace ganjoor
                 if (!Prompt)//check for new gdbs
                 {
                     string strException;
-                    List<GDBInfo> Lst = GDBInfo.RetrieveNewGDBList("http://ganjoor.sourceforge.net/newgdbs.xml", out strException);
+                    List<GDBInfo> Lst = GDBListProcessor.RetrieveList("http://ganjoor.sourceforge.net/newgdbs.xml", out strException);
                     if (Lst != null && string.IsNullOrEmpty(strException))
                     {
                         List<GDBInfo> finalList = new List<GDBInfo>();
@@ -489,7 +490,8 @@ namespace ganjoor
                                             foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
                                             {
                                                 ImportGdb(DownloadedFile);
-                                                File.Delete(DownloadedFile);
+                                                if(Settings.Default.DeleteDownloadedFiles)
+                                                    File.Delete(DownloadedFile);
                                             }
                                 foreach (int CatID in dlg.IgnoreList)
                                     db.AddToGDBIgnoreList(CatID);
@@ -649,6 +651,18 @@ namespace ganjoor
             }
         }
 
+        private void ganjoorView_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        {
+            if (!btnHighlight.Checked)
+            {
+                if (GPersianTextSync.PersianLetters.IndexOf(e.KeyChar) != -1)
+                {
+                    btnHighlight.Checked = true;
+                    txtHighlight.Text = "" + e.KeyChar;
+                    txtHighlight.SelectionStart = txtHighlight.Text.Length;
+                }
+            }            
+        }
 
 
     }

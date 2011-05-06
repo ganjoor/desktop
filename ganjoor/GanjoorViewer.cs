@@ -223,6 +223,8 @@ namespace ganjoor
             this.ResumeLayout();
             Cursor = Cursors.Default;
             _strLastPhrase = null;
+            if(category._ID == 0)//نمایش تعداد شاعران
+                _strPage += string.Format(" ({0} شاعر)", subcats.Count);
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
         }
@@ -1750,9 +1752,9 @@ namespace ganjoor
         }
         public void ImportMixFavs(string fileName)
         {
-            int ignoredFavs;
-            int importedFavs = _db.ImportMixFavs(fileName, out ignoredFavs);
-            MessageBox.Show(String.Format("{0} نشانه اضافه شد و از اضافه کردن {1} به دلیل تکراری بودن صرف نظر شد.", importedFavs, ignoredFavs), "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            int ignoredFavs, errFavs;
+            int importedFavs = _db.ImportMixFavs(fileName, out ignoredFavs, out errFavs);
+            MessageBox.Show(String.Format("{0} نشانه اضافه شد و از افزودن {1} نشانه به دلیل تکراری بودن و {2} به دلیل عدم وجود داده‌ها یا شاعر متناظر در داده‌های برنامه صرف نظر شد.", importedFavs, ignoredFavs, errFavs), "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             ShowFavs(0, Settings.Default.FavItemsInPage);
         }
         #endregion

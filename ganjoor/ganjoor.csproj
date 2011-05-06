@@ -90,20 +90,20 @@
       <DependentUpon>ConflictingPoets.cs</DependentUpon>
     </Compile>
     <Compile Include="DbBrowser.cs" />
-    <Compile Include="DownloadGDBList.cs">
+    <Compile Include="GDBProcessing\DownloadGDBList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownloadGDBList.Designer.cs">
+    <Compile Include="GDBProcessing\DownloadGDBList.Designer.cs">
       <DependentUpon>DownloadGDBList.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadingGdbList.cs">
+    <Compile Include="GDBProcessing\DownloadingGdbList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownloadingGdbList.Designer.cs">
+    <Compile Include="GDBProcessing\DownloadingGdbList.Designer.cs">
       <DependentUpon>DownloadingGdbList.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadListManager.cs" />
-    <Compile Include="DownloadUtilityClass.cs" />
+    <Compile Include="GDBProcessing\DownloadListManager.cs" />
+    <Compile Include="GDBProcessing\DownloadUtilityClass.cs" />
     <Compile Include="DownloadWizard\DownloadWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,13 +142,33 @@
     <Compile Include="GanjoorViewEvents.cs" />
     <Compile Include="GanjoorViewMode.cs" />
     <Compile Include="GarnjoorBrowsingHistory.cs" />
-    <Compile Include="GdbDownloadInfo.cs">
+    <Compile Include="GConnectionManager.cs" />
+    <Compile Include="GDBProcessing\GdbDownloadInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GdbDownloadInfo.Designer.cs">
+    <Compile Include="GDBProcessing\GdbDownloadInfo.Designer.cs">
       <DependentUpon>GdbDownloadInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="GDBInfo.cs" />
+    <Compile Include="GDBProcessing\GDBInfo.cs" />
+    <Compile Include="GDBProcessing\GDBListEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GDBProcessing\GDBListEditor.Designer.cs">
+      <DependentUpon>GDBListEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GDBProcessing\GDBListProcessor.cs" />
+    <Compile Include="DownloadWizard\GDBWizOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownloadWizard\GDBWizOptions.Designer.cs">
+      <DependentUpon>GDBWizOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GDBProcessing\GDBPictureDirSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GDBProcessing\GDBPictureDirSelector.Designer.cs">
+      <DependentUpon>GDBPictureDirSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="GINIParser.cs" />
     <Compile Include="GPersianTextSync.cs" />
     <Compile Include="GRhymeFinder.cs" />
@@ -226,7 +246,7 @@
     <Compile Include="DownloadWizard\WSInstallItems.Designer.cs">
       <DependentUpon>WSInstallItems.cs</DependentUpon>
     </Compile>
-    <Compile Include="ZipStorer.cs" />
+    <Compile Include="GDBProcessing\ZipStorer.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -240,10 +260,10 @@
     <EmbeddedResource Include="ConflictingPoets.resx">
       <DependentUpon>ConflictingPoets.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadGDBList.resx">
+    <EmbeddedResource Include="GDBProcessing\DownloadGDBList.resx">
       <DependentUpon>DownloadGDBList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadingGdbList.resx">
+    <EmbeddedResource Include="GDBProcessing\DownloadingGdbList.resx">
       <DependentUpon>DownloadingGdbList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadWizard\DownloadWizard.resx">
@@ -261,8 +281,17 @@
     <EmbeddedResource Include="GanjoorViewer.resx">
       <DependentUpon>GanjoorViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GdbDownloadInfo.resx">
+    <EmbeddedResource Include="GDBProcessing\GdbDownloadInfo.resx">
       <DependentUpon>GdbDownloadInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GDBProcessing\GDBListEditor.resx">
+      <DependentUpon>GDBListEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadWizard\GDBWizOptions.resx">
+      <DependentUpon>GDBWizOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GDBProcessing\GDBPictureDirSelector.resx">
+      <DependentUpon>GDBPictureDirSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IDChanger.resx">
       <DependentUpon>IDChanger.cs</DependentUpon>
@@ -356,6 +385,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\gear16.png" />
     <None Include="Resources\database_add.png" />
     <None Include="Resources\database_down.png" />
     <None Include="Resources\tools.png" />

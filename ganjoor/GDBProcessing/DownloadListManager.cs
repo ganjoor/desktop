@@ -51,7 +51,23 @@ namespace ganjoor
             }
             return string.Empty;
         }
-        public static bool Cache(string Url, string Name, string Description)
+        public static string GetListMoreInfoUrl(string Url)
+        {
+            int index = Array.IndexOf(Urls, Url);
+            if (index != -1)
+            {
+                if (index < _DefaultUrls.Length)
+                    return string.Empty;//no default urls!
+                else
+                {
+                    index = index - _DefaultUrls.Length;
+                    if (Settings.Default.CustomDownloadListMoreInfoUrls != null && index < Settings.Default.CustomDownloadListMoreInfoUrls.Count)
+                        return Settings.Default.CustomDownloadListMoreInfoUrls[index];
+                }
+            }
+            return string.Empty;
+        }
+        public static bool Cache(string Url, string Name, string Description, string MoreInfoUrl)
         {
             int index = Array.IndexOf(Urls, Url);
             if (index != -1)
@@ -63,6 +79,7 @@ namespace ganjoor
                     index = index - _DefaultUrls.Length;
                     Settings.Default.CustomDownloadListNames[index] = Name;
                     Settings.Default.CustomDownloadListDescriptions[index] = Description;
+                    Settings.Default.CustomDownloadListMoreInfoUrls[index] = MoreInfoUrl;
                     Settings.Default.Save();
                 }
             }
@@ -72,6 +89,7 @@ namespace ganjoor
                 Settings.Default.CustomDownloadUrls.Add(Url);
                 Settings.Default.CustomDownloadListNames.Add(Name);
                 Settings.Default.CustomDownloadListDescriptions.Add(Description);
+                Settings.Default.CustomDownloadListMoreInfoUrls.Add(MoreInfoUrl);
                 Settings.Default.Save();
             }
             return true;
@@ -85,6 +103,8 @@ namespace ganjoor
                 Settings.Default.CustomDownloadListNames = new System.Collections.Specialized.StringCollection();
             if (Settings.Default.CustomDownloadListDescriptions == null)
                 Settings.Default.CustomDownloadListDescriptions = new System.Collections.Specialized.StringCollection();
+            if (Settings.Default.CustomDownloadListMoreInfoUrls == null)
+                Settings.Default.CustomDownloadListMoreInfoUrls = new System.Collections.Specialized.StringCollection();
         }
         #region Default Urls
         private static string[] _DefaultUrls = new string[]
@@ -101,9 +121,9 @@ namespace ganjoor
         };
         private static string[] _DefaultListDescriptions = new string[]
         {
-            "مجموعه‌های تازه",
-            "شاعران سایت گنجور",
-            "شاعران اختصاصی برنامه",
+            "این فهرست مجموعه‌هایی را دربردارد که گاه به گاه به عنوان مجموعه‌های تازه از طریق سایت گنجور در دسترس قرار می‌گیرند. راه دیگر اطلاع از انتشار چنین مجموعه‌هایی؛ فعال کردن گزینهٔ متناظر برای پرس و جو به دنبال مجموعه‌های تازه در هنگام شروع برنامه در پنجرهٔ «پیکربندی» است.",
+            "این فهرست شامل آثار شاعران سایت گنجور است. اگر از طریق ویرایشگر آثار شاعری را پاک کرده‌اید یا از ابتدا مجموعه‌ای با داده‌های محدود دریافت کرده‌اید می‌توانید با استفاده از این فهرست داده‌های برنامه‌تان را تکمیل کنید.",
+            "این فهرست شامل آثاری است که به دلایل مختلف از طریق سایت گنجور در دسترس قرار ندارند. عموماً آثار شعرای معاصر و همینطور شعرایی که آثار ادبیشان در سایهٔ شهرتشان در زمینه‌های دیگر خواهان دارد از طریق سایت در دسترس قرار نمی‌گیرد.",
         };
         #endregion
     }

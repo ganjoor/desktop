@@ -23,9 +23,9 @@ namespace ganjoor
             if (OnDisableNextButton != null)
                 OnDisableNextButton(this, new EventArgs());
             if (DownloadList(Settings.Default.LastDownloadUrl))
-                lblDesc.Text = "ردیفهای خاکستری نشان دهندهٔ مجموعه اشعاری است که (احتمالاً) شما آن را در گنجور رومیزی خود دارید. با علامتگذاری ستون «دریافت» در هر ردیف؛ آن را به فهرست مجموعه‌هایی که می‌خواهید دریافت شوند اضافه کنید تا در مرحلۀ بعد دریافت فهرست انتخابی شروع شود.";
+                lblDesc.Text = "ردیفهای خاکستری نشان دهندهٔ مجموعه اشعاری است که (احتمالاً) شما آن را در گنجور رومیزی خود دارید. با علامتگذاری ستون «دریافت» در هر ردیف؛ آن را به فهرست مجموعه‌هایی که می‌خواهید دریافت شوند اضافه کنید تا در مرحلهٔ بعد دریافت فهرست انتخابی شروع شود.";
             else
-                lblDesc.Text = "دریافت یا پردازش فهرست مجموعه‌ها با خطا مواجه شد. لطفاً از اتصال ارتباط اینترنتیتان اطمینان حاصل کنید، دکمۀ برگشت را بزنید و دوباره تلاش کنید.";
+                lblDesc.Text = "دریافت یا پردازش فهرست مجموعه‌ها با خطا مواجه شد. لطفاً از اتصال ارتباط اینترنتیتان اطمینان حاصل کنید، دکمهٔ برگشت را بزنید و دوباره تلاش کنید.";
         }
 
         private List<GDBInfo> _Lst = new List<GDBInfo>();
@@ -36,7 +36,7 @@ namespace ganjoor
             grdList.Rows.Clear();
             Application.DoEvents();
             string strException;
-            _Lst = GDBInfo.RetrieveNewGDBList(url, out strException);
+            _Lst = GDBListProcessor.RetrieveList(url, out strException);
             if (_Lst == null)
             {
                 _Lst = new List<GDBInfo>();

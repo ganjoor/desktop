@@ -130,6 +130,12 @@ namespace ganjoor
         private List<GDBInfo> _DownloadList = null;
         private List<string> DownloadedFiles = null;
 
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            using (GDBWizOptions dlg = new GDBWizOptions())
+                dlg.ShowDialog(this);
+        }
+
 
     }
 }
