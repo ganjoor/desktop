@@ -385,6 +385,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\selnone.png" />
+    <None Include="Resources\selall.png" />
     <None Include="Resources\gear16.png" />
     <None Include="Resources\database_add.png" />
     <None Include="Resources\database_down.png" />

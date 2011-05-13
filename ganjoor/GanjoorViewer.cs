@@ -133,7 +133,7 @@ namespace ganjoor
 
             int catsTop = DistanceFromTop;
             int lastDistanceFromRight;
-            ShowCategory(category, ref catsTop, out lastDistanceFromRight, true);
+            ShowCategory(category, ref catsTop, out lastDistanceFromRight, true, false);
 
             List<GanjoorCat> subcats = _db.GetSubCategories(category._ID);
             if (subcats.Count != 0)
@@ -229,7 +229,7 @@ namespace ganjoor
                 OnPageChanged(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
         }
 
-        private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat)
+        private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat, bool showingPoem)
         {
             lastDistanceFromRight = DistanceFromRight;
 
@@ -283,7 +283,7 @@ namespace ganjoor
 
                 catsTop += DistanceBetweenLines;
             }
-            if (category != null)
+            if (!showingPoem && category != null)
             {
                 GanjoorPoet poet = _db.GetPoet(category._PoetID);
                 if (poet != null && poet._CatID == category._ID)
@@ -376,7 +376,7 @@ namespace ganjoor
 
             int catsTop = DistanceFromTop;
             int lastDistanceFromRight;
-            ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false);
+            ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, true);
             lastDistanceFromRight += DistanceFromRightStep;
 
             _strPage += " -> " + poem._Title;
@@ -1187,7 +1187,7 @@ namespace ganjoor
                     GanjoorPoem poem = _db.GetPoem(Convert.ToInt32(poemsList.Rows[i].ItemArray[0]));
                     poem._HighlightText = phrase;
                     int lastDistanceFromRight;
-                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false);
+                    ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, false);
                     lastDistanceFromRight += DistanceFromRightStep;
                     LinkLabel lblPoem = new LinkLabel();                    
                     lblPoem.Tag = poem;
@@ -1468,7 +1468,7 @@ namespace ganjoor
                         if (Settings.Default.ScrollToFavedVerse)
                             poem._HighlightText = OnlyScrollString;
                         int lastDistanceFromRight;
-                        ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false);
+                        ShowCategory(_db.GetCategory(poem._CatID), ref catsTop, out lastDistanceFromRight, false, false);
                         lastDistanceFromRight += DistanceFromRightStep;
                         LinkLabel lblPoem = new LinkLabel();
                         lblPoem.Tag = poem;

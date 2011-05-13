@@ -62,7 +62,7 @@ namespace ganjoor
 
         private void RetriveNameDesc(object sender, EventArgs e)
         {
-            if (cmbListUrl.SelectedIndex < 3 && cmbListUrl.Text == cmbListUrl.Items[cmbListUrl.SelectedIndex].ToString())
+            if (cmbListUrl.SelectedIndex >= 0 &&cmbListUrl.SelectedIndex < 3 && cmbListUrl.Text == cmbListUrl.Items[cmbListUrl.SelectedIndex].ToString())
                 return;
             string Name, Desc, MoreInfoUrl;
             if (GDBListProcessor.RetrieveProperties(cmbListUrl.Text, out Name, out Desc, out MoreInfoUrl))

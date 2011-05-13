@@ -15,6 +15,8 @@ namespace ganjoor
         {
             InitializeComponent();
 
+            this.InstalledFilesCount = 0;
+
         }
 
         public override bool PreviousStageButton
@@ -115,7 +117,10 @@ namespace ganjoor
                 }
             }
             if (db.ImportDb(fileName))
+            {
                 grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "اضافه شد.";
+                InstalledFilesCount++;
+            }
             else
             {
                 grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "خطا رخ داد.";
@@ -128,6 +133,7 @@ namespace ganjoor
             if (OnInstallStarted != null)
                 OnInstallStarted(this, new EventArgs());
             DbBrowser db = new DbBrowser();
+            Application.DoEvents();
             if (DownloadedFiles != null)
                 foreach (string gdb in DownloadedFiles)
                 {
@@ -144,6 +150,13 @@ namespace ganjoor
 
         public event EventHandler OnInstallStarted = null;
         public event EventHandler OnInstallFinished = null;
+
+        public int InstalledFilesCount
+        {
+            get;
+            private set;
+        }
+
 
 
 
