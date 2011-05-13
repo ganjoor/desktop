@@ -270,6 +270,20 @@ namespace ganjoor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap selall {
+            get {
+                object obj = ResourceManager.GetObject("selall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap selnone {
+            get {
+                object obj = ResourceManager.GetObject("selnone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap tools {
             get {
                 object obj = ResourceManager.GetObject("tools", resourceCulture);

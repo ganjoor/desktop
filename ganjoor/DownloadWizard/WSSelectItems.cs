@@ -19,6 +19,7 @@ namespace ganjoor
 
         public override void OnActivated()
         {
+            tlbr.Enabled = false;
             lblDesc.Text = "در حال دریافت اطللاعات ...";
             if (OnDisableNextButton != null)
                 OnDisableNextButton(this, new EventArgs());
@@ -26,6 +27,7 @@ namespace ganjoor
                 lblDesc.Text = "ردیفهای سفیدرنگ نشانگر مجموعه‌هایی است که شما آنها را در گنجور رومیزی خود ندارید. با علامتگذاری ستون «دریافت» در هر ردیف؛ آن را به فهرست مجموعه‌هایی که می‌خواهید دریافت شوند اضافه کنید تا در مرحلهٔ بعد دریافت فهرست انتخابی شروع شود.";
             else
                 lblDesc.Text = "دریافت یا پردازش فهرست مجموعه‌ها با خطا مواجه شد. لطفاً از اتصال ارتباط اینترنتیتان اطمینان حاصل کنید، دکمهٔ برگشت را بزنید و دوباره تلاش کنید.";
+            tlbr.Enabled = true;
         }
 
         private List<GDBInfo> _Lst = new List<GDBInfo>();
@@ -54,7 +56,9 @@ namespace ganjoor
                 foreach (GDBInfo gdbInfo in _Lst)
                 {
                     int RowIndex = grdList.Rows.Add();
-                    if (db.GetCategory(gdbInfo.CatID) != null)
+                    bool haveIt = (db.GetCategory(gdbInfo.CatID) != null);
+                    grdList.Rows[RowIndex].Tag = haveIt;
+                    if (haveIt)
                         grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
                     grdList.Rows[RowIndex].Cells[GRDCLMN_CAT].Value = gdbInfo.CatName;
                     grdList.Rows[RowIndex].Cells[GRDCLMN_DWNLD].Value = "ببینید";
@@ -129,6 +133,24 @@ namespace ganjoor
 
         public event EventHandler OnEnableNextButton = null;
         public event EventHandler OnDisableNextButton = null;
+
+        private void btnSelNone_Click(object sender, EventArgs e)
+        {
+            if (grdList.IsCurrentCellInEditMode)
+                grdList.EndEdit();
+            foreach (DataGridViewRow Row in grdList.Rows)
+                Row.Cells[GRDCLMN_CHECK].Value = false;
+
+        }
+
+        private void btnSelAllWhites_Click(object sender, EventArgs e)
+        {
+            if (grdList.IsCurrentCellInEditMode)
+                grdList.EndEdit();
+            foreach (DataGridViewRow Row in grdList.Rows)
+                if (!((bool)Row.Tag))
+                    Row.Cells[GRDCLMN_CHECK].Value = true;
+        }
 
 
 

@@ -13,6 +13,7 @@ namespace ganjoor
         public DownloadWizard()
         {
             InitializeComponent();
+            AnythingInstalled = false;
             AddStage(new WSSelectList());
             WSSelectItems selStage = new WSSelectItems();
             selStage.OnDisableNextButton += new EventHandler(selStage_OnDisableNextButton);
@@ -35,6 +36,7 @@ namespace ganjoor
 
         private void instStage_OnInstallFinished(object sender, EventArgs e)
         {
+            this.AnythingInstalled = ((_Stages[_Stages.Count - 1]) as WSInstallItems).InstalledFilesCount > 0;
             btnCancel.Enabled = true; Application.DoEvents();
         }
 
@@ -148,6 +150,12 @@ namespace ganjoor
         {
             using (GDBWizOptions dlg = new GDBWizOptions())
                 dlg.ShowDialog(this);
+        }
+
+        public bool AnythingInstalled
+        {
+            get;
+            private set;
         }
 
 

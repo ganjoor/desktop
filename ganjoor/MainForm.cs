@@ -647,7 +647,8 @@ namespace ganjoor
             using (DownloadWizard wiz = new DownloadWizard())
             {
                 wiz.ShowDialog(this);
-                ganjoorView.ShowHome(true);
+                if(wiz.AnythingInstalled)
+                    ganjoorView.ShowHome(true);
             }
         }
 

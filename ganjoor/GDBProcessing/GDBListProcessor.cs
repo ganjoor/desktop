@@ -6,7 +6,6 @@ using System.Xml;
 using System.IO;
 using ganjoor.Properties;
 using System.Reflection;
-using ganjoor.Properties;
 
 namespace ganjoor
 {
