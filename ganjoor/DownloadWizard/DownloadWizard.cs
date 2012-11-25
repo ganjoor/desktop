@@ -37,13 +37,18 @@ namespace ganjoor
         private void instStage_OnInstallFinished(object sender, EventArgs e)
         {
             this.AnythingInstalled = ((_Stages[_Stages.Count - 1]) as WSInstallItems).InstalledFilesCount > 0;
-            btnCancel.Enabled = true; Application.DoEvents();
+            btnCancel.Enabled = true;
+            btnCancel.Focus();
+            Application.DoEvents();
         }
 
         private void selStage_OnEnableNextButton(object sender, EventArgs e)
         {
             this.btnPrevious.Enabled = true;
-            this.btnNext.Enabled = true; Application.DoEvents();
+            this.btnNext.Enabled = true;
+            this.AcceptButton = this.btnNext;
+            this.btnNext.Focus();
+            Application.DoEvents();
         }
 
         private void selStage_OnDisableNextButton(object sender, EventArgs e)
@@ -87,7 +92,7 @@ namespace ganjoor
                 btnNext.Text = _Stages[StageIndex].NextStageText;
                 btnPrevious.Text = _Stages[StageIndex].PreviousStageText;
 
-                btnNext.Size = new Size(TextRenderer.MeasureText(btnNext.Text, btnNext.Font).Width + 22, 23);
+                btnNext.Size = new Size(TextRenderer.MeasureText(btnNext.Text, btnNext.Font).Width + 40, 23);
                 btnPrevious.Size = new Size(TextRenderer.MeasureText(btnPrevious.Text, btnPrevious.Font).Width + 22, 23);
 
 
@@ -108,6 +113,7 @@ namespace ganjoor
                 {
                     btnCancel.Text = "تأیید";
                     this.AcceptButton = btnCancel;
+                    btnCancel.Focus();
                 }
                 btnNext.Enabled = btnPrevious.Enabled = false;Application.DoEvents();
                 _Stages[StageIndex].OnBeforeActivate();

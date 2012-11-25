@@ -33,7 +33,8 @@
             // 
             // cmbListUrl
             // 
-            this.cmbListUrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbListUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbListUrl.FormattingEnabled = true;
             this.cmbListUrl.Location = new System.Drawing.Point(63, 70);
             this.cmbListUrl.Name = "cmbListUrl";
@@ -45,7 +46,8 @@
             // 
             // lblListName
             // 
-            this.lblListName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblListName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblListName.BackColor = System.Drawing.SystemColors.Info;
             this.lblListName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblListName.Location = new System.Drawing.Point(63, 102);
@@ -59,7 +61,9 @@
             // 
             // lblListDescription
             // 
-            this.lblListDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblListDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblListDescription.BackColor = System.Drawing.SystemColors.Info;
             this.lblListDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblListDescription.Location = new System.Drawing.Point(63, 136);

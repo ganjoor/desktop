@@ -61,6 +61,8 @@
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnNext.Image = global::ganjoor.Properties.Resources.back16;
+            this.btnNext.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNext.Location = new System.Drawing.Point(97, 372);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 24);

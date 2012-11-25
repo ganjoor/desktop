@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ganjoor
 {
+    /// <summary>
+    /// معنی فیلد position در جدول verse با توجه به مقادیر این ساختار داده مشخص می شود.
+    /// </summary>
     public enum VersePosition
     {
         Right = 0,//مصرع اول
@@ -12,19 +15,5 @@ namespace ganjoor
         CenteredVerse2 = 3,// مصرع دوم ابیات ترجیع یا ترکیب
         Single = 4, //مصرعهای شعرهای نیمایی یا آزاد
         Paragraph = -1, //نثر
-    }
-    public class GanjoorVerse
-    {
-        public int _PoemID;
-        public int _Order;
-        public VersePosition _Position;
-        public string _Text;
-        public GanjoorVerse(int PoemID, int Order, VersePosition Position, string Text)
-        {
-            _PoemID = PoemID;
-            _Order = Order;
-            _Position = Position;
-            _Text = Text;
-        }
     }
 }

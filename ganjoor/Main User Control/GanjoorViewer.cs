@@ -26,7 +26,7 @@ namespace ganjoor
 
             _iCurCat = _iCurPoem = 0;
             _strLastPhrase = "";
-            _history = new Stack<GarnjoorBrowsingHistory>();
+            _history = new Stack<GanjoorBrowsingHistory>();
 
             if (!DesignMode && _db == null)
             {
@@ -842,9 +842,15 @@ namespace ganjoor
             }
             set
             {
-                base.Font = value;
+                try
+                {
+                    base.Font = value;
+                }
+                catch
+                {
+                    MessageBox.Show("در تنظیم قلم نمایش اشعار اشکالی رخ داد. لطفاً از طریق پیکربندی قلم دیگری را انتخاب کنید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                }
                 AdjustLocationsByFont();
-
             }
         }
         private void AdjustLocationsByFont()
@@ -969,7 +975,6 @@ namespace ganjoor
                 return string.Empty;
             }
         }
-
         public string CurrentCategory
         {
             get
@@ -1036,10 +1041,19 @@ namespace ganjoor
                 return _db.LastError;
             }
         }
+        public static string DbFilePath
+        {
+            get
+            {
+                if (_db == null)
+                    return string.Empty;
+                return _db.DbFilePath;
+            }
+        }
         #endregion
 
         #region Browing History
-        private Stack<GarnjoorBrowsingHistory> _history;
+        private Stack<GanjoorBrowsingHistory> _history;
         public bool CanGoBackInHistory
         {
             get
@@ -1051,27 +1065,27 @@ namespace ganjoor
         {
             if (_FavsPage)
             {
-                _history.Push(new GarnjoorBrowsingHistory(string.Empty, 0, _iCurSearchStart, _iCurSearchPageCount, true, this.AutoScrollPosition));
+                _history.Push(new GanjoorBrowsingHistory(string.Empty, 0, _iCurSearchStart, _iCurSearchPageCount, true, this.AutoScrollPosition));
             }
             else
             if (!string.IsNullOrEmpty(_strLastPhrase))
             {
-                _history.Push(new GarnjoorBrowsingHistory(_strLastPhrase, _iCurSearchPoet, _iCurSearchStart, _iCurSearchPageCount, false, this.AutoScrollPosition));
+                _history.Push(new GanjoorBrowsingHistory(_strLastPhrase, _iCurSearchPoet, _iCurSearchStart, _iCurSearchPageCount, false, this.AutoScrollPosition));
             }
             else
                 if (
                     (_history.Count == 0) || !((_history.Peek()._CatID == _iCurCat) && (_history.Peek()._CatPageStart == _iCurCatStart) && ((_history.Peek()._PoemID == _iCurPoem)))
                     )
                 {
-                    _history.Push(new GarnjoorBrowsingHistory(_iCurCat, _iCurPoem, _iCurCatStart, this.AutoScrollPosition));
+                    _history.Push(new GanjoorBrowsingHistory(_iCurCat, _iCurPoem, _iCurCatStart, this.AutoScrollPosition));
 
                 }
         }
-        public void GoBackInHistory()//forward twards back!
+        public void GoBackInHistory()//forward towards back!
         {
             if (CanGoBackInHistory)
             {
-                GarnjoorBrowsingHistory back = _history.Pop();
+                GanjoorBrowsingHistory back = _history.Pop();
                 if (back._FavsPage)
                 {
                     ShowFavs(back._SearchStart, back._PageItemsCount, false);

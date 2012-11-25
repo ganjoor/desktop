@@ -105,6 +105,7 @@
             this.mnuShowBeytNums = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuGdb = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDownloadGDBList = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
@@ -652,8 +653,8 @@
             // mnuPrintPreview
             // 
             this.mnuPrintPreview.Name = "mnuPrintPreview";
-            this.mnuPrintPreview.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
-                        | System.Windows.Forms.Keys.P)));
+            this.mnuPrintPreview.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.P)));
             this.mnuPrintPreview.Size = new System.Drawing.Size(270, 22);
             this.mnuPrintPreview.Text = "پیش‌نمایش چاپ";
             this.mnuPrintPreview.Click += new System.EventHandler(this.mnuPrintPreview_Click);
@@ -753,8 +754,8 @@
             // 
             this.mnuFavUnFav.Image = global::ganjoor.Properties.Resources.favorite_add;
             this.mnuFavUnFav.Name = "mnuFavUnFav";
-            this.mnuFavUnFav.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
-                        | System.Windows.Forms.Keys.L)));
+            this.mnuFavUnFav.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.L)));
             this.mnuFavUnFav.Size = new System.Drawing.Size(233, 22);
             this.mnuFavUnFav.Text = "نشانه‌گذاری";
             this.mnuFavUnFav.Click += new System.EventHandler(this.btnFavUnFav_Click);
@@ -763,8 +764,8 @@
             // 
             this.mnuShowFavs.Image = global::ganjoor.Properties.Resources.favorite;
             this.mnuShowFavs.Name = "mnuShowFavs";
-            this.mnuShowFavs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
-                        | System.Windows.Forms.Keys.B)));
+            this.mnuShowFavs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.B)));
             this.mnuShowFavs.Size = new System.Drawing.Size(233, 22);
             this.mnuShowFavs.Text = "فهرست نشانه‌ها";
             this.mnuShowFavs.Click += new System.EventHandler(this.btnFavs_Click);
@@ -806,6 +807,7 @@
             // 
             this.mnuGdb.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuAdd,
+            this.mnuDel,
             this.toolStripSeparator15,
             this.btnDownloadGDBList});
             this.mnuGdb.Name = "mnuGdb";
@@ -819,6 +821,13 @@
             this.mnuAdd.Size = new System.Drawing.Size(266, 22);
             this.mnuAdd.Text = "اضافه کردن مجموعه‌های اشعار ...";
             this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
+            // 
+            // mnuDel
+            // 
+            this.mnuDel.Name = "mnuDel";
+            this.mnuDel.Size = new System.Drawing.Size(266, 22);
+            this.mnuDel.Text = "حذف شاعر جاری ...";
+            this.mnuDel.Click += new System.EventHandler(this.mnuDel_Click);
             // 
             // toolStripSeparator15
             // 
@@ -1010,6 +1019,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnChangeLog;
         private System.Windows.Forms.ToolStripButton btnDownload;
         private System.Windows.Forms.ToolStripSeparator sepDownloadOptions;
+        private System.Windows.Forms.ToolStripMenuItem mnuDel;
 
 
 
