@@ -6,7 +6,7 @@ using System.IO;
 namespace ganjoor
 {
     /// <summary>
-    /// This is not a serious parser, I just wanted to not user DLLImport,
+    /// This is not a serious parser, I just wanted to not use DLLImport,
     /// </summary>
     public class GINIParser
     {

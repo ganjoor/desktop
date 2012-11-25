@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 using ganjoor.Properties;
 
 namespace ganjoor
@@ -51,6 +52,7 @@ namespace ganjoor
             numMaxFavs.Value = Settings.Default.FavItemsInPage;
             txtProxyServer.Text = Settings.Default.HttpProxyServer;
             txtProxyPort.Text = Settings.Default.HttpProxyPort;
+            txtDbPath.Text = Path.GetDirectoryName(GanjoorViewer.DbFilePath);
         }
         private void btnOK_Click(object sender, EventArgs e)
         {
@@ -284,6 +286,17 @@ namespace ganjoor
                     _RandomCatIDs = dlg.CheckedCatsString;
                     lblRandomCat.Text = RandomCatPath;
                 }
+            }
+        }
+
+        private void btnBrowseDbPath_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(txtDbPath.Text);
+            }
+            catch
+            {
             }
         }
 

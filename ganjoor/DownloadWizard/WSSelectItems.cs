@@ -20,7 +20,7 @@ namespace ganjoor
         public override void OnActivated()
         {
             tlbr.Enabled = false;
-            lblDesc.Text = "در حال دریافت اطللاعات ...";
+            lblDesc.Text = "در حال دریافت اطلاعات ...";
             if (OnDisableNextButton != null)
                 OnDisableNextButton(this, new EventArgs());
             if (DownloadList(Settings.Default.LastDownloadUrl))

@@ -518,14 +518,29 @@ namespace ganjoor
         private void btnZoomIn_Click(object sender, EventArgs e)
         {
             ganjoorView.Visible = false;
-            ganjoorView.Font = Settings.Default.ViewFont = new Font(ganjoorView.Font.Name, Math.Min(144.0f, ganjoorView.Font.Size * 1.1f));
+            try
+            {
+                ganjoorView.Font = new Font(ganjoorView.Font.Name, Math.Min(144.0f, ganjoorView.Font.Size * 1.1f), ganjoorView.Font.Style);
+                Settings.Default.ViewFont = ganjoorView.Font;
+            }
+            catch
+            {
+            }
             ganjoorView.Visible = true;
         }
 
         private void btnZoomOut_Click(object sender, EventArgs e)
         {
             ganjoorView.Visible = false;
-            ganjoorView.Font = Settings.Default.ViewFont = new Font(ganjoorView.Font.Name, Math.Max(4.0f, ganjoorView.Font.Size * 0.9f));
+            try
+            {
+                ganjoorView.Font = new Font(ganjoorView.Font.Name, Math.Max(4.0f, ganjoorView.Font.Size * 0.9f), ganjoorView.Font.Style);
+                Settings.Default.ViewFont = ganjoorView.Font;
+            }
+            catch
+            {
+            }
+            
             ganjoorView.Visible = true;
         }
 
@@ -544,6 +559,28 @@ namespace ganjoor
                 }
             }
         }
+
+        private void mnuDel_Click(object sender, EventArgs e)
+        {
+
+            if (ganjoorView.CurrentPoet == "همه")
+            {
+                MessageBox.Show("لطفاً وارد آثار شاعر مورد نظرتان شوید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign); 
+                return;
+            }
+
+            if (
+                 MessageBox.Show(
+                 String.Format(
+                        "آیا از حذف «{0}» و تمام آثار او اطمینان دارید؟", ganjoorView.CurrentPoet
+                        ),"تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                 ==
+                 DialogResult.Yes
+                 )
+                if (!ganjoorView.DeletePoet())
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+        }
+
 
         private void ImportGdb(string FileName)
         {
@@ -664,6 +701,7 @@ namespace ganjoor
                 }
             }            
         }
+
 
 
     }

@@ -82,7 +82,7 @@
             this.lblDesc.Name = "lblDesc";
             this.lblDesc.Size = new System.Drawing.Size(585, 66);
             this.lblDesc.TabIndex = 3;
-            this.lblDesc.Text = "در حال دریافت اطللاعات ...";
+            this.lblDesc.Text = "در حال دریافت اطلاعات ...";
             this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tlbr

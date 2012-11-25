@@ -49,6 +49,9 @@ namespace ganjoor
                     ctl.SendToBack();
                 }
 
+            (this.Parent.Parent as Form).AcceptButton = btnStop;
+            btnStop.Focus();
+
             BeginNextDownload();
 
         }
@@ -100,7 +103,8 @@ namespace ganjoor
             if (!string.IsNullOrEmpty(sFileDownloaded))
                 _DownloadedFiles.Add(sFileDownloaded);
             else
-                MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.", ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                if(_RealDownloadIndex>=0)
+                    MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.", ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -132,6 +136,7 @@ namespace ganjoor
             {
                 if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
                 {
+                    lblMsg.Text = "لطفاً منتظر بمانید تا دریافت فایل جاری متوقف شود ...";
                     btnStop.Enabled = false;
                     backgroundWorker.CancelAsync();
                     Application.DoEvents();

@@ -45,6 +45,11 @@ namespace ganjoor
             {
                 Init(_dbfilepath);
             }
+            catch (BadImageFormatException exp)
+            {
+                GAdvisor.AdviseOnSQLiteDllNotfound();
+                throw exp;
+            }
             catch (FileNotFoundException exp)//this is where incorrect version of System.Data.SQLite.DLL causes problems
             {
                 if (exp.FileName.IndexOf("System.Data.SQLite", StringComparison.InvariantCultureIgnoreCase) != -1)
@@ -143,6 +148,13 @@ namespace ganjoor
         #endregion 
 
         #region Properties & Methods
+        public string DbFilePath
+        {
+            get
+            {
+                return _dbfilepath;
+            }
+        }
         public bool Failed
         {
             get
