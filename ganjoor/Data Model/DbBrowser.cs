@@ -54,7 +54,7 @@ namespace ganjoor
             {
                 if (exp.FileName.IndexOf("System.Data.SQLite", StringComparison.InvariantCultureIgnoreCase) != -1)
                     GAdvisor.AdviseOnSQLiteDllNotfound();
-                throw exp;
+                //throw exp; //92-04-14
             }
         }
         /// <summary>
@@ -1894,6 +1894,20 @@ namespace ganjoor
             }
             return true;
         }
+        public bool SetVersePosition(int PoemID, int Order, VersePosition Position)
+        {
+            if (!Connected)
+                return false;
+            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+            {
+                cmd.CommandText = String.Format(
+                    "UPDATE verse SET position = {0} WHERE poem_id={1} AND vorder={2}",
+                    (int)Position, PoemID, Order
+                    );
+                cmd.ExecuteNonQuery();
+            }
+            return true;
+        }
         public bool DeleteVerses(int PoemID, List<int> VerseOrders)
         {
             if (!Connected)
@@ -2025,6 +2039,20 @@ namespace ganjoor
                 cmd.CommandText = String.Format(
                     "UPDATE verse SET poem_id = {0} WHERE poem_id= {1}",
                     NewPoemID, PoemID
+                    );
+                cmd.ExecuteNonQuery();
+            }
+            return true;
+        }
+        public bool SetPoemCatID(int PoemID, int NewCatID)
+        {
+            if (!Connected)
+                return false;
+            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+            {
+                cmd.CommandText = String.Format(
+                    "UPDATE poem SET cat_id = {0} WHERE id= {1}",
+                    NewCatID, PoemID
                     );
                 cmd.ExecuteNonQuery();
             }

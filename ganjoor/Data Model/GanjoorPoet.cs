@@ -72,6 +72,11 @@ namespace ganjoor
             }
              return false;
         }
+
+        public override int GetHashCode()
+        {
+            return this._ID;
+        }
         #endregion
 
     }

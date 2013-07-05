@@ -2239,6 +2239,12 @@ namespace ganjoor
                 verseBox.BackColor = Color.White;
             }
         }
+        private static void DRY_ForceSaveVerse(TextBox verseBox)
+        {
+            GanjoorVerse verse = verseBox.Tag as GanjoorVerse;
+            _db.SetVerseText(verse._PoemID, verse._Order, verseBox.Text);
+            verseBox.BackColor = Color.White;
+        }
         private void lblVerse_TextChanged(object sender, EventArgs e)
         {
             TextBox verseBox = sender as TextBox;
@@ -2412,6 +2418,149 @@ namespace ganjoor
                 ShowPoem(_db.GetPoem(_iCurPoem), false);
             }
         }
+        public bool ReplaceText(string strFindText, string strReplaceText)
+        {
+            foreach (Control ctl in this.Controls)
+                if (ctl is TextBox)
+                {
+                    TextBox txt = (ctl as TextBox);
+                    txt.Text = txt.Text.Replace(strFindText, strReplaceText);
+                    DRY_ForceSaveVerse(txt);
+                }
+            return true;
+        }
+        public bool RestructureVerses(int LineCount, bool FullLine, int nStartOrder, bool OnlyNormalVerses)
+        {
+            Save();
+            VersePosition Position = VersePosition.Right;
+            int numPassed = 0;
+            _db.BeginBatchOperation();
+            foreach (Control ctl in this.Controls)
+            {
+                if (!(ctl is TextBox))
+                    continue;
+                TextBox txt = ctl as TextBox;
+                if (!(txt.Tag is GanjoorVerse))
+                    continue;
+                GanjoorVerse verse = ctl.Tag as GanjoorVerse;
+                if (verse._Order < nStartOrder)
+                    continue;
+                bool ChangeIt = true;
+                if (OnlyNormalVerses)
+                    if (verse._Position != VersePosition.Right && verse._Position != VersePosition.Left)
+                        ChangeIt = false;
+
+                if (ChangeIt)
+                    _db.SetVersePosition(_iCurPoem, verse._Order, Position);                    
+                switch (Position)
+                {
+                    case VersePosition.Right:
+                        {
+                            Position = VersePosition.Left;
+                        }
+                        break;
+                    case VersePosition.Left:
+                        {
+                            numPassed++;
+                            Position = (numPassed == LineCount) ? VersePosition.CenteredVerse1 : VersePosition.Right;
+                        }
+                        break;
+                    case VersePosition.CenteredVerse1:
+                        {
+                                numPassed = 0;
+                                Position = FullLine ? VersePosition.CenteredVerse2 : VersePosition.Right;
+
+                        }
+                        break;
+                    default://case VersePosition.CenteredVerse2:                    
+                        {
+                            Position = VersePosition.Right;
+
+                                
+                        }
+                        break;
+
+                }
+            }
+            _db.CommitBatchOperation();
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            return true;
+        }
+
+        public bool ConvertLineToBandLine()
+        {
+            int nFocus = -1;
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl.Focused)
+                {
+                    if (ctl is TextBox)
+                    {
+                        GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
+                        nFocus = verseBefore._Order;
+                        if (verseBefore._Position == VersePosition.Right)
+                        {
+                            _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, VersePosition.CenteredVerse1);
+                            _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order + 1, VersePosition.CenteredVerse2);
+                        }
+                        else
+                            if (verseBefore._Position == VersePosition.Left)
+                            {
+                                _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order - 1, VersePosition.CenteredVerse1);
+                                _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, VersePosition.CenteredVerse2);
+                            }
+                    }
+                    break;
+                }
+            }
+            if (nFocus == -1)
+                return false;
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            foreach (Control ctl in this.Controls)
+                if (ctl is TextBox)
+                {
+                    if ((ctl.Tag as GanjoorVerse)._Order == nFocus)
+                    {
+                        ctl.Focus();
+                        break;
+                    }
+                }
+            return true;
+        }
+
+        public bool ConvertVerseToBandVerse()
+        {
+            int nFocus = -1;
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl.Focused)
+                {
+                    if (ctl is TextBox)
+                    {
+                        GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
+                        nFocus = verseBefore._Order;
+                        _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, VersePosition.CenteredVerse1);
+                        RestructureVerses(-1, false, nFocus + 1, true);
+                    }
+                    break;
+                }
+            }
+            if (nFocus == -1)
+                return false;
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            foreach (Control ctl in this.Controls)
+                if (ctl is TextBox)
+                {
+                    if ((ctl.Tag as GanjoorVerse)._Order == nFocus)
+                    {
+                        ctl.Focus();
+                        break;
+                    }
+                }
+            return true;
+        }
+
+
         #endregion
 
         #region Clear Controls

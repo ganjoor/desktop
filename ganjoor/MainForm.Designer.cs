@@ -180,6 +180,7 @@
             this.btnPreviousPoem.Name = "btnPreviousPoem";
             this.btnPreviousPoem.Size = new System.Drawing.Size(56, 50);
             this.btnPreviousPoem.Text = "شعر قبل";
+            this.btnPreviousPoem.ToolTipText = "شعر / صفحۀ قبل (Ctrl+کلید جهتی راست)";
             this.btnPreviousPoem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPreviousPoem.Click += new System.EventHandler(this.btnPreviousPoem_Click);
             // 
@@ -191,6 +192,7 @@
             this.btnNextPoem.Name = "btnNextPoem";
             this.btnNextPoem.Size = new System.Drawing.Size(54, 50);
             this.btnNextPoem.Text = "شعر بعد";
+            this.btnNextPoem.ToolTipText = "شعر / صفحۀ بعد (Ctrl+کلید جهتی چپ)";
             this.btnNextPoem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNextPoem.Click += new System.EventHandler(this.btnNextPoem_Click);
             // 
@@ -201,6 +203,7 @@
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(36, 50);
             this.btnRandom.Text = "فال";
+            this.btnRandom.ToolTipText = "Ctrl+R";
             this.btnRandom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
@@ -216,6 +219,7 @@
             this.btnHistoryBack.Name = "btnHistoryBack";
             this.btnHistoryBack.Size = new System.Drawing.Size(49, 50);
             this.btnHistoryBack.Text = "برگشت";
+            this.btnHistoryBack.ToolTipText = "برگشت (Alt+کلید جهتی راست)";
             this.btnHistoryBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHistoryBack.Click += new System.EventHandler(this.btnHistoryBack_Click);
             // 
@@ -231,6 +235,7 @@
             this.btnFavUnFav.Name = "btnFavUnFav";
             this.btnFavUnFav.Size = new System.Drawing.Size(71, 50);
             this.btnFavUnFav.Text = "نشانه‌گذاری";
+            this.btnFavUnFav.ToolTipText = "Ctrl+Shit+L";
             this.btnFavUnFav.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnFavUnFav.Click += new System.EventHandler(this.btnFavUnFav_Click);
             // 
@@ -241,6 +246,7 @@
             this.btnFavs.Name = "btnFavs";
             this.btnFavs.Size = new System.Drawing.Size(53, 50);
             this.btnFavs.Text = "نشانه‌ها";
+            this.btnFavs.ToolTipText = "Ctrl+Shit+B";
             this.btnFavs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnFavs.Click += new System.EventHandler(this.btnFavs_Click);
             // 
@@ -283,6 +289,7 @@
             this.btnShowBeytNums.Name = "btnShowBeytNums";
             this.btnShowBeytNums.Size = new System.Drawing.Size(74, 50);
             this.btnShowBeytNums.Text = "شماره‌گذاری";
+            this.btnShowBeytNums.ToolTipText = "Ctrl+L";
             this.btnShowBeytNums.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnShowBeytNums.CheckedChanged += new System.EventHandler(this.btnShowBeytNums_CheckedChanged);
             // 
@@ -319,6 +326,7 @@
             this.btnHighlight.Name = "btnHighlight";
             this.btnHighlight.Size = new System.Drawing.Size(81, 50);
             this.btnHighlight.Text = "برجسته‌سازی";
+            this.btnHighlight.ToolTipText = "Ctrl+F";
             this.btnHighlight.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHighlight.CheckedChanged += new System.EventHandler(this.btnHighlight_CheckedChanged);
             // 
@@ -329,6 +337,7 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(49, 50);
             this.btnSearch.Text = "جستجو";
+            this.btnSearch.ToolTipText = "F3";
             this.btnSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -512,7 +521,7 @@
             // 
             this.mnuHome.Image = global::ganjoor.Properties.Resources.home_next;
             this.mnuHome.Name = "mnuHome";
-            this.mnuHome.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.mnuHome.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F1)));
             this.mnuHome.Size = new System.Drawing.Size(180, 22);
             this.mnuHome.Text = "خانه";
             this.mnuHome.Click += new System.EventHandler(this.btnHome_Click);

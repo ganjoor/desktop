@@ -42,6 +42,8 @@ namespace ganjoor
             }
             btnReOrderCat.Enabled = btnExportPoet.Enabled = btnNewCat.Enabled = btnNewPoem.Enabled = btnEditPoet.Enabled = btnEditPoetBio.Enabled = btnDeletePoet.Enabled = PageString != "خانه";
             btnExportCat.Enabled = btnEditCat.Enabled = btnDeleteCat.Enabled = !ganjoorView.IsInPoetRootPage;
+            
+            btnRestructurePoem.Enabled = btnReplaceToolStripMenuItem.Enabled = btnNormalRestructure.Enabled = btnConvertBeytToBand.Enabled = btnConvertVerseToBand.Enabled =
             btnImportFromClipboadStructuredPoem.Enabled = btnImportFromTextFile.Enabled = btnImportFromClipboard.Enabled = chkEachlineOneverse.Enabled = btnNewLine.Enabled = btnDeletePoem.Enabled = btnMoveToCategory.Enabled = btnEditPoem.Enabled = chkIgnoreBlankLines.Enabled = chkIgnoreShortLines.Enabled = HasComments;
         }
 
@@ -413,6 +415,64 @@ namespace ganjoor
         {
             using (GDBListEditor dlg = new GDBListEditor())
                 dlg.ShowDialog(this);
+        }
+
+        private void btnReplaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (ItemEditor dlgFind = new ItemEditor(EditItemType.General, "متن جستجو", "متن جستجو"))
+            {
+                if (dlgFind.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    string strFindText = dlgFind.ItemName;
+
+                    using (ItemEditor dlgReplace = new ItemEditor(EditItemType.General, "متن جایگزین", "متن جایگزین"))
+                    {
+                        if (dlgReplace.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                        {
+                            string strReplaceText = dlgReplace.ItemName;
+                            if(MessageBox.Show(String.Format("از جایگزینی «{0}» با «{1}» در شعر جاری اطمینان دارید؟", strFindText, strReplaceText),
+                                "پرسش و هشدار", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                            return;
+
+                            this.ganjoorView.ReplaceText(strFindText, strReplaceText);
+                        }
+
+                    }
+                }                
+            }
+        }
+
+        private void btnRestructurePoem_Click(object sender, EventArgs e)
+        {
+            using (PoemStructure dlg = new PoemStructure())
+            {
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    ganjoorView.RestructureVerses(dlg.LinesCount, dlg.FullLine, -1, false);
+                    ganjoorView.Save();
+                }
+            }
+
+        }
+
+        private void btnNormalRestructure_Click(object sender, EventArgs e)
+        {
+            ganjoorView.RestructureVerses(-1, true, -1, false);
+            ganjoorView.Save();
+        }
+
+        private void btnConvertBeytToBand_Click(object sender, EventArgs e)
+        {
+            if (!ganjoorView.ConvertLineToBandLine())
+            {
+                MessageBox.Show("تبدیلی انجام نشد، این فرمان فقط روی مصرعهای بیتهای معمولی کار می‌کند.", "خطا");
+            }
+
+        }
+
+        private void btnConvertVerseToBand_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ConvertVerseToBandVerse();
         }
 
 
