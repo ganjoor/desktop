@@ -386,6 +386,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="128-128.ico" />
     <Content Include="favicon.ico" />
     <None Include="Resources\back16.png" />
     <None Include="Resources\selnone.png" />

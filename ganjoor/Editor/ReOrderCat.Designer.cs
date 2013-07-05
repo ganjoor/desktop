@@ -45,6 +45,8 @@
             this.btnMoveUp = new System.Windows.Forms.ToolStripButton();
             this.btnMoveDown = new System.Windows.Forms.ToolStripButton();
             this.btnSaveOrder = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnMoveToCat = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdMain)).BeginInit();
             this.stsBar.SuspendLayout();
             this.tlbrMain.SuspendLayout();
@@ -159,7 +161,9 @@
             this.btnMoveLast,
             this.btnMoveUp,
             this.btnMoveDown,
-            this.btnSaveOrder});
+            this.btnSaveOrder,
+            this.toolStripSeparator1,
+            this.btnMoveToCat});
             this.tlbrMain.Location = new System.Drawing.Point(0, 0);
             this.tlbrMain.Name = "tlbrMain";
             this.tlbrMain.Size = new System.Drawing.Size(663, 25);
@@ -217,6 +221,21 @@
             this.btnSaveOrder.Text = "ذخیرهٔ این ترتیب";
             this.btnSaveOrder.Click += new System.EventHandler(this.btnSaveOrder_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnMoveToCat
+            // 
+            this.btnMoveToCat.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnMoveToCat.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveToCat.Image")));
+            this.btnMoveToCat.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMoveToCat.Name = "btnMoveToCat";
+            this.btnMoveToCat.Size = new System.Drawing.Size(108, 22);
+            this.btnMoveToCat.Text = "انتقال به بخش دیگر";
+            this.btnMoveToCat.Click += new System.EventHandler(this.btnMoveToCat_Click);
+            // 
             // ReOrderCat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -261,5 +280,7 @@
         private System.Windows.Forms.ToolStripButton btnMoveUp;
         private System.Windows.Forms.ToolStripButton btnMoveDown;
         private System.Windows.Forms.ToolStripButton btnSaveOrder;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton btnMoveToCat;
     }
 }

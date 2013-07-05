@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ganjoor
 {
-    class GPersianTextSync
+    public class GPersianTextSync
     {
         public static string Sync(string inputStr)
         {
@@ -12,7 +12,7 @@ namespace ganjoor
                 inputStr
                     .Replace('ك', 'ک')
                     .Replace('ي', 'ی')
-                    .Replace("هٔ", "هٔ")
+                    .Replace("ۀ", "هٔ")
                     .Replace("ه‌ی", "هٔ")
                     .Replace("0", "۰")
                     .Replace("1", "۱")
