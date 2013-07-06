@@ -20,7 +20,7 @@ namespace ganjoor
 
         private DbBrowser _db;
 
-        private List<int> _IDs = new List<int>();
+        private List<int> _OriginalIdSet = new List<int>();
 
         private const int ClmnTitle = 0;
         private const int ClmnID = 1;
@@ -31,7 +31,7 @@ namespace ganjoor
             if (_db == null)
                 _db = new DbBrowser();
 
-            _IDs.Clear();
+            _OriginalIdSet.Clear();
             grdMain.Rows.Clear();
 
             List<GanjoorCat> Cats = _db.GetSubCategories(Settings.Default.LastCat);
@@ -40,7 +40,7 @@ namespace ganjoor
             {
                 int rowIndex = grdMain.Rows.Add();
 
-                _IDs.Add(Cat._ID);
+                _OriginalIdSet.Add(Cat._ID);
 
                 grdMain.Rows[rowIndex].Cells[ClmnID].Value = Cat._ID;
 
@@ -167,8 +167,8 @@ namespace ganjoor
             for (int iRow = 0; iRow < grdMain.RowCount; iRow++)
             {
                 int CatID = Convert.ToInt32(grdMain.Rows[iRow].Cells[ClmnID].Value);
-                _db.SetCatID(CatID, -_IDs[iRow]);
-                grdMain.Rows[iRow].Cells[ClmnID].Value = _IDs[iRow];
+                _db.SetCatID(CatID, -_OriginalIdSet[iRow]);
+                grdMain.Rows[iRow].Cells[ClmnID].Value = _OriginalIdSet[iRow];
             }
             _db.CommitBatchOperation();
             _db.BeginBatchOperation();
@@ -178,6 +178,35 @@ namespace ganjoor
                 _db.SetCatID(CatID, -CatID);
             }
             _db.CommitBatchOperation();
+        }
+
+        private void btnMoveToCat_Click(object sender, EventArgs e)
+        {
+            int PoetId = _db.GetCategory(Settings.Default.LastCat)._PoetID;
+            using (CategorySelector dlg = new CategorySelector(PoetId))
+            {
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    int NewCatId = dlg.SelectedCatID;
+                    if (NewCatId == Settings.Default.LastCat)
+                        MessageBox.Show("شما بخش جاری را انتخاب کرده‌اید!");
+                    else
+                    {
+                        GanjoorCat cat = _db.GetCategory(NewCatId);
+                        if (MessageBox.Show(String.Format("از انتقال {0} بخش انتخابی از بخش «{1}» به بخش «{2}» اطمینان دارید؟", grdMain.SelectedRows.Count, _db.GetCategory(Settings.Default.LastCat)._Text, cat._Text),
+                            "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                            return;
+                        _db.BeginBatchOperation();
+                        foreach (DataGridViewRow Row in grdMain.SelectedRows)
+                        {
+                            int CatID = Convert.ToInt32(Row.Cells[ClmnID].Value);
+                            _db.SetCatParentID(CatID, NewCatId);
+                        }
+                        _db.CommitBatchOperation();
+                        LoadGridData();
+                    }
+                }
+            }
         }
 
 

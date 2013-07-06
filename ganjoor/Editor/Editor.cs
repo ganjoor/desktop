@@ -475,6 +475,16 @@ namespace ganjoor
             ganjoorView.ConvertVerseToBandVerse();
         }
 
+        private void btnConvertLeftToRight_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ConvertLeftToRightLine();
+        }
+
+        private void btnConvertVerseToPara_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ConvertVerseToPara();
+        }
+
 
 
 

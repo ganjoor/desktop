@@ -1704,6 +1704,11 @@ namespace ganjoor
                     );
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = String.Format(
+                    "UPDATE cat SET parent_id = {0} WHERE parent_id= {1}",
+                    NewCatID, CatID
+                    );
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = String.Format(
                     "UPDATE poem SET cat_id = {0} WHERE cat_id= {1}",
                     NewCatID, CatID
                     );
@@ -1711,6 +1716,20 @@ namespace ganjoor
                 cmd.CommandText = String.Format(
                     "UPDATE poet SET cat_id = {0} WHERE cat_id= {1}",
                     NewCatID, CatID
+                    );
+                cmd.ExecuteNonQuery();
+            }
+            return true;
+        }
+        public bool SetCatParentID(int CatID, int ParentCatID)
+        {
+            if (!Connected)
+                return false;
+            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+            {
+                cmd.CommandText = String.Format(
+                    "UPDATE cat SET parent_id = {0} WHERE id= {1}",
+                    ParentCatID, CatID
                     );
                 cmd.ExecuteNonQuery();
             }
@@ -2466,6 +2485,31 @@ namespace ganjoor
                     }
                 }
             }            
+        }
+        #endregion
+
+        #region INDEXing
+        public bool CreateIndexes()
+        {
+            //cat_id in poem:
+            using (SQLiteCommand cmd = new SQLiteCommand(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_poem_catid ON poem(id ASC, cat_id ASC)", _con))
+            {
+                cmd.ExecuteNonQuery();
+            }
+            //title in poem:
+            using (SQLiteCommand cmd = new SQLiteCommand(
+                "CREATE INDEX IF NOT EXISTS idx_poem_title ON poem(id ASC, title ASC)", _con))
+            {
+                cmd.ExecuteNonQuery();
+            }
+            //verse relation indexes:
+            using (SQLiteCommand cmd = new SQLiteCommand(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_verse ON verse(poem_id ASC, vorder ASC)", _con))
+            {
+                cmd.ExecuteNonQuery();
+            }
+            return true;
         }
         #endregion
     }

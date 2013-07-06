@@ -204,11 +204,56 @@ namespace ganjoor
 
             }
 
+
+            //=========== 92-04-14 ===== begin
+            int poemsCount = category._StartPoem + Settings.Default.MaxPoemsInList < poems.Count ? Settings.Default.MaxPoemsInList : poems.Count - category._StartPoem;
+            bool goLower = false;
+            if (preCat != null)
+            {
+                LinkLabel lblPrevPage = new LinkLabel();
+                lblPrevPage.Tag = preCat;
+                lblPrevPage.AutoSize = true;
+                lblPrevPage.Text = "صفحهٔ قبل";
+                lblPrevPage.Location = new Point(200, poemsTop + poemsCount * DistanceBetweenLines);
+                lblPrevPage.LinkBehavior = LinkBehavior.HoverUnderline;
+                lblPrevPage.BackColor = Color.Transparent;
+                lblPrevPage.LinkColor = Settings.Default.LinkColor;
+                lblPrevPage.ForeColor = lblPrevPage.LinkColor;
+                lblPrevPage.Click += new EventHandler(lblNextPage_Click);
+                this.Controls.Add(lblPrevPage);
+
+                goLower = true;
+
+
+            }
+
+            if (nextCat != null)
+            {
+                LinkLabel lblNextPage = new LinkLabel();
+                lblNextPage.Tag = nextCat;
+                lblNextPage.AutoSize = true;
+                lblNextPage.Text = "صفحهٔ بعد";
+                lblNextPage.Location = new Point(this.Width - 200, poemsTop + poemsCount * DistanceBetweenLines);
+                lblNextPage.LinkBehavior = LinkBehavior.HoverUnderline;
+                lblNextPage.BackColor = Color.Transparent;
+                lblNextPage.LinkColor = Settings.Default.LinkColor;
+                lblNextPage.ForeColor = lblNextPage.LinkColor;
+                lblNextPage.Click += new EventHandler(lblNextPage_Click);
+                this.Controls.Add(lblNextPage);
+
+                goLower = true;
+
+            }
+
+            if (goLower)
+                poemsCount++;
+
+            //=========== 92-04-14 ===== end
+
             //یک بر چسب اضافی برای اضافه شدن فضای پایین فرم
 
             Label lblDummy = new Label();
             lblDummy.Text = " ";
-            int poemsCount = category._StartPoem + Settings.Default.MaxPoemsInList < poems.Count ? Settings.Default.MaxPoemsInList : poems.Count - category._StartPoem;
             lblDummy.Location = new Point(200, poemsTop + poemsCount * DistanceBetweenLines);
             lblDummy.BackColor = Color.Transparent;
             this.Controls.Add(lblDummy);
@@ -2528,6 +2573,7 @@ namespace ganjoor
             return true;
         }
 
+
         public bool ConvertVerseToBandVerse()
         {
             int nFocus = -1;
@@ -2559,6 +2605,81 @@ namespace ganjoor
                 }
             return true;
         }
+
+        public bool ConvertVerseToPara()
+        {
+            int nFocus = -1;
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl.Focused)
+                {
+                    if (ctl is TextBox)
+                    {
+                        GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
+                        nFocus = verseBefore._Order;
+                        _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, VersePosition.Paragraph);
+                    }
+                    break;
+                }
+            }
+            if (nFocus == -1)
+                return false;
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            foreach (Control ctl in this.Controls)
+                if (ctl is TextBox)
+                {
+                    if ((ctl.Tag as GanjoorVerse)._Order == nFocus)
+                    {
+                        ctl.Focus();
+                        break;
+                    }
+                }
+            return true;
+
+        }
+
+
+        public bool ConvertLeftToRightLine()
+        {
+            int nFocus = -1;
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl.Focused)
+                {
+                    if (ctl is TextBox)
+                    {
+                        GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
+                        nFocus = verseBefore._Order;
+                        if (verseBefore._Position == VersePosition.Right)
+                        {
+                            //_db.SetVersePosition(verseBefore._PoemID, verseBefore._Order +  1, VersePosition.Right);
+                            RestructureVerses(-1, false, verseBefore._Order + 1, true);
+                        }
+                        else
+                            if (verseBefore._Position == VersePosition.Left)
+                            {
+                                //_db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, VersePosition.Right);
+                                RestructureVerses(-1, false, verseBefore._Order, true);
+                            }
+                    }
+                    break;
+                }
+            }
+            if (nFocus == -1)
+                return false;
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            foreach (Control ctl in this.Controls)
+                if (ctl is TextBox)
+                {
+                    if ((ctl.Tag as GanjoorVerse)._Order == nFocus)
+                    {
+                        ctl.Focus();
+                        break;
+                    }
+                }
+            return true;
+        }
+
 
 
         #endregion
