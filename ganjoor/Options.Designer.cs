@@ -83,6 +83,7 @@
             this.btnBrowseDbPath = new System.Windows.Forms.Button();
             this.lblDbPath = new System.Windows.Forms.Label();
             this.txtDbPath = new System.Windows.Forms.TextBox();
+            this.btnCreateIndex = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxPoems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxFavs)).BeginInit();
             this.grpOptionalButtons.SuspendLayout();
@@ -594,9 +595,9 @@
             this.chkDownloadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkDownloadButton.AutoSize = true;
             this.chkDownloadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkDownloadButton.Location = new System.Drawing.Point(14, 25);
+            this.chkDownloadButton.Location = new System.Drawing.Point(15, 25);
             this.chkDownloadButton.Name = "chkDownloadButton";
-            this.chkDownloadButton.Size = new System.Drawing.Size(105, 17);
+            this.chkDownloadButton.Size = new System.Drawing.Size(104, 17);
             this.chkDownloadButton.TabIndex = 8;
             this.chkDownloadButton.Text = "دریافت مجموعه‌ها";
             this.chkDownloadButton.UseVisualStyleBackColor = true;
@@ -606,9 +607,9 @@
             this.chkEditorButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkEditorButton.AutoSize = true;
             this.chkEditorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkEditorButton.Location = new System.Drawing.Point(124, 25);
+            this.chkEditorButton.Location = new System.Drawing.Point(123, 25);
             this.chkEditorButton.Name = "chkEditorButton";
-            this.chkEditorButton.Size = new System.Drawing.Size(65, 17);
+            this.chkEditorButton.Size = new System.Drawing.Size(66, 17);
             this.chkEditorButton.TabIndex = 7;
             this.chkEditorButton.Text = "ویرایشگر";
             this.chkEditorButton.UseVisualStyleBackColor = true;
@@ -618,9 +619,9 @@
             this.chkRandomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkRandomButton.AutoSize = true;
             this.chkRandomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkRandomButton.Location = new System.Drawing.Point(514, 25);
+            this.chkRandomButton.Location = new System.Drawing.Point(512, 25);
             this.chkRandomButton.Name = "chkRandomButton";
-            this.chkRandomButton.Size = new System.Drawing.Size(38, 17);
+            this.chkRandomButton.Size = new System.Drawing.Size(40, 17);
             this.chkRandomButton.TabIndex = 1;
             this.chkRandomButton.Text = "فال";
             this.chkRandomButton.UseVisualStyleBackColor = true;
@@ -630,9 +631,9 @@
             this.chkHomeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkHomeButton.AutoSize = true;
             this.chkHomeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkHomeButton.Location = new System.Drawing.Point(557, 25);
+            this.chkHomeButton.Location = new System.Drawing.Point(556, 25);
             this.chkHomeButton.Name = "chkHomeButton";
-            this.chkHomeButton.Size = new System.Drawing.Size(42, 17);
+            this.chkHomeButton.Size = new System.Drawing.Size(43, 17);
             this.chkHomeButton.TabIndex = 0;
             this.chkHomeButton.Text = "خانه";
             this.chkHomeButton.UseVisualStyleBackColor = true;
@@ -642,9 +643,9 @@
             this.chkShowNumsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowNumsButton.AutoSize = true;
             this.chkShowNumsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkShowNumsButton.Location = new System.Drawing.Point(194, 25);
+            this.chkShowNumsButton.Location = new System.Drawing.Point(193, 25);
             this.chkShowNumsButton.Name = "chkShowNumsButton";
-            this.chkShowNumsButton.Size = new System.Drawing.Size(81, 17);
+            this.chkShowNumsButton.Size = new System.Drawing.Size(82, 17);
             this.chkShowNumsButton.TabIndex = 6;
             this.chkShowNumsButton.Text = "شماره‌گذاری";
             this.chkShowNumsButton.UseVisualStyleBackColor = true;
@@ -666,9 +667,9 @@
             this.chkCopyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCopyButton.AutoSize = true;
             this.chkCopyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkCopyButton.Location = new System.Drawing.Point(327, 25);
+            this.chkCopyButton.Location = new System.Drawing.Point(328, 25);
             this.chkCopyButton.Name = "chkCopyButton";
-            this.chkCopyButton.Size = new System.Drawing.Size(64, 17);
+            this.chkCopyButton.Size = new System.Drawing.Size(63, 17);
             this.chkCopyButton.TabIndex = 4;
             this.chkCopyButton.Text = "کپی متن";
             this.chkCopyButton.UseVisualStyleBackColor = true;
@@ -678,9 +679,9 @@
             this.chkCommentsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCommentsButton.AutoSize = true;
             this.chkCommentsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkCommentsButton.Location = new System.Drawing.Point(396, 25);
+            this.chkCommentsButton.Location = new System.Drawing.Point(398, 25);
             this.chkCommentsButton.Name = "chkCommentsButton";
-            this.chkCommentsButton.Size = new System.Drawing.Size(65, 17);
+            this.chkCommentsButton.Size = new System.Drawing.Size(63, 17);
             this.chkCommentsButton.TabIndex = 3;
             this.chkCommentsButton.Text = "حاشیه‌ها";
             this.chkCommentsButton.UseVisualStyleBackColor = true;
@@ -690,9 +691,9 @@
             this.chkBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkBrowseButton.AutoSize = true;
             this.chkBrowseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkBrowseButton.Location = new System.Drawing.Point(466, 25);
+            this.chkBrowseButton.Location = new System.Drawing.Point(465, 25);
             this.chkBrowseButton.Name = "chkBrowseButton";
-            this.chkBrowseButton.Size = new System.Drawing.Size(43, 17);
+            this.chkBrowseButton.Size = new System.Drawing.Size(44, 17);
             this.chkBrowseButton.TabIndex = 2;
             this.chkBrowseButton.Text = "مرور";
             this.chkBrowseButton.UseVisualStyleBackColor = true;
@@ -700,7 +701,7 @@
             // btnBrowseDbPath
             // 
             this.btnBrowseDbPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseDbPath.Location = new System.Drawing.Point(597, 362);
+            this.btnBrowseDbPath.Location = new System.Drawing.Point(476, 362);
             this.btnBrowseDbPath.Name = "btnBrowseDbPath";
             this.btnBrowseDbPath.Size = new System.Drawing.Size(35, 23);
             this.btnBrowseDbPath.TabIndex = 45;
@@ -725,8 +726,19 @@
             this.txtDbPath.Name = "txtDbPath";
             this.txtDbPath.ReadOnly = true;
             this.txtDbPath.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtDbPath.Size = new System.Drawing.Size(476, 21);
+            this.txtDbPath.Size = new System.Drawing.Size(357, 21);
             this.txtDbPath.TabIndex = 46;
+            // 
+            // btnCreateIndex
+            // 
+            this.btnCreateIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreateIndex.Location = new System.Drawing.Point(518, 361);
+            this.btnCreateIndex.Name = "btnCreateIndex";
+            this.btnCreateIndex.Size = new System.Drawing.Size(112, 23);
+            this.btnCreateIndex.TabIndex = 47;
+            this.btnCreateIndex.Text = "افزایش سرعت";
+            this.btnCreateIndex.UseVisualStyleBackColor = true;
+            this.btnCreateIndex.Click += new System.EventHandler(this.btnCreateIndex_Click);
             // 
             // Options
             // 
@@ -735,6 +747,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(644, 418);
+            this.Controls.Add(this.btnCreateIndex);
             this.Controls.Add(this.txtDbPath);
             this.Controls.Add(this.btnBrowseDbPath);
             this.Controls.Add(this.lblDbPath);
@@ -858,5 +871,6 @@
         private System.Windows.Forms.Button btnBrowseDbPath;
         private System.Windows.Forms.Label lblDbPath;
         private System.Windows.Forms.TextBox txtDbPath;
+        private System.Windows.Forms.Button btnCreateIndex;
     }
 }
