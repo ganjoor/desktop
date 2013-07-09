@@ -485,8 +485,18 @@ namespace ganjoor
             ganjoorView.ConvertVerseToPara();
         }
 
+        private void mnuCorrectVerses_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("این فرمان برای تصحیح جای مصرعهای اول و دوم طراحی شده و \nفقط باید در زمانی که به هم ریختگی وجود دارد استفاده شود.\nادامه می‌دهید؟",
+                "اخطار",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2,
+                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.No)
+                return;
+            this.Enabled = false;
+            ganjoorView.CurrectCurrentCatVerse();
+            this.Enabled = true;
 
-
+        }
 
 
     }

@@ -2517,12 +2517,7 @@ namespace ganjoor
 
                         }
                         break;
-                    default://case VersePosition.CenteredVerse2:                    
-                        {
-                            Position = VersePosition.Right;
-
-                                
-                        }
+                    default:
                         break;
 
                 }
@@ -2618,6 +2613,7 @@ namespace ganjoor
                         GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
                         nFocus = verseBefore._Order;
                         _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, VersePosition.Paragraph);
+                        RestructureVerses(-1, false, nFocus + 1, true);
                     }
                     break;
                 }
@@ -2677,6 +2673,30 @@ namespace ganjoor
                         break;
                     }
                 }
+            return true;
+        }
+
+        public bool CurrectCurrentCatVerse()
+        {
+            _db.BeginBatchOperation();
+            foreach (GanjoorPoem Poem in _db.GetPoems(_iCurCat))
+            {
+                List<GanjoorVerse> verses =  _db.GetVerses(Poem._ID);
+                VersePosition vPosition = VersePosition.Right;
+                for (int i = 0; i < verses.Count; i++)
+                {
+                    if (
+                        (verses[i]._Position == VersePosition.Left)
+                        ||
+                        (verses[i]._Position == VersePosition.Right)
+                      )
+                    {
+                        _db.SetVersePosition(Poem._ID, verses[i]._Order, vPosition);
+                        vPosition = vPosition == VersePosition.Right ? VersePosition.Left : VersePosition.Right;
+                    }
+                }
+            }
+            _db.CommitBatchOperation();
             return true;
         }
 
