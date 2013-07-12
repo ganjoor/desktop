@@ -66,6 +66,7 @@ namespace ganjoor
             processTextChanged = true;
             ganjoorView.ApplyUISettings();
             ganjoorView.Invalidate();
+           
         }
 
         private void btnHome_Click(object sender, EventArgs e)

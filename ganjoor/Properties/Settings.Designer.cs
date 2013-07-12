@@ -663,5 +663,17 @@ namespace ganjoor.Properties {
                 this["DeleteDownloadedFiles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DbIsIndexed {
+            get {
+                return ((bool)(this["DbIsIndexed"]));
+            }
+            set {
+                this["DbIsIndexed"] = value;
+            }
+        }
     }
 }

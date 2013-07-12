@@ -300,29 +300,5 @@ namespace ganjoor
             }
         }
 
-        private void btnCreateIndex_Click(object sender, EventArgs e)
-        {
-            if(MessageBox.Show("اجرای این فرمان موجب افزایش حجم پایگاه داده‌های برنامه می‌شود.\nانجام مکرر آن تأثیر بیشتری روی افزایش سرعت ندارد.\n"+
-                "بعد از کلیک بر روی این دکمه برنامه مدتی در حالت غیر پاسخگو قرار می‌گیرد.\nاز انجام این کار اطمینان دارید؟", "هشدار",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading)
-                == System.Windows.Forms.DialogResult.No)
-            return;
-
-            this.btnCreateIndex.Enabled = false;
-
-            Cursor = Cursors.WaitCursor;
-            Application.DoEvents();
-
-            DbBrowser db = new DbBrowser();
-            db.CreateIndexes();
-            db.CloseDb();
-            MessageBox.Show("انجام شد.", "اعلان",
-                MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-
-            Cursor = Cursors.Default;
-            this.btnCreateIndex.Enabled = true;
-            
-        }
-
     }
 }
