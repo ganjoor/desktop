@@ -7,11 +7,11 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("گنجور رومیزی")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("نرم‌افزار رایگان و بازمتن مرور اشعار فارسی")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("حمیدرضا محمدی")]
 [assembly: AssemblyProduct("گنجور")]
-[assembly: AssemblyCopyright("GPL, 1388-91, ganjoor.net, Hamid Reza Mohammadi")]
+[assembly: AssemblyCopyright("GPL, 1388-92, ganjoor.net, Hamid Reza Mohammadi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.55.*")]
-[assembly: AssemblyFileVersion("2.55.0.0")]
+[assembly: AssemblyVersion("2.6.*")]
+[assembly: AssemblyFileVersion("2.6.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("fa-IR")]

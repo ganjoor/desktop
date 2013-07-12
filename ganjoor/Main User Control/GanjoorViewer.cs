@@ -30,7 +30,17 @@ namespace ganjoor
 
             if (!DesignMode && _db == null)
             {
-                _db = new DbBrowser();                
+                _db = new DbBrowser();
+                if (!Settings.Default.DbIsIndexed)
+                {
+                    WaitMsg msgDlg = new WaitMsg("ایندکس گذاری پایگاه داده ها برای افزایش سرعت ...");
+                    msgDlg.Show();
+                    Application.DoEvents();
+                    _db.CreateIndexes();
+                    msgDlg.Dispose();
+                    Settings.Default.DbIsIndexed = true;
+                    Settings.Default.Save();
+                }
             }         
         }
 

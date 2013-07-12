@@ -249,6 +249,12 @@
     </Compile>
     <Compile Include="GDBProcessing\ZipStorer.cs" />
     <Compile Include="Data Model\VersePosition.cs" />
+    <Compile Include="Reusable Forms\WaitMsg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reusable Forms\WaitMsg.Designer.cs">
+      <DependentUpon>WaitMsg.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -350,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadWizard\WSSelectItems.resx">
       <DependentUpon>WSSelectItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reusable Forms\WaitMsg.resx">
+      <DependentUpon>WaitMsg.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
