@@ -12,6 +12,7 @@ using System.IO;
 using System.Reflection;
 using ganjoor.Properties;
 using System.IO.Compression;
+using System.Diagnostics;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
@@ -105,6 +106,8 @@ namespace ganjoor
             processTextChanged = true;
             btnHighlight.Enabled = true;// HasComments;
 
+            mnuAudioFiles.Enabled = btnPlayAudio.Enabled = HasComments;
+
             mnuShowFavs.Checked = btnFavs.Checked = FavsPage;
             mnuFavUnFav.Enabled = btnFavUnFav.Enabled = HasComments;
             mnuFavUnFav.Image = btnFavUnFav.Image = IsFaved ? Properties.Resources.favorite_remove : Properties.Resources.favorite_add;
@@ -154,6 +157,14 @@ namespace ganjoor
 
 
             txtHighlight.Focus();
+
+            if (_PoemAudioPlayer != null)
+            {
+                if (_PoemAudioPlayer.IsPlaying())
+                {
+                    _PoemAudioPlayer.StopPlayBack();
+                }
+            }
 
             
         }
@@ -285,6 +296,11 @@ namespace ganjoor
             Properties.Settings.Default.WindowLocation = this.Location;
             Properties.Settings.Default.WindowSize = this.Size;
             Properties.Settings.Default.Save();
+
+            if (_PoemAudioPlayer != null)
+            {
+                _PoemAudioPlayer.CleanUp();
+            }
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -702,6 +718,72 @@ namespace ganjoor
                 }
             }            
         }
+
+        private void ManagePoemAudioFiles()
+        {
+            using (AudioFiles dlg = new AudioFiles(this.ganjoorView.CurrentPoemId))
+            {
+                dlg.ShowDialog();
+            }
+        }
+
+        private void mnuAudioFiles_Click(object sender, EventArgs e)
+        {
+            ManagePoemAudioFiles();
+        }
+
+        #region Audio Playback
+        PoemAudioPlayer _PoemAudioPlayer = null;
+
+        private void btnPlayAudio_Click(object sender, EventArgs e)
+        {
+            if (_PoemAudioPlayer != null)
+            {
+                if (_PoemAudioPlayer.IsPlaying())
+                {
+                    _PoemAudioPlayer.StopPlayBack();
+                    return;
+                }
+               
+            }
+            PoemAudio poemAudio = this.ganjoorView.CurrentPoemAudio;
+            if (poemAudio == null)
+            {
+                ManagePoemAudioFiles();
+            }
+            else
+            {
+                if (_PoemAudioPlayer == null)
+                {
+                    _PoemAudioPlayer = new PoemAudioPlayer();
+                    _PoemAudioPlayer.PlaybackStarted += new EventHandler(_PoemAudioPlayer_PlaybackStarted);
+                    _PoemAudioPlayer.PlaybackStopped += new EventHandler<NAudio.Wave.StoppedEventArgs>(_PoemAudioPlayer_PlaybackStopped);
+                }                
+                _PoemAudioPlayer.BeginPlayback(poemAudio);
+            }
+        }
+
+        private void _PoemAudioPlayer_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
+        {
+            // we want to be always on the GUI thread and be able to change GUI components
+            Debug.Assert(!this.InvokeRequired, "PlaybackStopped on wrong thread");
+            if (e.Exception != null)
+            {
+                MessageBox.Show(String.Format("Playback Stopped due to an error {0}", e.Exception.Message));
+            }
+            btnPlayAudio.Text = "پخش";
+            btnPlayAudio.Image = Properties.Resources.sound;
+
+        }
+
+        private void _PoemAudioPlayer_PlaybackStarted(object sender, EventArgs e)
+        {
+            btnPlayAudio.Text = "ایست";
+            btnPlayAudio.Image = Properties.Resources.stop;
+        }
+
+
+        #endregion
 
 
 

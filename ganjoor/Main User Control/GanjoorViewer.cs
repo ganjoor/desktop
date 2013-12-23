@@ -31,7 +31,7 @@ namespace ganjoor
             if (!DesignMode && _db == null)
             {
                 _db = new DbBrowser();
-                if (!Settings.Default.DbIsIndexed)
+                if (!_db.Failed && !Settings.Default.DbIsIndexed)
                 {
                     WaitMsg msgDlg = new WaitMsg("ایندکس گذاری پایگاه داده ها برای افزایش سرعت ...");
                     msgDlg.Show();
@@ -1054,6 +1054,13 @@ namespace ganjoor
                         return poem._Title;
                 }
                 return string.Empty;
+            }
+        }
+        public int CurrentPoemId
+        {
+            get
+            {
+                return _iCurPoem;
             }
         }
         public string CurrentPageGanjoorUrl
@@ -2712,6 +2719,16 @@ namespace ganjoor
 
 
 
+        #endregion
+
+        #region Audio
+        public PoemAudio CurrentPoemAudio
+        {
+            get
+            {
+                return _db.GetMainPoemAudio(this._iCurPoem);
+            }
+        }
         #endregion
 
         #region Clear Controls

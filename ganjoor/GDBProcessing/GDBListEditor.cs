@@ -380,6 +380,10 @@ namespace ganjoor
 
                                 Application.DoEvents();
                             }
+                            else
+                            {
+                                MessageBox.Show(db.LastError);
+                            }
                         }
                     this.Enabled = true;
                     db.CloseDb();

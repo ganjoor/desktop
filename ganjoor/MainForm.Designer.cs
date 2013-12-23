@@ -45,6 +45,7 @@
             this.btnComments = new System.Windows.Forms.ToolStripButton();
             this.sepWeb = new System.Windows.Forms.ToolStripSeparator();
             this.btnShowBeytNums = new System.Windows.Forms.ToolStripButton();
+            this.btnPlayAudio = new System.Windows.Forms.ToolStripButton();
             this.btnCopy = new System.Windows.Forms.ToolStripButton();
             this.btnPrint = new System.Windows.Forms.ToolStripButton();
             this.sepTools = new System.Windows.Forms.ToolStripSeparator();
@@ -108,6 +109,8 @@
             this.mnuDel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDownloadGDBList = new System.Windows.Forms.ToolStripMenuItem();
+            this.پخشصداToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAudioFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChangeLog = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,6 +144,7 @@
             this.btnComments,
             this.sepWeb,
             this.btnShowBeytNums,
+            this.btnPlayAudio,
             this.btnCopy,
             this.btnPrint,
             this.sepTools,
@@ -153,7 +157,7 @@
             this.btnEditor});
             this.toolStripMain.Location = new System.Drawing.Point(0, 24);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(784, 53);
+            this.toolStripMain.Size = new System.Drawing.Size(1040, 53);
             this.toolStripMain.TabIndex = 2;
             this.toolStripMain.Text = "نوار ابزار";
             // 
@@ -180,8 +184,8 @@
             this.btnPreviousPoem.Name = "btnPreviousPoem";
             this.btnPreviousPoem.Size = new System.Drawing.Size(56, 50);
             this.btnPreviousPoem.Text = "شعر قبل";
-            this.btnPreviousPoem.ToolTipText = "شعر / صفحۀ قبل (Ctrl+کلید جهتی راست)";
             this.btnPreviousPoem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPreviousPoem.ToolTipText = "شعر / صفحۀ قبل (Ctrl+کلید جهتی راست)";
             this.btnPreviousPoem.Click += new System.EventHandler(this.btnPreviousPoem_Click);
             // 
             // btnNextPoem
@@ -192,8 +196,8 @@
             this.btnNextPoem.Name = "btnNextPoem";
             this.btnNextPoem.Size = new System.Drawing.Size(54, 50);
             this.btnNextPoem.Text = "شعر بعد";
-            this.btnNextPoem.ToolTipText = "شعر / صفحۀ بعد (Ctrl+کلید جهتی چپ)";
             this.btnNextPoem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnNextPoem.ToolTipText = "شعر / صفحۀ بعد (Ctrl+کلید جهتی چپ)";
             this.btnNextPoem.Click += new System.EventHandler(this.btnNextPoem_Click);
             // 
             // btnRandom
@@ -203,8 +207,8 @@
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(36, 50);
             this.btnRandom.Text = "فال";
-            this.btnRandom.ToolTipText = "Ctrl+R";
             this.btnRandom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRandom.ToolTipText = "Ctrl+R";
             this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
             // toolStripSeparator2
@@ -219,8 +223,8 @@
             this.btnHistoryBack.Name = "btnHistoryBack";
             this.btnHistoryBack.Size = new System.Drawing.Size(49, 50);
             this.btnHistoryBack.Text = "برگشت";
-            this.btnHistoryBack.ToolTipText = "برگشت (Alt+کلید جهتی راست)";
             this.btnHistoryBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnHistoryBack.ToolTipText = "برگشت (Alt+کلید جهتی راست)";
             this.btnHistoryBack.Click += new System.EventHandler(this.btnHistoryBack_Click);
             // 
             // toolStripSeparator4
@@ -235,8 +239,8 @@
             this.btnFavUnFav.Name = "btnFavUnFav";
             this.btnFavUnFav.Size = new System.Drawing.Size(71, 50);
             this.btnFavUnFav.Text = "نشانه‌گذاری";
-            this.btnFavUnFav.ToolTipText = "Ctrl+Shit+L";
             this.btnFavUnFav.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnFavUnFav.ToolTipText = "Ctrl+Shit+L";
             this.btnFavUnFav.Click += new System.EventHandler(this.btnFavUnFav_Click);
             // 
             // btnFavs
@@ -246,8 +250,8 @@
             this.btnFavs.Name = "btnFavs";
             this.btnFavs.Size = new System.Drawing.Size(53, 50);
             this.btnFavs.Text = "نشانه‌ها";
-            this.btnFavs.ToolTipText = "Ctrl+Shit+B";
             this.btnFavs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnFavs.ToolTipText = "Ctrl+Shit+B";
             this.btnFavs.Click += new System.EventHandler(this.btnFavs_Click);
             // 
             // toolStripSeparator6
@@ -289,9 +293,19 @@
             this.btnShowBeytNums.Name = "btnShowBeytNums";
             this.btnShowBeytNums.Size = new System.Drawing.Size(74, 50);
             this.btnShowBeytNums.Text = "شماره‌گذاری";
-            this.btnShowBeytNums.ToolTipText = "Ctrl+L";
             this.btnShowBeytNums.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnShowBeytNums.ToolTipText = "Ctrl+L";
             this.btnShowBeytNums.CheckedChanged += new System.EventHandler(this.btnShowBeytNums_CheckedChanged);
+            // 
+            // btnPlayAudio
+            // 
+            this.btnPlayAudio.Image = global::ganjoor.Properties.Resources.sound;
+            this.btnPlayAudio.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPlayAudio.Name = "btnPlayAudio";
+            this.btnPlayAudio.Size = new System.Drawing.Size(38, 50);
+            this.btnPlayAudio.Text = "پخش";
+            this.btnPlayAudio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPlayAudio.Click += new System.EventHandler(this.btnPlayAudio_Click);
             // 
             // btnCopy
             // 
@@ -326,8 +340,8 @@
             this.btnHighlight.Name = "btnHighlight";
             this.btnHighlight.Size = new System.Drawing.Size(81, 50);
             this.btnHighlight.Text = "برجسته‌سازی";
-            this.btnHighlight.ToolTipText = "Ctrl+F";
             this.btnHighlight.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnHighlight.ToolTipText = "Ctrl+F";
             this.btnHighlight.CheckedChanged += new System.EventHandler(this.btnHighlight_CheckedChanged);
             // 
             // btnSearch
@@ -337,8 +351,8 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(49, 50);
             this.btnSearch.Text = "جستجو";
-            this.btnSearch.ToolTipText = "F3";
             this.btnSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSearch.ToolTipText = "F3";
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // sepDownloadOptions
@@ -395,7 +409,7 @@
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.statusStrip.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1040, 22);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "نوار وضعیت";
@@ -425,7 +439,7 @@
             // lblDummy
             // 
             this.lblDummy.Name = "lblDummy";
-            this.lblDummy.Size = new System.Drawing.Size(700, 17);
+            this.lblDummy.Size = new System.Drawing.Size(956, 17);
             this.lblDummy.Spring = true;
             // 
             // lblCurrentPage
@@ -493,10 +507,11 @@
             this.mnuSrch,
             this.mnuFavs,
             this.mnuGdb,
+            this.پخشصداToolStripMenuItem,
             this.mnuHlp});
             this.mnu.Location = new System.Drawing.Point(0, 0);
             this.mnu.Name = "mnu";
-            this.mnu.Size = new System.Drawing.Size(784, 24);
+            this.mnu.Size = new System.Drawing.Size(1040, 24);
             this.mnu.TabIndex = 1;
             this.mnu.Text = "منوی اصلی";
             // 
@@ -851,6 +866,21 @@
             this.btnDownloadGDBList.Text = "دریافت فهرست مجموعه‌های اشعار ...";
             this.btnDownloadGDBList.Click += new System.EventHandler(this.btnDownload_Click);
             // 
+            // پخشصداToolStripMenuItem
+            // 
+            this.پخشصداToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuAudioFiles});
+            this.پخشصداToolStripMenuItem.Name = "پخشصداToolStripMenuItem";
+            this.پخشصداToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.پخشصداToolStripMenuItem.Text = "پخش صدا";
+            // 
+            // mnuAudioFiles
+            // 
+            this.mnuAudioFiles.Name = "mnuAudioFiles";
+            this.mnuAudioFiles.Size = new System.Drawing.Size(202, 22);
+            this.mnuAudioFiles.Text = "بازخوانیهای شعر جاری ...";
+            this.mnuAudioFiles.Click += new System.EventHandler(this.mnuAudioFiles_Click);
+            // 
             // mnuHlp
             // 
             this.mnuHlp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -895,7 +925,7 @@
             // 
             this.ganjoorView.AutoScroll = true;
             this.ganjoorView.BackColor = System.Drawing.SystemColors.Window;
-            this.ganjoorView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ganjoorView.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.ganjoorView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ganjoorView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.ganjoorView.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -903,7 +933,7 @@
             this.ganjoorView.Margin = new System.Windows.Forms.Padding(48, 22, 48, 22);
             this.ganjoorView.Name = "ganjoorView";
             this.ganjoorView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ganjoorView.Size = new System.Drawing.Size(784, 399);
+            this.ganjoorView.Size = new System.Drawing.Size(1040, 399);
             this.ganjoorView.TabIndex = 0;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             this.ganjoorView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ganjoorView_KeyPress);
@@ -912,7 +942,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 498);
+            this.ClientSize = new System.Drawing.Size(1040, 498);
             this.Controls.Add(this.ganjoorView);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.statusStrip);
@@ -1029,6 +1059,9 @@
         private System.Windows.Forms.ToolStripButton btnDownload;
         private System.Windows.Forms.ToolStripSeparator sepDownloadOptions;
         private System.Windows.Forms.ToolStripMenuItem mnuDel;
+        private System.Windows.Forms.ToolStripMenuItem پخشصداToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuAudioFiles;
+        private System.Windows.Forms.ToolStripButton btnPlayAudio;
 
 
 

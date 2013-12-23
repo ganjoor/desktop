@@ -53,10 +53,13 @@ namespace ganjoor
             catch (FileNotFoundException exp)//this is where incorrect version of System.Data.SQLite.DLL causes problems
             {
                 if (exp.FileName.IndexOf("System.Data.SQLite", StringComparison.InvariantCultureIgnoreCase) != -1)
+                {
                     GAdvisor.AdviseOnSQLiteDllNotfound();
+                }
                 //throw exp; //92-04-14
             }
         }
+
         /// <summary>
         /// opens EXISTING sqlite poem database
         /// </summary>
@@ -905,6 +908,17 @@ namespace ganjoor
                         CommitBatchOperation();
                         poetInfo.CloseDb();
                         File.Delete(poetInfoDb);
+                    }
+                }
+                #endregion
+                #region poemsnd (2.61+)
+                DataRow[] poemsndTable = tbl.Select("Table_Name='poemsnd'");
+                if (poemsndTable.Length == 0)
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = "CREATE TABLE [poemsnd] ([id] INTEGER  PRIMARY KEY NOT NULL, [poem_id] INTEGER NOT NULL, [filepath] TEXT, [description] TEXT);";
+                        cmd.ExecuteNonQuery();
                     }
                 }
                 #endregion
@@ -2402,6 +2416,8 @@ namespace ganjoor
             {
                 int NewPoemID = NewStartPoemID;
 
+                //========== 92-09-22: this is wrong, but fix needs more work, for now I should repeat changing IDs one time more
+                /*
                 int MinPoemID= NewStartPoemID+1;
                 foreach (int CatID in cats)
                 {
@@ -2410,12 +2426,13 @@ namespace ganjoor
                         if (poem._ID < MinPoemID)
                             MinPoemID = poem._ID;
                 }
+
                 if (MinPoemID == NewStartPoemID)
                 {
                     CommitBatchOperation();
                     return true;
                 }
-
+                */
 
                 foreach (int CatID in cats)
                 {
@@ -2491,6 +2508,10 @@ namespace ganjoor
         #region INDEXing
         public bool CreateIndexes()
         {
+            if (_con == null)
+            {//92-08-30
+                return false;
+            }
             //cat_id in poem:
             using (SQLiteCommand cmd = new SQLiteCommand(
                 "CREATE UNIQUE INDEX IF NOT EXISTS idx_poem_catid ON poem(id ASC, cat_id ASC)", _con))
@@ -2510,6 +2531,147 @@ namespace ganjoor
                 cmd.ExecuteNonQuery();
             }
             return true;
+        }
+        #endregion
+
+        #region Audio File Management
+        /// <summary>
+        /// اطلاعات اولین فایل صتی مرتبط را بر می گرداند
+        /// </summary>
+        /// <param name="nPoemId"></param>
+        /// <returns></returns>
+        public PoemAudio GetMainPoemAudio(int nPoemId)
+        {
+            PoemAudio[] pa = GetPoemAudioFiles(nPoemId, true);
+            if (pa.Length > 0)
+                return pa[0];
+            return null;
+        }
+
+        /// <summary>
+        ///اطلاعات  فایلهای صوتی منتسب به یک شعر را به ترتیب تنظیم شده بر می گرداند
+        /// </summary>
+        /// <param name="nPoemId">شناسۀ شعر</param>
+        /// <returns>لیست فایلهای صوتی</returns>
+        public PoemAudio[] GetPoemAudioFiles(int nPoemId, bool bOnlyFirst = false)
+        {
+            List<PoemAudio> lstAudio = new List<PoemAudio>();
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    string strQuery = String.Format("SELECT id, filepath, description FROM poemsnd WHERE poem_id = {0} ORDER BY id", nPoemId);
+                    if (bOnlyFirst)
+                        strQuery += " LIMIT 1";
+
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            lstAudio.Add(
+                                new PoemAudio()
+                                {
+                                    PoemId = nPoemId,
+                                    Id = Convert.ToInt32(row.ItemArray[0]),
+                                    FilePath = row.ItemArray[1].ToString(),
+                                    Description = row.ItemArray[2].ToString()                                    
+                                }                                   
+                                );
+
+                        }
+                    }
+                }
+            }
+            return lstAudio.ToArray();
+        }
+
+        /// <summary>
+        /// new id for a poemsnd
+        /// </summary>
+        /// <param name="nPoemId"></param>
+        /// <returns></returns>
+        private int GeneratetNewAudioId(int nPoemId)
+        {
+            int nAudioID;
+            using (DataTable tbl = new DataTable())
+            {
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter(String.Format("SELECT MAX(id) FROM poemsnd WHERE poem_id = {0}", nPoemId), _con))
+                {
+                    da.Fill(tbl);
+                    if (tbl.Rows.Count == 1)
+                    {
+                        try
+                        {
+                            nAudioID = Convert.ToInt32(tbl.Rows[0].ItemArray[0]);
+                        }
+                        catch
+                        {
+                            nAudioID = 0;
+                        }
+                        nAudioID++;
+                    }
+                    else
+                        nAudioID = 1;
+                }
+            }
+            return nAudioID;
+
+        }
+
+        /// <summary>
+        /// اضافه کردن فایل صوتی برای شعر
+        /// </summary>
+        /// <param name="nPoemId"></param>
+        /// <param name="filePath"></param>
+        /// <param name="desc"></param>
+        /// <returns></returns>
+        public PoemAudio AddAudio(int nPoemId, string filePath, string desc)
+        {
+            if (Connected)
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    PoemAudio newPoemAudio = new PoemAudio()
+                    {
+                        PoemId = nPoemId,
+                        Id = GeneratetNewAudioId(nPoemId),
+                        FilePath = filePath,
+                        Description = desc
+                    };
+                    cmd.CommandText = String.Format(
+                        "INSERT INTO poemsnd (poem_id, id, filepath, description) VALUES ({0}, {1}, \"{2}\", \"{3}\");",
+                        newPoemAudio.PoemId, newPoemAudio.Id, newPoemAudio.FilePath, newPoemAudio.Description
+                        );
+                    cmd.ExecuteNonQuery();
+                    return newPoemAudio;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// حذف ارتباط با فایل صوتی
+        /// </summary>
+        /// <param name="audio"></param>
+        /// <returns></returns>
+        public bool DeleteAudio(PoemAudio audio)
+        {
+            if (Connected)
+            {
+                if (audio != null)
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = String.Format(
+                            "DELETE FROM poemsnd WHERE poem_id = {0} AND id = {1};",
+                            audio.PoemId, audio.Id
+                            );
+                        return cmd.ExecuteNonQuery() == 1;
+                    }
+                }
+            }
+            return false;    
         }
         #endregion
     }
