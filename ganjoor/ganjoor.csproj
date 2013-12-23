@@ -75,10 +75,10 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AudioFiles.cs">
+    <Compile Include="Audio Support\AudioFiles.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AudioFiles.Designer.cs">
+    <Compile Include="Audio Support\AudioFiles.Designer.cs">
       <DependentUpon>AudioFiles.cs</DependentUpon>
     </Compile>
     <Compile Include="GDBProcessing\NewGDBFound.cs">
@@ -87,8 +87,8 @@
     <Compile Include="GDBProcessing\NewGDBFound.Designer.cs">
       <DependentUpon>NewGDBFound.cs</DependentUpon>
     </Compile>
-    <Compile Include="PoemAudio.cs" />
-    <Compile Include="PoemAudioPlayer.cs" />
+    <Compile Include="Audio Support\PoemAudio.cs" />
+    <Compile Include="Audio Support\PoemAudioPlayer.cs" />
     <Compile Include="Reusable Forms\CategorySelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +143,12 @@
     </Compile>
     <Compile Include="Editor\Editor.Designer.cs">
       <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Audio Support\SyncPoemAudio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Audio Support\SyncPoemAudio.Designer.cs">
+      <DependentUpon>SyncPoemAudio.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\GAdvisor.cs" />
     <Compile Include="Data Model\GanjoorCat.cs" />
@@ -270,7 +276,7 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="AudioFiles.resx">
+    <EmbeddedResource Include="Audio Support\AudioFiles.resx">
       <DependentUpon>AudioFiles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GDBProcessing\NewGDBFound.resx">
@@ -374,6 +380,9 @@
     <EmbeddedResource Include="Reusable Forms\WaitMsg.resx">
       <DependentUpon>WaitMsg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Audio Support\SyncPoemAudio.resx">
+      <DependentUpon>SyncPoemAudio.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -410,10 +419,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\remove.png" />
+    <None Include="Resources\accept.png" />
+    <None Include="Resources\play16.png" />
+    <None Include="Resources\play.png" />
+    <None Include="Resources\clock.png" />
+    <None Include="Resources\up.png" />
     <None Include="Resources\sound.png" />
     <None Include="Resources\stop.png" />
     <None Include="Resources\stop16.png" />
-    <None Include="Resources\play16.png" />
     <None Include="Resources\sound_on.png" />
     <None Include="Resources\sound_off.png" />
     <None Include="Resources\opensnd.png" />
