@@ -280,8 +280,11 @@ namespace ganjoor
             _strLastPhrase = null;
             if(category._ID == 0)//نمایش تعداد شاعران
                 _strPage += string.Format(" ({0} شاعر)", subcats.Count);
+            StopPlayBack();
             if (null != OnPageChanged)
+            {
                 OnPageChanged(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
+            }
         }
 
         private void ShowCategory(GanjoorCat category, ref int catsTop, out int lastDistanceFromRight, bool highlightCat, bool showingPoem)
@@ -408,7 +411,8 @@ namespace ganjoor
                 fav.Click += new EventHandler(lblNum_Click);
                 this.Controls.Add(fav);
                 (sender as Control).Visible = false;
-            }            
+            }
+            StopPlayBack();
             OnPageChanged(_strPage, true, true, _db.IsPoemFaved(verse._PoemID), false, string.Empty, null, null);
             VerticalScroll.Value = y;            
         }
@@ -725,6 +729,7 @@ namespace ganjoor
             else
                 _strPage += "، " + BandNum.ToString() + " بند)";
             _strLastPhrase = null;
+            StopPlayBack();
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, true, true, poem._Faved, false, highlightWord, null, null);
             return string.IsNullOrEmpty(highlightWord) || !Settings.Default.HighlightKeyword ? 0 : HighlightText(highlightWord);
@@ -1362,8 +1367,11 @@ namespace ganjoor
 
 
             _strPage = "نتایج جستجو برای \"" + phrase + "\" در آثار " + _db.GetPoet(PoetID)._Name + " صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
+            StopPlayBack();
             if (null != OnPageChanged)
+            {
                 OnPageChanged(_strPage, false, false, false, false, string.Empty, prePage, nextPage);
+            }
 
             if (Count < 1)
                 MessageBox.Show("موردی یافت نشد.", "جستجو", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -1635,8 +1643,11 @@ namespace ganjoor
 
 
             _strPage = "نشانه‌ها - صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
+            StopPlayBack();
             if (null != OnPageChanged)
+            {
                 OnPageChanged(_strPage, false, false, false, true, string.Empty, prePage, nextPage);
+            }
 
             if (Count < 1)
                 MessageBox.Show("موردی یافت نشد.", "نشانه‌ها", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -2722,6 +2733,180 @@ namespace ganjoor
         #endregion
 
         #region Audio
+
+        #region Variables
+        private PoemAudioPlayer _PoemAudioPlayer = null;
+        private Timer _PlaybackTimer = null;
+        private DateTime _PlaybackStart;
+        private DateTime _PlaybackPause;
+        private int _VerseOrder;
+        private int _ControlStartFrom;
+        #endregion
+        #region Events
+        public event EventHandler PlaybackStarted = null;
+        public event EventHandler PlaybackStopped = null;
+        #endregion
+        #region Methods
+        public bool IsPlaying
+        {
+            get
+            {
+                return _PoemAudioPlayer != null && _PoemAudioPlayer.IsPlaying;
+            }
+        }
+
+        public bool IsInPauseState
+        {
+            get
+            {
+                return _PoemAudioPlayer != null && _PoemAudioPlayer.IsInPauseState;
+            }
+        }
+
+        public void Play(PoemAudio poemAudio = null)
+        {
+            if (poemAudio == null)
+                poemAudio = CurrentPoemAudio;
+            if (_PoemAudioPlayer == null)
+            {
+                _PoemAudioPlayer = new PoemAudioPlayer();
+                _PoemAudioPlayer.PlaybackStarted += new EventHandler(_PoemAudioPlayer_PlaybackStarted);
+                _PoemAudioPlayer.PlaybackStopped += new EventHandler<NAudio.Wave.StoppedEventArgs>(_PoemAudioPlayer_PlaybackStopped);
+            }
+            if (poemAudio.SyncPositionsInMilisec != null)
+            {
+                _VerseOrder = 1;
+                _ControlStartFrom = 0;
+                _PlaybackStart = DateTime.Now;
+                _PlaybackTimer = new Timer();
+                _PlaybackTimer.Interval = 100;
+                _PlaybackTimer.Tick += new EventHandler(_PlaybackTimer_Tick);
+                _PlaybackTimer.Start();
+            }
+            _PoemAudioPlayer.BeginPlayback(poemAudio);                
+
+        }
+
+        public void Pause()
+        {
+            _PlaybackPause = DateTime.Now;
+            if (_PlaybackTimer != null)
+            {
+                _PlaybackTimer.Dispose();
+                _PlaybackTimer = null;
+            }
+            if(_PoemAudioPlayer != null)
+                _PoemAudioPlayer.PausePlayBack();
+        }
+
+        public void Resume()
+        {
+            if (_PoemAudioPlayer == null)
+                return;
+            if (_PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec != null)
+            {
+                _PlaybackStart += (DateTime.Now - _PlaybackPause);
+                _PlaybackTimer = new Timer();
+                _PlaybackTimer.Tick += new EventHandler(_PlaybackTimer_Tick);
+                _PlaybackTimer.Start();
+            }
+
+            _PoemAudioPlayer.ResumePlayBack();
+
+        }
+
+        public void StopPlayBack(bool bFromOutside = false)
+        {
+            if (_PoemAudioPlayer != null)
+            {
+                _PoemAudioPlayer.StopPlayBack();
+                _PoemAudioPlayer.PoemAudio = null;
+            }
+            if (_PlaybackTimer != null)
+            {
+                _PlaybackTimer.Dispose();
+                _PlaybackTimer = null;
+            }
+            if (bFromOutside)
+            {
+                if (_VerseOrder > 1)
+                {
+                    this.HighlightVerse(_VerseOrder - 1, true, Color.Red, _ControlStartFrom);                    
+                }
+            }
+
+            _VerseOrder = 1;
+            _ControlStartFrom = 0;
+            
+        }
+        #endregion
+
+        #region Events
+        private void _PlaybackTimer_Tick(object sender, EventArgs e)
+        {
+            while (_VerseOrder < _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec.Length && _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec[_VerseOrder - 1] == -1)
+            {
+                _VerseOrder++;
+            }
+            if (_VerseOrder <= _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec.Length)
+            {
+
+                if ((DateTime.Now - _PlaybackStart).TotalMilliseconds > _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec[_VerseOrder - 1])
+                    if (_VerseOrder <= _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec.Length)
+                    {
+                        if (_VerseOrder > 1)
+                        {
+                            this.HighlightVerse(_VerseOrder - 1, true, Color.Red, _ControlStartFrom);
+                            _ControlStartFrom++;
+                        }
+                        _ControlStartFrom = this.HighlightVerse(_VerseOrder, false, Color.Red, _ControlStartFrom);
+                        _VerseOrder++;
+                    }
+                    else
+                    {
+                        _PlaybackTimer.Dispose();
+                        _PlaybackTimer = null;
+                    }
+            }
+
+        }
+
+
+
+        private void _PoemAudioPlayer_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
+        {
+            // we want to be always on the GUI thread and be able to change GUI components
+            System.Diagnostics.Debug.Assert(!this.InvokeRequired, "PlaybackStopped on wrong thread");
+            if (e.Exception != null)
+            {
+                MessageBox.Show(String.Format("Playback Stopped due to an error {0}", e.Exception.Message));
+            }
+            if (_PlaybackTimer != null)
+            {
+                _PlaybackTimer.Dispose();
+                _PlaybackTimer = null;
+                this.HighlightVerse(_VerseOrder - 1, true, Color.Red, _ControlStartFrom);
+            }
+
+            if (this.PlaybackStopped != null)
+            {
+                this.PlaybackStopped(this, new EventArgs());
+   
+            }
+
+
+        }
+
+        private void _PoemAudioPlayer_PlaybackStarted(object sender, EventArgs e)
+        {
+            if (this.PlaybackStarted != null)
+            {
+                this.PlaybackStarted(sender, e);
+            }
+        }
+
+        #endregion
+
         public PoemAudio CurrentPoemAudio
         {
             get
@@ -2729,6 +2914,32 @@ namespace ganjoor
                 return _db.GetMainPoemAudio(this._iCurPoem);
             }
         }
+
+
+
+        public int HighlightVerse(int nVerseOrder, bool dehighlight, Color clrHighlightColor, int nStartFrom)
+        {
+            int nCount = this.Controls.Count;
+            for (int i = nStartFrom; i < nCount; i++)
+            {
+                Control ctl = this.Controls[i];
+                if (ctl is HighlightLabel)
+                {
+                    if ((ctl.Tag is GanjoorVerse) && (ctl.Tag as GanjoorVerse)._Order == nVerseOrder)
+                    {
+                        this.ScrollControlIntoView(ctl);
+                        if (dehighlight)
+                            ctl.ForeColor = this.ForeColor;
+                        else
+                            ctl.ForeColor = Color.Red;
+                        return i;
+                    }
+                }
+            }
+            return 0;
+
+        }
+
         #endregion
 
         #region Clear Controls

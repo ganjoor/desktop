@@ -917,7 +917,13 @@ namespace ganjoor
                 {
                     using (SQLiteCommand cmd = new SQLiteCommand(_con))
                     {
-                        cmd.CommandText = "CREATE TABLE [poemsnd] ([id] INTEGER  PRIMARY KEY NOT NULL, [poem_id] INTEGER NOT NULL, [filepath] TEXT, [description] TEXT);";
+                        cmd.CommandText = "CREATE TABLE [poemsnd] ([poem_id] INTEGER NOT NULL, [id] INTEGER NOT NULL, [filepath] TEXT, [description] TEXT);";
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = "CREATE TABLE [sndsync] ([poem_id] INTEGER NOT NULL, [snd_id] INTEGER NOT NULL, [verse_order] INTEGER NOT NULL, [milisec] INTEGER NOT NULL);";
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -2544,8 +2550,41 @@ namespace ganjoor
         {
             PoemAudio[] pa = GetPoemAudioFiles(nPoemId, true);
             if (pa.Length > 0)
-                return pa[0];
+            {
+                PoemAudio poemAudio = pa[0];
+                poemAudio.SyncPositionsInMilisec = GetPoemSync(poemAudio);
+                if (poemAudio.SyncPositionsInMilisec.Length == 0)
+                    poemAudio.SyncPositionsInMilisec = null;
+                return poemAudio;
+            }
+
             return null;
+        }
+
+        /// <summary>
+        /// آیا فایل صوتی شعر همگامسازی شده؟
+        /// </summary>
+        /// <param name="nPoemId"></param>
+        /// <param name="nAudioId"></param>
+        /// <returns></returns>
+        public bool PoemAudioHasSyncData(int nPoemId, int nAudioId)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(
+                        String.Format("SELECT milisec FROM sndsync WHERE poem_id = {0} AND snd_id = {1} LIMIT 1",
+                        nPoemId, nAudioId), _con
+                        ))
+                    {
+                        da.Fill(tbl);
+                        return tbl.Rows.Count > 0;
+                    }
+                    
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -2575,7 +2614,8 @@ namespace ganjoor
                                     PoemId = nPoemId,
                                     Id = Convert.ToInt32(row.ItemArray[0]),
                                     FilePath = row.ItemArray[1].ToString(),
-                                    Description = row.ItemArray[2].ToString()                                    
+                                    Description = row.ItemArray[2].ToString(),
+                                    IsSync = PoemAudioHasSyncData(nPoemId, Convert.ToInt32(row.ItemArray[0])) 
                                 }                                   
                                 );
 
@@ -2619,6 +2659,7 @@ namespace ganjoor
 
         }
 
+
         /// <summary>
         /// اضافه کردن فایل صوتی برای شعر
         /// </summary>
@@ -2661,6 +2702,7 @@ namespace ganjoor
             {
                 if (audio != null)
                 {
+                    SavePoemSync(audio, null);
                     using (SQLiteCommand cmd = new SQLiteCommand(_con))
                     {
                         cmd.CommandText = String.Format(
@@ -2673,6 +2715,155 @@ namespace ganjoor
             }
             return false;    
         }
+
+        /// <summary>
+        /// ذخیرۀ همگامسازی
+        /// </summary>
+        /// <param name="audio"></param>
+        /// <param name="verseMilisecPositions"></param>
+        /// <returns></returns>
+        public bool SavePoemSync(PoemAudio audio, int[] verseMilisecPositions)
+        {
+            if (Connected && audio != null)
+            {
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = String.Format(
+                            "DELETE FROM sndsync WHERE poem_id = {0} AND snd_id = {1};",
+                            audio.PoemId, audio.Id
+                            );
+                        cmd.ExecuteNonQuery();
+                    }
+                    if (verseMilisecPositions != null)
+                    {
+                        BeginBatchOperation();
+                        for(int vOrder = 0; vOrder < verseMilisecPositions.Length; vOrder++)
+                        {
+                            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                            {
+                                cmd.CommandText = String.Format(
+                                    "INSERT INTO sndsync (poem_id, snd_id, verse_order, milisec) VALUES ({0}, {1}, {2}, {3});",
+                                    audio.PoemId, audio.Id, vOrder, verseMilisecPositions[vOrder]
+                                    );
+                                cmd.ExecuteNonQuery();
+                            }                            
+                        }
+                        CommitBatchOperation();
+                    }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// اطلاعات همگامسازی فایل صوتی شعر
+        /// </summary>
+        /// <param name="audio"></param>
+        /// <returns></returns>
+        public int[] GetPoemSync(PoemAudio audio)
+        {
+            List<int> lstVersePosInMilisec = new List<int>();
+
+            if (Connected && audio != null)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    string strQuery = String.Format("SELECT milisec FROM sndsync WHERE poem_id = {0} AND snd_id = {1} ORDER BY verse_order", audio.PoemId, audio.Id);
+
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            lstVersePosInMilisec.Add(Convert.ToInt32(row.ItemArray[0]));
+                        }
+                    }
+                }
+            }
+
+
+            return lstVersePosInMilisec.ToArray();
+        }
+
+
+        /// <summary>
+        /// فایل صوتی، فایل صوتی اصلی شعر بشود
+        /// </summary>
+        /// <param name="audio"></param>
+        /// <returns></returns>
+        public bool MoveToTop(PoemAudio audio)
+        {
+            if (Connected)
+            {
+                if (audio != null)
+                {
+                    if (audio.Id == 1)
+                        return false;
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = String.Format(
+                            "UPDATE poemsnd SET id = 0 WHERE poem_id = {0} AND id = {1};",
+                            audio.PoemId, audio.Id
+                            );
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = String.Format(
+                            "UPDATE sndsync SET snd_id = 0 WHERE poem_id = {0} AND snd_id = {1};",
+                            audio.PoemId, audio.Id
+                            );
+                        cmd.ExecuteNonQuery();
+                    }
+
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = String.Format(
+                            "UPDATE poemsnd SET id = {0} WHERE poem_id = {1} AND id = 1;",
+                            audio.Id, audio.PoemId
+                            );
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = String.Format(
+                            "UPDATE sndsync SET snd_id = {0} WHERE poem_id = {1} AND snd_id = 1;",
+                            audio.Id, audio.PoemId
+                            );
+                        cmd.ExecuteNonQuery();
+                    }
+
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = String.Format(
+                            "UPDATE poemsnd SET id = 1 WHERE poem_id = {0} AND id = 0;",
+                            audio.PoemId
+                            );
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = String.Format(
+                            "UPDATE sndsync SET snd_id = 1 WHERE poem_id = {0} AND snd_id = 0;",
+                            audio.PoemId
+                            );
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    return true;
+
+
+                }
+            }
+            return false;
+        }
+
         #endregion
     }
 }
