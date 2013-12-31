@@ -81,6 +81,9 @@
     <Compile Include="Audio Support\AudioFiles.Designer.cs">
       <DependentUpon>AudioFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Audio Support\CustomWaveViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="GDBProcessing\NewGDBFound.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -419,6 +422,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\displaywaveform.png" />
     <None Include="Resources\remove.png" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\play16.png" />
