@@ -144,6 +144,13 @@ namespace ganjoor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap displaywaveform {
+            get {
+                object obj = ResourceManager.GetObject("displaywaveform", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap edit {
             get {
                 object obj = ResourceManager.GetObject("edit", resourceCulture);

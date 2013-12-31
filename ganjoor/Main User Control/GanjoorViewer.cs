@@ -2737,9 +2737,9 @@ namespace ganjoor
         #region Variables
         private PoemAudioPlayer _PoemAudioPlayer = null;
         private Timer _PlaybackTimer = null;
-        private DateTime _PlaybackStart;
         private DateTime _PlaybackPause;
-        private int _VerseOrder;
+        private int _CurAudioVerseOrder;
+        private int _SyncOrder;
         private int _ControlStartFrom;
         #endregion
         #region Events
@@ -2773,17 +2773,30 @@ namespace ganjoor
                 _PoemAudioPlayer.PlaybackStarted += new EventHandler(_PoemAudioPlayer_PlaybackStarted);
                 _PoemAudioPlayer.PlaybackStopped += new EventHandler<NAudio.Wave.StoppedEventArgs>(_PoemAudioPlayer_PlaybackStopped);
             }
-            if (poemAudio.SyncPositionsInMilisec != null)
+            _SyncOrder = -1;
+            if (poemAudio.SyncArray != null)
             {
-                _VerseOrder = 1;
+                _CurAudioVerseOrder = 0;
                 _ControlStartFrom = 0;
-                _PlaybackStart = DateTime.Now;
                 _PlaybackTimer = new Timer();
-                _PlaybackTimer.Interval = 100;
+                _PlaybackTimer.Interval = 500;
                 _PlaybackTimer.Tick += new EventHandler(_PlaybackTimer_Tick);
                 _PlaybackTimer.Start();
             }
-            _PoemAudioPlayer.BeginPlayback(poemAudio);                
+            if (!_PoemAudioPlayer.BeginPlayback(poemAudio))
+            {
+                StopPlayBack();
+                MessageBox.Show("خطایی در پخش فایل صوتی رخ داد. لطفا چک کنید فایل در مسیر تعیین شده قرار داشته باشد.");
+            }
+            if (poemAudio.SyncArray != null && poemAudio.SyncArray.Length > 0)
+            {
+                if (poemAudio.SyncArray[0].VerseOrder == -1)
+                {
+                    _PoemAudioPlayer.PositionInMiliseconds = poemAudio.SyncArray[0].AudioMiliseconds;
+                    _SyncOrder++;
+                }
+
+            }
 
         }
 
@@ -2803,9 +2816,8 @@ namespace ganjoor
         {
             if (_PoemAudioPlayer == null)
                 return;
-            if (_PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec != null)
+            if (_PoemAudioPlayer.PoemAudio.SyncArray != null)
             {
-                _PlaybackStart += (DateTime.Now - _PlaybackPause);
                 _PlaybackTimer = new Timer();
                 _PlaybackTimer.Tick += new EventHandler(_PlaybackTimer_Tick);
                 _PlaybackTimer.Start();
@@ -2829,14 +2841,15 @@ namespace ganjoor
             }
             if (bFromOutside)
             {
-                if (_VerseOrder > 1)
+                if (_CurAudioVerseOrder > 0)
                 {
-                    this.HighlightVerse(_VerseOrder - 1, true, Color.Red, _ControlStartFrom);                    
+                    this.HighlightVerse(_CurAudioVerseOrder, true, Color.Red, _ControlStartFrom);                    
                 }
             }
 
-            _VerseOrder = 1;
+            _CurAudioVerseOrder = 0;
             _ControlStartFrom = 0;
+            _SyncOrder = -1;
             
         }
         #endregion
@@ -2844,29 +2857,37 @@ namespace ganjoor
         #region Events
         private void _PlaybackTimer_Tick(object sender, EventArgs e)
         {
-            while (_VerseOrder < _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec.Length && _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec[_VerseOrder - 1] == -1)
+            if (_PoemAudioPlayer.PoemAudio == null)
             {
-                _VerseOrder++;
+                _PlaybackTimer.Dispose();
+                _PlaybackTimer = null;
+                return;
             }
-            if (_VerseOrder <= _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec.Length)
+            int nNextSyncOrder = _SyncOrder + 1;
+            while (nNextSyncOrder < 0)
+                nNextSyncOrder++;
+            if (nNextSyncOrder < _PoemAudioPlayer.PoemAudio.SyncArray.Length)
             {
-
-                if ((DateTime.Now - _PlaybackStart).TotalMilliseconds > _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec[_VerseOrder - 1])
-                    if (_VerseOrder <= _PoemAudioPlayer.PoemAudio.SyncPositionsInMilisec.Length)
+                if (_PoemAudioPlayer.PositionInMiliseconds >= _PoemAudioPlayer.PoemAudio.SyncArray[nNextSyncOrder].AudioMiliseconds)
+                {
+                    if (_CurAudioVerseOrder > 0)
                     {
-                        if (_VerseOrder > 1)
-                        {
-                            this.HighlightVerse(_VerseOrder - 1, true, Color.Red, _ControlStartFrom);
-                            _ControlStartFrom++;
-                        }
-                        _ControlStartFrom = this.HighlightVerse(_VerseOrder, false, Color.Red, _ControlStartFrom);
-                        _VerseOrder++;
+                        this.HighlightVerse(_CurAudioVerseOrder, true, Color.Red, _ControlStartFrom);
+                        _ControlStartFrom++;
                     }
-                    else
-                    {
-                        _PlaybackTimer.Dispose();
-                        _PlaybackTimer = null;
-                    }
+                     int vOrder = _PoemAudioPlayer.PoemAudio.SyncArray[nNextSyncOrder].VerseOrder + 1;
+                     if (vOrder < 0)
+                     {
+                         _PoemAudioPlayer.StopPlayBack();
+                         return;
+                     }
+                     if (vOrder > 0)
+                     {
+                         _CurAudioVerseOrder = vOrder;
+                         _ControlStartFrom = this.HighlightVerse(_CurAudioVerseOrder, false, Color.Red, _ControlStartFrom);
+                     }
+                    _SyncOrder = nNextSyncOrder;
+                }
             }
 
         }
@@ -2885,7 +2906,7 @@ namespace ganjoor
             {
                 _PlaybackTimer.Dispose();
                 _PlaybackTimer = null;
-                this.HighlightVerse(_VerseOrder - 1, true, Color.Red, _ControlStartFrom);
+                this.HighlightVerse(_CurAudioVerseOrder - 1, true, Color.Red, _ControlStartFrom);
             }
 
             if (this.PlaybackStopped != null)

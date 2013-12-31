@@ -2551,11 +2551,7 @@ namespace ganjoor
             PoemAudio[] pa = GetPoemAudioFiles(nPoemId, true);
             if (pa.Length > 0)
             {
-                PoemAudio poemAudio = pa[0];
-                poemAudio.SyncPositionsInMilisec = GetPoemSync(poemAudio);
-                if (poemAudio.SyncPositionsInMilisec.Length == 0)
-                    poemAudio.SyncPositionsInMilisec = null;
-                return poemAudio;
+                return pa[0];
             }
 
             return null;
@@ -2615,9 +2611,10 @@ namespace ganjoor
                                     Id = Convert.ToInt32(row.ItemArray[0]),
                                     FilePath = row.ItemArray[1].ToString(),
                                     Description = row.ItemArray[2].ToString(),
-                                    IsSync = PoemAudioHasSyncData(nPoemId, Convert.ToInt32(row.ItemArray[0])) 
+                                    IsSync = PoemAudioHasSyncData(nPoemId, Convert.ToInt32(row.ItemArray[0]))
                                 }                                   
                                 );
+                            lstAudio[lstAudio.Count - 1].SyncArray = GetPoemSync(lstAudio[lstAudio.Count - 1]);
 
                         }
                     }
@@ -2722,7 +2719,7 @@ namespace ganjoor
         /// <param name="audio"></param>
         /// <param name="verseMilisecPositions"></param>
         /// <returns></returns>
-        public bool SavePoemSync(PoemAudio audio, int[] verseMilisecPositions)
+        public bool SavePoemSync(PoemAudio audio, PoemAudio.SyncInfo[] verseMilisecPositions)
         {
             if (Connected && audio != null)
             {
@@ -2736,14 +2733,14 @@ namespace ganjoor
                     }
                     if (verseMilisecPositions != null)
                     {
-                        BeginBatchOperation();
-                        for(int vOrder = 0; vOrder < verseMilisecPositions.Length; vOrder++)
+                        BeginBatchOperation();                        
+                        for(int i = 0; i < verseMilisecPositions.Length; i++)
                         {
                             using (SQLiteCommand cmd = new SQLiteCommand(_con))
                             {
                                 cmd.CommandText = String.Format(
                                     "INSERT INTO sndsync (poem_id, snd_id, verse_order, milisec) VALUES ({0}, {1}, {2}, {3});",
-                                    audio.PoemId, audio.Id, vOrder, verseMilisecPositions[vOrder]
+                                    audio.PoemId, audio.Id, verseMilisecPositions[i].VerseOrder, verseMilisecPositions[i].AudioMiliseconds
                                     );
                                 cmd.ExecuteNonQuery();
                             }                            
@@ -2760,29 +2757,37 @@ namespace ganjoor
         /// </summary>
         /// <param name="audio"></param>
         /// <returns></returns>
-        public int[] GetPoemSync(PoemAudio audio)
+        public PoemAudio.SyncInfo[] GetPoemSync(PoemAudio audio)
         {
-            List<int> lstVersePosInMilisec = new List<int>();
+            List<PoemAudio.SyncInfo> lstVersePosInMilisec = new List<PoemAudio.SyncInfo>();
 
             if (Connected && audio != null)
             {
                 using (DataTable tbl = new DataTable())
                 {
-                    string strQuery = String.Format("SELECT milisec FROM sndsync WHERE poem_id = {0} AND snd_id = {1} ORDER BY verse_order", audio.PoemId, audio.Id);
+                    string strQuery = String.Format("SELECT verse_order, milisec FROM sndsync WHERE poem_id = {0} AND snd_id = {1} ORDER BY milisec", audio.PoemId, audio.Id);
 
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
                     {
                         da.Fill(tbl);
                         foreach (DataRow row in tbl.Rows)
                         {
-                            lstVersePosInMilisec.Add(Convert.ToInt32(row.ItemArray[0]));
+                            lstVersePosInMilisec.Add
+                                (
+                                new PoemAudio.SyncInfo()
+                                {
+                                    VerseOrder = Convert.ToInt32(row.ItemArray[0]),
+                                    AudioMiliseconds = Convert.ToInt32(row.ItemArray[1])
+                                }
+                                
+                                );
                         }
                     }
                 }
             }
 
 
-            return lstVersePosInMilisec.ToArray();
+            return lstVersePosInMilisec.Count > 0 ? lstVersePosInMilisec.ToArray() : null;
         }
 
 
