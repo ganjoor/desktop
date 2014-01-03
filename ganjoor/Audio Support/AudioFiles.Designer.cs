@@ -30,17 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AudioFiles));
             this.tlbr = new System.Windows.Forms.ToolStrip();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPlayStop = new System.Windows.Forms.ToolStripButton();
-            this.btnSync = new System.Windows.Forms.ToolStripButton();
-            this.btnMoveToTop = new System.Windows.Forms.ToolStripButton();
-            this.btnDel = new System.Windows.Forms.ToolStripButton();
             this.lblDesc = new System.Windows.Forms.Label();
             this.grdList = new System.Windows.Forms.DataGridView();
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSynced = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
+            this.btnPlayStop = new System.Windows.Forms.ToolStripButton();
+            this.btnSync = new System.Windows.Forms.ToolStripButton();
+            this.btnMoveToTop = new System.Windows.Forms.ToolStripButton();
+            this.btnDel = new System.Windows.Forms.ToolStripButton();
+            this.btnExport = new System.Windows.Forms.ToolStripButton();
+            this.btnImport = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -55,12 +57,71 @@
             this.btnPlayStop,
             this.btnSync,
             this.btnMoveToTop,
-            this.btnDel});
+            this.btnDel,
+            this.btnImport,
+            this.btnExport});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
-            this.tlbr.Size = new System.Drawing.Size(608, 25);
+            this.tlbr.Size = new System.Drawing.Size(697, 25);
             this.tlbr.TabIndex = 7;
             this.tlbr.Text = "نوار ابزار انتخاب";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // lblDesc
+            // 
+            this.lblDesc.BackColor = System.Drawing.SystemColors.Window;
+            this.lblDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblDesc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblDesc.Location = new System.Drawing.Point(0, 0);
+            this.lblDesc.Name = "lblDesc";
+            this.lblDesc.Size = new System.Drawing.Size(697, 66);
+            this.lblDesc.TabIndex = 6;
+            this.lblDesc.Text = resources.GetString("lblDesc.Text");
+            this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // grdList
+            // 
+            this.grdList.AllowUserToAddRows = false;
+            this.grdList.AllowUserToDeleteRows = false;
+            this.grdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmnDesc,
+            this.clmnPath,
+            this.clmnSynced});
+            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdList.Location = new System.Drawing.Point(0, 91);
+            this.grdList.MultiSelect = false;
+            this.grdList.Name = "grdList";
+            this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdList.Size = new System.Drawing.Size(697, 314);
+            this.grdList.TabIndex = 5;
+            // 
+            // clmnDesc
+            // 
+            this.clmnDesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmnDesc.FillWeight = 50F;
+            this.clmnDesc.HeaderText = "شرح";
+            this.clmnDesc.Name = "clmnDesc";
+            this.clmnDesc.ReadOnly = true;
+            // 
+            // clmnPath
+            // 
+            this.clmnPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmnPath.FillWeight = 50F;
+            this.clmnPath.HeaderText = "مسیر فایل";
+            this.clmnPath.Name = "clmnPath";
+            this.clmnPath.ReadOnly = true;
+            // 
+            // clmnSynced
+            // 
+            this.clmnSynced.HeaderText = "همگام";
+            this.clmnSynced.Name = "clmnSynced";
+            this.clmnSynced.ReadOnly = true;
+            this.clmnSynced.Width = 50;
             // 
             // btnAdd
             // 
@@ -70,11 +131,6 @@
             this.btnAdd.Size = new System.Drawing.Size(100, 22);
             this.btnAdd.Text = "انتخاب فایل ...";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // btnPlayStop
             // 
@@ -113,63 +169,33 @@
             this.btnDel.Text = "حذف";
             this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
-            // lblDesc
+            // btnExport
             // 
-            this.lblDesc.BackColor = System.Drawing.SystemColors.Window;
-            this.lblDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblDesc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblDesc.Location = new System.Drawing.Point(0, 0);
-            this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(608, 66);
-            this.lblDesc.TabIndex = 6;
-            this.lblDesc.Text = resources.GetString("lblDesc.Text");
-            this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnExport.Image = global::ganjoor.Properties.Resources.folder_up;
+            this.btnExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(23, 22);
+            this.btnExport.Text = "ذخیرۀ اطلاعات همگام‌سازی در فایل XML";
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // grdList
+            // btnImport
             // 
-            this.grdList.AllowUserToAddRows = false;
-            this.grdList.AllowUserToDeleteRows = false;
-            this.grdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmnDesc,
-            this.clmnPath,
-            this.clmnSynced});
-            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.Location = new System.Drawing.Point(0, 91);
-            this.grdList.MultiSelect = false;
-            this.grdList.Name = "grdList";
-            this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdList.Size = new System.Drawing.Size(608, 277);
-            this.grdList.TabIndex = 5;
-            // 
-            // clmnDesc
-            // 
-            this.clmnDesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmnDesc.FillWeight = 50F;
-            this.clmnDesc.HeaderText = "شرح";
-            this.clmnDesc.Name = "clmnDesc";
-            this.clmnDesc.ReadOnly = true;
-            // 
-            // clmnPath
-            // 
-            this.clmnPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmnPath.FillWeight = 50F;
-            this.clmnPath.HeaderText = "مسیر فایل";
-            this.clmnPath.Name = "clmnPath";
-            this.clmnPath.ReadOnly = true;
-            // 
-            // clmnSynced
-            // 
-            this.clmnSynced.HeaderText = "همگام";
-            this.clmnSynced.Name = "clmnSynced";
-            this.clmnSynced.ReadOnly = true;
-            this.clmnSynced.Width = 50;
+            this.btnImport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnImport.Image = global::ganjoor.Properties.Resources.folder_down;
+            this.btnImport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(23, 22);
+            this.btnImport.Text = "بارگذاری اطلاعات همگام‌سازی از فایل XML";
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // AudioFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(608, 368);
+            this.ClientSize = new System.Drawing.Size(697, 405);
             this.Controls.Add(this.grdList);
             this.Controls.Add(this.tlbr);
             this.Controls.Add(this.lblDesc);
@@ -206,5 +232,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnPath;
         private System.Windows.Forms.DataGridViewCheckBoxColumn clmnSynced;
         private System.Windows.Forms.ToolStripButton btnSync;
+        private System.Windows.Forms.ToolStripButton btnExport;
+        private System.Windows.Forms.ToolStripButton btnImport;
     }
 }

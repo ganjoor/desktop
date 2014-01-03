@@ -46,7 +46,26 @@ namespace ganjoor
             new string[] {"مهران صمدنژاد", "", "خلیل‌الله خلیلی", "http://blog.ganjoor.net/1389/10/17/khalili-robaee/"},
             new string[] {"علی پی‌سپار", "", "هلالی جغتایی", "http://blog.ganjoor.net/1389/10/28/helali/"},
             new string[] {"کامران مشایخی", "", "اشعار ترکی شهریار", "http://blog.ganjoor.net/1390/02/02/shahriar-turki/"},
-
+            new string[] {"کامران مشایخی", "", "گزیدهٔ اشعار ترکی شاه اسماعیل صفوی", "http://blog.ganjoor.net/1390/02/11/shah-esmaeel-torki/"},
+            new string[] {"الف. رسته", "", "قسمت دوم حیدربابای استاد شهریار", "http://blog.ganjoor.net/1391/02/16/heydarbaba2/"},
+            new string[] {"سیاوش کیانی", "", "گرشاسپ‌نامهٔ اسدی توسی", "http://blog.ganjoor.net/1391/02/16/asadi-garshaspname/"},
+            new string[] {"محمودرضا رجایی", "", "حدیقهٔ سنایی", "http://blog.ganjoor.net/1391/07/03/hadighe/"},
+            new string[] {"محمودرضا رجایی", "", "کشف‌المحجوب هجویری", "http://blog.ganjoor.net/1391/07/08/kashf-ol-mahjoob/"},
+            new string[] {"عباس معاذاللهی", "", "شاطر عباس صبوحی", "http://ganjoor.net/sources/shaterabbas/"},
+            new string[] {"علی پی‌سپار", "", "رباعیات مهستی گنجوی", "http://blog.ganjoor.net/1391/08/26/mahsati/"},
+            new string[] {"محمودرضا رجایی", "", "ترانه‌های خیام به اهتمام صادق هدایت", "http://blog.ganjoor.net/1391/09/03/khayyam-hedayat/"},
+            new string[] {"محمد نصیری", "", "قرآن کریم", "http://blog.ganjoor.net/1391/09/10/dg-2-54/"},
+            new string[] {"مهران صمدنژاد", "", "محمدعلی بهمنی", "http://blog.ganjoor.net/1391/09/10/dg-2-54/"},
+            new string[] {"مهران صمدنژاد", "", "مهدی سهیلی", "http://blog.ganjoor.net/1391/09/10/dg-2-54/"},
+            new string[] {"بهروز ثروتی", "", "عبدالقهار عاصی", "http://blog.ganjoor.net/1391/09/10/abdulqahar-aasee/"},
+            new string[] {"سعید رستگار", "", "باقر فداغی لارستانی", "http://blog.ganjoor.net/1392/01/03/bagher-fedaghi/"},
+            new string[] {"الف. رسته", "", "بابا افضل کاشانی", "http://blog.ganjoor.net/1392/02/02/baba-afzal-kashani/"},
+            new string[] {"اسماعیل ابراهیمی", "", "جبار محمدی (الیار)", "http://blog.ganjoor.net/1392/05/08/elyaar/"},
+            new string[] {"الف. رسته", "", "صادق سرمد", "http://blog.ganjoor.net/1392/05/25/saadegh-sarmad/"},
+            new string[] {"کامران مشایخی", "", "گزیدۀ اشعار مصطفی مجیدی", "http://blog.ganjoor.net/1392/05/28/mostafa-majidi/"},
+            new string[] {"ابوالفضل فتحی آزاد", "http://afasoft.ir/", "گزیدۀ اشعار فریدون مشیری", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
+            new string[] {"ابوالفضل فتحی آزاد", "http://afasoft.ir/", "اشعار ترانه‌های سیاوش قمیشی", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
+            new string[] {"اسحاق فروزنده", "", "گزیدۀ اشعار پژمان بختیاری", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
         };
 
         private const int GRDCLMN_NAME = 0;
@@ -122,6 +141,11 @@ namespace ganjoor
         private void lnkBlog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LaunchUrl("http://blog.ganjoor.net");            
+        }
+
+        private void lnkEditor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LaunchUrl("http://blog.ganjoor.net/1389/04/27/dg-editor/");
         }
     }
 }

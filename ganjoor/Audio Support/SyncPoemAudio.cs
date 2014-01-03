@@ -26,6 +26,7 @@ namespace ganjoor
             _PoemAudioPlayer.PlaybackStopped += new EventHandler<NAudio.Wave.StoppedEventArgs>(_PoemAudioPlayer_PlaybackStopped);
 
             _Modified = false;
+            _Saved = false;
             _SyncOrder = -1;
             if (poemAudio.SyncArray != null)
                 _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);
@@ -41,7 +42,7 @@ namespace ganjoor
         private void EnableButtons()
         {
             btnSave.Enabled = _Modified;
-            btnNextVerse.Enabled = btnPlayPause.Enabled = btnStartFromHere.Enabled = btnStopHere.Enabled = _VerseMilisecPositions.Count == 0;
+            btnPreVerse.Enabled = btnTrack.Enabled = btnNextVerse.Enabled = btnPlayPause.Enabled = btnStartFromHere.Enabled = btnStopHere.Enabled = _VerseMilisecPositions.Count == 0;
             btnTest.Enabled = btnReset.Enabled = !btnNextVerse.Enabled;
         }
 
@@ -49,6 +50,16 @@ namespace ganjoor
         private GanjoorVerse[] _PoemVerses;
         private List<PoemAudio.SyncInfo> _VerseMilisecPositions;
         private bool _Modified;
+        private bool _Saved;
+
+        /// <summary>
+        /// آیا اطلاعات ذخیره شده است
+        /// </summary>
+        public bool Saved
+        {
+            get { return _Saved; }
+        }
+
 
         /// <summary>
         /// نمایش شکل موج
@@ -139,17 +150,21 @@ namespace ganjoor
         /// <param name="e"></param>
         private void btnNextVerse_Click(object sender, EventArgs e)
         {
-            _SyncOrder++;            
-            _VerseMilisecPositions.Add
-                (
-                new PoemAudio.SyncInfo()
-                {
-                    VerseOrder = _SyncOrder,
-                    AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
-                }
-                );
+            _SyncOrder++;
             if (_SyncOrder < _PoemVerses.Length)
             {
+                if (btnTrack.Checked)
+                {
+                    _VerseMilisecPositions.Add
+                        (
+                        new PoemAudio.SyncInfo()
+                        {
+                            VerseOrder = _SyncOrder,
+                            AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
+                        }
+                        );
+                }
+
                 lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
 
                 if (_SyncOrder < _PoemVerses.Length - 1)
@@ -159,10 +174,45 @@ namespace ganjoor
             }
             else
             {
+                _SyncOrder = _PoemVerses.Length;
                 lblVerse.Text = "شعر تمام شده!";
             }
             _Modified = true;
         }
+
+        private void btnPreVerse_Click(object sender, EventArgs e)
+        {
+            _SyncOrder--;
+            if (_SyncOrder > 0)
+            {
+                if (btnTrack.Checked)
+                {
+                    _VerseMilisecPositions.Add
+                        (
+                        new PoemAudio.SyncInfo()
+                        {
+                            VerseOrder = _SyncOrder,
+                            AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
+                        }
+                        );
+                }
+
+                lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
+
+                if (_SyncOrder < _PoemVerses.Length - 1)
+                    lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text;
+                else
+                    lblNextVerse.Text = "این مصرع آخر است.";
+            }
+            else
+            {
+                _SyncOrder = -1;
+                lblVerse.Text = "هنوز شروع نشده!";
+            }
+            _Modified = true;
+
+        }
+
 
 
         private void SyncPoemAudio_FormClosing(object sender, FormClosingEventArgs e)
@@ -272,7 +322,7 @@ namespace ganjoor
                 _SyncOrder = -1;
                 return;
             }
-            btnStartFromHere.Enabled = btnPlayPause.Enabled = btnNextVerse.Enabled = btnStopHere.Enabled =  false;
+            btnPreVerse.Enabled = btnTrack.Enabled =  btnStartFromHere.Enabled = btnPlayPause.Enabled = btnNextVerse.Enabled = btnStopHere.Enabled = false;
             btnReset.Enabled = false;
 
             if (!_PoemAudioPlayer.BeginPlayback(_PoemAudio))
@@ -357,7 +407,8 @@ namespace ganjoor
                     return;
                 }
             }
-            _DbBrowser.SavePoemSync(_PoemAudio, _VerseMilisecPositions.ToArray());
+            _DbBrowser.SavePoemSync(_PoemAudio, _VerseMilisecPositions.ToArray(), true);
+            _Saved = true;
             _Modified = false;
         }
 
@@ -423,6 +474,14 @@ namespace ganjoor
             lblNextVerse.Visible = !lblNextVerse.Visible;
             chkShowNextVerse.Checked = lblNextVerse.Visible;
         }
+
+        private void btnTrack_Click(object sender, EventArgs e)
+        {
+            btnTrack.Checked = !btnTrack.Checked;
+            btnTrack.Image = btnTrack.Checked ? Properties.Resources.track32 : Properties.Resources.notrack32;
+            btnTrack.Text = btnTrack.Checked ? "رهگیری" : "عدم رهگیری";
+        }
+
 
 
 

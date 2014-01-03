@@ -107,6 +107,7 @@ namespace ganjoor
             btnHighlight.Enabled = true;// HasComments;
 
             mnuAudioFiles.Enabled = btnPlayAudio.Enabled = mnuPlayAudio.Enabled = HasComments;
+            mnuAudioStop.Enabled = false;
 
             mnuShowFavs.Checked = btnFavs.Checked = FavsPage;
             mnuFavUnFav.Enabled = btnFavUnFav.Enabled = HasComments;
@@ -756,6 +757,7 @@ namespace ganjoor
         {
             mnuPlayAudio.Text = btnPlayAudio.Text = "توقف";
             mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.pause;
+            mnuAudioStop.Enabled = true;
 
         }
 
@@ -763,6 +765,7 @@ namespace ganjoor
         {
             mnuPlayAudio.Text = btnPlayAudio.Text = "خوانش";
             mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.sound;
+            mnuAudioStop.Enabled = false;
         }
 
         private void mnuAudioStop_Click(object sender, EventArgs e)
