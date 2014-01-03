@@ -796,7 +796,17 @@ namespace ganjoor
                 DataRow[] verTable = tbl.Select("Table_Name='gver'");               
 
                 string vg3db = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "vg.s3db");
-                if (File.Exists(vg3db))
+                if (verTable.Length == 0 && !File.Exists(vg3db))
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                    {
+                        cmd.CommandText = "CREATE TABLE gver (curver INTEGER);";
+                        cmd.ExecuteNonQuery();
+                        cmd.CommandText = "INSERT INTO gver (curver) VALUES (" + DatabaseVersion.ToString() + ");";
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                else
                 {
                     if (verTable.Length == 0)
                     {
