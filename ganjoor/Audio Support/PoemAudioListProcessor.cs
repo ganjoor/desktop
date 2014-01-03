@@ -30,6 +30,8 @@ namespace ganjoor
                 XmlNode poemAudioNode = doc.CreateNode(XmlNodeType.Element, "PoemAudio", "");
                 foreach (PropertyInfo prop in typeof(PoemAudio).GetProperties())
                 {
+                    if (!prop.CanWrite)
+                        continue;
                     bool ignoreProp = false;
                     XmlNode propNode = doc.CreateNode(XmlNodeType.Element, prop.Name, "");
                     if (prop.PropertyType == typeof(string))

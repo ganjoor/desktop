@@ -2854,7 +2854,7 @@ namespace ganjoor
 
                                 if (bUpdateGuid)
                                 {
-                                    cmd.CommandText = String.Format("UPDATE poemsnd SET syncguid = \"{0}\" WHERE poem_id = {0} AND id = {1}",
+                                    cmd.CommandText = String.Format("UPDATE poemsnd SET syncguid = \"{0}\" WHERE poem_id = {1} AND id = {2}",
                                         Guid.NewGuid().ToString(), audio.PoemId, audio.Id);
                                     cmd.ExecuteNonQuery();
                                 }

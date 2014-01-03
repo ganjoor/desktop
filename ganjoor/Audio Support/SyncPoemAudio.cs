@@ -482,6 +482,32 @@ namespace ganjoor
             btnTrack.Text = btnTrack.Checked ? "رهگیری" : "عدم رهگیری";
         }
 
+        private void SyncPoemAudio_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                if (e.Control)
+                {
+                    btnPreVerse_Click(sender, new EventArgs());
+                }
+                else
+                {
+                    btnNextVerse_Click(sender, new EventArgs());
+                }                
+            }
+            else
+                if (e.Control)
+                {
+                    if (e.KeyCode == Keys.P)
+                    {
+                        btnPlayPause_Click(sender, new EventArgs());
+                    }
+                }
+
+
+                
+        }
+
 
 
 
