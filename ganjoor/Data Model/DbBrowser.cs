@@ -704,7 +704,7 @@ namespace ganjoor
         #endregion
 
         #region Versioning
-        private const int DatabaseVersion = 2;
+        private const int DatabaseVersion = 3;
         private void UpgradeOldDbs()
         {
             using (DataTable tbl = _con.GetSchema("Tables"))
@@ -917,7 +917,9 @@ namespace ganjoor
                 {
                     using (SQLiteCommand cmd = new SQLiteCommand(_con))
                     {
-                        cmd.CommandText = "CREATE TABLE [poemsnd] ([poem_id] INTEGER NOT NULL, [id] INTEGER NOT NULL, [filepath] TEXT, [description] TEXT);";
+                        cmd.CommandText = "CREATE TABLE [poemsnd] ([poem_id] INTEGER NOT NULL, [id] INTEGER NOT NULL, [filepath] TEXT, [description] TEXT, "+
+                            "[dnldurl] TEXT, [isdirect] INTEGER, [syncguid] TEXT, [fchksum] TEXT, isuploaded INTEGER" +
+                            ");";
                         cmd.ExecuteNonQuery();
                     }
 
@@ -926,6 +928,100 @@ namespace ganjoor
                         cmd.CommandText = "CREATE TABLE [sndsync] ([poem_id] INTEGER NOT NULL, [snd_id] INTEGER NOT NULL, [verse_order] INTEGER NOT NULL, [milisec] INTEGER NOT NULL);";
                         cmd.ExecuteNonQuery();
                     }
+
+                    try
+                    {
+                        using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                        {
+                            cmd.CommandText = "DELETE FROM gver";
+                            cmd.ExecuteNonQuery();
+                            cmd.CommandText = "INSERT INTO gver (curver) VALUES (" + DatabaseVersion.ToString() + ");";//update database version information
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch
+                    {
+                        //this is normal, gdbs do not have gver table
+                    }
+
+                }
+                else
+                {
+                    //upgrade older than 2.72 table structure
+                    using (SQLiteDataAdapter sndTableChecker = new SQLiteDataAdapter("PRAGMA table_info('poemsnd')", _con))
+                    {
+                        using (DataTable sndTableInfo = new DataTable())
+                        {
+                            sndTableChecker.Fill(sndTableInfo);
+                            if (sndTableInfo.Rows.Count == 4)//old poemsnd table
+                            {
+                                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                                {
+                                    cmd.CommandText = "ALTER TABLE poemsnd ADD dnldurl TEXT;";
+                                    cmd.ExecuteNonQuery();
+                                    cmd.CommandText = "ALTER TABLE poemsnd ADD isdirect INTEGER;";
+                                    cmd.ExecuteNonQuery();
+                                    cmd.CommandText = "ALTER TABLE poemsnd ADD syncguid TEXT;";
+                                    cmd.ExecuteNonQuery();
+                                    cmd.CommandText = "ALTER TABLE poemsnd ADD fchksum TEXT;";
+                                    cmd.ExecuteNonQuery();
+                                    cmd.CommandText = "ALTER TABLE poemsnd ADD isuploaded INTEGER;";
+                                    cmd.ExecuteNonQuery();
+
+                                }
+
+                                //update existing data:
+                                using (DataTable tblPoemSnd = new DataTable())
+                                {
+                                    string strQuery = "SELECT poem_id, id, filepath FROM poemsnd";
+                                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                                    {
+                                        da.Fill(tblPoemSnd);
+                                        int nIdxPoemId = 0;
+                                        int nIdxId = 1;
+                                        int nIdxFilePath = 2;
+                                        BeginBatchOperation();
+                                        foreach (DataRow row in tblPoemSnd.Rows)
+                                        {
+                                            if(row.ItemArray[nIdxFilePath] != null)
+                                            {
+                                                strQuery = String.Format("update poemsnd SET dnldurl = '', isdirect = 0, syncguid = '{0}', fchksum = '{1}', isuploaded = 0 " +
+                                                    "WHERE poem_id = {2} AND id = {3}",
+                                                    Guid.NewGuid(), PoemAudio.ComputeCheckSum(row.ItemArray[nIdxFilePath].ToString()),
+                                                    row.ItemArray[nIdxPoemId].ToString(), row.ItemArray[nIdxId].ToString()
+                                                    );
+                                                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                                                {
+                                                    cmd.CommandText = strQuery;
+                                                    cmd.ExecuteNonQuery();
+                                                }
+
+                                            }
+                                        }
+                                        CommitBatchOperation();
+                                    }
+                                }
+
+                                try
+                                {
+                                    using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                                    {
+                                        cmd.CommandText = "DELETE FROM gver";
+                                        cmd.ExecuteNonQuery();
+                                        cmd.CommandText = "INSERT INTO gver (curver) VALUES (" + DatabaseVersion.ToString() + ");";//update database version information
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                }
+                                catch
+                                {
+                                    //this is normal, gdbs do not have gver table
+                                }
+
+
+                            }
+                        }
+                    }
+
                 }
                 #endregion
             }
@@ -2595,7 +2691,7 @@ namespace ganjoor
             {
                 using (DataTable tbl = new DataTable())
                 {
-                    string strQuery = String.Format("SELECT id, filepath, description FROM poemsnd WHERE poem_id = {0} ORDER BY id", nPoemId);
+                    string strQuery = String.Format("SELECT * FROM poemsnd WHERE poem_id = {0} ORDER BY id", nPoemId);
                     if (bOnlyFirst)
                         strQuery += " LIMIT 1";
 
@@ -2608,10 +2704,14 @@ namespace ganjoor
                                 new PoemAudio()
                                 {
                                     PoemId = nPoemId,
-                                    Id = Convert.ToInt32(row.ItemArray[0]),
-                                    FilePath = row.ItemArray[1].ToString(),
-                                    Description = row.ItemArray[2].ToString(),
-                                    IsSync = PoemAudioHasSyncData(nPoemId, Convert.ToInt32(row.ItemArray[0]))
+                                    Id = Convert.ToInt32(row["id"]),
+                                    FilePath = row["filepath"].ToString(),
+                                    Description = row["description"].ToString(),
+                                    DownloadUrl = row["dnldurl"].ToString(),
+                                    IsDirectlyDownloadable = Convert.ToInt32(row["isdirect"]) == 1,
+                                    SyncGuid = Guid.Parse(row["syncguid"].ToString()),
+                                    FileCheckSum = row["fchksum"].ToString(),
+                                    IsUploaded = Convert.ToInt32(row["isuploaded"]) == 1
                                 }                                   
                                 );
                             lstAudio[lstAudio.Count - 1].SyncArray = GetPoemSync(lstAudio[lstAudio.Count - 1]);
@@ -2675,11 +2775,19 @@ namespace ganjoor
                         PoemId = nPoemId,
                         Id = GeneratetNewAudioId(nPoemId),
                         FilePath = filePath,
-                        Description = desc
+                        Description = desc,
+                        FileCheckSum = PoemAudio.ComputeCheckSum(filePath),
+                        DownloadUrl = "",
+                        IsDirectlyDownloadable = false,
+                        SyncGuid = Guid.NewGuid(),
+                        IsUploaded = false
                     };
+
                     cmd.CommandText = String.Format(
-                        "INSERT INTO poemsnd (poem_id, id, filepath, description) VALUES ({0}, {1}, \"{2}\", \"{3}\");",
-                        newPoemAudio.PoemId, newPoemAudio.Id, newPoemAudio.FilePath, newPoemAudio.Description
+                        "INSERT INTO poemsnd (poem_id, id, filepath, description, dnldurl, isdirect, syncguid, fchksum, isuploaded) "+
+                        "VALUES ({0}, {1}, \"{2}\", \"{3}\", \"{4}\", {5}, \"{6}\", \"{7}\", {8});",
+                        newPoemAudio.PoemId, newPoemAudio.Id, newPoemAudio.FilePath, newPoemAudio.Description,
+                        newPoemAudio.DownloadUrl, newPoemAudio.IsDirectlyDownloadable ? 1 : 0, newPoemAudio.SyncGuid.ToString(), newPoemAudio.FileCheckSum, newPoemAudio.IsUploaded ? 1 : 0
                         );
                     cmd.ExecuteNonQuery();
                     return newPoemAudio;
@@ -2699,7 +2807,7 @@ namespace ganjoor
             {
                 if (audio != null)
                 {
-                    SavePoemSync(audio, null);
+                    SavePoemSync(audio, null, false);
                     using (SQLiteCommand cmd = new SQLiteCommand(_con))
                     {
                         cmd.CommandText = String.Format(
@@ -2719,7 +2827,7 @@ namespace ganjoor
         /// <param name="audio"></param>
         /// <param name="verseMilisecPositions"></param>
         /// <returns></returns>
-        public bool SavePoemSync(PoemAudio audio, PoemAudio.SyncInfo[] verseMilisecPositions)
+        public bool SavePoemSync(PoemAudio audio, PoemAudio.SyncInfo[] verseMilisecPositions, bool bUpdateGuid)
         {
             if (Connected && audio != null)
             {
@@ -2743,6 +2851,13 @@ namespace ganjoor
                                     audio.PoemId, audio.Id, verseMilisecPositions[i].VerseOrder, verseMilisecPositions[i].AudioMiliseconds
                                     );
                                 cmd.ExecuteNonQuery();
+
+                                if (bUpdateGuid)
+                                {
+                                    cmd.CommandText = String.Format("UPDATE poemsnd SET syncguid = \"{0}\" WHERE poem_id = {0} AND id = {1}",
+                                        Guid.NewGuid().ToString(), audio.PoemId, audio.Id);
+                                    cmd.ExecuteNonQuery();
+                                }
                             }                            
                         }
                         CommitBatchOperation();
@@ -2750,6 +2865,33 @@ namespace ganjoor
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// آپدیت Guid 
+        /// </summary>
+        /// <param name="poemAudio"></param>
+        public bool UpdatePoemAudioGuid(ref PoemAudio poemAudio)
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    string strQuery = String.Format("SELECT syncguid FROM poemsnd WHERE poem_id = {0} AND id = {1}", poemAudio.PoemId, poemAudio.Id);
+
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            poemAudio.SyncGuid = Guid.Parse(row["syncguid"].ToString());//only one row
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+
         }
 
         /// <summary>

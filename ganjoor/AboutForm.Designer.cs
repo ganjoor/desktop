@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.grdContributers = new System.Windows.Forms.DataGridView();
             this.lnkBlog = new System.Windows.Forms.LinkLabel();
+            this.lnkEditor = new System.Windows.Forms.LinkLabel();
             this.Column1 = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewLinkColumn();
@@ -48,7 +49,7 @@
             // lblAppTitle
             // 
             this.lblAppTitle.AutoSize = true;
-            this.lblAppTitle.Location = new System.Drawing.Point(38, 11);
+            this.lblAppTitle.Location = new System.Drawing.Point(75, 11);
             this.lblAppTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAppTitle.Name = "lblAppTitle";
             this.lblAppTitle.Size = new System.Drawing.Size(273, 13);
@@ -58,7 +59,7 @@
             // lblAppVersion
             // 
             this.lblAppVersion.AutoSize = true;
-            this.lblAppVersion.Location = new System.Drawing.Point(143, 30);
+            this.lblAppVersion.Location = new System.Drawing.Point(180, 30);
             this.lblAppVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAppVersion.Name = "lblAppVersion";
             this.lblAppVersion.Size = new System.Drawing.Size(59, 13);
@@ -69,7 +70,7 @@
             // 
             this.lnkGanjoorOnSFNet.AutoSize = true;
             this.lnkGanjoorOnSFNet.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(109, 50);
+            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(146, 50);
             this.lnkGanjoorOnSFNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkGanjoorOnSFNet.Name = "lnkGanjoorOnSFNet";
             this.lnkGanjoorOnSFNet.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -82,7 +83,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(146, 380);
+            this.btnOK.Location = new System.Drawing.Point(179, 399);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(60, 22);
@@ -94,7 +95,7 @@
             // 
             this.lnkIcons.AutoSize = true;
             this.lnkIcons.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkIcons.Location = new System.Drawing.Point(123, 87);
+            this.lnkIcons.Location = new System.Drawing.Point(160, 87);
             this.lnkIcons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIcons.Name = "lnkIcons";
             this.lnkIcons.Size = new System.Drawing.Size(98, 13);
@@ -107,7 +108,7 @@
             // 
             this.lnkHamidReza.AutoSize = true;
             this.lnkHamidReza.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkHamidReza.Location = new System.Drawing.Point(129, 69);
+            this.lnkHamidReza.Location = new System.Drawing.Point(166, 69);
             this.lnkHamidReza.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkHamidReza.Name = "lnkHamidReza";
             this.lnkHamidReza.Size = new System.Drawing.Size(86, 13);
@@ -120,7 +121,7 @@
             // 
             this.lnkSources.AutoSize = true;
             this.lnkSources.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkSources.Location = new System.Drawing.Point(112, 127);
+            this.lnkSources.Location = new System.Drawing.Point(149, 127);
             this.lnkSources.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkSources.Name = "lnkSources";
             this.lnkSources.Size = new System.Drawing.Size(120, 13);
@@ -133,7 +134,7 @@
             // 
             this.lnkIconsEditor.AutoSize = true;
             this.lnkIconsEditor.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkIconsEditor.Location = new System.Drawing.Point(102, 107);
+            this.lnkIconsEditor.Location = new System.Drawing.Point(139, 107);
             this.lnkIconsEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIconsEditor.Name = "lnkIconsEditor";
             this.lnkIconsEditor.Size = new System.Drawing.Size(141, 13);
@@ -145,7 +146,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 166);
+            this.label1.Location = new System.Drawing.Point(43, 166);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(333, 13);
@@ -167,7 +168,7 @@
             this.grdContributers.ReadOnly = true;
             this.grdContributers.RowHeadersWidth = 11;
             this.grdContributers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdContributers.Size = new System.Drawing.Size(323, 186);
+            this.grdContributers.Size = new System.Drawing.Size(395, 186);
             this.grdContributers.TabIndex = 9;
             this.grdContributers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdContributers_CellContentClick);
             // 
@@ -175,7 +176,7 @@
             // 
             this.lnkBlog.AutoSize = true;
             this.lnkBlog.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkBlog.Location = new System.Drawing.Point(139, 147);
+            this.lnkBlog.Location = new System.Drawing.Point(176, 147);
             this.lnkBlog.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkBlog.Name = "lnkBlog";
             this.lnkBlog.Size = new System.Drawing.Size(71, 13);
@@ -184,18 +185,31 @@
             this.lnkBlog.Text = "تازه‌های گنجور";
             this.lnkBlog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkBlog_LinkClicked);
             // 
+            // lnkEditor
+            // 
+            this.lnkEditor.AutoSize = true;
+            this.lnkEditor.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lnkEditor.Location = new System.Drawing.Point(147, 379);
+            this.lnkEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lnkEditor.Name = "lnkEditor";
+            this.lnkEditor.Size = new System.Drawing.Size(121, 13);
+            this.lnkEditor.TabIndex = 10;
+            this.lnkEditor.TabStop = true;
+            this.lnkEditor.Text = "چگونه اشعار را تایپ کنم؟";
+            this.lnkEditor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkEditor_LinkClicked);
+            // 
             // Column1
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.HeaderText = "نام";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column1.Width = 110;
             // 
             // Column2
             // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.HeaderText = "بخش";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
@@ -214,7 +228,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(348, 410);
+            this.ClientSize = new System.Drawing.Size(419, 424);
+            this.Controls.Add(this.lnkEditor);
             this.Controls.Add(this.lnkBlog);
             this.Controls.Add(this.grdContributers);
             this.Controls.Add(this.label1);
@@ -258,6 +273,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView grdContributers;
         private System.Windows.Forms.LinkLabel lnkBlog;
+        private System.Windows.Forms.LinkLabel lnkEditor;
         private System.Windows.Forms.DataGridViewLinkColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewLinkColumn Column3;

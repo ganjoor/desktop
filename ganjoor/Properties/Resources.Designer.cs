@@ -214,6 +214,13 @@ namespace ganjoor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap folder_up {
+            get {
+                object obj = ResourceManager.GetObject("folder_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap gear16 {
             get {
                 object obj = ResourceManager.GetObject("gear16", resourceCulture);
@@ -245,6 +252,13 @@ namespace ganjoor.Properties {
         internal static System.Drawing.Bitmap note_accept {
             get {
                 object obj = ResourceManager.GetObject("note_accept", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap notrack32 {
+            get {
+                object obj = ResourceManager.GetObject("notrack32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -378,6 +392,13 @@ namespace ganjoor.Properties {
         internal static System.Drawing.Bitmap tools {
             get {
                 object obj = ResourceManager.GetObject("tools", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap track32 {
+            get {
+                object obj = ResourceManager.GetObject("track32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

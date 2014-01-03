@@ -66,7 +66,7 @@ namespace ganjoor
             int nRowIdx = grdList.Rows.Add();
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_DESC].Value = Audio.Description;
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_FILEPATH].Value = Audio.FilePath;
-            grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_SYNCED].Value = Audio.IsSync;
+            grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_SYNCED].Value = Audio.IsSynced;
             grdList.Rows[nRowIdx].Tag = Audio;
             return nRowIdx;
         }
@@ -109,7 +109,7 @@ namespace ganjoor
         /// <param name="e"></param>
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (grdList.CurrentRow == null)
+            if (grdList.SelectedRows.Count == 0)
             {
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
                 return;
@@ -119,9 +119,9 @@ namespace ganjoor
                 "تأییدیه",
                 MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
-                if (_DbBrowser.DeleteAudio(this.grdList.CurrentRow.Tag as PoemAudio))
+                if (_DbBrowser.DeleteAudio(this.grdList.SelectedRows[0].Tag as PoemAudio))
                 {
-                    this.grdList.Rows.Remove(this.grdList.CurrentRow);
+                    this.grdList.Rows.Remove(this.grdList.SelectedRows[0]);
                 }
             }
 
@@ -134,12 +134,12 @@ namespace ganjoor
         /// <param name="e"></param>
         private void btnMoveToTop_Click(object sender, EventArgs e)
         {
-            if (grdList.CurrentRow == null)
+            if (grdList.SelectedRows.Count == 0)
             {
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
                 return;
             }
-            if (_DbBrowser.MoveToTop(this.grdList.CurrentRow.Tag as PoemAudio))
+            if (_DbBrowser.MoveToTop(this.grdList.SelectedRows[0].Tag as PoemAudio))
             {
                 FillGrid();
             }
@@ -162,7 +162,7 @@ namespace ganjoor
                 }
 
             }
-            if (grdList.CurrentRow == null)
+            if (grdList.SelectedRows.Count == 0)
             {
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
                 return;
@@ -174,7 +174,7 @@ namespace ganjoor
                 _PoemAudioPlayer.PlaybackStarted += new EventHandler(_PoemAudioPlayer_PlaybackStarted);
                 _PoemAudioPlayer.PlaybackStopped += new EventHandler<NAudio.Wave.StoppedEventArgs>(_PoemAudioPlayer_PlaybackStopped);
             }
-            PoemAudio poemAudio = grdList.CurrentRow.Tag as PoemAudio;
+            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
             if (!_PoemAudioPlayer.BeginPlayback(poemAudio))
             {
                 btnPlayStop.Text = "پخش";
@@ -225,7 +225,7 @@ namespace ganjoor
 
         private void btnSync_Click(object sender, EventArgs e)
         {
-            if (grdList.CurrentRow == null)
+            if (grdList.SelectedRows.Count == 0)
             {
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
                 return;
@@ -235,13 +235,111 @@ namespace ganjoor
             {
                 _PoemAudioPlayer.CleanUp();
             }
-            PoemAudio poemAudio = grdList.CurrentRow.Tag as PoemAudio;
+            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
             using (SyncPoemAudio dlg = new SyncPoemAudio(_DbBrowser, poemAudio))
+            {
                 dlg.ShowDialog(this);
-            poemAudio.SyncArray = _DbBrowser.GetPoemSync(poemAudio);
-            grdList.CurrentRow.Cells[GRDCOLUMN_IDX_SYNCED].Value = poemAudio.IsSync = poemAudio.SyncArray != null;
+                if (dlg.Saved)
+                {
+                    poemAudio.SyncArray = _DbBrowser.GetPoemSync(poemAudio);
+                    _DbBrowser.UpdatePoemAudioGuid(ref poemAudio);
+                    grdList.SelectedRows[0].Cells[GRDCOLUMN_IDX_SYNCED].Value = poemAudio.IsSynced;
+                }
+            }
+            
 
             
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (grdList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
+                return;
+            }
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "XML Files (*.xml)|*.xml";
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+
+                    PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+                    List<PoemAudio> lst = new List<PoemAudio>();
+                    lst.Add(poemAudio);
+                    if (PoemAudioListProcessor.Save(dlg.FileName, lst))
+                    {
+                        MessageBox.Show("فایل به درستی در مسیر انتخاب شده ذخیره شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    }
+                    else
+                    {
+                        MessageBox.Show("خطایی در ذخیرۀ فایل رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    }
+                }
+            }
+
+            
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            if (grdList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("لطفاً ابتدا فایل معادل اطلاعات همگام‌سازی را اضافه کرده، آن را انتخاب کنید.");
+                return;
+            }
+
+            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            if (poemAudio.IsSynced)
+            {
+                if (MessageBox.Show(
+                    String.Format("فایل انتخاب شده با شرح «{0}» و مسیر '{1}' در حال حاضر دارای اطلاعات همگام‌سازی است.\n" +
+                    "از جایگزینی این اطلاعات اطمینان دارید؟", poemAudio.Description, poemAudio.FilePath),
+                    "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                    return;
+            }         
+   
+            using(OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "XML Files (*.xml)|*.xml";
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    List<PoemAudio> lstPoemAudio = PoemAudioListProcessor.Load(dlg.FileName);
+                    if (lstPoemAudio.Count == 0)
+                    {
+                        MessageBox.Show("فایل انتخاب شده حاوی اطلاعات همگام‌سازی شعرها نیست.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        return;
+                    }
+
+                    foreach (PoemAudio xmlAudio in lstPoemAudio)
+                    {
+                        if (xmlAudio.PoemId == poemAudio.PoemId)
+                        {
+                            if (xmlAudio.FileCheckSum != PoemAudio.ComputeCheckSum(poemAudio.FilePath))
+                            {
+                                if (MessageBox.Show(
+                                    "اطلاعات فایل همگام شده با فایل انتخاب شده همسانی ندارد. از استفاده از این اطلاعات اطمینان دارید؟",
+                                    "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
+                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                                    return;
+
+                            }
+                            _DbBrowser.SavePoemSync(poemAudio, xmlAudio.SyncArray, false);
+                            poemAudio.SyncArray = xmlAudio.SyncArray;
+                            poemAudio.SyncGuid = xmlAudio.SyncGuid;
+                            grdList.SelectedRows[0].Cells[GRDCOLUMN_IDX_SYNCED].Value = poemAudio.IsSynced;
+                            return;
+                        }
+                    }
+
+                    MessageBox.Show("فایل انتخاب شده حاوی اطلاعات همگام‌سازی شعر جاری نیست.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
+
+                }
+            }
+            
+
         }
 
 

@@ -32,17 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SyncPoemAudio));
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tlbr = new System.Windows.Forms.ToolStrip();
-            this.btnNextVerse = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPlayPause = new System.Windows.Forms.ToolStripButton();
-            this.btnStartFromHere = new System.Windows.Forms.ToolStripButton();
-            this.btnStopHere = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.btnTest = new System.Windows.Forms.ToolStripButton();
-            this.btnReset = new System.Windows.Forms.ToolStripButton();
-            this.chkWaveForm = new System.Windows.Forms.ToolStripButton();
-            this.chkShowNextVerse = new System.Windows.Forms.ToolStripButton();
             this.lblDesc = new System.Windows.Forms.Label();
             this.lblVerse = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
@@ -51,6 +42,17 @@
             this.waveViewer = new ganjoor.CustomWaveViewer();
             this.stsBar = new System.Windows.Forms.StatusStrip();
             this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnNextVerse = new System.Windows.Forms.ToolStripButton();
+            this.btnPreVerse = new System.Windows.Forms.ToolStripButton();
+            this.btnTrack = new System.Windows.Forms.ToolStripButton();
+            this.btnPlayPause = new System.Windows.Forms.ToolStripButton();
+            this.btnStartFromHere = new System.Windows.Forms.ToolStripButton();
+            this.btnStopHere = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.btnTest = new System.Windows.Forms.ToolStripButton();
+            this.btnReset = new System.Windows.Forms.ToolStripButton();
+            this.chkWaveForm = new System.Windows.Forms.ToolStripButton();
+            this.chkShowNextVerse = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.stsBar.SuspendLayout();
@@ -69,6 +71,8 @@
             this.tlbr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator1,
             this.btnNextVerse,
+            this.btnPreVerse,
+            this.btnTrack,
             this.toolStripSeparator2,
             this.btnPlayPause,
             this.btnStartFromHere,
@@ -81,9 +85,105 @@
             this.chkShowNextVerse});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
-            this.tlbr.Size = new System.Drawing.Size(622, 53);
+            this.tlbr.Size = new System.Drawing.Size(764, 53);
             this.tlbr.TabIndex = 10;
             this.tlbr.Text = "نوار ابزار انتخاب";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 53);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 53);
+            // 
+            // lblDesc
+            // 
+            this.lblDesc.BackColor = System.Drawing.SystemColors.Window;
+            this.lblDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblDesc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblDesc.Location = new System.Drawing.Point(0, 0);
+            this.lblDesc.Name = "lblDesc";
+            this.lblDesc.Size = new System.Drawing.Size(764, 66);
+            this.lblDesc.TabIndex = 9;
+            this.lblDesc.Text = resources.GetString("lblDesc.Text");
+            this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblVerse
+            // 
+            this.lblVerse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblVerse.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblVerse.Location = new System.Drawing.Point(0, 119);
+            this.lblVerse.Name = "lblVerse";
+            this.lblVerse.Size = new System.Drawing.Size(764, 142);
+            this.lblVerse.TabIndex = 11;
+            this.lblVerse.Text = "هنوز شروع نشده!";
+            this.lblVerse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timer
+            // 
+            this.timer.Interval = 500;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // lblNextVerse
+            // 
+            this.lblNextVerse.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblNextVerse.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblNextVerse.Location = new System.Drawing.Point(0, 261);
+            this.lblNextVerse.Name = "lblNextVerse";
+            this.lblNextVerse.Size = new System.Drawing.Size(764, 31);
+            this.lblNextVerse.TabIndex = 13;
+            this.lblNextVerse.Text = "مصرع بعد: ";
+            this.lblNextVerse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNextVerse.Visible = false;
+            // 
+            // trackBar
+            // 
+            this.trackBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.trackBar.Enabled = false;
+            this.trackBar.Location = new System.Drawing.Point(0, 292);
+            this.trackBar.Name = "trackBar";
+            this.trackBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trackBar.Size = new System.Drawing.Size(764, 45);
+            this.trackBar.TabIndex = 14;
+            this.trackBar.TickFrequency = 60000;
+            this.trackBar.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
+            // 
+            // waveViewer
+            // 
+            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.waveViewer.Location = new System.Drawing.Point(0, 337);
+            this.waveViewer.Name = "waveViewer";
+            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
+            this.waveViewer.PenWidth = 1F;
+            this.waveViewer.Position = 0;
+            this.waveViewer.SamplesPerPixel = 128;
+            this.waveViewer.Size = new System.Drawing.Size(764, 103);
+            this.waveViewer.StartPosition = ((long)(0));
+            this.waveViewer.TabIndex = 12;
+            this.waveViewer.Visible = false;
+            this.waveViewer.WaveStream = null;
+            // 
+            // stsBar
+            // 
+            this.stsBar.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stsBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblTime});
+            this.stsBar.Location = new System.Drawing.Point(0, 440);
+            this.stsBar.Name = "stsBar";
+            this.stsBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
+            this.stsBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.stsBar.Size = new System.Drawing.Size(764, 22);
+            this.stsBar.SizingGrip = false;
+            this.stsBar.TabIndex = 15;
+            // 
+            // lblTime
+            // 
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(57, 17);
+            this.lblTime.Text = "00:00:00";
             // 
             // btnNextVerse
             // 
@@ -95,10 +195,27 @@
             this.btnNextVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNextVerse.Click += new System.EventHandler(this.btnNextVerse_Click);
             // 
-            // toolStripSeparator2
+            // btnPreVerse
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 53);
+            this.btnPreVerse.Image = global::ganjoor.Properties.Resources.repeat;
+            this.btnPreVerse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPreVerse.Name = "btnPreVerse";
+            this.btnPreVerse.Size = new System.Drawing.Size(60, 50);
+            this.btnPreVerse.Text = "مصرع قبل";
+            this.btnPreVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPreVerse.Click += new System.EventHandler(this.btnPreVerse_Click);
+            // 
+            // btnTrack
+            // 
+            this.btnTrack.Checked = true;
+            this.btnTrack.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.btnTrack.Image = global::ganjoor.Properties.Resources.track32;
+            this.btnTrack.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTrack.Name = "btnTrack";
+            this.btnTrack.Size = new System.Drawing.Size(48, 50);
+            this.btnTrack.Text = "رهگیری";
+            this.btnTrack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTrack.Click += new System.EventHandler(this.btnTrack_Click);
             // 
             // btnPlayPause
             // 
@@ -130,11 +247,6 @@
             this.btnStopHere.Text = "پایان در اینجا";
             this.btnStopHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnStopHere.Click += new System.EventHandler(this.btnStopHere_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 53);
             // 
             // btnSave
             // 
@@ -190,97 +302,11 @@
             this.chkShowNextVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkShowNextVerse.Click += new System.EventHandler(this.chkShowNextVerse_Click);
             // 
-            // lblDesc
-            // 
-            this.lblDesc.BackColor = System.Drawing.SystemColors.Window;
-            this.lblDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblDesc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblDesc.Location = new System.Drawing.Point(0, 0);
-            this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(622, 66);
-            this.lblDesc.TabIndex = 9;
-            this.lblDesc.Text = resources.GetString("lblDesc.Text");
-            this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblVerse
-            // 
-            this.lblVerse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblVerse.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVerse.Location = new System.Drawing.Point(0, 119);
-            this.lblVerse.Name = "lblVerse";
-            this.lblVerse.Size = new System.Drawing.Size(622, 89);
-            this.lblVerse.TabIndex = 11;
-            this.lblVerse.Text = "هنوز شروع نشده!";
-            this.lblVerse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // timer
-            // 
-            this.timer.Interval = 500;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // lblNextVerse
-            // 
-            this.lblNextVerse.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblNextVerse.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblNextVerse.Location = new System.Drawing.Point(0, 208);
-            this.lblNextVerse.Name = "lblNextVerse";
-            this.lblNextVerse.Size = new System.Drawing.Size(622, 31);
-            this.lblNextVerse.TabIndex = 13;
-            this.lblNextVerse.Text = "مصرع بعد: ";
-            this.lblNextVerse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNextVerse.Visible = false;
-            // 
-            // trackBar
-            // 
-            this.trackBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.trackBar.Enabled = false;
-            this.trackBar.Location = new System.Drawing.Point(0, 239);
-            this.trackBar.Name = "trackBar";
-            this.trackBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.trackBar.Size = new System.Drawing.Size(622, 45);
-            this.trackBar.TabIndex = 14;
-            this.trackBar.TickFrequency = 60000;
-            this.trackBar.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
-            // 
-            // waveViewer
-            // 
-            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.waveViewer.Location = new System.Drawing.Point(0, 284);
-            this.waveViewer.Name = "waveViewer";
-            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
-            this.waveViewer.PenWidth = 1F;
-            this.waveViewer.Position = 0;
-            this.waveViewer.SamplesPerPixel = 128;
-            this.waveViewer.Size = new System.Drawing.Size(622, 103);
-            this.waveViewer.StartPosition = ((long)(0));
-            this.waveViewer.TabIndex = 12;
-            this.waveViewer.Visible = false;
-            this.waveViewer.WaveStream = null;
-            // 
-            // stsBar
-            // 
-            this.stsBar.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stsBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblTime});
-            this.stsBar.Location = new System.Drawing.Point(0, 387);
-            this.stsBar.Name = "stsBar";
-            this.stsBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.stsBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.stsBar.Size = new System.Drawing.Size(622, 22);
-            this.stsBar.SizingGrip = false;
-            this.stsBar.TabIndex = 15;
-            // 
-            // lblTime
-            // 
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(57, 17);
-            this.lblTime.Text = "00:00:00";
-            // 
             // SyncPoemAudio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(622, 409);
+            this.ClientSize = new System.Drawing.Size(764, 462);
             this.Controls.Add(this.lblVerse);
             this.Controls.Add(this.lblNextVerse);
             this.Controls.Add(this.trackBar);
@@ -332,5 +358,7 @@
         private System.Windows.Forms.TrackBar trackBar;
         private System.Windows.Forms.StatusStrip stsBar;
         private System.Windows.Forms.ToolStripStatusLabel lblTime;
+        private System.Windows.Forms.ToolStripButton btnPreVerse;
+        private System.Windows.Forms.ToolStripButton btnTrack;
     }
 }

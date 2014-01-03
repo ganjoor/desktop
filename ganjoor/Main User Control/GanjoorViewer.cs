@@ -2883,6 +2883,8 @@ namespace ganjoor
                      }
                      if (vOrder > 0)
                      {
+                         if (vOrder < _CurAudioVerseOrder)
+                             _ControlStartFrom = 0;
                          _CurAudioVerseOrder = vOrder;
                          _ControlStartFrom = this.HighlightVerse(_CurAudioVerseOrder, false, Color.Red, _ControlStartFrom);
                      }

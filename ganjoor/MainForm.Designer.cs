@@ -111,15 +111,15 @@
             this.btnDownloadGDBList = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAudio = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAudioFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuPlayAudio = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAudioStop = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChangeLog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuPlayAudio = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAudioStop = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -878,8 +878,8 @@
             this.mnuPlayAudio,
             this.mnuAudioStop});
             this.mnuAudio.Name = "mnuAudio";
-            this.mnuAudio.Size = new System.Drawing.Size(50, 20);
-            this.mnuAudio.Text = "صداها";
+            this.mnuAudio.Size = new System.Drawing.Size(62, 20);
+            this.mnuAudio.Text = "خوانشها";
             // 
             // mnuAudioFiles
             // 
@@ -887,6 +887,29 @@
             this.mnuAudioFiles.Size = new System.Drawing.Size(200, 22);
             this.mnuAudioFiles.Text = "خوانشهای شعر جاری ...";
             this.mnuAudioFiles.Click += new System.EventHandler(this.mnuAudioFiles_Click);
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(197, 6);
+            // 
+            // mnuPlayAudio
+            // 
+            this.mnuPlayAudio.Image = global::ganjoor.Properties.Resources.sound;
+            this.mnuPlayAudio.Name = "mnuPlayAudio";
+            this.mnuPlayAudio.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+            this.mnuPlayAudio.Size = new System.Drawing.Size(200, 22);
+            this.mnuPlayAudio.Text = "خوانش";
+            this.mnuPlayAudio.Click += new System.EventHandler(this.btnPlayAudio_Click);
+            // 
+            // mnuAudioStop
+            // 
+            this.mnuAudioStop.Enabled = false;
+            this.mnuAudioStop.Image = global::ganjoor.Properties.Resources.stop16;
+            this.mnuAudioStop.Name = "mnuAudioStop";
+            this.mnuAudioStop.Size = new System.Drawing.Size(200, 22);
+            this.mnuAudioStop.Text = "توقف کامل";
+            this.mnuAudioStop.Click += new System.EventHandler(this.mnuAudioStop_Click);
             // 
             // mnuHlp
             // 
@@ -946,28 +969,6 @@
             this.ganjoorView.PlaybackStarted += new System.EventHandler(this.ganjoorView_PlaybackStarted);
             this.ganjoorView.PlaybackStopped += new System.EventHandler(this.ganjoorView_PlaybackStopped);
             this.ganjoorView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ganjoorView_KeyPress);
-            // 
-            // toolStripSeparator18
-            // 
-            this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(197, 6);
-            // 
-            // mnuPlayAudio
-            // 
-            this.mnuPlayAudio.Image = global::ganjoor.Properties.Resources.sound;
-            this.mnuPlayAudio.Name = "mnuPlayAudio";
-            this.mnuPlayAudio.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.mnuPlayAudio.Size = new System.Drawing.Size(200, 22);
-            this.mnuPlayAudio.Text = "خوانش";
-            this.mnuPlayAudio.Click += new System.EventHandler(this.btnPlayAudio_Click);
-            // 
-            // mnuAudioStop
-            // 
-            this.mnuAudioStop.Image = global::ganjoor.Properties.Resources.stop16;
-            this.mnuAudioStop.Name = "mnuAudioStop";
-            this.mnuAudioStop.Size = new System.Drawing.Size(200, 22);
-            this.mnuAudioStop.Text = "توقف کامل";
-            this.mnuAudioStop.Click += new System.EventHandler(this.mnuAudioStop_Click);
             // 
             // MainForm
             // 
