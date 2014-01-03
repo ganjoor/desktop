@@ -258,13 +258,17 @@ namespace ganjoor
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
                 return;
             }
+            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            if (!poemAudio.IsSynced)
+            {
+                MessageBox.Show("ردیف جاری همگام نشده است.");
+                return;
+            }
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
                 dlg.Filter = "XML Files (*.xml)|*.xml";
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-
-                    PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
                     List<PoemAudio> lst = new List<PoemAudio>();
                     lst.Add(poemAudio);
                     if (PoemAudioListProcessor.Save(dlg.FileName, lst))

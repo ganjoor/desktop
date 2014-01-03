@@ -32,8 +32,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SyncPoemAudio));
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tlbr = new System.Windows.Forms.ToolStrip();
+            this.btnNextVerse = new System.Windows.Forms.ToolStripButton();
+            this.btnPreVerse = new System.Windows.Forms.ToolStripButton();
+            this.btnTrack = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPlayPause = new System.Windows.Forms.ToolStripButton();
+            this.btnStartFromHere = new System.Windows.Forms.ToolStripButton();
+            this.btnStopHere = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.btnTest = new System.Windows.Forms.ToolStripButton();
+            this.btnReset = new System.Windows.Forms.ToolStripButton();
+            this.chkWaveForm = new System.Windows.Forms.ToolStripButton();
+            this.chkShowNextVerse = new System.Windows.Forms.ToolStripButton();
             this.lblDesc = new System.Windows.Forms.Label();
             this.lblVerse = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
@@ -42,17 +53,6 @@
             this.waveViewer = new ganjoor.CustomWaveViewer();
             this.stsBar = new System.Windows.Forms.StatusStrip();
             this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnNextVerse = new System.Windows.Forms.ToolStripButton();
-            this.btnPreVerse = new System.Windows.Forms.ToolStripButton();
-            this.btnTrack = new System.Windows.Forms.ToolStripButton();
-            this.btnPlayPause = new System.Windows.Forms.ToolStripButton();
-            this.btnStartFromHere = new System.Windows.Forms.ToolStripButton();
-            this.btnStopHere = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.btnTest = new System.Windows.Forms.ToolStripButton();
-            this.btnReset = new System.Windows.Forms.ToolStripButton();
-            this.chkWaveForm = new System.Windows.Forms.ToolStripButton();
-            this.chkShowNextVerse = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.stsBar.SuspendLayout();
@@ -89,15 +89,135 @@
             this.tlbr.TabIndex = 10;
             this.tlbr.Text = "نوار ابزار انتخاب";
             // 
+            // btnNextVerse
+            // 
+            this.btnNextVerse.Image = ((System.Drawing.Image)(resources.GetObject("btnNextVerse.Image")));
+            this.btnNextVerse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNextVerse.Name = "btnNextVerse";
+            this.btnNextVerse.Size = new System.Drawing.Size(58, 50);
+            this.btnNextVerse.Text = "مصرع بعد";
+            this.btnNextVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnNextVerse.ToolTipText = "مصرع بعد (Space)";
+            this.btnNextVerse.Click += new System.EventHandler(this.btnNextVerse_Click);
+            // 
+            // btnPreVerse
+            // 
+            this.btnPreVerse.Image = global::ganjoor.Properties.Resources.repeat;
+            this.btnPreVerse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPreVerse.Name = "btnPreVerse";
+            this.btnPreVerse.Size = new System.Drawing.Size(60, 50);
+            this.btnPreVerse.Text = "مصرع قبل";
+            this.btnPreVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPreVerse.ToolTipText = "مصرع قبل (Ctrl +Space)";
+            this.btnPreVerse.Click += new System.EventHandler(this.btnPreVerse_Click);
+            // 
+            // btnTrack
+            // 
+            this.btnTrack.Checked = true;
+            this.btnTrack.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.btnTrack.Image = global::ganjoor.Properties.Resources.track32;
+            this.btnTrack.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTrack.Name = "btnTrack";
+            this.btnTrack.Size = new System.Drawing.Size(48, 50);
+            this.btnTrack.Text = "رهگیری";
+            this.btnTrack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTrack.Click += new System.EventHandler(this.btnTrack_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 53);
             // 
+            // btnPlayPause
+            // 
+            this.btnPlayPause.Image = global::ganjoor.Properties.Resources.play;
+            this.btnPlayPause.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPlayPause.Name = "btnPlayPause";
+            this.btnPlayPause.Size = new System.Drawing.Size(61, 50);
+            this.btnPlayPause.Text = "پخش صدا";
+            this.btnPlayPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPlayPause.ToolTipText = "پخش صدا (Ctrl+P)";
+            this.btnPlayPause.Click += new System.EventHandler(this.btnPlayPause_Click);
+            // 
+            // btnStartFromHere
+            // 
+            this.btnStartFromHere.Image = global::ganjoor.Properties.Resources.rewind;
+            this.btnStartFromHere.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStartFromHere.Name = "btnStartFromHere";
+            this.btnStartFromHere.Size = new System.Drawing.Size(66, 50);
+            this.btnStartFromHere.Text = "آغاز از اینجا";
+            this.btnStartFromHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnStartFromHere.Click += new System.EventHandler(this.btnStartFromHere_Click);
+            // 
+            // btnStopHere
+            // 
+            this.btnStopHere.Image = global::ganjoor.Properties.Resources.stop;
+            this.btnStopHere.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStopHere.Name = "btnStopHere";
+            this.btnStopHere.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnStopHere.Size = new System.Drawing.Size(73, 50);
+            this.btnStopHere.Text = "پایان در اینجا";
+            this.btnStopHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnStopHere.Click += new System.EventHandler(this.btnStopHere_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 53);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSave.Enabled = false;
+            this.btnSave.Image = global::ganjoor.Properties.Resources.accept;
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(40, 50);
+            this.btnSave.Text = "ذخیره";
+            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnTest
+            // 
+            this.btnTest.Image = global::ganjoor.Properties.Resources.sound;
+            this.btnTest.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(47, 50);
+            this.btnTest.Text = "آزمایش";
+            this.btnTest.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Image = global::ganjoor.Properties.Resources.remove;
+            this.btnReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(36, 50);
+            this.btnReset.Text = "از نو";
+            this.btnReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // chkWaveForm
+            // 
+            this.chkWaveForm.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.chkWaveForm.Image = global::ganjoor.Properties.Resources.displaywaveform;
+            this.chkWaveForm.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.chkWaveForm.Name = "chkWaveForm";
+            this.chkWaveForm.Size = new System.Drawing.Size(66, 50);
+            this.chkWaveForm.Text = "نمایش موج";
+            this.chkWaveForm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkWaveForm.Click += new System.EventHandler(this.chkWaveForm_Click);
+            // 
+            // chkShowNextVerse
+            // 
+            this.chkShowNextVerse.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.chkShowNextVerse.Image = global::ganjoor.Properties.Resources.help;
+            this.chkShowNextVerse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.chkShowNextVerse.Name = "chkShowNextVerse";
+            this.chkShowNextVerse.Size = new System.Drawing.Size(74, 50);
+            this.chkShowNextVerse.Text = "نمایش بعدی";
+            this.chkShowNextVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkShowNextVerse.Click += new System.EventHandler(this.chkShowNextVerse_Click);
             // 
             // lblDesc
             // 
@@ -185,123 +305,6 @@
             this.lblTime.Size = new System.Drawing.Size(57, 17);
             this.lblTime.Text = "00:00:00";
             // 
-            // btnNextVerse
-            // 
-            this.btnNextVerse.Image = ((System.Drawing.Image)(resources.GetObject("btnNextVerse.Image")));
-            this.btnNextVerse.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNextVerse.Name = "btnNextVerse";
-            this.btnNextVerse.Size = new System.Drawing.Size(58, 50);
-            this.btnNextVerse.Text = "مصرع بعد";
-            this.btnNextVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnNextVerse.Click += new System.EventHandler(this.btnNextVerse_Click);
-            // 
-            // btnPreVerse
-            // 
-            this.btnPreVerse.Image = global::ganjoor.Properties.Resources.repeat;
-            this.btnPreVerse.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPreVerse.Name = "btnPreVerse";
-            this.btnPreVerse.Size = new System.Drawing.Size(60, 50);
-            this.btnPreVerse.Text = "مصرع قبل";
-            this.btnPreVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnPreVerse.Click += new System.EventHandler(this.btnPreVerse_Click);
-            // 
-            // btnTrack
-            // 
-            this.btnTrack.Checked = true;
-            this.btnTrack.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.btnTrack.Image = global::ganjoor.Properties.Resources.track32;
-            this.btnTrack.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTrack.Name = "btnTrack";
-            this.btnTrack.Size = new System.Drawing.Size(48, 50);
-            this.btnTrack.Text = "رهگیری";
-            this.btnTrack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnTrack.Click += new System.EventHandler(this.btnTrack_Click);
-            // 
-            // btnPlayPause
-            // 
-            this.btnPlayPause.Image = global::ganjoor.Properties.Resources.play;
-            this.btnPlayPause.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPlayPause.Name = "btnPlayPause";
-            this.btnPlayPause.Size = new System.Drawing.Size(61, 50);
-            this.btnPlayPause.Text = "پخش صدا";
-            this.btnPlayPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnPlayPause.Click += new System.EventHandler(this.btnPlayPause_Click);
-            // 
-            // btnStartFromHere
-            // 
-            this.btnStartFromHere.Image = global::ganjoor.Properties.Resources.rewind;
-            this.btnStartFromHere.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnStartFromHere.Name = "btnStartFromHere";
-            this.btnStartFromHere.Size = new System.Drawing.Size(66, 50);
-            this.btnStartFromHere.Text = "آغاز از اینجا";
-            this.btnStartFromHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnStartFromHere.Click += new System.EventHandler(this.btnStartFromHere_Click);
-            // 
-            // btnStopHere
-            // 
-            this.btnStopHere.Image = global::ganjoor.Properties.Resources.stop;
-            this.btnStopHere.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnStopHere.Name = "btnStopHere";
-            this.btnStopHere.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnStopHere.Size = new System.Drawing.Size(73, 50);
-            this.btnStopHere.Text = "پایان در اینجا";
-            this.btnStopHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnStopHere.Click += new System.EventHandler(this.btnStopHere_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnSave.Enabled = false;
-            this.btnSave.Image = global::ganjoor.Properties.Resources.accept;
-            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(40, 50);
-            this.btnSave.Text = "ذخیره";
-            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnTest
-            // 
-            this.btnTest.Image = global::ganjoor.Properties.Resources.sound;
-            this.btnTest.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(47, 50);
-            this.btnTest.Text = "آزمایش";
-            this.btnTest.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.Image = global::ganjoor.Properties.Resources.remove;
-            this.btnReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(36, 50);
-            this.btnReset.Text = "از نو";
-            this.btnReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
-            // chkWaveForm
-            // 
-            this.chkWaveForm.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.chkWaveForm.Image = global::ganjoor.Properties.Resources.displaywaveform;
-            this.chkWaveForm.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.chkWaveForm.Name = "chkWaveForm";
-            this.chkWaveForm.Size = new System.Drawing.Size(66, 50);
-            this.chkWaveForm.Text = "نمایش موج";
-            this.chkWaveForm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkWaveForm.Click += new System.EventHandler(this.chkWaveForm_Click);
-            // 
-            // chkShowNextVerse
-            // 
-            this.chkShowNextVerse.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.chkShowNextVerse.Image = global::ganjoor.Properties.Resources.help;
-            this.chkShowNextVerse.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.chkShowNextVerse.Name = "chkShowNextVerse";
-            this.chkShowNextVerse.Size = new System.Drawing.Size(74, 50);
-            this.chkShowNextVerse.Text = "نمایش بعدی";
-            this.chkShowNextVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkShowNextVerse.Click += new System.EventHandler(this.chkShowNextVerse_Click);
-            // 
             // SyncPoemAudio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -315,6 +318,7 @@
             this.Controls.Add(this.tlbr);
             this.Controls.Add(this.lblDesc);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.KeyPreview = true;
             this.MinimizeBox = false;
             this.Name = "SyncPoemAudio";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -325,6 +329,7 @@
             this.Text = "همگام‌سازی شعر";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SyncPoemAudio_FormClosing);
             this.Load += new System.EventHandler(this.SyncPoemAudio_Load);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.SyncPoemAudio_PreviewKeyDown);
             this.tlbr.ResumeLayout(false);
             this.tlbr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
