@@ -28,6 +28,7 @@ namespace ganjoor
             _Modified = false;
             _Saved = false;
             _SyncOrder = -1;
+            _LastSearchText = "";
             if (poemAudio.SyncArray != null)
                 _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);
             else
@@ -42,7 +43,7 @@ namespace ganjoor
         private void EnableButtons()
         {
             btnSave.Enabled = _Modified;
-            btnPreVerse.Enabled = btnTrack.Enabled = btnNextVerse.Enabled = btnPlayPause.Enabled = btnStartFromHere.Enabled = btnStopHere.Enabled = _VerseMilisecPositions.Count == 0;
+            btnPreVerse.Enabled = btnTrack.Enabled = btnNextVerse.Enabled = btnPlayPause.Enabled = btnStartFromHere.Enabled = btnStopHere.Enabled = btnSearchText.Enabled = _VerseMilisecPositions.Count == 0;
             btnTest.Enabled = btnReset.Enabled = !btnNextVerse.Enabled;
         }
 
@@ -51,6 +52,7 @@ namespace ganjoor
         private List<PoemAudio.SyncInfo> _VerseMilisecPositions;
         private bool _Modified;
         private bool _Saved;
+        private string _LastSearchText;
 
         /// <summary>
         /// آیا اطلاعات ذخیره شده است
@@ -210,6 +212,61 @@ namespace ganjoor
                 lblVerse.Text = "هنوز شروع نشده!";
             }
             _Modified = true;
+
+        }
+
+        private void btnSearchText_Click(object sender, EventArgs e)
+        {
+            using (ItemEditor itemEditor = new ItemEditor(EditItemType.General, "جستجوی بعدی", "متن:"))
+            {
+                itemEditor.ItemName = _LastSearchText;
+                if (itemEditor.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    _LastSearchText = itemEditor.ItemName;
+                    int nStart = _SyncOrder;
+                    for (int n = 0; n < 2; n++)
+                    {
+                        for (int i = nStart + 1; i < _PoemVerses.Length; i++)
+                            if (_PoemVerses[i]._Text.Contains(_LastSearchText))
+                            {
+                                _SyncOrder = i;
+
+                                if (btnTrack.Checked)
+                                {
+                                    _VerseMilisecPositions.Add
+                                        (
+                                        new PoemAudio.SyncInfo()
+                                        {
+                                            VerseOrder = _SyncOrder,
+                                            AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
+                                        }
+                                        );
+                                }
+
+                                lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
+
+                                if (_SyncOrder < _PoemVerses.Length - 1)
+                                    lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text;
+                                else
+                                    lblNextVerse.Text = "این مصرع آخر است.";
+                                _Modified = true;
+                                return;
+                            }
+                        if (n == 0)
+                        {
+                            if (MessageBox.Show("متن یافت نشد. آیا تمایل دارید جستجو از ابتدای شعر صورت گیرد؟", "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                            {
+                                return;
+                            }
+                            nStart = -1;
+                        }
+                        else
+                        {
+                            MessageBox.Show("متن یافت نشد.", "خطا", MessageBoxButtons.OK);
+                        }
+                    }
+                }
+            }
 
         }
 
@@ -502,11 +559,17 @@ namespace ganjoor
                     {
                         btnPlayPause_Click(sender, new EventArgs());
                     }
+                    else
+                        if (e.KeyCode == Keys.F)
+                        {
+                            btnSearchText_Click(sender, new EventArgs());
+                        }
                 }
 
 
                 
         }
+
 
 
 

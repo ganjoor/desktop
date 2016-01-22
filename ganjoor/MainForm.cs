@@ -742,13 +742,24 @@ namespace ganjoor
                 return;
 
             }
-            PoemAudio poemAudio = this.ganjoorView.CurrentPoemAudio;
-            if (poemAudio == null)
+            PoemAudio[] poemAudioFiles = this.ganjoorView.PoemAudioFiles;
+            if (poemAudioFiles.Length == 0)
             {
                 ManagePoemAudioFiles();
             }
             else
             {
+                PoemAudio poemAudio = poemAudioFiles[0];
+                if(poemAudioFiles.Length > 1)
+                {
+                    ItemSelector dlg =  new ItemSelector("گزینش خوانش ...", poemAudioFiles, poemAudio);
+                    if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        poemAudio = dlg.SelectedItem as PoemAudio;
+                    }
+                    else
+                        return;
+                }
                 ganjoorView.Play(poemAudio);
             }
         }

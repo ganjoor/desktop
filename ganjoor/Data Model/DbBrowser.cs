@@ -20,27 +20,12 @@ namespace ganjoor
         /// </summary>
         public DbBrowser()            
         {
-            string iniFilePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "ganjoor.ini");
-            if(!File.Exists(iniFilePath))
-                iniFilePath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor"), "ganjoor.ini");
-            if (File.Exists(iniFilePath))
-            {
-                GINIParser gParaser = new GINIParser(iniFilePath);
-                try
-                {
-                    _dbfilepath = gParaser.Values["Database"]["Path"];
-                    _dbfilepath = Path.Combine(_dbfilepath, "ganjoor.s3db");
-                }
-                catch
-                {
-                }
-            }
-            if (string.IsNullOrEmpty(_dbfilepath))
-                _dbfilepath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor"), "ganjoor.s3db");
+            _dbfilepath = DefaultDbPath;
             if (!File.Exists(_dbfilepath))
             {
                 _dbfilepath = "ganjoor.s3db";
             }
+
             try
             {
                 Init(_dbfilepath);
@@ -67,6 +52,36 @@ namespace ganjoor
         {
             Init(sqliteDatabaseNameFileName);
         }
+
+        /// <summary>
+        /// Default Db Path
+        /// </summary>
+        public static string DefaultDbPath
+        {
+            get
+            {
+                string iniFilePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "ganjoor.ini");
+                if (!File.Exists(iniFilePath))
+                    iniFilePath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor"), "ganjoor.ini");
+                string dbfilepath = string.Empty;
+                if (File.Exists(iniFilePath))
+                {
+                    GINIParser gParaser = new GINIParser(iniFilePath);
+                    try
+                    {
+                        dbfilepath = gParaser.Values["Database"]["Path"];
+                        dbfilepath = Path.Combine(dbfilepath, "ganjoor.s3db");
+                    }
+                    catch
+                    {
+                    }
+                }
+                if (string.IsNullOrEmpty(dbfilepath))
+                    dbfilepath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor"), "ganjoor.s3db");
+                return dbfilepath;
+            }
+        }
+
         /// <summary>
         /// creates a new poem database
         /// </summary>

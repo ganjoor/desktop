@@ -281,6 +281,7 @@ namespace ganjoor
             if(category._ID == 0)//نمایش تعداد شاعران
                 _strPage += string.Format(" ({0} شاعر)", subcats.Count);
             StopPlayBack();
+            _CurrentPoemAudio = null;
             if (null != OnPageChanged)
             {
                 OnPageChanged(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
@@ -413,11 +414,13 @@ namespace ganjoor
                 (sender as Control).Visible = false;
             }
             StopPlayBack();
+            _CurrentPoemAudio = null;
             OnPageChanged(_strPage, true, true, _db.IsPoemFaved(verse._PoemID), false, string.Empty, null, null);
             VerticalScroll.Value = y;            
         }
         private int ShowPoem(GanjoorPoem poem, bool keepTrack)
         {
+            
             if (poem == null)
                 return 0;//this happened one time!
             return ShowPoem(poem, keepTrack, poem._HighlightText);
@@ -730,6 +733,7 @@ namespace ganjoor
                 _strPage += "، " + BandNum.ToString() + " بند)";
             _strLastPhrase = null;
             StopPlayBack();
+            _CurrentPoemAudio = _db.GetMainPoemAudio(this._iCurPoem);
             if (null != OnPageChanged)
                 OnPageChanged(_strPage, true, true, poem._Faved, false, highlightWord, null, null);
             return string.IsNullOrEmpty(highlightWord) || !Settings.Default.HighlightKeyword ? 0 : HighlightText(highlightWord);
@@ -1112,8 +1116,8 @@ namespace ganjoor
         {
             get
             {
-                if (_db == null)
-                    return string.Empty;
+                if (_db == null || _db.Failed)
+                    return DbBrowser.DefaultDbPath;
                 return _db.DbFilePath;
             }
         }
@@ -1368,6 +1372,7 @@ namespace ganjoor
 
             _strPage = "نتایج جستجو برای \"" + phrase + "\" در آثار " + _db.GetPoet(PoetID)._Name + " صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
             StopPlayBack();
+            _CurrentPoemAudio = null;
             if (null != OnPageChanged)
             {
                 OnPageChanged(_strPage, false, false, false, false, string.Empty, prePage, nextPage);
@@ -1644,6 +1649,7 @@ namespace ganjoor
 
             _strPage = "نشانه‌ها - صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count).ToString() + " (مورد " + (PageStart + 1).ToString() + " تا " + (PageStart + Count).ToString() + ")");
             StopPlayBack();
+            _CurrentPoemAudio = null;
             if (null != OnPageChanged)
             {
                 OnPageChanged(_strPage, false, false, false, true, string.Empty, prePage, nextPage);
@@ -2430,14 +2436,16 @@ namespace ganjoor
                 //I guess this might be dangerous:
                 GanjoorPoet correspondingPoet = null;
                 foreach(GanjoorPoet p in _db.Poets)
-                    if (p._Name == cat._Text)
+                    if (p._Name == cat._Text || p._CatID == cat._ID)
                     {
                         correspondingPoet = p;
                         break;
                     }
 
-                if (_db.GetCategory(correspondingPoet._CatID) == null)
+                if (correspondingPoet != null)
+                {
                     _db.DeletePoet(correspondingPoet._ID);
+                }
 
                 _db.DeleteCat(cat._ID);
                 ShowHome(true);
@@ -2543,6 +2551,11 @@ namespace ganjoor
                                 numPassed = 0;
                                 Position = FullLine ? VersePosition.CenteredVerse2 : VersePosition.Right;
 
+                        }
+                        break;
+                    case VersePosition.CenteredVerse2:
+                        {
+                            Position = VersePosition.Right;
                         }
                         break;
                     default:
@@ -2741,6 +2754,7 @@ namespace ganjoor
         private int _CurAudioVerseOrder;
         private int _SyncOrder;
         private int _ControlStartFrom;
+        private PoemAudio _CurrentPoemAudio = null;
         #endregion
         #region Events
         public event EventHandler PlaybackStarted = null;
@@ -2763,10 +2777,11 @@ namespace ganjoor
             }
         }
 
-        public void Play(PoemAudio poemAudio = null)
+        public void Play(PoemAudio poemAudio)
         {
-            if (poemAudio == null)
-                poemAudio = CurrentPoemAudio;
+            CurrentPoemAudio = poemAudio;
+            if (CurrentPoemAudio == null)
+                return;
             if (_PoemAudioPlayer == null)
             {
                 _PoemAudioPlayer = new PoemAudioPlayer();
@@ -2934,10 +2949,21 @@ namespace ganjoor
         {
             get
             {
-                return _db.GetMainPoemAudio(this._iCurPoem);
+                return _CurrentPoemAudio;
+            }
+            set
+            {
+                _CurrentPoemAudio = value;
             }
         }
 
+        public PoemAudio[] PoemAudioFiles
+        {
+            get
+            {
+                return _db.GetPoemAudioFiles(this._iCurPoem);
+            }
+        }
 
 
         public int HighlightVerse(int nVerseOrder, bool dehighlight, Color clrHighlightColor, int nStartFrom)

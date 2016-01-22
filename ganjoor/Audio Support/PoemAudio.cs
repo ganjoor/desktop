@@ -159,6 +159,15 @@ namespace ganjoor
             set;
         }
 
+        /// <summary>
+        /// تبدیل به رشته
+        /// </summary>
+        /// <returns>شرح</returns>
+        public override string ToString()
+        {
+            return this.Description;
+        }
+
 
     }
 }
