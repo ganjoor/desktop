@@ -93,6 +93,12 @@
     <Compile Include="Audio Support\PoemAudio.cs" />
     <Compile Include="Audio Support\PoemAudioPlayer.cs" />
     <Compile Include="Audio Support\PoemAudioListProcessor.cs" />
+    <Compile Include="Reusable Forms\ItemSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reusable Forms\ItemSelector.Designer.cs">
+      <DependentUpon>ItemSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reusable Forms\CategorySelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GDBProcessing\NewGDBFound.resx">
       <DependentUpon>NewGDBFound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reusable Forms\ItemSelector.resx">
+      <DependentUpon>ItemSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reusable Forms\CategorySelector.resx">
       <DependentUpon>CategorySelector.cs</DependentUpon>

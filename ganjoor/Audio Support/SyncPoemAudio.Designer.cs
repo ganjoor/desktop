@@ -50,9 +50,10 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.lblNextVerse = new System.Windows.Forms.Label();
             this.trackBar = new System.Windows.Forms.TrackBar();
-            this.waveViewer = new ganjoor.CustomWaveViewer();
             this.stsBar = new System.Windows.Forms.StatusStrip();
             this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnSearchText = new System.Windows.Forms.ToolStripButton();
+            this.waveViewer = new ganjoor.CustomWaveViewer();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.stsBar.SuspendLayout();
@@ -72,6 +73,7 @@
             this.toolStripSeparator1,
             this.btnNextVerse,
             this.btnPreVerse,
+            this.btnSearchText,
             this.btnTrack,
             this.toolStripSeparator2,
             this.btnPlayPause,
@@ -271,21 +273,6 @@
             this.trackBar.TickFrequency = 60000;
             this.trackBar.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
-            // waveViewer
-            // 
-            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.waveViewer.Location = new System.Drawing.Point(0, 337);
-            this.waveViewer.Name = "waveViewer";
-            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
-            this.waveViewer.PenWidth = 1F;
-            this.waveViewer.Position = 0;
-            this.waveViewer.SamplesPerPixel = 128;
-            this.waveViewer.Size = new System.Drawing.Size(764, 103);
-            this.waveViewer.StartPosition = ((long)(0));
-            this.waveViewer.TabIndex = 12;
-            this.waveViewer.Visible = false;
-            this.waveViewer.WaveStream = null;
-            // 
             // stsBar
             // 
             this.stsBar.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -304,6 +291,32 @@
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(57, 17);
             this.lblTime.Text = "00:00:00";
+            // 
+            // btnSearchText
+            // 
+            this.btnSearchText.Image = global::ganjoor.Properties.Resources.search;
+            this.btnSearchText.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearchText.Name = "btnSearchText";
+            this.btnSearchText.Size = new System.Drawing.Size(49, 50);
+            this.btnSearchText.Text = "جستجو";
+            this.btnSearchText.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSearchText.ToolTipText = "جستجو (Ctrl+F)";
+            this.btnSearchText.Click += new System.EventHandler(this.btnSearchText_Click);
+            // 
+            // waveViewer
+            // 
+            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.waveViewer.Location = new System.Drawing.Point(0, 337);
+            this.waveViewer.Name = "waveViewer";
+            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
+            this.waveViewer.PenWidth = 1F;
+            this.waveViewer.Position = 0;
+            this.waveViewer.SamplesPerPixel = 128;
+            this.waveViewer.Size = new System.Drawing.Size(764, 103);
+            this.waveViewer.StartPosition = ((long)(0));
+            this.waveViewer.TabIndex = 12;
+            this.waveViewer.Visible = false;
+            this.waveViewer.WaveStream = null;
             // 
             // SyncPoemAudio
             // 
@@ -365,5 +378,6 @@
         private System.Windows.Forms.ToolStripStatusLabel lblTime;
         private System.Windows.Forms.ToolStripButton btnPreVerse;
         private System.Windows.Forms.ToolStripButton btnTrack;
+        private System.Windows.Forms.ToolStripButton btnSearchText;
     }
 }
