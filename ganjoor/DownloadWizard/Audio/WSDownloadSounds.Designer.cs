@@ -60,6 +60,7 @@
             this.btnStop.TabIndex = 8;
             this.btnStop.Text = "توقف";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // lblMsg
             // 
