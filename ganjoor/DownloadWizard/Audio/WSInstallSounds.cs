@@ -58,19 +58,7 @@ namespace ganjoor
                         foreach (PoemAudio xmlAudio in lstPoemAudio)
                         {
                             if (xmlAudio.PoemId == poemAudio.PoemId)
-                            {
-                                if (xmlAudio.FileCheckSum != PoemAudio.ComputeCheckSum(poemAudio.FilePath))
-                                {
-                                    if (MessageBox.Show(
-                                        "اطلاعات فایل همگام شده با فایل انتخاب شده همسانی ندارد. از استفاده از این اطلاعات اطمینان دارید؟",
-                                        "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
-                                        MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
-                                    {
-                                        grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "صرف نظر به دلیل ناهمخوانی اطلاعات";
-                                        continue;
-                                    }
-
-                                }
+                            {                                
                                 poemAudio.SyncArray = xmlAudio.SyncArray;
                                 poemAudio.SyncGuid = xmlAudio.SyncGuid;
                                 db.SavePoemSync(poemAudio, poemAudio.SyncArray, false);

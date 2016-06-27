@@ -18,7 +18,7 @@ namespace ganjoor
         public WSSelectSounds(int nPoemId)
         {
             InitializeComponent();
-            _PoemId = nPoemId;
+            _PoemId = nPoemId;            
         }
 
         //شناسه شعر
@@ -49,12 +49,21 @@ namespace ganjoor
         {
             btnRefresh.Visible = false;
             tlbr.Enabled = false;
+            lblDesc.BackColor = System.Drawing.SystemColors.Window;
             lblDesc.Text = "در حال دریافت اطلاعات ...";
             Application.DoEvents();
             if (RetrieveList())
+            {
                 lblDesc.Text = "ردیفهای سفیدرنگ نشانگر خوانشهایی است که شما آنها را در گنجور رومیزی خود ندارید. با علامتگذاری ستون «دریافت» در هر ردیف؛ آن را به فهرست خوانشهایی که می‌خواهید دریافت شوند اضافه کنید تا در مرحلهٔ بعد دریافت فهرست انتخابی شروع شود.";
+                if (grdList.RowCount == 0)
+                {
+                    lblDesc.Text = "خوانشی برای این شعر یافت نشد.";
+                    lblDesc.BackColor = Color.Red;
+                }
+            }
             else
             {
+                lblDesc.BackColor = Color.Red;
                 btnRefresh.Visible = true;
                 lblDesc.Text = "دریافت یا پردازش فهرست خوانشها با خطا مواجه شد. لطفاً از اتصال ارتباط اینترنتیتان اطمینان حاصل کنید و دکمهٔ تلاش مجدد را بزنید.";
             }
@@ -99,6 +108,7 @@ namespace ganjoor
                     }
                 }
                 db.CloseDb();
+                EnableDownloadCheckedButton();
             }
 
             return reS;
