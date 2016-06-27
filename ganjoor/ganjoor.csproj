@@ -100,10 +100,10 @@
     <Compile Include="Audio Support\PoemAudio.cs" />
     <Compile Include="Audio Support\PoemAudioPlayer.cs" />
     <Compile Include="Audio Support\PoemAudioListProcessor.cs" />
-    <Compile Include="NarratedPoems.cs">
+    <Compile Include="Audio Support\NarratedPoems.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NarratedPoems.Designer.cs">
+    <Compile Include="Audio Support\NarratedPoems.Designer.cs">
       <DependentUpon>NarratedPoems.cs</DependentUpon>
     </Compile>
     <Compile Include="Reusable Forms\ItemSelector.cs">
@@ -178,6 +178,18 @@
     </Compile>
     <Compile Include="Editor\SpaceSeparatedPoem.Designer.cs">
       <DependentUpon>SpaceSeparatedPoem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadWizard\Audio\SndDownloadInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DownloadWizard\Audio\SndDownloadInfo.Designer.cs">
+      <DependentUpon>SndDownloadInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadWizard\Audio\SndWizOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownloadWizard\Audio\SndWizOptions.Designer.cs">
+      <DependentUpon>SndWizOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\GAdvisor.cs" />
     <Compile Include="Data Model\GanjoorCat.cs" />
@@ -301,11 +313,23 @@
     <Compile Include="Reusable Forms\WaitMsg.Designer.cs">
       <DependentUpon>WaitMsg.cs</DependentUpon>
     </Compile>
-    <Compile Include="WSSelectSounds.cs">
+    <Compile Include="DownloadWizard\Audio\WSSelectSounds.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WSSelectSounds.Designer.cs">
+    <Compile Include="DownloadWizard\Audio\WSSelectSounds.Designer.cs">
       <DependentUpon>WSSelectSounds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadWizard\Audio\WSDownloadSounds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DownloadWizard\Audio\WSDownloadSounds.Designer.cs">
+      <DependentUpon>WSDownloadSounds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadWizard\Audio\WSInstallSounds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DownloadWizard\Audio\WSInstallSounds.Designer.cs">
+      <DependentUpon>WSInstallSounds.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Main Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -317,7 +341,7 @@
     <EmbeddedResource Include="GDBProcessing\NewGDBFound.resx">
       <DependentUpon>NewGDBFound.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NarratedPoems.resx">
+    <EmbeddedResource Include="Audio Support\NarratedPoems.resx">
       <DependentUpon>NarratedPoems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reusable Forms\ItemSelector.resx">
@@ -428,8 +452,20 @@
     <EmbeddedResource Include="Editor\SpaceSeparatedPoem.resx">
       <DependentUpon>SpaceSeparatedPoem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WSSelectSounds.resx">
+    <EmbeddedResource Include="DownloadWizard\Audio\WSSelectSounds.resx">
       <DependentUpon>WSSelectSounds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadWizard\Audio\SndDownloadInfo.resx">
+      <DependentUpon>SndDownloadInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadWizard\Audio\WSDownloadSounds.resx">
+      <DependentUpon>WSDownloadSounds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadWizard\Audio\WSInstallSounds.resx">
+      <DependentUpon>WSInstallSounds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadWizard\Audio\SndWizOptions.resx">
+      <DependentUpon>SndWizOptions.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

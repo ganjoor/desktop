@@ -66,6 +66,7 @@ namespace ganjoor
             new string[] {"ابوالفضل فتحی آزاد", "http://afasoft.ir/", "گزیدۀ اشعار فریدون مشیری", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
             new string[] {"ابوالفضل فتحی آزاد", "http://afasoft.ir/", "اشعار ترانه‌های سیاوش قمیشی", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
             new string[] {"اسحاق فروزنده", "", "گزیدۀ اشعار پژمان بختیاری", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
+            new string[] {"محمد ملکشاهی و همراهانشان", "", "غزلیات ابن حسام خوسفی", "http://blog.ganjoor.net/1394/12/29/ebnehesam-khusfi/"},
         };
 
         private const int GRDCLMN_NAME = 0;
