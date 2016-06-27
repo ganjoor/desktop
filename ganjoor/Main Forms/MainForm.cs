@@ -29,6 +29,7 @@ namespace ganjoor
 {
     public partial class MainForm : Form
     {
+        #region Constructor
         public MainForm()
         {
             InitializeComponent();
@@ -46,7 +47,9 @@ namespace ganjoor
             ApplyUserSettings();
 
         }
+        #endregion
 
+        #region ReUsable Methods
         private void ApplyUserSettings()
         {
             ganjoorView.CenteredView = (GanjoorViewMode)(Settings.Default.ViewMode) == GanjoorViewMode.Centered;
@@ -69,6 +72,29 @@ namespace ganjoor
             ganjoorView.Invalidate();
            
         }
+        #endregion
+
+        #region Form Events
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+            if (Settings.Default.CheckForUpdate)
+                CheckForUpdate(false);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ganjoorView.StoreSettings();
+            Properties.Settings.Default.WindowMaximized = (this.WindowState == FormWindowState.Maximized);
+            Properties.Settings.Default.WindowLocation = this.Location;
+            Properties.Settings.Default.WindowSize = this.Size;
+            Properties.Settings.Default.Save();
+            ganjoorView.StopPlayBack();
+
+        }
+#endregion
+
+        #region Button/Menu Commands
 
         private void btnHome_Click(object sender, EventArgs e)
         {
@@ -247,7 +273,6 @@ namespace ganjoor
             }
         }
 
-
         private void btnHistoryBack_Click(object sender, EventArgs e)
         {
             ganjoorView.GoBackInHistory();
@@ -281,17 +306,6 @@ namespace ganjoor
         private void btnCopyText_Click(object sender, EventArgs e)
         {
             ganjoorView.CopyText();
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            ganjoorView.StoreSettings();
-            Properties.Settings.Default.WindowMaximized = (this.WindowState == FormWindowState.Maximized);
-            Properties.Settings.Default.WindowLocation = this.Location;
-            Properties.Settings.Default.WindowSize = this.Size;
-            Properties.Settings.Default.Save();
-            ganjoorView.StopPlayBack();
-
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -339,6 +353,7 @@ namespace ganjoor
             btnHighlight.Checked = !btnHighlight.Checked;
         }
 
+        #region Find In Page
         private bool processTextChanged = true;
         private int iLastFoundItems = 0;
         private void txtHighlight_TextChanged(object sender, EventArgs e)
@@ -366,7 +381,7 @@ namespace ganjoor
                 if (btnScrollToNext.Visible)
                     btnScrollToNext_Click(sender, new EventArgs());
         }
-
+        #endregion
 
 
         private void btnFavUnFav_Click(object sender, EventArgs e)
@@ -397,12 +412,6 @@ namespace ganjoor
             mnuShowBeytNums.Checked = btnShowBeytNums.Checked = !btnShowBeytNums.Checked;            
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            
-            if (Settings.Default.CheckForUpdate)
-                CheckForUpdate(false);
-        }
 
         private void btnCheckForUpdate_Click(object sender, EventArgs e)
         {
@@ -689,7 +698,7 @@ namespace ganjoor
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            using (DownloadWizard wiz = new DownloadWizard())
+            using (GDBDownloadWizard wiz = new GDBDownloadWizard())
             {
                 wiz.ShowDialog(this);
                 if(wiz.AnythingInstalled)
@@ -710,18 +719,6 @@ namespace ganjoor
             }            
         }
 
-        private void ManagePoemAudioFiles()
-        {
-            using (AudioFiles dlg = new AudioFiles(this.ganjoorView.CurrentPoemId))
-            {
-                dlg.ShowDialog();
-            }
-        }
-
-        private void mnuAudioFiles_Click(object sender, EventArgs e)
-        {
-            ManagePoemAudioFiles();
-        }
 
         #region Audio Playback
 
@@ -785,11 +782,22 @@ namespace ganjoor
         }
 
 
+        private void ManagePoemAudioFiles()
+        {
+            using (AudioFiles dlg = new AudioFiles(this.ganjoorView.CurrentPoemId))
+            {
+                dlg.ShowDialog();
+            }
+        }
+
+        private void mnuAudioFiles_Click(object sender, EventArgs e)
+        {
+            ManagePoemAudioFiles();
+        }
+
+
 
         #endregion
-
-
-
-
+        #endregion
     }
 }

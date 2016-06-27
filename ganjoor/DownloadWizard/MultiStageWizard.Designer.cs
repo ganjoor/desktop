@@ -1,6 +1,6 @@
 ﻿namespace ganjoor
 {
-    partial class DownloadWizard
+    partial class MultiStageWizard
     {
         /// <summary>
         /// Required designer variable.
@@ -123,10 +123,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlCurrentStage;
-        private System.Windows.Forms.Button btnPrevious;
-        private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnSettings;
+        protected System.Windows.Forms.Panel pnlCurrentStage;
+        protected System.Windows.Forms.Button btnPrevious;
+        protected System.Windows.Forms.Button btnNext;
+        protected System.Windows.Forms.Button btnCancel;
+        protected System.Windows.Forms.Button btnSettings;
     }
 }

@@ -30,19 +30,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AudioFiles));
             this.tlbr = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
+            this.sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPlayStop = new System.Windows.Forms.ToolStripButton();
+            this.btnSync = new System.Windows.Forms.ToolStripButton();
+            this.btnMoveToTop = new System.Windows.Forms.ToolStripButton();
+            this.btnDel = new System.Windows.Forms.ToolStripButton();
+            this.btnImport = new System.Windows.Forms.ToolStripButton();
+            this.btnExport = new System.Windows.Forms.ToolStripButton();
+            this.sep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDownload = new System.Windows.Forms.ToolStripButton();
             this.lblDesc = new System.Windows.Forms.Label();
             this.grdList = new System.Windows.Forms.DataGridView();
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSynced = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnPlayStop = new System.Windows.Forms.ToolStripButton();
-            this.btnSync = new System.Windows.Forms.ToolStripButton();
-            this.btnMoveToTop = new System.Windows.Forms.ToolStripButton();
-            this.btnDel = new System.Windows.Forms.ToolStripButton();
-            this.btnExport = new System.Windows.Forms.ToolStripButton();
-            this.btnImport = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -53,23 +55,107 @@
             this.tlbr.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tlbr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
-            this.toolStripSeparator1,
+            this.sep1,
             this.btnPlayStop,
             this.btnSync,
             this.btnMoveToTop,
             this.btnDel,
             this.btnImport,
-            this.btnExport});
+            this.btnExport,
+            this.sep2,
+            this.btnDownload});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
             this.tlbr.Size = new System.Drawing.Size(697, 25);
             this.tlbr.TabIndex = 7;
             this.tlbr.Text = "نوار ابزار انتخاب";
             // 
-            // toolStripSeparator1
+            // btnAdd
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.btnAdd.Image = global::ganjoor.Properties.Resources.sound_on;
+            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(100, 22);
+            this.btnAdd.Text = "انتخاب فایل ...";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // sep1
+            // 
+            this.sep1.Name = "sep1";
+            this.sep1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnPlayStop
+            // 
+            this.btnPlayStop.Image = global::ganjoor.Properties.Resources.play16;
+            this.btnPlayStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPlayStop.Name = "btnPlayStop";
+            this.btnPlayStop.Size = new System.Drawing.Size(54, 22);
+            this.btnPlayStop.Text = "پخش";
+            this.btnPlayStop.Click += new System.EventHandler(this.btnPlayStop_Click);
+            // 
+            // btnSync
+            // 
+            this.btnSync.Image = global::ganjoor.Properties.Resources.clock;
+            this.btnSync.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSync.Name = "btnSync";
+            this.btnSync.Size = new System.Drawing.Size(93, 22);
+            this.btnSync.Text = " همگام‌سازی";
+            this.btnSync.Click += new System.EventHandler(this.btnSync_Click);
+            // 
+            // btnMoveToTop
+            // 
+            this.btnMoveToTop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnMoveToTop.Image = global::ganjoor.Properties.Resources.up;
+            this.btnMoveToTop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMoveToTop.Name = "btnMoveToTop";
+            this.btnMoveToTop.Size = new System.Drawing.Size(23, 22);
+            this.btnMoveToTop.Text = "انتقال فایل جاری به بالای فهرست";
+            this.btnMoveToTop.Click += new System.EventHandler(this.btnMoveToTop_Click);
+            // 
+            // btnDel
+            // 
+            this.btnDel.Image = global::ganjoor.Properties.Resources.sound_off;
+            this.btnDel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(52, 22);
+            this.btnDel.Text = "حذف";
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnImport.Image = global::ganjoor.Properties.Resources.folder_down;
+            this.btnImport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(23, 22);
+            this.btnImport.Text = "بارگذاری اطلاعات همگام‌سازی از فایل XML";
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnExport.Image = global::ganjoor.Properties.Resources.folder_up;
+            this.btnExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(23, 22);
+            this.btnExport.Text = "ذخیرۀ اطلاعات همگام‌سازی در فایل XML";
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // sep2
+            // 
+            this.sep2.Name = "sep2";
+            this.sep2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnDownload
+            // 
+            this.btnDownload.Image = global::ganjoor.Properties.Resources.down;
+            this.btnDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(60, 22);
+            this.btnDownload.Text = "دریافت";
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
             // lblDesc
             // 
@@ -123,74 +209,6 @@
             this.clmnSynced.ReadOnly = true;
             this.clmnSynced.Width = 50;
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Image = global::ganjoor.Properties.Resources.sound_on;
-            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(100, 22);
-            this.btnAdd.Text = "انتخاب فایل ...";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnPlayStop
-            // 
-            this.btnPlayStop.Image = global::ganjoor.Properties.Resources.play16;
-            this.btnPlayStop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPlayStop.Name = "btnPlayStop";
-            this.btnPlayStop.Size = new System.Drawing.Size(54, 22);
-            this.btnPlayStop.Text = "پخش";
-            this.btnPlayStop.Click += new System.EventHandler(this.btnPlayStop_Click);
-            // 
-            // btnSync
-            // 
-            this.btnSync.Image = global::ganjoor.Properties.Resources.clock;
-            this.btnSync.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSync.Name = "btnSync";
-            this.btnSync.Size = new System.Drawing.Size(93, 22);
-            this.btnSync.Text = " همگام‌سازی";
-            this.btnSync.Click += new System.EventHandler(this.btnSync_Click);
-            // 
-            // btnMoveToTop
-            // 
-            this.btnMoveToTop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnMoveToTop.Image = global::ganjoor.Properties.Resources.up;
-            this.btnMoveToTop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnMoveToTop.Name = "btnMoveToTop";
-            this.btnMoveToTop.Size = new System.Drawing.Size(23, 22);
-            this.btnMoveToTop.Text = "انتقال فایل جاری به بالای فهرست";
-            this.btnMoveToTop.Click += new System.EventHandler(this.btnMoveToTop_Click);
-            // 
-            // btnDel
-            // 
-            this.btnDel.Image = global::ganjoor.Properties.Resources.sound_off;
-            this.btnDel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(52, 22);
-            this.btnDel.Text = "حذف";
-            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
-            // 
-            // btnExport
-            // 
-            this.btnExport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnExport.Image = global::ganjoor.Properties.Resources.folder_up;
-            this.btnExport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(23, 22);
-            this.btnExport.Text = "ذخیرۀ اطلاعات همگام‌سازی در فایل XML";
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // btnImport
-            // 
-            this.btnImport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnImport.Image = global::ganjoor.Properties.Resources.folder_down;
-            this.btnImport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(23, 22);
-            this.btnImport.Text = "بارگذاری اطلاعات همگام‌سازی از فایل XML";
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
             // AudioFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -226,7 +244,7 @@
         private System.Windows.Forms.Label lblDesc;
         private System.Windows.Forms.DataGridView grdList;
         private System.Windows.Forms.ToolStripButton btnPlayStop;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator sep1;
         private System.Windows.Forms.ToolStripButton btnMoveToTop;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnDesc;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnPath;
@@ -234,5 +252,7 @@
         private System.Windows.Forms.ToolStripButton btnSync;
         private System.Windows.Forms.ToolStripButton btnExport;
         private System.Windows.Forms.ToolStripButton btnImport;
+        private System.Windows.Forms.ToolStripSeparator sep2;
+        private System.Windows.Forms.ToolStripButton btnDownload;
     }
 }

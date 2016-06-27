@@ -498,6 +498,17 @@ namespace ganjoor
 
         }
 
+        private void btnSpaceTabText_Click(object sender, EventArgs e)
+        {
+            using (SpaceSeparatedPoem dlg = new SpaceSeparatedPoem())
+            {
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    ganjoorView.InsertVerses(dlg.ResulText.Split(new char[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), true, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
+                }
+            }
+        }
+
 
     }
 }

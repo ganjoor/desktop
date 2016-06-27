@@ -267,6 +267,8 @@ namespace ganjoor
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
                 dlg.Filter = "XML Files (*.xml)|*.xml";
+                dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(poemAudio.FilePath);
+
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     List<PoemAudio> lst = new List<PoemAudio>();
@@ -344,6 +346,12 @@ namespace ganjoor
             }
             
 
+        }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            using (SndDownloadWizard dlg = new SndDownloadWizard(_PoemId))
+                dlg.ShowDialog(this);
         }
 
 
