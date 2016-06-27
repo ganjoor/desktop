@@ -111,6 +111,8 @@
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdList.Size = new System.Drawing.Size(558, 244);
             this.grdList.TabIndex = 11;
+            this.grdList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdList_CellContentClick);
+            this.grdList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdList_CellValueChanged);
             // 
             // clmnDesc
             // 

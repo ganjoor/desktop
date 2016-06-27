@@ -242,7 +242,7 @@ namespace ganjoor
                 if (dlg.Saved)
                 {
                     poemAudio.SyncArray = _DbBrowser.GetPoemSync(poemAudio);
-                    _DbBrowser.UpdatePoemAudioGuid(ref poemAudio);
+                    _DbBrowser.ReadPoemAudioGuid(ref poemAudio);
                     grdList.SelectedRows[0].Cells[GRDCOLUMN_IDX_SYNCED].Value = poemAudio.IsSynced;
                 }
             }
@@ -350,8 +350,17 @@ namespace ganjoor
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+            Application.DoEvents();
             using (SndDownloadWizard dlg = new SndDownloadWizard(_PoemId))
+            {
                 dlg.ShowDialog(this);
+                if (dlg.AnythingInstalled)
+                {
+                    FillGrid();
+                }
+            }
+            Cursor.Current = Cursors.Default;
         }
 
 

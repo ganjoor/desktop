@@ -2781,6 +2781,22 @@ namespace ganjoor
 
         }
 
+        private bool DoesPoemAudioExistsWithId(int nPoemId, int nId)
+        {
+            using (DataTable tbl = new DataTable())
+            {
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter(String.Format("SELECT * FROM poemsnd WHERE poem_id = {0} AND id = {1}", nPoemId, nId), _con))
+                {
+                    da.Fill(tbl);
+                    if (tbl.Rows.Count > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// اضافه کردن فایل صوتی برای شعر
@@ -2789,16 +2805,25 @@ namespace ganjoor
         /// <param name="filePath"></param>
         /// <param name="desc"></param>
         /// <returns></returns>
-        public PoemAudio AddAudio(int nPoemId, string filePath, string desc)
+        public PoemAudio AddAudio(int nPoemId, string filePath, string desc, int nDefId = -1)
         {
             if (Connected)
             {
                 using (SQLiteCommand cmd = new SQLiteCommand(_con))
                 {
+                    int nId = nDefId;
+                    if (nId == -1)
+                        nId = GeneratetNewAudioId(nPoemId);
+                    else
+                    {
+                        if(DoesPoemAudioExistsWithId(nPoemId, nId))
+                            nId = GeneratetNewAudioId(nPoemId);
+                    }
+
                     PoemAudio newPoemAudio = new PoemAudio()
                     {
                         PoemId = nPoemId,
-                        Id = GeneratetNewAudioId(nPoemId),
+                        Id = nId,
                         FilePath = filePath,
                         Description = desc,
                         FileCheckSum = PoemAudio.ComputeCheckSum(filePath),
@@ -2847,6 +2872,29 @@ namespace ganjoor
         }
 
         /// <summary>
+        /// حذف سطور تکراری خوانش پیش از دریافت
+        /// </summary>
+        /// <param name="nPoemId"></param>
+        /// <param name="guidSync"></param>
+        /// <returns></returns>
+        public bool DeleteAudioWithSync(int nPoemId, Guid guidSync, int nExceptFor)
+        {
+            if (Connected)
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    cmd.CommandText = String.Format(
+                        "DELETE FROM poemsnd WHERE poem_id = {0} AND syncguid = '{1}' AND id <> {2};",
+                        nPoemId, guidSync.ToString(), nExceptFor
+                        );
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            return false;    
+        }
+
+        /// <summary>
         /// ذخیرۀ همگامسازی
         /// </summary>
         /// <param name="audio"></param>
@@ -2876,15 +2924,19 @@ namespace ganjoor
                                     audio.PoemId, audio.Id, verseMilisecPositions[i].VerseOrder, verseMilisecPositions[i].AudioMiliseconds
                                     );
                                 cmd.ExecuteNonQuery();
-
-                                if (bUpdateGuid)
-                                {
-                                    cmd.CommandText = String.Format("UPDATE poemsnd SET syncguid = \"{0}\" WHERE poem_id = {1} AND id = {2}",
-                                        Guid.NewGuid().ToString(), audio.PoemId, audio.Id);
-                                    cmd.ExecuteNonQuery();
-                                }
                             }                            
                         }
+
+                        if (bUpdateGuid)
+                        {
+                            using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                            {
+                                cmd.CommandText = String.Format("UPDATE poemsnd SET syncguid = \"{0}\" WHERE poem_id = {1} AND id = {2}",
+                                    Guid.NewGuid().ToString(), audio.PoemId, audio.Id);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
                         CommitBatchOperation();
                     }
             }
@@ -2896,7 +2948,7 @@ namespace ganjoor
         /// آپدیت Guid 
         /// </summary>
         /// <param name="poemAudio"></param>
-        public bool UpdatePoemAudioGuid(ref PoemAudio poemAudio)
+        public bool ReadPoemAudioGuid(ref PoemAudio poemAudio)
         {
             if (Connected)
             {
@@ -2918,6 +2970,29 @@ namespace ganjoor
             return false;
 
         }
+
+        /// <summary>
+        /// ذخیره Guid خوانش
+        /// </summary>
+        /// <param name="audio"></param>
+        /// <returns></returns>
+        public bool WritePoemAudioGuid(PoemAudio audio)
+        {
+            if (Connected)
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    cmd.CommandText = String.Format("UPDATE poemsnd SET syncguid = \"{0}\" WHERE poem_id = {1} AND id = {2}",
+                        audio.SyncGuid.ToString(), audio.PoemId, audio.Id);
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+
 
         /// <summary>
         /// اطلاعات همگامسازی فایل صوتی شعر
@@ -3062,6 +3137,7 @@ namespace ganjoor
             }
             return false;
         }
+
 
         #endregion
     }

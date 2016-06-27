@@ -83,7 +83,6 @@ namespace ganjoor
             else
             {
                 DbBrowser db = new DbBrowser();
-                bool firstNotHaveItMet = false;
                 foreach (Dictionary<string, string> audioInfo in _Lst)
                 {
                     int RowIndex = grdList.Rows.Add();
@@ -91,20 +90,11 @@ namespace ganjoor
                     grdList.Rows[RowIndex].Tag = haveIt;
                     if (haveIt)
                         grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
-                    string title = audioInfo["audio_title"];
-                    title += " - به روایت ";
-                    title += audioInfo["audio_artist"];
-                    if (!string.IsNullOrWhiteSpace(audioInfo["audio_src"]))
-                    {
-                        title += " ";
-                        title += audioInfo["audio_src"];
-                    }
-                    grdList.Rows[RowIndex].Cells[GRDCLMN_TITLE].Value = title;
+                    grdList.Rows[RowIndex].Cells[GRDCLMN_TITLE].Value = DownloadableAudioListProcessor.SuggestTitle(audioInfo);
                     grdList.Rows[RowIndex].Cells[GRDCLMN_SIZE].Value = (Int32.Parse(audioInfo["audio_mp3bsize"]) / 1024.0 / 1024.0).ToString("0.00") + " مگابایت";
                     grdList.Rows[RowIndex].Cells[GRDCLMN_CHECK].Value = !haveIt;
-                    if (!haveIt && !firstNotHaveItMet)
+                    if (!haveIt)
                     {
-                        firstNotHaveItMet = true;
                         grdList.FirstDisplayedScrollingRowIndex = RowIndex;
                     }
                 }
