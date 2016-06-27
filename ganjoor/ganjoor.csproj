@@ -69,10 +69,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
+    <Compile Include="DownloadWizard\Audio\DownloadableAudioListProcessor.cs" />
+    <Compile Include="DownloadWizard\GDB\GDBDownloadWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutForm.Designer.cs">
+    <Compile Include="DownloadWizard\Audio\SndDownloadWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Audio Support\AudioFiles.cs">
@@ -93,6 +100,12 @@
     <Compile Include="Audio Support\PoemAudio.cs" />
     <Compile Include="Audio Support\PoemAudioPlayer.cs" />
     <Compile Include="Audio Support\PoemAudioListProcessor.cs" />
+    <Compile Include="NarratedPoems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NarratedPoems.Designer.cs">
+      <DependentUpon>NarratedPoems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reusable Forms\ItemSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,19 +145,19 @@
     </Compile>
     <Compile Include="GDBProcessing\DownloadListManager.cs" />
     <Compile Include="GDBProcessing\DownloadUtilityClass.cs" />
-    <Compile Include="DownloadWizard\DownloadWizard.cs">
+    <Compile Include="DownloadWizard\MultiStageWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\DownloadWizard.Designer.cs">
-      <DependentUpon>DownloadWizard.cs</DependentUpon>
+    <Compile Include="DownloadWizard\MultiStageWizard.Designer.cs">
+      <DependentUpon>MultiStageWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadWizard\WSDownloadItems.Designer.cs">
+    <Compile Include="DownloadWizard\GDB\WSDownloadItems.Designer.cs">
       <DependentUpon>WSDownloadItems.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadWizard\WSSelectItems.Designer.cs">
+    <Compile Include="DownloadWizard\GDB\WSSelectItems.Designer.cs">
       <DependentUpon>WSSelectItems.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadWizard\WSSelectList.Designer.cs">
+    <Compile Include="DownloadWizard\GDB\WSSelectList.Designer.cs">
       <DependentUpon>WSSelectList.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\EditItemType.cs" />
@@ -159,6 +172,12 @@
     </Compile>
     <Compile Include="Audio Support\SyncPoemAudio.Designer.cs">
       <DependentUpon>SyncPoemAudio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\SpaceSeparatedPoem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\SpaceSeparatedPoem.Designer.cs">
+      <DependentUpon>SpaceSeparatedPoem.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\GAdvisor.cs" />
     <Compile Include="Data Model\GanjoorCat.cs" />
@@ -191,10 +210,10 @@
       <DependentUpon>GDBListEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="GDBProcessing\GDBListProcessor.cs" />
-    <Compile Include="DownloadWizard\GDBWizOptions.cs">
+    <Compile Include="DownloadWizard\GDB\GDBWizOptions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\GDBWizOptions.Designer.cs">
+    <Compile Include="DownloadWizard\GDB\GDBWizOptions.Designer.cs">
       <DependentUpon>GDBWizOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="GDBProcessing\GDBPictureDirSelector.cs">
@@ -215,10 +234,10 @@
     <Compile Include="Editor\IDChanger.Designer.cs">
       <DependentUpon>IDChanger.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Main Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Main Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Reusable Forms\MemoEditor.cs">
@@ -233,10 +252,10 @@
     <Compile Include="Editor\MrgTwoClmns.Designer.cs">
       <DependentUpon>MrgTwoClmns.cs</DependentUpon>
     </Compile>
-    <Compile Include="Options.cs">
+    <Compile Include="Main Forms\Options.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Options.Designer.cs">
+    <Compile Include="Main Forms\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="Reusable Forms\ItemEditor.cs">
@@ -259,19 +278,19 @@
     <Compile Include="DownloadWizard\WizardStage.Designer.cs">
       <DependentUpon>WizardStage.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadWizard\WSSelectList.cs">
+    <Compile Include="DownloadWizard\GDB\WSSelectList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\WSSelectItems.cs">
+    <Compile Include="DownloadWizard\GDB\WSSelectItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\WSDownloadItems.cs">
+    <Compile Include="DownloadWizard\GDB\WSDownloadItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\WSInstallItems.cs">
+    <Compile Include="DownloadWizard\GDB\WSInstallItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\WSInstallItems.Designer.cs">
+    <Compile Include="DownloadWizard\GDB\WSInstallItems.Designer.cs">
       <DependentUpon>WSInstallItems.cs</DependentUpon>
     </Compile>
     <Compile Include="GDBProcessing\ZipStorer.cs" />
@@ -282,7 +301,13 @@
     <Compile Include="Reusable Forms\WaitMsg.Designer.cs">
       <DependentUpon>WaitMsg.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutForm.resx">
+    <Compile Include="WSSelectSounds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WSSelectSounds.Designer.cs">
+      <DependentUpon>WSSelectSounds.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Main Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -291,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GDBProcessing\NewGDBFound.resx">
       <DependentUpon>NewGDBFound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NarratedPoems.resx">
+      <DependentUpon>NarratedPoems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reusable Forms\ItemSelector.resx">
       <DependentUpon>ItemSelector.cs</DependentUpon>
@@ -310,13 +338,13 @@
     <EmbeddedResource Include="GDBProcessing\DownloadingGdbList.resx">
       <DependentUpon>DownloadingGdbList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\DownloadWizard.resx">
-      <DependentUpon>DownloadWizard.cs</DependentUpon>
+    <EmbeddedResource Include="DownloadWizard\MultiStageWizard.resx">
+      <DependentUpon>MultiStageWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\WSDownloadItems.resx">
+    <EmbeddedResource Include="DownloadWizard\GDB\WSDownloadItems.resx">
       <DependentUpon>WSDownloadItems.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\WSInstallItems.resx">
+    <EmbeddedResource Include="DownloadWizard\GDB\WSInstallItems.resx">
       <DependentUpon>WSInstallItems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\Editor.resx">
@@ -331,7 +359,7 @@
     <EmbeddedResource Include="GDBProcessing\GDBListEditor.resx">
       <DependentUpon>GDBListEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\GDBWizOptions.resx">
+    <EmbeddedResource Include="DownloadWizard\GDB\GDBWizOptions.resx">
       <DependentUpon>GDBWizOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GDBProcessing\GDBPictureDirSelector.resx">
@@ -340,7 +368,7 @@
     <EmbeddedResource Include="Editor\IDChanger.resx">
       <DependentUpon>IDChanger.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Main Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -350,7 +378,7 @@
     <EmbeddedResource Include="Editor\MrgTwoClmns.resx">
       <DependentUpon>MrgTwoClmns.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Options.resx">
+    <EmbeddedResource Include="Main Forms\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reusable Forms\ItemEditor.resx">
@@ -373,7 +401,7 @@
     <EmbeddedResource Include="Editor\ReplaceInDb.resx">
       <DependentUpon>ReplaceInDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Search.resx">
+    <EmbeddedResource Include="Main Forms\Search.resx">
       <DependentUpon>Search.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -384,10 +412,10 @@
     <EmbeddedResource Include="DownloadWizard\WizardStage.resx">
       <DependentUpon>WizardStage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\WSSelectList.resx">
+    <EmbeddedResource Include="DownloadWizard\GDB\WSSelectList.resx">
       <DependentUpon>WSSelectList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\WSSelectItems.resx">
+    <EmbeddedResource Include="DownloadWizard\GDB\WSSelectItems.resx">
       <DependentUpon>WSSelectItems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reusable Forms\WaitMsg.resx">
@@ -396,6 +424,12 @@
     <EmbeddedResource Include="Audio Support\SyncPoemAudio.resx">
       <DependentUpon>SyncPoemAudio.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\SpaceSeparatedPoem.resx">
+      <DependentUpon>SpaceSeparatedPoem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WSSelectSounds.resx">
+      <DependentUpon>WSSelectSounds.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -424,15 +458,17 @@
     <Compile Include="Editor\ReplaceInDb.Designer.cs">
       <DependentUpon>ReplaceInDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Search.cs">
+    <Compile Include="Main Forms\Search.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Search.Designer.cs">
+    <Compile Include="Main Forms\Search.Designer.cs">
       <DependentUpon>Search.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\repeat1.png" />
+    <None Include="Resources\down.png" />
     <None Include="Resources\folder_up.png" />
     <None Include="Resources\track32.png" />
     <None Include="Resources\notrack32.png" />

@@ -3036,6 +3036,33 @@ namespace ganjoor
             return false;
         }
 
+        /// <summary>
+        /// آیا خوانش وجود دارد -  برای دریافت
+        /// </summary>
+        /// <param name="nPoemId">شناسه شعر</param>
+        /// <param name="SyncGuid">شناسه خوانش</param>
+        /// <returns></returns>
+        public bool PoemAudioExists(int nPoemId, string guidSync)
+        {
+            if (Connected )
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    string strQuery = String.Format("SELECT * FROM poemsnd WHERE poem_id = {0} AND syncguid = '{1}'", nPoemId, guidSync);
+
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         #endregion
     }
 }

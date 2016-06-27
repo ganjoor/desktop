@@ -92,10 +92,11 @@
             this.btnMergeTwoTextColumns = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReplaceInDb = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCorrectVerses = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.mnuCorrectVerses = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSpaceTabText = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -585,6 +586,7 @@
             this.btnTools.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btnTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnMergeTwoTextColumns,
+            this.btnSpaceTabText,
             this.btnReplaceInDb,
             this.btnChangeIDs,
             this.mnuCorrectVerses,
@@ -617,6 +619,13 @@
             this.btnChangeIDs.Text = "تغییر شناسه‌ها";
             this.btnChangeIDs.Click += new System.EventHandler(this.btnChangeIDs_Click);
             // 
+            // mnuCorrectVerses
+            // 
+            this.mnuCorrectVerses.Name = "mnuCorrectVerses";
+            this.mnuCorrectVerses.Size = new System.Drawing.Size(271, 22);
+            this.mnuCorrectVerses.Text = "تصحیح ترتیب مصاریع بخش";
+            this.mnuCorrectVerses.Click += new System.EventHandler(this.mnuCorrectVerses_Click);
+            // 
             // btnGDBListEditor
             // 
             this.btnGDBListEditor.Name = "btnGDBListEditor";
@@ -640,6 +649,7 @@
             // 
             this.ganjoorView.AutoScroll = true;
             this.ganjoorView.BackColor = System.Drawing.SystemColors.Window;
+            this.ganjoorView.CurrentPoemAudio = null;
             this.ganjoorView.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.ganjoorView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ganjoorView.EditMode = true;
@@ -653,12 +663,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // mnuCorrectVerses
+            // btnSpaceTabText
             // 
-            this.mnuCorrectVerses.Name = "mnuCorrectVerses";
-            this.mnuCorrectVerses.Size = new System.Drawing.Size(271, 22);
-            this.mnuCorrectVerses.Text = "تصحیح ترتیب مصاریع بخش";
-            this.mnuCorrectVerses.Click += new System.EventHandler(this.mnuCorrectVerses_Click);
+            this.btnSpaceTabText.Name = "btnSpaceTabText";
+            this.btnSpaceTabText.Size = new System.Drawing.Size(271, 22);
+            this.btnSpaceTabText.Text = "تبدیل متن جدا شده با Space و Tab";
+            this.btnSpaceTabText.Click += new System.EventHandler(this.btnSpaceTabText_Click);
             // 
             // Editor
             // 
@@ -754,5 +764,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnConvertLeftToRight;
         private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToPara;
         private System.Windows.Forms.ToolStripMenuItem mnuCorrectVerses;
+        private System.Windows.Forms.ToolStripMenuItem btnSpaceTabText;
     }
 }
