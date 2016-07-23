@@ -95,7 +95,9 @@ namespace ganjoor
                 foreach (Dictionary<string, string> audioInfo in _Lst)
                 {
                     int RowIndex = grdList.Rows.Add();
-                    bool haveIt = db.PoemAudioExists(_PoemId, audioInfo["audio_guid"]);
+                    int nPoemId = Convert.ToInt32(audioInfo["audio_post_ID"]);
+
+                    bool haveIt = db.PoemAudioExists(nPoemId, audioInfo["audio_guid"]);
                     grdList.Rows[RowIndex].Tag = haveIt;
                     if (haveIt)
                         grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
