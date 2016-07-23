@@ -90,13 +90,14 @@
             this.btnDeleteAllLine = new System.Windows.Forms.ToolStripMenuItem();
             this.btnTools = new System.Windows.Forms.ToolStripSplitButton();
             this.btnMergeTwoTextColumns = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSpaceTabText = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReplaceInDb = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCorrectVerses = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnSpaceTabText = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuBio = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -590,6 +591,7 @@
             this.btnReplaceInDb,
             this.btnChangeIDs,
             this.mnuCorrectVerses,
+            this.mnuBio,
             this.btnGDBListEditor});
             this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -604,6 +606,13 @@
             this.btnMergeTwoTextColumns.Size = new System.Drawing.Size(271, 22);
             this.btnMergeTwoTextColumns.Text = "یک در میان چیدن خطوط دو ستون متنی";
             this.btnMergeTwoTextColumns.Click += new System.EventHandler(this.btnMergeTwoTextColumns_Click);
+            // 
+            // btnSpaceTabText
+            // 
+            this.btnSpaceTabText.Name = "btnSpaceTabText";
+            this.btnSpaceTabText.Size = new System.Drawing.Size(271, 22);
+            this.btnSpaceTabText.Text = "تبدیل متن جدا شده با Space و Tab";
+            this.btnSpaceTabText.Click += new System.EventHandler(this.btnSpaceTabText_Click);
             // 
             // btnReplaceInDb
             // 
@@ -663,12 +672,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnSpaceTabText
+            // mnuBio
             // 
-            this.btnSpaceTabText.Name = "btnSpaceTabText";
-            this.btnSpaceTabText.Size = new System.Drawing.Size(271, 22);
-            this.btnSpaceTabText.Text = "تبدیل متن جدا شده با Space و Tab";
-            this.btnSpaceTabText.Click += new System.EventHandler(this.btnSpaceTabText_Click);
+            this.mnuBio.Name = "mnuBio";
+            this.mnuBio.Size = new System.Drawing.Size(271, 22);
+            this.mnuBio.Text = "بازخوانی زندگینامه‌ها از فایل دیگر";
+            this.mnuBio.Click += new System.EventHandler(this.mnuBio_Click);
             // 
             // Editor
             // 
@@ -765,5 +774,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToPara;
         private System.Windows.Forms.ToolStripMenuItem mnuCorrectVerses;
         private System.Windows.Forms.ToolStripMenuItem btnSpaceTabText;
+        private System.Windows.Forms.ToolStripMenuItem mnuBio;
     }
 }

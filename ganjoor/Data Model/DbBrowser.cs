@@ -1529,6 +1529,47 @@ namespace ganjoor
 
             return true;
         }
+
+        /// <summary>
+        /// a special utility for importing poet bio texts
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public bool ImportDbPoetBioText(string fileName)
+        {
+            
+            try
+            {
+                DbBrowser dbSrc = new DbBrowser(fileName);
+
+                List<GanjoorPoet> srcPoets = dbSrc.Poets;
+
+                foreach (GanjoorPoet targetPoet in this.Poets)
+                {
+                    foreach (GanjoorPoet srcPoet in srcPoets)
+                    {
+                        if (srcPoet._ID == targetPoet._ID)
+                        {
+                            if (!this.ModifyPoetBio(targetPoet._ID, srcPoet._Bio))
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                dbSrc.CloseDb();
+
+                return true;
+            }
+            catch
+                (Exception exp)
+            {
+                LastError = exp.ToString();
+                return false;
+            }
+        }
         #endregion
 
         #region Import/Export Favs

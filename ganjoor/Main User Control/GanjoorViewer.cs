@@ -1972,6 +1972,17 @@ namespace ganjoor
             }
             return false;
         }
+
+        public bool ImportDbPoetBioText(string fileName)
+        {
+            if (_db.ImportDbPoetBioText(fileName))
+            {
+                ShowCategory(_db.GetCategory(_iCurCat), false);
+                return true;
+            }
+            return false;
+        }
+
         public bool NewCat(string CatName)
         {
             GanjoorCat cat = _db.GetCategory(_iCurCat);
