@@ -59,9 +59,9 @@ namespace ganjoor
                         {
                             if (xmlAudio.PoemId == poemAudio.PoemId)
                             {                                
-                                poemAudio.SyncArray = xmlAudio.SyncArray;
-                                poemAudio.SyncGuid = xmlAudio.SyncGuid;
+                                poemAudio.SyncArray = xmlAudio.SyncArray;                                
                                 db.SavePoemSync(poemAudio, poemAudio.SyncArray, false);
+                                poemAudio.SyncGuid = Guid.Parse(audioInfo["audio_guid"]);
                                 db.WritePoemAudioGuid(poemAudio);
                                 db.DeleteAudioWithSync(xmlAudio.PoemId, xmlAudio.SyncGuid, poemAudio.Id);
                                 File.Delete(xmlFilePath); //not needed any more
