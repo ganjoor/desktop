@@ -509,6 +509,27 @@ namespace ganjoor
             }
         }
 
+        private void mnuBio_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("اجرای این فرمان باعث جایگزینی زندگینامهٔ شاعران با اطلاعات فایل ورودی می‌شود.\nادامه می‌دهید؟",
+                "اخطار",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2,
+                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.No)
+                return;
+
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "*.s3db|*.s3db";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    if (!ganjoorView.ImportDbPoetBioText(dlg.FileName))
+                    {
+                        MessageBox.Show("خطا رخ داد.", "خطا");
+                    }
+                }
+            }
+        }
+
 
     }
 }

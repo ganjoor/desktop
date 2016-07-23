@@ -37,6 +37,7 @@
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnDownload = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnAllDownloadable = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -78,7 +79,8 @@
             this.tlbr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnSelAllWhites,
             this.btnSelNone,
-            this.btnRefresh});
+            this.btnRefresh,
+            this.btnAllDownloadable});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
             this.tlbr.Size = new System.Drawing.Size(558, 25);
@@ -133,6 +135,17 @@
             this.clmnDownload.Name = "clmnDownload";
             this.clmnDownload.Width = 50;
             // 
+            // btnAllDownloadable
+            // 
+            this.btnAllDownloadable.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnAllDownloadable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAllDownloadable.Image = global::ganjoor.Properties.Resources.down;
+            this.btnAllDownloadable.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAllDownloadable.Name = "btnAllDownloadable";
+            this.btnAllDownloadable.Size = new System.Drawing.Size(23, 22);
+            this.btnAllDownloadable.Text = "همه خوانشهای قابل دریافت";
+            this.btnAllDownloadable.Click += new System.EventHandler(this.btnAllDownloadable_Click);
+            // 
             // WSSelectSounds
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,5 +174,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnDesc;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnSize;
         private System.Windows.Forms.DataGridViewCheckBoxColumn clmnDownload;
+        private System.Windows.Forms.ToolStripButton btnAllDownloadable;
     }
 }

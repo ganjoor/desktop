@@ -189,6 +189,12 @@ namespace ganjoor
             TryDownloadList();
         }
 
+        private void btnAllDownloadable_Click(object sender, EventArgs e)
+        {
+            _PoemId = 0;
+            TryDownloadList();
+        }
+
 
     }
 }
