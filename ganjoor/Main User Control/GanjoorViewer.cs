@@ -418,7 +418,7 @@ namespace ganjoor
             OnPageChanged(_strPage, true, true, _db.IsPoemFaved(verse._PoemID), false, string.Empty, null, null);
             VerticalScroll.Value = y;            
         }
-        private int ShowPoem(GanjoorPoem poem, bool keepTrack)
+        public int ShowPoem(GanjoorPoem poem, bool keepTrack)
         {
             
             if (poem == null)

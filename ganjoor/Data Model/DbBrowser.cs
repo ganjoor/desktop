@@ -2790,6 +2790,52 @@ namespace ganjoor
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Warning PoemAudio[] is incomplete
+        /// </remarks>
+        /// <returns></returns>
+        public PoemAudio[]  GetAllPoemAudioFiles()
+        {
+            List<PoemAudio> lstAudio = new List<PoemAudio>();
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    string strQuery = "SELECT s.poem_id as [poem_id], s.id as [id], s.filepath as [filepath], s.description as [description], s.dnldurl as [dnldurl],  s.isdirect as [isdirect], s.syncguid as [syncguid], s.fchksum as [fchksum], s.isuploaded as [isuploaded], p.title || ('::' || (SELECT v.text FROM verse v  WHERE v.poem_id = s.poem_id AND v.vorder=1 )) as [poemtitle], e.name as [poetname] FROM poemsnd s INNER JOIN poem p ON s.poem_id = p.id INNER JOIN cat c ON p.cat_id = c.id INNER JOIN poet e ON e.id= c.poet_id ORDER BY poem_id";
+
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            lstAudio.Add(
+                                new PoemAudio()
+                                {
+                                    PoemId = Convert.ToInt32(row["poem_id"]),
+                                    Id = Convert.ToInt32(row["id"]),
+                                    FilePath = row["filepath"].ToString(),
+                                    Description = row["description"].ToString(),
+                                    DownloadUrl = row["dnldurl"].ToString(),
+                                    IsDirectlyDownloadable = Convert.ToInt32(row["isdirect"]) == 1,
+                                    SyncGuid = Guid.Parse(row["syncguid"].ToString()),
+                                    FileCheckSum = row["fchksum"].ToString(),
+                                    IsUploaded = Convert.ToInt32(row["isuploaded"]) == 1,
+                                    PoemTitle = row["poemtitle"].ToString(),
+                                    PoetName = row["poetname"].ToString()
+                                }
+                                );
+
+                        }
+                    }
+                }
+            }
+            return lstAudio.ToArray();
+        }
+
+
+        /// <summary>
         /// new id for a poemsnd
         /// </summary>
         /// <param name="nPoemId"></param>

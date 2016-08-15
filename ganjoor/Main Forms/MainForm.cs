@@ -798,6 +798,17 @@ namespace ganjoor
 
 
         #endregion
+
+        private void mnuAllAudioFile_Click(object sender, EventArgs e)
+        {
+            using (NarratedPoems dlg = new NarratedPoems())
+            {
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    ganjoorView.ShowPoem(dlg.SelectedPoem, true);
+                }
+            }
+        }
         #endregion
     }
 }
