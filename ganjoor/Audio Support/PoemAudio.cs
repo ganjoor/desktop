@@ -169,5 +169,24 @@ namespace ganjoor
         }
 
 
+        ///<remarks>
+        ///Warning: not always filled
+        ///</remarks>
+        public string PoetName
+        {
+            get;
+            set;
+        }
+
+        /// <remarks>
+        /// Warning: Rarely filled
+        /// </remarks>
+        public string PoemTitle
+        {
+            get;
+            set;
+        }
+
+
     }
 }
