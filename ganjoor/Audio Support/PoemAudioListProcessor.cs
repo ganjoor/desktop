@@ -36,7 +36,7 @@ namespace ganjoor
                     XmlNode propNode = doc.CreateNode(XmlNodeType.Element, prop.Name, "");
                     if (prop.PropertyType == typeof(string))
                     {
-                        string value = prop.GetValue(audio, null).ToString();
+                        string value = prop.GetValue(audio, null) == null ? "" : prop.GetValue(audio, null).ToString();
                         if (string.IsNullOrEmpty(value))
                         {
                             ignoreProp = true;
