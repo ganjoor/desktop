@@ -18,6 +18,19 @@ namespace ganjoor
         /// ذخیره در فایل
         /// </summary>
         /// <param name="FileName"></param>
+        /// <param name="poemAudio"></param>
+        /// <returns></returns>
+        public static bool Save(string FileName, PoemAudio poemAudio)
+        {
+            List<PoemAudio> lst = new List<PoemAudio>();
+            lst.Add(poemAudio);
+            return Save(FileName, lst);
+        }
+
+        /// <summary>
+        /// ذخیره در فایل
+        /// </summary>
+        /// <param name="FileName"></param>
         /// <param name="List"></param>
         /// <returns></returns>
         public static bool Save(string FileName, List<PoemAudio> List)

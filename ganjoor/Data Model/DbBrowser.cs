@@ -2803,7 +2803,7 @@ namespace ganjoor
             {
                 using (DataTable tbl = new DataTable())
                 {
-                    string strQuery = "SELECT s.poem_id as [poem_id], s.id as [id], s.filepath as [filepath], s.description as [description], s.dnldurl as [dnldurl],  s.isdirect as [isdirect], s.syncguid as [syncguid], s.fchksum as [fchksum], s.isuploaded as [isuploaded], p.title || ('::' || (SELECT v.text FROM verse v  WHERE v.poem_id = s.poem_id AND v.vorder=1 )) as [poemtitle], e.name as [poetname] FROM poemsnd s INNER JOIN poem p ON s.poem_id = p.id INNER JOIN cat c ON p.cat_id = c.id INNER JOIN poet e ON e.id= c.poet_id ORDER BY poem_id";
+                    string strQuery = "SELECT s.poem_id as [poem_id], s.id as [id], s.filepath as [filepath], s.description as [description], s.dnldurl as [dnldurl],  s.isdirect as [isdirect], s.syncguid as [syncguid], s.fchksum as [fchksum], s.isuploaded as [isuploaded], p.title || ('::' || (SELECT v.text FROM verse v  WHERE v.poem_id = s.poem_id AND v.vorder=1 )) as [poemtitle], e.name as [poetname] FROM poemsnd s INNER JOIN poem p ON s.poem_id = p.id INNER JOIN cat c ON p.cat_id = c.id INNER JOIN poet e ON e.id= c.poet_id ORDER BY s.poem_id, s.id";
 
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
                     {
@@ -2884,6 +2884,55 @@ namespace ganjoor
             return false;
         }
 
+
+        public PoemAudio AddAudio(string filePath, PoemAudio srcAudio, int nDefId = -1)
+        {
+            if (Connected)
+            {
+                int nPoemId = srcAudio.PoemId;
+                using (SQLiteCommand cmd = new SQLiteCommand(_con))
+                {
+                    int nId = nDefId;
+                    if (nId == -1)
+                        nId = GeneratetNewAudioId(nPoemId);
+                    else
+                    {
+                        if (DoesPoemAudioExistsWithId(nPoemId, nId))
+                            nId = GeneratetNewAudioId(nPoemId);
+                    }
+
+                    PoemAudio newPoemAudio = new PoemAudio()
+                    {
+                        PoemId = nPoemId,
+                        Id = nId,
+                        FilePath = filePath,
+                        Description = srcAudio.Description,
+                        FileCheckSum = PoemAudio.ComputeCheckSum(filePath),
+                        DownloadUrl = srcAudio.DownloadUrl,
+                        IsDirectlyDownloadable = srcAudio.IsDirectlyDownloadable,
+                        SyncGuid = srcAudio.SyncGuid,
+                        IsUploaded = srcAudio.IsUploaded
+                    };
+
+                    cmd.CommandText = String.Format(
+                        "INSERT INTO poemsnd (poem_id, id, filepath, description, dnldurl, isdirect, syncguid, fchksum, isuploaded) " +
+                        "VALUES ({0}, {1}, \"{2}\", \"{3}\", \"{4}\", {5}, \"{6}\", \"{7}\", {8});",
+                        newPoemAudio.PoemId, newPoemAudio.Id, newPoemAudio.FilePath, newPoemAudio.Description,
+                        newPoemAudio.DownloadUrl, newPoemAudio.IsDirectlyDownloadable ? 1 : 0, newPoemAudio.SyncGuid.ToString(), newPoemAudio.FileCheckSum, newPoemAudio.IsUploaded ? 1 : 0
+                        );
+                    cmd.ExecuteNonQuery();
+
+                    newPoemAudio.SyncArray = srcAudio.SyncArray;
+
+                    SavePoemSync(newPoemAudio, newPoemAudio.SyncArray, false);
+
+                    DeleteAudioWithSync(newPoemAudio.PoemId, newPoemAudio.SyncGuid, newPoemAudio.Id);
+
+                    return newPoemAudio;
+                }
+            }
+            return null;
+        }
 
         /// <summary>
         /// اضافه کردن فایل صوتی برای شعر
