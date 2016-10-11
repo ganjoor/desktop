@@ -30,7 +30,9 @@ namespace ganjoor
             _SyncOrder = -1;
             _LastSearchText = "";
             if (poemAudio.SyncArray != null)
-                _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);
+            { 
+                _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);  
+            }
             else
                 _VerseMilisecPositions = new List<PoemAudio.SyncInfo>();
 
@@ -322,6 +324,8 @@ namespace ganjoor
                 EnableButtons();
                 return;
             }
+
+ 
             btnPlayPause.Text = "توقف";
             btnPlayPause.Image = Properties.Resources.pause;
             timer.Start();
@@ -388,6 +392,21 @@ namespace ganjoor
                 EnableButtons();
                 return;
             }
+
+            //رفع اشکال نسخه قدیمی NAudio           
+            int nLen = _VerseMilisecPositions.Count;
+            if (nLen > 0 && _VerseMilisecPositions[nLen - 1].AudioMiliseconds > _PoemAudioPlayer.TotalTimeInMiliseconds)
+            {
+                for (int i = 0; i < nLen; i++)
+                {
+                    _VerseMilisecPositions[i] = new PoemAudio.SyncInfo()
+                    {
+                        AudioMiliseconds = _VerseMilisecPositions[i].AudioMiliseconds / 2,
+                        VerseOrder = _VerseMilisecPositions[i].VerseOrder
+                    };
+                }
+            }
+
             _SyncOrder = -1;
             _Testing = true;
             trackBar.Maximum = _PoemAudioPlayer.TotalTimeInMiliseconds;
