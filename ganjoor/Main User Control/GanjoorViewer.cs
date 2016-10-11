@@ -2816,6 +2816,16 @@ namespace ganjoor
             }
             if (poemAudio.SyncArray != null && poemAudio.SyncArray.Length > 0)
             {
+                //رفع اشکال نسخه قدیمی NAudio
+                int nLen = poemAudio.SyncArray.Length;
+                if (poemAudio.SyncArray[nLen - 1].AudioMiliseconds > _PoemAudioPlayer.TotalTimeInMiliseconds)
+                {
+                    for(int i=0; i<nLen; i++)
+                    {
+                        poemAudio.SyncArray[i].AudioMiliseconds = poemAudio.SyncArray[i].AudioMiliseconds / 2;
+                    }
+                }
+
                 if (poemAudio.SyncArray[0].VerseOrder == -1)
                 {
                     _PoemAudioPlayer.PositionInMiliseconds = poemAudio.SyncArray[0].AudioMiliseconds;
