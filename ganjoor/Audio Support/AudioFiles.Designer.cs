@@ -45,6 +45,7 @@
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSynced = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnFixExport = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +61,7 @@
             this.btnSync,
             this.btnMoveToTop,
             this.btnDel,
+            this.btnFixExport,
             this.btnImport,
             this.btnExport,
             this.sep2,
@@ -209,6 +211,17 @@
             this.clmnSynced.ReadOnly = true;
             this.clmnSynced.Width = 50;
             // 
+            // btnFixExport
+            // 
+            this.btnFixExport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnFixExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFixExport.Image = global::ganjoor.Properties.Resources.gear16;
+            this.btnFixExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFixExport.Name = "btnFixExport";
+            this.btnFixExport.Size = new System.Drawing.Size(23, 22);
+            this.btnFixExport.Text = "toolStripButton1";
+            this.btnFixExport.Click += new System.EventHandler(this.btnFixExport_Click);
+            // 
             // AudioFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -254,5 +267,6 @@
         private System.Windows.Forms.ToolStripButton btnImport;
         private System.Windows.Forms.ToolStripSeparator sep2;
         private System.Windows.Forms.ToolStripButton btnDownload;
+        private System.Windows.Forms.ToolStripButton btnFixExport;
     }
 }

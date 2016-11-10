@@ -144,7 +144,7 @@ namespace ganjoor
                                 string xmlFilePath = Path.Combine(strOutDir, Path.GetFileNameWithoutExtension(outFileName) + ".xml");
                                 if (bRes)
                                 {
-                                    if (!PoemAudioListProcessor.Save(xmlFilePath, audio))
+                                    if (!PoemAudioListProcessor.Save(xmlFilePath, audio, false))
                                     {
                                         bRes = false;
                                     }
