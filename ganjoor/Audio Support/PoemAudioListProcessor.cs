@@ -20,11 +20,11 @@ namespace ganjoor
         /// <param name="FileName"></param>
         /// <param name="poemAudio"></param>
         /// <returns></returns>
-        public static bool Save(string FileName, PoemAudio poemAudio)
+        public static bool Save(string FileName, PoemAudio poemAudio, bool oldVersion)
         {
             List<PoemAudio> lst = new List<PoemAudio>();
             lst.Add(poemAudio);
-            return Save(FileName, lst);
+            return Save(FileName, lst, oldVersion);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace ganjoor
         /// <param name="FileName"></param>
         /// <param name="List"></param>
         /// <returns></returns>
-        public static bool Save(string FileName, List<PoemAudio> List)
+        public static bool Save(string FileName, List<PoemAudio> List, bool oldVersion)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode poemAudioRootNode = doc.CreateNode(XmlNodeType.Element, "DesktopGanjoorPoemAudioList", "");
@@ -98,10 +98,15 @@ namespace ganjoor
                     if (!ignoreProp)
                         poemAudioNode.AppendChild(propNode);
                 }
+                //رفع اشکال نسخه قدیمی NAudio
+                XmlNode bugfixNode = doc.CreateNode(XmlNodeType.Element, "OneSecondBugFix", "");
+                bugfixNode.InnerText = "1000";
+                poemAudioNode.AppendChild(bugfixNode);
 
                 XmlNode syncInfoArrayNode = doc.CreateNode(XmlNodeType.Element, "SyncArray", "");
                 if (audio.SyncArray != null)
                 {
+
                     foreach (PoemAudio.SyncInfo info in audio.SyncArray)
                     {
                         XmlNode syncInfoNode = doc.CreateNode(XmlNodeType.Element, "SyncInfo", "");
@@ -111,7 +116,12 @@ namespace ganjoor
                         syncInfoNode.AppendChild(vOrderNode);
 
                         XmlNode vAudioMiliseconds = doc.CreateNode(XmlNodeType.Element, "AudioMiliseconds", "");
-                        vAudioMiliseconds.InnerText = info.AudioMiliseconds.ToString();
+                        if (oldVersion)
+                        {
+                            vAudioMiliseconds.InnerText = (info.AudioMiliseconds/2).ToString();
+                        }
+                        else
+                            vAudioMiliseconds.InnerText = info.AudioMiliseconds.ToString();
                         syncInfoNode.AppendChild(vAudioMiliseconds);
 
 

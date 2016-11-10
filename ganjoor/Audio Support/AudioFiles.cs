@@ -253,6 +253,11 @@ namespace ganjoor
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            Export(false);
+        }
+
+        private void Export(bool bFix)
+        {
             if (grdList.SelectedRows.Count == 0)
             {
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
@@ -273,7 +278,7 @@ namespace ganjoor
                 {
                     List<PoemAudio> lst = new List<PoemAudio>();
                     lst.Add(poemAudio);
-                    if (PoemAudioListProcessor.Save(dlg.FileName, lst))
+                    if (PoemAudioListProcessor.Save(dlg.FileName, lst, bFix))
                     {
                         MessageBox.Show("فایل به درستی در مسیر انتخاب شده ذخیره شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     }
@@ -282,10 +287,17 @@ namespace ganjoor
                         MessageBox.Show("خطایی در ذخیرۀ فایل رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     }
                 }
-            }
-
-            
+            }            
         }
+
+        private void btnFixExport_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("کاربرد این گزینه رفع اشکال نسخه های قدیمی است. آیا می دانید این گزینه چگونه کار می کند؟", "هشدار", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                return;
+            Export(true);
+
+        }
+
 
         private void btnImport_Click(object sender, EventArgs e)
         {
@@ -362,6 +374,7 @@ namespace ganjoor
             }
             Cursor.Current = Cursors.Default;
         }
+
 
 
 
