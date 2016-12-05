@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("gsync2vid")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("خوانشگر")]
+[assembly: AssemblyDescription("تبدیل خوانش گنجور رومیزی به فیلم")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("gsync2vid")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyCompany("حمیدرضا محمدی")]
+[assembly: AssemblyProduct("گنجور رومیزی")]
+[assembly: AssemblyCopyright("GPL, 1388-95, ganjoor.net, Hamid Reza Mohammadi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
