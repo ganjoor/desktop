@@ -77,5 +77,13 @@ namespace ganjoor
             _HighlightText = HighlightText;
         }
         #endregion
+
+        #region ToString
+        public override string ToString()
+        {
+            return this._Title;
+        }
+        #endregion
+
     }
 }

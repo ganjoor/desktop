@@ -10,20 +10,23 @@ namespace ganjoor
 {
     public partial class CategorySelector : Form
     {
-        public CategorySelector()
-            : this(0)
+        public CategorySelector(DbBrowser refDb = null)
+            : this(0, refDb)
         {
             treeCats.CheckBoxes = true;
         }
-        public CategorySelector(int PoetID)
+        public CategorySelector(int PoetID, DbBrowser refDb = null)
         {
             InitializeComponent();
+            _RefDb = refDb;
             FillTree(PoetID);
         }
 
+        private DbBrowser _RefDb = null;
+
         private void FillTree(int PoetID)
         {
-            DbBrowser db = new DbBrowser();
+            DbBrowser db = _RefDb == null ? new DbBrowser() : _RefDb;
             treeCats.Nodes.Clear();
             if (PoetID == 0)
             {
@@ -42,7 +45,10 @@ namespace ganjoor
                 newPoet.Tag = poet._CatID;
                 AddSubCats(db, newPoet, poet._CatID);
             }
-            db.CloseDb();
+            if (_RefDb == null)
+            {
+                db.CloseDb();
+            }
         }
 
         private void AddSubCats(DbBrowser db, TreeNode Node, int CatID)
