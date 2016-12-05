@@ -903,7 +903,7 @@ namespace gsync2vid
 
                 double dSoundStart = -1.0;
 
-
+                prgrss.Value = 0;
                 prgrss.Maximum = cmbVerses.Items.Count;
 
                 lblStatus.Text = "ایجاد تصاویر ...";
@@ -983,11 +983,6 @@ namespace gsync2vid
 
         }
 
-
-
-
-
-
-
+       
     }
 }
