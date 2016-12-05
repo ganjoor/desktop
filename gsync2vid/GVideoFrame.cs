@@ -21,9 +21,9 @@ namespace gsync2vid
         }
 
         /// <summary>
-        /// فقط برای قابهای قبل یا بعد از خوانش طول زمان نمایش قاب بر حسب میلی ثانیه
+        /// شروع قاب بر حسب میلی ثانیه
         /// </summary>
-        public int DurationInMiliseconds
+        public int StartInMiliseconds
         {
             get;
             set;
@@ -126,6 +126,24 @@ namespace gsync2vid
         /// میزان شفافیت رنگ زمینه متن اصلی
         /// </summary>
         public int TextBackColorAlpha
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// قاب صاحب
+        /// </summary>
+        public GVideoFrame MasterFrame
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// نمایش لوگو
+        /// </summary>
+        public bool ShowLogo
         {
             get;
             set;

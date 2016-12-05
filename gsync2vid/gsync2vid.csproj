@@ -41,6 +41,10 @@
     <Reference Include="DirectShowLib-2005">
       <HintPath>ref\DirectShowLib-2005.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ganjoor\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="Splicer">
       <HintPath>ref\Splicer.dll</HintPath>
     </Reference>
@@ -91,8 +95,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\WMV-HD-960x720.prx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\glogo.png" />
+    <None Include="Resources\WMV-HD-960x720.txt" />
     <Content Include="sound.ico" />
   </ItemGroup>
   <ItemGroup>

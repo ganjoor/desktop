@@ -94,5 +94,17 @@ namespace gsync2vid.Properties {
                 this["LastImageHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastImagePath {
+            get {
+                return ((string)(this["LastImagePath"]));
+            }
+            set {
+                this["LastImagePath"] = value;
+            }
+        }
     }
 }
