@@ -77,6 +77,14 @@ namespace ganjoor
         {
             return this._ID;
         }
+
+        #endregion
+
+        #region ToString
+        public override string ToString()
+        {
+            return this._Name;
+        }
         #endregion
 
     }
