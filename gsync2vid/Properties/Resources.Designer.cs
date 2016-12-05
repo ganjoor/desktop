@@ -59,5 +59,34 @@ namespace gsync2vid.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap glogo {
+            get {
+                object obj = ResourceManager.GetObject("glogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to         &lt;profile version=&quot;589824&quot; 
+        ///             storageformat=&quot;1&quot; 
+        ///             name=&quot;WMV-HD-960x720&quot; 
+        ///             description=&quot;PapaJohn&amp;apos;s Simulated high definition 720p&quot;&gt; 
+        ///                   &lt;streamconfig majortype=&quot;{73647561-0000-0010-8000-00AA00389B71}&quot; 
+        ///                   streamnumber=&quot;1&quot; 
+        ///                   streamname=&quot;Audio Stream&quot; 
+        ///                   inputname=&quot;Audio409&quot; 
+        ///                   bitrate=&quot;320032&quot; 
+        ///                   bufferwindow=&quot;5000&quot; 
+        ///                   reliabletransport= [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WMV_HD_960x720 {
+            get {
+                return ResourceManager.GetString("WMV_HD_960x720", resourceCulture);
+            }
+        }
     }
 }

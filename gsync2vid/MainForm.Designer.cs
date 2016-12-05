@@ -35,6 +35,12 @@
             this.txtSrcDb = new System.Windows.Forms.TextBox();
             this.lblSrcDb = new System.Windows.Forms.Label();
             this.grpPoem = new System.Windows.Forms.GroupBox();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.txtHeight = new System.Windows.Forms.NumericUpDown();
+            this.lblHeight = new System.Windows.Forms.Label();
+            this.txtWidth = new System.Windows.Forms.NumericUpDown();
+            this.lblWidth = new System.Windows.Forms.Label();
             this.txtSyncId = new System.Windows.Forms.TextBox();
             this.lblSync = new System.Windows.Forms.Label();
             this.txtPoemId = new System.Windows.Forms.TextBox();
@@ -42,6 +48,16 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.chkShowLogo = new System.Windows.Forms.CheckBox();
+            this.btnEditText = new System.Windows.Forms.Button();
+            this.lblMinus = new System.Windows.Forms.Label();
+            this.chkSlaveFrame = new System.Windows.Forms.CheckBox();
+            this.txtStartInMiliseconds = new System.Windows.Forms.NumericUpDown();
+            this.btnResetImage = new System.Windows.Forms.Button();
+            this.txtComment = new System.Windows.Forms.TextBox();
+            this.trckMaxTextWidth = new System.Windows.Forms.TrackBar();
+            this.lblMaxTextWidth = new System.Windows.Forms.Label();
+            this.trckHPosition = new System.Windows.Forms.TrackBar();
             this.btnPreview = new System.Windows.Forms.Button();
             this.pbxPreview = new System.Windows.Forms.PictureBox();
             this.txtFont = new System.Windows.Forms.TextBox();
@@ -58,28 +74,24 @@
             this.btnSelBackgroundImage = new System.Windows.Forms.Button();
             this.txtBackgroundImage = new System.Windows.Forms.TextBox();
             this.lblBackgroundImage = new System.Windows.Forms.Label();
-            this.txtDurationInMiliseconds = new System.Windows.Forms.TextBox();
-            this.lblDuration = new System.Windows.Forms.Label();
+            this.lblStart = new System.Windows.Forms.Label();
             this.chkAudioBound = new System.Windows.Forms.CheckBox();
             this.cmbVerses = new System.Windows.Forms.ComboBox();
-            this.lblWidth = new System.Windows.Forms.Label();
-            this.txtWidth = new System.Windows.Forms.NumericUpDown();
-            this.txtHeight = new System.Windows.Forms.NumericUpDown();
-            this.lblHeight = new System.Windows.Forms.Label();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.trckHPosition = new System.Windows.Forms.TrackBar();
-            this.trckMaxTextWidth = new System.Windows.Forms.TrackBar();
-            this.lblMaxTextWidth = new System.Windows.Forms.Label();
-            this.txtComment = new System.Windows.Forms.TextBox();
+            this.statusStripMain = new System.Windows.Forms.StatusStrip();
+            this.prgrss = new System.Windows.Forms.ToolStripProgressBar();
+            this.btnProduce = new System.Windows.Forms.Button();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtWidth)).BeginInit();
             this.grpVerses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStartInMiliseconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckAlpha)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).BeginInit();
+            this.statusStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpConnection
@@ -90,7 +102,7 @@
             this.grpConnection.Controls.Add(this.btnSelDb);
             this.grpConnection.Controls.Add(this.txtSrcDb);
             this.grpConnection.Controls.Add(this.lblSrcDb);
-            this.grpConnection.Location = new System.Drawing.Point(8, 12);
+            this.grpConnection.Location = new System.Drawing.Point(7, 12);
             this.grpConnection.Name = "grpConnection";
             this.grpConnection.Size = new System.Drawing.Size(842, 76);
             this.grpConnection.TabIndex = 0;
@@ -143,6 +155,7 @@
             // 
             this.grpPoem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPoem.Controls.Add(this.btnApply);
             this.grpPoem.Controls.Add(this.btnReset);
             this.grpPoem.Controls.Add(this.txtHeight);
             this.grpPoem.Controls.Add(this.lblHeight);
@@ -160,6 +173,90 @@
             this.grpPoem.TabIndex = 1;
             this.grpPoem.TabStop = false;
             this.grpPoem.Text = "شعر، خوانش و مشخصات کلی:";
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(83, 49);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(51, 23);
+            this.btnApply.TabIndex = 12;
+            this.btnApply.Text = "اعمال";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(7, 49);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(70, 23);
+            this.btnReset.TabIndex = 11;
+            this.btnReset.Text = "پیش‌فرض";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // txtHeight
+            // 
+            this.txtHeight.Location = new System.Drawing.Point(140, 50);
+            this.txtHeight.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.txtHeight.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.txtHeight.Name = "txtHeight";
+            this.txtHeight.Size = new System.Drawing.Size(59, 21);
+            this.txtHeight.TabIndex = 10;
+            this.txtHeight.Value = new decimal(new int[] {
+            720,
+            0,
+            0,
+            0});
+            // 
+            // lblHeight
+            // 
+            this.lblHeight.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblHeight.AutoSize = true;
+            this.lblHeight.Location = new System.Drawing.Point(205, 53);
+            this.lblHeight.Name = "lblHeight";
+            this.lblHeight.Size = new System.Drawing.Size(68, 13);
+            this.lblHeight.TabIndex = 9;
+            this.lblHeight.Text = "طول خروجی:";
+            // 
+            // txtWidth
+            // 
+            this.txtWidth.Location = new System.Drawing.Point(285, 49);
+            this.txtWidth.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.txtWidth.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.txtWidth.Name = "txtWidth";
+            this.txtWidth.Size = new System.Drawing.Size(59, 21);
+            this.txtWidth.TabIndex = 8;
+            this.txtWidth.Value = new decimal(new int[] {
+            960,
+            0,
+            0,
+            0});
+            // 
+            // lblWidth
+            // 
+            this.lblWidth.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblWidth.AutoSize = true;
+            this.lblWidth.Location = new System.Drawing.Point(350, 52);
+            this.lblWidth.Name = "lblWidth";
+            this.lblWidth.Size = new System.Drawing.Size(74, 13);
+            this.lblWidth.TabIndex = 6;
+            this.lblWidth.Text = "عرض خروجی:";
             // 
             // txtSyncId
             // 
@@ -225,6 +322,12 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.chkShowLogo);
+            this.grpVerses.Controls.Add(this.btnEditText);
+            this.grpVerses.Controls.Add(this.lblMinus);
+            this.grpVerses.Controls.Add(this.chkSlaveFrame);
+            this.grpVerses.Controls.Add(this.txtStartInMiliseconds);
+            this.grpVerses.Controls.Add(this.btnResetImage);
             this.grpVerses.Controls.Add(this.txtComment);
             this.grpVerses.Controls.Add(this.trckMaxTextWidth);
             this.grpVerses.Controls.Add(this.lblMaxTextWidth);
@@ -245,16 +348,142 @@
             this.grpVerses.Controls.Add(this.btnSelBackgroundImage);
             this.grpVerses.Controls.Add(this.txtBackgroundImage);
             this.grpVerses.Controls.Add(this.lblBackgroundImage);
-            this.grpVerses.Controls.Add(this.txtDurationInMiliseconds);
-            this.grpVerses.Controls.Add(this.lblDuration);
+            this.grpVerses.Controls.Add(this.lblStart);
             this.grpVerses.Controls.Add(this.chkAudioBound);
             this.grpVerses.Controls.Add(this.cmbVerses);
             this.grpVerses.Location = new System.Drawing.Point(7, 181);
             this.grpVerses.Name = "grpVerses";
-            this.grpVerses.Size = new System.Drawing.Size(842, 426);
+            this.grpVerses.Size = new System.Drawing.Size(842, 383);
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
+            // 
+            // chkShowLogo
+            // 
+            this.chkShowLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkShowLogo.AutoSize = true;
+            this.chkShowLogo.Location = new System.Drawing.Point(676, 316);
+            this.chkShowLogo.Name = "chkShowLogo";
+            this.chkShowLogo.Size = new System.Drawing.Size(115, 17);
+            this.chkShowLogo.TabIndex = 45;
+            this.chkShowLogo.Text = "نمایش لوگوی گنجور";
+            this.chkShowLogo.UseVisualStyleBackColor = true;
+            this.chkShowLogo.CheckedChanged += new System.EventHandler(this.chkShowLogo_CheckedChanged);
+            // 
+            // btnEditText
+            // 
+            this.btnEditText.Location = new System.Drawing.Point(78, 20);
+            this.btnEditText.Name = "btnEditText";
+            this.btnEditText.Size = new System.Drawing.Size(30, 23);
+            this.btnEditText.TabIndex = 44;
+            this.btnEditText.Text = "T";
+            this.btnEditText.UseVisualStyleBackColor = true;
+            this.btnEditText.Click += new System.EventHandler(this.btnEditText_Click);
+            // 
+            // lblMinus
+            // 
+            this.lblMinus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMinus.AutoSize = true;
+            this.lblMinus.Location = new System.Drawing.Point(415, 50);
+            this.lblMinus.Name = "lblMinus";
+            this.lblMinus.Size = new System.Drawing.Size(11, 13);
+            this.lblMinus.TabIndex = 43;
+            this.lblMinus.Text = "-";
+            // 
+            // chkSlaveFrame
+            // 
+            this.chkSlaveFrame.AutoSize = true;
+            this.chkSlaveFrame.Enabled = false;
+            this.chkSlaveFrame.Location = new System.Drawing.Point(5, 50);
+            this.chkSlaveFrame.Name = "chkSlaveFrame";
+            this.chkSlaveFrame.Size = new System.Drawing.Size(118, 17);
+            this.chkSlaveFrame.TabIndex = 42;
+            this.chkSlaveFrame.Text = "یکی با با قاب پیشین";
+            this.chkSlaveFrame.UseVisualStyleBackColor = true;
+            // 
+            // txtStartInMiliseconds
+            // 
+            this.txtStartInMiliseconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtStartInMiliseconds.Location = new System.Drawing.Point(432, 48);
+            this.txtStartInMiliseconds.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.txtStartInMiliseconds.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.txtStartInMiliseconds.Name = "txtStartInMiliseconds";
+            this.txtStartInMiliseconds.Size = new System.Drawing.Size(57, 21);
+            this.txtStartInMiliseconds.TabIndex = 41;
+            this.txtStartInMiliseconds.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // btnResetImage
+            // 
+            this.btnResetImage.Location = new System.Drawing.Point(40, 73);
+            this.btnResetImage.Name = "btnResetImage";
+            this.btnResetImage.Size = new System.Drawing.Size(29, 23);
+            this.btnResetImage.TabIndex = 40;
+            this.btnResetImage.Text = "x";
+            this.btnResetImage.UseVisualStyleBackColor = true;
+            this.btnResetImage.Click += new System.EventHandler(this.btnResetImage_Click);
+            // 
+            // txtComment
+            // 
+            this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtComment.Location = new System.Drawing.Point(412, 259);
+            this.txtComment.Multiline = true;
+            this.txtComment.Name = "txtComment";
+            this.txtComment.ReadOnly = true;
+            this.txtComment.Size = new System.Drawing.Size(379, 51);
+            this.txtComment.TabIndex = 39;
+            this.txtComment.Text = resources.GetString("txtComment.Text");
+            // 
+            // trckMaxTextWidth
+            // 
+            this.trckMaxTextWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trckMaxTextWidth.LargeChange = 15;
+            this.trckMaxTextWidth.Location = new System.Drawing.Point(406, 214);
+            this.trckMaxTextWidth.Maximum = 255;
+            this.trckMaxTextWidth.Name = "trckMaxTextWidth";
+            this.trckMaxTextWidth.RightToLeftLayout = true;
+            this.trckMaxTextWidth.Size = new System.Drawing.Size(253, 45);
+            this.trckMaxTextWidth.TabIndex = 38;
+            this.trckMaxTextWidth.TickFrequency = 15;
+            this.trckMaxTextWidth.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trckMaxTextWidth.Scroll += new System.EventHandler(this.trckMaxTextWidth_Scroll);
+            // 
+            // lblMaxTextWidth
+            // 
+            this.lblMaxTextWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMaxTextWidth.AutoSize = true;
+            this.lblMaxTextWidth.Location = new System.Drawing.Point(701, 226);
+            this.lblMaxTextWidth.Name = "lblMaxTextWidth";
+            this.lblMaxTextWidth.Size = new System.Drawing.Size(90, 13);
+            this.lblMaxTextWidth.TabIndex = 37;
+            this.lblMaxTextWidth.Text = "حداکثر عرض متن:";
+            // 
+            // trckHPosition
+            // 
+            this.trckHPosition.LargeChange = 15;
+            this.trckHPosition.Location = new System.Drawing.Point(313, 129);
+            this.trckHPosition.Maximum = 20;
+            this.trckHPosition.Name = "trckHPosition";
+            this.trckHPosition.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trckHPosition.Size = new System.Drawing.Size(45, 227);
+            this.trckHPosition.TabIndex = 36;
+            this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trckHPosition.Value = 10;
+            this.trckHPosition.Scroll += new System.EventHandler(this.trckHPosition_Scroll);
             // 
             // btnPreview
             // 
@@ -327,7 +556,7 @@
             // 
             this.lblTextBackAlpha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTextBackAlpha.AutoSize = true;
-            this.lblTextBackAlpha.Location = new System.Drawing.Point(668, 171);
+            this.lblTextBackAlpha.Location = new System.Drawing.Point(672, 171);
             this.lblTextBackAlpha.Name = "lblTextBackAlpha";
             this.lblTextBackAlpha.Size = new System.Drawing.Size(119, 13);
             this.lblTextBackAlpha.TabIndex = 27;
@@ -390,7 +619,7 @@
             // 
             this.lblBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBackColor.AutoSize = true;
-            this.lblBackColor.Location = new System.Drawing.Point(731, 135);
+            this.lblBackColor.Location = new System.Drawing.Point(735, 135);
             this.lblBackColor.Name = "lblBackColor";
             this.lblBackColor.Size = new System.Drawing.Size(56, 13);
             this.lblBackColor.TabIndex = 21;
@@ -410,40 +639,32 @@
             // 
             this.txtBackgroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBackgroundImage.Location = new System.Drawing.Point(41, 75);
+            this.txtBackgroundImage.Location = new System.Drawing.Point(75, 75);
             this.txtBackgroundImage.Name = "txtBackgroundImage";
             this.txtBackgroundImage.ReadOnly = true;
             this.txtBackgroundImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtBackgroundImage.Size = new System.Drawing.Size(664, 21);
+            this.txtBackgroundImage.Size = new System.Drawing.Size(630, 21);
             this.txtBackgroundImage.TabIndex = 7;
             // 
             // lblBackgroundImage
             // 
             this.lblBackgroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBackgroundImage.AutoSize = true;
-            this.lblBackgroundImage.Location = new System.Drawing.Point(730, 78);
+            this.lblBackgroundImage.Location = new System.Drawing.Point(728, 78);
             this.lblBackgroundImage.Name = "lblBackgroundImage";
             this.lblBackgroundImage.Size = new System.Drawing.Size(63, 13);
             this.lblBackgroundImage.TabIndex = 6;
             this.lblBackgroundImage.Text = "تصویر زمینه:";
             // 
-            // txtDurationInMiliseconds
+            // lblStart
             // 
-            this.txtDurationInMiliseconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDurationInMiliseconds.Location = new System.Drawing.Point(389, 45);
-            this.txtDurationInMiliseconds.Name = "txtDurationInMiliseconds";
-            this.txtDurationInMiliseconds.Size = new System.Drawing.Size(100, 21);
-            this.txtDurationInMiliseconds.TabIndex = 5;
-            // 
-            // lblDuration
-            // 
-            this.lblDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDuration.AutoSize = true;
-            this.lblDuration.Location = new System.Drawing.Point(495, 48);
-            this.lblDuration.Name = "lblDuration";
-            this.lblDuration.Size = new System.Drawing.Size(124, 13);
-            this.lblDuration.TabIndex = 4;
-            this.lblDuration.Text = "زمان بر حسب میلی ثانیه:";
+            this.lblStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStart.AutoSize = true;
+            this.lblStart.Location = new System.Drawing.Point(495, 48);
+            this.lblStart.Name = "lblStart";
+            this.lblStart.Size = new System.Drawing.Size(132, 13);
+            this.lblStart.TabIndex = 4;
+            this.lblStart.Text = "شروع بر حسب میلی ثانیه:";
             // 
             // chkAudioBound
             // 
@@ -463,168 +684,82 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbVerses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVerses.FormattingEnabled = true;
-            this.cmbVerses.Location = new System.Drawing.Point(83, 20);
+            this.cmbVerses.Location = new System.Drawing.Point(111, 20);
             this.cmbVerses.Name = "cmbVerses";
-            this.cmbVerses.Size = new System.Drawing.Size(708, 21);
+            this.cmbVerses.Size = new System.Drawing.Size(680, 21);
             this.cmbVerses.TabIndex = 0;
             this.cmbVerses.SelectedIndexChanged += new System.EventHandler(this.cmbVerses_SelectedIndexChanged);
             // 
-            // lblWidth
+            // statusStripMain
             // 
-            this.lblWidth.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblWidth.AutoSize = true;
-            this.lblWidth.Location = new System.Drawing.Point(288, 52);
-            this.lblWidth.Name = "lblWidth";
-            this.lblWidth.Size = new System.Drawing.Size(74, 13);
-            this.lblWidth.TabIndex = 6;
-            this.lblWidth.Text = "عرض خروجی:";
+            this.statusStripMain.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.prgrss,
+            this.lblStatus});
+            this.statusStripMain.Location = new System.Drawing.Point(0, 597);
+            this.statusStripMain.Name = "statusStripMain";
+            this.statusStripMain.Size = new System.Drawing.Size(856, 22);
+            this.statusStripMain.SizingGrip = false;
+            this.statusStripMain.TabIndex = 3;
             // 
-            // txtWidth
+            // prgrss
             // 
-            this.txtWidth.Location = new System.Drawing.Point(223, 49);
-            this.txtWidth.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.txtWidth.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.txtWidth.Name = "txtWidth";
-            this.txtWidth.Size = new System.Drawing.Size(59, 21);
-            this.txtWidth.TabIndex = 8;
-            this.txtWidth.Value = new decimal(new int[] {
-            960,
-            0,
-            0,
-            0});
-            this.txtWidth.ValueChanged += new System.EventHandler(this.txtWidth_ValueChanged);
+            this.prgrss.Name = "prgrss";
+            this.prgrss.Size = new System.Drawing.Size(100, 16);
             // 
-            // txtHeight
+            // btnProduce
             // 
-            this.txtHeight.Location = new System.Drawing.Point(78, 50);
-            this.txtHeight.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.txtHeight.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(59, 21);
-            this.txtHeight.TabIndex = 10;
-            this.txtHeight.Value = new decimal(new int[] {
-            720,
-            0,
-            0,
-            0});
-            this.txtHeight.ValueChanged += new System.EventHandler(this.txtHeight_ValueChanged);
+            this.btnProduce.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnProduce.Location = new System.Drawing.Point(7, 570);
+            this.btnProduce.Name = "btnProduce";
+            this.btnProduce.Size = new System.Drawing.Size(101, 23);
+            this.btnProduce.TabIndex = 12;
+            this.btnProduce.Text = "تولید خروجی";
+            this.btnProduce.UseVisualStyleBackColor = true;
+            this.btnProduce.Click += new System.EventHandler(this.btnProduce_Click);
             // 
-            // lblHeight
+            // lblStatus
             // 
-            this.lblHeight.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblHeight.AutoSize = true;
-            this.lblHeight.Location = new System.Drawing.Point(143, 53);
-            this.lblHeight.Name = "lblHeight";
-            this.lblHeight.Size = new System.Drawing.Size(68, 13);
-            this.lblHeight.TabIndex = 9;
-            this.lblHeight.Text = "طول خروجی:";
-            // 
-            // btnReset
-            // 
-            this.btnReset.Location = new System.Drawing.Point(7, 49);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(70, 23);
-            this.btnReset.TabIndex = 11;
-            this.btnReset.Text = "پیش‌فرض";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
-            // trckHPosition
-            // 
-            this.trckHPosition.LargeChange = 15;
-            this.trckHPosition.Location = new System.Drawing.Point(313, 129);
-            this.trckHPosition.Maximum = 20;
-            this.trckHPosition.Name = "trckHPosition";
-            this.trckHPosition.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trckHPosition.Size = new System.Drawing.Size(45, 227);
-            this.trckHPosition.TabIndex = 36;
-            this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trckHPosition.Value = 10;
-            this.trckHPosition.Scroll += new System.EventHandler(this.trckHPosition_Scroll);
-            // 
-            // trckMaxTextWidth
-            // 
-            this.trckMaxTextWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trckMaxTextWidth.LargeChange = 15;
-            this.trckMaxTextWidth.Location = new System.Drawing.Point(406, 211);
-            this.trckMaxTextWidth.Maximum = 255;
-            this.trckMaxTextWidth.Name = "trckMaxTextWidth";
-            this.trckMaxTextWidth.RightToLeftLayout = true;
-            this.trckMaxTextWidth.Size = new System.Drawing.Size(253, 45);
-            this.trckMaxTextWidth.TabIndex = 38;
-            this.trckMaxTextWidth.TickFrequency = 15;
-            this.trckMaxTextWidth.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trckMaxTextWidth.Scroll += new System.EventHandler(this.trckMaxTextWidth_Scroll);
-            // 
-            // lblMaxTextWidth
-            // 
-            this.lblMaxTextWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMaxTextWidth.AutoSize = true;
-            this.lblMaxTextWidth.Location = new System.Drawing.Point(697, 222);
-            this.lblMaxTextWidth.Name = "lblMaxTextWidth";
-            this.lblMaxTextWidth.Size = new System.Drawing.Size(90, 13);
-            this.lblMaxTextWidth.TabIndex = 37;
-            this.lblMaxTextWidth.Text = "حداکثر عرض متن:";
-            // 
-            // txtComment
-            // 
-            this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtComment.Location = new System.Drawing.Point(406, 259);
-            this.txtComment.Multiline = true;
-            this.txtComment.Name = "txtComment";
-            this.txtComment.ReadOnly = true;
-            this.txtComment.Size = new System.Drawing.Size(379, 62);
-            this.txtComment.TabIndex = 39;
-            this.txtComment.Text = resources.GetString("txtComment.Text");
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(739, 17);
+            this.lblStatus.Spring = true;
+            this.lblStatus.Text = "آماده";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 619);
+            this.Controls.Add(this.btnProduce);
+            this.Controls.Add(this.grpConnection);
+            this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.grpVerses);
             this.Controls.Add(this.grpPoem);
-            this.Controls.Add(this.grpConnection);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "تولید فیلم از خوانش شعر گنجور رومیزی";
+            this.Text = "خوانشگر :: تولید فیلم از خوانش شعر گنجور رومیزی";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.grpConnection.ResumeLayout(false);
             this.grpConnection.PerformLayout();
             this.grpPoem.ResumeLayout(false);
             this.grpPoem.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtWidth)).EndInit();
             this.grpVerses.ResumeLayout(false);
             this.grpVerses.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStartInMiliseconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckAlpha)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).EndInit();
+            this.statusStripMain.ResumeLayout(false);
+            this.statusStripMain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -644,8 +779,7 @@
         private System.Windows.Forms.Label lblSync;
         private System.Windows.Forms.GroupBox grpVerses;
         private System.Windows.Forms.ComboBox cmbVerses;
-        private System.Windows.Forms.TextBox txtDurationInMiliseconds;
-        private System.Windows.Forms.Label lblDuration;
+        private System.Windows.Forms.Label lblStart;
         private System.Windows.Forms.CheckBox chkAudioBound;
         private System.Windows.Forms.Button btnSelBackgroundImage;
         private System.Windows.Forms.TextBox txtBackgroundImage;
@@ -672,6 +806,17 @@
         private System.Windows.Forms.TrackBar trckMaxTextWidth;
         private System.Windows.Forms.Label lblMaxTextWidth;
         private System.Windows.Forms.TextBox txtComment;
+        private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.Button btnResetImage;
+        private System.Windows.Forms.NumericUpDown txtStartInMiliseconds;
+        private System.Windows.Forms.CheckBox chkSlaveFrame;
+        private System.Windows.Forms.Label lblMinus;
+        private System.Windows.Forms.Button btnEditText;
+        private System.Windows.Forms.CheckBox chkShowLogo;
+        private System.Windows.Forms.StatusStrip statusStripMain;
+        private System.Windows.Forms.Button btnProduce;
+        private System.Windows.Forms.ToolStripProgressBar prgrss;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
     }
 }
 
