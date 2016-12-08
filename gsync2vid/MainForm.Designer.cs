@@ -48,6 +48,7 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.btnRandomImage = new System.Windows.Forms.Button();
             this.chkShowLogo = new System.Windows.Forms.CheckBox();
             this.btnEditText = new System.Windows.Forms.Button();
             this.lblMinus = new System.Windows.Forms.Label();
@@ -138,7 +139,7 @@
             this.txtSrcDb.Name = "txtSrcDb";
             this.txtSrcDb.ReadOnly = true;
             this.txtSrcDb.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtSrcDb.Size = new System.Drawing.Size(750, 27);
+            this.txtSrcDb.Size = new System.Drawing.Size(750, 21);
             this.txtSrcDb.TabIndex = 1;
             // 
             // lblSrcDb
@@ -147,7 +148,7 @@
             this.lblSrcDb.AutoSize = true;
             this.lblSrcDb.Location = new System.Drawing.Point(797, 27);
             this.lblSrcDb.Name = "lblSrcDb";
-            this.lblSrcDb.Size = new System.Drawing.Size(56, 21);
+            this.lblSrcDb.Size = new System.Drawing.Size(38, 13);
             this.lblSrcDb.TabIndex = 0;
             this.lblSrcDb.Text = "مسیر:";
             // 
@@ -208,7 +209,7 @@
             0,
             0});
             this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(59, 27);
+            this.txtHeight.Size = new System.Drawing.Size(59, 21);
             this.txtHeight.TabIndex = 10;
             this.txtHeight.Value = new decimal(new int[] {
             720,
@@ -222,7 +223,7 @@
             this.lblHeight.AutoSize = true;
             this.lblHeight.Location = new System.Drawing.Point(205, 53);
             this.lblHeight.Name = "lblHeight";
-            this.lblHeight.Size = new System.Drawing.Size(104, 21);
+            this.lblHeight.Size = new System.Drawing.Size(68, 13);
             this.lblHeight.TabIndex = 9;
             this.lblHeight.Text = "طول خروجی:";
             // 
@@ -240,7 +241,7 @@
             0,
             0});
             this.txtWidth.Name = "txtWidth";
-            this.txtWidth.Size = new System.Drawing.Size(59, 27);
+            this.txtWidth.Size = new System.Drawing.Size(59, 21);
             this.txtWidth.TabIndex = 8;
             this.txtWidth.Value = new decimal(new int[] {
             960,
@@ -254,7 +255,7 @@
             this.lblWidth.AutoSize = true;
             this.lblWidth.Location = new System.Drawing.Point(350, 52);
             this.lblWidth.Name = "lblWidth";
-            this.lblWidth.Size = new System.Drawing.Size(111, 21);
+            this.lblWidth.Size = new System.Drawing.Size(74, 13);
             this.lblWidth.TabIndex = 6;
             this.lblWidth.Text = "عرض خروجی:";
             // 
@@ -264,7 +265,7 @@
             this.txtSyncId.Location = new System.Drawing.Point(465, 49);
             this.txtSyncId.Name = "txtSyncId";
             this.txtSyncId.ReadOnly = true;
-            this.txtSyncId.Size = new System.Drawing.Size(100, 27);
+            this.txtSyncId.Size = new System.Drawing.Size(100, 21);
             this.txtSyncId.TabIndex = 5;
             // 
             // lblSync
@@ -273,7 +274,7 @@
             this.lblSync.AutoSize = true;
             this.lblSync.Location = new System.Drawing.Point(571, 51);
             this.lblSync.Name = "lblSync";
-            this.lblSync.Size = new System.Drawing.Size(88, 21);
+            this.lblSync.Size = new System.Drawing.Size(57, 13);
             this.lblSync.TabIndex = 4;
             this.lblSync.Text = "کد خوانش:";
             // 
@@ -283,7 +284,7 @@
             this.txtPoemId.Location = new System.Drawing.Point(635, 49);
             this.txtPoemId.Name = "txtPoemId";
             this.txtPoemId.ReadOnly = true;
-            this.txtPoemId.Size = new System.Drawing.Size(100, 27);
+            this.txtPoemId.Size = new System.Drawing.Size(100, 21);
             this.txtPoemId.TabIndex = 3;
             // 
             // btnSelPoem
@@ -304,7 +305,7 @@
             this.txtPoem.Name = "txtPoem";
             this.txtPoem.ReadOnly = true;
             this.txtPoem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtPoem.Size = new System.Drawing.Size(750, 27);
+            this.txtPoem.Size = new System.Drawing.Size(750, 21);
             this.txtPoem.TabIndex = 1;
             // 
             // lblPoem
@@ -313,7 +314,7 @@
             this.lblPoem.AutoSize = true;
             this.lblPoem.Location = new System.Drawing.Point(741, 51);
             this.lblPoem.Name = "lblPoem";
-            this.lblPoem.Size = new System.Drawing.Size(70, 21);
+            this.lblPoem.Size = new System.Drawing.Size(47, 13);
             this.lblPoem.TabIndex = 0;
             this.lblPoem.Text = "کد شعر:";
             // 
@@ -322,6 +323,7 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.btnRandomImage);
             this.grpVerses.Controls.Add(this.chkShowLogo);
             this.grpVerses.Controls.Add(this.btnEditText);
             this.grpVerses.Controls.Add(this.lblMinus);
@@ -358,13 +360,23 @@
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
             // 
+            // btnRandomImage
+            // 
+            this.btnRandomImage.Location = new System.Drawing.Point(70, 73);
+            this.btnRandomImage.Name = "btnRandomImage";
+            this.btnRandomImage.Size = new System.Drawing.Size(40, 23);
+            this.btnRandomImage.TabIndex = 46;
+            this.btnRandomImage.Text = "rnd";
+            this.btnRandomImage.UseVisualStyleBackColor = true;
+            this.btnRandomImage.Click += new System.EventHandler(this.btnRandomImage_Click);
+            // 
             // chkShowLogo
             // 
             this.chkShowLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowLogo.AutoSize = true;
-            this.chkShowLogo.Location = new System.Drawing.Point(614, 316);
+            this.chkShowLogo.Location = new System.Drawing.Point(676, 316);
             this.chkShowLogo.Name = "chkShowLogo";
-            this.chkShowLogo.Size = new System.Drawing.Size(177, 25);
+            this.chkShowLogo.Size = new System.Drawing.Size(115, 17);
             this.chkShowLogo.TabIndex = 45;
             this.chkShowLogo.Text = "نمایش لوگوی گنجور";
             this.chkShowLogo.UseVisualStyleBackColor = true;
@@ -386,7 +398,7 @@
             this.lblMinus.AutoSize = true;
             this.lblMinus.Location = new System.Drawing.Point(415, 50);
             this.lblMinus.Name = "lblMinus";
-            this.lblMinus.Size = new System.Drawing.Size(16, 21);
+            this.lblMinus.Size = new System.Drawing.Size(11, 13);
             this.lblMinus.TabIndex = 43;
             this.lblMinus.Text = "-";
             // 
@@ -396,7 +408,7 @@
             this.chkSlaveFrame.Enabled = false;
             this.chkSlaveFrame.Location = new System.Drawing.Point(5, 50);
             this.chkSlaveFrame.Name = "chkSlaveFrame";
-            this.chkSlaveFrame.Size = new System.Drawing.Size(181, 25);
+            this.chkSlaveFrame.Size = new System.Drawing.Size(118, 17);
             this.chkSlaveFrame.TabIndex = 42;
             this.chkSlaveFrame.Text = "یکی با با قاب پیشین";
             this.chkSlaveFrame.UseVisualStyleBackColor = true;
@@ -404,6 +416,7 @@
             // txtStartInMiliseconds
             // 
             this.txtStartInMiliseconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtStartInMiliseconds.Enabled = false;
             this.txtStartInMiliseconds.Location = new System.Drawing.Point(432, 48);
             this.txtStartInMiliseconds.Maximum = new decimal(new int[] {
             100000,
@@ -416,7 +429,7 @@
             0,
             0});
             this.txtStartInMiliseconds.Name = "txtStartInMiliseconds";
-            this.txtStartInMiliseconds.Size = new System.Drawing.Size(57, 27);
+            this.txtStartInMiliseconds.Size = new System.Drawing.Size(57, 21);
             this.txtStartInMiliseconds.TabIndex = 41;
             this.txtStartInMiliseconds.Value = new decimal(new int[] {
             1000,
@@ -456,7 +469,7 @@
             this.trckMaxTextWidth.Maximum = 255;
             this.trckMaxTextWidth.Name = "trckMaxTextWidth";
             this.trckMaxTextWidth.RightToLeftLayout = true;
-            this.trckMaxTextWidth.Size = new System.Drawing.Size(253, 69);
+            this.trckMaxTextWidth.Size = new System.Drawing.Size(253, 45);
             this.trckMaxTextWidth.TabIndex = 38;
             this.trckMaxTextWidth.TickFrequency = 15;
             this.trckMaxTextWidth.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -468,7 +481,7 @@
             this.lblMaxTextWidth.AutoSize = true;
             this.lblMaxTextWidth.Location = new System.Drawing.Point(701, 226);
             this.lblMaxTextWidth.Name = "lblMaxTextWidth";
-            this.lblMaxTextWidth.Size = new System.Drawing.Size(136, 21);
+            this.lblMaxTextWidth.Size = new System.Drawing.Size(90, 13);
             this.lblMaxTextWidth.TabIndex = 37;
             this.lblMaxTextWidth.Text = "حداکثر عرض متن:";
             // 
@@ -479,7 +492,7 @@
             this.trckHPosition.Maximum = 20;
             this.trckHPosition.Name = "trckHPosition";
             this.trckHPosition.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trckHPosition.Size = new System.Drawing.Size(69, 227);
+            this.trckHPosition.Size = new System.Drawing.Size(45, 227);
             this.trckHPosition.TabIndex = 36;
             this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trckHPosition.Value = 10;
@@ -514,7 +527,7 @@
             this.txtFont.Name = "txtFont";
             this.txtFont.ReadOnly = true;
             this.txtFont.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtFont.Size = new System.Drawing.Size(664, 27);
+            this.txtFont.Size = new System.Drawing.Size(664, 21);
             this.txtFont.TabIndex = 32;
             // 
             // btnSelectFont
@@ -533,7 +546,7 @@
             this.lblFont.AutoSize = true;
             this.lblFont.Location = new System.Drawing.Point(760, 107);
             this.lblFont.Name = "lblFont";
-            this.lblFont.Size = new System.Drawing.Size(41, 21);
+            this.lblFont.Size = new System.Drawing.Size(28, 13);
             this.lblFont.TabIndex = 29;
             this.lblFont.Text = "قلم:";
             // 
@@ -546,7 +559,7 @@
             this.trckAlpha.Maximum = 255;
             this.trckAlpha.Name = "trckAlpha";
             this.trckAlpha.RightToLeftLayout = true;
-            this.trckAlpha.Size = new System.Drawing.Size(253, 69);
+            this.trckAlpha.Size = new System.Drawing.Size(253, 45);
             this.trckAlpha.TabIndex = 28;
             this.trckAlpha.TickFrequency = 15;
             this.trckAlpha.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -558,7 +571,7 @@
             this.lblTextBackAlpha.AutoSize = true;
             this.lblTextBackAlpha.Location = new System.Drawing.Point(672, 171);
             this.lblTextBackAlpha.Name = "lblTextBackAlpha";
-            this.lblTextBackAlpha.Size = new System.Drawing.Size(183, 21);
+            this.lblTextBackAlpha.Size = new System.Drawing.Size(119, 13);
             this.lblTextBackAlpha.TabIndex = 27;
             this.lblTextBackAlpha.Text = "شفافیت رنگ زمینه متن:";
             // 
@@ -568,7 +581,7 @@
             this.lblTextBackColor.AutoSize = true;
             this.lblTextBackColor.Location = new System.Drawing.Point(455, 135);
             this.lblTextBackColor.Name = "lblTextBackColor";
-            this.lblTextBackColor.Size = new System.Drawing.Size(118, 21);
+            this.lblTextBackColor.Size = new System.Drawing.Size(77, 13);
             this.lblTextBackColor.TabIndex = 25;
             this.lblTextBackColor.Text = "رنگ زمینه متن:";
             // 
@@ -589,7 +602,7 @@
             this.lblTextColor.AutoSize = true;
             this.lblTextColor.Location = new System.Drawing.Point(598, 135);
             this.lblTextColor.Name = "lblTextColor";
-            this.lblTextColor.Size = new System.Drawing.Size(76, 21);
+            this.lblTextColor.Size = new System.Drawing.Size(50, 13);
             this.lblTextColor.TabIndex = 23;
             this.lblTextColor.Text = "رنگ متن:";
             // 
@@ -621,7 +634,7 @@
             this.lblBackColor.AutoSize = true;
             this.lblBackColor.Location = new System.Drawing.Point(735, 135);
             this.lblBackColor.Name = "lblBackColor";
-            this.lblBackColor.Size = new System.Drawing.Size(85, 21);
+            this.lblBackColor.Size = new System.Drawing.Size(56, 13);
             this.lblBackColor.TabIndex = 21;
             this.lblBackColor.Text = "رنگ زمینه:";
             // 
@@ -639,11 +652,11 @@
             // 
             this.txtBackgroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBackgroundImage.Location = new System.Drawing.Point(75, 75);
+            this.txtBackgroundImage.Location = new System.Drawing.Point(111, 75);
             this.txtBackgroundImage.Name = "txtBackgroundImage";
             this.txtBackgroundImage.ReadOnly = true;
             this.txtBackgroundImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtBackgroundImage.Size = new System.Drawing.Size(630, 27);
+            this.txtBackgroundImage.Size = new System.Drawing.Size(594, 21);
             this.txtBackgroundImage.TabIndex = 7;
             // 
             // lblBackgroundImage
@@ -652,7 +665,7 @@
             this.lblBackgroundImage.AutoSize = true;
             this.lblBackgroundImage.Location = new System.Drawing.Point(728, 78);
             this.lblBackgroundImage.Name = "lblBackgroundImage";
-            this.lblBackgroundImage.Size = new System.Drawing.Size(96, 21);
+            this.lblBackgroundImage.Size = new System.Drawing.Size(63, 13);
             this.lblBackgroundImage.TabIndex = 6;
             this.lblBackgroundImage.Text = "تصویر زمینه:";
             // 
@@ -662,7 +675,7 @@
             this.lblStart.AutoSize = true;
             this.lblStart.Location = new System.Drawing.Point(495, 48);
             this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(203, 21);
+            this.lblStart.Size = new System.Drawing.Size(132, 13);
             this.lblStart.TabIndex = 4;
             this.lblStart.Text = "شروع بر حسب میلی ثانیه:";
             // 
@@ -671,9 +684,9 @@
             this.chkAudioBound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAudioBound.AutoSize = true;
             this.chkAudioBound.Enabled = false;
-            this.chkAudioBound.Location = new System.Drawing.Point(640, 47);
+            this.chkAudioBound.Location = new System.Drawing.Point(692, 47);
             this.chkAudioBound.Name = "chkAudioBound";
-            this.chkAudioBound.Size = new System.Drawing.Size(151, 25);
+            this.chkAudioBound.Size = new System.Drawing.Size(99, 17);
             this.chkAudioBound.TabIndex = 1;
             this.chkAudioBound.Text = "مربوط به خوانش";
             this.chkAudioBound.UseVisualStyleBackColor = true;
@@ -686,7 +699,7 @@
             this.cmbVerses.FormattingEnabled = true;
             this.cmbVerses.Location = new System.Drawing.Point(111, 20);
             this.cmbVerses.Name = "cmbVerses";
-            this.cmbVerses.Size = new System.Drawing.Size(680, 29);
+            this.cmbVerses.Size = new System.Drawing.Size(680, 21);
             this.cmbVerses.TabIndex = 0;
             this.cmbVerses.SelectedIndexChanged += new System.EventHandler(this.cmbVerses_SelectedIndexChanged);
             // 
@@ -707,12 +720,11 @@
             // 
             this.prgrss.Name = "prgrss";
             this.prgrss.Size = new System.Drawing.Size(100, 22);
-          
             // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(693, 23);
+            this.lblStatus.Size = new System.Drawing.Size(739, 23);
             this.lblStatus.Spring = true;
             this.lblStatus.Text = "آماده";
             // 
@@ -729,7 +741,7 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 619);
             this.Controls.Add(this.btnProduce);
@@ -819,6 +831,7 @@
         private System.Windows.Forms.Button btnProduce;
         private System.Windows.Forms.ToolStripProgressBar prgrss;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.Button btnRandomImage;
     }
 }
 
