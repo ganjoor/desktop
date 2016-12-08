@@ -13,6 +13,7 @@ using Splicer.Timeline;
 using Splicer.Renderer;
 using Splicer.WindowsMedia;
 using NAudio.Wave;
+using System.Net;
 
 
 namespace gsync2vid
@@ -211,7 +212,7 @@ namespace gsync2vid
                             {
                                 AudioBound = false,
                                 StartInMiliseconds = -4000,
-                                Text = poem._Title,
+                                Text = poet._Name,
                                 BackgroundImagePath = strImagePath,
                                 MainTextPosRatioPortion = 1,
                                 MainTextPosRatioPortionFrom = 4,
@@ -225,13 +226,21 @@ namespace gsync2vid
                                 ShowLogo = true
                             };
 
+                            if (audio.SyncArray.Length > 0)
+                            {
+                                if (audio.SyncArray[0].AudioMiliseconds != 0)
+                                {
+                                    titleFrame.StartInMiliseconds = -(audio.SyncArray[0].AudioMiliseconds / nDurationDividedBy);
+                                }
+                            }
+
                             frames.Add(titleFrame);
 
-                            GVideoFrame poetFrame = new GVideoFrame()
+                            GVideoFrame poemFrame = new GVideoFrame()
                             {
                                 AudioBound = false,
                                 StartInMiliseconds = 0,
-                                Text = poet._Name,
+                                Text = poem._Title,
                                 BackgroundImagePath = strImagePath,
                                 MainTextPosRatioPortion = 1,
                                 MainTextPosRatioPortionFrom = 2,
@@ -246,7 +255,7 @@ namespace gsync2vid
                                 ShowLogo = false
                             };
 
-                            frames.Add(poetFrame);
+                            frames.Add(poemFrame);
 
                             GVideoFrame soundFrame = new GVideoFrame()
                             {
@@ -263,7 +272,7 @@ namespace gsync2vid
                                 TextBackColor = Color.Black,
                                 TextBackColorAlpha = 100,
                                 Font = Settings.Default.LastUsedFont,
-                                MasterFrame = poetFrame,
+                                MasterFrame = poemFrame,
                                 ShowLogo = false
                             };
 
@@ -931,6 +940,16 @@ namespace gsync2vid
                                     break;
                                 }
                             }
+                            if (frame.StartInMiliseconds != 0)
+                            {
+                                dSoundStart -= (frame.StartInMiliseconds / 1000.0);
+                                if (dSoundStart < 0)
+                                {
+                                    this.Enabled = true;
+                                    MessageBox.Show(String.Format("قدر مطلق زمان شروع اولین قاب باید بزرگتر از {0} باشد", frame.StartInMiliseconds));
+                                    return;
+                                }
+                            }
                         }
                         else
                         {
@@ -981,6 +1000,64 @@ namespace gsync2vid
 
 
 
+        }
+
+        /// <summary>
+        /// تصاویر تصادفی
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRandomImage_Click(object sender, EventArgs e)
+        {
+            string url = String.Format("https://source.unsplash.com/category/nature/{0}x{1}", Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
+            if (MessageBox.Show("با انتخاب این گزینه تصاویر تصادفی از سایت unsplash.com برای زوج قابهای فاقد تصویر زمینه انتخاب می‌شود. آیا موافقید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading
+                | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+            {
+                this.Enabled = false;
+                try
+                {
+                    int nIdx = -1;
+                    
+                    for(int i=0; i<cmbVerses.Items.Count; i++)
+                    {
+                        GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
+                        if (!frame.AudioBound && frame.MasterFrame != null)
+                        {
+                            continue;
+                        }
+                        nIdx++;
+                        if (nIdx == 0 || (nIdx % 2 == 1))
+                        {
+                            if(string.IsNullOrEmpty(frame.BackgroundImagePath))
+                            {
+                                string strTempImage = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".jpg");
+                                using (WebClient webClient = new WebClient())
+                                {
+                                    webClient.DownloadFile(url, strTempImage);
+                                    _lstDeleteFileList.Add(strTempImage);
+                                    frame.BackgroundImagePath = strTempImage;
+                                    if (i != cmbVerses.Items.Count - 1)
+                                    {
+                                        if ((string.IsNullOrEmpty((cmbVerses.Items[i + 1] as GVideoFrame).BackgroundImagePath)))
+                                        {
+                                            (cmbVerses.Items[i + 1] as GVideoFrame).BackgroundImagePath = strTempImage;
+                                        }
+                                    }
+                                }
+                                cmbVerses.SelectedIndex = i;
+                                Application.DoEvents();
+                            }
+                           
+                        }
+                    }
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show(exp.ToString());
+                }
+                this.Enabled = true;
+                
+            }
         }
 
        
