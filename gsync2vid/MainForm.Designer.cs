@@ -82,6 +82,7 @@
             this.prgrss = new System.Windows.Forms.ToolStripProgressBar();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProduce = new System.Windows.Forms.Button();
+            this.btnSubtitle = new System.Windows.Forms.Button();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -405,13 +406,13 @@
             // chkSlaveFrame
             // 
             this.chkSlaveFrame.AutoSize = true;
-            this.chkSlaveFrame.Enabled = false;
             this.chkSlaveFrame.Location = new System.Drawing.Point(5, 50);
             this.chkSlaveFrame.Name = "chkSlaveFrame";
             this.chkSlaveFrame.Size = new System.Drawing.Size(118, 17);
             this.chkSlaveFrame.TabIndex = 42;
             this.chkSlaveFrame.Text = "یکی با با قاب پیشین";
             this.chkSlaveFrame.UseVisualStyleBackColor = true;
+            this.chkSlaveFrame.CheckedChanged += new System.EventHandler(this.chkSlaveFrame_CheckedChanged);
             // 
             // txtStartInMiliseconds
             // 
@@ -731,7 +732,7 @@
             // btnProduce
             // 
             this.btnProduce.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnProduce.Location = new System.Drawing.Point(7, 570);
+            this.btnProduce.Location = new System.Drawing.Point(7, 568);
             this.btnProduce.Name = "btnProduce";
             this.btnProduce.Size = new System.Drawing.Size(101, 23);
             this.btnProduce.TabIndex = 12;
@@ -739,11 +740,23 @@
             this.btnProduce.UseVisualStyleBackColor = true;
             this.btnProduce.Click += new System.EventHandler(this.btnProduce_Click);
             // 
+            // btnSubtitle
+            // 
+            this.btnSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSubtitle.Location = new System.Drawing.Point(110, 568);
+            this.btnSubtitle.Name = "btnSubtitle";
+            this.btnSubtitle.Size = new System.Drawing.Size(101, 23);
+            this.btnSubtitle.TabIndex = 14;
+            this.btnSubtitle.Text = "تولید زیرنویس";
+            this.btnSubtitle.UseVisualStyleBackColor = true;
+            this.btnSubtitle.Click += new System.EventHandler(this.btnSubtitle_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 619);
+            this.Controls.Add(this.btnSubtitle);
             this.Controls.Add(this.btnProduce);
             this.Controls.Add(this.grpConnection);
             this.Controls.Add(this.statusStripMain);
@@ -832,6 +845,7 @@
         private System.Windows.Forms.ToolStripProgressBar prgrss;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.Button btnRandomImage;
+        private System.Windows.Forms.Button btnSubtitle;
     }
 }
 
