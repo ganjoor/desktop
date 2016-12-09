@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace gsync2vid
 {
@@ -14,6 +15,7 @@ namespace gsync2vid
         /// <summary>
         /// مربوط به خوانش
         /// </summary>
+        [DisplayName("مربوط به خوانش")]
         public bool AudioBound
         {
             get;
@@ -23,6 +25,7 @@ namespace gsync2vid
         /// <summary>
         /// شروع قاب بر حسب میلی ثانیه
         /// </summary>
+        [DisplayName("شروع بر حسب میلی ثانیه")]
         public int StartInMiliseconds
         {
             get;
@@ -33,6 +36,7 @@ namespace gsync2vid
         /// <summary>
         /// متن اصلی
         /// </summary>
+        [DisplayName("متن")]
         public string Text
         {
             get;
@@ -42,6 +46,7 @@ namespace gsync2vid
         /// <summary>
         /// رنگ زمینه
         /// </summary>
+        [DisplayName("رنگ زمینه")]
         public Color BackColor
         {
             get;
@@ -52,6 +57,7 @@ namespace gsync2vid
         /// <summary>
         /// مسیر تصویر زمینه
         /// </summary>
+        [DisplayName("مسیر تصویر زمینه")]
         public string BackgroundImagePath
         {
             get;
@@ -61,6 +67,7 @@ namespace gsync2vid
         /// <summary>
         /// فونت متن اصلی
         /// </summary>
+        [DisplayName("فونت")]
         public Font Font
         {
             get;
@@ -70,6 +77,7 @@ namespace gsync2vid
         /// <summary>
         /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۱ باشد
         /// </summary>
+        [DisplayName("صورت کسر موقعیت عمودی متن")]
         public int MainTextPosRatioPortion
         {
             get;
@@ -79,6 +87,7 @@ namespace gsync2vid
         /// <summary>
         /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۲ باشد
         /// </summary>
+        [DisplayName("صورت کسر موقعیت افقی متن")]
         public int MainTextPosRatioPortionFrom
         {
             get;
@@ -88,6 +97,7 @@ namespace gsync2vid
         /// <summary>
         /// حداکثر عرض متن صورت کسر
         /// </summary>
+        [DisplayName("صورت کسر حداکثر عرض متن")]
         public int MaxTextWidthRatioPortion
         {
             get;
@@ -97,6 +107,7 @@ namespace gsync2vid
         /// <summary>
         /// حداکثر عرض متن مخرج کسر
         /// </summary>
+        [DisplayName("مخرج کسر حداکثر عرض متن")]
         public int MaxTextWidthRatioPortionFrom
         {
             get;
@@ -107,6 +118,7 @@ namespace gsync2vid
         /// <summary>
         /// رنگ متن اصلی
         /// </summary>
+        [DisplayName("رنگ متن")]
         public Color TextColor
         {
             get;
@@ -116,6 +128,7 @@ namespace gsync2vid
         /// <summary>
         /// رنگ زمینه متن اصلی
         /// </summary>
+        [DisplayName("رنگ زمینه متن")]
         public Color TextBackColor
         {
             get;
@@ -125,6 +138,7 @@ namespace gsync2vid
         /// <summary>
         /// میزان شفافیت رنگ زمینه متن اصلی
         /// </summary>
+        [DisplayName("شفافیت رنگ زمینه متن")]
         public int TextBackColorAlpha
         {
             get;
@@ -134,6 +148,7 @@ namespace gsync2vid
         /// <summary>
         /// قاب صاحب
         /// </summary>
+        [DisplayName("قاب صاحب")]
         public GVideoFrame MasterFrame
         {
             get;
@@ -143,6 +158,7 @@ namespace gsync2vid
         /// <summary>
         /// نمایش لوگو
         /// </summary>
+        [DisplayName("نمایش لوگو")]
         public bool ShowLogo
         {
             get;

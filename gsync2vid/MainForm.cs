@@ -348,7 +348,7 @@ namespace gsync2vid
             if (refDb == null)
                 db.CloseDb();
 
-            btnProduce.Enabled = Settings.Default.AudioId != 0;
+            btnProduce.Enabled = btnSubtitle.Enabled = Settings.Default.AudioId != 0;
         }
         /// <summary>
         /// انتخاب شعر و خوانش
@@ -729,6 +729,21 @@ namespace gsync2vid
             InvalidatePreview();
         }
 
+        private void btnProperties_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+
+            using (ObjectPropertisEditor dlg = new ObjectPropertisEditor())
+            {
+                dlg.Object = cmbVerses.SelectedItem as GVideoFrame;
+                dlg.ShowDialog(this);
+                cmbVerses_SelectedIndexChanged(sender, e);
+            }
+        }
+
+
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtWidth.Value = 960M;
@@ -800,6 +815,118 @@ namespace gsync2vid
         }
 
 
+        private List<string> _lstDeleteFileList = new List<string>();
+
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            SaveShowPreviewImage();
+        }
+
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (string fileName in _lstDeleteFileList)
+                try
+                {
+                    File.Delete(fileName);
+                }
+                catch
+                {
+                }
+        }
+
+        private void pbxPreview_Click(object sender, EventArgs e)
+        {
+            SaveShowPreviewImage();
+        }
+
+        private void btnProduce_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "WMV Files (*.wmv)|*.wmv";
+                dlg.FileName = txtPoemId.Text + ".wmv";
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    InitiateRendering(dlg.FileName);
+                }
+            }
+        }
+
+        private void btnSubtitle_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "SRT Files (*.srt)|*.srt";
+                dlg.FileName = txtPoemId.Text + ".srt";
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    CreateSubTitle(dlg.FileName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// تصاویر تصادفی
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRandomImage_Click(object sender, EventArgs e)
+        {
+            string url = String.Format(
+                "https://source.unsplash.com/random/{0}x{1}"
+                //"https://source.unsplash.com/category/nature/{0}x{1}"
+                , Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
+            if (MessageBox.Show("با انتخاب این گزینه تصاویر تصادفی از سایت unsplash.com برای زوج قابهای فاقد تصویر زمینه انتخاب می‌شود. آیا موافقید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading
+                | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+            {
+                this.Enabled = false;
+                try
+                {
+                    int nIdx = -1;
+
+                    for (int i = 0; i < cmbVerses.Items.Count; i++)
+                    {
+                        GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
+                        if (!frame.AudioBound && frame.MasterFrame != null)
+                        {
+                            continue;
+                        }
+                        nIdx++;
+                        if (nIdx == 0 || (nIdx % 2 == 1))
+                        {
+                            if (frame.MasterFrame == null && string.IsNullOrEmpty(frame.BackgroundImagePath))
+                            {
+                                string strTempImage = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".jpg");
+                                using (WebClient webClient = new WebClient())
+                                {
+                                    webClient.DownloadFile(url, strTempImage);
+                                    _lstDeleteFileList.Add(strTempImage);
+                                    frame.BackgroundImagePath = strTempImage;
+                                    if (i != cmbVerses.Items.Count - 1)
+                                    {
+                                        if ((string.IsNullOrEmpty((cmbVerses.Items[i + 1] as GVideoFrame).BackgroundImagePath)))
+                                        {
+                                            (cmbVerses.Items[i + 1] as GVideoFrame).BackgroundImagePath = strTempImage;
+                                        }
+                                    }
+                                }
+                                cmbVerses.SelectedIndex = i;
+                                Application.DoEvents();
+                            }
+
+                        }
+                    }
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show(exp.ToString());
+                }
+                cmbVerses_SelectedIndexChanged(sender, e);
+                this.Enabled = true;
+
+            }
+        }
 
 
 
@@ -874,69 +1001,25 @@ namespace gsync2vid
         }
         #endregion
 
-
-        private List<string> _lstDeleteFileList = new List<string>();
-
-        private void btnPreview_Click(object sender, EventArgs e)
-        {
-            SaveShowPreviewImage();
-        }
-
+        #region Main Operations
+        /// <summary>
+        /// پیش نمایش
+        /// </summary>
         private void SaveShowPreviewImage()
         {
             if (pbxPreview.Image != null)
             {
-                string strTempImage = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".jpg");
+                string strTempImage = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".png");
                 pbxPreview.Image.Save(strTempImage);
                 _lstDeleteFileList.Add(strTempImage);
                 System.Diagnostics.Process.Start(strTempImage);
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            foreach(string fileName in _lstDeleteFileList)
-                try
-                {
-                    File.Delete(fileName);
-                }
-                catch
-                {
-                }
-        }
-
-        private void pbxPreview_Click(object sender, EventArgs e)
-        {
-            SaveShowPreviewImage();
-        }
-
-        private void btnProduce_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog dlg = new SaveFileDialog())
-            {
-                dlg.Filter = "WMV Files (*.wmv)|*.wmv";
-                dlg.FileName = txtPoemId.Text + ".wmv";
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    InitiateRendering(dlg.FileName);
-                }
-            }
-        }
-
-        private void btnSubtitle_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog dlg = new SaveFileDialog())
-            {
-                dlg.Filter = "SRT Files (*.srt)|*.srt";
-                dlg.FileName = txtPoemId.Text + ".srt";
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    CreateSubTitle(dlg.FileName);
-                }
-            }
-        }
-
-
+        /// <summary>
+        /// رندر
+        /// </summary>
+        /// <param name="outfilePath"></param>
         private void InitiateRendering(string outfilePath)
         {
             DbBrowser db = Connect();
@@ -1043,7 +1126,7 @@ namespace gsync2vid
                     }
 
                     Image img = RenderFrame(frame, new Size(nWidth, nHeight));
-                    string filename = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".jpg");
+                    string filename = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".png");
                     img.Save(filename);
 
                     _lstDeleteFileList.Add(filename);
@@ -1233,68 +1316,12 @@ namespace gsync2vid
             MessageBox.Show("زیرنویس ایجاد شد.", "اعلان");
 
         }
-
-
-        /// <summary>
-        /// تصاویر تصادفی
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnRandomImage_Click(object sender, EventArgs e)
-        {
-            string url = String.Format("https://source.unsplash.com/category/nature/{0}x{1}", Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
-            if (MessageBox.Show("با انتخاب این گزینه تصاویر تصادفی از سایت unsplash.com برای زوج قابهای فاقد تصویر زمینه انتخاب می‌شود. آیا موافقید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading
-                | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
-            {
-                this.Enabled = false;
-                try
-                {
-                    int nIdx = -1;
-                    
-                    for(int i=0; i<cmbVerses.Items.Count; i++)
-                    {
-                        GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
-                        if (!frame.AudioBound && frame.MasterFrame != null)
-                        {
-                            continue;
-                        }
-                        nIdx++;
-                        if (nIdx == 0 || (nIdx % 2 == 1))
-                        {
-                            if(string.IsNullOrEmpty(frame.BackgroundImagePath))
-                            {
-                                string strTempImage = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".jpg");
-                                using (WebClient webClient = new WebClient())
-                                {
-                                    webClient.DownloadFile(url, strTempImage);
-                                    _lstDeleteFileList.Add(strTempImage);
-                                    frame.BackgroundImagePath = strTempImage;
-                                    if (i != cmbVerses.Items.Count - 1)
-                                    {
-                                        if ((string.IsNullOrEmpty((cmbVerses.Items[i + 1] as GVideoFrame).BackgroundImagePath)))
-                                        {
-                                            (cmbVerses.Items[i + 1] as GVideoFrame).BackgroundImagePath = strTempImage;
-                                        }
-                                    }
-                                }
-                                cmbVerses.SelectedIndex = i;
-                                Application.DoEvents();
-                            }
-                           
-                        }
-                    }
-                }
-                catch (Exception exp)
-                {
-                    MessageBox.Show(exp.ToString());
-                }
-                this.Enabled = true;
-                
-            }
-        }
+        #endregion
 
 
 
-       
+
+
+
     }
 }
