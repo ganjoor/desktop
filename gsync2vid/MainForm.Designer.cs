@@ -59,7 +59,7 @@
             this.txtComment = new System.Windows.Forms.TextBox();
             this.trckMaxTextWidth = new System.Windows.Forms.TrackBar();
             this.lblMaxTextWidth = new System.Windows.Forms.Label();
-            this.trckHPosition = new System.Windows.Forms.TrackBar();
+            this.trckVPosition = new System.Windows.Forms.TrackBar();
             this.btnPreview = new System.Windows.Forms.Button();
             this.pbxPreview = new System.Windows.Forms.PictureBox();
             this.txtFont = new System.Windows.Forms.TextBox();
@@ -84,6 +84,7 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProduce = new System.Windows.Forms.Button();
             this.btnSubtitle = new System.Windows.Forms.Button();
+            this.trckHPosition = new System.Windows.Forms.TrackBar();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -91,10 +92,11 @@
             this.grpVerses.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtStartInMiliseconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trckVPosition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckAlpha)).BeginInit();
             this.statusStripMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).BeginInit();
             this.SuspendLayout();
             // 
             // grpConnection
@@ -325,6 +327,7 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.trckHPosition);
             this.grpVerses.Controls.Add(this.btnProperties);
             this.grpVerses.Controls.Add(this.btnRandomImage);
             this.grpVerses.Controls.Add(this.chkShowLogo);
@@ -336,7 +339,7 @@
             this.grpVerses.Controls.Add(this.txtComment);
             this.grpVerses.Controls.Add(this.trckMaxTextWidth);
             this.grpVerses.Controls.Add(this.lblMaxTextWidth);
-            this.grpVerses.Controls.Add(this.trckHPosition);
+            this.grpVerses.Controls.Add(this.trckVPosition);
             this.grpVerses.Controls.Add(this.btnPreview);
             this.grpVerses.Controls.Add(this.pbxPreview);
             this.grpVerses.Controls.Add(this.txtFont);
@@ -358,7 +361,7 @@
             this.grpVerses.Controls.Add(this.cmbVerses);
             this.grpVerses.Location = new System.Drawing.Point(7, 181);
             this.grpVerses.Name = "grpVerses";
-            this.grpVerses.Size = new System.Drawing.Size(842, 383);
+            this.grpVerses.Size = new System.Drawing.Size(842, 429);
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
@@ -499,18 +502,18 @@
             this.lblMaxTextWidth.TabIndex = 37;
             this.lblMaxTextWidth.Text = "حداکثر عرض متن:";
             // 
-            // trckHPosition
+            // trckVPosition
             // 
-            this.trckHPosition.LargeChange = 15;
-            this.trckHPosition.Location = new System.Drawing.Point(313, 129);
-            this.trckHPosition.Maximum = 20;
-            this.trckHPosition.Name = "trckHPosition";
-            this.trckHPosition.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trckHPosition.Size = new System.Drawing.Size(45, 227);
-            this.trckHPosition.TabIndex = 36;
-            this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trckHPosition.Value = 10;
-            this.trckHPosition.Scroll += new System.EventHandler(this.trckHPosition_Scroll);
+            this.trckVPosition.LargeChange = 15;
+            this.trckVPosition.Location = new System.Drawing.Point(313, 129);
+            this.trckVPosition.Maximum = 20;
+            this.trckVPosition.Name = "trckVPosition";
+            this.trckVPosition.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trckVPosition.Size = new System.Drawing.Size(45, 227);
+            this.trckVPosition.TabIndex = 36;
+            this.trckVPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trckVPosition.Value = 10;
+            this.trckVPosition.Scroll += new System.EventHandler(this.trckVPosition_Scroll);
             // 
             // btnPreview
             // 
@@ -724,7 +727,7 @@
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.prgrss,
             this.lblStatus});
-            this.statusStripMain.Location = new System.Drawing.Point(0, 591);
+            this.statusStripMain.Location = new System.Drawing.Point(0, 637);
             this.statusStripMain.Name = "statusStripMain";
             this.statusStripMain.Size = new System.Drawing.Size(856, 28);
             this.statusStripMain.SizingGrip = false;
@@ -745,7 +748,7 @@
             // btnProduce
             // 
             this.btnProduce.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnProduce.Location = new System.Drawing.Point(7, 568);
+            this.btnProduce.Location = new System.Drawing.Point(7, 614);
             this.btnProduce.Name = "btnProduce";
             this.btnProduce.Size = new System.Drawing.Size(101, 23);
             this.btnProduce.TabIndex = 12;
@@ -756,7 +759,7 @@
             // btnSubtitle
             // 
             this.btnSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSubtitle.Location = new System.Drawing.Point(110, 568);
+            this.btnSubtitle.Location = new System.Drawing.Point(110, 614);
             this.btnSubtitle.Name = "btnSubtitle";
             this.btnSubtitle.Size = new System.Drawing.Size(101, 23);
             this.btnSubtitle.TabIndex = 14;
@@ -764,11 +767,24 @@
             this.btnSubtitle.UseVisualStyleBackColor = true;
             this.btnSubtitle.Click += new System.EventHandler(this.btnSubtitle_Click);
             // 
+            // trckHPosition
+            // 
+            this.trckHPosition.LargeChange = 15;
+            this.trckHPosition.Location = new System.Drawing.Point(7, 362);
+            this.trckHPosition.Maximum = 20;
+            this.trckHPosition.Name = "trckHPosition";
+            this.trckHPosition.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trckHPosition.Size = new System.Drawing.Size(300, 45);
+            this.trckHPosition.TabIndex = 48;
+            this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trckHPosition.Value = 10;
+            this.trckHPosition.Scroll += new System.EventHandler(this.trckHPosition_Scroll);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 619);
+            this.ClientSize = new System.Drawing.Size(856, 665);
             this.Controls.Add(this.btnSubtitle);
             this.Controls.Add(this.btnProduce);
             this.Controls.Add(this.grpConnection);
@@ -793,11 +809,12 @@
             this.grpVerses.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtStartInMiliseconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trckVPosition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckAlpha)).EndInit();
             this.statusStripMain.ResumeLayout(false);
             this.statusStripMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -842,7 +859,7 @@
         private System.Windows.Forms.NumericUpDown txtWidth;
         private System.Windows.Forms.Label lblWidth;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.TrackBar trckHPosition;
+        private System.Windows.Forms.TrackBar trckVPosition;
         private System.Windows.Forms.TrackBar trckMaxTextWidth;
         private System.Windows.Forms.Label lblMaxTextWidth;
         private System.Windows.Forms.TextBox txtComment;
@@ -860,6 +877,7 @@
         private System.Windows.Forms.Button btnRandomImage;
         private System.Windows.Forms.Button btnSubtitle;
         private System.Windows.Forms.Button btnProperties;
+        private System.Windows.Forms.TrackBar trckHPosition;
     }
 }
 

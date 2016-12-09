@@ -87,12 +87,36 @@ namespace gsync2vid
         /// <summary>
         /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۲ باشد
         /// </summary>
-        [DisplayName("صورت کسر موقعیت افقی متن")]
+        [DisplayName("مخرج کسر موقعیت عمودی متن")]
         public int MainTextPosRatioPortionFrom
         {
             get;
             set;
         }
+
+
+
+        /// <summary>
+        /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۱ باشد
+        /// </summary>
+        [DisplayName("صورت کسر موقعیت افقی متن")]
+        public int MainTextHPosRatioPortion
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۲ باشد
+        /// </summary>
+        [DisplayName("مخرج کسر موقعیت افقی متن")]
+        public int MainTextHPosRatioPortionFrom
+        {
+            get;
+            set;
+        }
+
+
 
         /// <summary>
         /// حداکثر عرض متن صورت کسر

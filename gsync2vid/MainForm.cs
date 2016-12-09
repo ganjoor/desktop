@@ -240,6 +240,8 @@ namespace gsync2vid
                                 BackgroundImagePath = strImagePath,
                                 MainTextPosRatioPortion = 1,
                                 MainTextPosRatioPortionFrom = 4,
+                                MainTextHPosRatioPortion = 1,
+                                MainTextHPosRatioPortionFrom = 2,
                                 MaxTextWidthRatioPortion = 9,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
@@ -268,6 +270,8 @@ namespace gsync2vid
                                 BackgroundImagePath = strImagePath,
                                 MainTextPosRatioPortion = 1,
                                 MainTextPosRatioPortionFrom = 2,
+                                MainTextHPosRatioPortion = 1,
+                                MainTextHPosRatioPortionFrom = 2,
                                 MaxTextWidthRatioPortion = 9,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
@@ -289,6 +293,8 @@ namespace gsync2vid
                                 BackgroundImagePath = strImagePath,
                                 MainTextPosRatioPortion = 3,
                                 MainTextPosRatioPortionFrom = 4,
+                                MainTextHPosRatioPortion = 1,
+                                MainTextHPosRatioPortionFrom = 2,
                                 MaxTextWidthRatioPortion = 9,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
@@ -324,6 +330,8 @@ namespace gsync2vid
                                     BackgroundImagePath = strImagePath,
                                     MainTextPosRatioPortion = 1,
                                     MainTextPosRatioPortionFrom = 2,
+                                    MainTextHPosRatioPortion = 1,
+                                    MainTextHPosRatioPortionFrom = 2,
                                     MaxTextWidthRatioPortion = 9,
                                     MaxTextWidthRatioPortionFrom = 10,
                                     BackColor = Color.White,
@@ -445,7 +453,8 @@ namespace gsync2vid
             btnTextBackColor.BackColor = frame.TextBackColor;
             trckAlpha.Value = frame.TextBackColorAlpha;
             txtFont.Text = frame.Font.Name + "(" + frame.Font.Style.ToString() + ") " + frame.Font.Size.ToString();
-            trckHPosition.Value = trckHPosition.Maximum / frame.MainTextPosRatioPortionFrom * (frame.MainTextPosRatioPortionFrom - frame.MainTextPosRatioPortion);
+            trckVPosition.Value = trckVPosition.Maximum / frame.MainTextPosRatioPortionFrom * (frame.MainTextPosRatioPortionFrom - frame.MainTextPosRatioPortion);
+            trckHPosition.Value = trckHPosition.Maximum / frame.MainTextHPosRatioPortionFrom * frame.MainTextHPosRatioPortion;
             trckMaxTextWidth.Value = trckMaxTextWidth.Maximum / frame.MaxTextWidthRatioPortionFrom * frame.MaxTextWidthRatioPortion;
             chkSlaveFrame.Checked = frame.MasterFrame != null;
             chkShowLogo.Checked = frame.ShowLogo;
@@ -646,7 +655,7 @@ namespace gsync2vid
         }
 
 
-        private void trckHPosition_Scroll(object sender, EventArgs e)
+        private void trckVPosition_Scroll(object sender, EventArgs e)
         {
             if (cmbVerses.SelectedItem == null)
                 return;
@@ -658,8 +667,8 @@ namespace gsync2vid
                 GVideoFrame frame = (cmbVerses.Items[i] as GVideoFrame);
                 if (i == idx || frame.MasterFrame == null)
                 {
-                    frame.MainTextPosRatioPortionFrom = trckHPosition.Maximum;
-                    frame.MainTextPosRatioPortion = (trckHPosition.Maximum - trckHPosition.Value);
+                    frame.MainTextPosRatioPortionFrom = trckVPosition.Maximum;
+                    frame.MainTextPosRatioPortion = (trckVPosition.Maximum - trckVPosition.Value);
 
                     if (i == idx && frame.MasterFrame != null)
                         break;
@@ -669,6 +678,21 @@ namespace gsync2vid
             InvalidatePreview();
 
         }
+
+        private void trckHPosition_Scroll(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+
+            frame.MainTextHPosRatioPortionFrom = trckHPosition.Maximum;
+            frame.MainTextHPosRatioPortion = trckHPosition.Value;
+
+
+            InvalidatePreview();
+        }
+
 
         /// <summary>
         /// تغییر متن
@@ -981,10 +1005,10 @@ namespace gsync2vid
 
                 SizeF szText = g.MeasureString(frame.Text, frame.Font, frame.MaxTextWidthRatioPortion * (int)(txtWidth.Value) / frame.MaxTextWidthRatioPortionFrom, new StringFormat(StringFormatFlags.DirectionRightToLeft));
                 using (SolidBrush bkTextBrush = new SolidBrush(Color.FromArgb(frame.TextBackColorAlpha, frame.TextBackColor)))
-                    g.FillRectangle(bkTextBrush, (szImageSize.Width / 2) - szText.Width / 2, (frame.MainTextPosRatioPortion * szImageSize.Height / frame.MainTextPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height);
+                    g.FillRectangle(bkTextBrush, (frame.MainTextHPosRatioPortion * szImageSize.Width / frame.MainTextHPosRatioPortionFrom) - szText.Width / 2, (frame.MainTextPosRatioPortion * szImageSize.Height / frame.MainTextPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height);
                 using (SolidBrush txtBrush = new SolidBrush(frame.TextColor))
                     g.DrawString(frame.Text, frame.Font, txtBrush,
-                        new RectangleF((szImageSize.Width / 2) - szText.Width / 2, (frame.MainTextPosRatioPortion * szImageSize.Height / frame.MainTextPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height)
+                        new RectangleF((frame.MainTextHPosRatioPortion * szImageSize.Width / frame.MainTextHPosRatioPortionFrom) - szText.Width / 2, (frame.MainTextPosRatioPortion * szImageSize.Height / frame.MainTextPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height)
                         , new StringFormat(StringFormatFlags.DirectionRightToLeft)
                         );
 
@@ -1317,6 +1341,7 @@ namespace gsync2vid
 
         }
         #endregion
+
 
 
 
