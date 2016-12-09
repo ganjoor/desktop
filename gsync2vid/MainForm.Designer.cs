@@ -48,6 +48,7 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.btnProperties = new System.Windows.Forms.Button();
             this.btnRandomImage = new System.Windows.Forms.Button();
             this.chkShowLogo = new System.Windows.Forms.CheckBox();
             this.btnEditText = new System.Windows.Forms.Button();
@@ -324,6 +325,7 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.btnProperties);
             this.grpVerses.Controls.Add(this.btnRandomImage);
             this.grpVerses.Controls.Add(this.chkShowLogo);
             this.grpVerses.Controls.Add(this.btnEditText);
@@ -360,6 +362,17 @@
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
+            // 
+            // btnProperties
+            // 
+            this.btnProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnProperties.Location = new System.Drawing.Point(635, 339);
+            this.btnProperties.Name = "btnProperties";
+            this.btnProperties.Size = new System.Drawing.Size(156, 23);
+            this.btnProperties.TabIndex = 47;
+            this.btnProperties.Text = "تنظیم دستی ویژگیهای قاب";
+            this.btnProperties.UseVisualStyleBackColor = true;
+            this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
             // 
             // btnRandomImage
             // 
@@ -846,6 +859,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.Button btnRandomImage;
         private System.Windows.Forms.Button btnSubtitle;
+        private System.Windows.Forms.Button btnProperties;
     }
 }
 
