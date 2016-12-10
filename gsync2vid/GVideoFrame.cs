@@ -149,25 +149,6 @@ namespace gsync2vid
             set;
         }
 
-        /// <summary>
-        /// رنگ زمینه متن اصلی
-        /// </summary>
-        [DisplayName("رنگ زمینه متن")]
-        public Color TextBackColor
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// میزان شفافیت رنگ زمینه متن اصلی
-        /// </summary>
-        [DisplayName("شفافیت رنگ زمینه متن")]
-        public int TextBackColorAlpha
-        {
-            get;
-            set;
-        }
 
         /// <summary>
         /// قاب صاحب
@@ -188,6 +169,57 @@ namespace gsync2vid
             get;
             set;
         }
+
+        [DisplayName("شکل محیطی متن")]
+        [TypeConverter(typeof(GTextBoxShapeConvertor))]
+        public GTextBoxShape Shape
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// رنگ زمینه متن اصلی
+        /// </summary>
+        [DisplayName("رنگ زمینه محیطی متن")]
+        public Color TextBackColor
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// میزان شفافیت رنگ زمینه متن اصلی
+        /// </summary>
+        [DisplayName("شفافیت رنگ زمینه محیطی متن")]
+        public int TextBackColorAlpha
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// ضخامت مرز مستطیل زمینه:
+        /// </summary>
+        [DisplayName("ضخامت مرز محیطی زمینه")]
+        public int TextBackRectThickness
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// رنگ مرز محیطی متن
+        /// </summary>
+        [DisplayName("رنگ مرز محیطی متن")]
+        public Color BorderColor
+        {
+            get;
+            set;
+        }
+
+
+
 
 
         public override string ToString()
