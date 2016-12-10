@@ -247,7 +247,10 @@ namespace gsync2vid
                                 BackColor = Color.White,
                                 TextColor = Color.White,
                                 TextBackColor = Color.Black,
+                                BorderColor = Color.Black,
                                 TextBackColorAlpha = 100,
+                                Shape = GTextBoxShape.Rectangle,
+                                TextBackRectThickness = 0,
                                 Font = Settings.Default.LastUsedFont,
                                 ShowLogo = true
                             };
@@ -277,7 +280,10 @@ namespace gsync2vid
                                 BackColor = Color.White,
                                 TextColor = Color.White,
                                 TextBackColor = Color.Black,
+                                BorderColor = Color.Black,
                                 TextBackColorAlpha = 100,
+                                Shape = GTextBoxShape.Rectangle,
+                                TextBackRectThickness = 0,
                                 Font = Settings.Default.LastUsedFont,
                                 MasterFrame = titleFrame,
                                 ShowLogo = false
@@ -300,7 +306,10 @@ namespace gsync2vid
                                 BackColor = Color.White,
                                 TextColor = Color.White,
                                 TextBackColor = Color.Black,
+                                BorderColor = Color.Black,
                                 TextBackColorAlpha = 100,
+                                Shape = GTextBoxShape.Rectangle,
+                                TextBackRectThickness = 0,
                                 Font = Settings.Default.LastUsedFont,
                                 MasterFrame = poemFrame,
                                 ShowLogo = false
@@ -337,7 +346,10 @@ namespace gsync2vid
                                     BackColor = Color.White,
                                     TextColor = Color.White,
                                     TextBackColor = Color.Black,
+                                    BorderColor = Color.Black,
                                     TextBackColorAlpha = 100,
+                                    Shape = GTextBoxShape.Rectangle,
+                                    TextBackRectThickness = 0,
                                     Font = Settings.Default.LastUsedFont,
                                     ShowLogo = false
                                 });
@@ -451,7 +463,9 @@ namespace gsync2vid
             btnBackColor.BackColor = frame.BackColor;
             btnTextColor.BackColor = frame.TextColor;
             btnTextBackColor.BackColor = frame.TextBackColor;
+            btnBorderColor.BackColor = frame.BorderColor;
             trckAlpha.Value = frame.TextBackColorAlpha;
+            txtThickness.Value = frame.TextBackRectThickness;
             txtFont.Text = frame.Font.Name + "(" + frame.Font.Style.ToString() + ") " + frame.Font.Size.ToString();
             trckVPosition.Value = trckVPosition.Maximum / frame.MainTextPosRatioPortionFrom * (frame.MainTextPosRatioPortionFrom - frame.MainTextPosRatioPortion);
             trckHPosition.Value = trckHPosition.Maximum / frame.MainTextHPosRatioPortionFrom * frame.MainTextHPosRatioPortion;
@@ -562,6 +576,30 @@ namespace gsync2vid
                 }
             }
         }
+
+        private void btnBorderColor_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            using (ColorDialog dlg = new ColorDialog())
+            {
+                dlg.Color = btnBorderColor.BackColor;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    int idx = cmbVerses.SelectedIndex;
+
+                    for (int i = idx; i < cmbVerses.Items.Count; i++)
+                        (cmbVerses.Items[i] as GVideoFrame).BorderColor = dlg.Color;
+
+
+                    btnBorderColor.BackColor = dlg.Color;
+
+                    InvalidatePreview();
+                }
+            }
+        }
+
 
         private void btnTextColor_Click(object sender, EventArgs e)
         {
@@ -752,6 +790,26 @@ namespace gsync2vid
 
             InvalidatePreview();
         }
+
+        private void txtThickness_ValueChanged(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            int idx = cmbVerses.SelectedIndex;
+
+            for (int i = idx; i < cmbVerses.Items.Count; i++)
+            {
+                GVideoFrame frame = (cmbVerses.Items[i] as GVideoFrame);
+                frame.TextBackRectThickness = (int)txtThickness.Value;
+
+                if (i == idx && frame.MasterFrame != null)
+                    break;
+            }
+
+            InvalidatePreview();
+        }
+
 
         private void btnProperties_Click(object sender, EventArgs e)
         {
@@ -1004,11 +1062,41 @@ namespace gsync2vid
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
                 SizeF szText = g.MeasureString(frame.Text, frame.Font, frame.MaxTextWidthRatioPortion * (int)(txtWidth.Value) / frame.MaxTextWidthRatioPortionFrom, new StringFormat(StringFormatFlags.DirectionRightToLeft));
+                RectangleF rcText = new RectangleF((frame.MainTextHPosRatioPortion * szImageSize.Width / frame.MainTextHPosRatioPortionFrom) - szText.Width / 2, (frame.MainTextPosRatioPortion * szImageSize.Height / frame.MainTextPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height);
                 using (SolidBrush bkTextBrush = new SolidBrush(Color.FromArgb(frame.TextBackColorAlpha, frame.TextBackColor)))
-                    g.FillRectangle(bkTextBrush, (frame.MainTextHPosRatioPortion * szImageSize.Width / frame.MainTextHPosRatioPortionFrom) - szText.Width / 2, (frame.MainTextPosRatioPortion * szImageSize.Height / frame.MainTextPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height);
+                {
+                    switch (frame.Shape)
+                    {
+                        case GTextBoxShape.RoundRect:
+                            {
+                                Rectangle rcBorder = new Rectangle((int) rcText.X,(int) rcText.Y, (int)rcText.Width ,(int)rcText.Height   );
+                                rcBorder.X -= frame.TextBackRectThickness;
+                                rcBorder.Y -= frame.TextBackRectThickness;
+                                rcBorder.Width += 2*frame.TextBackRectThickness;
+                                rcBorder.Height += 2 * frame.TextBackRectThickness;
+                                g.FillRoundedRectangle(bkTextBrush, rcBorder, (int)(rcBorder.Height / 4));
+                                if (frame.TextBackRectThickness > 0)
+                                {
+                                    using (Pen pen = new Pen(frame.BorderColor, (float)frame.TextBackRectThickness))
+                                        g.DrawRoundedRectangle(pen, rcBorder, (int)(rcBorder.Height / 4));
+                                }
+                            }
+                            break;
+                        default:
+                            {
+                                g.FillRectangle(bkTextBrush, rcText);
+                                if (frame.TextBackRectThickness > 0)
+                                {
+                                    using (Pen pen = new Pen(frame.BorderColor, (float)frame.TextBackRectThickness))
+                                        g.DrawRectangle(pen, rcText.X - frame.TextBackRectThickness / 2, rcText.Y - frame.TextBackRectThickness / 2, rcText.Width + frame.TextBackRectThickness, rcText.Height + frame.TextBackRectThickness);
+                                }
+                            }
+                            break;
+                    }
+                }
                 using (SolidBrush txtBrush = new SolidBrush(frame.TextColor))
                     g.DrawString(frame.Text, frame.Font, txtBrush,
-                        new RectangleF((frame.MainTextHPosRatioPortion * szImageSize.Width / frame.MainTextHPosRatioPortionFrom) - szText.Width / 2, (frame.MainTextPosRatioPortion * szImageSize.Height / frame.MainTextPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height)
+                        rcText
                         , new StringFormat(StringFormatFlags.DirectionRightToLeft)
                         );
 
@@ -1341,6 +1429,7 @@ namespace gsync2vid
 
         }
         #endregion
+
 
 
 

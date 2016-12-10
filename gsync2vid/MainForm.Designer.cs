@@ -48,6 +48,9 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.txtThickness = new System.Windows.Forms.NumericUpDown();
+            this.lblThickness = new System.Windows.Forms.Label();
+            this.trckHPosition = new System.Windows.Forms.TrackBar();
             this.btnProperties = new System.Windows.Forms.Button();
             this.btnRandomImage = new System.Windows.Forms.Button();
             this.chkShowLogo = new System.Windows.Forms.CheckBox();
@@ -84,19 +87,21 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProduce = new System.Windows.Forms.Button();
             this.btnSubtitle = new System.Windows.Forms.Button();
-            this.trckHPosition = new System.Windows.Forms.TrackBar();
+            this.btnBorderColor = new System.Windows.Forms.Button();
+            this.lblBorderColor = new System.Windows.Forms.Label();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtWidth)).BeginInit();
             this.grpVerses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtThickness)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtStartInMiliseconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckVPosition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckAlpha)).BeginInit();
             this.statusStripMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).BeginInit();
             this.SuspendLayout();
             // 
             // grpConnection
@@ -327,6 +332,10 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.btnBorderColor);
+            this.grpVerses.Controls.Add(this.lblBorderColor);
+            this.grpVerses.Controls.Add(this.txtThickness);
+            this.grpVerses.Controls.Add(this.lblThickness);
             this.grpVerses.Controls.Add(this.trckHPosition);
             this.grpVerses.Controls.Add(this.btnProperties);
             this.grpVerses.Controls.Add(this.btnRandomImage);
@@ -366,10 +375,47 @@
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
             // 
+            // txtThickness
+            // 
+            this.txtThickness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtThickness.Location = new System.Drawing.Point(605, 264);
+            this.txtThickness.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.txtThickness.Name = "txtThickness";
+            this.txtThickness.Size = new System.Drawing.Size(57, 21);
+            this.txtThickness.TabIndex = 51;
+            this.txtThickness.ValueChanged += new System.EventHandler(this.txtThickness_ValueChanged);
+            // 
+            // lblThickness
+            // 
+            this.lblThickness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblThickness.AutoSize = true;
+            this.lblThickness.Location = new System.Drawing.Point(667, 268);
+            this.lblThickness.Name = "lblThickness";
+            this.lblThickness.Size = new System.Drawing.Size(124, 13);
+            this.lblThickness.TabIndex = 50;
+            this.lblThickness.Text = "ضخامت مرز محیطی متن:";
+            // 
+            // trckHPosition
+            // 
+            this.trckHPosition.LargeChange = 15;
+            this.trckHPosition.Location = new System.Drawing.Point(7, 362);
+            this.trckHPosition.Maximum = 20;
+            this.trckHPosition.Name = "trckHPosition";
+            this.trckHPosition.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trckHPosition.Size = new System.Drawing.Size(300, 45);
+            this.trckHPosition.TabIndex = 48;
+            this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trckHPosition.Value = 10;
+            this.trckHPosition.Scroll += new System.EventHandler(this.trckHPosition_Scroll);
+            // 
             // btnProperties
             // 
             this.btnProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnProperties.Location = new System.Drawing.Point(635, 339);
+            this.btnProperties.Location = new System.Drawing.Point(635, 371);
             this.btnProperties.Name = "btnProperties";
             this.btnProperties.Size = new System.Drawing.Size(156, 23);
             this.btnProperties.TabIndex = 47;
@@ -391,7 +437,7 @@
             // 
             this.chkShowLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowLogo.AutoSize = true;
-            this.chkShowLogo.Location = new System.Drawing.Point(676, 316);
+            this.chkShowLogo.Location = new System.Drawing.Point(676, 348);
             this.chkShowLogo.Name = "chkShowLogo";
             this.chkShowLogo.Size = new System.Drawing.Size(115, 17);
             this.chkShowLogo.TabIndex = 45;
@@ -440,11 +486,6 @@
             0,
             0,
             0});
-            this.txtStartInMiliseconds.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
             this.txtStartInMiliseconds.Name = "txtStartInMiliseconds";
             this.txtStartInMiliseconds.Size = new System.Drawing.Size(57, 21);
             this.txtStartInMiliseconds.TabIndex = 41;
@@ -469,7 +510,7 @@
             this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtComment.Location = new System.Drawing.Point(412, 259);
+            this.txtComment.Location = new System.Drawing.Point(412, 291);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
             this.txtComment.ReadOnly = true;
@@ -767,18 +808,26 @@
             this.btnSubtitle.UseVisualStyleBackColor = true;
             this.btnSubtitle.Click += new System.EventHandler(this.btnSubtitle_Click);
             // 
-            // trckHPosition
+            // btnBorderColor
             // 
-            this.trckHPosition.LargeChange = 15;
-            this.trckHPosition.Location = new System.Drawing.Point(7, 362);
-            this.trckHPosition.Maximum = 20;
-            this.trckHPosition.Name = "trckHPosition";
-            this.trckHPosition.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.trckHPosition.Size = new System.Drawing.Size(300, 45);
-            this.trckHPosition.TabIndex = 48;
-            this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trckHPosition.Value = 10;
-            this.trckHPosition.Scroll += new System.EventHandler(this.trckHPosition_Scroll);
+            this.btnBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBorderColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBorderColor.Location = new System.Drawing.Point(516, 264);
+            this.btnBorderColor.Name = "btnBorderColor";
+            this.btnBorderColor.Size = new System.Drawing.Size(28, 23);
+            this.btnBorderColor.TabIndex = 53;
+            this.btnBorderColor.UseVisualStyleBackColor = true;
+            this.btnBorderColor.Click += new System.EventHandler(this.btnBorderColor_Click);
+            // 
+            // lblBorderColor
+            // 
+            this.lblBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBorderColor.AutoSize = true;
+            this.lblBorderColor.Location = new System.Drawing.Point(550, 268);
+            this.lblBorderColor.Name = "lblBorderColor";
+            this.lblBorderColor.Size = new System.Drawing.Size(47, 13);
+            this.lblBorderColor.TabIndex = 52;
+            this.lblBorderColor.Text = "رنگ مرز:";
             // 
             // MainForm
             // 
@@ -807,6 +856,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtWidth)).EndInit();
             this.grpVerses.ResumeLayout(false);
             this.grpVerses.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtThickness)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtStartInMiliseconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckVPosition)).EndInit();
@@ -814,7 +865,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trckAlpha)).EndInit();
             this.statusStripMain.ResumeLayout(false);
             this.statusStripMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -878,6 +928,10 @@
         private System.Windows.Forms.Button btnSubtitle;
         private System.Windows.Forms.Button btnProperties;
         private System.Windows.Forms.TrackBar trckHPosition;
+        private System.Windows.Forms.NumericUpDown txtThickness;
+        private System.Windows.Forms.Label lblThickness;
+        private System.Windows.Forms.Button btnBorderColor;
+        private System.Windows.Forms.Label lblBorderColor;
     }
 }
 
