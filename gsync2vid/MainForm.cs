@@ -1238,7 +1238,7 @@ namespace gsync2vid
                     }
 
                     Image img = RenderFrame(frame, new Size(nWidth, nHeight));
-                    string filename = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".png");
+                    string filename = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".jpg"); //this is important! : jpg not png - although it's png by heart!
                     img.Save(filename);
 
                     _lstDeleteFileList.Add(filename);
