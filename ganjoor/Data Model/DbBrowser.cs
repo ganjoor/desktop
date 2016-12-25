@@ -504,7 +504,8 @@ namespace ganjoor
                         ?
                         "SELECT poem_id FROM verse WHERE text LIKE '%" + phrase + "%' GROUP BY poem_id LIMIT "+PageStart.ToString()+","+Count.ToString()
                         :
-                        "SELECT poem_id FROM (verse INNER JOIN poem ON verse.poem_id=poem.id) INNER JOIN cat ON cat.id =cat_id WHERE verse.text LIKE '%" + phrase + "%' AND poet_id=" + PoetID.ToString() + " GROUP BY poem_id LIMIT " + PageStart.ToString() + "," + Count.ToString()
+                        //کوئری جایگزین توسط آقای سیدرضی علوی زاده برنامه نویس ساغز پیشنهاد شده که از کوئری پیشین سریع تر است
+                        String.Format("SELECT poem_id FROM verse WHERE poem_id IN (SELECT id FROM poem WHERE cat_id IN (SELECT id FROM cat WHERE poet_id={0})) AND text LIKE '%{1}%' GROUP BY poem_id LIMIT {2}, {3}", PoetID, phrase, PageStart, Count)
                         ;
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
                     {
