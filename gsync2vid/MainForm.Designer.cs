@@ -48,6 +48,8 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.btnBorderColor = new System.Windows.Forms.Button();
+            this.lblBorderColor = new System.Windows.Forms.Label();
             this.txtThickness = new System.Windows.Forms.NumericUpDown();
             this.lblThickness = new System.Windows.Forms.Label();
             this.trckHPosition = new System.Windows.Forms.TrackBar();
@@ -87,8 +89,7 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProduce = new System.Windows.Forms.Button();
             this.btnSubtitle = new System.Windows.Forms.Button();
-            this.btnBorderColor = new System.Windows.Forms.Button();
-            this.lblBorderColor = new System.Windows.Forms.Label();
+            this.btnPairNext = new System.Windows.Forms.Button();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -332,6 +333,7 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.btnPairNext);
             this.grpVerses.Controls.Add(this.btnBorderColor);
             this.grpVerses.Controls.Add(this.lblBorderColor);
             this.grpVerses.Controls.Add(this.txtThickness);
@@ -374,6 +376,27 @@
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
+            // 
+            // btnBorderColor
+            // 
+            this.btnBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBorderColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBorderColor.Location = new System.Drawing.Point(516, 264);
+            this.btnBorderColor.Name = "btnBorderColor";
+            this.btnBorderColor.Size = new System.Drawing.Size(28, 23);
+            this.btnBorderColor.TabIndex = 53;
+            this.btnBorderColor.UseVisualStyleBackColor = true;
+            this.btnBorderColor.Click += new System.EventHandler(this.btnBorderColor_Click);
+            // 
+            // lblBorderColor
+            // 
+            this.lblBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBorderColor.AutoSize = true;
+            this.lblBorderColor.Location = new System.Drawing.Point(550, 268);
+            this.lblBorderColor.Name = "lblBorderColor";
+            this.lblBorderColor.Size = new System.Drawing.Size(47, 13);
+            this.lblBorderColor.TabIndex = 52;
+            this.lblBorderColor.Text = "رنگ مرز:";
             // 
             // txtThickness
             // 
@@ -468,7 +491,7 @@
             // chkSlaveFrame
             // 
             this.chkSlaveFrame.AutoSize = true;
-            this.chkSlaveFrame.Location = new System.Drawing.Point(5, 50);
+            this.chkSlaveFrame.Location = new System.Drawing.Point(44, 50);
             this.chkSlaveFrame.Name = "chkSlaveFrame";
             this.chkSlaveFrame.Size = new System.Drawing.Size(118, 17);
             this.chkSlaveFrame.TabIndex = 42;
@@ -808,26 +831,15 @@
             this.btnSubtitle.UseVisualStyleBackColor = true;
             this.btnSubtitle.Click += new System.EventHandler(this.btnSubtitle_Click);
             // 
-            // btnBorderColor
+            // btnPairNext
             // 
-            this.btnBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBorderColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBorderColor.Location = new System.Drawing.Point(516, 264);
-            this.btnBorderColor.Name = "btnBorderColor";
-            this.btnBorderColor.Size = new System.Drawing.Size(28, 23);
-            this.btnBorderColor.TabIndex = 53;
-            this.btnBorderColor.UseVisualStyleBackColor = true;
-            this.btnBorderColor.Click += new System.EventHandler(this.btnBorderColor_Click);
-            // 
-            // lblBorderColor
-            // 
-            this.lblBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBorderColor.AutoSize = true;
-            this.lblBorderColor.Location = new System.Drawing.Point(550, 268);
-            this.lblBorderColor.Name = "lblBorderColor";
-            this.lblBorderColor.Size = new System.Drawing.Size(47, 13);
-            this.lblBorderColor.TabIndex = 52;
-            this.lblBorderColor.Text = "رنگ مرز:";
+            this.btnPairNext.Location = new System.Drawing.Point(7, 47);
+            this.btnPairNext.Name = "btnPairNext";
+            this.btnPairNext.Size = new System.Drawing.Size(29, 23);
+            this.btnPairNext.TabIndex = 54;
+            this.btnPairNext.Text = "O";
+            this.btnPairNext.UseVisualStyleBackColor = true;
+            this.btnPairNext.Click += new System.EventHandler(this.btnPairNext_Click);
             // 
             // MainForm
             // 
@@ -932,6 +944,7 @@
         private System.Windows.Forms.Label lblThickness;
         private System.Windows.Forms.Button btnBorderColor;
         private System.Windows.Forms.Label lblBorderColor;
+        private System.Windows.Forms.Button btnPairNext;
     }
 }
 
