@@ -684,8 +684,11 @@ namespace gsync2vid
 
                     txtFont.Text = frame.Font.Name + "(" + frame.Font.Style.ToString() + ") " + frame.Font.Size.ToString();
 
-                    Settings.Default.LastUsedFont = frame.Font;
-                    Settings.Default.Save();
+                    if (frame.MasterFrame == null)
+                    {
+                        Settings.Default.LastUsedFont = frame.Font;
+                        Settings.Default.Save();
+                    }
 
                     InvalidatePreview();
                 }
@@ -896,6 +899,42 @@ namespace gsync2vid
             MessageBox.Show("امکان فعال کردن این گزینه برای این قاب وجود ندارد.", "خطا");
         }
 
+        /// <summary>
+        /// یکی کردن بعدیها یکی در میان
+        /// </summary>
+        private void btnPairNext_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+            if (frame != null)
+            {
+                if (chkSlaveFrame.Checked)
+                {
+                    MessageBox.Show("امکان فعال کردن این گزینه برای این قاب وجود ندارد.", "خطا");
+                    return;
+                }
+            }
+
+            if (MessageBox.Show("آیا تمایل دارید قاب بعدی با این قاب یکی شود و این الگو تا آخر تکرار شود؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+            {
+                int idx = cmbVerses.SelectedIndex;
+
+                for (int i = (idx+1); i < cmbVerses.Items.Count; i+=2)
+                {
+                    frame = cmbVerses.Items[i] as GVideoFrame;
+                    frame.MasterFrame = (cmbVerses.Items[i - 1] as GVideoFrame);
+
+                    frame.MainTextPosRatioPortion = frame.MainTextPosRatioPortionFrom  - frame.MasterFrame.MainTextPosRatioPortion;
+
+                }
+                InvalidatePreview();
+
+            }
+        }
+
+
 
         private List<string> _lstDeleteFileList = new List<string>();
 
@@ -955,13 +994,19 @@ namespace gsync2vid
         /// <param name="e"></param>
         private void btnRandomImage_Click(object sender, EventArgs e)
         {
-            string url = String.Format(
-                "https://source.unsplash.com/random/{0}x{1}"
-                //"https://source.unsplash.com/category/nature/{0}x{1}"
-                , Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
+            
             if (MessageBox.Show("با انتخاب این گزینه تصاویر تصادفی از سایت unsplash.com برای زوج قابهای فاقد تصویر زمینه انتخاب می‌شود. آیا موافقید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading
                 | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
             {
+                using (UnsplashImageTypeForm dlg = new UnsplashImageTypeForm())
+                {
+                    if (dlg.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
+                        return;
+                }
+
+                string url = String.Format(Settings.Default.UnsplashSearchUrl
+                    , Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
+
                 this.Enabled = false;
                 try
                 {
@@ -1009,6 +1054,8 @@ namespace gsync2vid
 
             }
         }
+
+
 
 
 
@@ -1429,6 +1476,7 @@ namespace gsync2vid
 
         }
         #endregion
+
 
 
 

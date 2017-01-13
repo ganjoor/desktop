@@ -106,5 +106,29 @@ namespace gsync2vid.Properties {
                 this["LastImagePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://source.unsplash.com/random/{0}x{1}")]
+        public string UnsplashSearchUrl {
+            get {
+                return ((string)(this["UnsplashSearchUrl"]));
+            }
+            set {
+                this["UnsplashSearchUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("nature")]
+        public string UnsplashSearchTerm {
+            get {
+                return ((string)(this["UnsplashSearchTerm"]));
+            }
+            set {
+                this["UnsplashSearchTerm"] = value;
+            }
+        }
     }
 }

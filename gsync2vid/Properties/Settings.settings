@@ -23,5 +23,11 @@
     <Setting Name="LastImagePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="UnsplashSearchUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://source.unsplash.com/random/{0}x{1}</Value>
+    </Setting>
+    <Setting Name="UnsplashSearchTerm" Type="System.String" Scope="User">
+      <Value Profile="(Default)">nature</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
