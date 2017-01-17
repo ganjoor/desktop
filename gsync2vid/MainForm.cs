@@ -822,8 +822,19 @@ namespace gsync2vid
 
             using (ObjectPropertisEditor dlg = new ObjectPropertisEditor())
             {
-                dlg.Object = cmbVerses.SelectedItem as GVideoFrame;
+                GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+                dlg.Object = frame;
+                GTextBoxShape oldShape = frame.Shape;
                 dlg.ShowDialog(this);
+                if (oldShape != frame.Shape)
+                {
+                    int idx = cmbVerses.SelectedIndex;
+
+                    for (int i = idx+1; i < cmbVerses.Items.Count; i++)
+                    {
+                        (cmbVerses.Items[i] as GVideoFrame).Shape = frame.Shape;
+                    }
+                }
                 cmbVerses_SelectedIndexChanged(sender, e);
             }
         }
