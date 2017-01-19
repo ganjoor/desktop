@@ -36,6 +36,7 @@
             this.btnSync = new System.Windows.Forms.ToolStripButton();
             this.btnMoveToTop = new System.Windows.Forms.ToolStripButton();
             this.btnDel = new System.Windows.Forms.ToolStripButton();
+            this.btnFixExport = new System.Windows.Forms.ToolStripButton();
             this.btnImport = new System.Windows.Forms.ToolStripButton();
             this.btnExport = new System.Windows.Forms.ToolStripButton();
             this.sep2 = new System.Windows.Forms.ToolStripSeparator();
@@ -45,7 +46,6 @@
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSynced = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnFixExport = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -122,6 +122,17 @@
             this.btnDel.Size = new System.Drawing.Size(52, 22);
             this.btnDel.Text = "حذف";
             this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+            // 
+            // btnFixExport
+            // 
+            this.btnFixExport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnFixExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFixExport.Image = global::ganjoor.Properties.Resources.gear16;
+            this.btnFixExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFixExport.Name = "btnFixExport";
+            this.btnFixExport.Size = new System.Drawing.Size(23, 22);
+            this.btnFixExport.Text = "رفع اشکال همگامسازیهای قدیمی با تقسیم شروع آنها بر ۲";
+            this.btnFixExport.Click += new System.EventHandler(this.btnFixExport_Click);
             // 
             // btnImport
             // 
@@ -210,17 +221,6 @@
             this.clmnSynced.Name = "clmnSynced";
             this.clmnSynced.ReadOnly = true;
             this.clmnSynced.Width = 50;
-            // 
-            // btnFixExport
-            // 
-            this.btnFixExport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnFixExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFixExport.Image = global::ganjoor.Properties.Resources.gear16;
-            this.btnFixExport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFixExport.Name = "btnFixExport";
-            this.btnFixExport.Size = new System.Drawing.Size(23, 22);
-            this.btnFixExport.Text = "toolStripButton1";
-            this.btnFixExport.Click += new System.EventHandler(this.btnFixExport_Click);
             // 
             // AudioFiles
             // 
