@@ -48,7 +48,7 @@ namespace ganjoor
             new string[] {"کامران مشایخی", "", "اشعار ترکی شهریار", "http://blog.ganjoor.net/1390/02/02/shahriar-turki/"},
             new string[] {"کامران مشایخی", "", "گزیدهٔ اشعار ترکی شاه اسماعیل صفوی", "http://blog.ganjoor.net/1390/02/11/shah-esmaeel-torki/"},
             new string[] {"الف. رسته", "", "قسمت دوم حیدربابای استاد شهریار", "http://blog.ganjoor.net/1391/02/16/heydarbaba2/"},
-            new string[] {"سیاوش کیانی", "", "گرشاسپ‌نامهٔ اسدی توسی", "http://blog.ganjoor.net/1391/02/16/asadi-garshaspname/"},
+            new string[] {"سیاوش جعفری", "", "گرشاسپ‌نامهٔ اسدی توسی", "http://blog.ganjoor.net/1391/02/16/asadi-garshaspname/"},
             new string[] {"محمودرضا رجایی", "", "حدیقهٔ سنایی", "http://blog.ganjoor.net/1391/07/03/hadighe/"},
             new string[] {"محمودرضا رجایی", "", "کشف‌المحجوب هجویری", "http://blog.ganjoor.net/1391/07/08/kashf-ol-mahjoob/"},
             new string[] {"عباس معاذاللهی", "", "شاطر عباس صبوحی", "http://ganjoor.net/sources/shaterabbas/"},
@@ -67,6 +67,8 @@ namespace ganjoor
             new string[] {"ابوالفضل فتحی آزاد", "http://afasoft.ir/", "اشعار ترانه‌های سیاوش قمیشی", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
             new string[] {"اسحاق فروزنده", "", "گزیدۀ اشعار پژمان بختیاری", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
             new string[] {"محمد ملکشاهی و همراهانشان", "", "غزلیات ابن حسام خوسفی", "http://blog.ganjoor.net/1394/12/29/ebnehesam-khusfi/"},
+            new string[] {"سیاوش جعفری", "", "فیه ما فیه و مجالس سبعه مولانا", "http://blog.ganjoor.net/1395/11/15/vtv-mlv/"},
+            new string[] {"سیاوش جعفری", "", "رشیدالدین وطواط", "http://blog.ganjoor.net/1395/11/15/vtv-mlv/"},
         };
 
         private const int GRDCLMN_NAME = 0;
