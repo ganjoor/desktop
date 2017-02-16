@@ -29,5 +29,11 @@
     <Setting Name="UnsplashSearchTerm" Type="System.String" Scope="User">
       <Value Profile="(Default)">nature</Value>
     </Setting>
+    <Setting Name="FFmpegPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="VidDefExt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">wmv</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

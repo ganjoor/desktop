@@ -14,7 +14,8 @@ using Splicer.Renderer;
 using Splicer.WindowsMedia;
 using NAudio.Wave;
 using System.Net;
-
+using System.Reflection;
+using System.Diagnostics;
 
 namespace gsync2vid
 {
@@ -976,10 +977,21 @@ namespace gsync2vid
         {
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
-                dlg.Filter = "WMV Files (*.wmv)|*.wmv";
-                dlg.FileName = txtPoemId.Text + ".wmv";
+                if (string.IsNullOrEmpty(Settings.Default.VidDefExt))
+                {
+                    Settings.Default.VidDefExt = ".wmv";
+                }
+                dlg.Filter =
+                    Settings.Default.VidDefExt == ".wmv" ?
+                    "WMV Files (*.wmv)|*.wmv|MP4 Files (*.mp4)|*.mp4"
+                    :
+                    "MP4 Files (*.mp4)|*.mp4|WMV Files (*.wmv)|*.wmv";
+                dlg.DefaultExt = Settings.Default.VidDefExt;
+                dlg.FileName = txtPoemId.Text;
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
+                    Settings.Default.VidDefExt = Path.GetExtension(dlg.FileName);
+                    Settings.Default.Save();
                     InitiateRendering(dlg.FileName);
                 }
             }
@@ -1182,7 +1194,7 @@ namespace gsync2vid
                 string strTempImage = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".png");
                 pbxPreview.Image.Save(strTempImage);
                 _lstDeleteFileList.Add(strTempImage);
-                System.Diagnostics.Process.Start(strTempImage);
+                Process.Start(strTempImage);
             }
         }
 
@@ -1192,6 +1204,61 @@ namespace gsync2vid
         /// <param name="outfilePath"></param>
         private void InitiateRendering(string outfilePath)
         {
+
+            bool bIsWmv = Path.GetExtension(outfilePath).Equals(".wmv", StringComparison.InvariantCultureIgnoreCase);
+
+            string ffmpegPath = Settings.Default.FFmpegPath;
+            if(!bIsWmv)
+            {
+                if (string.IsNullOrEmpty(ffmpegPath))
+                    ffmpegPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ffmpeg");
+                if(!File.Exists(Path.Combine(ffmpegPath, "ffmpeg.exe")))
+                {
+                    if(MessageBox.Show("برای تولید خروجی MP4 باید ffmpeg را دریافت و در مسیری باز کرده باشید.\nآیا این کار را کرده‌اید؟", "پرسش",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                        == DialogResult.Yes)
+                    {
+                        MessageBox.Show("لطفا در مرحلهٔ بعد فایل ffmpeg.exe را از مسیر مورد نظر انتخاب کنید.", "آگاهی",
+                                          MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
+                        using (OpenFileDialog dlg = new OpenFileDialog())
+                        {
+                            dlg.Filter = "*EXE Files (*.exe)|*.exe";
+                            dlg.FileName = "ffmpeg.exe";
+                            if (dlg.ShowDialog(this) == DialogResult.OK)
+                            {
+                                ffmpegPath = Path.GetDirectoryName(dlg.FileName);
+                                if (!File.Exists(Path.Combine(ffmpegPath, "ffmpeg.exe")))
+                                {
+                                    MessageBox.Show(String.Format("{0} وجود ندارد", Path.Combine(ffmpegPath, "ffmpeg.exe")), "خطا",
+                                                      MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                                    return;
+                                }
+                                Settings.Default.FFmpegPath = ffmpegPath;
+                                Settings.Default.Save();
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (MessageBox.Show("آیا تمایل دارید هم‌اکنون این نرم‌افزار را دریافت کنید؟", "پرسش",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                            == DialogResult.Yes)
+                        {
+                            Process.Start("https://ffmpeg.org/download.html#build-windows");
+
+                            MessageBox.Show("لطفا بعد از دریافت و باز کردن فایلها مجددا تلاش کنید.", "آگاهی",
+                                              MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        }
+                        return;
+                    }
+                }
+            }
+
             DbBrowser db = Connect();
             if (db == null)
             {
@@ -1203,15 +1270,15 @@ namespace gsync2vid
             PoemAudio[] audioFiles = db.GetPoemAudioFiles(Settings.Default.PoemId);
             if (audioFiles.Length > 0)
             {
-                foreach (PoemAudio audio in audioFiles)
-                    if (audio.Id == Settings.Default.AudioId)
+                foreach (PoemAudio a in audioFiles)
+                    if (a.Id == Settings.Default.AudioId)
                     {
-                        audioFilePath = audio.FilePath;
+                        audioFilePath = a.FilePath;
                         break;
                     }
             }
-            
-            if(string.IsNullOrEmpty(audioFilePath))
+
+            if (string.IsNullOrEmpty(audioFilePath))
             {
                 MessageBox.Show("(string.IsNullOrEmpty(audioFilePath))", "خطا", MessageBoxButtons.OK);
                 return;
@@ -1225,134 +1292,240 @@ namespace gsync2vid
 
             this.Enabled = false;
 
+            string wav;
             NAudio.Wave.Mp3FileReader r = new NAudio.Wave.Mp3FileReader(audioFilePath);
             int playtime = r.TotalTime.Milliseconds;
-
-            string wav = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".wav");
             using (Mp3FileReader mp3 = new Mp3FileReader(audioFilePath))
             {
                 playtime = (int)mp3.TotalTime.TotalMilliseconds;
-                using (WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(mp3))
+                wav = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".wav");
+                if (bIsWmv)
                 {
-                    WaveFileWriter.CreateWaveFile(wav, pcm);
+                    using (WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(mp3))
+                    {
+                        WaveFileWriter.CreateWaveFile(wav, pcm);
+                    }
+                    _lstDeleteFileList.Add(wav);
+                }
+                else
+                {
+                    wav = audioFilePath;
                 }
             }
 
-            _lstDeleteFileList.Add(wav);
+
 
             int nWidth = Settings.Default.LastImageWidth;
             int nHeight = Settings.Default.LastImageHeight;
 
-            using (ITimeline timeline = new DefaultTimeline())
+            ITimeline timeline = bIsWmv ? new DefaultTimeline() : null;
+            IGroup group = bIsWmv ? timeline.AddVideoGroup(32, nWidth, nHeight) : null;
+            ITrack videoTrack = bIsWmv ? group.AddTrack() : null;
+
+            double dSoundStart = -1.0;
+
+            prgrss.Value = 0;
+            prgrss.Maximum = cmbVerses.Items.Count;
+
+            lblStatus.Text = "ایجاد تصاویر ...";
+
+            StringBuilder sbFFMPegConcatDemux = new StringBuilder();
+            List<string> ffmpegInputFiles = new List<string>();
+            if (!bIsWmv)
+                sbFFMPegConcatDemux.AppendLine("ffconcat version 1.0");
+
+            //نمایش قابها
+            for (int i = 0; i < cmbVerses.Items.Count; i++)
             {
-                IGroup group = timeline.AddVideoGroup(32, nWidth, nHeight );
-                ITrack videoTrack = group.AddTrack();
+                prgrss.Value++;
+                Application.DoEvents();
 
-                double dSoundStart = -1.0;
+                GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
+                if (frame.MasterFrame != null)
+                    continue;
 
-                prgrss.Value = 0;
-                prgrss.Maximum = cmbVerses.Items.Count;
-
-                lblStatus.Text = "ایجاد تصاویر ...";
-
-                //نمایش قابها
-                for (int i=0; i<cmbVerses.Items.Count; i++)
+                if (dSoundStart < 0 && frame.AudioBound)
                 {
-                    prgrss.Value++;
-                    Application.DoEvents();
-
-                    GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
-                    if (frame.MasterFrame != null)
-                        continue;
-
-                    if (dSoundStart < 0 && frame.AudioBound)
+                    if (i > 0)
                     {
-                        if (i > 0)
+                        for (int j = (i - 1); j >= 0; j--)
                         {
-                            for (int j = (i - 1); j >= 0; j--)
+                            GVideoFrame pFrame = cmbVerses.Items[j] as GVideoFrame;
+                            if (pFrame.MasterFrame == null)
                             {
-                                GVideoFrame pFrame = cmbVerses.Items[j] as GVideoFrame;
-                                if (pFrame.MasterFrame == null)
-                                {
-                                    dSoundStart = -(pFrame.StartInMiliseconds / 1000.0);
-                                    break;
-                                }
-                            }
-                            if (frame.StartInMiliseconds != 0)
-                            {
-                                dSoundStart -= (frame.StartInMiliseconds / 1000.0);
-                                if (dSoundStart < 0)
-                                {
-                                    this.Enabled = true;
-                                    MessageBox.Show(String.Format("قدر مطلق زمان شروع اولین قاب باید بزرگتر از {0} باشد", frame.StartInMiliseconds));
-                                    return;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            dSoundStart = frame.StartInMiliseconds / 1000.0;
-                        }
-                    }
-
-                    Image img = RenderFrame(frame, new Size(nWidth, nHeight));
-                    string filename = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".jpg"); //this is important! : jpg not png - although it's png by heart!
-                    img.Save(filename);
-
-                    _lstDeleteFileList.Add(filename);
-                    int duration = i != (cmbVerses.Items.Count - 1) ? (cmbVerses.Items[i + 1] as GVideoFrame).StartInMiliseconds - frame.StartInMiliseconds : (playtime - frame.StartInMiliseconds);
-                    if (frame.AudioBound)
-                    {
-                        int nIdxNext = i + 1;
-                        while (nIdxNext < cmbVerses.Items.Count)
-                        {
-                            GVideoFrame nextFrame = cmbVerses.Items[nIdxNext] as GVideoFrame;
-                            if (nextFrame.MasterFrame == null)
+                                dSoundStart = -(pFrame.StartInMiliseconds / 1000.0);
                                 break;
-                            duration +=
-                                nIdxNext != (cmbVerses.Items.Count - 1) ? (cmbVerses.Items[nIdxNext + 1] as GVideoFrame).StartInMiliseconds - nextFrame.StartInMiliseconds : (playtime - nextFrame.StartInMiliseconds);
-                            nIdxNext++;
+                            }
+                        }
+                        if (frame.StartInMiliseconds != 0)
+                        {
+                            dSoundStart -= (frame.StartInMiliseconds / 1000.0);
+                            if (dSoundStart < 0)
+                            {
+                                this.Enabled = true;
+                                MessageBox.Show(String.Format("قدر مطلق زمان شروع اولین قاب باید بزرگتر از {0} باشد", frame.StartInMiliseconds));
+                                return;
+                            }
                         }
                     }
-
-                    IClip clip = videoTrack.AddImage(filename, 0, (double)(duration / 1000.0));
+                    else
+                    {
+                        dSoundStart = frame.StartInMiliseconds / 1000.0;
+                    }
                 }
 
-                //صدا
-                ITrack audioTrack = timeline.AddAudioGroup().AddTrack();
-                IClip audio = audioTrack.AddAudio(wav, dSoundStart, playtime / 1000.0);
+                Image img = RenderFrame(frame, new Size(nWidth, nHeight));
+                string filename = Path.Combine(Path.GetTempPath(), 
+                    Guid.NewGuid().ToString() + ".jpg"//this is important! : jpg not png - although it's png by heart!                    
+                    ); 
+                if(bIsWmv)
+                    img.Save(filename);
+                else
+                {
+                    img.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
 
-
-
-                string wmvProfile = Properties.Resources.WMV_HD_960x720;
-                wmvProfile = wmvProfile.Replace("960", nWidth.ToString()).Replace("720", nHeight.ToString());
-
-
-                lblStatus.Text = "تولید خروجی: متأسفانه نزدیک به تا ابد طول می‌کشد :(";
+                _lstDeleteFileList.Add(filename);
+                int duration = i != (cmbVerses.Items.Count - 1) ? (cmbVerses.Items[i + 1] as GVideoFrame).StartInMiliseconds - frame.StartInMiliseconds : (playtime - frame.StartInMiliseconds);
+                if (frame.AudioBound)
+                {
+                    int nIdxNext = i + 1;
+                    while (nIdxNext < cmbVerses.Items.Count)
+                    {
+                        GVideoFrame nextFrame = cmbVerses.Items[nIdxNext] as GVideoFrame;
+                        if (nextFrame.MasterFrame == null)
+                            break;
+                        duration +=
+                            nIdxNext != (cmbVerses.Items.Count - 1) ? (cmbVerses.Items[nIdxNext + 1] as GVideoFrame).StartInMiliseconds - nextFrame.StartInMiliseconds : (playtime - nextFrame.StartInMiliseconds);
+                        nIdxNext++;
+                    }
+                }
 
                 
+                if(bIsWmv)
+                {
+                    IClip clip = videoTrack.AddImage(filename, 0, (double)(duration / 1000.0));                    
+                }
+                else
+                {
+                    ffmpegInputFiles.Add(filename);
+                    sbFFMPegConcatDemux.AppendLine(String.Format("file {0}", Path.GetFileName(filename)));
+                    sbFFMPegConcatDemux.AppendLine(String.Format("duration {0}", (double)(duration / 1000.0)));
+                }
+            }
 
+            //صدا
+            ITrack audioTrack = bIsWmv ? timeline.AddAudioGroup().AddTrack() : null;
+            IClip audio = bIsWmv ? audioTrack.AddAudio(wav, dSoundStart, playtime / 1000.0) : null;
+
+
+
+            string wmvProfile = Properties.Resources.WMV_HD_960x720;
+            wmvProfile = wmvProfile.Replace("960", nWidth.ToString()).Replace("720", nHeight.ToString());
+
+
+            lblStatus.Text = "تولید خروجی: متأسفانه نزدیک به تا ابد طول می‌کشد :(";
+
+
+
+            if (bIsWmv)
+            {
                 using (WindowsMediaRenderer renderer =
                    new WindowsMediaRenderer(timeline, outfilePath, wmvProfile))
                 {
                     renderer.Render();
                 }
+            }
+            else
+            {
+                
+                string ffconcat = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".ffconcat");
+                File.WriteAllText(ffconcat, sbFFMPegConcatDemux.ToString());
 
+               
+                
+                File.Copy(wav, Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)));
 
-                this.Enabled = true;
+                string outInTempPath = Path.Combine(Path.GetTempPath(), Path.GetFileName(outfilePath));
 
-                lblStatus.Text = "آماده";
-
-                if (MessageBox.Show("آیا مایلید فایل خروجی را مشاهده کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                if (File.Exists(outInTempPath))
                 {
-                    System.Diagnostics.Process.Start(outfilePath);
+                    try
+                    {
+                        File.Delete(outInTempPath);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("error: File.Delete(outInTempPath)");
+                    }
+                }
+                
+
+                string cmdArgs =
+                    String.Format("-y -i {0} -itsoffset {1} -i {2} -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
+                    Path.GetFileName(ffconcat),
+                    dSoundStart,
+                    Path.GetFileName(wav),
+                    Path.GetFileName(outfilePath),
+                    Settings.Default.LastImageWidth,
+                    Settings.Default.LastImageHeight);
+
+                ProcessStartInfo ps = new ProcessStartInfo
+                    (
+                    Path.Combine(ffmpegPath, "ffmpeg.exe")
+                    ,
+                    cmdArgs
+                    );
+
+                ps.WorkingDirectory = Path.GetTempPath();
+                ps.UseShellExecute = false;
+                var ffmpegPs = Process.Start(ps);
+                ffmpegPs.WaitForExit();
+
+
+                
+
+                File.Delete(Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)));
+                File.Delete(ffconcat);
+
+                if (File.Exists(outfilePath))
+                {
+                    try
+                    {
+                        File.Delete(outfilePath);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("error: File.Delete(outInTempPath)");
+                    }
                 }
 
+                if (File.Exists(outInTempPath))
+                    File.Move(outInTempPath, outfilePath);
 
+                
             }
 
 
+            this.Enabled = true;
+
+            lblStatus.Text = "آماده";
+
+            if(File.Exists(outfilePath))
+            {
+                if (MessageBox.Show("آیا مایلید فایل خروجی را مشاهده کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Process.Start(outfilePath);
+                }
+            }
+            else
+            {
+                MessageBox.Show("فایل خروجی ایجاد نشد.", "خطا", MessageBoxButtons.OK);
+            }
+
+            if (bIsWmv)
+                timeline.Dispose();
 
         }
 

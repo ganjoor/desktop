@@ -48,6 +48,7 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.btnPairNext = new System.Windows.Forms.Button();
             this.btnBorderColor = new System.Windows.Forms.Button();
             this.lblBorderColor = new System.Windows.Forms.Label();
             this.txtThickness = new System.Windows.Forms.NumericUpDown();
@@ -89,7 +90,6 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProduce = new System.Windows.Forms.Button();
             this.btnSubtitle = new System.Windows.Forms.Button();
-            this.btnPairNext = new System.Windows.Forms.Button();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -229,7 +229,6 @@
             // 
             // lblHeight
             // 
-            this.lblHeight.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblHeight.AutoSize = true;
             this.lblHeight.Location = new System.Drawing.Point(205, 53);
             this.lblHeight.Name = "lblHeight";
@@ -261,7 +260,6 @@
             // 
             // lblWidth
             // 
-            this.lblWidth.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblWidth.AutoSize = true;
             this.lblWidth.Location = new System.Drawing.Point(350, 52);
             this.lblWidth.Name = "lblWidth";
@@ -376,6 +374,16 @@
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
+            // 
+            // btnPairNext
+            // 
+            this.btnPairNext.Location = new System.Drawing.Point(7, 47);
+            this.btnPairNext.Name = "btnPairNext";
+            this.btnPairNext.Size = new System.Drawing.Size(29, 23);
+            this.btnPairNext.TabIndex = 54;
+            this.btnPairNext.Text = "O";
+            this.btnPairNext.UseVisualStyleBackColor = true;
+            this.btnPairNext.Click += new System.EventHandler(this.btnPairNext_Click);
             // 
             // btnBorderColor
             // 
@@ -830,16 +838,6 @@
             this.btnSubtitle.Text = "تولید زیرنویس";
             this.btnSubtitle.UseVisualStyleBackColor = true;
             this.btnSubtitle.Click += new System.EventHandler(this.btnSubtitle_Click);
-            // 
-            // btnPairNext
-            // 
-            this.btnPairNext.Location = new System.Drawing.Point(7, 47);
-            this.btnPairNext.Name = "btnPairNext";
-            this.btnPairNext.Size = new System.Drawing.Size(29, 23);
-            this.btnPairNext.TabIndex = 54;
-            this.btnPairNext.Text = "O";
-            this.btnPairNext.UseVisualStyleBackColor = true;
-            this.btnPairNext.Click += new System.EventHandler(this.btnPairNext_Click);
             // 
             // MainForm
             // 
