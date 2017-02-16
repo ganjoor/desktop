@@ -1073,6 +1073,7 @@ namespace gsync2vid
                     MessageBox.Show(exp.ToString());
                 }
                 cmbVerses_SelectedIndexChanged(sender, e);
+                cmbVerses.Focus();
                 this.Enabled = true;
 
             }
@@ -1656,7 +1657,7 @@ namespace gsync2vid
 
             db.CloseDb();
 
-            MessageBox.Show("زیرنویس ایجاد شد.", "اعلان");
+            MessageBox.Show("زیرنویس ایجاد شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
 
         }
         #endregion
