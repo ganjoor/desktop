@@ -843,13 +843,15 @@
             // 
             // cmbTransitionEffect
             // 
-            this.cmbTransitionEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTransitionEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmbTransitionEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTransitionEffect.FormattingEnabled = true;
             this.cmbTransitionEffect.Items.AddRange(new object[] {
             "هیچکدام",
             "انتقال قاب قبل به راست",
-            "انتقال قاب قبل به بالا"});
+            "انتقال قاب قبل به چپ",
+            "انتقال قاب قبل به بالا",
+            "انتقال قاب قبل به پایین"});
             this.cmbTransitionEffect.Location = new System.Drawing.Point(431, 615);
             this.cmbTransitionEffect.Name = "cmbTransitionEffect";
             this.cmbTransitionEffect.Size = new System.Drawing.Size(234, 21);
@@ -858,7 +860,7 @@
             // 
             // lblTransitionEffect
             // 
-            this.lblTransitionEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTransitionEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTransitionEffect.AutoSize = true;
             this.lblTransitionEffect.Location = new System.Drawing.Point(217, 618);
             this.lblTransitionEffect.Name = "lblTransitionEffect";
