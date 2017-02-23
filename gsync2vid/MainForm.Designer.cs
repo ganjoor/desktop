@@ -90,6 +90,7 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProduce = new System.Windows.Forms.Button();
             this.btnSubtitle = new System.Windows.Forms.Button();
+            this.chkTransiationEffect = new System.Windows.Forms.CheckBox();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -839,11 +840,24 @@
             this.btnSubtitle.UseVisualStyleBackColor = true;
             this.btnSubtitle.Click += new System.EventHandler(this.btnSubtitle_Click);
             // 
+            // chkTransiationEffect
+            // 
+            this.chkTransiationEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkTransiationEffect.AutoSize = true;
+            this.chkTransiationEffect.Location = new System.Drawing.Point(217, 617);
+            this.chkTransiationEffect.Name = "chkTransiationEffect";
+            this.chkTransiationEffect.Size = new System.Drawing.Size(228, 17);
+            this.chkTransiationEffect.TabIndex = 46;
+            this.chkTransiationEffect.Text = "پویانمایی انتقال بین قابها (فقط خروجی mp4)";
+            this.chkTransiationEffect.UseVisualStyleBackColor = true;
+            this.chkTransiationEffect.CheckedChanged += new System.EventHandler(this.chkTransiationEffect_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 665);
+            this.Controls.Add(this.chkTransiationEffect);
             this.Controls.Add(this.btnSubtitle);
             this.Controls.Add(this.btnProduce);
             this.Controls.Add(this.grpConnection);
@@ -943,6 +957,7 @@
         private System.Windows.Forms.Button btnBorderColor;
         private System.Windows.Forms.Label lblBorderColor;
         private System.Windows.Forms.Button btnPairNext;
+        private System.Windows.Forms.CheckBox chkTransiationEffect;
     }
 }
 

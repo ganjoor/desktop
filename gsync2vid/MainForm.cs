@@ -26,6 +26,7 @@ namespace gsync2vid
             InitializeComponent();
 
             txtSrcDb.Text = DbPath;
+            chkTransiationEffect.Checked = Settings.Default.TransitionType > 0;
             UpdateConnectionStatus();
             UpdatePoemAndAudioInfo();
         }
@@ -1079,6 +1080,13 @@ namespace gsync2vid
             }
         }
 
+        private void chkTransiationEffect_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.TransitionType = chkTransiationEffect.Checked ? 1 : 0;
+            Settings.Default.Save();
+        }
+
+
 
 
 
@@ -1330,10 +1338,10 @@ namespace gsync2vid
 
             lblStatus.Text = "ایجاد تصاویر ...";
 
-            StringBuilder sbFFMPegConcatDemux = new StringBuilder();
+            
             List<string> ffmpegInputFiles = new List<string>();
-            if (!bIsWmv)
-                sbFFMPegConcatDemux.AppendLine("ffconcat version 1.0");
+            List<double> ffmpegDurations = new List<double>();
+
 
             //نمایش قابها
             for (int i = 0; i < cmbVerses.Items.Count; i++)
@@ -1410,27 +1418,21 @@ namespace gsync2vid
                 else
                 {
                     ffmpegInputFiles.Add(filename);
-                    sbFFMPegConcatDemux.AppendLine(String.Format("file {0}", Path.GetFileName(filename)));
-                    sbFFMPegConcatDemux.AppendLine(String.Format("duration {0}", (double)(duration / 1000.0)));
+                    ffmpegDurations.Add((double)(duration / 1000.0));
                 }
-            }
-
-            //صدا
-            ITrack audioTrack = bIsWmv ? timeline.AddAudioGroup().AddTrack() : null;
-            IClip audio = bIsWmv ? audioTrack.AddAudio(wav, dSoundStart, playtime / 1000.0) : null;
-
-
-
-            string wmvProfile = Properties.Resources.WMV_HD_960x720;
-            wmvProfile = wmvProfile.Replace("960", nWidth.ToString()).Replace("720", nHeight.ToString());
-
-
-            lblStatus.Text = "تولید خروجی: متأسفانه نزدیک به تا ابد طول می‌کشد :(";
+            }            
 
 
 
             if (bIsWmv)
             {
+                //صدا
+                ITrack audioTrack = bIsWmv ? timeline.AddAudioGroup().AddTrack() : null;
+                IClip audio = bIsWmv ? audioTrack.AddAudio(wav, dSoundStart, playtime / 1000.0) : null;
+
+                lblStatus.Text = "تولید خروجی: متأسفانه نزدیک به تا ابد طول می‌کشد :(";
+                string wmvProfile = Properties.Resources.WMV_HD_960x720;
+                wmvProfile = wmvProfile.Replace("960", nWidth.ToString()).Replace("720", nHeight.ToString());
                 using (WindowsMediaRenderer renderer =
                    new WindowsMediaRenderer(timeline, outfilePath, wmvProfile))
                 {
@@ -1439,8 +1441,67 @@ namespace gsync2vid
             }
             else
             {
-                
+                //ایفکت جابجایی بین قابها
+                if (Settings.Default.TransitionType > 0)
+                {
+                    Size szImageSize = new Size(Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
+                    List<string> newInputFiles = new List<string>();
+                    List<double> newDurations = new List<double>();
+                    for (int i = 0; i < ffmpegInputFiles.Count - 1; i++)
+                    {
+                        newInputFiles.Add(ffmpegInputFiles[i]);
+                        newDurations.Add(i == 0 ? (ffmpegDurations[i] - 0.2) : (ffmpegDurations[i] - 0.4));
+                        for (int j = 1; j < 4; j++)
+                        {
+                            using (Image imgOutput = new Bitmap(szImageSize.Width, szImageSize.Height))
+                            {
+                                using (Graphics g = Graphics.FromImage(imgOutput))
+                                {
+                                    using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                    {
+                                        g.DrawImage(img1, new PointF(j * (float)szImageSize.Width / 4, 0));
+                                    }
+                                    using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i+1]))
+                                    {
+                                        g.DrawImage(img2, new PointF((j - 4) * (float)szImageSize.Width / 4, 0));
+                                    }
+                                }
+                                string filename = Path.Combine(Path.GetTempPath(),
+                                                    Guid.NewGuid().ToString() + ".jpg"//this is important! : jpg not png - although it's png by heart!                    
+                                                    );
+                                imgOutput.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                newInputFiles.Add(filename);
+                                newDurations.Add(0.1);
+                                _lstDeleteFileList.Add(filename);
+                            }
+                        }
+                    }
+
+                    newInputFiles.Add(ffmpegInputFiles[ffmpegInputFiles.Count - 1]);
+                    newDurations.Add((ffmpegDurations[ffmpegInputFiles.Count - 1] - 0.2));
+
+                    ffmpegInputFiles = newInputFiles;
+                    ffmpegDurations = newDurations;
+
+                }
+
+
+
+                lblStatus.Text = "تولید خروجی";
+
                 string ffconcat = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".ffconcat");
+                StringBuilder sbFFMPegConcatDemux = new StringBuilder();
+                sbFFMPegConcatDemux.AppendLine("ffconcat version 1.0");
+
+                Debug.Assert(ffmpegInputFiles.Count == ffmpegDurations.Count);
+                for(int i=0; i<ffmpegInputFiles.Count; i++)
+                {
+                    sbFFMPegConcatDemux.AppendLine(String.Format("file {0}", Path.GetFileName(ffmpegInputFiles[i])));
+                    sbFFMPegConcatDemux.AppendLine(String.Format("duration {0}", ffmpegDurations[i]));
+                }
+                
+                
+
                 File.WriteAllText(ffconcat, sbFFMPegConcatDemux.ToString());
 
                
@@ -1660,15 +1721,15 @@ namespace gsync2vid
             MessageBox.Show("زیرنویس ایجاد شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
 
         }
+
+
+
+
+
+
+
+
         #endregion
-
-
-
-
-
-
-
-
 
     }
 }
