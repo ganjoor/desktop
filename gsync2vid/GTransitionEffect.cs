@@ -12,6 +12,8 @@ namespace gsync2vid
     {
         None = 0,
         ToRight = 1,
-        ToUp = 2
+        ToLeft = 2,
+        ToUp = 3,
+        ToBottom = 4
     }
 }

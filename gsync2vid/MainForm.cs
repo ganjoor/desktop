@@ -1474,6 +1474,18 @@ namespace gsync2vid
                                                 }
                                             }
                                             break;
+                                        case GTransitionEffect.ToLeft:
+                                            {
+                                                using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                                {
+                                                    g.DrawImage(img1, new PointF(-j * (float)szImageSize.Width / 4, 0));
+                                                }
+                                                using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
+                                                {
+                                                    g.DrawImage(img2, new PointF((4 - j) * (float)szImageSize.Width / 4, 0));
+                                                }
+                                            }
+                                            break;
                                         case GTransitionEffect.ToUp:
                                             {
                                                 using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
@@ -1483,6 +1495,18 @@ namespace gsync2vid
                                                 using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
                                                 {
                                                     g.DrawImage(img2, new PointF(0, (4-j) * (float)szImageSize.Height / 4));
+                                                }
+                                            }
+                                            break;
+                                        case GTransitionEffect.ToBottom:
+                                            {
+                                                using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                                {
+                                                    g.DrawImage(img1, new PointF(0, j * (float)szImageSize.Height / 4));
+                                                }
+                                                using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
+                                                {
+                                                    g.DrawImage(img2, new PointF(0, (j - 4) * (float)szImageSize.Height / 4));
                                                 }
                                             }
                                             break;
