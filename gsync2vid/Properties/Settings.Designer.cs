@@ -154,5 +154,17 @@ namespace gsync2vid.Properties {
                 this["VidDefExt"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TransitionType {
+            get {
+                return ((int)(this["TransitionType"]));
+            }
+            set {
+                this["TransitionType"] = value;
+            }
+        }
     }
 }
