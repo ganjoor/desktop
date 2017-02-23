@@ -81,6 +81,7 @@
     <Compile Include="GRoundRectDrawer.cs" />
     <Compile Include="GTextBoxShape.cs" />
     <Compile Include="GTextBoxShapeConvertor.cs" />
+    <Compile Include="GTransitionEffect.cs" />
     <Compile Include="GVideoFrame.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

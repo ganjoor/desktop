@@ -26,7 +26,7 @@ namespace gsync2vid
             InitializeComponent();
 
             txtSrcDb.Text = DbPath;
-            chkTransiationEffect.Checked = Settings.Default.TransitionType > 0;
+            cmbTransitionEffect.SelectedIndex = Settings.Default.TransitionType;
             UpdateConnectionStatus();
             UpdatePoemAndAudioInfo();
         }
@@ -1080,9 +1080,10 @@ namespace gsync2vid
             }
         }
 
-        private void chkTransiationEffect_CheckedChanged(object sender, EventArgs e)
+
+        private void cmbTransitionEffect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Settings.Default.TransitionType = chkTransiationEffect.Checked ? 1 : 0;
+            Settings.Default.TransitionType = cmbTransitionEffect.SelectedIndex;
             Settings.Default.Save();
         }
 
@@ -1444,6 +1445,7 @@ namespace gsync2vid
                 //ایفکت جابجایی بین قابها
                 if (Settings.Default.TransitionType > 0)
                 {
+                    GTransitionEffect effect = (GTransitionEffect)Settings.Default.TransitionType;
                     Size szImageSize = new Size(Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
                     List<string> newInputFiles = new List<string>();
                     List<double> newDurations = new List<double>();
@@ -1455,15 +1457,35 @@ namespace gsync2vid
                         {
                             using (Image imgOutput = new Bitmap(szImageSize.Width, szImageSize.Height))
                             {
+                                
                                 using (Graphics g = Graphics.FromImage(imgOutput))
                                 {
-                                    using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                    switch(effect)
                                     {
-                                        g.DrawImage(img1, new PointF(j * (float)szImageSize.Width / 4, 0));
-                                    }
-                                    using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i+1]))
-                                    {
-                                        g.DrawImage(img2, new PointF((j - 4) * (float)szImageSize.Width / 4, 0));
+                                        case GTransitionEffect.ToRight:
+                                            {
+                                                using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                                {
+                                                    g.DrawImage(img1, new PointF(j * (float)szImageSize.Width / 4, 0));
+                                                }
+                                                using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
+                                                {
+                                                    g.DrawImage(img2, new PointF((j - 4) * (float)szImageSize.Width / 4, 0));
+                                                }
+                                            }
+                                            break;
+                                        case GTransitionEffect.ToUp:
+                                            {
+                                                using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                                {
+                                                    g.DrawImage(img1, new PointF(0, (-j) * (float)szImageSize.Height / 4));
+                                                }
+                                                using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
+                                                {
+                                                    g.DrawImage(img2, new PointF(0, (4-j) * (float)szImageSize.Height / 4));
+                                                }
+                                            }
+                                            break;
                                     }
                                 }
                                 string filename = Path.Combine(Path.GetTempPath(),

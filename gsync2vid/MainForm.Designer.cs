@@ -90,7 +90,8 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProduce = new System.Windows.Forms.Button();
             this.btnSubtitle = new System.Windows.Forms.Button();
-            this.chkTransiationEffect = new System.Windows.Forms.CheckBox();
+            this.cmbTransitionEffect = new System.Windows.Forms.ComboBox();
+            this.lblTransitionEffect = new System.Windows.Forms.Label();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -840,24 +841,38 @@
             this.btnSubtitle.UseVisualStyleBackColor = true;
             this.btnSubtitle.Click += new System.EventHandler(this.btnSubtitle_Click);
             // 
-            // chkTransiationEffect
+            // cmbTransitionEffect
             // 
-            this.chkTransiationEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkTransiationEffect.AutoSize = true;
-            this.chkTransiationEffect.Location = new System.Drawing.Point(217, 617);
-            this.chkTransiationEffect.Name = "chkTransiationEffect";
-            this.chkTransiationEffect.Size = new System.Drawing.Size(228, 17);
-            this.chkTransiationEffect.TabIndex = 46;
-            this.chkTransiationEffect.Text = "پویانمایی انتقال بین قابها (فقط خروجی mp4)";
-            this.chkTransiationEffect.UseVisualStyleBackColor = true;
-            this.chkTransiationEffect.CheckedChanged += new System.EventHandler(this.chkTransiationEffect_CheckedChanged);
+            this.cmbTransitionEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTransitionEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTransitionEffect.FormattingEnabled = true;
+            this.cmbTransitionEffect.Items.AddRange(new object[] {
+            "هیچکدام",
+            "انتقال قاب قبل به راست",
+            "انتقال قاب قبل به بالا"});
+            this.cmbTransitionEffect.Location = new System.Drawing.Point(431, 615);
+            this.cmbTransitionEffect.Name = "cmbTransitionEffect";
+            this.cmbTransitionEffect.Size = new System.Drawing.Size(234, 21);
+            this.cmbTransitionEffect.TabIndex = 47;
+            this.cmbTransitionEffect.SelectedIndexChanged += new System.EventHandler(this.cmbTransitionEffect_SelectedIndexChanged);
+            // 
+            // lblTransitionEffect
+            // 
+            this.lblTransitionEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTransitionEffect.AutoSize = true;
+            this.lblTransitionEffect.Location = new System.Drawing.Point(217, 618);
+            this.lblTransitionEffect.Name = "lblTransitionEffect";
+            this.lblTransitionEffect.Size = new System.Drawing.Size(213, 13);
+            this.lblTransitionEffect.TabIndex = 53;
+            this.lblTransitionEffect.Text = "پویانمایی انتقال بین قابها (فقط خروجی mp4):";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 665);
-            this.Controls.Add(this.chkTransiationEffect);
+            this.Controls.Add(this.lblTransitionEffect);
+            this.Controls.Add(this.cmbTransitionEffect);
             this.Controls.Add(this.btnSubtitle);
             this.Controls.Add(this.btnProduce);
             this.Controls.Add(this.grpConnection);
@@ -957,7 +972,8 @@
         private System.Windows.Forms.Button btnBorderColor;
         private System.Windows.Forms.Label lblBorderColor;
         private System.Windows.Forms.Button btnPairNext;
-        private System.Windows.Forms.CheckBox chkTransiationEffect;
+        private System.Windows.Forms.ComboBox cmbTransitionEffect;
+        private System.Windows.Forms.Label lblTransitionEffect;
     }
 }
 
