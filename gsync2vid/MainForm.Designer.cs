@@ -392,7 +392,7 @@
             // 
             this.btnBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBorderColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBorderColor.Location = new System.Drawing.Point(638, 341);
+            this.btnBorderColor.Location = new System.Drawing.Point(638, 346);
             this.btnBorderColor.Name = "btnBorderColor";
             this.btnBorderColor.Size = new System.Drawing.Size(45, 37);
             this.btnBorderColor.TabIndex = 53;
@@ -403,7 +403,7 @@
             // 
             this.lblBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBorderColor.AutoSize = true;
-            this.lblBorderColor.Location = new System.Drawing.Point(704, 349);
+            this.lblBorderColor.Location = new System.Drawing.Point(704, 354);
             this.lblBorderColor.Name = "lblBorderColor";
             this.lblBorderColor.Size = new System.Drawing.Size(70, 21);
             this.lblBorderColor.TabIndex = 52;
@@ -871,6 +871,7 @@
             // 
             // chkAAC
             // 
+            this.chkAAC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkAAC.AutoSize = true;
             this.chkAAC.Location = new System.Drawing.Point(1006, 840);
             this.chkAAC.Name = "chkAAC";
