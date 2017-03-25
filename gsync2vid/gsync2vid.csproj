@@ -52,6 +52,7 @@
   <PropertyGroup>
     <ApplicationIcon>sound.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="DirectShowLib-2005">
       <HintPath>ref\DirectShowLib-2005.dll</HintPath>
