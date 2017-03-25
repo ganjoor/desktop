@@ -92,6 +92,7 @@
             this.btnSubtitle = new System.Windows.Forms.Button();
             this.cmbTransitionEffect = new System.Windows.Forms.ComboBox();
             this.lblTransitionEffect = new System.Windows.Forms.Label();
+            this.chkAAC = new System.Windows.Forms.CheckBox();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -117,7 +118,7 @@
             this.grpConnection.Controls.Add(this.lblSrcDb);
             this.grpConnection.Location = new System.Drawing.Point(7, 12);
             this.grpConnection.Name = "grpConnection";
-            this.grpConnection.Size = new System.Drawing.Size(842, 76);
+            this.grpConnection.Size = new System.Drawing.Size(1197, 108);
             this.grpConnection.TabIndex = 0;
             this.grpConnection.TabStop = false;
             this.grpConnection.Text = "فایل پایگاه داده‌های گنجور رومیزی:";
@@ -126,9 +127,9 @@
             // 
             this.lblDbComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDbComment.Location = new System.Drawing.Point(41, 48);
+            this.lblDbComment.Location = new System.Drawing.Point(41, 61);
             this.lblDbComment.Name = "lblDbComment";
-            this.lblDbComment.Size = new System.Drawing.Size(753, 17);
+            this.lblDbComment.Size = new System.Drawing.Size(1069, 29);
             this.lblDbComment.TabIndex = 3;
             this.lblDbComment.Text = "فایل در مسیر وجود ندارد یا امکان اتصال به آن وجود ندارد. لطفا اطمینان حاصل کنید گ" +
     "نجور رومیزی نصب شده و مسیر فایل درست انتخاب شده است.";
@@ -137,7 +138,7 @@
             // 
             this.btnSelDb.Location = new System.Drawing.Point(7, 22);
             this.btnSelDb.Name = "btnSelDb";
-            this.btnSelDb.Size = new System.Drawing.Size(29, 23);
+            this.btnSelDb.Size = new System.Drawing.Size(45, 36);
             this.btnSelDb.TabIndex = 2;
             this.btnSelDb.Text = "...";
             this.btnSelDb.UseVisualStyleBackColor = true;
@@ -147,20 +148,20 @@
             // 
             this.txtSrcDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSrcDb.Location = new System.Drawing.Point(41, 24);
+            this.txtSrcDb.Location = new System.Drawing.Point(58, 24);
             this.txtSrcDb.Name = "txtSrcDb";
             this.txtSrcDb.ReadOnly = true;
             this.txtSrcDb.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtSrcDb.Size = new System.Drawing.Size(750, 21);
+            this.txtSrcDb.Size = new System.Drawing.Size(1055, 27);
             this.txtSrcDb.TabIndex = 1;
             // 
             // lblSrcDb
             // 
             this.lblSrcDb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSrcDb.AutoSize = true;
-            this.lblSrcDb.Location = new System.Drawing.Point(797, 27);
+            this.lblSrcDb.Location = new System.Drawing.Point(1125, 27);
             this.lblSrcDb.Name = "lblSrcDb";
-            this.lblSrcDb.Size = new System.Drawing.Size(38, 13);
+            this.lblSrcDb.Size = new System.Drawing.Size(56, 21);
             this.lblSrcDb.TabIndex = 0;
             this.lblSrcDb.Text = "مسیر:";
             // 
@@ -180,18 +181,18 @@
             this.grpPoem.Controls.Add(this.btnSelPoem);
             this.grpPoem.Controls.Add(this.txtPoem);
             this.grpPoem.Controls.Add(this.lblPoem);
-            this.grpPoem.Location = new System.Drawing.Point(7, 98);
+            this.grpPoem.Location = new System.Drawing.Point(7, 131);
             this.grpPoem.Name = "grpPoem";
-            this.grpPoem.Size = new System.Drawing.Size(842, 77);
+            this.grpPoem.Size = new System.Drawing.Size(1197, 105);
             this.grpPoem.TabIndex = 1;
             this.grpPoem.TabStop = false;
             this.grpPoem.Text = "شعر، خوانش و مشخصات کلی:";
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(83, 49);
+            this.btnApply.Location = new System.Drawing.Point(114, 57);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(51, 23);
+            this.btnApply.Size = new System.Drawing.Size(77, 42);
             this.btnApply.TabIndex = 12;
             this.btnApply.Text = "اعمال";
             this.btnApply.UseVisualStyleBackColor = true;
@@ -199,9 +200,9 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(7, 49);
+            this.btnReset.Location = new System.Drawing.Point(7, 57);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(70, 23);
+            this.btnReset.Size = new System.Drawing.Size(103, 42);
             this.btnReset.TabIndex = 11;
             this.btnReset.Text = "پیش‌فرض";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -209,7 +210,7 @@
             // 
             // txtHeight
             // 
-            this.txtHeight.Location = new System.Drawing.Point(140, 50);
+            this.txtHeight.Location = new System.Drawing.Point(204, 64);
             this.txtHeight.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -221,7 +222,7 @@
             0,
             0});
             this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(59, 21);
+            this.txtHeight.Size = new System.Drawing.Size(59, 27);
             this.txtHeight.TabIndex = 10;
             this.txtHeight.Value = new decimal(new int[] {
             720,
@@ -232,15 +233,15 @@
             // lblHeight
             // 
             this.lblHeight.AutoSize = true;
-            this.lblHeight.Location = new System.Drawing.Point(205, 53);
+            this.lblHeight.Location = new System.Drawing.Point(269, 67);
             this.lblHeight.Name = "lblHeight";
-            this.lblHeight.Size = new System.Drawing.Size(68, 13);
+            this.lblHeight.Size = new System.Drawing.Size(104, 21);
             this.lblHeight.TabIndex = 9;
             this.lblHeight.Text = "طول خروجی:";
             // 
             // txtWidth
             // 
-            this.txtWidth.Location = new System.Drawing.Point(285, 49);
+            this.txtWidth.Location = new System.Drawing.Point(376, 63);
             this.txtWidth.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -252,7 +253,7 @@
             0,
             0});
             this.txtWidth.Name = "txtWidth";
-            this.txtWidth.Size = new System.Drawing.Size(59, 21);
+            this.txtWidth.Size = new System.Drawing.Size(59, 27);
             this.txtWidth.TabIndex = 8;
             this.txtWidth.Value = new decimal(new int[] {
             960,
@@ -263,45 +264,45 @@
             // lblWidth
             // 
             this.lblWidth.AutoSize = true;
-            this.lblWidth.Location = new System.Drawing.Point(350, 52);
+            this.lblWidth.Location = new System.Drawing.Point(441, 66);
             this.lblWidth.Name = "lblWidth";
-            this.lblWidth.Size = new System.Drawing.Size(74, 13);
+            this.lblWidth.Size = new System.Drawing.Size(111, 21);
             this.lblWidth.TabIndex = 6;
             this.lblWidth.Text = "عرض خروجی:";
             // 
             // txtSyncId
             // 
             this.txtSyncId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSyncId.Location = new System.Drawing.Point(465, 49);
+            this.txtSyncId.Location = new System.Drawing.Point(723, 63);
             this.txtSyncId.Name = "txtSyncId";
             this.txtSyncId.ReadOnly = true;
-            this.txtSyncId.Size = new System.Drawing.Size(100, 21);
+            this.txtSyncId.Size = new System.Drawing.Size(100, 27);
             this.txtSyncId.TabIndex = 5;
             // 
             // lblSync
             // 
             this.lblSync.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSync.AutoSize = true;
-            this.lblSync.Location = new System.Drawing.Point(571, 51);
+            this.lblSync.Location = new System.Drawing.Point(829, 65);
             this.lblSync.Name = "lblSync";
-            this.lblSync.Size = new System.Drawing.Size(57, 13);
+            this.lblSync.Size = new System.Drawing.Size(88, 21);
             this.lblSync.TabIndex = 4;
             this.lblSync.Text = "کد خوانش:";
             // 
             // txtPoemId
             // 
             this.txtPoemId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPoemId.Location = new System.Drawing.Point(635, 49);
+            this.txtPoemId.Location = new System.Drawing.Point(931, 61);
             this.txtPoemId.Name = "txtPoemId";
             this.txtPoemId.ReadOnly = true;
-            this.txtPoemId.Size = new System.Drawing.Size(100, 21);
+            this.txtPoemId.Size = new System.Drawing.Size(100, 27);
             this.txtPoemId.TabIndex = 3;
             // 
             // btnSelPoem
             // 
             this.btnSelPoem.Location = new System.Drawing.Point(7, 22);
             this.btnSelPoem.Name = "btnSelPoem";
-            this.btnSelPoem.Size = new System.Drawing.Size(29, 23);
+            this.btnSelPoem.Size = new System.Drawing.Size(45, 36);
             this.btnSelPoem.TabIndex = 2;
             this.btnSelPoem.Text = "...";
             this.btnSelPoem.UseVisualStyleBackColor = true;
@@ -311,20 +312,20 @@
             // 
             this.txtPoem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPoem.Location = new System.Drawing.Point(41, 24);
+            this.txtPoem.Location = new System.Drawing.Point(58, 24);
             this.txtPoem.Name = "txtPoem";
             this.txtPoem.ReadOnly = true;
             this.txtPoem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtPoem.Size = new System.Drawing.Size(750, 21);
+            this.txtPoem.Size = new System.Drawing.Size(1055, 27);
             this.txtPoem.TabIndex = 1;
             // 
             // lblPoem
             // 
             this.lblPoem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPoem.AutoSize = true;
-            this.lblPoem.Location = new System.Drawing.Point(741, 51);
+            this.lblPoem.Location = new System.Drawing.Point(1037, 63);
             this.lblPoem.Name = "lblPoem";
-            this.lblPoem.Size = new System.Drawing.Size(47, 13);
+            this.lblPoem.Size = new System.Drawing.Size(70, 21);
             this.lblPoem.TabIndex = 0;
             this.lblPoem.Text = "کد شعر:";
             // 
@@ -370,18 +371,18 @@
             this.grpVerses.Controls.Add(this.lblStart);
             this.grpVerses.Controls.Add(this.chkAudioBound);
             this.grpVerses.Controls.Add(this.cmbVerses);
-            this.grpVerses.Location = new System.Drawing.Point(7, 181);
+            this.grpVerses.Location = new System.Drawing.Point(7, 251);
             this.grpVerses.Name = "grpVerses";
-            this.grpVerses.Size = new System.Drawing.Size(842, 429);
+            this.grpVerses.Size = new System.Drawing.Size(1197, 576);
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
             // 
             // btnPairNext
             // 
-            this.btnPairNext.Location = new System.Drawing.Point(7, 47);
+            this.btnPairNext.Location = new System.Drawing.Point(7, 59);
             this.btnPairNext.Name = "btnPairNext";
-            this.btnPairNext.Size = new System.Drawing.Size(29, 23);
+            this.btnPairNext.Size = new System.Drawing.Size(34, 31);
             this.btnPairNext.TabIndex = 54;
             this.btnPairNext.Text = "O";
             this.btnPairNext.UseVisualStyleBackColor = true;
@@ -391,9 +392,9 @@
             // 
             this.btnBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBorderColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBorderColor.Location = new System.Drawing.Point(516, 264);
+            this.btnBorderColor.Location = new System.Drawing.Point(638, 341);
             this.btnBorderColor.Name = "btnBorderColor";
-            this.btnBorderColor.Size = new System.Drawing.Size(28, 23);
+            this.btnBorderColor.Size = new System.Drawing.Size(45, 37);
             this.btnBorderColor.TabIndex = 53;
             this.btnBorderColor.UseVisualStyleBackColor = true;
             this.btnBorderColor.Click += new System.EventHandler(this.btnBorderColor_Click);
@@ -402,23 +403,23 @@
             // 
             this.lblBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBorderColor.AutoSize = true;
-            this.lblBorderColor.Location = new System.Drawing.Point(550, 268);
+            this.lblBorderColor.Location = new System.Drawing.Point(704, 349);
             this.lblBorderColor.Name = "lblBorderColor";
-            this.lblBorderColor.Size = new System.Drawing.Size(47, 13);
+            this.lblBorderColor.Size = new System.Drawing.Size(70, 21);
             this.lblBorderColor.TabIndex = 52;
             this.lblBorderColor.Text = "رنگ مرز:";
             // 
             // txtThickness
             // 
             this.txtThickness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtThickness.Location = new System.Drawing.Point(605, 264);
+            this.txtThickness.Location = new System.Drawing.Point(894, 347);
             this.txtThickness.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.txtThickness.Name = "txtThickness";
-            this.txtThickness.Size = new System.Drawing.Size(57, 21);
+            this.txtThickness.Size = new System.Drawing.Size(57, 27);
             this.txtThickness.TabIndex = 51;
             this.txtThickness.ValueChanged += new System.EventHandler(this.txtThickness_ValueChanged);
             // 
@@ -426,20 +427,20 @@
             // 
             this.lblThickness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblThickness.AutoSize = true;
-            this.lblThickness.Location = new System.Drawing.Point(667, 268);
+            this.lblThickness.Location = new System.Drawing.Point(954, 349);
             this.lblThickness.Name = "lblThickness";
-            this.lblThickness.Size = new System.Drawing.Size(124, 13);
+            this.lblThickness.Size = new System.Drawing.Size(192, 21);
             this.lblThickness.TabIndex = 50;
             this.lblThickness.Text = "ضخامت مرز محیطی متن:";
             // 
             // trckHPosition
             // 
             this.trckHPosition.LargeChange = 15;
-            this.trckHPosition.Location = new System.Drawing.Point(7, 362);
+            this.trckHPosition.Location = new System.Drawing.Point(7, 426);
             this.trckHPosition.Maximum = 20;
             this.trckHPosition.Name = "trckHPosition";
             this.trckHPosition.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.trckHPosition.Size = new System.Drawing.Size(300, 45);
+            this.trckHPosition.Size = new System.Drawing.Size(300, 69);
             this.trckHPosition.TabIndex = 48;
             this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trckHPosition.Value = 10;
@@ -448,9 +449,9 @@
             // btnProperties
             // 
             this.btnProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnProperties.Location = new System.Drawing.Point(635, 371);
+            this.btnProperties.Location = new System.Drawing.Point(880, 505);
             this.btnProperties.Name = "btnProperties";
-            this.btnProperties.Size = new System.Drawing.Size(156, 23);
+            this.btnProperties.Size = new System.Drawing.Size(262, 39);
             this.btnProperties.TabIndex = 47;
             this.btnProperties.Text = "تنظیم دستی ویژگیهای قاب";
             this.btnProperties.UseVisualStyleBackColor = true;
@@ -458,9 +459,9 @@
             // 
             // btnRandomImage
             // 
-            this.btnRandomImage.Location = new System.Drawing.Point(70, 73);
+            this.btnRandomImage.Location = new System.Drawing.Point(101, 95);
             this.btnRandomImage.Name = "btnRandomImage";
-            this.btnRandomImage.Size = new System.Drawing.Size(40, 23);
+            this.btnRandomImage.Size = new System.Drawing.Size(73, 37);
             this.btnRandomImage.TabIndex = 46;
             this.btnRandomImage.Text = "rnd";
             this.btnRandomImage.UseVisualStyleBackColor = true;
@@ -470,9 +471,9 @@
             // 
             this.chkShowLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowLogo.AutoSize = true;
-            this.chkShowLogo.Location = new System.Drawing.Point(676, 348);
+            this.chkShowLogo.Location = new System.Drawing.Point(965, 474);
             this.chkShowLogo.Name = "chkShowLogo";
-            this.chkShowLogo.Size = new System.Drawing.Size(115, 17);
+            this.chkShowLogo.Size = new System.Drawing.Size(177, 25);
             this.chkShowLogo.TabIndex = 45;
             this.chkShowLogo.Text = "نمایش لوگوی گنجور";
             this.chkShowLogo.UseVisualStyleBackColor = true;
@@ -480,9 +481,9 @@
             // 
             // btnEditText
             // 
-            this.btnEditText.Location = new System.Drawing.Point(78, 20);
+            this.btnEditText.Location = new System.Drawing.Point(111, 20);
             this.btnEditText.Name = "btnEditText";
-            this.btnEditText.Size = new System.Drawing.Size(30, 23);
+            this.btnEditText.Size = new System.Drawing.Size(37, 36);
             this.btnEditText.TabIndex = 44;
             this.btnEditText.Text = "T";
             this.btnEditText.UseVisualStyleBackColor = true;
@@ -492,18 +493,18 @@
             // 
             this.lblMinus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMinus.AutoSize = true;
-            this.lblMinus.Location = new System.Drawing.Point(415, 50);
+            this.lblMinus.Location = new System.Drawing.Point(648, 62);
             this.lblMinus.Name = "lblMinus";
-            this.lblMinus.Size = new System.Drawing.Size(11, 13);
+            this.lblMinus.Size = new System.Drawing.Size(16, 21);
             this.lblMinus.TabIndex = 43;
             this.lblMinus.Text = "-";
             // 
             // chkSlaveFrame
             // 
             this.chkSlaveFrame.AutoSize = true;
-            this.chkSlaveFrame.Location = new System.Drawing.Point(44, 50);
+            this.chkSlaveFrame.Location = new System.Drawing.Point(44, 62);
             this.chkSlaveFrame.Name = "chkSlaveFrame";
-            this.chkSlaveFrame.Size = new System.Drawing.Size(118, 17);
+            this.chkSlaveFrame.Size = new System.Drawing.Size(181, 25);
             this.chkSlaveFrame.TabIndex = 42;
             this.chkSlaveFrame.Text = "یکی با با قاب پیشین";
             this.chkSlaveFrame.UseVisualStyleBackColor = true;
@@ -513,14 +514,14 @@
             // 
             this.txtStartInMiliseconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtStartInMiliseconds.Enabled = false;
-            this.txtStartInMiliseconds.Location = new System.Drawing.Point(432, 48);
+            this.txtStartInMiliseconds.Location = new System.Drawing.Point(686, 60);
             this.txtStartInMiliseconds.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.txtStartInMiliseconds.Name = "txtStartInMiliseconds";
-            this.txtStartInMiliseconds.Size = new System.Drawing.Size(57, 21);
+            this.txtStartInMiliseconds.Size = new System.Drawing.Size(84, 27);
             this.txtStartInMiliseconds.TabIndex = 41;
             this.txtStartInMiliseconds.Value = new decimal(new int[] {
             1000,
@@ -530,9 +531,9 @@
             // 
             // btnResetImage
             // 
-            this.btnResetImage.Location = new System.Drawing.Point(40, 73);
+            this.btnResetImage.Location = new System.Drawing.Point(58, 96);
             this.btnResetImage.Name = "btnResetImage";
-            this.btnResetImage.Size = new System.Drawing.Size(29, 23);
+            this.btnResetImage.Size = new System.Drawing.Size(39, 36);
             this.btnResetImage.TabIndex = 40;
             this.btnResetImage.Text = "x";
             this.btnResetImage.UseVisualStyleBackColor = true;
@@ -543,11 +544,11 @@
             this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtComment.Location = new System.Drawing.Point(412, 291);
+            this.txtComment.Location = new System.Drawing.Point(412, 394);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
             this.txtComment.ReadOnly = true;
-            this.txtComment.Size = new System.Drawing.Size(379, 51);
+            this.txtComment.Size = new System.Drawing.Size(734, 74);
             this.txtComment.TabIndex = 39;
             this.txtComment.Text = resources.GetString("txtComment.Text");
             // 
@@ -556,11 +557,11 @@
             this.trckMaxTextWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trckMaxTextWidth.LargeChange = 15;
-            this.trckMaxTextWidth.Location = new System.Drawing.Point(406, 214);
+            this.trckMaxTextWidth.Location = new System.Drawing.Point(406, 278);
             this.trckMaxTextWidth.Maximum = 255;
             this.trckMaxTextWidth.Name = "trckMaxTextWidth";
             this.trckMaxTextWidth.RightToLeftLayout = true;
-            this.trckMaxTextWidth.Size = new System.Drawing.Size(253, 45);
+            this.trckMaxTextWidth.Size = new System.Drawing.Size(565, 69);
             this.trckMaxTextWidth.TabIndex = 38;
             this.trckMaxTextWidth.TickFrequency = 15;
             this.trckMaxTextWidth.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -570,20 +571,20 @@
             // 
             this.lblMaxTextWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMaxTextWidth.AutoSize = true;
-            this.lblMaxTextWidth.Location = new System.Drawing.Point(701, 226);
+            this.lblMaxTextWidth.Location = new System.Drawing.Point(1014, 289);
             this.lblMaxTextWidth.Name = "lblMaxTextWidth";
-            this.lblMaxTextWidth.Size = new System.Drawing.Size(90, 13);
+            this.lblMaxTextWidth.Size = new System.Drawing.Size(136, 21);
             this.lblMaxTextWidth.TabIndex = 37;
             this.lblMaxTextWidth.Text = "حداکثر عرض متن:";
             // 
             // trckVPosition
             // 
             this.trckVPosition.LargeChange = 15;
-            this.trckVPosition.Location = new System.Drawing.Point(313, 129);
+            this.trckVPosition.Location = new System.Drawing.Point(313, 193);
             this.trckVPosition.Maximum = 20;
             this.trckVPosition.Name = "trckVPosition";
             this.trckVPosition.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trckVPosition.Size = new System.Drawing.Size(45, 227);
+            this.trckVPosition.Size = new System.Drawing.Size(69, 227);
             this.trckVPosition.TabIndex = 36;
             this.trckVPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trckVPosition.Value = 10;
@@ -593,7 +594,7 @@
             // 
             this.btnPreview.Location = new System.Drawing.Point(2, 20);
             this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(75, 23);
+            this.btnPreview.Size = new System.Drawing.Size(108, 36);
             this.btnPreview.TabIndex = 34;
             this.btnPreview.Text = "پیش‌نمایش";
             this.btnPreview.UseVisualStyleBackColor = true;
@@ -602,7 +603,7 @@
             // pbxPreview
             // 
             this.pbxPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxPreview.Location = new System.Drawing.Point(7, 131);
+            this.pbxPreview.Location = new System.Drawing.Point(7, 195);
             this.pbxPreview.Name = "pbxPreview";
             this.pbxPreview.Size = new System.Drawing.Size(300, 225);
             this.pbxPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -614,18 +615,18 @@
             // 
             this.txtFont.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFont.Location = new System.Drawing.Point(40, 102);
+            this.txtFont.Location = new System.Drawing.Point(59, 137);
             this.txtFont.Name = "txtFont";
             this.txtFont.ReadOnly = true;
             this.txtFont.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtFont.Size = new System.Drawing.Size(664, 21);
+            this.txtFont.Size = new System.Drawing.Size(972, 27);
             this.txtFont.TabIndex = 32;
             // 
             // btnSelectFont
             // 
-            this.btnSelectFont.Location = new System.Drawing.Point(7, 102);
+            this.btnSelectFont.Location = new System.Drawing.Point(7, 137);
             this.btnSelectFont.Name = "btnSelectFont";
-            this.btnSelectFont.Size = new System.Drawing.Size(29, 23);
+            this.btnSelectFont.Size = new System.Drawing.Size(45, 38);
             this.btnSelectFont.TabIndex = 31;
             this.btnSelectFont.Text = "...";
             this.btnSelectFont.UseVisualStyleBackColor = true;
@@ -635,9 +636,9 @@
             // 
             this.lblFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFont.AutoSize = true;
-            this.lblFont.Location = new System.Drawing.Point(760, 107);
+            this.lblFont.Location = new System.Drawing.Point(1109, 141);
             this.lblFont.Name = "lblFont";
-            this.lblFont.Size = new System.Drawing.Size(28, 13);
+            this.lblFont.Size = new System.Drawing.Size(41, 21);
             this.lblFont.TabIndex = 29;
             this.lblFont.Text = "قلم:";
             // 
@@ -646,11 +647,11 @@
             this.trckAlpha.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trckAlpha.LargeChange = 15;
-            this.trckAlpha.Location = new System.Drawing.Point(406, 160);
+            this.trckAlpha.Location = new System.Drawing.Point(406, 224);
             this.trckAlpha.Maximum = 255;
             this.trckAlpha.Name = "trckAlpha";
             this.trckAlpha.RightToLeftLayout = true;
-            this.trckAlpha.Size = new System.Drawing.Size(253, 45);
+            this.trckAlpha.Size = new System.Drawing.Size(565, 69);
             this.trckAlpha.TabIndex = 28;
             this.trckAlpha.TickFrequency = 15;
             this.trckAlpha.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -660,9 +661,9 @@
             // 
             this.lblTextBackAlpha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTextBackAlpha.AutoSize = true;
-            this.lblTextBackAlpha.Location = new System.Drawing.Point(672, 171);
+            this.lblTextBackAlpha.Location = new System.Drawing.Point(967, 238);
             this.lblTextBackAlpha.Name = "lblTextBackAlpha";
-            this.lblTextBackAlpha.Size = new System.Drawing.Size(119, 13);
+            this.lblTextBackAlpha.Size = new System.Drawing.Size(183, 21);
             this.lblTextBackAlpha.TabIndex = 27;
             this.lblTextBackAlpha.Text = "شفافیت رنگ زمینه متن:";
             // 
@@ -670,9 +671,9 @@
             // 
             this.lblTextBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTextBackColor.AutoSize = true;
-            this.lblTextBackColor.Location = new System.Drawing.Point(455, 135);
+            this.lblTextBackColor.Location = new System.Drawing.Point(686, 177);
             this.lblTextBackColor.Name = "lblTextBackColor";
-            this.lblTextBackColor.Size = new System.Drawing.Size(77, 13);
+            this.lblTextBackColor.Size = new System.Drawing.Size(118, 21);
             this.lblTextBackColor.TabIndex = 25;
             this.lblTextBackColor.Text = "رنگ زمینه متن:";
             // 
@@ -680,9 +681,9 @@
             // 
             this.btnTextColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnTextColor.Location = new System.Drawing.Point(564, 131);
+            this.btnTextColor.Location = new System.Drawing.Point(846, 170);
             this.btnTextColor.Name = "btnTextColor";
-            this.btnTextColor.Size = new System.Drawing.Size(28, 23);
+            this.btnTextColor.Size = new System.Drawing.Size(45, 40);
             this.btnTextColor.TabIndex = 26;
             this.btnTextColor.UseVisualStyleBackColor = true;
             this.btnTextColor.Click += new System.EventHandler(this.btnTextColor_Click);
@@ -691,9 +692,9 @@
             // 
             this.lblTextColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTextColor.AutoSize = true;
-            this.lblTextColor.Location = new System.Drawing.Point(598, 135);
+            this.lblTextColor.Location = new System.Drawing.Point(901, 177);
             this.lblTextColor.Name = "lblTextColor";
-            this.lblTextColor.Size = new System.Drawing.Size(50, 13);
+            this.lblTextColor.Size = new System.Drawing.Size(76, 21);
             this.lblTextColor.TabIndex = 23;
             this.lblTextColor.Text = "رنگ متن:";
             // 
@@ -701,9 +702,9 @@
             // 
             this.btnTextBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextBackColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnTextBackColor.Location = new System.Drawing.Point(406, 131);
+            this.btnTextBackColor.Location = new System.Drawing.Point(638, 170);
             this.btnTextBackColor.Name = "btnTextBackColor";
-            this.btnTextBackColor.Size = new System.Drawing.Size(28, 23);
+            this.btnTextBackColor.Size = new System.Drawing.Size(42, 40);
             this.btnTextBackColor.TabIndex = 24;
             this.btnTextBackColor.UseVisualStyleBackColor = true;
             this.btnTextBackColor.Click += new System.EventHandler(this.btnTextBackColor_Click);
@@ -712,9 +713,9 @@
             // 
             this.btnBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBackColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBackColor.Location = new System.Drawing.Point(670, 131);
+            this.btnBackColor.Location = new System.Drawing.Point(981, 170);
             this.btnBackColor.Name = "btnBackColor";
-            this.btnBackColor.Size = new System.Drawing.Size(28, 23);
+            this.btnBackColor.Size = new System.Drawing.Size(50, 40);
             this.btnBackColor.TabIndex = 22;
             this.btnBackColor.UseVisualStyleBackColor = true;
             this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
@@ -723,17 +724,17 @@
             // 
             this.lblBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBackColor.AutoSize = true;
-            this.lblBackColor.Location = new System.Drawing.Point(735, 135);
+            this.lblBackColor.Location = new System.Drawing.Point(1065, 177);
             this.lblBackColor.Name = "lblBackColor";
-            this.lblBackColor.Size = new System.Drawing.Size(56, 13);
+            this.lblBackColor.Size = new System.Drawing.Size(85, 21);
             this.lblBackColor.TabIndex = 21;
             this.lblBackColor.Text = "رنگ زمینه:";
             // 
             // btnSelBackgroundImage
             // 
-            this.btnSelBackgroundImage.Location = new System.Drawing.Point(7, 73);
+            this.btnSelBackgroundImage.Location = new System.Drawing.Point(7, 96);
             this.btnSelBackgroundImage.Name = "btnSelBackgroundImage";
-            this.btnSelBackgroundImage.Size = new System.Drawing.Size(29, 23);
+            this.btnSelBackgroundImage.Size = new System.Drawing.Size(45, 36);
             this.btnSelBackgroundImage.TabIndex = 8;
             this.btnSelBackgroundImage.Text = "...";
             this.btnSelBackgroundImage.UseVisualStyleBackColor = true;
@@ -743,20 +744,20 @@
             // 
             this.txtBackgroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBackgroundImage.Location = new System.Drawing.Point(111, 75);
+            this.txtBackgroundImage.Location = new System.Drawing.Point(182, 98);
             this.txtBackgroundImage.Name = "txtBackgroundImage";
             this.txtBackgroundImage.ReadOnly = true;
             this.txtBackgroundImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtBackgroundImage.Size = new System.Drawing.Size(594, 21);
+            this.txtBackgroundImage.Size = new System.Drawing.Size(849, 27);
             this.txtBackgroundImage.TabIndex = 7;
             // 
             // lblBackgroundImage
             // 
             this.lblBackgroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBackgroundImage.AutoSize = true;
-            this.lblBackgroundImage.Location = new System.Drawing.Point(728, 78);
+            this.lblBackgroundImage.Location = new System.Drawing.Point(1054, 100);
             this.lblBackgroundImage.Name = "lblBackgroundImage";
-            this.lblBackgroundImage.Size = new System.Drawing.Size(63, 13);
+            this.lblBackgroundImage.Size = new System.Drawing.Size(96, 21);
             this.lblBackgroundImage.TabIndex = 6;
             this.lblBackgroundImage.Text = "تصویر زمینه:";
             // 
@@ -764,9 +765,9 @@
             // 
             this.lblStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(495, 48);
+            this.lblStart.Location = new System.Drawing.Point(776, 60);
             this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(132, 13);
+            this.lblStart.Size = new System.Drawing.Size(203, 21);
             this.lblStart.TabIndex = 4;
             this.lblStart.Text = "شروع بر حسب میلی ثانیه:";
             // 
@@ -775,9 +776,9 @@
             this.chkAudioBound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAudioBound.AutoSize = true;
             this.chkAudioBound.Enabled = false;
-            this.chkAudioBound.Location = new System.Drawing.Point(692, 47);
+            this.chkAudioBound.Location = new System.Drawing.Point(995, 59);
             this.chkAudioBound.Name = "chkAudioBound";
-            this.chkAudioBound.Size = new System.Drawing.Size(99, 17);
+            this.chkAudioBound.Size = new System.Drawing.Size(151, 25);
             this.chkAudioBound.TabIndex = 1;
             this.chkAudioBound.Text = "مربوط به خوانش";
             this.chkAudioBound.UseVisualStyleBackColor = true;
@@ -788,9 +789,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbVerses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVerses.FormattingEnabled = true;
-            this.cmbVerses.Location = new System.Drawing.Point(111, 20);
+            this.cmbVerses.Location = new System.Drawing.Point(154, 20);
             this.cmbVerses.Name = "cmbVerses";
-            this.cmbVerses.Size = new System.Drawing.Size(680, 21);
+            this.cmbVerses.Size = new System.Drawing.Size(992, 29);
             this.cmbVerses.TabIndex = 0;
             this.cmbVerses.SelectedIndexChanged += new System.EventHandler(this.cmbVerses_SelectedIndexChanged);
             // 
@@ -801,9 +802,9 @@
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.prgrss,
             this.lblStatus});
-            this.statusStripMain.Location = new System.Drawing.Point(0, 637);
+            this.statusStripMain.Location = new System.Drawing.Point(0, 888);
             this.statusStripMain.Name = "statusStripMain";
-            this.statusStripMain.Size = new System.Drawing.Size(856, 28);
+            this.statusStripMain.Size = new System.Drawing.Size(1211, 28);
             this.statusStripMain.SizingGrip = false;
             this.statusStripMain.TabIndex = 3;
             // 
@@ -815,16 +816,16 @@
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(739, 23);
+            this.lblStatus.Size = new System.Drawing.Size(1094, 23);
             this.lblStatus.Spring = true;
             this.lblStatus.Text = "آماده";
             // 
             // btnProduce
             // 
             this.btnProduce.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnProduce.Location = new System.Drawing.Point(7, 614);
+            this.btnProduce.Location = new System.Drawing.Point(7, 833);
             this.btnProduce.Name = "btnProduce";
-            this.btnProduce.Size = new System.Drawing.Size(101, 23);
+            this.btnProduce.Size = new System.Drawing.Size(183, 43);
             this.btnProduce.TabIndex = 12;
             this.btnProduce.Text = "تولید خروجی";
             this.btnProduce.UseVisualStyleBackColor = true;
@@ -833,9 +834,9 @@
             // btnSubtitle
             // 
             this.btnSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSubtitle.Location = new System.Drawing.Point(110, 614);
+            this.btnSubtitle.Location = new System.Drawing.Point(198, 833);
             this.btnSubtitle.Name = "btnSubtitle";
-            this.btnSubtitle.Size = new System.Drawing.Size(101, 23);
+            this.btnSubtitle.Size = new System.Drawing.Size(163, 43);
             this.btnSubtitle.TabIndex = 14;
             this.btnSubtitle.Text = "تولید زیرنویس";
             this.btnSubtitle.UseVisualStyleBackColor = true;
@@ -852,9 +853,9 @@
             "انتقال قاب قبل به چپ",
             "انتقال قاب قبل به بالا",
             "انتقال قاب قبل به پایین"});
-            this.cmbTransitionEffect.Location = new System.Drawing.Point(431, 615);
+            this.cmbTransitionEffect.Location = new System.Drawing.Point(701, 838);
             this.cmbTransitionEffect.Name = "cmbTransitionEffect";
-            this.cmbTransitionEffect.Size = new System.Drawing.Size(234, 21);
+            this.cmbTransitionEffect.Size = new System.Drawing.Size(299, 29);
             this.cmbTransitionEffect.TabIndex = 47;
             this.cmbTransitionEffect.SelectedIndexChanged += new System.EventHandler(this.cmbTransitionEffect_SelectedIndexChanged);
             // 
@@ -862,17 +863,29 @@
             // 
             this.lblTransitionEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTransitionEffect.AutoSize = true;
-            this.lblTransitionEffect.Location = new System.Drawing.Point(217, 618);
+            this.lblTransitionEffect.Location = new System.Drawing.Point(367, 841);
             this.lblTransitionEffect.Name = "lblTransitionEffect";
-            this.lblTransitionEffect.Size = new System.Drawing.Size(213, 13);
+            this.lblTransitionEffect.Size = new System.Drawing.Size(333, 21);
             this.lblTransitionEffect.TabIndex = 53;
             this.lblTransitionEffect.Text = "پویانمایی انتقال بین قابها (فقط خروجی mp4):";
             // 
+            // chkAAC
+            // 
+            this.chkAAC.AutoSize = true;
+            this.chkAAC.Location = new System.Drawing.Point(1006, 840);
+            this.chkAAC.Name = "chkAAC";
+            this.chkAAC.Size = new System.Drawing.Size(108, 25);
+            this.chkAAC.TabIndex = 54;
+            this.chkAAC.Text = "صدای aac";
+            this.chkAAC.UseVisualStyleBackColor = true;
+            this.chkAAC.CheckedChanged += new System.EventHandler(this.chkAAC_CheckedChanged);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 665);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1211, 916);
+            this.Controls.Add(this.chkAAC);
             this.Controls.Add(this.lblTransitionEffect);
             this.Controls.Add(this.cmbTransitionEffect);
             this.Controls.Add(this.btnSubtitle);
@@ -976,6 +989,7 @@
         private System.Windows.Forms.Button btnPairNext;
         private System.Windows.Forms.ComboBox cmbTransitionEffect;
         private System.Windows.Forms.Label lblTransitionEffect;
+        private System.Windows.Forms.CheckBox chkAAC;
     }
 }
 

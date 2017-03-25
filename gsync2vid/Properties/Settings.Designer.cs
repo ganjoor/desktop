@@ -166,5 +166,29 @@ namespace gsync2vid.Properties {
                 this["TransitionType"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AACSound {
+            get {
+                return ((bool)(this["AACSound"]));
+            }
+            set {
+                this["AACSound"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AACFFMpegPath {
+            get {
+                return ((string)(this["AACFFMpegPath"]));
+            }
+            set {
+                this["AACFFMpegPath"] = value;
+            }
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace gsync2vid
 
             txtSrcDb.Text = DbPath;
             cmbTransitionEffect.SelectedIndex = Settings.Default.TransitionType;
+            chkAAC.Checked = Settings.Default.AACSound;
             UpdateConnectionStatus();
             UpdatePoemAndAudioInfo();
         }
@@ -1088,7 +1089,58 @@ namespace gsync2vid
         }
 
 
+        private void chkAAC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAAC.Checked == Settings.Default.AACSound)
+                return;
+            if (chkAAC.Checked)
+            {
+                if (MessageBox.Show("صدای تولید شده mp4 روی بعضی از دستگاهها پخش نمی شود.\nآیا این کار را کرده‌اید؟این گزینه این مشکل را حل می‌کند.\nآیا ffmpeg-hi10-heaac.exe را دریافت کرده اید؟", "پرسش",
+                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                      == DialogResult.Yes)
+                {
+                    MessageBox.Show("لطفا در مرحلهٔ بعد فایل ffmpeg-hi10-heaac.exe را از مسیر مورد نظر انتخاب کنید.", "آگاهی",
+                  MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
+                    using (OpenFileDialog dlg = new OpenFileDialog())
+                    {
+                        dlg.Filter = "*EXE Files (*.exe)|*.exe";
+                        dlg.FileName = "ffmpeg-hi10-heaac.exe";
+                        if (dlg.ShowDialog(this) == DialogResult.OK)
+                        {
+                            Settings.Default.AACFFMpegPath = dlg.FileName;                        
+                            Settings.Default.AACSound = true;
+                            Settings.Default.Save();
+                        }
+                        else
+                        {
+                            chkAAC.Checked = false;
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    if (MessageBox.Show("آیا تمایل دارید هم‌اکنون این نرم‌افزار را دریافت کنید؟", "پرسش",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                        == DialogResult.Yes)
+                    {
+                        Process.Start("https://sourceforge.net/projects/ffmpeg-hi/");
+
+                        MessageBox.Show("لطفا بعد از دریافت و باز کردن فایلها مجددا تلاش کنید.", "آگاهی",
+                                          MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    }
+                    chkAAC.Checked = false;
+                    return;
+                }
+            }
+            else
+            {
+                Settings.Default.AACSound = false;
+                Settings.Default.Save();
+            }
+
+        }
 
 
 
@@ -1218,7 +1270,7 @@ namespace gsync2vid
             bool bIsWmv = Path.GetExtension(outfilePath).Equals(".wmv", StringComparison.InvariantCultureIgnoreCase);
 
             string ffmpegPath = Settings.Default.FFmpegPath;
-            if(!bIsWmv)
+            if (!bIsWmv)
             {
                 if (string.IsNullOrEmpty(ffmpegPath))
                     ffmpegPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ffmpeg");
@@ -1591,7 +1643,54 @@ namespace gsync2vid
                 ffmpegPs.WaitForExit();
 
 
-                
+                if (File.Exists(outInTempPath))
+                {
+                    if(Settings.Default.AACSound)
+                    {
+                        if(!string.IsNullOrEmpty(Settings.Default.AACFFMpegPath) && File.Exists(Settings.Default.AACFFMpegPath))
+                        {
+                            string outInTempPathAAC = Path.Combine(Path.GetTempPath(), "aac" + Path.GetFileName(outfilePath));
+                            cmdArgs =
+                                                String.Format("-y -i {0} -c:v copy -c:a libfdk_aac -b:a 64k {1}",
+                                                Path.GetFileName(outInTempPath),
+                                                Path.GetFileName(outInTempPathAAC));
+
+                            ProcessStartInfo psAAC = new ProcessStartInfo
+                                (
+                                Settings.Default.AACFFMpegPath
+                                ,
+                                cmdArgs
+                                );
+
+                            psAAC.WorkingDirectory = Path.GetTempPath();
+                            psAAC.UseShellExecute = false;
+                            var ffmpegAACPs = Process.Start(psAAC);
+                            ffmpegAACPs.WaitForExit();
+
+                            if(File.Exists(outInTempPathAAC))
+                            {
+                                try
+                                {
+                                    File.Delete(outInTempPath);
+                                    outInTempPath = outInTempPathAAC;
+                                }
+                                catch(Exception exp)
+                                {
+                                    MessageBox.Show(exp.ToString());
+                                }
+                                
+                                 
+                            }
+                            else
+                            {
+                                MessageBox.Show("File.Exists(outInTempPathAAC) == false");
+                            }
+                        }
+                    }
+
+                }
+
+
 
                 File.Delete(Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)));
                 File.Delete(ffconcat);
@@ -1777,5 +1876,6 @@ namespace gsync2vid
 
         #endregion
 
+    
     }
 }

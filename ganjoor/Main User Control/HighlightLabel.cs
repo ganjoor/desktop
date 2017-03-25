@@ -27,6 +27,7 @@ namespace ganjoor
         #region Paint
         protected override void OnPaint(PaintEventArgs e)
         {
+                       
             if (!
                 (
                 string.IsNullOrEmpty(Keyword)
