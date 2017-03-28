@@ -1026,6 +1026,20 @@ namespace ganjoor
                 return string.Empty;
             }
         }
+
+        public int CurrentPoetId
+        {
+            get
+            {
+                if (_db.Connected)
+                {
+                    GanjoorPoet poet = _db.GetPoetForCat(_iCurCat);
+                    if (null != poet)
+                        return poet._ID;
+                }
+                return -1;
+            }
+        }
         public string CurrentPoetBio
         {
             get
@@ -1050,6 +1064,13 @@ namespace ganjoor
                         return cat._Text;
                 }
                 return string.Empty;
+            }
+        }
+        public int CurrentCatId
+        {
+            get
+            {
+                return _iCurCat;
             }
         }
         public string CurrentPoem
