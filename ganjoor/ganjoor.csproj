@@ -191,6 +191,12 @@
     <Compile Include="DownloadWizard\Audio\SndWizOptions.Designer.cs">
       <DependentUpon>SndWizOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editor\TextImporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\TextImporter.Designer.cs">
+      <DependentUpon>TextImporter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\GAdvisor.cs" />
     <Compile Include="Data Model\GanjoorCat.cs" />
     <Compile Include="Main User Control\GanjoorFavPage.cs" />
@@ -466,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadWizard\Audio\SndWizOptions.resx">
       <DependentUpon>SndWizOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\TextImporter.resx">
+      <DependentUpon>TextImporter.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
