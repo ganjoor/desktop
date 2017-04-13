@@ -46,7 +46,7 @@
             this.chkPicturesEnabled.AutoSize = true;
             this.chkPicturesEnabled.Location = new System.Drawing.Point(12, 12);
             this.chkPicturesEnabled.Name = "chkPicturesEnabled";
-            this.chkPicturesEnabled.Size = new System.Drawing.Size(521, 25);
+            this.chkPicturesEnabled.Size = new System.Drawing.Size(341, 17);
             this.chkPicturesEnabled.TabIndex = 1;
             this.chkPicturesEnabled.Text = "مشخصات تصاویر شاعران در فهرست و فایلهای خروجی گنجانده شود.";
             this.chkPicturesEnabled.UseVisualStyleBackColor = true;
@@ -73,7 +73,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(143, 85);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(428, 21);
+            this.label4.Size = new System.Drawing.Size(276, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "اگر خالی باشد در فهرست نشانی تصاویر گنجانده نمی‌شود.";
             // 
@@ -82,7 +82,7 @@
             this.txtPicturesUrlPrefix.Location = new System.Drawing.Point(7, 61);
             this.txtPicturesUrlPrefix.Name = "txtPicturesUrlPrefix";
             this.txtPicturesUrlPrefix.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtPicturesUrlPrefix.Size = new System.Drawing.Size(415, 27);
+            this.txtPicturesUrlPrefix.Size = new System.Drawing.Size(415, 21);
             this.txtPicturesUrlPrefix.TabIndex = 5;
             this.txtPicturesUrlPrefix.Text = "http://i.ganjoor.net/android/img/";
             // 
@@ -91,7 +91,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(428, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(195, 21);
+            this.label3.Size = new System.Drawing.Size(127, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "پیشوند نشانی وب تصاویر:";
             // 
@@ -100,7 +100,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(21, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(696, 21);
+            this.label2.Size = new System.Drawing.Size(456, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "فایل png همنام با شناسهٔ عددی هر شاعر اگر در این مسیر یافت شود برای او استفاده خو" +
     "اهد شد.";
@@ -120,16 +120,16 @@
             this.txtPath.Location = new System.Drawing.Point(44, 14);
             this.txtPath.Name = "txtPath";
             this.txtPath.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtPath.Size = new System.Drawing.Size(436, 27);
+            this.txtPath.Size = new System.Drawing.Size(436, 21);
             this.txtPath.TabIndex = 1;
-            this.txtPath.Text = "D:\\My Documents\\My Web Design\\ganjoor\\www\\i\\android\\img\\";
+            this.txtPath.Text = "D:\\My Documents\\My Web Design\\ganjoor\\www\\i\\android\\img";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(486, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 21);
+            this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "مسیر تصاویر:";
             // 
@@ -146,7 +146,7 @@
             // GDBPictureDirSelector
             // 
             this.AcceptButton = this.btnOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
             this.ClientSize = new System.Drawing.Size(603, 195);
