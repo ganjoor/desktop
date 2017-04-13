@@ -69,6 +69,7 @@ namespace ganjoor
             new string[] {"محمد ملکشاهی و همراهانشان", "", "غزلیات ابن حسام خوسفی", "http://blog.ganjoor.net/1394/12/29/ebnehesam-khusfi/"},
             new string[] {"سیاوش جعفری", "", "فیه ما فیه و مجالس سبعه مولانا", "http://blog.ganjoor.net/1395/11/15/vtv-mlv/"},
             new string[] {"سیاوش جعفری", "", "رشیدالدین وطواط", "http://blog.ganjoor.net/1395/11/15/vtv-mlv/"},
+            new string[] {"امیرحسین موسوی", "", "فایز دشتستانی", ""},
         };
 
         private const int GRDCLMN_NAME = 0;
