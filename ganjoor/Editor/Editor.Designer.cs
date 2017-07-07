@@ -95,10 +95,11 @@
             this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCorrectVerses = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBio = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuImport = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.mnuImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -172,50 +173,50 @@
             // btnNewPoetSub
             // 
             this.btnNewPoetSub.Name = "btnNewPoetSub";
-            this.btnNewPoetSub.Size = new System.Drawing.Size(283, 30);
+            this.btnNewPoetSub.Size = new System.Drawing.Size(282, 30);
             this.btnNewPoetSub.Text = "شاعر جدید";
             this.btnNewPoetSub.Click += new System.EventHandler(this.btnNewPoet_ButtonClick);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(280, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(279, 6);
             // 
             // btnEditPoet
             // 
             this.btnEditPoet.Name = "btnEditPoet";
-            this.btnEditPoet.Size = new System.Drawing.Size(283, 30);
+            this.btnEditPoet.Size = new System.Drawing.Size(282, 30);
             this.btnEditPoet.Text = "ویرایش نام شاعر";
             this.btnEditPoet.Click += new System.EventHandler(this.btnEditPoet_Click);
             // 
             // btnEditPoetBio
             // 
             this.btnEditPoetBio.Name = "btnEditPoetBio";
-            this.btnEditPoetBio.Size = new System.Drawing.Size(283, 30);
+            this.btnEditPoetBio.Size = new System.Drawing.Size(282, 30);
             this.btnEditPoetBio.Text = "ویرایش زندگینامهٔ شاعر";
             this.btnEditPoetBio.Click += new System.EventHandler(this.btnEditPoetBio_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(280, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(279, 6);
             // 
             // btnDeletePoet
             // 
             this.btnDeletePoet.Name = "btnDeletePoet";
-            this.btnDeletePoet.Size = new System.Drawing.Size(283, 30);
+            this.btnDeletePoet.Size = new System.Drawing.Size(282, 30);
             this.btnDeletePoet.Text = "حذف شاعر";
             this.btnDeletePoet.Click += new System.EventHandler(this.btnDeletePoet_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(280, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(279, 6);
             // 
             // btnExportPoet
             // 
             this.btnExportPoet.Name = "btnExportPoet";
-            this.btnExportPoet.Size = new System.Drawing.Size(283, 30);
+            this.btnExportPoet.Size = new System.Drawing.Size(282, 30);
             this.btnExportPoet.Text = "تولید خروجی از آثار شاعر";
             this.btnExportPoet.Click += new System.EventHandler(this.btnExportPoet_Click);
             // 
@@ -242,57 +243,57 @@
             // btnNewCatSub
             // 
             this.btnNewCatSub.Name = "btnNewCatSub";
-            this.btnNewCatSub.Size = new System.Drawing.Size(315, 30);
+            this.btnNewCatSub.Size = new System.Drawing.Size(314, 30);
             this.btnNewCatSub.Text = "بخش جدید";
             this.btnNewCatSub.Click += new System.EventHandler(this.btnNewCat_ButtonClick);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(312, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(311, 6);
             // 
             // btnEditCat
             // 
             this.btnEditCat.Name = "btnEditCat";
-            this.btnEditCat.Size = new System.Drawing.Size(315, 30);
+            this.btnEditCat.Size = new System.Drawing.Size(314, 30);
             this.btnEditCat.Text = "ویرایش عنوان بخش";
             this.btnEditCat.Click += new System.EventHandler(this.btnEditCat_Click);
             // 
             // btnReOrderCat
             // 
             this.btnReOrderCat.Name = "btnReOrderCat";
-            this.btnReOrderCat.Size = new System.Drawing.Size(315, 30);
+            this.btnReOrderCat.Size = new System.Drawing.Size(314, 30);
             this.btnReOrderCat.Text = "تغییر ترتیب اشعار بخش";
             this.btnReOrderCat.Click += new System.EventHandler(this.btnReOrderCat_Click);
             // 
             // btnReOrderSubCat
             // 
             this.btnReOrderSubCat.Name = "btnReOrderSubCat";
-            this.btnReOrderSubCat.Size = new System.Drawing.Size(315, 30);
+            this.btnReOrderSubCat.Size = new System.Drawing.Size(314, 30);
             this.btnReOrderSubCat.Text = "تغییر ترتیب زیربخشها";
             this.btnReOrderSubCat.Click += new System.EventHandler(this.btnReOrderSubCat_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(312, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(311, 6);
             // 
             // btnDeleteCat
             // 
             this.btnDeleteCat.Name = "btnDeleteCat";
-            this.btnDeleteCat.Size = new System.Drawing.Size(315, 30);
+            this.btnDeleteCat.Size = new System.Drawing.Size(314, 30);
             this.btnDeleteCat.Text = "حذف بخش";
             this.btnDeleteCat.Click += new System.EventHandler(this.btnDeleteCat_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(312, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(311, 6);
             // 
             // btnExportCat
             // 
             this.btnExportCat.Name = "btnExportCat";
-            this.btnExportCat.Size = new System.Drawing.Size(315, 30);
+            this.btnExportCat.Size = new System.Drawing.Size(314, 30);
             this.btnExportCat.Text = "تولید خروجی از محتوای بخش";
             this.btnExportCat.Click += new System.EventHandler(this.btnExportCat_Click);
             // 
@@ -328,27 +329,27 @@
             // 
             this.btnNewPoemSub.Name = "btnNewPoemSub";
             this.btnNewPoemSub.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.btnNewPoemSub.Size = new System.Drawing.Size(382, 30);
+            this.btnNewPoemSub.Size = new System.Drawing.Size(381, 30);
             this.btnNewPoemSub.Text = "شعر جدید";
             this.btnNewPoemSub.Click += new System.EventHandler(this.btnNewPoem_ButtonClick);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(379, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(378, 6);
             // 
             // btnEditPoem
             // 
             this.btnEditPoem.Name = "btnEditPoem";
             this.btnEditPoem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.btnEditPoem.Size = new System.Drawing.Size(382, 30);
+            this.btnEditPoem.Size = new System.Drawing.Size(381, 30);
             this.btnEditPoem.Text = "ویرایش عنوان شعر";
             this.btnEditPoem.Click += new System.EventHandler(this.btnEditPoem_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(379, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(378, 6);
             // 
             // mnuFileClipboard
             // 
@@ -361,14 +362,14 @@
             this.chkIgnoreBlankLines,
             this.chkIgnoreShortLines});
             this.mnuFileClipboard.Name = "mnuFileClipboard";
-            this.mnuFileClipboard.Size = new System.Drawing.Size(382, 30);
+            this.mnuFileClipboard.Size = new System.Drawing.Size(381, 30);
             this.mnuFileClipboard.Text = "ورود از فایل و کلیپ بورد";
             // 
             // btnImportFromTextFile
             // 
             this.btnImportFromTextFile.Name = "btnImportFromTextFile";
             this.btnImportFromTextFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.btnImportFromTextFile.Size = new System.Drawing.Size(554, 30);
+            this.btnImportFromTextFile.Size = new System.Drawing.Size(553, 30);
             this.btnImportFromTextFile.Text = "درج محتوی از فایل متنی با خطوط جدا شده با ENTER";
             this.btnImportFromTextFile.Click += new System.EventHandler(this.btnImportFromTextFile_Click);
             // 
@@ -377,85 +378,85 @@
             this.btnImportFromClipboard.Name = "btnImportFromClipboard";
             this.btnImportFromClipboard.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.V)));
-            this.btnImportFromClipboard.Size = new System.Drawing.Size(554, 30);
+            this.btnImportFromClipboard.Size = new System.Drawing.Size(553, 30);
             this.btnImportFromClipboard.Text = "درج محتوی از کلیپ بورد";
             this.btnImportFromClipboard.Click += new System.EventHandler(this.btnImportFromClipboard_Click);
             // 
             // btnImportFromClipboadStructuredPoem
             // 
             this.btnImportFromClipboadStructuredPoem.Name = "btnImportFromClipboadStructuredPoem";
-            this.btnImportFromClipboadStructuredPoem.Size = new System.Drawing.Size(554, 30);
+            this.btnImportFromClipboadStructuredPoem.Size = new System.Drawing.Size(553, 30);
             this.btnImportFromClipboadStructuredPoem.Text = "درج شعر چند بندی از کلیپ بورد";
             this.btnImportFromClipboadStructuredPoem.Click += new System.EventHandler(this.btnImportFromClipboadStructuredPoem_Click);
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(551, 6);
+            this.toolStripSeparator14.Size = new System.Drawing.Size(550, 6);
             // 
             // chkEachlineOneverse
             // 
             this.chkEachlineOneverse.CheckOnClick = true;
             this.chkEachlineOneverse.Name = "chkEachlineOneverse";
-            this.chkEachlineOneverse.Size = new System.Drawing.Size(554, 30);
+            this.chkEachlineOneverse.Size = new System.Drawing.Size(553, 30);
             this.chkEachlineOneverse.Text = "شعری که درج می‌شود نیمایی یا آزاد است";
             // 
             // chkIgnoreBlankLines
             // 
             this.chkIgnoreBlankLines.CheckOnClick = true;
             this.chkIgnoreBlankLines.Name = "chkIgnoreBlankLines";
-            this.chkIgnoreBlankLines.Size = new System.Drawing.Size(554, 30);
+            this.chkIgnoreBlankLines.Size = new System.Drawing.Size(553, 30);
             this.chkIgnoreBlankLines.Text = "خطهای خالی نادیده گرفته شوند";
             // 
             // chkIgnoreShortLines
             // 
             this.chkIgnoreShortLines.CheckOnClick = true;
             this.chkIgnoreShortLines.Name = "chkIgnoreShortLines";
-            this.chkIgnoreShortLines.Size = new System.Drawing.Size(554, 30);
+            this.chkIgnoreShortLines.Size = new System.Drawing.Size(553, 30);
             this.chkIgnoreShortLines.Text = "خطهای حاوی کمتر از 4 حرف نادیده گرفته شوند";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(379, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(378, 6);
             // 
             // btnReplaceToolStripMenuItem
             // 
             this.btnReplaceToolStripMenuItem.Name = "btnReplaceToolStripMenuItem";
-            this.btnReplaceToolStripMenuItem.Size = new System.Drawing.Size(382, 30);
+            this.btnReplaceToolStripMenuItem.Size = new System.Drawing.Size(381, 30);
             this.btnReplaceToolStripMenuItem.Text = "جایگزینی در شعر جاری";
             this.btnReplaceToolStripMenuItem.Click += new System.EventHandler(this.btnReplaceToolStripMenuItem_Click);
             // 
             // btnRestructurePoem
             // 
             this.btnRestructurePoem.Name = "btnRestructurePoem";
-            this.btnRestructurePoem.Size = new System.Drawing.Size(382, 30);
+            this.btnRestructurePoem.Size = new System.Drawing.Size(381, 30);
             this.btnRestructurePoem.Text = "چندبندی کردن شعر جاری";
             this.btnRestructurePoem.Click += new System.EventHandler(this.btnRestructurePoem_Click);
             // 
             // btnNormalRestructure
             // 
             this.btnNormalRestructure.Name = "btnNormalRestructure";
-            this.btnNormalRestructure.Size = new System.Drawing.Size(382, 30);
+            this.btnNormalRestructure.Size = new System.Drawing.Size(381, 30);
             this.btnNormalRestructure.Text = "چینش پیش‌فرض مصرعهای شعر جاری";
             this.btnNormalRestructure.Click += new System.EventHandler(this.btnNormalRestructure_Click);
             // 
             // toolStripSeparator15
             // 
             this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(379, 6);
+            this.toolStripSeparator15.Size = new System.Drawing.Size(378, 6);
             // 
             // btnDeletePoem
             // 
             this.btnDeletePoem.Name = "btnDeletePoem";
-            this.btnDeletePoem.Size = new System.Drawing.Size(382, 30);
+            this.btnDeletePoem.Size = new System.Drawing.Size(381, 30);
             this.btnDeletePoem.Text = "حذف شعر";
             this.btnDeletePoem.Click += new System.EventHandler(this.btnDeletePoem_Click);
             // 
             // btnMoveToCategory
             // 
             this.btnMoveToCategory.Name = "btnMoveToCategory";
-            this.btnMoveToCategory.Size = new System.Drawing.Size(382, 30);
+            this.btnMoveToCategory.Size = new System.Drawing.Size(381, 30);
             this.btnMoveToCategory.Text = "انتقال شعر به بخش دیگر";
             this.btnMoveToCategory.Click += new System.EventHandler(this.btnMoveToCategory_Click);
             // 
@@ -492,7 +493,7 @@
             // 
             this.btnNewNormalLine.Name = "btnNewNormalLine";
             this.btnNewNormalLine.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.btnNewNormalLine.Size = new System.Drawing.Size(365, 30);
+            this.btnNewNormalLine.Size = new System.Drawing.Size(364, 30);
             this.btnNewNormalLine.Text = "بیت معمولی جدید";
             this.btnNewNormalLine.Click += new System.EventHandler(this.btnNewLine_Click);
             // 
@@ -500,7 +501,7 @@
             // 
             this.btnNewBandLine.Name = "btnNewBandLine";
             this.btnNewBandLine.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.btnNewBandLine.Size = new System.Drawing.Size(365, 30);
+            this.btnNewBandLine.Size = new System.Drawing.Size(364, 30);
             this.btnNewBandLine.Text = "بیت بند جدید";
             this.btnNewBandLine.Click += new System.EventHandler(this.btnNewBandLine_Click);
             // 
@@ -508,7 +509,7 @@
             // 
             this.btnNewBandVerse.Name = "btnNewBandVerse";
             this.btnNewBandVerse.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.btnNewBandVerse.Size = new System.Drawing.Size(365, 30);
+            this.btnNewBandVerse.Size = new System.Drawing.Size(364, 30);
             this.btnNewBandVerse.Text = "مصرع بند جدید";
             this.btnNewBandVerse.Click += new System.EventHandler(this.btnNewBandVerse_Click);
             // 
@@ -516,7 +517,7 @@
             // 
             this.btnNewSingleVerse.Name = "btnNewSingleVerse";
             this.btnNewSingleVerse.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.btnNewSingleVerse.Size = new System.Drawing.Size(365, 30);
+            this.btnNewSingleVerse.Size = new System.Drawing.Size(364, 30);
             this.btnNewSingleVerse.Text = "مصرع تنهای جدید (نیمایی/آزاد)";
             this.btnNewSingleVerse.Click += new System.EventHandler(this.btnNewSingleVerse_Click);
             // 
@@ -524,20 +525,20 @@
             // 
             this.btnNewParagraph.Name = "btnNewParagraph";
             this.btnNewParagraph.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.btnNewParagraph.Size = new System.Drawing.Size(365, 30);
+            this.btnNewParagraph.Size = new System.Drawing.Size(364, 30);
             this.btnNewParagraph.Text = "پاراگراف نثر جدید";
             this.btnNewParagraph.Click += new System.EventHandler(this.btnNewParagraph_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(362, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(361, 6);
             // 
             // btnConvertBeytToBand
             // 
             this.btnConvertBeytToBand.Name = "btnConvertBeytToBand";
             this.btnConvertBeytToBand.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.btnConvertBeytToBand.Size = new System.Drawing.Size(365, 30);
+            this.btnConvertBeytToBand.Size = new System.Drawing.Size(364, 30);
             this.btnConvertBeytToBand.Text = "تبدیل بیت جاری به بیت بند";
             this.btnConvertBeytToBand.Click += new System.EventHandler(this.btnConvertBeytToBand_Click);
             // 
@@ -545,14 +546,14 @@
             // 
             this.btnConvertVerseToBand.Name = "btnConvertVerseToBand";
             this.btnConvertVerseToBand.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.btnConvertVerseToBand.Size = new System.Drawing.Size(365, 30);
+            this.btnConvertVerseToBand.Size = new System.Drawing.Size(364, 30);
             this.btnConvertVerseToBand.Text = "تبدیل مصرع جاری به مصرع بند";
             this.btnConvertVerseToBand.Click += new System.EventHandler(this.btnConvertVerseToBand_Click);
             // 
             // btnConvertLeftToRight
             // 
             this.btnConvertLeftToRight.Name = "btnConvertLeftToRight";
-            this.btnConvertLeftToRight.Size = new System.Drawing.Size(365, 30);
+            this.btnConvertLeftToRight.Size = new System.Drawing.Size(364, 30);
             this.btnConvertLeftToRight.Text = "تبدیل مصرع دوم به مصرع اول";
             this.btnConvertLeftToRight.Click += new System.EventHandler(this.btnConvertLeftToRight_Click);
             // 
@@ -560,27 +561,27 @@
             // 
             this.btnConvertVerseToPara.Name = "btnConvertVerseToPara";
             this.btnConvertVerseToPara.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.btnConvertVerseToPara.Size = new System.Drawing.Size(365, 30);
+            this.btnConvertVerseToPara.Size = new System.Drawing.Size(364, 30);
             this.btnConvertVerseToPara.Text = "تبدیل مصرع جاری به پاراگراف نثر";
             this.btnConvertVerseToPara.Click += new System.EventHandler(this.btnConvertVerseToPara_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(362, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(361, 6);
             // 
             // btnDeleteLine
             // 
             this.btnDeleteLine.Name = "btnDeleteLine";
             this.btnDeleteLine.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.Delete)));
-            this.btnDeleteLine.Size = new System.Drawing.Size(365, 30);
+            this.btnDeleteLine.Size = new System.Drawing.Size(364, 30);
             this.btnDeleteLine.Text = "حذف بیت جاری";
             this.btnDeleteLine.Click += new System.EventHandler(this.btnDeleteLine_Click);
             // 
             // btnDeleteAllLine
             // 
             this.btnDeleteAllLine.Name = "btnDeleteAllLine";
-            this.btnDeleteAllLine.Size = new System.Drawing.Size(365, 30);
+            this.btnDeleteAllLine.Size = new System.Drawing.Size(364, 30);
             this.btnDeleteAllLine.Text = "حذف تمام ابیات";
             this.btnDeleteAllLine.Click += new System.EventHandler(this.btnDeleteAllLine_Click);
             // 
@@ -595,6 +596,7 @@
             this.mnuCorrectVerses,
             this.mnuBio,
             this.mnuImport,
+            this.mnuSplit,
             this.btnGDBListEditor});
             this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -606,49 +608,56 @@
             // btnMergeTwoTextColumns
             // 
             this.btnMergeTwoTextColumns.Name = "btnMergeTwoTextColumns";
-            this.btnMergeTwoTextColumns.Size = new System.Drawing.Size(388, 30);
+            this.btnMergeTwoTextColumns.Size = new System.Drawing.Size(387, 30);
             this.btnMergeTwoTextColumns.Text = "یک در میان چیدن خطوط دو ستون متنی";
             this.btnMergeTwoTextColumns.Click += new System.EventHandler(this.btnMergeTwoTextColumns_Click);
             // 
             // btnSpaceTabText
             // 
             this.btnSpaceTabText.Name = "btnSpaceTabText";
-            this.btnSpaceTabText.Size = new System.Drawing.Size(388, 30);
+            this.btnSpaceTabText.Size = new System.Drawing.Size(387, 30);
             this.btnSpaceTabText.Text = "تبدیل متن جدا شده با Space و Tab";
             this.btnSpaceTabText.Click += new System.EventHandler(this.btnSpaceTabText_Click);
             // 
             // btnReplaceInDb
             // 
             this.btnReplaceInDb.Name = "btnReplaceInDb";
-            this.btnReplaceInDb.Size = new System.Drawing.Size(388, 30);
+            this.btnReplaceInDb.Size = new System.Drawing.Size(387, 30);
             this.btnReplaceInDb.Text = "جایگزینی در پایگاه داده‌ها";
             this.btnReplaceInDb.Click += new System.EventHandler(this.btnReplaceInDb_Click);
             // 
             // btnChangeIDs
             // 
             this.btnChangeIDs.Name = "btnChangeIDs";
-            this.btnChangeIDs.Size = new System.Drawing.Size(388, 30);
+            this.btnChangeIDs.Size = new System.Drawing.Size(387, 30);
             this.btnChangeIDs.Text = "تغییر شناسه‌ها";
             this.btnChangeIDs.Click += new System.EventHandler(this.btnChangeIDs_Click);
             // 
             // mnuCorrectVerses
             // 
             this.mnuCorrectVerses.Name = "mnuCorrectVerses";
-            this.mnuCorrectVerses.Size = new System.Drawing.Size(388, 30);
+            this.mnuCorrectVerses.Size = new System.Drawing.Size(387, 30);
             this.mnuCorrectVerses.Text = "تصحیح ترتیب مصاریع بخش";
             this.mnuCorrectVerses.Click += new System.EventHandler(this.mnuCorrectVerses_Click);
             // 
             // mnuBio
             // 
             this.mnuBio.Name = "mnuBio";
-            this.mnuBio.Size = new System.Drawing.Size(388, 30);
+            this.mnuBio.Size = new System.Drawing.Size(387, 30);
             this.mnuBio.Text = "بازخوانی زندگینامه‌ها از فایل دیگر";
             this.mnuBio.Click += new System.EventHandler(this.mnuBio_Click);
+            // 
+            // mnuImport
+            // 
+            this.mnuImport.Name = "mnuImport";
+            this.mnuImport.Size = new System.Drawing.Size(387, 30);
+            this.mnuImport.Text = "ورود اطلاعات از فایل متنی";
+            this.mnuImport.Click += new System.EventHandler(this.mnuImport_Click);
             // 
             // btnGDBListEditor
             // 
             this.btnGDBListEditor.Name = "btnGDBListEditor";
-            this.btnGDBListEditor.Size = new System.Drawing.Size(388, 30);
+            this.btnGDBListEditor.Size = new System.Drawing.Size(387, 30);
             this.btnGDBListEditor.Text = "ویرایشگر فهرست مجموعه‌ها";
             this.btnGDBListEditor.Click += new System.EventHandler(this.btnGDBListEditor_Click);
             // 
@@ -684,12 +693,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // mnuImport
+            // mnuSplit
             // 
-            this.mnuImport.Name = "mnuImport";
-            this.mnuImport.Size = new System.Drawing.Size(388, 30);
-            this.mnuImport.Text = "ورود اطلاعات از فایل متنی";
-            this.mnuImport.Click += new System.EventHandler(this.mnuImport_Click);
+            this.mnuSplit.Name = "mnuSplit";
+            this.mnuSplit.Size = new System.Drawing.Size(387, 30);
+            this.mnuSplit.Text = "شکستن شعر به اشعار مجزا";
+            this.mnuSplit.Click += new System.EventHandler(this.mnuSplit_Click);
             // 
             // Editor
             // 
@@ -701,7 +710,7 @@
             this.Controls.Add(this.toolStripMain);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Editor";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -789,5 +798,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnSpaceTabText;
         private System.Windows.Forms.ToolStripMenuItem mnuBio;
         private System.Windows.Forms.ToolStripMenuItem mnuImport;
+        private System.Windows.Forms.ToolStripMenuItem mnuSplit;
     }
 }

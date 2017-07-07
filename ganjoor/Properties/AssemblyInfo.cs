@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("حمیدرضا محمدی")]
 [assembly: AssemblyProduct("گنجور")]
-[assembly: AssemblyCopyright("GPL, 1388-95, ganjoor.net, Hamid Reza Mohammadi")]
+[assembly: AssemblyCopyright("GPL, 1388-96, ganjoor.net, Hamid Reza Mohammadi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.78.*")]
-[assembly: AssemblyFileVersion("2.78.0.0")]
+[assembly: AssemblyVersion("2.79.*")]
+[assembly: AssemblyFileVersion("2.79.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("fa-IR")]
