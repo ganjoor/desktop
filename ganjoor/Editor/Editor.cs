@@ -751,5 +751,55 @@ namespace ganjoor
                 }
             }
         }
+
+        private void mnuSplit_Click(object sender, EventArgs e)
+        {
+            int nPoemId = ganjoorView.CurrentPoemId;
+            if (nPoemId < 1)
+            {
+                MessageBox.Show("لطفا شعری را انتخاب کنید.");
+                return;
+            }
+            if (MessageBox.Show("با اجرای این فرمان بیتهای با مصرع خالی یا طول کمتر از ۴ آغاز شعر جدید محسوب می‌وند.\n\rاشعار جدید به بخش جاری اضافه می‌شوند.\n\rآیا ادامه می‌دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+            {
+                DbBrowser dbBrowser = new DbBrowser();
+                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+                int nPoemStartVerseIndex = 0;
+               
+                int nCatId = ganjoorView.CurrentCatId;
+                int nPoemNo = 0;
+                int nLastPoemId = nPoemId;
+                
+                for (int nIndex = 0; nIndex < verses.Count; nIndex++)
+                {
+                    if (verses[nIndex]._Text.Length < 4)
+                    {
+                        if (nIndex == nPoemStartVerseIndex)
+                        {
+                            nPoemStartVerseIndex++;
+                        }
+                        else
+                        {
+                            nPoemNo++;
+                            dbBrowser.BeginBatchOperation();
+                            GanjoorPoem newPoem = dbBrowser.CreateNewPoem("شمارهٔ " + GPersianTextSync.Sync(nPoemNo.ToString()), nCatId);
+                            nLastPoemId = newPoem._ID;
+                            for (int i = nPoemStartVerseIndex; i < nIndex; i++)
+                            {
+                                GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i - nPoemStartVerseIndex, verses[i]._Position);
+                                dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[i]._Text);
+                            }
+                            dbBrowser.CommitBatchOperation();
+                            nPoemStartVerseIndex = nIndex + 1;
+
+                        }
+                    }
+                }
+                ganjoorView.ShowPoem(dbBrowser.GetPoem(nLastPoemId), true);
+                dbBrowser.CloseDb();
+               
+               
+            }
+        }
     }
 }

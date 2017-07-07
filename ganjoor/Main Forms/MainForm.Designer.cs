@@ -114,14 +114,14 @@
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPlayAudio = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAudioStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuAllAudioFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHlp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChangeLog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuAllAudioFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tlbrSearch.SuspendLayout();
@@ -915,6 +915,18 @@
             this.mnuAudioStop.Text = "توقف کامل";
             this.mnuAudioStop.Click += new System.EventHandler(this.mnuAudioStop_Click);
             // 
+            // toolStripSeparator19
+            // 
+            this.toolStripSeparator19.Name = "toolStripSeparator19";
+            this.toolStripSeparator19.Size = new System.Drawing.Size(197, 6);
+            // 
+            // mnuAllAudioFile
+            // 
+            this.mnuAllAudioFile.Name = "mnuAllAudioFile";
+            this.mnuAllAudioFile.Size = new System.Drawing.Size(200, 22);
+            this.mnuAllAudioFile.Text = "همهٔ خوانشها";
+            this.mnuAllAudioFile.Click += new System.EventHandler(this.mnuAllAudioFile_Click);
+            // 
             // mnuHlp
             // 
             this.mnuHlp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -974,18 +986,6 @@
             this.ganjoorView.PlaybackStarted += new System.EventHandler(this.ganjoorView_PlaybackStarted);
             this.ganjoorView.PlaybackStopped += new System.EventHandler(this.ganjoorView_PlaybackStopped);
             this.ganjoorView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ganjoorView_KeyPress);
-            // 
-            // toolStripSeparator19
-            // 
-            this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(197, 6);
-            // 
-            // mnuAllAudioFile
-            // 
-            this.mnuAllAudioFile.Name = "mnuAllAudioFile";
-            this.mnuAllAudioFile.Size = new System.Drawing.Size(200, 22);
-            this.mnuAllAudioFile.Text = "همهٔ خوانشها";
-            this.mnuAllAudioFile.Click += new System.EventHandler(this.mnuAllAudioFile_Click);
             // 
             // MainForm
             // 

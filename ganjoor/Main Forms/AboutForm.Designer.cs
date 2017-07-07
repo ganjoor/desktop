@@ -38,11 +38,12 @@
             this.lnkIconsEditor = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.grdContributers = new System.Windows.Forms.DataGridView();
-            this.lnkBlog = new System.Windows.Forms.LinkLabel();
-            this.lnkEditor = new System.Windows.Forms.LinkLabel();
             this.Column1 = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.lnkBlog = new System.Windows.Forms.LinkLabel();
+            this.lnkEditor = new System.Windows.Forms.LinkLabel();
+            this.lblIcon = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grdContributers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,7 +84,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(179, 399);
+            this.btnOK.Location = new System.Drawing.Point(179, 415);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(60, 22);
@@ -146,7 +147,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 166);
+            this.label1.Location = new System.Drawing.Point(43, 182);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(333, 13);
@@ -163,7 +164,7 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.grdContributers.Location = new System.Drawing.Point(12, 186);
+            this.grdContributers.Location = new System.Drawing.Point(12, 202);
             this.grdContributers.Name = "grdContributers";
             this.grdContributers.ReadOnly = true;
             this.grdContributers.RowHeadersWidth = 11;
@@ -171,32 +172,6 @@
             this.grdContributers.Size = new System.Drawing.Size(395, 186);
             this.grdContributers.TabIndex = 9;
             this.grdContributers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdContributers_CellContentClick);
-            // 
-            // lnkBlog
-            // 
-            this.lnkBlog.AutoSize = true;
-            this.lnkBlog.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkBlog.Location = new System.Drawing.Point(176, 147);
-            this.lnkBlog.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lnkBlog.Name = "lnkBlog";
-            this.lnkBlog.Size = new System.Drawing.Size(71, 13);
-            this.lnkBlog.TabIndex = 7;
-            this.lnkBlog.TabStop = true;
-            this.lnkBlog.Text = "تازه‌های گنجور";
-            this.lnkBlog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkBlog_LinkClicked);
-            // 
-            // lnkEditor
-            // 
-            this.lnkEditor.AutoSize = true;
-            this.lnkEditor.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkEditor.Location = new System.Drawing.Point(147, 379);
-            this.lnkEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lnkEditor.Name = "lnkEditor";
-            this.lnkEditor.Size = new System.Drawing.Size(121, 13);
-            this.lnkEditor.TabIndex = 10;
-            this.lnkEditor.TabStop = true;
-            this.lnkEditor.Text = "چگونه اشعار را تایپ کنم؟";
-            this.lnkEditor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkEditor_LinkClicked);
             // 
             // Column1
             // 
@@ -222,13 +197,50 @@
             this.Column3.ReadOnly = true;
             this.Column3.Width = 75;
             // 
+            // lnkBlog
+            // 
+            this.lnkBlog.AutoSize = true;
+            this.lnkBlog.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lnkBlog.Location = new System.Drawing.Point(176, 147);
+            this.lnkBlog.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lnkBlog.Name = "lnkBlog";
+            this.lnkBlog.Size = new System.Drawing.Size(71, 13);
+            this.lnkBlog.TabIndex = 7;
+            this.lnkBlog.TabStop = true;
+            this.lnkBlog.Text = "تازه‌های گنجور";
+            this.lnkBlog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkBlog_LinkClicked);
+            // 
+            // lnkEditor
+            // 
+            this.lnkEditor.AutoSize = true;
+            this.lnkEditor.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lnkEditor.Location = new System.Drawing.Point(147, 395);
+            this.lnkEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lnkEditor.Name = "lnkEditor";
+            this.lnkEditor.Size = new System.Drawing.Size(121, 13);
+            this.lnkEditor.TabIndex = 10;
+            this.lnkEditor.TabStop = true;
+            this.lnkEditor.Text = "چگونه اشعار را تایپ کنم؟";
+            this.lnkEditor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkEditor_LinkClicked);
+            // 
+            // lblIcon
+            // 
+            this.lblIcon.AutoSize = true;
+            this.lblIcon.Location = new System.Drawing.Point(121, 165);
+            this.lblIcon.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblIcon.Name = "lblIcon";
+            this.lblIcon.Size = new System.Drawing.Size(176, 13);
+            this.lblIcon.TabIndex = 11;
+            this.lblIcon.Text = "طراحی آیکون برنامه: ارسلان سفیدگر";
+            // 
             // AboutForm
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(419, 424);
+            this.ClientSize = new System.Drawing.Size(419, 449);
+            this.Controls.Add(this.lblIcon);
             this.Controls.Add(this.lnkEditor);
             this.Controls.Add(this.lnkBlog);
             this.Controls.Add(this.grdContributers);
@@ -277,5 +289,6 @@
         private System.Windows.Forms.DataGridViewLinkColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewLinkColumn Column3;
+        private System.Windows.Forms.Label lblIcon;
     }
 }

@@ -231,7 +231,7 @@
             this.txtRefUrl.Name = "txtRefUrl";
             this.txtRefUrl.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtRefUrl.Size = new System.Drawing.Size(300, 22);
-            this.txtRefUrl.Text = "http://sourceforge.net/projects/ganjoor/files/gdb/";
+            this.txtRefUrl.Text = "http://i.ganjoor.net/android/gdb/";
             // 
             // grd
             // 
