@@ -535,156 +535,225 @@ namespace ganjoor
             int nCurCatId = ganjoorView.CurrentCatId;
             int nCurPoetId = ganjoorView.CurrentPoetId;
 
-            if(nCurCatId < 0 || nCurPoetId < 0)
+            if (nCurCatId < 0 || nCurPoetId < 0)
             {
                 MessageBox.Show("لطفا ابتدا وارد آثار شاعر (و بخش مورد نظر) شوید.");
                 return;
             }
-
-
-            using (TextImporter dlg = new TextImporter())
+            #region Old Code
+            if ((ModifierKeys | Keys.Shift) == ModifierKeys)
             {
-                if(dlg.ShowDialog(this) == DialogResult.OK)
+                using (TextImporter dlgOld = new TextImporter())
+                {
+                    if (dlgOld.ShowDialog(this) == DialogResult.OK)
+                    {
+                        string fileName = dlgOld.FileName;
+                        string mainCatText = dlgOld.MainCatText;
+                        string[] subCatTexts = dlgOld.SubCatTexts;
+                        int nMaxVerseTextLength = dlgOld.MaxVerseTextLength;
+                        bool bTabularVerses = dlgOld.TabularVerses;
+
+                        Cursor = Cursors.WaitCursor;
+                        Application.DoEvents();
+
+                        string[] lines = File.ReadAllLines(fileName);
+
+                        Application.DoEvents();
+
+
+
+
+
+
+
+
+                        GanjoorCat curMainCat = null;
+                        GanjoorPoem curPoem = null;
+
+                        int nTotalLines = lines.Length;
+                        int nCurLine = 0;
+
+                        int nCurVerse = 0;
+
+
+
+                        DbBrowser dbBrowser = new DbBrowser();
+
+                        dbBrowser.BeginBatchOperation();
+                        while (nCurLine < nTotalLines)
+                        {
+                            if (lines[nCurLine].Contains(mainCatText))
+                            {
+                                curMainCat = dbBrowser.CreateNewCategory(lines[nCurLine].Trim(), nCurCatId, nCurPoetId);
+                            }
+                            else if (curMainCat != null)
+                            {
+                                bool bNewCatOrPoem = false;
+                                foreach (string subCatText in subCatTexts)
+                                {
+                                    if (lines[nCurLine].Contains(subCatText))
+                                    {
+                                        if (bTabularVerses)
+                                        {
+                                            ReArrangeTabularVerses(curPoem, dbBrowser);
+                                        }
+                                        curPoem = dbBrowser.CreateNewPoem(lines[nCurLine].Trim(), curMainCat._ID);
+                                        bNewCatOrPoem = true;
+                                        nCurVerse = 0;
+                                        break;
+                                    }
+                                }
+
+                                if (!bNewCatOrPoem)
+                                {
+                                    string line = lines[nCurLine].Trim();
+                                    if (!string.IsNullOrEmpty(line))
+                                    {
+                                        int nWordsCount = line.Split(' ').Length;
+
+                                        bool bVerseDetected = false;
+
+                                        if (nWordsCount <= nMaxVerseTextLength)
+                                        {
+                                            int nNextLine = nCurLine + 1;
+                                            if (nNextLine < nTotalLines)
+                                            {
+                                                while (nNextLine < nTotalLines)
+                                                {
+                                                    string nextLine = lines[nNextLine].Trim();
+                                                    if (string.IsNullOrEmpty(nextLine))
+                                                        nNextLine++;
+                                                    else
+                                                    {
+                                                        int nNextWordsCount = nextLine.Split(' ').Length;
+                                                        if (nNextWordsCount <= nMaxVerseTextLength)
+                                                        {
+                                                            if (nextLine.Contains(mainCatText))
+                                                            {
+                                                                break;
+                                                            }
+                                                            bool bBreak = false;
+                                                            foreach (string subCatText in subCatTexts)
+                                                            {
+                                                                if (nextLine.Contains(subCatText))
+                                                                {
+                                                                    bBreak = true;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            if (bBreak)
+                                                                break;
+                                                            if (curPoem == null)
+                                                            {
+                                                                MessageBox.Show("curPoem == null");
+                                                                return;
+                                                            }
+                                                            bVerseDetected = true;
+
+                                                            GanjoorVerse v1 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Right);
+                                                            dbBrowser.SetVerseText(curPoem._ID, v1._Order, line);
+                                                            nCurVerse++;
+                                                            GanjoorVerse v2 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Left);
+                                                            dbBrowser.SetVerseText(curPoem._ID, v2._Order, nextLine);
+                                                            nCurVerse++;
+
+                                                            nCurLine = nNextLine;
+                                                            break;
+                                                        }
+                                                        else
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        if (!bVerseDetected)
+                                        {
+                                            if (curPoem == null)
+                                            {
+                                                MessageBox.Show("curPoem == null");
+                                                return;
+                                            }
+                                            GanjoorVerse p = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Paragraph);
+                                            dbBrowser.SetVerseText(curPoem._ID, p._Order, line);
+                                            nCurVerse++;
+                                        }
+                                    }
+                                }
+                            }
+                            nCurLine++;
+                        }
+                        if (bTabularVerses)
+                        {
+                            ReArrangeTabularVerses(curPoem, dbBrowser);
+                        }
+                        dbBrowser.CommitBatchOperation();
+                        dbBrowser.CloseDb();
+
+
+                        Cursor = Cursors.Default;
+                        MessageBox.Show("انجام شد");
+
+                        ganjoorView.Font = ganjoorView.Font;
+
+                    }
+                }
+                return;
+            }
+            #endregion
+            using (GeneralTextImporter dlg = new GeneralTextImporter())
+            {
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     string fileName = dlg.FileName;
-                    string mainCatText = dlg.MainCatText;
-                    string[] subCatTexts = dlg.SubCatTexts;
-                    int nMaxVerseTextLength = dlg.MaxVerseTextLength;
-                    bool bTabularVerses = dlg.TabularVerses;
+                    string nextPoemStartText = dlg.NextPoemStartText;
 
                     Cursor = Cursors.WaitCursor;
                     Application.DoEvents();
 
-                    string[] lines  = File.ReadAllLines(fileName);
+                    string[] lines = File.ReadAllLines(fileName);
 
                     Application.DoEvents();
 
-                   
 
-                       
-                    
-
-                    
-
-                    GanjoorCat curMainCat = null;
-                    GanjoorPoem curPoem = null;
 
                     int nTotalLines = lines.Length;
                     int nCurLine = 0;
 
                     int nCurVerse = 0;
 
-                  
-
                     DbBrowser dbBrowser = new DbBrowser();
+                    GanjoorCat cat = dbBrowser.GetCategory(nCurCatId);
+                    if (cat == null)
+                    {
+                        MessageBox.Show("cat == null");
+                        dbBrowser.CloseDb();
+                        return;
+                    }
+
+
+                    GanjoorPoem curPoem = null;
 
                     dbBrowser.BeginBatchOperation();
                     while (nCurLine < nTotalLines)
                     {
-                        if (lines[nCurLine].Contains(mainCatText))
+                        string line = lines[nCurLine].Trim();
+                        if (!string.IsNullOrEmpty(line))
                         {
-                            curMainCat = dbBrowser.CreateNewCategory(lines[nCurLine].Trim(), nCurCatId, nCurPoetId);                            
-                        }
-                        else if(curMainCat != null)
-                        {
-                            bool bNewCatOrPoem = false;
-                            foreach(string subCatText in subCatTexts)
+                            if (line.IndexOf(nextPoemStartText) == 0)
                             {
-                                if(lines[nCurLine].Contains(subCatText))
-                                {
-                                    if(bTabularVerses)
-                                    {
-                                        ReArrangeTabularVerses(curPoem, dbBrowser);
-                                    }
-                                    curPoem = dbBrowser.CreateNewPoem(lines[nCurLine].Trim(), curMainCat._ID);
-                                    bNewCatOrPoem = true;
-                                    nCurVerse = 0;
-                                    break;
-                                }
+                                curPoem = dbBrowser.CreateNewPoem(line, nCurCatId);
+                                nCurVerse = 0;
                             }
-
-                            if(!bNewCatOrPoem)
+                            else
+                            if (curPoem != null)
                             {
-                                string line = lines[nCurLine].Trim();
-                                if(!string.IsNullOrEmpty(line))
-                                {
-                                    int nWordsCount = line.Split(' ').Length;
-
-                                    bool bVerseDetected = false;
-
-                                    if(nWordsCount <= nMaxVerseTextLength)
-                                    {
-                                        int nNextLine = nCurLine + 1;
-                                        if(nNextLine  < nTotalLines)
-                                        {
-                                            while(nNextLine < nTotalLines)
-                                            {
-                                                string nextLine = lines[nNextLine].Trim();
-                                                if (string.IsNullOrEmpty(nextLine))
-                                                    nNextLine++;
-                                                else
-                                                {
-                                                    int nNextWordsCount = nextLine.Split(' ').Length;
-                                                    if (nNextWordsCount <= nMaxVerseTextLength)
-                                                    {
-                                                        if(nextLine.Contains(mainCatText))
-                                                        {
-                                                            break;
-                                                        }
-                                                        bool bBreak = false;
-                                                        foreach (string subCatText in subCatTexts)
-                                                        {
-                                                            if (nextLine.Contains(subCatText))
-                                                            {
-                                                                bBreak = true;
-                                                                break;
-                                                            }
-                                                        }
-                                                        if (bBreak)
-                                                            break;
-                                                        if (curPoem == null)
-                                                        {
-                                                            MessageBox.Show("curPoem == null");
-                                                            return;
-                                                        }
-                                                        bVerseDetected = true;
-
-                                                        GanjoorVerse v1 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Right);
-                                                        dbBrowser.SetVerseText(curPoem._ID, v1._Order, line);
-                                                        nCurVerse++;
-                                                        GanjoorVerse v2 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Left);
-                                                        dbBrowser.SetVerseText(curPoem._ID, v2._Order, nextLine);
-                                                        nCurVerse++;
-
-                                                        nCurLine = nNextLine;
-                                                        break;
-                                                    }
-                                                    else
-                                                        break;
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    if(!bVerseDetected)
-                                    {
-                                        if (curPoem == null)
-                                        {                                           
-                                            MessageBox.Show("curPoem == null");
-                                            return;
-                                        }                                       
-                                        GanjoorVerse p = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Paragraph);
-                                        dbBrowser.SetVerseText(curPoem._ID, p._Order, line);
-                                        nCurVerse++;
-                                    }
-                                }
+                                GanjoorVerse v = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, nCurVerse % 2 == 0 ? VersePosition.Right : VersePosition.Left);
+                                dbBrowser.SetVerseText(curPoem._ID, v._Order, line);
+                                nCurVerse++;
                             }
                         }
                         nCurLine++;
-                    }
-                    if (bTabularVerses)
-                    {
-                        ReArrangeTabularVerses(curPoem, dbBrowser);
                     }
                     dbBrowser.CommitBatchOperation();
                     dbBrowser.CloseDb();
