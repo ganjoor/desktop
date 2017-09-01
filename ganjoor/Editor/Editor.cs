@@ -707,6 +707,8 @@ namespace ganjoor
                 {
                     string fileName = dlg.FileName;
                     string nextPoemStartText = dlg.NextPoemStartText;
+                    bool nextPoemStartIsAShortText = dlg.NextPoemStartIsAShortText;
+                    int nShortTextLength = dlg.ShortTextLength;
 
                     Cursor = Cursors.WaitCursor;
                     Application.DoEvents();
@@ -740,7 +742,11 @@ namespace ganjoor
                         string line = lines[nCurLine].Trim();
                         if (!string.IsNullOrEmpty(line))
                         {
-                            if (line.IndexOf(nextPoemStartText) == 0)
+                            if (
+                                (nextPoemStartIsAShortText && line.Length < nShortTextLength)
+                                ||
+                                (!nextPoemStartIsAShortText && line.IndexOf(nextPoemStartText) == 0)
+                                )
                             {
                                 curPoem = dbBrowser.CreateNewPoem(line, nCurCatId);
                                 nCurVerse = 0;

@@ -28,6 +28,26 @@ namespace ganjoor
             private set;
         }
 
+        public bool NextPoemStartIsAShortText
+        {
+            get;
+            private set;
+        }
+
+        public int ShortTextLength
+        {
+            get
+            {
+                return 10;
+            }
+        }
+
+        private void chkStartShort_CheckedChanged(object sender, EventArgs e)
+        {
+            txtNextPoemStartText.Enabled = !chkStartShort.Checked;
+        }
+
+
         private void btnOK_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
@@ -41,9 +61,11 @@ namespace ganjoor
 
                 FileName = dlg.FileName;
                 NextPoemStartText = txtNextPoemStartText.Text;
+                NextPoemStartIsAShortText = chkStartShort.Checked;
 
             }
         }
+
     }
 
 

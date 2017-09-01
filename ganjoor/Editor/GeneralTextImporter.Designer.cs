@@ -34,12 +34,13 @@
             this.txtNextPoemStartText = new System.Windows.Forms.TextBox();
             this.lblMainCatText = new System.Windows.Forms.Label();
             this.lblComment = new System.Windows.Forms.Label();
+            this.chkStartShort = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(262, 90);
+            this.btnCancel.Location = new System.Drawing.Point(262, 111);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(123, 23);
@@ -50,7 +51,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(135, 90);
+            this.btnOK.Location = new System.Drawing.Point(135, 111);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(123, 23);
@@ -87,13 +88,25 @@
             this.lblComment.TabIndex = 12;
             this.lblComment.Text = resources.GetString("lblComment.Text");
             // 
+            // chkStartShort
+            // 
+            this.chkStartShort.AutoSize = true;
+            this.chkStartShort.Location = new System.Drawing.Point(12, 90);
+            this.chkStartShort.Name = "chkStartShort";
+            this.chkStartShort.Size = new System.Drawing.Size(296, 17);
+            this.chkStartShort.TabIndex = 17;
+            this.chkStartShort.Text = "خطوط با طول کمتر از ۱۰ نویسه را آغاز شعر بعد محسوب کن";
+            this.chkStartShort.UseVisualStyleBackColor = true;
+            this.chkStartShort.CheckedChanged += new System.EventHandler(this.chkStartShort_CheckedChanged);
+            // 
             // GeneralTextImporter
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(397, 122);
+            this.ClientSize = new System.Drawing.Size(397, 142);
+            this.Controls.Add(this.chkStartShort);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtNextPoemStartText);
@@ -121,5 +134,6 @@
         private System.Windows.Forms.TextBox txtNextPoemStartText;
         private System.Windows.Forms.Label lblMainCatText;
         private System.Windows.Forms.Label lblComment;
+        private System.Windows.Forms.CheckBox chkStartShort;
     }
 }
