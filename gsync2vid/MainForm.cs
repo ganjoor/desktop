@@ -1022,12 +1022,50 @@ namespace gsync2vid
             
             if (MessageBox.Show("با انتخاب این گزینه تصاویر تصادفی از سایت unsplash.com برای زوج قابهای فاقد تصویر زمینه انتخاب می‌شود. آیا موافقید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading
                 | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
-            {
+            {                
                 using (UnsplashImageTypeForm dlg = new UnsplashImageTypeForm())
                 {
                     if (dlg.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
+                        return;                    
+
+                    if(!string.IsNullOrEmpty(dlg.ImageFolderPath))
+                    {
+                        string[] images = Directory.GetFiles(dlg.ImageFolderPath, "*.jpg");
+                        int nIdx = -1;
+                        for (int i = 0; i < cmbVerses.Items.Count; i++)
+                        {
+                            if (i >= images.Length)
+                                break;
+                            GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
+                            if (!frame.AudioBound && frame.MasterFrame != null)
+                            {
+                                continue;
+                            }
+                            nIdx++;
+                            if (nIdx == 0 || (nIdx % 2 == 1))
+                            {
+                                if (frame.MasterFrame == null && string.IsNullOrEmpty(frame.BackgroundImagePath))
+                                {
+                                    frame.BackgroundImagePath = images[i];
+                                    if (i != cmbVerses.Items.Count - 1)
+                                    {
+                                        if ((string.IsNullOrEmpty((cmbVerses.Items[i + 1] as GVideoFrame).BackgroundImagePath)))
+                                        {
+                                            (cmbVerses.Items[i + 1] as GVideoFrame).BackgroundImagePath = images[i];
+                                        }
+                                    }
+                                    cmbVerses.SelectedIndex = i;
+                                    Application.DoEvents();
+                                }
+                            }
+                        }
+                        cmbVerses_SelectedIndexChanged(sender, e);
+                        cmbVerses.Focus();
+
                         return;
+                    }
                 }
+                
 
                 string url = String.Format(Settings.Default.UnsplashSearchUrl
                     , Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
