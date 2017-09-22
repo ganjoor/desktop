@@ -17,6 +17,7 @@ namespace gsync2vid
             InitializeComponent();
             txtInput.Text = Settings.Default.UnsplashSearchTerm;
             txtSearchUrl.Text = Settings.Default.UnsplashSearchUrl;
+            ImageFolderPath = "";
         }
 
         private void rd1_CheckedChanged(object sender, EventArgs e)
@@ -54,6 +55,20 @@ namespace gsync2vid
         {
             Settings.Default.UnsplashSearchTerm = txtInput.Text;
             Settings.Default.UnsplashSearchUrl = txtSearchUrl.Text;
+        }
+
+        public string ImageFolderPath { get; set; }
+
+        private void btnFolder_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+            {
+                if(dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    this.ImageFolderPath = dlg.SelectedPath;
+                    DialogResult = DialogResult.OK;
+                }
+            }
         }
     }
 }

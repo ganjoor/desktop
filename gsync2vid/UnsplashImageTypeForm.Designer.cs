@@ -39,6 +39,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.grpHelper = new System.Windows.Forms.GroupBox();
             this.lnkUnsplash = new System.Windows.Forms.LinkLabel();
+            this.btnFolder = new System.Windows.Forms.Button();
             this.grpHelper.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,6 +140,7 @@
             // 
             // grpHelper
             // 
+            this.grpHelper.Controls.Add(this.btnFolder);
             this.grpHelper.Controls.Add(this.lnkUnsplash);
             this.grpHelper.Controls.Add(this.rd1);
             this.grpHelper.Controls.Add(this.rd2);
@@ -162,6 +164,17 @@
             this.lnkUnsplash.TabStop = true;
             this.lnkUnsplash.Text = "روشهای دیگر";
             this.lnkUnsplash.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUnsplash_LinkClicked);
+            // 
+            // btnFolder
+            // 
+            this.btnFolder.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnFolder.Location = new System.Drawing.Point(386, 146);
+            this.btnFolder.Name = "btnFolder";
+            this.btnFolder.Size = new System.Drawing.Size(135, 23);
+            this.btnFolder.TabIndex = 10;
+            this.btnFolder.Text = "انتخاب پوشه‌ای از تصاویر";
+            this.btnFolder.UseVisualStyleBackColor = true;
+            this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
             // 
             // UnsplashImageTypeForm
             // 
@@ -204,6 +217,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox grpHelper;
         private System.Windows.Forms.LinkLabel lnkUnsplash;
-
+        private System.Windows.Forms.Button btnFolder;
     }
 }
