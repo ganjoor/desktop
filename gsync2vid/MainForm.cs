@@ -28,6 +28,7 @@ namespace gsync2vid
             txtSrcDb.Text = DbPath;
             cmbTransitionEffect.SelectedIndex = Settings.Default.TransitionType;
             chkAAC.Checked = Settings.Default.AACSound;
+            chkDebug.Checked = Settings.Default.DebugMode;
             UpdateConnectionStatus();
             UpdatePoemAndAudioInfo();
         }
@@ -1180,7 +1181,24 @@ namespace gsync2vid
 
         }
 
+        private void chkDebug_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkDebug.Checked == Settings.Default.DebugMode)
+                return;
+            if (chkDebug.Checked)
+            {
+                if (MessageBox.Show("با فعال کردن این گزینه (جهت اشکالیابی) در هنگام تولید خروجی mp4 میزان پیشرفت را نمی‌بینید." +  Environment.NewLine + "آیا موافقید؟", "تأییدیه",
+                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                      == DialogResult.No)
+                {
+                    chkDebug.Checked = false;
+                    return;
+                }
+            }
 
+            Settings.Default.DebugMode = chkDebug.Checked;
+            Settings.Default.Save();
+        }
 
 
         #endregion
@@ -1511,7 +1529,7 @@ namespace gsync2vid
                     ffmpegInputFiles.Add(filename);
                     ffmpegDurations.Add((double)(duration / 1000.0));
                 }
-            }            
+            }
 
 
 
@@ -1547,10 +1565,10 @@ namespace gsync2vid
                         {
                             using (Image imgOutput = new Bitmap(szImageSize.Width, szImageSize.Height))
                             {
-                                
+
                                 using (Graphics g = Graphics.FromImage(imgOutput))
                                 {
-                                    switch(effect)
+                                    switch (effect)
                                     {
                                         case GTransitionEffect.ToRight:
                                             {
@@ -1584,7 +1602,7 @@ namespace gsync2vid
                                                 }
                                                 using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
                                                 {
-                                                    g.DrawImage(img2, new PointF(0, (4-j) * (float)szImageSize.Height / 4));
+                                                    g.DrawImage(img2, new PointF(0, (4 - j) * (float)szImageSize.Height / 4));
                                                 }
                                             }
                                             break;
@@ -1630,19 +1648,19 @@ namespace gsync2vid
                 sbFFMPegConcatDemux.AppendLine("ffconcat version 1.0");
 
                 Debug.Assert(ffmpegInputFiles.Count == ffmpegDurations.Count);
-                for(int i=0; i<ffmpegInputFiles.Count; i++)
+                for (int i = 0; i < ffmpegInputFiles.Count; i++)
                 {
                     sbFFMPegConcatDemux.AppendLine(String.Format("file {0}", Path.GetFileName(ffmpegInputFiles[i])));
                     sbFFMPegConcatDemux.AppendLine(String.Format("duration {0}", ffmpegDurations[i]));
                 }
-                
-                
+
+
 
                 File.WriteAllText(ffconcat, sbFFMPegConcatDemux.ToString());
 
-               
-                
-                File.Copy(wav, Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)));
+
+
+                File.Copy(wav, Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)), true);
 
                 string outInTempPath = Path.Combine(Path.GetTempPath(), Path.GetFileName(outfilePath));
 
@@ -1657,16 +1675,18 @@ namespace gsync2vid
                         MessageBox.Show("error: File.Delete(outInTempPath)");
                     }
                 }
-                
+
 
                 string cmdArgs =
-                    String.Format("-y -i {0} -itsoffset {1} -i {2} -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
+                    String.Format("-y -i {0} -itsoffset {1} -i \"{2}\" -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
                     Path.GetFileName(ffconcat),
                     dSoundStart,
                     Path.GetFileName(wav),
                     Path.GetFileName(outfilePath),
                     Settings.Default.LastImageWidth,
                     Settings.Default.LastImageHeight);
+
+
 
                 ProcessStartInfo ps = new ProcessStartInfo
                     (
@@ -1675,10 +1695,58 @@ namespace gsync2vid
                     cmdArgs
                     );
 
+
+
                 ps.WorkingDirectory = Path.GetTempPath();
                 ps.UseShellExecute = false;
+                if (Settings.Default.DebugMode)
+                {
+                    ps.RedirectStandardOutput = true;
+                    ps.RedirectStandardError = true;
+                }
                 var ffmpegPs = Process.Start(ps);
+
+                StringBuilder sbOutput = new StringBuilder();
+                StringBuilder sbErr = new StringBuilder();
+
+                if (Settings.Default.DebugMode)
+                {
+                    ffmpegPs.EnableRaisingEvents = true;
+                    ffmpegPs.OutputDataReceived += (s, e) => sbOutput.AppendLine(e.Data);
+                    ffmpegPs.ErrorDataReceived += (s, e) => sbErr.AppendLine(e.Data);
+                    ffmpegPs.BeginOutputReadLine();
+                    ffmpegPs.BeginErrorReadLine();
+                }
+
                 ffmpegPs.WaitForExit();
+
+                if (Settings.Default.DebugMode)
+                {
+                    string strErrOutput = sbErr.ToString();
+
+                    if (!string.IsNullOrEmpty(strErrOutput))
+                    {
+                        string errFile = Path.Combine(Path.GetTempPath(),
+                                            "err1-" + Guid.NewGuid().ToString() + ".txt"
+                                            );
+                        File.WriteAllText(errFile, strErrOutput);
+                        Process.Start(errFile);
+                        _lstDeleteFileList.Add(errFile);
+                    }
+
+
+                    string strOutOutput = sbOutput.ToString().Trim();
+
+                    if (!string.IsNullOrEmpty(strOutOutput))
+                    {
+                        string outFile = Path.Combine(Path.GetTempPath(),
+                                            "out1-" + Guid.NewGuid().ToString() + ".txt"
+                                            );
+                        File.WriteAllText(outFile, sbOutput.ToString());
+                        Process.Start(outFile);
+                        _lstDeleteFileList.Add(outFile);
+                    }
+                }
 
 
                 if (File.Exists(outInTempPath))
@@ -1702,10 +1770,61 @@ namespace gsync2vid
 
                             psAAC.WorkingDirectory = Path.GetTempPath();
                             psAAC.UseShellExecute = false;
+                            if (Settings.Default.DebugMode)
+                            {
+                                psAAC.RedirectStandardOutput = true;
+                                psAAC.RedirectStandardError = true;
+
+                                sbOutput = new StringBuilder();
+                                sbErr = new StringBuilder();
+
+                            }
+
+
+
+
                             var ffmpegAACPs = Process.Start(psAAC);
+                            if (Settings.Default.DebugMode)
+                            {
+                                ffmpegAACPs.EnableRaisingEvents = true;
+                                ffmpegAACPs.OutputDataReceived += (s, e) => sbOutput.AppendLine(e.Data);
+                                ffmpegAACPs.ErrorDataReceived += (s, e) => sbErr.AppendLine(e.Data);
+                                ffmpegAACPs.BeginOutputReadLine();
+                                ffmpegAACPs.BeginErrorReadLine();
+                            }
+
                             ffmpegAACPs.WaitForExit();
 
-                            if(File.Exists(outInTempPathAAC))
+                            if (Settings.Default.DebugMode)
+                            {
+                                string strErrOutput = sbErr.ToString();
+
+                                if (!string.IsNullOrEmpty(strErrOutput))
+                                {
+                                    string errFile = Path.Combine(Path.GetTempPath(),
+                                                        "err2-" + Guid.NewGuid().ToString() + ".txt"
+                                                        );
+                                    File.WriteAllText(errFile, strErrOutput);
+                                    Process.Start(errFile);
+                                    _lstDeleteFileList.Add(errFile);
+                                }
+
+
+                                string strOutOutput = sbOutput.ToString().Trim();
+
+                                if (!string.IsNullOrEmpty(strOutOutput))
+                                {
+                                    string outFile = Path.Combine(Path.GetTempPath(),
+                                                        "out2-" + Guid.NewGuid().ToString() + ".txt"
+                                                        );
+                                    File.WriteAllText(outFile, sbOutput.ToString());
+                                    Process.Start(outFile);
+                                    _lstDeleteFileList.Add(outFile);
+                                }
+                            }
+
+
+                            if (File.Exists(outInTempPathAAC))
                             {
                                 try
                                 {
@@ -1773,6 +1892,7 @@ namespace gsync2vid
                 timeline.Dispose();
 
         }
+
 
         /// <summary>
         /// تولید زیرنویس
@@ -1905,15 +2025,7 @@ namespace gsync2vid
 
         }
 
-
-
-
-
-
-
-
         #endregion
 
-    
     }
 }
