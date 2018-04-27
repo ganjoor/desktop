@@ -173,5 +173,26 @@
     <Setting Name="SoundsPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ExportLevel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Poet</Value>
+    </Setting>
+    <Setting Name="ExportPoetName" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ExportCatName" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ExportPoemName" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ExportPoemSep" Type="System.String" Scope="User">
+      <Value Profile="(Default)">===</Value>
+    </Setting>
+    <Setting Name="ExportCatSep" Type="System.String" Scope="User">
+      <Value Profile="(Default)">---</Value>
+    </Setting>
+    <Setting Name="ExportPoetSep" Type="System.String" Scope="User">
+      <Value Profile="(Default)">***</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

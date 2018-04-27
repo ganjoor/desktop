@@ -66,12 +66,18 @@ namespace ganjoor
             new string[] {"ابوالفضل فتحی آزاد", "http://afasoft.ir/", "گزیدۀ اشعار فریدون مشیری", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
             new string[] {"ابوالفضل فتحی آزاد", "http://afasoft.ir/", "اشعار ترانه‌های سیاوش قمیشی", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
             new string[] {"اسحاق فروزنده", "", "گزیدۀ اشعار پژمان بختیاری", "http://blog.ganjoor.net/1392/08/24/new-gdbs/"},
-            new string[] {"محمد ملکشاهی و همراهانشان", "", "غزلیات ابن حسام خوسفی", "http://blog.ganjoor.net/1394/12/29/ebnehesam-khusfi/"},
+            new string[] {"محمد ملکشاهی و همراهانشان", "https://t.me/ebnhesam", "غزلیات ابن حسام خوسفی", "http://blog.ganjoor.net/1394/12/29/ebnehesam-khusfi/"},
             new string[] {"سیاوش جعفری", "", "فیه ما فیه و مجالس سبعه مولانا", "http://blog.ganjoor.net/1395/11/15/vtv-mlv/"},
             new string[] {"سیاوش جعفری", "", "رشیدالدین وطواط", "http://blog.ganjoor.net/1395/11/15/vtv-mlv/"},
             new string[] {"امیرحسین موسوی", "", "فایز دشتستانی", "http://blog.ganjoor.net/1396/01/27/fayez/"},
             new string[] {"سیاوش جعفری", "", "عنصری", "http://blog.ganjoor.net/1396/04/16/onsori-azraghi/"},
             new string[] {"سیاوش جعفری", "", "ازرقی هروی", "http://blog.ganjoor.net/1396/04/16/onsori-azraghi/"},
+            new string[] {"مصطفی علیزاده و همراهانشان", "https://t.me/hakimnazaribirjandi", "اشعار نزاری قهستانی", "http://blog.ganjoor.net/1396/05/26/nezari-1-100/"},
+            new string[] {"حمید زارعی مرودشت", "", "ترجیع بند بیدل", "http://blog.ganjoor.net/1396/09/03/bidel-tarjee/"},
+            new string[] { "سیاوش جعفری", "", "مرزبان‌نامهٔ سعدالدین وراوینی", "http://blog.ganjoor.net/1396/12/21/marzbanname/"},
+            new string[] { "سیاوش جعفری", "", "دیوان کمال‌الدین اسماعیل", "http://blog.ganjoor.net/1396/12/25/kamal/"},
+            new string[] { "سیاوش جعفری", "", "دیوان ظهیرالدین فاریابی", "http://blog.ganjoor.net/1397/01/09/zahir/"},
+            new string[] { "سید جابر موسوی صالحی", "", "غزلیات عبدالقادر گیلانی", "http://blog.ganjoor.net/1397/01/14/abdolghader-gilani/"},
         };
 
         private const int GRDCLMN_NAME = 0;
