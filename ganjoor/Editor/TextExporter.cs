@@ -46,5 +46,21 @@ namespace ganjoor
             Settings.Default.Save();
 
         }
+
+        private void cmbTextExportLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch(cmbTextExportLevel.SelectedIndex)
+            {
+                case 0:
+                    lblExportLevelComment.Text = "تمام اشعار شاعر در یک فایل متنی گنجانده می‌شود.";
+                    break;
+                case 1:
+                    lblExportLevelComment.Text = "برای هر بخش یک پوشه ایجاد می‌شود و اگر شعری در خود آن بخش باشد در فایل متنی همنام در مسیر پوشه گنجانده می‌شود. این فرایند برای تمام زیربخشها تکرار می‌شود.";
+                    break;
+                default:
+                    lblExportLevelComment.Text = "اشعار هر بخش در پوشه آن بخش در فایلهای جداگانه ذخیره می‌شود.";
+                    break;
+            }
+        }
     }
 }

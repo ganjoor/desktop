@@ -63,6 +63,7 @@
             this.cmbTextExportLevel.Name = "cmbTextExportLevel";
             this.cmbTextExportLevel.Size = new System.Drawing.Size(338, 21);
             this.cmbTextExportLevel.TabIndex = 1;
+            this.cmbTextExportLevel.SelectedIndexChanged += new System.EventHandler(this.cmbTextExportLevel_SelectedIndexChanged);
             // 
             // lblExportLevelComment
             // 
@@ -185,6 +186,7 @@
             this.RightToLeftLayout = true;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ارسال به فایل متنی";
             this.ResumeLayout(false);
             this.PerformLayout();
