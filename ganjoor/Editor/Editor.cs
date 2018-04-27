@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -876,5 +877,168 @@ namespace ganjoor
                
             }
         }
+
+        private void mnuExport_Click(object sender, EventArgs e)
+        {
+
+            using (TextExporter eDlg = new TextExporter())
+            {
+                if(eDlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+                    {
+                        dlg.Description = "مسیر خروجیها را انتخاب کنید";
+                        dlg.ShowNewFolderButton = true;
+
+                        if (dlg.ShowDialog(this) == DialogResult.OK)
+                        {
+
+                            Cursor.Current = Cursors.WaitCursor;
+                            this.Enabled = false;
+                            Application.DoEvents();
+                            string targetFolder = dlg.SelectedPath;
+                            
+                            DbBrowser dbBrowser = new DbBrowser();
+
+                            for (int i = 0; i < dbBrowser.Poets.Count; i++)
+                            {
+                                GanjoorPoet poet = dbBrowser.Poets[i];
+                                switch(Settings.Default.ExportLevel)
+                                {
+                                    case "Poet":
+                                        ExportPoetToTextFile(poet, targetFolder, dbBrowser);
+                                        break;
+                                    case "Cat":
+                                        ExportCatToTextFile(i, dbBrowser.GetCategory(poet._CatID), targetFolder, dbBrowser);
+                                        break;
+                                    default:
+                                        ExportCatToTextFile(i, dbBrowser.GetCategory(poet._CatID), targetFolder, dbBrowser, true);
+                                        break;
+                                }
+                            }
+
+                            dbBrowser.CloseDb();
+
+                            Cursor.Current = Cursors.Default;
+                            this.Enabled = true;
+                            MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void ExportPoetToTextFile(GanjoorPoet poet, string targetFolder, DbBrowser dbBrowser)
+        {
+            if (!Directory.Exists(targetFolder))
+            {
+                Directory.CreateDirectory(targetFolder);
+            }
+
+            StringBuilder sb = new StringBuilder();
+            if (Settings.Default.ExportPoetName)
+            {
+                string poetNameSeparator = Settings.Default.ExportPoetSep;
+                if (!string.IsNullOrEmpty(poetNameSeparator))
+                    sb.AppendLine(poetNameSeparator);
+                sb.AppendLine(poet._Name);
+                if (!string.IsNullOrEmpty(poetNameSeparator))
+                    sb.AppendLine(poetNameSeparator);
+            }
+
+            GanjoorCat poetCat = dbBrowser.GetCategory(poet._CatID);
+            DRY_ExportCat(dbBrowser, poetCat, sb);
+
+            List<int> lstSubCategories = dbBrowser.GetAllSubCats(poetCat._ID);
+            foreach(int catId in lstSubCategories)
+            {
+                DRY_ExportCat(dbBrowser, dbBrowser.GetCategory(catId), sb);
+            }
+            File.WriteAllText(Path.Combine(targetFolder, GPersianTextSync.Farglisize(poet._Name) + ".txt"), sb.ToString());
+
+        }
+
+
+        private void ExportCatToTextFile(int nOrder, GanjoorCat cat, string targetFolder, DbBrowser dbBrowser, bool separateFiles = false)
+        {
+            string catInLatinLetters = (nOrder + 1).ToString("D3") + "-" + GPersianTextSync.Farglisize(cat._Text);
+            if (catInLatinLetters.Length > 16)
+                catInLatinLetters = catInLatinLetters.Substring(0, 16);
+            string catFolder = Path.Combine(targetFolder, catInLatinLetters);
+            if(!Directory.Exists(catFolder))
+            {
+                Directory.CreateDirectory(catFolder);
+            }
+
+            StringBuilder sb = new StringBuilder();
+            if (DRY_ExportCat(dbBrowser, cat, sb, separateFiles ? catFolder : ""))
+            {
+                if(!separateFiles)
+                {
+                    File.WriteAllText(Path.Combine(catFolder, catInLatinLetters + ".txt"), sb.ToString());
+                }                
+            }
+
+         
+            List<GanjoorCat> cats = dbBrowser.GetSubCategories(cat._ID);
+            for (int i = 0; i < cats.Count; i++)
+            {
+                ExportCatToTextFile(i, cats[i], catFolder, dbBrowser, separateFiles);
+            }
+        }
+
+        private bool DRY_ExportCat(DbBrowser dbBrowser, GanjoorCat cat, StringBuilder sb, string catFolderForSeparatePorms = "")
+        {
+            if (Settings.Default.ExportCatName)
+            {
+                string catNameSeparator = Settings.Default.ExportCatSep;
+                if (!string.IsNullOrEmpty(catNameSeparator))
+                    sb.AppendLine(catNameSeparator);
+                sb.AppendLine(cat._Text);
+                if (!string.IsNullOrEmpty(catNameSeparator))
+                    sb.AppendLine(catNameSeparator);
+            }
+
+            List<GanjoorPoem> poems = dbBrowser.GetPoems(cat._ID);
+            if (poems.Count > 0)
+            {
+                bool exportPoemName = Settings.Default.ExportPoemName;
+                string poemNameSeparator = Settings.Default.ExportPoemSep;
+                foreach (GanjoorPoem poem in poems)
+                {
+                    if (!string.IsNullOrEmpty(catFolderForSeparatePorms))
+                    {
+                        sb = new StringBuilder();
+                    }
+                    DRY_ExportPoem(dbBrowser, poem, sb, exportPoemName, poemNameSeparator);
+                    if (!string.IsNullOrEmpty(catFolderForSeparatePorms))
+                    {
+                        File.WriteAllText(Path.Combine(catFolderForSeparatePorms, poem._ID.ToString() + ".txt"), sb.ToString());
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+
+        private void DRY_ExportPoem(DbBrowser dbBrowser, GanjoorPoem poem, StringBuilder sb, bool exportPoemName, string poemNameSeparator)
+        {
+            if (exportPoemName)
+            {
+                if (!string.IsNullOrEmpty(poemNameSeparator))
+                    sb.AppendLine(poemNameSeparator);
+                sb.AppendLine(poem._Title);
+                if (!string.IsNullOrEmpty(poemNameSeparator))
+                    sb.AppendLine(poemNameSeparator);
+            }
+            foreach (GanjoorVerse verse in dbBrowser.GetVerses(poem._ID))
+            {
+                sb.AppendLine(verse._Text);
+            }
+        }
+
+
     }
 }

@@ -226,12 +226,12 @@
             // lblIcon
             // 
             this.lblIcon.AutoSize = true;
-            this.lblIcon.Location = new System.Drawing.Point(121, 165);
+            this.lblIcon.Location = new System.Drawing.Point(79, 165);
             this.lblIcon.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIcon.Name = "lblIcon";
-            this.lblIcon.Size = new System.Drawing.Size(176, 13);
+            this.lblIcon.Size = new System.Drawing.Size(257, 13);
             this.lblIcon.TabIndex = 11;
-            this.lblIcon.Text = "طراحی آیکون برنامه: ارسلان سفیدگر";
+            this.lblIcon.Text = "طراحی آیکونهای برنامه: یوسف زمانی، ارسلان سفیدگر";
             // 
             // AboutForm
             // 
