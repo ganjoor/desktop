@@ -931,22 +931,42 @@ namespace gsync2vid
                 }
             }
 
-            if (MessageBox.Show("آیا تمایل دارید قاب بعدی با این قاب یکی شود و این الگو تا آخر تکرار شود؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
-                MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+
+
+            using (ItemSelector dlg = new ItemSelector("تعداد مصرعها در هر قاب", new object[] { 2, 4 }, 2))
             {
-                int idx = cmbVerses.SelectedIndex;
-
-                for (int i = (idx+1); i < cmbVerses.Items.Count; i+=2)
+                if(dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    frame = cmbVerses.Items[i] as GVideoFrame;
-                    frame.MasterFrame = (cmbVerses.Items[i - 1] as GVideoFrame);
+                    int n = (int)dlg.SelectedItem;
+                    int idx = cmbVerses.SelectedIndex;
 
-                    frame.MainTextPosRatioPortion = frame.MainTextPosRatioPortionFrom  - frame.MasterFrame.MainTextPosRatioPortion;
+                    for (int i = (idx + 1); i < cmbVerses.Items.Count; i += n)
+                    {
+                        int max = (i + n - 1);
+                        if (max > cmbVerses.Items.Count)
+                            max = cmbVerses.Items.Count;
+                        for (int j=i; j< max; j++)
+                        {
+                            frame = cmbVerses.Items[j] as GVideoFrame;
+                            frame.MasterFrame = (cmbVerses.Items[i - 1] as GVideoFrame);
 
+                            frame.MainTextPosRatioPortion = 
+                                n == 2 ? frame.MainTextPosRatioPortionFrom - frame.MasterFrame.MainTextPosRatioPortion
+                                       : 
+                                       //4:
+                                       j == i ? //2nd
+                                        2 * frame.MainTextPosRatioPortion
+                                       : j == i + 1 ? //3rd
+                                        frame.MainTextPosRatioPortionFrom - frame.MasterFrame.MainTextPosRatioPortion - frame.MainTextPosRatioPortion
+                                        //4th
+                                       : frame.MainTextPosRatioPortionFrom - frame.MasterFrame.MainTextPosRatioPortion;
+                        }
+
+                    }
+                    InvalidatePreview();
                 }
-                InvalidatePreview();
-
             }
+
         }
 
 
