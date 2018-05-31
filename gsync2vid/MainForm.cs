@@ -1669,10 +1669,15 @@ namespace gsync2vid
                                             break;
                                     }
                                 }
+
+                                string ext = string.IsNullOrEmpty(_VideoBackgroundPath) ? ".jpg"//this is important! : jpg not png - although it's png by heart!                    
+                                    : ".png";
+
                                 string filename = Path.Combine(Path.GetTempPath(),
-                                                    Guid.NewGuid().ToString() + ".jpg"//this is important! : jpg not png - although it's png by heart!                    
+                                                    Guid.NewGuid().ToString() + ext
                                                     );
-                                imgOutput.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                
+                                imgOutput.Save(filename, ext == ".jpg" ? System.Drawing.Imaging.ImageFormat.Jpeg : System.Drawing.Imaging.ImageFormat.Png);
                                 newInputFiles.Add(filename);
                                 newDurations.Add(0.1);
                                 _lstDeleteFileList.Add(filename);
