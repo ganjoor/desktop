@@ -70,5 +70,13 @@ namespace gsync2vid
                 }
             }
         }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            string url = String.Format(txtSearchUrl.Text
+                , Settings.Default.LastImageWidth, Settings.Default.LastImageHeight);
+            System.Diagnostics.Process.Start(url);
+
+        }
     }
 }

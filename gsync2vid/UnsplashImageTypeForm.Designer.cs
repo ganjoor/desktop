@@ -38,8 +38,9 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.grpHelper = new System.Windows.Forms.GroupBox();
-            this.lnkUnsplash = new System.Windows.Forms.LinkLabel();
             this.btnFolder = new System.Windows.Forms.Button();
+            this.lnkUnsplash = new System.Windows.Forms.LinkLabel();
+            this.btnBrowse = new System.Windows.Forms.Button();
             this.grpHelper.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,7 +106,7 @@
             this.txtSearchUrl.Location = new System.Drawing.Point(89, 193);
             this.txtSearchUrl.Name = "txtSearchUrl";
             this.txtSearchUrl.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtSearchUrl.Size = new System.Drawing.Size(454, 21);
+            this.txtSearchUrl.Size = new System.Drawing.Size(373, 21);
             this.txtSearchUrl.TabIndex = 6;
             // 
             // lblUrl
@@ -154,17 +155,6 @@
             this.grpHelper.TabStop = false;
             this.grpHelper.Text = "تولید رشتهٔ جستجو:";
             // 
-            // lnkUnsplash
-            // 
-            this.lnkUnsplash.AutoSize = true;
-            this.lnkUnsplash.Location = new System.Drawing.Point(456, 127);
-            this.lnkUnsplash.Name = "lnkUnsplash";
-            this.lnkUnsplash.Size = new System.Drawing.Size(68, 13);
-            this.lnkUnsplash.TabIndex = 5;
-            this.lnkUnsplash.TabStop = true;
-            this.lnkUnsplash.Text = "روشهای دیگر";
-            this.lnkUnsplash.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUnsplash_LinkClicked);
-            // 
             // btnFolder
             // 
             this.btnFolder.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -176,6 +166,27 @@
             this.btnFolder.UseVisualStyleBackColor = true;
             this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
             // 
+            // lnkUnsplash
+            // 
+            this.lnkUnsplash.AutoSize = true;
+            this.lnkUnsplash.Location = new System.Drawing.Point(456, 127);
+            this.lnkUnsplash.Name = "lnkUnsplash";
+            this.lnkUnsplash.Size = new System.Drawing.Size(68, 13);
+            this.lnkUnsplash.TabIndex = 5;
+            this.lnkUnsplash.TabStop = true;
+            this.lnkUnsplash.Text = "روشهای دیگر";
+            this.lnkUnsplash.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUnsplash_LinkClicked);
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point(468, 193);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowse.TabIndex = 10;
+            this.btnBrowse.Text = "نمونه";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
             // UnsplashImageTypeForm
             // 
             this.AcceptButton = this.btnOK;
@@ -183,6 +194,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(560, 249);
+            this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.grpHelper);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -218,5 +230,6 @@
         private System.Windows.Forms.GroupBox grpHelper;
         private System.Windows.Forms.LinkLabel lnkUnsplash;
         private System.Windows.Forms.Button btnFolder;
+        private System.Windows.Forms.Button btnBrowse;
     }
 }
