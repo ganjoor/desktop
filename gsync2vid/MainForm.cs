@@ -33,6 +33,11 @@ namespace gsync2vid
             UpdatePoemAndAudioInfo();
         }
 
+        #region Vide Background
+        private string _VideoBackgroundPath = "";
+        #endregion
+
+
         #region s3db path
 
         /// <summary>
@@ -508,24 +513,29 @@ namespace gsync2vid
             GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.Filter = "JPEG Files (*.jpg)|*.jpg";
+                dlg.Filter = "JPEG Files (*.jpg)|*.jpg|MP4 Files (*.mp4)|*.mp4|MOV Files (*.mov)|*.mov";
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
+                    string ext = Path.GetExtension(dlg.FileName).ToLower();
+
+                    bool videoBackground = ext == ".mov" || ext == ".mp4";
+                    string strNewBackground = videoBackground ? "" : dlg.FileName;
+                    _VideoBackgroundPath = videoBackground ? dlg.FileName : "";
 
                     string strOldBackgroundImagePath = frame.BackgroundImagePath;
 
                     int idx = cmbVerses.SelectedIndex;
-                    for (int i = idx ; i < cmbVerses.Items.Count; i++)
+                    for (int i = videoBackground ? 0 : idx ; i < cmbVerses.Items.Count; i++)
                         if (
                             string.IsNullOrEmpty((cmbVerses.Items[i] as GVideoFrame).BackgroundImagePath)
                             ||
                             (cmbVerses.Items[i] as GVideoFrame).BackgroundImagePath == strOldBackgroundImagePath
                             )
-                            (cmbVerses.Items[i] as GVideoFrame).BackgroundImagePath = dlg.FileName;                            
+                            (cmbVerses.Items[i] as GVideoFrame).BackgroundImagePath = strNewBackground;                            
 
                     txtBackgroundImage.Text = frame.BackgroundImagePath;
 
-                    Settings.Default.LastImagePath = dlg.FileName;
+                    Settings.Default.LastImagePath = strNewBackground;
                     Settings.Default.Save();
 
                     InvalidatePreview();
@@ -940,6 +950,8 @@ namespace gsync2vid
                     int n = (int)dlg.SelectedItem;
                     int idx = cmbVerses.SelectedIndex;
 
+                    bool fisrtSet = true;
+
                     for (int i = (idx + 1); i < cmbVerses.Items.Count; i += n)
                     {
                         int max = (i + n - 1);
@@ -960,6 +972,14 @@ namespace gsync2vid
                                         frame.MainTextPosRatioPortionFrom - frame.MasterFrame.MainTextPosRatioPortion - frame.MainTextPosRatioPortion
                                         //4th
                                        : frame.MainTextPosRatioPortionFrom - frame.MasterFrame.MainTextPosRatioPortion;
+                        }
+
+                        if (fisrtSet)
+                        {
+                            InvalidatePreview();
+                            fisrtSet = false;
+                            if (MessageBox.Show("این چینش برای مصرعهای بعدی هم اعمال شود؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.No)
+                                return;
                         }
 
                     }
@@ -1013,7 +1033,7 @@ namespace gsync2vid
                 dlg.FileName = txtPoemId.Text;
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    Settings.Default.VidDefExt = Path.GetExtension(dlg.FileName);
+                    Settings.Default.VidDefExt = Path.GetExtension(dlg.FileName).ToLower();
                     Settings.Default.Save();
                     InitiateRendering(dlg.FileName);
                 }
@@ -1239,8 +1259,11 @@ namespace gsync2vid
                 if (frame.MasterFrame == null)
                 {
                     //BackColor
-                    using (SolidBrush brshBackColor = new SolidBrush(frame.BackColor))
-                        g.FillRectangle(brshBackColor, new Rectangle(0, 0, szImageSize.Width, szImageSize.Height));
+                    if (string.IsNullOrEmpty(_VideoBackgroundPath))
+                    {
+                        using (SolidBrush brshBackColor = new SolidBrush(frame.BackColor))
+                            g.FillRectangle(brshBackColor, new Rectangle(0, 0, szImageSize.Width, szImageSize.Height));
+                    }
 
                     //BackgroundImagePath
                     if (!string.IsNullOrEmpty(frame.BackgroundImagePath))
@@ -1314,8 +1337,11 @@ namespace gsync2vid
             }
 
 
+            if (!string.IsNullOrEmpty(_VideoBackgroundPath))
+            {
+                (imgOutput as Bitmap).MakeTransparent();
+            }
 
-       
             return imgOutput;
 
         }
@@ -1520,7 +1546,10 @@ namespace gsync2vid
                     img.Save(filename);
                 else
                 {
-                    img.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    if(string.IsNullOrEmpty(_VideoBackgroundPath))
+                        img.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    else
+                        img.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
                 }
 
                 _lstDeleteFileList.Add(filename);
@@ -1696,87 +1725,97 @@ namespace gsync2vid
                     }
                 }
 
-
-                string cmdArgs =
-                    String.Format("-y -i {0} -itsoffset {1} -i \"{2}\" -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
-                    Path.GetFileName(ffconcat),
-                    dSoundStart,
-                    Path.GetFileName(wav),
-                    Path.GetFileName(outfilePath),
-                    Settings.Default.LastImageWidth,
-                    Settings.Default.LastImageHeight);
-
-
-
-                ProcessStartInfo ps = new ProcessStartInfo
-                    (
-                    Path.Combine(ffmpegPath, "ffmpeg.exe")
-                    ,
-                    cmdArgs
-                    );
-
-
-
-                ps.WorkingDirectory = Path.GetTempPath();
-                ps.UseShellExecute = false;
-                if (Settings.Default.DebugMode)
+                
+                if (!string.IsNullOrEmpty(_VideoBackgroundPath))
                 {
-                    ps.RedirectStandardOutput = true;
-                    ps.RedirectStandardError = true;
-                }
-                var ffmpegPs = Process.Start(ps);
 
-                StringBuilder sbOutput = new StringBuilder();
-                StringBuilder sbErr = new StringBuilder();
-
-                if (Settings.Default.DebugMode)
-                {
-                    ffmpegPs.EnableRaisingEvents = true;
-                    ffmpegPs.OutputDataReceived += (s, e) => sbOutput.AppendLine(e.Data);
-                    ffmpegPs.ErrorDataReceived += (s, e) => sbErr.AppendLine(e.Data);
-                    ffmpegPs.BeginOutputReadLine();
-                    ffmpegPs.BeginErrorReadLine();
-                }
-
-                ffmpegPs.WaitForExit();
-
-                if (Settings.Default.DebugMode)
-                {
-                    string strErrOutput = sbErr.ToString();
-
-                    if (!string.IsNullOrEmpty(strErrOutput))
+                    //rescale the video and remove audio:                   
+                    string resampledVideoBackground = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp4");
+                    if (File.Exists(resampledVideoBackground))
                     {
-                        string errFile = Path.Combine(Path.GetTempPath(),
-                                            "err1-" + Guid.NewGuid().ToString() + ".txt"
-                                            );
-                        File.WriteAllText(errFile, strErrOutput);
-                        Process.Start(errFile);
-                        _lstDeleteFileList.Add(errFile);
+                        try
+                        {
+                            File.Delete(resampledVideoBackground);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("error: File.Delete(resampledVideoBackground)");
+                        }
+                    }
+
+                    lblStatus.Text = "تغییر اندازه ویدیو و حذف فایل صدای آن";
+                    Application.DoEvents();
+
+                    RunFFmpegCommand(
+                        ffmpegPath,
+                        $"-i \"{_VideoBackgroundPath}\" -vf scale={Settings.Default.LastImageWidth}:{Settings.Default.LastImageHeight} -an \"{resampledVideoBackground}\""
+                        );
+
+                    string mixedwithAudioVideoBackground = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp4");
+                    if (File.Exists(mixedwithAudioVideoBackground))
+                    {
+                        try
+                        {
+                            File.Delete(mixedwithAudioVideoBackground);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("error: File.Delete(resampledVideoBackground)");
+                        }
                     }
 
 
-                    string strOutOutput = sbOutput.ToString().Trim();
 
-                    if (!string.IsNullOrEmpty(strOutOutput))
-                    {
-                        string outFile = Path.Combine(Path.GetTempPath(),
-                                            "out1-" + Guid.NewGuid().ToString() + ".txt"
-                                            );
-                        File.WriteAllText(outFile, sbOutput.ToString());
-                        Process.Start(outFile);
-                        _lstDeleteFileList.Add(outFile);
-                    }
+                    lblStatus.Text = "ترکیب صدا با ویدیو";
+                    Application.DoEvents();
+
+                    RunFFmpegCommand(
+                        ffmpegPath,
+                        $"-itsoffset {dSoundStart} -i \"{Path.GetFileName(wav)}\" -filter_complex movie={Path.GetFileName(resampledVideoBackground)}:loop=0,setpts=N/FRAME_RATE/TB -shortest -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow  -async 1 \"{mixedwithAudioVideoBackground}\""
+                        );
+                    File.Delete(resampledVideoBackground);
+
+                    lblStatus.Text = "ترکیب ویدیو با متن";
+                    Application.DoEvents();
+
+                    RunFFmpegCommand(
+                        ffmpegPath,
+                        $"-y -i \"{mixedwithAudioVideoBackground}\" -i {Path.GetFileName(ffconcat)} -filter_complex \"[1][0]scale2ref[i][m];[m] [i] overlay[v]\" -map \"[v]\" -map 0:a? -ac 2 \"{outInTempPath}\""
+                        );
+
+                    File.Delete(mixedwithAudioVideoBackground);
                 }
+
+                else
+                {
+                    RunFFmpegCommand(ffmpegPath,
+
+                        String.Format("-y -i {0} -itsoffset {1} -i \"{2}\" -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
+                        Path.GetFileName(ffconcat),
+                        dSoundStart,
+                        Path.GetFileName(wav),
+                        Path.GetFileName(outInTempPath),
+                        Settings.Default.LastImageWidth,
+                        Settings.Default.LastImageHeight)
+                        );
+                }
+
+
+
+
 
 
                 if (File.Exists(outInTempPath))
                 {
                     if(Settings.Default.AACSound)
                     {
-                        if(!string.IsNullOrEmpty(Settings.Default.AACFFMpegPath) && File.Exists(Settings.Default.AACFFMpegPath))
+                        if (!string.IsNullOrEmpty(Settings.Default.AACFFMpegPath) && File.Exists(Settings.Default.AACFFMpegPath))
                         {
+                            lblStatus.Text = "aac audio";
+                            Application.DoEvents();
+
                             string outInTempPathAAC = Path.Combine(Path.GetTempPath(), "aac" + Path.GetFileName(outfilePath));
-                            cmdArgs =
+                            string cmdArgs =
                                                 String.Format("-y -i {0} -c:v copy -c:a libfdk_aac -b:a 64k {1}",
                                                 Path.GetFileName(outInTempPath),
                                                 Path.GetFileName(outInTempPathAAC));
@@ -1790,13 +1829,12 @@ namespace gsync2vid
 
                             psAAC.WorkingDirectory = Path.GetTempPath();
                             psAAC.UseShellExecute = false;
+                            StringBuilder sbOutput = new StringBuilder();
+                            StringBuilder sbErr = new StringBuilder();
                             if (Settings.Default.DebugMode)
                             {
                                 psAAC.RedirectStandardOutput = true;
                                 psAAC.RedirectStandardError = true;
-
-                                sbOutput = new StringBuilder();
-                                sbErr = new StringBuilder();
 
                             }
 
@@ -1911,6 +1949,76 @@ namespace gsync2vid
             if (bIsWmv)
                 timeline.Dispose();
 
+        }
+
+        /// <summary>
+        /// اجرای فرمان ffmpeg
+        /// </summary>
+        /// <param name="ffmpegPath"></param>
+        /// <param name="cmdArgs"></param>
+        private void RunFFmpegCommand(string ffmpegPath, string cmdArgs)
+        {
+            ProcessStartInfo ps = new ProcessStartInfo
+                (
+                Path.Combine(ffmpegPath, "ffmpeg.exe")
+                ,
+                cmdArgs
+                );
+
+
+
+
+
+            ps.WorkingDirectory = Path.GetTempPath();
+            ps.UseShellExecute = false;
+            if (Settings.Default.DebugMode)
+            {
+                ps.RedirectStandardOutput = true;
+                ps.RedirectStandardError = true;
+            }
+            var ffmpegPs = Process.Start(ps);
+
+            StringBuilder sbOutput = new StringBuilder();
+            StringBuilder sbErr = new StringBuilder();
+
+            if (Settings.Default.DebugMode)
+            {
+                ffmpegPs.EnableRaisingEvents = true;
+                ffmpegPs.OutputDataReceived += (s, e) => sbOutput.AppendLine(e.Data);
+                ffmpegPs.ErrorDataReceived += (s, e) => sbErr.AppendLine(e.Data);
+                ffmpegPs.BeginOutputReadLine();
+                ffmpegPs.BeginErrorReadLine();
+            }
+
+            ffmpegPs.WaitForExit();
+
+            if (Settings.Default.DebugMode)
+            {
+                string strErrOutput = sbErr.ToString();
+
+                if (!string.IsNullOrEmpty(strErrOutput))
+                {
+                    string errFile = Path.Combine(Path.GetTempPath(),
+                                        "err1-" + Guid.NewGuid().ToString() + ".txt"
+                                        );
+                    File.WriteAllText(errFile, strErrOutput);
+                    Process.Start(errFile);
+                    _lstDeleteFileList.Add(errFile);
+                }
+
+
+                string strOutOutput = sbOutput.ToString().Trim();
+
+                if (!string.IsNullOrEmpty(strOutOutput))
+                {
+                    string outFile = Path.Combine(Path.GetTempPath(),
+                                        "out1-" + Guid.NewGuid().ToString() + ".txt"
+                                        );
+                    File.WriteAllText(outFile, sbOutput.ToString());
+                    Process.Start(outFile);
+                    _lstDeleteFileList.Add(outFile);
+                }
+            }
         }
 
 
