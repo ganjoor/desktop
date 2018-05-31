@@ -1816,7 +1816,7 @@ namespace gsync2vid
                     {
                         if (!string.IsNullOrEmpty(Settings.Default.AACFFMpegPath) && File.Exists(Settings.Default.AACFFMpegPath))
                         {
-                            lblStatus.Text = "aac audio";
+                            lblStatus.Text = "aac تبدیل صدا به فرمت";
                             Application.DoEvents();
 
                             string outInTempPathAAC = Path.Combine(Path.GetTempPath(), "aac" + Path.GetFileName(outfilePath));
