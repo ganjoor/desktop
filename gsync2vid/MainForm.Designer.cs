@@ -94,6 +94,7 @@
             this.lblTransitionEffect = new System.Windows.Forms.Label();
             this.chkAAC = new System.Windows.Forms.CheckBox();
             this.chkDebug = new System.Windows.Forms.CheckBox();
+            this.btnDelFrame = new System.Windows.Forms.Button();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -355,6 +356,7 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.btnDelFrame);
             this.grpVerses.Controls.Add(this.btnPairNext);
             this.grpVerses.Controls.Add(this.btnBorderColor);
             this.grpVerses.Controls.Add(this.lblBorderColor);
@@ -848,10 +850,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbVerses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVerses.FormattingEnabled = true;
-            this.cmbVerses.Location = new System.Drawing.Point(103, 13);
+            this.cmbVerses.Location = new System.Drawing.Point(128, 13);
             this.cmbVerses.Margin = new System.Windows.Forms.Padding(2);
             this.cmbVerses.Name = "cmbVerses";
-            this.cmbVerses.Size = new System.Drawing.Size(663, 21);
+            this.cmbVerses.Size = new System.Drawing.Size(638, 21);
             this.cmbVerses.TabIndex = 0;
             this.cmbVerses.SelectedIndexChanged += new System.EventHandler(this.cmbVerses_SelectedIndexChanged);
             // 
@@ -959,6 +961,17 @@
             this.chkDebug.Text = "dbg";
             this.chkDebug.UseVisualStyleBackColor = true;
             this.chkDebug.CheckedChanged += new System.EventHandler(this.chkDebug_CheckedChanged);
+            // 
+            // btnDelFrame
+            // 
+            this.btnDelFrame.Location = new System.Drawing.Point(100, 13);
+            this.btnDelFrame.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelFrame.Name = "btnDelFrame";
+            this.btnDelFrame.Size = new System.Drawing.Size(25, 24);
+            this.btnDelFrame.TabIndex = 55;
+            this.btnDelFrame.Text = "X";
+            this.btnDelFrame.UseVisualStyleBackColor = true;
+            this.btnDelFrame.Click += new System.EventHandler(this.btnDelFrame_Click);
             // 
             // MainForm
             // 
@@ -1073,6 +1086,7 @@
         private System.Windows.Forms.Label lblTransitionEffect;
         private System.Windows.Forms.CheckBox chkAAC;
         private System.Windows.Forms.CheckBox chkDebug;
+        private System.Windows.Forms.Button btnDelFrame;
     }
 }
 

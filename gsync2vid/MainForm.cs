@@ -783,6 +783,36 @@ namespace gsync2vid
 
         }
 
+        /// <summary>
+        /// حذف قاب
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDelFrame_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+            if(frame.MasterFrame == null)
+            {
+                MessageBox.Show("فقط امکان حذف قابهای یکی شده با قاب پیشین وجود دارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+            if (MessageBox.Show("آیا از حذف این قاب اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.No)
+                return;
+
+            foreach(object item in cmbVerses.Items)
+                if((item as GVideoFrame).MasterFrame == frame)
+                {
+                    (item as GVideoFrame).MasterFrame = frame.MasterFrame;
+                }            
+
+            cmbVerses.Items.Remove(cmbVerses.SelectedItem);
+            cmbVerses.SelectedItem = frame.MasterFrame;
+            InvalidatePreview();
+        }
+
+
 
         private void trckMaxTextWidth_Scroll(object sender, EventArgs e)
         {
@@ -1748,12 +1778,37 @@ namespace gsync2vid
                         }
                     }
 
+                    string strSlowDownFilter = "";
+                    using (ItemEditor dlg = new ItemEditor(EditItemType.General, "بزرگتر از ۱ کاهش", "سرعت:"))
+                    {
+                        dlg.ItemName = "1";
+                        if (dlg.ShowDialog(this) == DialogResult.OK)
+                        {
+                            try
+                            {
+                                double fSlowDown = Double.Parse(dlg.ItemName);
+                                if (fSlowDown != 0 && fSlowDown != 1)
+                                {
+                                    strSlowDownFilter = $", setpts = {fSlowDown} * PTS";
+                                }
+                            }
+                            catch(Exception exp)
+                            {
+                                if (MessageBox.Show($"مقدار نامعتبر {exp.ToString()}{Environment.NewLine} ادامه می‌دهید؟", "خطا", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                                {
+                                    this.Enabled = true;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     lblStatus.Text = "تغییر اندازه ویدیو و حذف فایل صدای آن";
                     Application.DoEvents();
 
                     RunFFmpegCommand(
                         ffmpegPath,
-                        $"-i \"{_VideoBackgroundPath}\" -vf scale={Settings.Default.LastImageWidth}:{Settings.Default.LastImageHeight} -an \"{resampledVideoBackground}\""
+                        $"-i \"{_VideoBackgroundPath}\" -vf \"[in] scale={Settings.Default.LastImageWidth}:{Settings.Default.LastImageHeight}{strSlowDownFilter} [out]\" -an \"{resampledVideoBackground}\""
                         );
 
                     string mixedwithAudioVideoBackground = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp4");
