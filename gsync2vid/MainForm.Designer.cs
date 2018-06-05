@@ -48,6 +48,7 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.btnDelFrame = new System.Windows.Forms.Button();
             this.btnPairNext = new System.Windows.Forms.Button();
             this.btnBorderColor = new System.Windows.Forms.Button();
             this.lblBorderColor = new System.Windows.Forms.Label();
@@ -94,7 +95,11 @@
             this.lblTransitionEffect = new System.Windows.Forms.Label();
             this.chkAAC = new System.Windows.Forms.CheckBox();
             this.chkDebug = new System.Windows.Forms.CheckBox();
-            this.btnDelFrame = new System.Windows.Forms.Button();
+            this.lblOverlayImages = new System.Windows.Forms.Label();
+            this.cmbOverlayImages = new System.Windows.Forms.ComboBox();
+            this.btnAddImage = new System.Windows.Forms.Button();
+            this.btnDelImage = new System.Windows.Forms.Button();
+            this.trckSize = new System.Windows.Forms.TrackBar();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -108,6 +113,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckAlpha)).BeginInit();
             this.statusStripMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trckSize)).BeginInit();
             this.SuspendLayout();
             // 
             // grpConnection
@@ -356,6 +362,11 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.trckSize);
+            this.grpVerses.Controls.Add(this.btnDelImage);
+            this.grpVerses.Controls.Add(this.btnAddImage);
+            this.grpVerses.Controls.Add(this.lblOverlayImages);
+            this.grpVerses.Controls.Add(this.cmbOverlayImages);
             this.grpVerses.Controls.Add(this.btnDelFrame);
             this.grpVerses.Controls.Add(this.btnPairNext);
             this.grpVerses.Controls.Add(this.btnBorderColor);
@@ -402,6 +413,17 @@
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
+            // 
+            // btnDelFrame
+            // 
+            this.btnDelFrame.Location = new System.Drawing.Point(100, 13);
+            this.btnDelFrame.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelFrame.Name = "btnDelFrame";
+            this.btnDelFrame.Size = new System.Drawing.Size(25, 24);
+            this.btnDelFrame.TabIndex = 55;
+            this.btnDelFrame.Text = "X";
+            this.btnDelFrame.UseVisualStyleBackColor = true;
+            this.btnDelFrame.Click += new System.EventHandler(this.btnDelFrame_Click);
             // 
             // btnPairNext
             // 
@@ -962,16 +984,73 @@
             this.chkDebug.UseVisualStyleBackColor = true;
             this.chkDebug.CheckedChanged += new System.EventHandler(this.chkDebug_CheckedChanged);
             // 
-            // btnDelFrame
+            // lblOverlayImages
             // 
-            this.btnDelFrame.Location = new System.Drawing.Point(100, 13);
-            this.btnDelFrame.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDelFrame.Name = "btnDelFrame";
-            this.btnDelFrame.Size = new System.Drawing.Size(25, 24);
-            this.btnDelFrame.TabIndex = 55;
-            this.btnDelFrame.Text = "X";
-            this.btnDelFrame.UseVisualStyleBackColor = true;
-            this.btnDelFrame.Click += new System.EventHandler(this.btnDelFrame_Click);
+            this.lblOverlayImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblOverlayImages.AutoSize = true;
+            this.lblOverlayImages.Location = new System.Drawing.Point(502, 344);
+            this.lblOverlayImages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblOverlayImages.Name = "lblOverlayImages";
+            this.lblOverlayImages.Size = new System.Drawing.Size(51, 13);
+            this.lblOverlayImages.TabIndex = 57;
+            this.lblOverlayImages.Text = "لایه فعال:";
+            // 
+            // cmbOverlayImages
+            // 
+            this.cmbOverlayImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbOverlayImages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbOverlayImages.FormattingEnabled = true;
+            this.cmbOverlayImages.Items.AddRange(new object[] {
+            "هیچکدام",
+            "انتقال قاب قبل به راست",
+            "انتقال قاب قبل به چپ",
+            "انتقال قاب قبل به بالا",
+            "انتقال قاب قبل به پایین"});
+            this.cmbOverlayImages.Location = new System.Drawing.Point(345, 341);
+            this.cmbOverlayImages.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbOverlayImages.Name = "cmbOverlayImages";
+            this.cmbOverlayImages.Size = new System.Drawing.Size(150, 21);
+            this.cmbOverlayImages.TabIndex = 56;
+            this.cmbOverlayImages.SelectedIndexChanged += new System.EventHandler(this.cmbOverlayImages_SelectedIndexChanged);
+            // 
+            // btnAddImage
+            // 
+            this.btnAddImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddImage.Location = new System.Drawing.Point(314, 338);
+            this.btnAddImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddImage.Name = "btnAddImage";
+            this.btnAddImage.Size = new System.Drawing.Size(30, 25);
+            this.btnAddImage.TabIndex = 58;
+            this.btnAddImage.Text = "+";
+            this.btnAddImage.UseVisualStyleBackColor = true;
+            this.btnAddImage.Click += new System.EventHandler(this.btnAddImage_Click);
+            // 
+            // btnDelImage
+            // 
+            this.btnDelImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelImage.Location = new System.Drawing.Point(283, 338);
+            this.btnDelImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelImage.Name = "btnDelImage";
+            this.btnDelImage.Size = new System.Drawing.Size(30, 25);
+            this.btnDelImage.TabIndex = 59;
+            this.btnDelImage.Text = "-";
+            this.btnDelImage.UseVisualStyleBackColor = true;
+            this.btnDelImage.Click += new System.EventHandler(this.btnDelImage_Click);
+            // 
+            // trckSize
+            // 
+            this.trckSize.LargeChange = 15;
+            this.trckSize.Location = new System.Drawing.Point(4, 325);
+            this.trckSize.Margin = new System.Windows.Forms.Padding(2);
+            this.trckSize.Maximum = 20;
+            this.trckSize.Name = "trckSize";
+            this.trckSize.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trckSize.Size = new System.Drawing.Size(200, 45);
+            this.trckSize.TabIndex = 61;
+            this.trckSize.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trckSize.Value = 10;
+            this.trckSize.Visible = false;
+            this.trckSize.Scroll += new System.EventHandler(this.trckSize_Scroll);
             // 
             // MainForm
             // 
@@ -1014,6 +1093,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trckAlpha)).EndInit();
             this.statusStripMain.ResumeLayout(false);
             this.statusStripMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trckSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1087,6 +1167,11 @@
         private System.Windows.Forms.CheckBox chkAAC;
         private System.Windows.Forms.CheckBox chkDebug;
         private System.Windows.Forms.Button btnDelFrame;
+        private System.Windows.Forms.Button btnDelImage;
+        private System.Windows.Forms.Button btnAddImage;
+        private System.Windows.Forms.Label lblOverlayImages;
+        private System.Windows.Forms.ComboBox cmbOverlayImages;
+        private System.Windows.Forms.TrackBar trckSize;
     }
 }
 

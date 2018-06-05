@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GOverlayImage.cs" />
     <Compile Include="GRoundRectDrawer.cs" />
     <Compile Include="GTextBoxShape.cs" />
     <Compile Include="GTextBoxShapeConvertor.cs" />

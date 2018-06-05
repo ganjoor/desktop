@@ -247,10 +247,10 @@ namespace gsync2vid
                                 StartInMiliseconds = -4000,
                                 Text = poet._Name,
                                 BackgroundImagePath = strImagePath,
-                                MainTextPosRatioPortion = 1,
-                                MainTextPosRatioPortionFrom = 4,
-                                MainTextHPosRatioPortion = 1,
-                                MainTextHPosRatioPortionFrom = 2,
+                                TextVerticalPosRatioPortion = 1,
+                                TextVerticalPosRatioPortionFrom = 4,
+                                TextHorizontalPosRatioPortion = 1,
+                                TextHorizontalPosRatioPortionFrom = 2,
                                 MaxTextWidthRatioPortion = 9,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
@@ -280,10 +280,10 @@ namespace gsync2vid
                                 StartInMiliseconds = 0,
                                 Text = poem._Title,
                                 BackgroundImagePath = strImagePath,
-                                MainTextPosRatioPortion = 1,
-                                MainTextPosRatioPortionFrom = 2,
-                                MainTextHPosRatioPortion = 1,
-                                MainTextHPosRatioPortionFrom = 2,
+                                TextVerticalPosRatioPortion = 1,
+                                TextVerticalPosRatioPortionFrom = 2,
+                                TextHorizontalPosRatioPortion = 1,
+                                TextHorizontalPosRatioPortionFrom = 2,
                                 MaxTextWidthRatioPortion = 9,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
@@ -306,10 +306,10 @@ namespace gsync2vid
                                 StartInMiliseconds = 0,
                                 Text = audio.Description,
                                 BackgroundImagePath = strImagePath,
-                                MainTextPosRatioPortion = 3,
-                                MainTextPosRatioPortionFrom = 4,
-                                MainTextHPosRatioPortion = 1,
-                                MainTextHPosRatioPortionFrom = 2,
+                                TextVerticalPosRatioPortion = 3,
+                                TextVerticalPosRatioPortionFrom = 4,
+                                TextHorizontalPosRatioPortion = 1,
+                                TextHorizontalPosRatioPortionFrom = 2,
                                 MaxTextWidthRatioPortion = 9,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
@@ -346,10 +346,10 @@ namespace gsync2vid
                                     StartInMiliseconds = SyncInfo.AudioMiliseconds / nDurationDividedBy,
                                     Text = verse == null ? "" : verse._Text,
                                     BackgroundImagePath = strImagePath,
-                                    MainTextPosRatioPortion = 1,
-                                    MainTextPosRatioPortionFrom = 2,
-                                    MainTextHPosRatioPortion = 1,
-                                    MainTextHPosRatioPortionFrom = 2,
+                                    TextVerticalPosRatioPortion = 1,
+                                    TextVerticalPosRatioPortionFrom = 2,
+                                    TextHorizontalPosRatioPortion = 1,
+                                    TextHorizontalPosRatioPortionFrom = 2,
                                     MaxTextWidthRatioPortion = 9,
                                     MaxTextWidthRatioPortionFrom = 10,
                                     BackColor = Color.White,
@@ -476,11 +476,19 @@ namespace gsync2vid
             trckAlpha.Value = frame.TextBackColorAlpha;
             txtThickness.Value = frame.TextBackRectThickness;
             txtFont.Text = frame.Font.Name + "(" + frame.Font.Style.ToString() + ") " + frame.Font.Size.ToString();
-            trckVPosition.Value = trckVPosition.Maximum / frame.MainTextPosRatioPortionFrom * (frame.MainTextPosRatioPortionFrom - frame.MainTextPosRatioPortion);
-            trckHPosition.Value = trckHPosition.Maximum / frame.MainTextHPosRatioPortionFrom * frame.MainTextHPosRatioPortion;
+            trckVPosition.Value = trckVPosition.Maximum / frame.TextVerticalPosRatioPortionFrom * (frame.TextVerticalPosRatioPortionFrom - frame.TextVerticalPosRatioPortion);
+            trckHPosition.Value = trckHPosition.Maximum / frame.TextHorizontalPosRatioPortionFrom * frame.TextHorizontalPosRatioPortion;
             trckMaxTextWidth.Value = trckMaxTextWidth.Maximum / frame.MaxTextWidthRatioPortionFrom * frame.MaxTextWidthRatioPortion;
             chkSlaveFrame.Checked = frame.MasterFrame != null;
             chkShowLogo.Checked = frame.ShowLogo;
+            cmbOverlayImages.Items.Clear();
+            if (frame.OverlayImages != null && frame.OverlayImages.Length > 0)
+            {
+                cmbOverlayImages.Items.AddRange(frame.OverlayImages);
+                cmbOverlayImages.SelectedIndex = 0;
+            }
+
+            trckSize.Visible = false;
 
             lblBackgroundImage.Enabled = txtBackgroundImage.Enabled = btnSelBackgroundImage.Enabled = btnResetImage.Enabled = frame.MasterFrame == null;
 
@@ -710,6 +718,38 @@ namespace gsync2vid
         }
 
 
+        private void cmbOverlayImages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            GVideoFrame frame = (cmbVerses.SelectedItem as GVideoFrame);
+
+            if (cmbOverlayImages.SelectedItem != null)
+            {
+                GOverlayImage overlay = cmbOverlayImages.SelectedItem as GOverlayImage;
+                if (overlay != null)
+                {
+                    if (!string.IsNullOrEmpty(overlay.ImagePath))
+                    {
+                        trckVPosition.Value = trckVPosition.Maximum / overlay.VerticalPosRatioPortionFrom * (overlay.VerticalPosRatioPortionFrom - overlay.VerticalPosRatioPortion);
+                        trckHPosition.Value = trckHPosition.Maximum / overlay.HorizontalPosRatioPortionFrom * overlay.HorizontalPosRatioPortion;
+                        trckSize.Value = trckSize.Maximum / overlay.ScaleRatioPortionFrom * overlay.ScaleRatioPortion;
+                        trckSize.Visible = true;
+                        return;
+                    }
+                }
+            }
+
+
+            trckVPosition.Value = trckVPosition.Maximum / frame.TextVerticalPosRatioPortionFrom * (frame.TextVerticalPosRatioPortionFrom - frame.TextVerticalPosRatioPortion);
+            trckHPosition.Value = trckHPosition.Maximum / frame.TextHorizontalPosRatioPortionFrom * frame.TextHorizontalPosRatioPortion;
+            
+
+            trckSize.Visible = false;
+
+        }
+
         private void trckVPosition_Scroll(object sender, EventArgs e)
         {
             if (cmbVerses.SelectedItem == null)
@@ -717,13 +757,29 @@ namespace gsync2vid
 
             int idx = cmbVerses.SelectedIndex;
 
+            bool overlayScrolling = false;
+            if(cmbOverlayImages.SelectedItem != null)
+            {
+                GOverlayImage overlay = cmbOverlayImages.SelectedItem as GOverlayImage;
+                if(overlay != null)
+                {
+                    if(!string.IsNullOrEmpty(overlay.ImagePath))
+                    {
+                        overlayScrolling = true;
+                        overlay.VerticalPosRatioPortionFrom = trckVPosition.Maximum;
+                        overlay.VerticalPosRatioPortion = (trckVPosition.Maximum - trckVPosition.Value);
+                    }
+                }
+            }
+
+            if(!overlayScrolling)
             for (int i = idx; i < cmbVerses.Items.Count; i++)
             {
                 GVideoFrame frame = (cmbVerses.Items[i] as GVideoFrame);
                 if (i == idx || frame.MasterFrame == null)
                 {
-                    frame.MainTextPosRatioPortionFrom = trckVPosition.Maximum;
-                    frame.MainTextPosRatioPortion = (trckVPosition.Maximum - trckVPosition.Value);
+                    frame.TextVerticalPosRatioPortionFrom = trckVPosition.Maximum;
+                    frame.TextVerticalPosRatioPortion = (trckVPosition.Maximum - trckVPosition.Value);
 
                     if (i == idx && frame.MasterFrame != null)
                         break;
@@ -739,14 +795,56 @@ namespace gsync2vid
             if (cmbVerses.SelectedItem == null)
                 return;
 
-            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+            bool overlayScrolling = false;
+            if (cmbOverlayImages.SelectedItem != null)
+            {
+                GOverlayImage overlay = cmbOverlayImages.SelectedItem as GOverlayImage;
+                if (overlay != null)
+                {
+                    if (!string.IsNullOrEmpty(overlay.ImagePath))
+                    {
+                        overlayScrolling = true;
+                        overlay.HorizontalPosRatioPortionFrom = trckHPosition.Maximum;
+                        overlay.HorizontalPosRatioPortion = trckHPosition.Value;
+                    }
+                }
+            }
 
-            frame.MainTextHPosRatioPortionFrom = trckHPosition.Maximum;
-            frame.MainTextHPosRatioPortion = trckHPosition.Value;
+            if (!overlayScrolling)
+            {
+                GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+
+                frame.TextHorizontalPosRatioPortionFrom = trckHPosition.Maximum;
+                frame.TextHorizontalPosRatioPortion = trckHPosition.Value;
+
+            }
+
 
 
             InvalidatePreview();
         }
+
+        private void trckSize_Scroll(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            if (cmbOverlayImages.SelectedItem != null)
+            {
+                GOverlayImage overlay = cmbOverlayImages.SelectedItem as GOverlayImage;
+                if (overlay != null)
+                {
+                    if (!string.IsNullOrEmpty(overlay.ImagePath))
+                    {
+                        overlay.ScaleRatioPortionFrom = trckSize.Maximum;
+                        overlay.ScaleRatioPortion = trckSize.Value;
+                        InvalidatePreview();
+                    }
+                }
+            }
+
+        }
+
 
 
         /// <summary>
@@ -897,6 +995,87 @@ namespace gsync2vid
 
         }
 
+
+        private void btnAddImage_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "PNG Images (*.png)|*.png";
+                if(dlg.ShowDialog(this) == DialogResult.OK)
+                {
+
+                    GOverlayImage newImage = new GOverlayImage()
+                    {
+                        Name = Path.GetFileNameWithoutExtension(dlg.FileName),
+                        ImagePath = dlg.FileName,
+                        VerticalPosRatioPortion = 1,
+                        VerticalPosRatioPortionFrom = 2,
+                        HorizontalPosRatioPortion = 1,
+                        HorizontalPosRatioPortionFrom = 2,
+                        ScaleRatioPortion = 1,
+                        ScaleRatioPortionFrom = 1,
+                    };
+
+
+                    List<GOverlayImage> list = new List<GOverlayImage>();
+                    if (frame.OverlayImages != null)
+                        list.AddRange(frame.OverlayImages);
+                    if(cmbOverlayImages.SelectedIndex != -1)
+                    {
+                        list.Insert(cmbOverlayImages.SelectedIndex + 1, newImage);
+                    }
+                    else
+                    {
+                        list.Add(newImage);
+                    }
+
+                    frame.OverlayImages = list.ToArray();
+                    cmbOverlayImages.Items.Clear();
+                    cmbOverlayImages.Items.AddRange(frame.OverlayImages);
+                    cmbOverlayImages.SelectedItem = newImage;
+                    InvalidatePreview();
+
+                }
+            }
+        }
+
+        private void btnDelImage_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+
+
+            if (frame != null)
+            {
+                GOverlayImage overlay = cmbOverlayImages.SelectedItem as GOverlayImage;
+                if (overlay != null)
+                {
+                    if (!string.IsNullOrEmpty(overlay.ImagePath))
+                    {
+                        if(MessageBox.Show("آیا از حذف این تصویر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                        {
+                            List<GOverlayImage> list = new List<GOverlayImage>();
+                            list.AddRange(frame.OverlayImages);
+                            list.Remove(overlay);
+                            frame.OverlayImages = list.ToArray();
+                            cmbVerses.SelectedIndex = -1;
+                            cmbVerses.SelectedItem = frame;
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+
+
+
         private void btnApply_Click(object sender, EventArgs e)
         {
             Settings.Default.LastImageWidth = (int)txtWidth.Value;
@@ -992,16 +1171,16 @@ namespace gsync2vid
                             frame = cmbVerses.Items[j] as GVideoFrame;
                             frame.MasterFrame = (cmbVerses.Items[i - 1] as GVideoFrame);
 
-                            frame.MainTextPosRatioPortion = 
-                                n == 2 ? frame.MainTextPosRatioPortionFrom - frame.MasterFrame.MainTextPosRatioPortion
+                            frame.TextVerticalPosRatioPortion = 
+                                n == 2 ? frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion
                                        : 
                                        //4:
                                        j == i ? //2nd
-                                        2 * frame.MainTextPosRatioPortion
+                                        2 * frame.TextVerticalPosRatioPortion
                                        : j == i + 1 ? //3rd
-                                        frame.MainTextPosRatioPortionFrom - frame.MasterFrame.MainTextPosRatioPortion - frame.MainTextPosRatioPortion
+                                        frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion - frame.TextVerticalPosRatioPortion
                                         //4th
-                                       : frame.MainTextPosRatioPortionFrom - frame.MasterFrame.MainTextPosRatioPortion;
+                                       : frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion;
                         }
 
                         if (fisrtSet)
@@ -1320,10 +1499,29 @@ namespace gsync2vid
                         );
                 }
 
+                if(frame.OverlayImages != null)
+                {
+                    foreach(GOverlayImage overlay in frame.OverlayImages)
+                    {
+                        if(!string.IsNullOrEmpty(overlay.ImagePath))
+                        {
+                            using (Image bmpOverlay = Bitmap.FromFile(overlay.ImagePath))
+                            {
+                                g.DrawImage(bmpOverlay,
+                                     overlay.HorizontalPosRatioPortion * szImageSize.Width / overlay.HorizontalPosRatioPortionFrom  - bmpOverlay.Width / 2 * overlay.ScaleRatioPortion / overlay.ScaleRatioPortionFrom,
+                                     overlay.VerticalPosRatioPortion * szImageSize.Height / overlay.VerticalPosRatioPortionFrom  - bmpOverlay.Height / 2 * overlay.ScaleRatioPortion / overlay.ScaleRatioPortionFrom,
+                                     overlay.ScaleRatioPortion * bmpOverlay.Width / overlay.ScaleRatioPortionFrom,
+                                     overlay.ScaleRatioPortion * bmpOverlay.Height / overlay.ScaleRatioPortionFrom
+                                     );
+                            }
+                        }
+                    }
+                }
+
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
                 SizeF szText = g.MeasureString(frame.Text, frame.Font, frame.MaxTextWidthRatioPortion * (int)(txtWidth.Value) / frame.MaxTextWidthRatioPortionFrom, new StringFormat(StringFormatFlags.DirectionRightToLeft));
-                RectangleF rcText = new RectangleF((frame.MainTextHPosRatioPortion * szImageSize.Width / frame.MainTextHPosRatioPortionFrom) - szText.Width / 2, (frame.MainTextPosRatioPortion * szImageSize.Height / frame.MainTextPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height);
+                RectangleF rcText = new RectangleF((frame.TextHorizontalPosRatioPortion * szImageSize.Width / frame.TextHorizontalPosRatioPortionFrom) - szText.Width / 2, (frame.TextVerticalPosRatioPortion * szImageSize.Height / frame.TextVerticalPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height);
                 using (SolidBrush bkTextBrush = new SolidBrush(Color.FromArgb(frame.TextBackColorAlpha, frame.TextBackColor)))
                 {
                     switch (frame.Shape)
