@@ -12,6 +12,19 @@ namespace gsync2vid
     /// </summary>
     public class GVideoFrame
     {
+
+        public GVideoFrame()
+        {
+            OverlayImages = new GOverlayImage[]
+            {
+                new GOverlayImage()
+                {
+                    Name = "متن اصلی",
+                    ImagePath = string.Empty
+                }
+            };
+        }
+
         /// <summary>
         /// مربوط به خوانش
         /// </summary>
@@ -75,20 +88,20 @@ namespace gsync2vid
         }
 
         /// <summary>
-        /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۱ باشد
+        /// جای متن اصلی مثلا اگر وسط صفحه است این باید ۱ باشد
         /// </summary>
         [DisplayName("صورت کسر موقعیت عمودی متن")]
-        public int MainTextPosRatioPortion
+        public int TextVerticalPosRatioPortion
         {
             get;
             set;
         }
 
         /// <summary>
-        /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۲ باشد
+        /// جای متن اصلی مثلا اگر وسط صفحه است این باید ۲ باشد
         /// </summary>
         [DisplayName("مخرج کسر موقعیت عمودی متن")]
-        public int MainTextPosRatioPortionFrom
+        public int TextVerticalPosRatioPortionFrom
         {
             get;
             set;
@@ -97,20 +110,20 @@ namespace gsync2vid
 
 
         /// <summary>
-        /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۱ باشد
+        /// جای متن اصلی مثلا اگر وسط صفحه است این باید ۱ باشد
         /// </summary>
         [DisplayName("صورت کسر موقعیت افقی متن")]
-        public int MainTextHPosRatioPortion
+        public int TextHorizontalPosRatioPortion
         {
             get;
             set;
         }
 
         /// <summary>
-        /// جای فونت اصلی مثلا اگر وسط صفحه است این باید ۲ باشد
+        /// جای متن اصلی مثلا اگر وسط صفحه است این باید ۲ باشد
         /// </summary>
         [DisplayName("مخرج کسر موقعیت افقی متن")]
-        public int MainTextHPosRatioPortionFrom
+        public int TextHorizontalPosRatioPortionFrom
         {
             get;
             set;
@@ -218,7 +231,15 @@ namespace gsync2vid
             set;
         }
 
-
+        /// <summary>
+        /// تصاویر لایه زیر متن
+        /// </summary>
+        [DisplayName("تصاویر لایه زیر متن")]
+        public GOverlayImage[] OverlayImages
+        {
+            get;
+            set;
+        }
 
 
 
