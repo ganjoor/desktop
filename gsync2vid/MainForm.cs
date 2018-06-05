@@ -882,6 +882,55 @@ namespace gsync2vid
         }
 
         /// <summary>
+        /// اضافه کردن قاب
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddFrame_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            using (ItemEditor dlg = new ItemEditor(EditItemType.General, "متن قاب جدید", "متن:"))
+            {
+                dlg.ItemName = "";
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    GVideoFrame parent = cmbVerses.SelectedItem as GVideoFrame;
+
+                    GVideoFrame frame = new GVideoFrame()
+                    {
+                        AudioBound = false,
+                        StartInMiliseconds = 0,
+                        Text = dlg.ItemName,
+                        BackgroundImagePath = "",
+                        TextVerticalPosRatioPortion = 1,
+                        TextVerticalPosRatioPortionFrom = 2,
+                        TextHorizontalPosRatioPortion = 1,
+                        TextHorizontalPosRatioPortionFrom = 2,
+                        MaxTextWidthRatioPortion = 9,
+                        MaxTextWidthRatioPortionFrom = 10,
+                        BackColor = Color.White,
+                        TextColor = Color.White,
+                        TextBackColor = Color.Black,
+                        BorderColor = Color.Black,
+                        TextBackColorAlpha = 100,
+                        Shape = GTextBoxShape.Rectangle,
+                        TextBackRectThickness = 0,
+                        Font = Settings.Default.LastUsedFont,
+                        MasterFrame = parent,
+                        ShowLogo = false
+                    };
+
+                    cmbVerses.Items.Insert(cmbVerses.SelectedIndex + 1, frame);
+                    cmbVerses.SelectedItem = frame;                    
+
+                }
+            }
+        }
+
+
+        /// <summary>
         /// حذف قاب
         /// </summary>
         /// <param name="sender"></param>
@@ -1068,11 +1117,63 @@ namespace gsync2vid
                             cmbVerses.SelectedIndex = -1;
                             cmbVerses.SelectedItem = frame;
                         }
-                        return;
                     }
+                    else
+                    {
+                        MessageBox.Show("لطفا یک لایه تصویری را انتخاب کنید.", "خطا");
+                    }
+
                 }
             }
         }
+
+        private void btnCopyTo_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            GVideoFrame currentFrame = cmbVerses.SelectedItem as GVideoFrame;
+
+            if (currentFrame != null)
+            {
+                if(currentFrame.MasterFrame != null)
+                {
+                    MessageBox.Show("فقط امکان کپی از قابهایی که وابسته به قاب دیگری نیستند وجود دارد.", "خطا");
+                    return;
+                }
+
+                GOverlayImage overlay = cmbOverlayImages.SelectedItem as GOverlayImage;
+                if (overlay != null)
+                {
+                    if (!string.IsNullOrEmpty(overlay.ImagePath))
+                    {
+                        if (MessageBox.Show("آیا می‌خواهید این لایه به قابهای غیروابسته بعدی کپی (تک‌ نمونه) شود؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                        {
+                            int nIdx = cmbVerses.SelectedIndex;
+                            int nLast = -1;
+                            for(int i = nIdx+1; i<cmbVerses.Items.Count; i++)
+                            {
+                                GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
+                                if (frame.MasterFrame == null)
+                                {
+                                    List<GOverlayImage> overlays = new List<GOverlayImage>();
+                                    overlays.AddRange(frame.OverlayImages);
+                                    overlays.Add(overlay);//not a complete copy
+                                    frame.OverlayImages = overlays.ToArray();
+                                    nLast = i;
+                                }
+                            }
+                            if (nLast != -1)
+                                cmbVerses.SelectedIndex = nLast;
+                        }                          
+                    }
+                    else
+                        MessageBox.Show("لطفا یک لایه تصویری را انتخاب کنید.", "خطا");
+                }
+
+            }
+        }
+
 
 
 
