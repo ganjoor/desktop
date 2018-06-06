@@ -2048,6 +2048,11 @@ namespace gsync2vid
 
                 _lstDeleteFileList.Add(filename);
                 int duration = i != (cmbVerses.Items.Count - 1) ? (cmbVerses.Items[i + 1] as GVideoFrame).StartInMiliseconds - frame.StartInMiliseconds : (playtime - frame.StartInMiliseconds);
+                //this is not a general solution and should be reviewed and rethought
+                if(!frame.AudioBound && frame.StartInMiliseconds < 0)
+                {                    
+                    duration = -frame.StartInMiliseconds;
+                }
                 if (frame.AudioBound)
                 {
                     int nIdxNext = i + 1;
