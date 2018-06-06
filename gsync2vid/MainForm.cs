@@ -16,6 +16,7 @@ using NAudio.Wave;
 using System.Net;
 using System.Reflection;
 using System.Diagnostics;
+using ganjoor.Utilities;
 
 namespace gsync2vid
 {
@@ -224,7 +225,7 @@ namespace gsync2vid
                             {
                                 if (!player.BeginPlayback(audio))
                                 {
-                                    MessageBox.Show("تلاش برای دسترسی و پخش فایل صوتی موفق نبود", "خطا");
+                                    GMessageBox.SayError("تلاش برای دسترسی و پخش فایل صوتی موفق نبود");
                                 }
                                 else
                                 {
@@ -418,7 +419,9 @@ namespace gsync2vid
 
                                     if (audio.Length == 0)
                                     {
-                                        if (MessageBox.Show("خوانشی یافت نشد. آیا تمایل دارید تصاویر ثابت تولید کنید؟", "خطا", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading)
+
+                                        if (
+                                            GMessageBox.Ask("خوانشی یافت نشد. آیا تمایل دارید تصاویر ثابت تولید کنید؟", "خطا")                                            
                                              == System.Windows.Forms.DialogResult.Yes)
                                         {
                                             Settings.Default.PoemId = poem._ID;
@@ -553,6 +556,14 @@ namespace gsync2vid
 
         private void btnResetImage_Click(object sender, EventArgs e)
         {
+
+            if(!string.IsNullOrEmpty(_VideoBackgroundPath))
+            {
+                _VideoBackgroundPath = "";
+                InvalidatePreview();
+                return;
+            }
+
             if (cmbVerses.SelectedItem == null)
                 return;
             GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
@@ -882,6 +893,37 @@ namespace gsync2vid
         }
 
         /// <summary>
+        /// تغییر زمان شروع
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnEditTime_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+            using (ItemEditor dlg = new ItemEditor(EditItemType.General, "زمان شروع نمایش (میلی ثانیه)", "شروع:"))
+            {
+                dlg.ItemName = frame.StartInMiliseconds.ToString();
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        frame.StartInMiliseconds = Int32.Parse(dlg.ItemName);
+                        txtStartInMiliseconds.Value = frame.AudioBound || frame.MasterFrame != null ? txtStartInMiliseconds.Minimum : -frame.StartInMiliseconds;
+                    }
+                    catch (Exception exp)
+                    {
+                        GMessageBox.SayError("لطفا یک عدد وارد کنید - " +  Environment.NewLine + exp.ToString());
+                    }
+                }
+            }
+
+        }
+
+
+        /// <summary>
         /// اضافه کردن قاب
         /// </summary>
         /// <param name="sender"></param>
@@ -942,10 +984,10 @@ namespace gsync2vid
             GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
             if(frame.MasterFrame == null)
             {
-                MessageBox.Show("فقط امکان حذف قابهای یکی شده با قاب پیشین وجود دارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                GMessageBox.SayError("فقط امکان حذف قابهای یکی شده با قاب پیشین وجود دارد.");
                 return;
             }
-            if (MessageBox.Show("آیا از حذف این قاب اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.No)
+            if (GMessageBox.Ask("آیا از حذف این قاب اطمینان دارید؟") == DialogResult.No)
                 return;
 
             foreach(object item in cmbVerses.Items)
@@ -958,6 +1000,129 @@ namespace gsync2vid
             cmbVerses.SelectedItem = frame.MasterFrame;
             InvalidatePreview();
         }
+
+
+        private void btnVideoTools_Click(object sender, EventArgs e)
+        {
+            string ffmpegPath = Settings.Default.FFmpegPath;
+            if (string.IsNullOrEmpty(ffmpegPath))
+                ffmpegPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ffmpeg");
+            if (!File.Exists(Path.Combine(ffmpegPath, "ffmpeg.exe")))
+            {
+                GMessageBox.SayError("لطفا ابتدا مسیر ffmpeg.exe را با انتخاب یک خروجی از نوع mp4 مشخص کنید.");
+                return;
+            }
+
+
+            string inputFilePath = "";
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "MP4 Files (*.mp4)|*.mp4|MOV Files (*.mov)|*.mov";
+                if (dlg.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
+                {
+                    return;
+                }
+                inputFilePath = dlg.FileName;
+            }
+
+            using (VideoTools dlg = new VideoTools())
+            {
+                DialogResult rs = dlg.ShowDialog(this);
+                if(rs == DialogResult.Yes) //Cut
+                {
+                    string startTime = dlg.StartTime;
+                    DateTime dtStartTime;
+                    if(!DateTime.TryParse(startTime, out dtStartTime))
+                    {
+                        GMessageBox.SayError("زمان شروع نامعتبر است.");
+                        return;
+                    }
+                    string endTime = dlg.EndTime;
+                    DateTime dtEndTime;
+                    if (!DateTime.TryParse(endTime, out dtEndTime))
+                    {
+                        GMessageBox.SayError("زمان پایان نامعتبر است.");
+                        return;
+                    }
+
+                    TimeSpan dt = dtEndTime - dtStartTime;
+                    string dtStr = dt.ToString(@"hh\:mm\:ss");
+
+                    using (SaveFileDialog saveDlg = new SaveFileDialog())
+                    {
+                        saveDlg.Filter =
+                            "MP4 Files (*.mp4)|*.mp4";
+                        saveDlg.FileName = Path.GetFileNameWithoutExtension(inputFilePath) + "-cut";
+                        if (saveDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                        {
+
+                            string outfilePath = saveDlg.FileName;
+                            if (File.Exists(outfilePath))
+                                File.Delete(outfilePath);
+
+                            RunFFmpegCommand(
+                                ffmpegPath,
+                                $"-ss {startTime} -i \"{ inputFilePath}\" -t { dtStr } -c copy  \"{outfilePath}\""
+                                );
+
+                            if (File.Exists(outfilePath))
+                            {
+                                if (MessageBox.Show("آیا مایلید فایل خروجی را مشاهده کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                                {
+                                    Process.Start(outfilePath);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("فایل خروجی ایجاد نشد.", "خطا", MessageBoxButtons.OK);
+                            }
+                        }
+                    }
+
+                    return;
+                }
+                if (rs == DialogResult.No) //Extract Audio
+                {
+                    using (SaveFileDialog saveDlg = new SaveFileDialog())
+                    {
+                        saveDlg.Filter =
+                            "MP3 Files (*.mp3)|*.mp3";
+                        saveDlg.FileName = Path.GetFileNameWithoutExtension(inputFilePath) + "-audio";
+                        if (saveDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                        {
+
+                            string outfilePath = saveDlg.FileName;
+                            if (File.Exists(outfilePath))
+                                File.Delete(outfilePath);
+
+                            RunFFmpegCommand(
+                                ffmpegPath,
+                                $"-i \"{ inputFilePath}\" \"{outfilePath}\""
+                                );
+
+                            if (File.Exists(outfilePath))
+                            {
+                                if (MessageBox.Show("آیا مایلید فایل خروجی را مشاهده کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                                {
+                                    Process.Start(outfilePath);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("فایل خروجی ایجاد نشد.", "خطا", MessageBoxButtons.OK);
+                            }
+                        }
+                    }
+
+                    return;
+
+                }
+            }
+
+        }
+
 
 
 
@@ -1011,7 +1176,7 @@ namespace gsync2vid
                 return;
 
 
-            using (ObjectPropertisEditor dlg = new ObjectPropertisEditor())
+            using (ObjectPropertiesEditor dlg = new ObjectPropertiesEditor())
             {
                 GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
                 dlg.Object = frame;
@@ -1108,7 +1273,7 @@ namespace gsync2vid
                 {
                     if (!string.IsNullOrEmpty(overlay.ImagePath))
                     {
-                        if(MessageBox.Show("آیا از حذف این تصویر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                        if(GMessageBox.Ask("آیا از حذف این تصویر اطمینان دارید؟") == DialogResult.Yes)
                         {
                             List<GOverlayImage> list = new List<GOverlayImage>();
                             list.AddRange(frame.OverlayImages);
@@ -1120,7 +1285,7 @@ namespace gsync2vid
                     }
                     else
                     {
-                        MessageBox.Show("لطفا یک لایه تصویری را انتخاب کنید.", "خطا");
+                        GMessageBox.SayError("لطفا یک لایه تصویری را انتخاب کنید.");
                     }
 
                 }
@@ -1138,7 +1303,7 @@ namespace gsync2vid
             {
                 if(currentFrame.MasterFrame != null)
                 {
-                    MessageBox.Show("فقط امکان کپی از قابهایی که وابسته به قاب دیگری نیستند وجود دارد.", "خطا");
+                    GMessageBox.SayError("فقط امکان کپی از قابهایی که وابسته به قاب دیگری نیستند وجود دارد.");
                     return;
                 }
 
@@ -1147,7 +1312,7 @@ namespace gsync2vid
                 {
                     if (!string.IsNullOrEmpty(overlay.ImagePath))
                     {
-                        if (MessageBox.Show("آیا می‌خواهید این لایه به قابهای غیروابسته بعدی کپی (تک‌ نمونه) شود؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                        if (GMessageBox.Ask("آیا می‌خواهید این لایه به قابهای غیروابسته بعدی کپی (تک‌ نمونه) شود؟") == DialogResult.Yes)
                         {
                             int nIdx = cmbVerses.SelectedIndex;
                             int nLast = -1;
@@ -1168,7 +1333,7 @@ namespace gsync2vid
                         }                          
                     }
                     else
-                        MessageBox.Show("لطفا یک لایه تصویری را انتخاب کنید.", "خطا");
+                        GMessageBox.SayError("لطفا یک لایه تصویری را انتخاب کنید.");
                 }
 
             }
@@ -1231,7 +1396,7 @@ namespace gsync2vid
                 }
             }
             chkSlaveFrame.Checked = false;
-            MessageBox.Show("امکان فعال کردن این گزینه برای این قاب وجود ندارد.", "خطا");
+            GMessageBox.SayError("امکان فعال کردن این گزینه برای این قاب وجود ندارد.");
         }
 
         /// <summary>
@@ -1246,7 +1411,7 @@ namespace gsync2vid
             {
                 if (chkSlaveFrame.Checked)
                 {
-                    MessageBox.Show("امکان فعال کردن این گزینه برای این قاب وجود ندارد.", "خطا");
+                    GMessageBox.SayError("امکان فعال کردن این گزینه برای این قاب وجود ندارد.");
                     return;
                 }
             }

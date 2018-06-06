@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace gsync2vid
 {
-    public partial class ObjectPropertisEditor : Form
+    public partial class ObjectPropertiesEditor : Form
     {
-        public ObjectPropertisEditor()
+        public ObjectPropertiesEditor()
         {
             InitializeComponent();
         }
