@@ -48,6 +48,9 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.btnVideoTools = new System.Windows.Forms.Button();
+            this.btnEditTime = new System.Windows.Forms.Button();
+            this.btnCopyTo = new System.Windows.Forms.Button();
             this.btnAddFrame = new System.Windows.Forms.Button();
             this.trckSize = new System.Windows.Forms.TrackBar();
             this.btnDelImage = new System.Windows.Forms.Button();
@@ -101,7 +104,6 @@
             this.lblTransitionEffect = new System.Windows.Forms.Label();
             this.chkAAC = new System.Windows.Forms.CheckBox();
             this.chkDebug = new System.Windows.Forms.CheckBox();
-            this.btnCopyTo = new System.Windows.Forms.Button();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -364,6 +366,8 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.btnVideoTools);
+            this.grpVerses.Controls.Add(this.btnEditTime);
             this.grpVerses.Controls.Add(this.btnCopyTo);
             this.grpVerses.Controls.Add(this.btnAddFrame);
             this.grpVerses.Controls.Add(this.trckSize);
@@ -418,9 +422,43 @@
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
             // 
+            // btnVideoTools
+            // 
+            this.btnVideoTools.Location = new System.Drawing.Point(69, 13);
+            this.btnVideoTools.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVideoTools.Name = "btnVideoTools";
+            this.btnVideoTools.Size = new System.Drawing.Size(25, 24);
+            this.btnVideoTools.TabIndex = 65;
+            this.btnVideoTools.Text = "V";
+            this.btnVideoTools.UseVisualStyleBackColor = true;
+            this.btnVideoTools.Click += new System.EventHandler(this.btnVideoTools_Click);
+            // 
+            // btnEditTime
+            // 
+            this.btnEditTime.Location = new System.Drawing.Point(144, 13);
+            this.btnEditTime.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEditTime.Name = "btnEditTime";
+            this.btnEditTime.Size = new System.Drawing.Size(25, 24);
+            this.btnEditTime.TabIndex = 64;
+            this.btnEditTime.Text = "S";
+            this.btnEditTime.UseVisualStyleBackColor = true;
+            this.btnEditTime.Click += new System.EventHandler(this.btnEditTime_Click);
+            // 
+            // btnCopyTo
+            // 
+            this.btnCopyTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCopyTo.Location = new System.Drawing.Point(251, 338);
+            this.btnCopyTo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCopyTo.Name = "btnCopyTo";
+            this.btnCopyTo.Size = new System.Drawing.Size(30, 25);
+            this.btnCopyTo.TabIndex = 63;
+            this.btnCopyTo.Text = "C";
+            this.btnCopyTo.UseVisualStyleBackColor = true;
+            this.btnCopyTo.Click += new System.EventHandler(this.btnCopyTo_Click);
+            // 
             // btnAddFrame
             // 
-            this.btnAddFrame.Location = new System.Drawing.Point(126, 13);
+            this.btnAddFrame.Location = new System.Drawing.Point(119, 13);
             this.btnAddFrame.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddFrame.Name = "btnAddFrame";
             this.btnAddFrame.Size = new System.Drawing.Size(25, 24);
@@ -447,7 +485,7 @@
             // btnDelImage
             // 
             this.btnDelImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelImage.Location = new System.Drawing.Point(283, 338);
+            this.btnDelImage.Location = new System.Drawing.Point(282, 338);
             this.btnDelImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnDelImage.Name = "btnDelImage";
             this.btnDelImage.Size = new System.Drawing.Size(30, 25);
@@ -459,7 +497,7 @@
             // btnAddImage
             // 
             this.btnAddImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddImage.Location = new System.Drawing.Point(314, 338);
+            this.btnAddImage.Location = new System.Drawing.Point(313, 338);
             this.btnAddImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddImage.Name = "btnAddImage";
             this.btnAddImage.Size = new System.Drawing.Size(30, 25);
@@ -499,7 +537,7 @@
             // 
             // btnDelFrame
             // 
-            this.btnDelFrame.Location = new System.Drawing.Point(100, 13);
+            this.btnDelFrame.Location = new System.Drawing.Point(94, 13);
             this.btnDelFrame.Margin = new System.Windows.Forms.Padding(2);
             this.btnDelFrame.Name = "btnDelFrame";
             this.btnDelFrame.Size = new System.Drawing.Size(25, 24);
@@ -620,7 +658,7 @@
             // 
             // btnEditText
             // 
-            this.btnEditText.Location = new System.Drawing.Point(74, 13);
+            this.btnEditText.Location = new System.Drawing.Point(169, 13);
             this.btnEditText.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditText.Name = "btnEditText";
             this.btnEditText.Size = new System.Drawing.Size(25, 24);
@@ -663,6 +701,11 @@
             0,
             0,
             0});
+            this.txtStartInMiliseconds.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
             this.txtStartInMiliseconds.Name = "txtStartInMiliseconds";
             this.txtStartInMiliseconds.Size = new System.Drawing.Size(56, 21);
             this.txtStartInMiliseconds.TabIndex = 41;
@@ -743,7 +786,7 @@
             this.btnPreview.Location = new System.Drawing.Point(1, 13);
             this.btnPreview.Margin = new System.Windows.Forms.Padding(2);
             this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(72, 24);
+            this.btnPreview.Size = new System.Drawing.Size(68, 24);
             this.btnPreview.TabIndex = 34;
             this.btnPreview.Text = "پیش‌نمایش";
             this.btnPreview.UseVisualStyleBackColor = true;
@@ -955,10 +998,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbVerses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVerses.FormattingEnabled = true;
-            this.cmbVerses.Location = new System.Drawing.Point(151, 13);
+            this.cmbVerses.Location = new System.Drawing.Point(196, 13);
             this.cmbVerses.Margin = new System.Windows.Forms.Padding(2);
             this.cmbVerses.Name = "cmbVerses";
-            this.cmbVerses.Size = new System.Drawing.Size(615, 21);
+            this.cmbVerses.Size = new System.Drawing.Size(570, 21);
             this.cmbVerses.TabIndex = 0;
             this.cmbVerses.SelectedIndexChanged += new System.EventHandler(this.cmbVerses_SelectedIndexChanged);
             // 
@@ -1066,18 +1109,6 @@
             this.chkDebug.Text = "dbg";
             this.chkDebug.UseVisualStyleBackColor = true;
             this.chkDebug.CheckedChanged += new System.EventHandler(this.chkDebug_CheckedChanged);
-            // 
-            // btnCopyTo
-            // 
-            this.btnCopyTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCopyTo.Location = new System.Drawing.Point(251, 338);
-            this.btnCopyTo.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCopyTo.Name = "btnCopyTo";
-            this.btnCopyTo.Size = new System.Drawing.Size(30, 25);
-            this.btnCopyTo.TabIndex = 63;
-            this.btnCopyTo.Text = "C";
-            this.btnCopyTo.UseVisualStyleBackColor = true;
-            this.btnCopyTo.Click += new System.EventHandler(this.btnCopyTo_Click);
             // 
             // MainForm
             // 
@@ -1201,6 +1232,8 @@
         private System.Windows.Forms.TrackBar trckSize;
         private System.Windows.Forms.Button btnAddFrame;
         private System.Windows.Forms.Button btnCopyTo;
+        private System.Windows.Forms.Button btnEditTime;
+        private System.Windows.Forms.Button btnVideoTools;
     }
 }
 

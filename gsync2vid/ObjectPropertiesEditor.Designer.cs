@@ -1,6 +1,6 @@
 ﻿namespace gsync2vid
 {
-    partial class ObjectPropertisEditor
+    partial class ObjectPropertiesEditor
     {
         /// <summary>
         /// Required designer variable.
