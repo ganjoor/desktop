@@ -68,9 +68,7 @@
             this.btnRandomImage = new System.Windows.Forms.Button();
             this.chkShowLogo = new System.Windows.Forms.CheckBox();
             this.btnEditText = new System.Windows.Forms.Button();
-            this.lblMinus = new System.Windows.Forms.Label();
             this.chkSlaveFrame = new System.Windows.Forms.CheckBox();
-            this.txtStartInMiliseconds = new System.Windows.Forms.NumericUpDown();
             this.btnResetImage = new System.Windows.Forms.Button();
             this.txtComment = new System.Windows.Forms.TextBox();
             this.trckMaxTextWidth = new System.Windows.Forms.TrackBar();
@@ -92,7 +90,6 @@
             this.btnSelBackgroundImage = new System.Windows.Forms.Button();
             this.txtBackgroundImage = new System.Windows.Forms.TextBox();
             this.lblBackgroundImage = new System.Windows.Forms.Label();
-            this.lblStart = new System.Windows.Forms.Label();
             this.chkAudioBound = new System.Windows.Forms.CheckBox();
             this.cmbVerses = new System.Windows.Forms.ComboBox();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
@@ -104,6 +101,8 @@
             this.lblTransitionEffect = new System.Windows.Forms.Label();
             this.chkAAC = new System.Windows.Forms.CheckBox();
             this.chkDebug = new System.Windows.Forms.CheckBox();
+            this.btnIncreaseFontSize = new System.Windows.Forms.Button();
+            this.btnDecreaseFontSize = new System.Windows.Forms.Button();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -112,7 +111,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trckSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtThickness)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtStartInMiliseconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckVPosition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPreview)).BeginInit();
@@ -366,6 +364,8 @@
             this.grpVerses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVerses.Controls.Add(this.btnIncreaseFontSize);
+            this.grpVerses.Controls.Add(this.btnDecreaseFontSize);
             this.grpVerses.Controls.Add(this.btnVideoTools);
             this.grpVerses.Controls.Add(this.btnEditTime);
             this.grpVerses.Controls.Add(this.btnCopyTo);
@@ -386,9 +386,7 @@
             this.grpVerses.Controls.Add(this.btnRandomImage);
             this.grpVerses.Controls.Add(this.chkShowLogo);
             this.grpVerses.Controls.Add(this.btnEditText);
-            this.grpVerses.Controls.Add(this.lblMinus);
             this.grpVerses.Controls.Add(this.chkSlaveFrame);
-            this.grpVerses.Controls.Add(this.txtStartInMiliseconds);
             this.grpVerses.Controls.Add(this.btnResetImage);
             this.grpVerses.Controls.Add(this.txtComment);
             this.grpVerses.Controls.Add(this.trckMaxTextWidth);
@@ -410,7 +408,6 @@
             this.grpVerses.Controls.Add(this.btnSelBackgroundImage);
             this.grpVerses.Controls.Add(this.txtBackgroundImage);
             this.grpVerses.Controls.Add(this.lblBackgroundImage);
-            this.grpVerses.Controls.Add(this.lblStart);
             this.grpVerses.Controls.Add(this.chkAudioBound);
             this.grpVerses.Controls.Add(this.cmbVerses);
             this.grpVerses.Location = new System.Drawing.Point(5, 167);
@@ -634,7 +631,7 @@
             // 
             // btnRandomImage
             // 
-            this.btnRandomImage.Location = new System.Drawing.Point(67, 63);
+            this.btnRandomImage.Location = new System.Drawing.Point(62, 63);
             this.btnRandomImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnRandomImage.Name = "btnRandomImage";
             this.btnRandomImage.Size = new System.Drawing.Size(49, 25);
@@ -667,17 +664,6 @@
             this.btnEditText.UseVisualStyleBackColor = true;
             this.btnEditText.Click += new System.EventHandler(this.btnEditText_Click);
             // 
-            // lblMinus
-            // 
-            this.lblMinus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMinus.AutoSize = true;
-            this.lblMinus.Location = new System.Drawing.Point(432, 41);
-            this.lblMinus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblMinus.Name = "lblMinus";
-            this.lblMinus.Size = new System.Drawing.Size(11, 13);
-            this.lblMinus.TabIndex = 43;
-            this.lblMinus.Text = "-";
-            // 
             // chkSlaveFrame
             // 
             this.chkSlaveFrame.AutoSize = true;
@@ -690,34 +676,9 @@
             this.chkSlaveFrame.UseVisualStyleBackColor = true;
             this.chkSlaveFrame.CheckedChanged += new System.EventHandler(this.chkSlaveFrame_CheckedChanged);
             // 
-            // txtStartInMiliseconds
-            // 
-            this.txtStartInMiliseconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtStartInMiliseconds.Enabled = false;
-            this.txtStartInMiliseconds.Location = new System.Drawing.Point(457, 40);
-            this.txtStartInMiliseconds.Margin = new System.Windows.Forms.Padding(2);
-            this.txtStartInMiliseconds.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.txtStartInMiliseconds.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.txtStartInMiliseconds.Name = "txtStartInMiliseconds";
-            this.txtStartInMiliseconds.Size = new System.Drawing.Size(56, 21);
-            this.txtStartInMiliseconds.TabIndex = 41;
-            this.txtStartInMiliseconds.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            // 
             // btnResetImage
             // 
-            this.btnResetImage.Location = new System.Drawing.Point(39, 64);
+            this.btnResetImage.Location = new System.Drawing.Point(35, 64);
             this.btnResetImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnResetImage.Name = "btnResetImage";
             this.btnResetImage.Size = new System.Drawing.Size(26, 24);
@@ -808,12 +769,12 @@
             // 
             this.txtFont.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFont.Location = new System.Drawing.Point(39, 91);
+            this.txtFont.Location = new System.Drawing.Point(91, 91);
             this.txtFont.Margin = new System.Windows.Forms.Padding(2);
             this.txtFont.Name = "txtFont";
             this.txtFont.ReadOnly = true;
             this.txtFont.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtFont.Size = new System.Drawing.Size(649, 21);
+            this.txtFont.Size = new System.Drawing.Size(597, 21);
             this.txtFont.TabIndex = 32;
             // 
             // btnSelectFont
@@ -949,12 +910,12 @@
             // 
             this.txtBackgroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBackgroundImage.Location = new System.Drawing.Point(121, 65);
+            this.txtBackgroundImage.Location = new System.Drawing.Point(115, 65);
             this.txtBackgroundImage.Margin = new System.Windows.Forms.Padding(2);
             this.txtBackgroundImage.Name = "txtBackgroundImage";
             this.txtBackgroundImage.ReadOnly = true;
             this.txtBackgroundImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtBackgroundImage.Size = new System.Drawing.Size(567, 21);
+            this.txtBackgroundImage.Size = new System.Drawing.Size(573, 21);
             this.txtBackgroundImage.TabIndex = 7;
             // 
             // lblBackgroundImage
@@ -968,22 +929,10 @@
             this.lblBackgroundImage.TabIndex = 6;
             this.lblBackgroundImage.Text = "تصویر زمینه:";
             // 
-            // lblStart
-            // 
-            this.lblStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(517, 40);
-            this.lblStart.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(132, 13);
-            this.lblStart.TabIndex = 4;
-            this.lblStart.Text = "شروع بر حسب میلی ثانیه:";
-            // 
             // chkAudioBound
             // 
             this.chkAudioBound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAudioBound.AutoSize = true;
-            this.chkAudioBound.Enabled = false;
             this.chkAudioBound.Location = new System.Drawing.Point(665, 39);
             this.chkAudioBound.Margin = new System.Windows.Forms.Padding(2);
             this.chkAudioBound.Name = "chkAudioBound";
@@ -991,6 +940,7 @@
             this.chkAudioBound.TabIndex = 1;
             this.chkAudioBound.Text = "مربوط به خوانش";
             this.chkAudioBound.UseVisualStyleBackColor = true;
+            this.chkAudioBound.Click += new System.EventHandler(this.chkAudioBound_Click);
             // 
             // cmbVerses
             // 
@@ -1110,6 +1060,28 @@
             this.chkDebug.UseVisualStyleBackColor = true;
             this.chkDebug.CheckedChanged += new System.EventHandler(this.chkDebug_CheckedChanged);
             // 
+            // btnIncreaseFontSize
+            // 
+            this.btnIncreaseFontSize.Location = new System.Drawing.Point(62, 91);
+            this.btnIncreaseFontSize.Margin = new System.Windows.Forms.Padding(2);
+            this.btnIncreaseFontSize.Name = "btnIncreaseFontSize";
+            this.btnIncreaseFontSize.Size = new System.Drawing.Size(25, 24);
+            this.btnIncreaseFontSize.TabIndex = 67;
+            this.btnIncreaseFontSize.Text = "+";
+            this.btnIncreaseFontSize.UseVisualStyleBackColor = true;
+            this.btnIncreaseFontSize.Click += new System.EventHandler(this.btnIncreaseFontSize_Click);
+            // 
+            // btnDecreaseFontSize
+            // 
+            this.btnDecreaseFontSize.Location = new System.Drawing.Point(36, 91);
+            this.btnDecreaseFontSize.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDecreaseFontSize.Name = "btnDecreaseFontSize";
+            this.btnDecreaseFontSize.Size = new System.Drawing.Size(25, 24);
+            this.btnDecreaseFontSize.TabIndex = 66;
+            this.btnDecreaseFontSize.Text = "-";
+            this.btnDecreaseFontSize.UseVisualStyleBackColor = true;
+            this.btnDecreaseFontSize.Click += new System.EventHandler(this.btnDecreaseFontSize_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1145,7 +1117,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trckSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtThickness)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckHPosition)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtStartInMiliseconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckMaxTextWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trckVPosition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPreview)).EndInit();
@@ -1173,7 +1144,6 @@
         private System.Windows.Forms.Label lblSync;
         private System.Windows.Forms.GroupBox grpVerses;
         private System.Windows.Forms.ComboBox cmbVerses;
-        private System.Windows.Forms.Label lblStart;
         private System.Windows.Forms.CheckBox chkAudioBound;
         private System.Windows.Forms.Button btnSelBackgroundImage;
         private System.Windows.Forms.TextBox txtBackgroundImage;
@@ -1202,9 +1172,7 @@
         private System.Windows.Forms.TextBox txtComment;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.Button btnResetImage;
-        private System.Windows.Forms.NumericUpDown txtStartInMiliseconds;
         private System.Windows.Forms.CheckBox chkSlaveFrame;
-        private System.Windows.Forms.Label lblMinus;
         private System.Windows.Forms.Button btnEditText;
         private System.Windows.Forms.CheckBox chkShowLogo;
         private System.Windows.Forms.StatusStrip statusStripMain;
@@ -1234,6 +1202,8 @@
         private System.Windows.Forms.Button btnCopyTo;
         private System.Windows.Forms.Button btnEditTime;
         private System.Windows.Forms.Button btnVideoTools;
+        private System.Windows.Forms.Button btnIncreaseFontSize;
+        private System.Windows.Forms.Button btnDecreaseFontSize;
     }
 }
 
