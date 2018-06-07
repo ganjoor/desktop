@@ -23,6 +23,9 @@ namespace gsync2vid
                     ImagePath = string.Empty
                 }
             };
+
+            TextBorderValue = 0;
+            TextBorderColor = Color.Black;
         }
 
         /// <summary>
@@ -236,6 +239,26 @@ namespace gsync2vid
         /// </summary>
         [DisplayName("تصاویر لایه زیر متن")]
         public GOverlayImage[] OverlayImages
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// میزان مرز متن = ۰ ندارد
+        /// </summary>
+        [DisplayName("میزان مرز متن")]
+        public int TextBorderValue
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// رنگ مرز متن
+        /// </summary>
+        [DisplayName("رنگ مرز متن")]
+        public Color TextBorderColor
         {
             get;
             set;

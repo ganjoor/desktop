@@ -17,6 +17,7 @@ using System.Net;
 using System.Reflection;
 using System.Diagnostics;
 using ganjoor.Utilities;
+using System.Drawing.Drawing2D;
 
 namespace gsync2vid
 {
@@ -468,9 +469,7 @@ namespace gsync2vid
             if (cmbVerses.SelectedItem == null)
                 return;
             GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
-            chkAudioBound.Checked = frame.AudioBound;
-            lblStart.Visible = lblMinus.Visible = txtStartInMiliseconds.Visible = !frame.AudioBound && frame.MasterFrame == null;
-            txtStartInMiliseconds.Value = frame.AudioBound || frame.MasterFrame != null? txtStartInMiliseconds.Minimum : -frame.StartInMiliseconds;
+            chkAudioBound.Checked = frame.AudioBound;          
             txtBackgroundImage.Text = frame.BackgroundImagePath;
             btnBackColor.BackColor = frame.BackColor;
             btnTextColor.BackColor = frame.TextColor;
@@ -511,6 +510,20 @@ namespace gsync2vid
             }
         }
 
+
+        private void chkAudioBound_Click(object sender, EventArgs e)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+            if (GMessageBox.Ask($"تغییر این گزینه توصیه نمی‌شود.{Environment.NewLine}آیا تمایل دارید این کار را نکنید؟") == DialogResult.No)
+                frame.AudioBound = chkAudioBound.Checked;
+            else
+            {
+                chkAudioBound.Checked = frame.AudioBound;
+            }
+
+        }
 
         /// <summary>
         /// انتخاب تصویر
@@ -728,6 +741,52 @@ namespace gsync2vid
             }
         }
 
+        private void ChangeFontSize(int nChangeValue)
+        {
+            if (cmbVerses.SelectedItem == null)
+                return;
+
+            GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
+
+            Font fntOld = frame.Font;
+            if (nChangeValue < 0 && (fntOld.Size + nChangeValue) < 2)
+                return;
+            frame.Font = new Font(fntOld.FontFamily, fntOld.Size + nChangeValue, fntOld.Style);
+            //fntOld.Dispose();
+
+            int idx = cmbVerses.SelectedIndex;
+
+            if (frame.MasterFrame == null)
+                for (int i = idx + 1; i < cmbVerses.Items.Count; i++)
+                {
+                    (cmbVerses.Items[i] as GVideoFrame).Font = frame.Font;
+                }
+
+            txtFont.Text = frame.Font.Name + "(" + frame.Font.Style.ToString() + ") " + frame.Font.Size.ToString();
+
+            if (frame.MasterFrame == null)
+            {
+                Settings.Default.LastUsedFont = frame.Font;
+                Settings.Default.Save();
+            }
+
+            InvalidatePreview();
+
+
+        }
+
+        private void btnIncreaseFontSize_Click(object sender, EventArgs e)
+        {
+            ChangeFontSize(2);
+        }
+
+        private void btnDecreaseFontSize_Click(object sender, EventArgs e)
+        {
+            ChangeFontSize(-2);
+        }
+
+
+
 
         private void cmbOverlayImages_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -910,8 +969,7 @@ namespace gsync2vid
                 {
                     try
                     {
-                        frame.StartInMiliseconds = Int32.Parse(dlg.ItemName);
-                        txtStartInMiliseconds.Value = frame.AudioBound || frame.MasterFrame != null ? txtStartInMiliseconds.Minimum : -frame.StartInMiliseconds;
+                        frame.StartInMiliseconds = Int32.Parse(dlg.ItemName);                        
                     }
                     catch (Exception exp)
                     {
@@ -1181,6 +1239,8 @@ namespace gsync2vid
                 GVideoFrame frame = cmbVerses.SelectedItem as GVideoFrame;
                 dlg.Object = frame;
                 GTextBoxShape oldShape = frame.Shape;
+                int textShadowValue = frame.TextBorderValue;
+                Color textShadowColor = frame.TextBorderColor;
                 dlg.ShowDialog(this);
                 if (oldShape != frame.Shape)
                 {
@@ -1191,6 +1251,26 @@ namespace gsync2vid
                         (cmbVerses.Items[i] as GVideoFrame).Shape = frame.Shape;
                     }
                 }
+                if (textShadowValue != frame.TextBorderValue)
+                {
+                    int idx = cmbVerses.SelectedIndex;
+
+                    for (int i = idx + 1; i < cmbVerses.Items.Count; i++)
+                    {
+                        (cmbVerses.Items[i] as GVideoFrame).TextBorderValue = frame.TextBorderValue;
+                    }
+                }
+                if (textShadowColor != frame.TextBorderColor)
+                {
+                    int idx = cmbVerses.SelectedIndex;
+
+                    for (int i = idx + 1; i < cmbVerses.Items.Count; i++)
+                    {
+                        (cmbVerses.Items[i] as GVideoFrame).TextBorderColor = frame.TextBorderColor;
+                    }
+                }
+
+
                 cmbVerses_SelectedIndexChanged(sender, e);
             }
         }
@@ -1788,6 +1868,8 @@ namespace gsync2vid
 
                 SizeF szText = g.MeasureString(frame.Text, frame.Font, frame.MaxTextWidthRatioPortion * (int)(txtWidth.Value) / frame.MaxTextWidthRatioPortionFrom, new StringFormat(StringFormatFlags.DirectionRightToLeft));
                 RectangleF rcText = new RectangleF((frame.TextHorizontalPosRatioPortion * szImageSize.Width / frame.TextHorizontalPosRatioPortionFrom) - szText.Width / 2, (frame.TextVerticalPosRatioPortion * szImageSize.Height / frame.TextVerticalPosRatioPortionFrom) - szText.Height / 2, szText.Width, szText.Height);
+
+
                 using (SolidBrush bkTextBrush = new SolidBrush(Color.FromArgb(frame.TextBackColorAlpha, frame.TextBackColor)))
                 {
                     switch (frame.Shape)
@@ -1819,11 +1901,49 @@ namespace gsync2vid
                             break;
                     }
                 }
+
+                if(frame.TextBorderValue > 0)
+                {
+                    using (Image imgTemp = new Bitmap((int)rcText.Width, (int)rcText.Height))
+                    {
+                        RectangleF rcTemp = rcText;
+                        rcTemp.X = rcTemp.Y = 0;
+                        Color bkTemp = Color.FromArgb(255 - frame.TextBorderColor.R, 255 - frame.TextBorderColor.G, 255 - frame.TextBorderColor.B);
+                        using (Graphics gTemp = Graphics.FromImage(imgTemp))
+                        {
+                            using (SolidBrush bkBrush = new SolidBrush(bkTemp))
+                                gTemp.FillRectangle(bkBrush, rcTemp);                            
+
+                            using (SolidBrush txtBrush = new SolidBrush(frame.TextBorderColor))
+                                gTemp.DrawString(frame.Text, frame.Font, txtBrush,
+                                    rcTemp
+                                    , new StringFormat(StringFormatFlags.DirectionRightToLeft)
+                                    );
+                        }
+
+                        (imgTemp as Bitmap).MakeTransparent(bkTemp);
+
+                        
+                        for(int i= -frame.TextBorderValue; i<=frame.TextBorderValue; i++)
+                        {
+                            RectangleF rcTarget = rcText;
+                            rcTarget.X -= i;
+                            rcTarget.Y -= i;
+                            rcTarget.Width += 2 * i;
+                            rcTarget.Height += 2 * i;
+                            g.DrawImage(imgTemp, rcTarget);
+                        }
+                    }
+
+                }
+
                 using (SolidBrush txtBrush = new SolidBrush(frame.TextColor))
                     g.DrawString(frame.Text, frame.Font, txtBrush,
                         rcText
                         , new StringFormat(StringFormatFlags.DirectionRightToLeft)
                         );
+
+
 
                 foreach (object item in cmbVerses.Items)
                     if ((item as GVideoFrame).MasterFrame == frame)
