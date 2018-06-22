@@ -22,7 +22,7 @@ namespace ganjoor
 
         private void btnDownloadList_Click(object sender, EventArgs e)
         {
-            DownloadList("http://ganjoor.sourceforge.net/newgdbs.xml");
+            DownloadList("http://i.ganjoor.net/android/androidgdbs.xml");
         }
 
         private List<GDBInfo> _Lst = new List<GDBInfo>();             

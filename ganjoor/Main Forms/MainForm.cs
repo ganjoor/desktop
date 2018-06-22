@@ -22,7 +22,7 @@ using System.Diagnostics;
  *   Changelog (after a pre 1.0 release):   
  *      MainForm code moved to GanjoorView user control
  *      Added main toolbar, statusbar, about box
- *      Project code moved to sf.net : http://ganjoor.sourceforge.net
+ *      Project code moved to sf.net : http://dg.ganjoor.net
  */
 
 namespace ganjoor
@@ -422,7 +422,7 @@ namespace ganjoor
         {
             try
             {
-                WebRequest req = WebRequest.Create("http://ganjoor.sourceforge.net/version.xml");
+                WebRequest req = WebRequest.Create("http://dg.ganjoor.net/version.xml");
                 GConnectionManager.ConfigureProxy(ref req);
                 using (WebResponse response = req.GetResponse())
                 {
@@ -483,7 +483,7 @@ namespace ganjoor
                 if (!Prompt)//check for new gdbs
                 {
                     string strException;
-                    List<GDBInfo> Lst = GDBListProcessor.RetrieveList("http://ganjoor.sourceforge.net/newgdbs.xml", out strException);
+                    List<GDBInfo> Lst = GDBListProcessor.RetrieveList("http://i.ganjoor.net/android/androidgdbs.xml", out strException);
                     if (Lst != null && string.IsNullOrEmpty(strException))
                     {
                         List<GDBInfo> finalList = new List<GDBInfo>();
@@ -688,7 +688,7 @@ namespace ganjoor
 
         private void btnChangeLog_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://ganjoor.sourceforge.net/changelog/");
+            System.Diagnostics.Process.Start("http://dg.ganjoor.net/changelog/");
         }
 
         private void btnDownload_VisibleChanged(object sender, EventArgs e)

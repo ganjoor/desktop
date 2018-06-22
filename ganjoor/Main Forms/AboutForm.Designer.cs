@@ -71,14 +71,14 @@
             // 
             this.lnkGanjoorOnSFNet.AutoSize = true;
             this.lnkGanjoorOnSFNet.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(146, 50);
+            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(171, 50);
             this.lnkGanjoorOnSFNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkGanjoorOnSFNet.Name = "lnkGanjoorOnSFNet";
             this.lnkGanjoorOnSFNet.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lnkGanjoorOnSFNet.Size = new System.Drawing.Size(126, 13);
+            this.lnkGanjoorOnSFNet.Size = new System.Drawing.Size(80, 13);
             this.lnkGanjoorOnSFNet.TabIndex = 2;
             this.lnkGanjoorOnSFNet.TabStop = true;
-            this.lnkGanjoorOnSFNet.Text = "ganjoor.sourceforge.net";
+            this.lnkGanjoorOnSFNet.Text = "dg.ganjoor.net";
             this.lnkGanjoorOnSFNet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkGanjoorOnSFNet_LinkClicked);
             // 
             // btnOK

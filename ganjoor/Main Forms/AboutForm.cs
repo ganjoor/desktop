@@ -19,7 +19,7 @@ namespace ganjoor
 
         private void lnkGanjoorOnSFNet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LaunchUrl("http://ganjoor.sourceforge.net");
+            LaunchUrl("http://dg.ganjoor.net");
         }
 
         private const int DTCLMN_NAME = 0;

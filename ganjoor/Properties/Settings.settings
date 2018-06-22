@@ -153,7 +153,7 @@
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
     </Setting>
     <Setting Name="LastDownloadUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://ganjoor.sourceforge.net/newgdbs.xml</Value>
+      <Value Profile="(Default)">http://i.ganjoor.net/android/androidgdbs.xml</Value>
     </Setting>
     <Setting Name="CustomDownloadListMoreInfoUrls" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
