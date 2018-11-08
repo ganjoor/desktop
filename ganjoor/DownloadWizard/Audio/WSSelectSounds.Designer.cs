@@ -33,11 +33,11 @@
             this.btnSelNone = new System.Windows.Forms.ToolStripButton();
             this.tlbr = new System.Windows.Forms.ToolStrip();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btnAllDownloadable = new System.Windows.Forms.ToolStripButton();
             this.grdList = new System.Windows.Forms.DataGridView();
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnDownload = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnAllDownloadable = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -97,6 +97,17 @@
             this.btnRefresh.Visible = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // btnAllDownloadable
+            // 
+            this.btnAllDownloadable.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnAllDownloadable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAllDownloadable.Image = global::ganjoor.Properties.Resources.down;
+            this.btnAllDownloadable.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAllDownloadable.Name = "btnAllDownloadable";
+            this.btnAllDownloadable.Size = new System.Drawing.Size(23, 22);
+            this.btnAllDownloadable.Text = "همه خوانشهای قابل دریافت";
+            this.btnAllDownloadable.Click += new System.EventHandler(this.btnAllDownloadable_Click);
+            // 
             // grdList
             // 
             this.grdList.AllowUserToAddRows = false;
@@ -114,6 +125,7 @@
             this.grdList.Size = new System.Drawing.Size(558, 244);
             this.grdList.TabIndex = 11;
             this.grdList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdList_CellContentClick);
+            this.grdList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.grdList_CellFormatting);
             this.grdList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdList_CellValueChanged);
             // 
             // clmnDesc
@@ -134,17 +146,6 @@
             this.clmnDownload.HeaderText = "دریافت";
             this.clmnDownload.Name = "clmnDownload";
             this.clmnDownload.Width = 50;
-            // 
-            // btnAllDownloadable
-            // 
-            this.btnAllDownloadable.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnAllDownloadable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAllDownloadable.Image = global::ganjoor.Properties.Resources.down;
-            this.btnAllDownloadable.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAllDownloadable.Name = "btnAllDownloadable";
-            this.btnAllDownloadable.Size = new System.Drawing.Size(23, 22);
-            this.btnAllDownloadable.Text = "همه خوانشهای قابل دریافت";
-            this.btnAllDownloadable.Click += new System.EventHandler(this.btnAllDownloadable_Click);
             // 
             // WSSelectSounds
             // 

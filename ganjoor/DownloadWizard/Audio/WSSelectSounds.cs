@@ -51,6 +51,7 @@ namespace ganjoor
             tlbr.Enabled = false;
             lblDesc.BackColor = System.Drawing.SystemColors.Window;
             lblDesc.Text = "در حال دریافت اطلاعات ...";
+            Cursor.Current = Cursors.WaitCursor;
             Application.DoEvents();
             if (RetrieveList())
             {
@@ -67,6 +68,7 @@ namespace ganjoor
                 btnRefresh.Visible = true;
                 lblDesc.Text = "دریافت یا پردازش فهرست خوانشها با خطا مواجه شد. لطفاً از اتصال ارتباط اینترنتیتان اطمینان حاصل کنید و دکمهٔ تلاش مجدد را بزنید.";
             }
+            Cursor.Current = Cursors.Default;
             tlbr.Enabled = true;
         }
 
@@ -81,7 +83,6 @@ namespace ganjoor
         private bool RetrieveList()
         {
             bool reS = true;
-            grdList.Rows.Clear();
             string strException;
             _Lst = DownloadableAudioListProcessor.RetrieveList(ListUrl, out strException);
             if (!string.IsNullOrEmpty(strException))
@@ -92,29 +93,73 @@ namespace ganjoor
             else
             {
                 DbBrowser db = new DbBrowser();
+                
+                //در صورتی که تمام خوانشهای موجود را دریافت می‌کنیم برای تعیین وجود فایل صوتی از روش بهینه‌تری استفاده می‌کنیم.
+                PoemAudio[] poemAudios = null;
+                if(_PoemId == 0)
+                {
+                    poemAudios = db.GetAllPoemAudioFiles();
+                }
+
+                grdList.Columns.Clear();
+                DataTable tbl = new DataTable();
+                tbl.Columns.Add("عنوان");
+                tbl.Columns.Add("اندازه");
+                tbl.Columns.Add("دریافت", typeof(bool));
+
+                int firstSuggestableDownload = -1;
+                int idx = -1;
+
                 foreach (Dictionary<string, string> audioInfo in _Lst)
                 {
-                    int RowIndex = grdList.Rows.Add();
+                    idx++;
                     int nPoemId = Convert.ToInt32(audioInfo["audio_post_ID"]);
+                    bool haveIt =
+                        _PoemId == 0 ?
+                        poemAudios.Where(p => p.SyncGuid.ToString() == audioInfo["audio_guid"]).FirstOrDefault() != null
+                        :
+                        db.PoemAudioExists(nPoemId, audioInfo["audio_guid"]);
 
-                    bool haveIt = db.PoemAudioExists(nPoemId, audioInfo["audio_guid"]);
-                    grdList.Rows[RowIndex].Tag = haveIt;
-                    if (haveIt)
-                        grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
-                    grdList.Rows[RowIndex].Cells[GRDCLMN_TITLE].Value = DownloadableAudioListProcessor.SuggestTitle(audioInfo);
-                    grdList.Rows[RowIndex].Cells[GRDCLMN_SIZE].Value = (Int32.Parse(audioInfo["audio_mp3bsize"]) / 1024.0 / 1024.0).ToString("0.00") + " مگابایت";
-                    grdList.Rows[RowIndex].Cells[GRDCLMN_CHECK].Value = !haveIt;
-                    if (!haveIt)
-                    {
-                        grdList.FirstDisplayedScrollingRowIndex = RowIndex;
-                    }
+                    if (!haveIt && firstSuggestableDownload == -1)
+                        firstSuggestableDownload = idx;
+
+                    tbl.Rows.Add(
+                        DownloadableAudioListProcessor.SuggestTitle(audioInfo),
+                        (Int32.Parse(audioInfo["audio_mp3bsize"]) / 1024.0 / 1024.0).ToString("0.00") + " مگابایت",
+                        !haveIt
+                        );
                 }
                 db.CloseDb();
+
+                grdList.DataSource = tbl;
+
+                grdList.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                grdList.Columns[0].FillWeight = 50;
+                grdList.Columns[1].Width = 110;
+                grdList.Columns[2].Width = 50;
+
+                foreach (DataGridViewRow row in grdList.Rows)
+                    row.Tag = !((bool)row.Cells[GRDCLMN_CHECK].Value);
+                if(firstSuggestableDownload != -1)
+                {
+                    grdList.FirstDisplayedScrollingRowIndex = firstSuggestableDownload;
+                }
                 EnableDownloadCheckedButton();
             }
 
+
             return reS;
         }
+
+
+        private void grdList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (grdList.Rows[e.RowIndex].Tag != null)
+            {
+                e.CellStyle.BackColor = ((bool)grdList.Rows[e.RowIndex].Tag) ? Color.LightGray : Color.White;
+            }
+        }
+
 
 
 
@@ -196,7 +241,6 @@ namespace ganjoor
             _PoemId = 0;
             TryDownloadList();
         }
-
 
     }
 }
