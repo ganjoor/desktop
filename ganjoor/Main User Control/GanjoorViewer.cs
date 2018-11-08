@@ -1562,10 +1562,8 @@ namespace ganjoor
         {
             string txt = "";
             foreach (Control ctl in this.Controls)
-                if (ctl is Label)
+                if (ctl is Label && !(ctl is LinkLabel))
                 {
-                    if (ctl is LinkLabel && ctl.Tag is GanjoorVerse)
-                        continue;//bypass beyt nums
                     txt += ctl.Text + "\r\n";
                 }
             Clipboard.SetText(txt);
