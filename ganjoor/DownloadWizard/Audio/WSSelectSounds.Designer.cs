@@ -34,6 +34,9 @@
             this.tlbr = new System.Windows.Forms.ToolStrip();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.btnAllDownloadable = new System.Windows.Forms.ToolStripButton();
+            this.sep = new System.Windows.Forms.ToolStripSeparator();
+            this.btnMarkSelected = new System.Windows.Forms.ToolStripButton();
+            this.btnUnMarkSelected = new System.Windows.Forms.ToolStripButton();
             this.grdList = new System.Windows.Forms.DataGridView();
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +83,10 @@
             this.btnSelAllWhites,
             this.btnSelNone,
             this.btnRefresh,
-            this.btnAllDownloadable});
+            this.btnAllDownloadable,
+            this.sep,
+            this.btnMarkSelected,
+            this.btnUnMarkSelected});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
             this.tlbr.Size = new System.Drawing.Size(558, 25);
@@ -108,6 +114,31 @@
             this.btnAllDownloadable.Text = "همه خوانشهای قابل دریافت";
             this.btnAllDownloadable.Click += new System.EventHandler(this.btnAllDownloadable_Click);
             // 
+            // sep
+            // 
+            this.sep.Name = "sep";
+            this.sep.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnMarkSelected
+            // 
+            this.btnMarkSelected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnMarkSelected.Image = global::ganjoor.Properties.Resources.selall;
+            this.btnMarkSelected.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMarkSelected.Name = "btnMarkSelected";
+            this.btnMarkSelected.Size = new System.Drawing.Size(23, 22);
+            this.btnMarkSelected.Text = "علامتگذاری ردیفهای انتخاب شده";
+            this.btnMarkSelected.Click += new System.EventHandler(this.btnMarkSelected_Click);
+            // 
+            // btnUnMarkSelected
+            // 
+            this.btnUnMarkSelected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnUnMarkSelected.Image = global::ganjoor.Properties.Resources.selnone;
+            this.btnUnMarkSelected.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUnMarkSelected.Name = "btnUnMarkSelected";
+            this.btnUnMarkSelected.Size = new System.Drawing.Size(23, 22);
+            this.btnUnMarkSelected.Text = "بازنشانی علامت ردیفهای انتخاب شده";
+            this.btnUnMarkSelected.Click += new System.EventHandler(this.btnUnMarkSelected_Click);
+            // 
             // grdList
             // 
             this.grdList.AllowUserToAddRows = false;
@@ -119,7 +150,6 @@
             this.clmnDownload});
             this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdList.Location = new System.Drawing.Point(0, 91);
-            this.grdList.MultiSelect = false;
             this.grdList.Name = "grdList";
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdList.Size = new System.Drawing.Size(558, 244);
@@ -176,5 +206,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnSize;
         private System.Windows.Forms.DataGridViewCheckBoxColumn clmnDownload;
         private System.Windows.Forms.ToolStripButton btnAllDownloadable;
+        private System.Windows.Forms.ToolStripSeparator sep;
+        private System.Windows.Forms.ToolStripButton btnMarkSelected;
+        private System.Windows.Forms.ToolStripButton btnUnMarkSelected;
     }
 }

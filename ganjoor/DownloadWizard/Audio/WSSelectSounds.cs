@@ -174,6 +174,23 @@ namespace ganjoor
             }
         }
 
+        private void btnMarkSelected_Click(object sender, EventArgs e)
+        {
+            foreach(DataGridViewRow row in grdList.SelectedRows)
+            {
+                row.Cells[GRDCLMN_CHECK].Value = true;
+            }
+        }
+
+        private void btnUnMarkSelected_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in grdList.SelectedRows)
+            {
+                row.Cells[GRDCLMN_CHECK].Value = false;
+            }
+        }
+
+
         private void grdList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == GRDCLMN_CHECK)
