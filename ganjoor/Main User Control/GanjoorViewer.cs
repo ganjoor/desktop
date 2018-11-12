@@ -526,6 +526,7 @@ namespace ganjoor
                 else
                 {
                     lblVerse = new HighlightLabel();
+                    lblVerse.TabStop = true;
                     lblVerse.BackColor = Color.Transparent;
                     lblVerse.AutoSize = true;
                     if (CenteredView)

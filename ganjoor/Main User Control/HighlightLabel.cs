@@ -13,6 +13,7 @@ namespace ganjoor
         public HighlightLabel() :
             this(string.Empty, Settings.Default.HighlightColor)
         {
+            SetStyle(ControlStyles.Selectable, true);
         }
         public HighlightLabel(string keyword, Color highlightColor)
         {
@@ -25,6 +26,15 @@ namespace ganjoor
         public Color HighlightColor { set; get; }
         #endregion
         #region Paint
+        protected override void OnEnter(EventArgs e)
+        {
+            Invalidate();
+        }
+
+        protected override void OnLeave(EventArgs e)
+        {
+            Invalidate();
+        }
         protected override void OnPaint(PaintEventArgs e)
         {
                        
@@ -83,6 +93,11 @@ namespace ganjoor
                 }
             }
             base.OnPaint(e);
+            if (Focused)
+            {
+                e.Graphics.DrawRectangle(Pens.Black, e.ClipRectangle);
+            }
+
         }
         #endregion
     }
