@@ -1933,16 +1933,66 @@ namespace ganjoor
         #region Scroll Using Arrow Keys
         private void GanjoorViewer_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            if(e.Control)
+            {
+                if(e.KeyCode == Keys.C)
+                {
+                    int idx = FocusedVerseIndex;
+                    if (idx == -1)
+                        return;
+                    if (!(Controls[idx] is HighlightLabel))
+                        return;
+                    e.IsInputKey = true;
+                    string clipText = "";
+                    if(e.Shift)
+                    {
+                        clipText = Clipboard.GetText();
+                        if (clipText == null)
+                            clipText = "";
+                        else
+                            clipText += Environment.NewLine;
+                    }
+                    clipText += Controls[idx].Text;
+                    Clipboard.SetText(clipText);
+                    return;
+                }
+            }
             if (e.Control || e.Alt)
                 return;
             bool isInputKey = true;
             switch (e.KeyCode)
             {
                 case Keys.Down:
-                    SetVerticalScrollValue(VerticalScroll.Value + ScrollingSpeed * VerticalScroll.SmallChange);
+                    {
+                        int idx = FocusedVerseIndex;
+                        if (idx == -1)
+                        {
+                            SetVerticalScrollValue(VerticalScroll.Value + ScrollingSpeed * VerticalScroll.SmallChange);
+                        }
+                        else
+                        {
+                            if (idx < Controls.Count && Controls[idx + 1] is HighlightLabel)
+                                Controls[idx + 1].Focus();
+                            else
+                                SetVerticalScrollValue(VerticalScroll.Value + ScrollingSpeed * VerticalScroll.SmallChange);
+                        }
+                    }
                     break;
                 case Keys.Up:
-                    SetVerticalScrollValue(VerticalScroll.Value - ScrollingSpeed * VerticalScroll.SmallChange);
+                    {
+                        int idx = FocusedVerseIndex;
+                        if (idx == -1)
+                        {
+                            SetVerticalScrollValue(VerticalScroll.Value - ScrollingSpeed * VerticalScroll.SmallChange);
+                        }
+                        else
+                        {
+                            if (idx > 0 && Controls[idx - 1] is HighlightLabel)
+                                Controls[idx - 1].Focus();
+                            else
+                                SetVerticalScrollValue(VerticalScroll.Value - ScrollingSpeed * VerticalScroll.SmallChange);
+                        }
+                    }                    
                     break;                    
                 case Keys.PageDown:
                     SetVerticalScrollValue(VerticalScroll.Value + VerticalScroll.LargeChange);
@@ -1962,6 +2012,19 @@ namespace ganjoor
             }
             if (isInputKey)
                 e.IsInputKey = true;
+        }
+        private int FocusedVerseIndex
+        {
+            get
+            {
+                for (int idx = 0; idx < Controls.Count; idx++)
+                    if (Controls[idx].Focused)
+                        if (Controls[idx] is HighlightLabel)
+                            return idx;
+                        else
+                            return -1;
+                return -1;
+            }
         }
         private int ScrollingSpeed = 1;
         private void SetVerticalScrollValue(int newValue)
