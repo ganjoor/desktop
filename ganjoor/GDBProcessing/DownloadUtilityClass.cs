@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.ComponentModel;
+using System.Net;
 
 //Based On: http://www.devtoolshed.com/content/c-download-file-progress-bar
 namespace ganjoor
@@ -10,29 +11,45 @@ namespace ganjoor
     class DownloadUtilityClass
     {
 
-        public static string DownloadFileIgnoreFail(string sUrlToReadFileFrom, string TargetDir, BackgroundWorker backgroundWorker)
+        public static string DownloadFileIgnoreFail(string sUrlToReadFileFrom, string TargetDir, BackgroundWorker backgroundWorker, out string expString)
         {
+            expString = "";
             try
             {
                 return DownloadFile(sUrlToReadFileFrom, TargetDir, backgroundWorker);
             }
-            catch
+            catch(Exception exp)
             {
+                expString = exp.ToString();
                 return string.Empty;
             }
         }
+
         public static string DownloadFile(string sUrlToReadFileFrom, string TargetDir, BackgroundWorker backgroundWorker)
         {
             // first, we need to get the exact size (in bytes) of the file we are downloading
-
+            
             Uri url = new Uri(sUrlToReadFileFrom);
 
-            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+            System.Net.WebRequest req = System.Net.WebRequest.Create(url);            
             if (req is System.Net.HttpWebRequest)
             {
                 System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)req;
 
-                System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
+                System.Net.HttpWebResponse response;
+
+                try
+                {
+                    response = (System.Net.HttpWebResponse)request.GetResponse();
+                }
+                catch(WebException)
+                {
+                    sUrlToReadFileFrom = sUrlToReadFileFrom.Replace("https", "http"); // this is a workaround for https://i.ganjoor.net recent problems
+                    url = new Uri(sUrlToReadFileFrom);
+                    req = System.Net.WebRequest.Create(url);
+                    request = (System.Net.HttpWebRequest)req;
+                    response = (System.Net.HttpWebResponse)request.GetResponse();
+                }
 
                 response.Close();
 

@@ -197,6 +197,7 @@ namespace ganjoor
                     fav.Image = Resources.fav;
                     fav.Size = new Size(16, 16);
                     fav.Location = new Point(lblPoem.Location.X - 16, lblPoem.Location.Y + (lblPoem.Size.Height - 16) /2);
+                    fav.AccessibleName = "نشانه";
                     this.Controls.Add(fav);
                 }
 
@@ -1651,10 +1652,13 @@ namespace ganjoor
 
                         HighlightLabel lblVerse = new HighlightLabel();
                         lblVerse.AutoSize = true;
-                        lblVerse.Tag = null;
+                        lblVerse.Tag = poem;
+                        lblVerse.TabStop = true;
                         lblVerse.Text = _db.GetPreferablyAFavVerse(poem._ID)._Text;
                         lblVerse.Location = new Point(lastDistanceFromRight, catsTop);
                         lblVerse.BackColor = Color.Transparent;
+                        lblVerse.KeyDown += new KeyEventHandler(lblVerseFav_KeyDown);
+
                         this.Controls.Add(lblVerse);
                         catsTop += 2 * DistanceBetweenLines;
                     }
@@ -1734,6 +1738,15 @@ namespace ganjoor
                 MessageBox.Show("موردی یافت نشد.", "نشانه‌ها", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             return true;
         }
+
+        private void lblVerseFav_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                ShowPoem((GanjoorPoem)((Control)sender).Tag, true);
+            }            
+        }
+
         #endregion
 
         #region Paging

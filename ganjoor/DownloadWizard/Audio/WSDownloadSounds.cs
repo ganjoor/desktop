@@ -108,12 +108,12 @@ namespace ganjoor
                 string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
                     ((this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>)["audio_mp3"],
                     targetDir,
-                    this.backgroundWorker);
+                    this.backgroundWorker, out string expString);
                 if (!string.IsNullOrEmpty(sFileDownloaded))
                     _DownloadedSounds.Add(audioInfo);
                 else
                     if (_RealDownloadIndex >= 0)
-                        MessageBox.Show(string.Format("دریافت فایل صوتی خوانش {0} با خطا مواجه شد.", DownloadableAudioListProcessor.SuggestTitle((this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>)), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        MessageBox.Show(string.Format("دریافت فایل صوتی خوانش {0} با خطا مواجه شد.\n{1}", DownloadableAudioListProcessor.SuggestTitle((this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>), expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
