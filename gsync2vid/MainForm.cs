@@ -276,11 +276,28 @@ namespace gsync2vid
 
                             frames.Add(titleFrame);
 
+
+                            string fullCat = poem._Title;
+                            GanjoorCat cat = db.GetCategory(poem._CatID);
+                            if(cat != null)
+                            {
+                                fullCat = cat._Text;
+
+                                cat = db.GetCategory(cat._ParentID);
+                                while(cat != null)
+                                {
+                                    if (cat._ID == poet._CatID)
+                                        break;
+                                    fullCat = cat._Text + " » " + fullCat;
+                                    cat = db.GetCategory(cat._ParentID);
+                                }
+                            }
+
                             GVideoFrame poemFrame = new GVideoFrame()
                             {
                                 AudioBound = false,
                                 StartInMiliseconds = 0,
-                                Text = poem._Title,
+                                Text = fullCat,
                                 BackgroundImagePath = strImagePath,
                                 TextVerticalPosRatioPortion = 1,
                                 TextVerticalPosRatioPortionFrom = 2,
@@ -306,7 +323,7 @@ namespace gsync2vid
                             {
                                 AudioBound = false,
                                 StartInMiliseconds = 0,
-                                Text = audio.Description,
+                                Text = poem._Title,
                                 BackgroundImagePath = strImagePath,
                                 TextVerticalPosRatioPortion = 3,
                                 TextVerticalPosRatioPortionFrom = 4,
