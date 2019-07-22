@@ -179,13 +179,13 @@ namespace gsync2vid
                     strImagePath = "";
 
 
-            string strTitle = "";
+
 
             GanjoorPoem poem = db.GetPoem(Settings.Default.PoemId);
             if (poem != null)
             {
                 GanjoorPoet poet = db.GetPoetForCat(poem._CatID);
-                strTitle = poet.ToString();
+                string strTitle = poet.ToString();
                 strTitle = strTitle + " - " + poem.ToString();
 
                 List<GanjoorVerse> verses = db.GetVerses(poem._ID);
@@ -396,7 +396,8 @@ namespace gsync2vid
             if (refDb == null)
                 db.CloseDb();
 
-            btnProduce.Enabled = btnSubtitle.Enabled = Settings.Default.AudioId != 0;
+            //btnProduce.Enabled = 
+                btnSubtitle.Enabled = Settings.Default.AudioId != 0;
         }
         /// <summary>
         /// انتخاب شعر و خوانش
@@ -1607,7 +1608,7 @@ namespace gsync2vid
                 {
                     Settings.Default.VidDefExt = Path.GetExtension(dlg.FileName).ToLower();
                     Settings.Default.Save();
-                    InitiateRendering(dlg.FileName);
+                    InitiateRendering(dlg.FileName, Settings.Default.AudioId == 0);
                 }
             }
         }
@@ -2039,7 +2040,7 @@ namespace gsync2vid
         /// رندر
         /// </summary>
         /// <param name="outfilePath"></param>
-        private void InitiateRendering(string outfilePath)
+        private void InitiateRendering(string outfilePath, bool noAudio = false)
         {
 
             bool bIsWmv = Path.GetExtension(outfilePath).Equals(".wmv", StringComparison.InvariantCultureIgnoreCase);
@@ -2104,49 +2105,59 @@ namespace gsync2vid
             }
 
             string audioFilePath = "";
-            PoemAudio[] audioFiles = db.GetPoemAudioFiles(Settings.Default.PoemId);
-            if (audioFiles.Length > 0)
+            if(!noAudio)
             {
-                foreach (PoemAudio a in audioFiles)
-                    if (a.Id == Settings.Default.AudioId)
-                    {
-                        audioFilePath = a.FilePath;
-                        break;
-                    }
-            }
+                PoemAudio[] audioFiles = db.GetPoemAudioFiles(Settings.Default.PoemId);
+                if (audioFiles.Length > 0)
+                {
+                    foreach (PoemAudio a in audioFiles)
+                        if (a.Id == Settings.Default.AudioId)
+                        {
+                            audioFilePath = a.FilePath;
+                            break;
+                        }
+                }
 
-            if (string.IsNullOrEmpty(audioFilePath))
-            {
-                MessageBox.Show("(string.IsNullOrEmpty(audioFilePath))", "خطا", MessageBoxButtons.OK);
-                return;
-            }
+                if (string.IsNullOrEmpty(audioFilePath))
+                {
+                    MessageBox.Show("(string.IsNullOrEmpty(audioFilePath))", "خطا", MessageBoxButtons.OK);
+                    return;
+                }
 
-            if (!File.Exists(audioFilePath))
-            {
-                MessageBox.Show("فایل صوتی در مسیر تعیین شده وجود ندارد.", "خطا", MessageBoxButtons.OK);
-                return;
+                if (!File.Exists(audioFilePath))
+                {
+                    MessageBox.Show("فایل صوتی در مسیر تعیین شده وجود ندارد.", "خطا", MessageBoxButtons.OK);
+                    return;
+                }
             }
 
             this.Enabled = false;
 
-            string wav;
-            Mp3FileReader r = new Mp3FileReader(audioFilePath);
-            int playtime = r.TotalTime.Milliseconds;
-            using (Mp3FileReader mp3 = new Mp3FileReader(audioFilePath))
+            string wav = "";
+            int playtime = 
+                noAudio ? 
+                (cmbVerses.Items[cmbVerses.Items.Count - 1] as GVideoFrame).StartInMiliseconds  + 4000
+                : 0; 
+            if (!noAudio)
             {
-                playtime = (int)mp3.TotalTime.TotalMilliseconds;
-                wav = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".wav");
-                if (bIsWmv)
+                Mp3FileReader r = new Mp3FileReader(audioFilePath);
+                playtime = r.TotalTime.Milliseconds;
+                using (Mp3FileReader mp3 = new Mp3FileReader(audioFilePath))
                 {
-                    using (WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(mp3))
+                    playtime = (int)mp3.TotalTime.TotalMilliseconds;
+                    wav = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".wav");
+                    if (bIsWmv)
                     {
-                        WaveFileWriter.CreateWaveFile(wav, pcm);
+                        using (WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(mp3))
+                        {
+                            WaveFileWriter.CreateWaveFile(wav, pcm);
+                        }
+                        _lstDeleteFileList.Add(wav);
                     }
-                    _lstDeleteFileList.Add(wav);
-                }
-                else
-                {
-                    wav = audioFilePath;
+                    else
+                    {
+                        wav = audioFilePath;
+                    }
                 }
             }
 
@@ -2263,8 +2274,8 @@ namespace gsync2vid
             if (bIsWmv)
             {
                 //صدا
-                ITrack audioTrack = bIsWmv ? timeline.AddAudioGroup().AddTrack() : null;
-                IClip audio = bIsWmv ? audioTrack.AddAudio(wav, dSoundStart, playtime / 1000.0) : null;
+                ITrack audioTrack = bIsWmv && !noAudio ? timeline.AddAudioGroup().AddTrack() : null;
+                IClip audio = bIsWmv && !noAudio ? audioTrack.AddAudio(wav, dSoundStart, playtime / 1000.0) : null;
 
                 lblStatus.Text = "تولید خروجی: متأسفانه نزدیک به تا ابد طول می‌کشد :(";
                 string wmvProfile = Resources.WMV_HD_960x720;
@@ -2391,8 +2402,10 @@ namespace gsync2vid
                 File.WriteAllText(ffconcat, sbFFMPegConcatDemux.ToString());
 
 
-
-                File.Copy(wav, Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)), true);
+                if (!noAudio)
+                {
+                    File.Copy(wav, Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)), true);
+                }
 
                 string outInTempPath = Path.Combine(Path.GetTempPath(), Path.GetFileName(outfilePath));
 
@@ -2473,15 +2486,21 @@ namespace gsync2vid
                     }
 
 
+                    if (!noAudio)
+                    {
+                        lblStatus.Text = "ترکیب صدا با ویدیو";
+                        Application.DoEvents();
 
-                    lblStatus.Text = "ترکیب صدا با ویدیو";
-                    Application.DoEvents();
-
-                    RunFFmpegCommand(
-                        ffmpegPath,
-                        $"-itsoffset {dSoundStart} -i \"{Path.GetFileName(wav)}\" -filter_complex movie={Path.GetFileName(resampledVideoBackground)}:loop=0,setpts=N/FRAME_RATE/TB -shortest -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow  -async 1 \"{mixedwithAudioVideoBackground}\""
-                        );
-                    File.Delete(resampledVideoBackground);
+                        RunFFmpegCommand(
+                            ffmpegPath,
+                            $"-itsoffset {dSoundStart} -i \"{Path.GetFileName(wav)}\" -filter_complex movie={Path.GetFileName(resampledVideoBackground)}:loop=0,setpts=N/FRAME_RATE/TB -shortest -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow  -async 1 \"{mixedwithAudioVideoBackground}\""
+                            );
+                        File.Delete(resampledVideoBackground);
+                    }
+                    else
+                    {
+                        mixedwithAudioVideoBackground = resampledVideoBackground;
+                    }
 
                     lblStatus.Text = "ترکیب ویدیو با متن";
                     Application.DoEvents();
@@ -2496,16 +2515,32 @@ namespace gsync2vid
 
                 else
                 {
-                    RunFFmpegCommand(ffmpegPath,
+                    if (noAudio)
+                    {
+                        RunFFmpegCommand(ffmpegPath,
 
-                        String.Format("-y -i {0} -itsoffset {1} -i \"{2}\" -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
-                        Path.GetFileName(ffconcat),
-                        dSoundStart,
-                        Path.GetFileName(wav),
-                        Path.GetFileName(outInTempPath),
-                        Settings.Default.LastImageWidth,
-                        Settings.Default.LastImageHeight)
-                        );
+                            String.Format("-y -i {0} -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
+                            Path.GetFileName(ffconcat),
+                            dSoundStart,
+                            Path.GetFileName(wav),
+                            Path.GetFileName(outInTempPath),
+                            Settings.Default.LastImageWidth,
+                            Settings.Default.LastImageHeight)
+                            );
+                    }
+                    else
+                    {
+                        RunFFmpegCommand(ffmpegPath,
+
+                            String.Format("-y -i {0} -itsoffset {1} -i \"{2}\" -codec:a libmp3lame -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
+                            Path.GetFileName(ffconcat),
+                            dSoundStart,
+                            Path.GetFileName(wav),
+                            Path.GetFileName(outInTempPath),
+                            Settings.Default.LastImageWidth,
+                            Settings.Default.LastImageHeight)
+                            );
+                    }
                 }
 
 
@@ -2515,7 +2550,7 @@ namespace gsync2vid
 
                 if (File.Exists(outInTempPath))
                 {
-                    if(Settings.Default.AACSound)
+                    if(Settings.Default.AACSound && !noAudio)
                     {
                         if (!string.IsNullOrEmpty(Settings.Default.AACFFMpegPath) && File.Exists(Settings.Default.AACFFMpegPath))
                         {
@@ -2615,7 +2650,10 @@ namespace gsync2vid
 
 
 
-                File.Delete(Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)));
+                if (!noAudio)
+                {
+                    File.Delete(Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)));
+                }
                 File.Delete(ffconcat);
 
                 if (File.Exists(outfilePath))
