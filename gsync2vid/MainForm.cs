@@ -141,7 +141,7 @@ namespace gsync2vid
                     }
                 }
 
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     txtSrcDb.Text = dlg.FileName;
                     DbPath = txtSrcDb.Text;
@@ -417,19 +417,19 @@ namespace gsync2vid
 
             using (ItemSelector poetSeletor = new ItemSelector("انتخاب شاعر", poets.ToArray(), null))
             {
-                if (poetSeletor.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (poetSeletor.ShowDialog(this) == DialogResult.OK)
                 {
                     GanjoorPoet poet = poetSeletor.SelectedItem as GanjoorPoet;
 
                     using (CategorySelector catSelector = new CategorySelector(poet._ID, db))
                     {
-                        if (catSelector.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                        if (catSelector.ShowDialog(this) == DialogResult.OK)
                         {
                             List<GanjoorPoem> poems = db.GetPoems(catSelector.SelectedCatID);
 
                             using (ItemSelector poemSeletor = new ItemSelector("انتخاب شعر", poems.ToArray(), null))
                             {
-                                if (poemSeletor.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                if (poemSeletor.ShowDialog(this) == DialogResult.OK)
                                 {
                                     GanjoorPoem poem = poemSeletor.SelectedItem as GanjoorPoem;
 
@@ -440,7 +440,7 @@ namespace gsync2vid
 
                                         if (
                                             GMessageBox.Ask("خوانشی یافت نشد. آیا تمایل دارید تصاویر ثابت تولید کنید؟", "خطا")                                            
-                                             == System.Windows.Forms.DialogResult.Yes)
+                                             == DialogResult.Yes)
                                         {
                                             Settings.Default.PoemId = poem._ID;
                                             Settings.Default.AudioId = 0;
@@ -453,7 +453,7 @@ namespace gsync2vid
                                     {
                                         using (ItemSelector audioSelector = new ItemSelector("انتخاب خوانش", audio, audio[0]))
                                         {
-                                            if (audioSelector.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                            if (audioSelector.ShowDialog(this) == DialogResult.OK)
                                             {
                                                 Settings.Default.PoemId = poem._ID;
                                                 Settings.Default.AudioId = (audioSelector.SelectedItem as PoemAudio).Id;
@@ -555,7 +555,7 @@ namespace gsync2vid
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "JPEG Files (*.jpg)|*.jpg|MP4 Files (*.mp4)|*.mp4|MOV Files (*.mov)|*.mov";
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     string ext = Path.GetExtension(dlg.FileName).ToLower();
 
@@ -949,7 +949,7 @@ namespace gsync2vid
             using (ItemEditor dlg = new ItemEditor(EditItemType.General, "ویرایش متن", "متن:"))
             {
                 dlg.ItemName = frame.Text;
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     
                     frame.Text = dlg.ItemName;
@@ -982,7 +982,7 @@ namespace gsync2vid
             using (ItemEditor dlg = new ItemEditor(EditItemType.General, "زمان شروع نمایش (میلی ثانیه)", "شروع:"))
             {
                 dlg.ItemName = frame.StartInMiliseconds.ToString();
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     try
                     {
@@ -1011,7 +1011,7 @@ namespace gsync2vid
             using (ItemEditor dlg = new ItemEditor(EditItemType.General, "متن قاب جدید", "متن:"))
             {
                 dlg.ItemName = "";
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     GVideoFrame parent = cmbVerses.SelectedItem as GVideoFrame;
 
@@ -1093,7 +1093,7 @@ namespace gsync2vid
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "MP4 Files (*.mp4)|*.mp4|MOV Files (*.mov)|*.mov";
-                if (dlg.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) != DialogResult.OK)
                 {
                     return;
                 }
@@ -1128,7 +1128,7 @@ namespace gsync2vid
                         saveDlg.Filter =
                             "MP4 Files (*.mp4)|*.mp4";
                         saveDlg.FileName = Path.GetFileNameWithoutExtension(inputFilePath) + "-cut";
-                        if (saveDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                        if (saveDlg.ShowDialog(this) == DialogResult.OK)
                         {
 
                             string outfilePath = saveDlg.FileName;
@@ -1143,7 +1143,7 @@ namespace gsync2vid
                             if (File.Exists(outfilePath))
                             {
                                 if (MessageBox.Show("آیا مایلید فایل خروجی را مشاهده کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
-                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.Yes)
                                 {
                                     Process.Start(outfilePath);
                                 }
@@ -1164,7 +1164,7 @@ namespace gsync2vid
                         saveDlg.Filter =
                             "MP3 Files (*.mp3)|*.mp3";
                         saveDlg.FileName = Path.GetFileNameWithoutExtension(inputFilePath) + "-audio";
-                        if (saveDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                        if (saveDlg.ShowDialog(this) == DialogResult.OK)
                         {
 
                             string outfilePath = saveDlg.FileName;
@@ -1179,7 +1179,7 @@ namespace gsync2vid
                             if (File.Exists(outfilePath))
                             {
                                 if (MessageBox.Show("آیا مایلید فایل خروجی را مشاهده کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
-                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.Yes)
                                 {
                                     Process.Start(outfilePath);
                                 }
@@ -1603,7 +1603,7 @@ namespace gsync2vid
                     "MP4 Files (*.mp4)|*.mp4|WMV Files (*.wmv)|*.wmv";
                 dlg.DefaultExt = Settings.Default.VidDefExt;
                 dlg.FileName = txtPoemId.Text;
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     Settings.Default.VidDefExt = Path.GetExtension(dlg.FileName).ToLower();
                     Settings.Default.Save();
@@ -1618,7 +1618,7 @@ namespace gsync2vid
             {
                 dlg.Filter = "SRT Files (*.srt)|*.srt";
                 dlg.FileName = txtPoemId.Text + ".srt";
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     CreateSubTitle(dlg.FileName);
                 }
@@ -1634,11 +1634,11 @@ namespace gsync2vid
         {
             
             if (MessageBox.Show("با انتخاب این گزینه تصاویر تصادفی از سایت unsplash.com برای زوج قابهای فاقد تصویر زمینه انتخاب می‌شود. آیا موافقید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading
-                | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                | MessageBoxOptions.RightAlign) == DialogResult.Yes)
             {                
                 using (UnsplashImageTypeForm dlg = new UnsplashImageTypeForm())
                 {
-                    if (dlg.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
+                    if (dlg.ShowDialog(this) != DialogResult.OK)
                         return;                    
 
                     if(!string.IsNullOrEmpty(dlg.ImageFolderPath))
@@ -1813,6 +1813,48 @@ namespace gsync2vid
         }
 
 
+        private void btnCatBatch_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show
+                (
+                "با استفاده از این امکان، می‌توان از خوانشهای یک بخش ویدیو ساخت. ادامه می‌دهید؟",
+                "تأییدیه",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading
+                ) == DialogResult.No)
+                return;
+
+            DbBrowser db = Connect();
+            if (db == null)
+            {
+                MessageBox.Show("(db == null)", "خطا", MessageBoxButtons.OK);
+                return;
+            }
+
+            List<GanjoorPoet> poets = db.Poets;
+
+            using (ItemSelector poetSeletor = new ItemSelector("انتخاب شاعر", poets.ToArray(), null))
+            {
+                if (poetSeletor.ShowDialog(this) == DialogResult.OK)
+                {
+                    GanjoorPoet poet = poetSeletor.SelectedItem as GanjoorPoet;
+
+                    using (CategorySelector catSelector = new CategorySelector(poet._ID, db))
+                    {
+                        if (catSelector.ShowDialog(this) == DialogResult.OK)
+                        {
+                            MessageBox.Show(catSelector.SelectedCatID.ToString());
+                        }
+                    }
+                }
+            }
+
+
+            db.CloseDb();
+
+
+
+        }
+
         #endregion
 
         #region Render Frame
@@ -1840,7 +1882,7 @@ namespace gsync2vid
                     //BackgroundImagePath
                     if (!string.IsNullOrEmpty(frame.BackgroundImagePath))
                     {
-                        using (Image bmpBkgnImage = Bitmap.FromFile(frame.BackgroundImagePath))
+                        using (Image bmpBkgnImage = Image.FromFile(frame.BackgroundImagePath))
                         {
                             int nW = szImageSize.Width;
                             int nH = bmpBkgnImage.Height * szImageSize.Width / bmpBkgnImage.Width;
@@ -1856,9 +1898,9 @@ namespace gsync2vid
 
                 if (frame.ShowLogo)
                 {
-                    g.DrawImage(Properties.Resources.glogo, new Rectangle(
-                        szImageSize.Width - Properties.Resources.glogo.Width - 2, szImageSize.Height - Properties.Resources.glogo.Height - 2,
-                        Properties.Resources.glogo.Width, Properties.Resources.glogo.Height)
+                    g.DrawImage(Resources.glogo, new Rectangle(
+                        szImageSize.Width - Resources.glogo.Width - 2, szImageSize.Height - Resources.glogo.Height - 2,
+                        Resources.glogo.Width, Resources.glogo.Height)
                         );
                 }
 
@@ -1868,7 +1910,7 @@ namespace gsync2vid
                     {
                         if(!string.IsNullOrEmpty(overlay.ImagePath))
                         {
-                            using (Image bmpOverlay = Bitmap.FromFile(overlay.ImagePath))
+                            using (Image bmpOverlay = Image.FromFile(overlay.ImagePath))
                             {
                                 g.DrawImage(bmpOverlay,
                                      overlay.HorizontalPosRatioPortion * szImageSize.Width / overlay.HorizontalPosRatioPortionFrom  - bmpOverlay.Width / 2 * overlay.ScaleRatioPortion / overlay.ScaleRatioPortionFrom,
@@ -2088,7 +2130,7 @@ namespace gsync2vid
             this.Enabled = false;
 
             string wav;
-            NAudio.Wave.Mp3FileReader r = new NAudio.Wave.Mp3FileReader(audioFilePath);
+            Mp3FileReader r = new Mp3FileReader(audioFilePath);
             int playtime = r.TotalTime.Milliseconds;
             using (Mp3FileReader mp3 = new Mp3FileReader(audioFilePath))
             {
@@ -2225,7 +2267,7 @@ namespace gsync2vid
                 IClip audio = bIsWmv ? audioTrack.AddAudio(wav, dSoundStart, playtime / 1000.0) : null;
 
                 lblStatus.Text = "تولید خروجی: متأسفانه نزدیک به تا ابد طول می‌کشد :(";
-                string wmvProfile = Properties.Resources.WMV_HD_960x720;
+                string wmvProfile = Resources.WMV_HD_960x720;
                 wmvProfile = wmvProfile.Replace("960", nWidth.ToString()).Replace("720", nHeight.ToString());
                 using (WindowsMediaRenderer renderer =
                    new WindowsMediaRenderer(timeline, outfilePath, wmvProfile))
@@ -2257,11 +2299,11 @@ namespace gsync2vid
                                     {
                                         case GTransitionEffect.ToRight:
                                             {
-                                                using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                                using (Image img1 = Image.FromFile(ffmpegInputFiles[i]))
                                                 {
                                                     g.DrawImage(img1, new PointF(j * (float)szImageSize.Width / 4, 0));
                                                 }
-                                                using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
+                                                using (Image img2 = Image.FromFile(ffmpegInputFiles[i + 1]))
                                                 {
                                                     g.DrawImage(img2, new PointF((j - 4) * (float)szImageSize.Width / 4, 0));
                                                 }
@@ -2269,11 +2311,11 @@ namespace gsync2vid
                                             break;
                                         case GTransitionEffect.ToLeft:
                                             {
-                                                using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                                using (Image img1 = Image.FromFile(ffmpegInputFiles[i]))
                                                 {
                                                     g.DrawImage(img1, new PointF(-j * (float)szImageSize.Width / 4, 0));
                                                 }
-                                                using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
+                                                using (Image img2 = Image.FromFile(ffmpegInputFiles[i + 1]))
                                                 {
                                                     g.DrawImage(img2, new PointF((4 - j) * (float)szImageSize.Width / 4, 0));
                                                 }
@@ -2281,11 +2323,11 @@ namespace gsync2vid
                                             break;
                                         case GTransitionEffect.ToUp:
                                             {
-                                                using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                                using (Image img1 = Image.FromFile(ffmpegInputFiles[i]))
                                                 {
                                                     g.DrawImage(img1, new PointF(0, (-j) * (float)szImageSize.Height / 4));
                                                 }
-                                                using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
+                                                using (Image img2 = Image.FromFile(ffmpegInputFiles[i + 1]))
                                                 {
                                                     g.DrawImage(img2, new PointF(0, (4 - j) * (float)szImageSize.Height / 4));
                                                 }
@@ -2293,11 +2335,11 @@ namespace gsync2vid
                                             break;
                                         case GTransitionEffect.ToBottom:
                                             {
-                                                using (Image img1 = Bitmap.FromFile(ffmpegInputFiles[i]))
+                                                using (Image img1 = Image.FromFile(ffmpegInputFiles[i]))
                                                 {
                                                     g.DrawImage(img1, new PointF(0, j * (float)szImageSize.Height / 4));
                                                 }
-                                                using (Image img2 = Bitmap.FromFile(ffmpegInputFiles[i + 1]))
+                                                using (Image img2 = Image.FromFile(ffmpegInputFiles[i + 1]))
                                                 {
                                                     g.DrawImage(img2, new PointF(0, (j - 4) * (float)szImageSize.Height / 4));
                                                 }
@@ -2602,7 +2644,7 @@ namespace gsync2vid
             if(File.Exists(outfilePath))
             {
                 if (MessageBox.Show("آیا مایلید فایل خروجی را مشاهده کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.Yes)
                 {
                     Process.Start(outfilePath);
                 }
@@ -2760,7 +2802,7 @@ namespace gsync2vid
                 return;
             }
 
-            NAudio.Wave.Mp3FileReader r = new NAudio.Wave.Mp3FileReader(audioFilePath);
+            Mp3FileReader r = new Mp3FileReader(audioFilePath);
             int playtime = r.TotalTime.Milliseconds;
 
 
@@ -2820,6 +2862,5 @@ namespace gsync2vid
         }
 
         #endregion
-
     }
 }

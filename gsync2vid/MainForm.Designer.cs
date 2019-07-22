@@ -35,6 +35,7 @@
             this.txtSrcDb = new System.Windows.Forms.TextBox();
             this.lblSrcDb = new System.Windows.Forms.Label();
             this.grpPoem = new System.Windows.Forms.GroupBox();
+            this.btnCatBatch = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.txtHeight = new System.Windows.Forms.NumericUpDown();
@@ -48,6 +49,8 @@
             this.txtPoem = new System.Windows.Forms.TextBox();
             this.lblPoem = new System.Windows.Forms.Label();
             this.grpVerses = new System.Windows.Forms.GroupBox();
+            this.btnIncreaseFontSize = new System.Windows.Forms.Button();
+            this.btnDecreaseFontSize = new System.Windows.Forms.Button();
             this.btnVideoTools = new System.Windows.Forms.Button();
             this.btnEditTime = new System.Windows.Forms.Button();
             this.btnCopyTo = new System.Windows.Forms.Button();
@@ -101,8 +104,6 @@
             this.lblTransitionEffect = new System.Windows.Forms.Label();
             this.chkAAC = new System.Windows.Forms.CheckBox();
             this.chkDebug = new System.Windows.Forms.CheckBox();
-            this.btnIncreaseFontSize = new System.Windows.Forms.Button();
-            this.btnDecreaseFontSize = new System.Windows.Forms.Button();
             this.grpConnection.SuspendLayout();
             this.grpPoem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
@@ -185,6 +186,7 @@
             // 
             this.grpPoem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPoem.Controls.Add(this.btnCatBatch);
             this.grpPoem.Controls.Add(this.btnApply);
             this.grpPoem.Controls.Add(this.btnReset);
             this.grpPoem.Controls.Add(this.txtHeight);
@@ -205,6 +207,17 @@
             this.grpPoem.TabIndex = 1;
             this.grpPoem.TabStop = false;
             this.grpPoem.Text = "شعر، خوانش و مشخصات کلی:";
+            // 
+            // btnCatBatch
+            // 
+            this.btnCatBatch.Location = new System.Drawing.Point(425, 41);
+            this.btnCatBatch.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCatBatch.Name = "btnCatBatch";
+            this.btnCatBatch.Size = new System.Drawing.Size(53, 24);
+            this.btnCatBatch.TabIndex = 13;
+            this.btnCatBatch.Text = "CAT";
+            this.btnCatBatch.UseVisualStyleBackColor = true;
+            this.btnCatBatch.Click += new System.EventHandler(this.btnCatBatch_Click);
             // 
             // btnApply
             // 
@@ -418,6 +431,28 @@
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
+            // 
+            // btnIncreaseFontSize
+            // 
+            this.btnIncreaseFontSize.Location = new System.Drawing.Point(62, 91);
+            this.btnIncreaseFontSize.Margin = new System.Windows.Forms.Padding(2);
+            this.btnIncreaseFontSize.Name = "btnIncreaseFontSize";
+            this.btnIncreaseFontSize.Size = new System.Drawing.Size(25, 24);
+            this.btnIncreaseFontSize.TabIndex = 67;
+            this.btnIncreaseFontSize.Text = "+";
+            this.btnIncreaseFontSize.UseVisualStyleBackColor = true;
+            this.btnIncreaseFontSize.Click += new System.EventHandler(this.btnIncreaseFontSize_Click);
+            // 
+            // btnDecreaseFontSize
+            // 
+            this.btnDecreaseFontSize.Location = new System.Drawing.Point(36, 91);
+            this.btnDecreaseFontSize.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDecreaseFontSize.Name = "btnDecreaseFontSize";
+            this.btnDecreaseFontSize.Size = new System.Drawing.Size(25, 24);
+            this.btnDecreaseFontSize.TabIndex = 66;
+            this.btnDecreaseFontSize.Text = "-";
+            this.btnDecreaseFontSize.UseVisualStyleBackColor = true;
+            this.btnDecreaseFontSize.Click += new System.EventHandler(this.btnDecreaseFontSize_Click);
             // 
             // btnVideoTools
             // 
@@ -1060,28 +1095,6 @@
             this.chkDebug.UseVisualStyleBackColor = true;
             this.chkDebug.CheckedChanged += new System.EventHandler(this.chkDebug_CheckedChanged);
             // 
-            // btnIncreaseFontSize
-            // 
-            this.btnIncreaseFontSize.Location = new System.Drawing.Point(62, 91);
-            this.btnIncreaseFontSize.Margin = new System.Windows.Forms.Padding(2);
-            this.btnIncreaseFontSize.Name = "btnIncreaseFontSize";
-            this.btnIncreaseFontSize.Size = new System.Drawing.Size(25, 24);
-            this.btnIncreaseFontSize.TabIndex = 67;
-            this.btnIncreaseFontSize.Text = "+";
-            this.btnIncreaseFontSize.UseVisualStyleBackColor = true;
-            this.btnIncreaseFontSize.Click += new System.EventHandler(this.btnIncreaseFontSize_Click);
-            // 
-            // btnDecreaseFontSize
-            // 
-            this.btnDecreaseFontSize.Location = new System.Drawing.Point(36, 91);
-            this.btnDecreaseFontSize.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDecreaseFontSize.Name = "btnDecreaseFontSize";
-            this.btnDecreaseFontSize.Size = new System.Drawing.Size(25, 24);
-            this.btnDecreaseFontSize.TabIndex = 66;
-            this.btnDecreaseFontSize.Text = "-";
-            this.btnDecreaseFontSize.UseVisualStyleBackColor = true;
-            this.btnDecreaseFontSize.Click += new System.EventHandler(this.btnDecreaseFontSize_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1204,6 +1217,7 @@
         private System.Windows.Forms.Button btnVideoTools;
         private System.Windows.Forms.Button btnIncreaseFontSize;
         private System.Windows.Forms.Button btnDecreaseFontSize;
+        private System.Windows.Forms.Button btnCatBatch;
     }
 }
 
