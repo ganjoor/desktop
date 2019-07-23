@@ -1969,6 +1969,57 @@ namespace gsync2vid
                             cmbVerses.SelectedIndex = 0;
 
 
+                            using (SaveFileDialog dlg = new SaveFileDialog())
+                            {
+                                if (string.IsNullOrEmpty(Settings.Default.VidDefExt))
+                                {
+                                    Settings.Default.VidDefExt = ".wmv";
+                                }
+                                dlg.Filter =
+                                    Settings.Default.VidDefExt == ".wmv" ?
+                                    "WMV Files (*.wmv)|*.wmv|MP4 Files (*.mp4)|*.mp4"
+                                    :
+                                    "MP4 Files (*.mp4)|*.mp4|WMV Files (*.wmv)|*.wmv";
+                                dlg.DefaultExt = Settings.Default.VidDefExt;
+                                dlg.FileName = catSelector.SelectedCatID.ToString();
+                                if (dlg.ShowDialog(this) == DialogResult.OK)
+                                {
+                                    Settings.Default.VidDefExt = Path.GetExtension(dlg.FileName).ToLower();
+                                    Settings.Default.Save();
+                                    string mainOutFile = dlg.FileName;
+
+                                    InitiateRendering(mainOutFile, true);
+                                    /*
+                                    int catId = catSelector.SelectedCatID;
+                                    
+
+                                    foreach (GanjoorPoem poem in db.GetPoems(catId))
+                                    {
+                                        PoemAudio[] audio = db.GetPoemAudioFiles(poem._ID);
+                                        if(audio.Length == 0)
+                                        {
+                                            MessageBox.Show("err: " + poem._Title);
+                                            return;
+                                        }
+
+                                        Settings.Default.PoemId = poem._ID;
+                                        Settings.Default.AudioId = audio[0].Id;
+                                        Settings.Default.Save();
+
+                                        UpdatePoemAndAudioInfo(db);
+
+                                        string poemVid = Path.Combine(Path.GetDirectoryName(mainOutFile), poem._ID.ToString() + ".mp4"));
+
+                                        InitiateRendering(poemVid);
+
+
+                                    }
+                                    */
+                                }
+                            }
+
+
+
 
                         }
                     }
