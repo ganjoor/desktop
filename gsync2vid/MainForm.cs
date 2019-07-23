@@ -1843,7 +1843,133 @@ namespace gsync2vid
                     {
                         if (catSelector.ShowDialog(this) == DialogResult.OK)
                         {
-                            MessageBox.Show(catSelector.SelectedCatID.ToString());
+
+                            PoemAudio fakeAudio = new PoemAudio()
+                            {
+                                Id = 0,
+                                Description = "",
+                            };
+                            List<PoemAudio.SyncInfo> fakeSync = new List<PoemAudio.SyncInfo>();
+                            fakeSync.Add(new PoemAudio.SyncInfo()
+                            {
+                                VerseOrder = 0,
+                                AudioMiliseconds = 4000,
+                            });
+                            fakeAudio.SyncArray = fakeSync.ToArray();
+
+                            List<GVideoFrame> frames = new List<GVideoFrame>();
+
+                            string strImagePath = Settings.Default.LastImagePath;
+                            if (!string.IsNullOrEmpty(strImagePath))
+                                if (!File.Exists(strImagePath))
+                                    strImagePath = "";
+
+
+                            GVideoFrame titleFrame = new GVideoFrame()
+                            {
+                                AudioBound = false,
+                                StartInMiliseconds = -4000,
+                                Text = poet._Name,
+                                BackgroundImagePath = strImagePath,
+                                TextVerticalPosRatioPortion = 1,
+                                TextVerticalPosRatioPortionFrom = 4,
+                                TextHorizontalPosRatioPortion = 1,
+                                TextHorizontalPosRatioPortionFrom = 2,
+                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortionFrom = 10,
+                                BackColor = Color.White,
+                                TextColor = Color.White,
+                                TextBackColor = Color.Black,
+                                BorderColor = Color.Black,
+                                TextBackColorAlpha = 100,
+                                Shape = GTextBoxShape.Rectangle,
+                                TextBackRectThickness = 0,
+                                Font = Settings.Default.LastUsedFont,
+                                ShowLogo = true
+                            };
+
+                            int nDurationDividedBy = 1;
+                            titleFrame.StartInMiliseconds = -(fakeAudio.SyncArray[0].AudioMiliseconds / nDurationDividedBy);
+
+
+                            frames.Add(titleFrame);
+
+                            string fullCat = "";
+                            GanjoorCat cat = db.GetCategory(catSelector.SelectedCatID);
+                            if (cat != null)
+                            {
+                                fullCat = cat._Text;
+
+                                cat = db.GetCategory(cat._ParentID);
+                                while (cat != null)
+                                {
+                                    if (cat._ID == poet._CatID)
+                                        break;
+                                    fullCat = cat._Text + " » " + fullCat;
+                                    cat = db.GetCategory(cat._ParentID);
+                                }
+                            }
+
+                            GVideoFrame poemFrame = new GVideoFrame()
+                            {
+                                AudioBound = false,
+                                StartInMiliseconds = 0,
+                                Text = fullCat,
+                                BackgroundImagePath = strImagePath,
+                                TextVerticalPosRatioPortion = 1,
+                                TextVerticalPosRatioPortionFrom = 2,
+                                TextHorizontalPosRatioPortion = 1,
+                                TextHorizontalPosRatioPortionFrom = 2,
+                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortionFrom = 10,
+                                BackColor = Color.White,
+                                TextColor = Color.White,
+                                TextBackColor = Color.Black,
+                                BorderColor = Color.Black,
+                                TextBackColorAlpha = 100,
+                                Shape = GTextBoxShape.Rectangle,
+                                TextBackRectThickness = 0,
+                                Font = Settings.Default.LastUsedFont,
+                                MasterFrame = titleFrame,
+                                ShowLogo = false
+                            };
+
+                            frames.Add(poemFrame);
+
+                            GVideoFrame soundFrame = new GVideoFrame()
+                            {
+                                AudioBound = false,
+                                StartInMiliseconds = 0,
+                                Text = "به خوانش حمیدرضا محمدی",
+                                BackgroundImagePath = strImagePath,
+                                TextVerticalPosRatioPortion = 3,
+                                TextVerticalPosRatioPortionFrom = 4,
+                                TextHorizontalPosRatioPortion = 1,
+                                TextHorizontalPosRatioPortionFrom = 2,
+                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortionFrom = 10,
+                                BackColor = Color.White,
+                                TextColor = Color.White,
+                                TextBackColor = Color.Black,
+                                BorderColor = Color.Black,
+                                TextBackColorAlpha = 100,
+                                Shape = GTextBoxShape.Rectangle,
+                                TextBackRectThickness = 0,
+                                Font = Settings.Default.LastUsedFont,
+                                MasterFrame = poemFrame,
+                                ShowLogo = false
+                            };
+
+                            frames.Add(soundFrame);
+
+                            frames.Add(titleFrame);
+
+                            cmbVerses.Items.Clear();
+                            cmbVerses.Items.AddRange(frames.ToArray());
+                            cmbVerses.SelectedIndex = 0;
+
+
+
                         }
                     }
                 }
