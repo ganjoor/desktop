@@ -253,7 +253,7 @@ namespace gsync2vid
                                 TextVerticalPosRatioPortionFrom = 4,
                                 TextHorizontalPosRatioPortion = 1,
                                 TextHorizontalPosRatioPortionFrom = 2,
-                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortion = 10,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
                                 TextColor = Color.White,
@@ -303,7 +303,7 @@ namespace gsync2vid
                                 TextVerticalPosRatioPortionFrom = 2,
                                 TextHorizontalPosRatioPortion = 1,
                                 TextHorizontalPosRatioPortionFrom = 2,
-                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortion = 10,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
                                 TextColor = Color.White,
@@ -329,7 +329,7 @@ namespace gsync2vid
                                 TextVerticalPosRatioPortionFrom = 4,
                                 TextHorizontalPosRatioPortion = 1,
                                 TextHorizontalPosRatioPortionFrom = 2,
-                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortion = 10,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
                                 TextColor = Color.White,
@@ -369,7 +369,7 @@ namespace gsync2vid
                                     TextVerticalPosRatioPortionFrom = 2,
                                     TextHorizontalPosRatioPortion = 1,
                                     TextHorizontalPosRatioPortionFrom = 2,
-                                    MaxTextWidthRatioPortion = 9,
+                                    MaxTextWidthRatioPortion = 10,
                                     MaxTextWidthRatioPortionFrom = 10,
                                     BackColor = Color.White,
                                     TextColor = Color.White,
@@ -1026,7 +1026,7 @@ namespace gsync2vid
                         TextVerticalPosRatioPortionFrom = 2,
                         TextHorizontalPosRatioPortion = 1,
                         TextHorizontalPosRatioPortionFrom = 2,
-                        MaxTextWidthRatioPortion = 9,
+                        MaxTextWidthRatioPortion = 10,
                         MaxTextWidthRatioPortionFrom = 10,
                         BackColor = Color.White,
                         TextColor = Color.White,
@@ -1520,46 +1520,59 @@ namespace gsync2vid
             {
                 if(dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    int n = (int)dlg.SelectedItem;
-                    int idx = cmbVerses.SelectedIndex;
-
-                    bool fisrtSet = true;
-
-                    for (int i = (idx + 1); i < cmbVerses.Items.Count; i += n)
-                    {
-                        int max = (i + n - 1);
-                        if (max > cmbVerses.Items.Count)
-                            max = cmbVerses.Items.Count;
-                        for (int j=i; j< max; j++)
-                        {
-                            frame = cmbVerses.Items[j] as GVideoFrame;
-                            frame.MasterFrame = (cmbVerses.Items[i - 1] as GVideoFrame);
-
-                            frame.TextVerticalPosRatioPortion = 
-                                n == 2 ? frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion
-                                       : 
-                                       //4:
-                                       j == i ? //2nd
-                                        2 * frame.TextVerticalPosRatioPortion
-                                       : j == i + 1 ? //3rd
-                                        frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion - frame.TextVerticalPosRatioPortion
-                                        //4th
-                                       : frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion;
-                        }
-
-                        if (fisrtSet)
-                        {
-                            InvalidatePreview();
-                            fisrtSet = false;
-                            if (MessageBox.Show("این چینش برای مصرعهای بعدی هم اعمال شود؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.No)
-                                return;
-                        }
-
-                    }
-                    InvalidatePreview();
+                    PainNext((int)dlg.SelectedItem);                    
                 }
             }
 
+        }
+
+        /// <summary>
+        /// یکی کردن بعدیها یکی در میان
+        /// </summary>
+        /// <param name="n">تعداد مصرع ها در هر قاب</param>
+        /// <param name="silentMode">نمایش پیغام</param>
+        void PainNext(int n, bool silentMode = false)
+        {
+            int idx = cmbVerses.SelectedIndex;
+
+            bool fisrtSet = true;
+
+            for (int i = (idx + 1); i < cmbVerses.Items.Count; i += n)
+            {
+                int max = (i + n - 1);
+                if (max > cmbVerses.Items.Count)
+                    max = cmbVerses.Items.Count;
+                for (int j = i; j < max; j++)
+                {
+                    GVideoFrame frame = cmbVerses.Items[j] as GVideoFrame;
+                    frame.MasterFrame = (cmbVerses.Items[i - 1] as GVideoFrame);
+
+                    frame.TextVerticalPosRatioPortion =
+                        n == 2 ? frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion
+                               :
+                               //4:
+                               j == i ? //2nd
+                                2 * frame.TextVerticalPosRatioPortion
+                               : j == i + 1 ? //3rd
+                                frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion - frame.TextVerticalPosRatioPortion
+                               //4th
+                               : frame.TextVerticalPosRatioPortionFrom - frame.MasterFrame.TextVerticalPosRatioPortion;
+                }
+
+                if (fisrtSet)
+                {
+                    InvalidatePreview();
+                    fisrtSet = false;
+                    if(!silentMode)
+                    {
+                        if (MessageBox.Show("این چینش برای مصرعهای بعدی هم اعمال شود؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.No)
+                            return;
+                    }
+                   
+                }
+
+            }
+            InvalidatePreview();
         }
 
 
@@ -1875,7 +1888,7 @@ namespace gsync2vid
                                 TextVerticalPosRatioPortionFrom = 4,
                                 TextHorizontalPosRatioPortion = 1,
                                 TextHorizontalPosRatioPortionFrom = 2,
-                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortion = 10,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
                                 TextColor = Color.White,
@@ -1920,7 +1933,7 @@ namespace gsync2vid
                                 TextVerticalPosRatioPortionFrom = 2,
                                 TextHorizontalPosRatioPortion = 1,
                                 TextHorizontalPosRatioPortionFrom = 2,
-                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortion = 10,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
                                 TextColor = Color.White,
@@ -1946,7 +1959,7 @@ namespace gsync2vid
                                 TextVerticalPosRatioPortionFrom = 4,
                                 TextHorizontalPosRatioPortion = 1,
                                 TextHorizontalPosRatioPortionFrom = 2,
-                                MaxTextWidthRatioPortion = 9,
+                                MaxTextWidthRatioPortion = 10,
                                 MaxTextWidthRatioPortionFrom = 10,
                                 BackColor = Color.White,
                                 TextColor = Color.White,
