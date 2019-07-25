@@ -1988,7 +1988,7 @@ namespace gsync2vid
                                     Settings.Default.Save();
                                     string mainOutFile = dlg.FileName;
 
-                                    InitiateRendering(mainOutFile, true);
+                                    InitiateRendering(mainOutFile, true, false);
                                     
                                     int catId = catSelector.SelectedCatID;
                                     
@@ -2010,13 +2010,12 @@ namespace gsync2vid
 
                                         string poemVid = Path.Combine(Path.GetDirectoryName(mainOutFile), poem._ID.ToString() + ".mp4");
 
-                                        InitiateRendering(poemVid);
+                                        InitiateRendering(poemVid, false, false);
 
                                         string tempOut = Path.Combine(Path.GetDirectoryName(mainOutFile), catId.ToString() + "-" + poem._ID.ToString() + ".mp4");
 
                                         RunFFmpegCommand(
-                                            Settings.Default.FFmpegPath,
-                                            //$"-i \"concat:\"{mainOutFile}\"|{poemVid}\" -c copy \"{tempOut}\""
+                                            Settings.Default.FFmpegPath,                                           
                                             $"-i \"{mainOutFile}\" -i \"{poemVid}\" -filter_complex \"[0:v:0][0:a:0][1:v:0][1:a:0]concat=n=2:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{tempOut}\""
                                             );
 
@@ -2230,7 +2229,7 @@ namespace gsync2vid
         /// رندر
         /// </summary>
         /// <param name="outfilePath"></param>
-        private void InitiateRendering(string outfilePath, bool noAudio = false)
+        private void InitiateRendering(string outfilePath, bool noAudio = false, bool askForPlaying = true)
         {
 
             bool bIsWmv = Path.GetExtension(outfilePath).Equals(".wmv", StringComparison.InvariantCultureIgnoreCase);
@@ -2871,6 +2870,7 @@ namespace gsync2vid
 
             if(File.Exists(outfilePath))
             {
+                if(askForPlaying)
                 if (MessageBox.Show("آیا مایلید فایل خروجی را مشاهده کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.Yes)
                 {
