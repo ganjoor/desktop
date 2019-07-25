@@ -1520,7 +1520,7 @@ namespace gsync2vid
             {
                 if(dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    PainNext((int)dlg.SelectedItem);                    
+                    PairNext((int)dlg.SelectedItem);                    
                 }
             }
 
@@ -1531,7 +1531,7 @@ namespace gsync2vid
         /// </summary>
         /// <param name="n">تعداد مصرع ها در هر قاب</param>
         /// <param name="silentMode">نمایش پیغام</param>
-        void PainNext(int n, bool silentMode = false)
+        void PairNext(int n, bool silentMode = false)
         {
             int idx = cmbVerses.SelectedIndex;
 
@@ -1981,6 +1981,12 @@ namespace gsync2vid
                             cmbVerses.Items.AddRange(frames.ToArray());
                             cmbVerses.SelectedIndex = 0;
 
+                            for (int i = 0; i < cmbVerses.Items.Count; i++)
+                            {
+                                (cmbVerses.Items[i] as GVideoFrame).BackColor = Color.DarkGreen;
+                                (cmbVerses.Items[i] as GVideoFrame).TextBackColorAlpha = 0;
+                            }
+
 
                             using (SaveFileDialog dlg = new SaveFileDialog())
                             {
@@ -2002,6 +2008,8 @@ namespace gsync2vid
                                     string mainOutFile = dlg.FileName;
 
                                     InitiateRendering(mainOutFile, true, false);
+
+                                   
 
                                     string mixStringPart1 = $"-i \"{mainOutFile}\"";
                                     string mixStringPart2 = "[0:v:0][0:a:0]";
@@ -2029,6 +2037,30 @@ namespace gsync2vid
                                         Settings.Default.Save();
 
                                         UpdatePoemAndAudioInfo(db);
+
+                                        for (int i = 0; i < cmbVerses.Items.Count; i++)
+                                        {
+                                            (cmbVerses.Items[i] as GVideoFrame).BackColor = Color.DarkGreen;
+                                            (cmbVerses.Items[i] as GVideoFrame).TextBackColorAlpha = 0;
+                                        }
+
+                                        
+                                        
+                                        
+
+                                        for (int i = 3; i < cmbVerses.Items.Count; i++)
+                                        {
+                                            (cmbVerses.Items[i] as GVideoFrame).TextVerticalPosRatioPortion = 8;
+                                            (cmbVerses.Items[i] as GVideoFrame).TextVerticalPosRatioPortionFrom = 20;
+                                        }
+
+                                        cmbVerses.SelectedIndex = 3;
+
+
+
+
+
+                                        PairNext(2, true);
 
                                         string poemVid = Path.Combine(Path.GetDirectoryName(mainOutFile), poem._ID.ToString() + ".mp4");
 
