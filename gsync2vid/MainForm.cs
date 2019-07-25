@@ -1989,10 +1989,10 @@ namespace gsync2vid
                                     string mainOutFile = dlg.FileName;
 
                                     InitiateRendering(mainOutFile, true);
-                                    /*
+                                    
                                     int catId = catSelector.SelectedCatID;
                                     
-
+                   
                                     foreach (GanjoorPoem poem in db.GetPoems(catId))
                                     {
                                         PoemAudio[] audio = db.GetPoemAudioFiles(poem._ID);
@@ -2008,13 +2008,26 @@ namespace gsync2vid
 
                                         UpdatePoemAndAudioInfo(db);
 
-                                        string poemVid = Path.Combine(Path.GetDirectoryName(mainOutFile), poem._ID.ToString() + ".mp4"));
+                                        string poemVid = Path.Combine(Path.GetDirectoryName(mainOutFile), poem._ID.ToString() + ".mp4");
 
                                         InitiateRendering(poemVid);
 
+                                        string tempOut = Path.Combine(Path.GetDirectoryName(mainOutFile), catId.ToString() + "-" + poem._ID.ToString() + ".mp4");
+
+                                        RunFFmpegCommand(
+                                            Settings.Default.FFmpegPath,
+                                            //$"-i \"concat:\"{mainOutFile}\"|{poemVid}\" -c copy \"{tempOut}\""
+                                            $"-i \"{mainOutFile}\" -i \"{poemVid}\" -filter_complex \"[0:v:0][0:a:0][1:v:0][1:a:0]concat=n=2:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{tempOut}\""
+                                            );
+
+                                        File.Copy(tempOut, mainOutFile, true);
+
+                                        File.Delete(tempOut);
+                                        File.Delete(poemVid);
+
 
                                     }
-                                    */
+                                    
                                 }
                             }
 
@@ -2696,7 +2709,7 @@ namespace gsync2vid
                     {
                         RunFFmpegCommand(ffmpegPath,
 
-                            String.Format("-y -i {0} -qscale:a 9 -f mp4 -c:v libx264 -preset slow -tune stillimage -async 1 {3}",
+                            String.Format("-y -i {0} -f lavfi -i anullsrc=cl=1 -shortest -qscale:a 9 -f mp4 -c:v libx264 -c:a aac -preset slow -tune stillimage -async 1 {3}",
                             Path.GetFileName(ffconcat),
                             dSoundStart,
                             Path.GetFileName(wav),
@@ -2727,7 +2740,7 @@ namespace gsync2vid
 
                 if (File.Exists(outInTempPath))
                 {
-                    if(Settings.Default.AACSound && !noAudio)
+                    if(Settings.Default.AACSound)
                     {
                         if (!string.IsNullOrEmpty(Settings.Default.AACFFMpegPath) && File.Exists(Settings.Default.AACFFMpegPath))
                         {
