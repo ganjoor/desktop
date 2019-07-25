@@ -1989,10 +1989,19 @@ namespace gsync2vid
                                     string mainOutFile = dlg.FileName;
 
                                     InitiateRendering(mainOutFile, true, false);
-                                    
+
+                                    string mixStringPart1 = $"-i \"{mainOutFile}\"";
+                                    string mixStringPart2 = "[0:v:0][0:a:0]";
+
+
                                     int catId = catSelector.SelectedCatID;
-                                    
-                   
+
+                                    List<string> poemVideos = new List<string>();
+
+
+
+
+                                    int vIndex = 0;
                                     foreach (GanjoorPoem poem in db.GetPoems(catId))
                                     {
                                         PoemAudio[] audio = db.GetPoemAudioFiles(poem._ID);
@@ -2012,21 +2021,31 @@ namespace gsync2vid
 
                                         InitiateRendering(poemVid, false, false);
 
-                                        string tempOut = Path.Combine(Path.GetDirectoryName(mainOutFile), catId.ToString() + "-" + poem._ID.ToString() + ".mp4");
+                                        poemVideos.Add(poemVid);
 
-                                        RunFFmpegCommand(
-                                            Settings.Default.FFmpegPath,                                           
-                                            $"-i \"{mainOutFile}\" -i \"{poemVid}\" -filter_complex \"[0:v:0][0:a:0][1:v:0][1:a:0]concat=n=2:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{tempOut}\""
-                                            );
-
-                                        File.Copy(tempOut, mainOutFile, true);
-
-                                        File.Delete(tempOut);
-                                        File.Delete(poemVid);
+                                        vIndex++;
+                                        mixStringPart1 += $" -i \"{poemVid}\"";
+                                        mixStringPart2 += $"[{vIndex}:v:0][{vIndex}:a:0]";
 
 
                                     }
+
+                                    string tempOut = Path.Combine(Path.GetDirectoryName(mainOutFile), catId.ToString() + "-temp.mp4");
+
+                                    RunFFmpegCommand(
+                                        Settings.Default.FFmpegPath,
+                                        $"{mixStringPart1} -filter_complex \"{mixStringPart2}concat=n={poemVideos.Count + 1}:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{tempOut}\""
+                                        );
+
+                                    File.Copy(tempOut, mainOutFile, true);
+
+                                    foreach(string poemvideo in poemVideos)
+                                    {
+                                        File.Delete(poemvideo);
+                                    }
+                                    File.Delete(tempOut);
                                     
+
                                 }
                             }
 
