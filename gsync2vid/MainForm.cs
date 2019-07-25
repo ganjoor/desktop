@@ -2976,12 +2976,11 @@ namespace gsync2vid
             }
         }
 
-
         /// <summary>
         /// تولید زیرنویس
         /// </summary>
         /// <param name="outfilePath">مسیر خروجی</param>
-        private void CreateSubTitle(string outfilePath)
+        private void CreateSubTitle(string outfilePath, bool silentMode = false, int shiftTime = 0)
         {
             DbBrowser db = Connect();
             if (db == null)
@@ -2989,6 +2988,23 @@ namespace gsync2vid
                 MessageBox.Show("(db == null)", "خطا", MessageBoxButtons.OK);
                 return;
             }
+
+            List<string> lines = CreateSubTitle(db, 0, 0);
+
+            if(lines != null)
+            File.WriteAllLines(outfilePath, lines.ToArray());
+
+            db.CloseDb();
+
+            if (lines != null)
+                MessageBox.Show("زیرنویس ایجاد شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
+        }
+
+
+       
+        private List<string> CreateSubTitle(DbBrowser db, int playtime, int shiftTime)
+        {         
 
                 double dSoundStart = -1.0;
 
@@ -3018,7 +3034,7 @@ namespace gsync2vid
                                 {
                                     this.Enabled = true;
                                     MessageBox.Show(String.Format("قدر مطلق زمان شروع اولین قاب باید بزرگتر از {0} باشد", frame.StartInMiliseconds));
-                                    return;
+                                    return null;
                                 }
                             }
                         }
@@ -3031,26 +3047,36 @@ namespace gsync2vid
 
                 }
 
-            string audioFilePath = "";
-            PoemAudio[] audioFiles = db.GetPoemAudioFiles(Settings.Default.PoemId);
-            if (audioFiles.Length > 0)
-            {
-                foreach (PoemAudio audio in audioFiles)
-                    if (audio.Id == Settings.Default.AudioId)
-                    {
-                        audioFilePath = audio.FilePath;
-                        break;
-                    }
-            }
-            
-            if(string.IsNullOrEmpty(audioFilePath))
-            {
-                MessageBox.Show("(string.IsNullOrEmpty(audioFilePath))", "خطا", MessageBoxButtons.OK);
-                return;
-            }
+            dSoundStart += shiftTime;
 
-            Mp3FileReader r = new Mp3FileReader(audioFilePath);
-            int playtime = r.TotalTime.Milliseconds;
+            if(playtime <= 0)
+            {
+                string audioFilePath = "";
+                PoemAudio[] audioFiles = db.GetPoemAudioFiles(Settings.Default.PoemId);
+                if (audioFiles.Length > 0)
+                {
+                    foreach (PoemAudio audio in audioFiles)
+                        if (audio.Id == Settings.Default.AudioId)
+                        {
+                            audioFilePath = audio.FilePath;
+                            break;
+                        }
+                }
+
+                if (string.IsNullOrEmpty(audioFilePath))
+                {
+                    MessageBox.Show("(string.IsNullOrEmpty(audioFilePath))", "خطا", MessageBoxButtons.OK);
+                    return null;
+                }
+
+                Mp3FileReader r = new Mp3FileReader(audioFilePath);
+                playtime = r.TotalTime.Milliseconds;
+
+                using (Mp3FileReader mp3 = new Mp3FileReader(audioFilePath))
+                {
+                    playtime = (int)mp3.TotalTime.TotalMilliseconds;
+                }
+            }           
 
 
 
@@ -3059,10 +3085,7 @@ namespace gsync2vid
 
 
 
-            using (Mp3FileReader mp3 = new Mp3FileReader(audioFilePath))
-            {
-                playtime = (int)mp3.TotalTime.TotalMilliseconds;
-            }
+            
 
             for (int i = 0; i < cmbVerses.Items.Count; i++)
             {
@@ -3100,12 +3123,9 @@ namespace gsync2vid
 
                 lines.Add(frame.Text);
             }
-            File.WriteAllLines(outfilePath, lines.ToArray());
 
-            db.CloseDb();
-
-            MessageBox.Show("زیرنویس ایجاد شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-
+            return lines;
+           
         }
 
         #endregion
