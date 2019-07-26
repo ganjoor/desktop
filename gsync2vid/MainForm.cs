@@ -2132,11 +2132,81 @@ namespace gsync2vid
 
                 PairNext(2, true);
 
+                string catName = db.GetCategory(poem._CatID)._Text;
+
+
+
+                List<GVideoFrame> frames = new List<GVideoFrame>();
                 for (int i = 0; i < cmbVerses.Items.Count; i++)
                 {
-                    if ((cmbVerses.Items[i] as GVideoFrame).MasterFrame == null)
-                        (cmbVerses.Items[i] as GVideoFrame).OverlayImages = overlayImages;
+                    GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
+
+                    frames.Add(frame);
+
+                    if (frame.MasterFrame == null)
+                    {
+                        frame.OverlayImages = overlayImages;
+
+                        if(i > 0)
+                        {
+                            GVideoFrame catFrame = new GVideoFrame()
+                            {
+                                AudioBound = false,
+                                StartInMiliseconds = 0,
+                                Text = catName,
+                                BackgroundImagePath = "",
+                                TextVerticalPosRatioPortion = 18,
+                                TextVerticalPosRatioPortionFrom = 20,
+                                TextHorizontalPosRatioPortion = 1,
+                                TextHorizontalPosRatioPortionFrom = 10,
+                                MaxTextWidthRatioPortion = 10,
+                                MaxTextWidthRatioPortionFrom = 10,
+                                BackColor = Color.White,
+                                TextColor = Color.White,
+                                TextBackColor = Color.Black,
+                                BorderColor = Color.Black,
+                                TextBackColorAlpha = 0,
+                                Shape = GTextBoxShape.Rectangle,
+                                TextBackRectThickness = 0,
+                                Font = new Font(Settings.Default.LastUsedFont.FontFamily, Settings.Default.LastUsedFont.Size / 4),
+                                MasterFrame = frame,
+                                ShowLogo = false
+                            };
+                            frames.Add(catFrame);
+                            GVideoFrame poemFrame = new GVideoFrame()
+                            {
+                                AudioBound = false,
+                                StartInMiliseconds = 0,
+                                Text = poem._Title,
+                                BackgroundImagePath = "",
+                                TextVerticalPosRatioPortion = 19,
+                                TextVerticalPosRatioPortionFrom = 20,
+                                TextHorizontalPosRatioPortion = 1,
+                                TextHorizontalPosRatioPortionFrom = 10,
+                                MaxTextWidthRatioPortion = 10,
+                                MaxTextWidthRatioPortionFrom = 10,
+                                BackColor = Color.White,
+                                TextColor = Color.White,
+                                TextBackColor = Color.Black,
+                                BorderColor = Color.Black,
+                                TextBackColorAlpha = 0,
+                                Shape = GTextBoxShape.Rectangle,
+                                TextBackRectThickness = 0,
+                                Font = new Font(Settings.Default.LastUsedFont.FontFamily, Settings.Default.LastUsedFont.Size / 4),
+                                MasterFrame = frame,
+                                ShowLogo = false
+                            };
+                            frames.Add(poemFrame);
+                        }                        
+                    }
                 }
+
+                cmbVerses.Items.Clear();
+                cmbVerses.Items.AddRange(frames.ToArray());
+
+
+
+
 
                 string poemVid = Path.Combine(outputFolder, poem._ID.ToString() + ".mp4");
 
