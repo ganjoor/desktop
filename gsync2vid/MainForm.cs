@@ -2004,11 +2004,26 @@ namespace gsync2vid
                             cmbVerses.Items.AddRange(frames.ToArray());
                             cmbVerses.SelectedIndex = 0;
 
+                            Color[] bkColors =
+                                new Color[]
+                                {
+                                    Color.FromArgb(64, 0, 0), //darkred
+                                    Color.FromArgb(0, 128, 0), //green
+                                    Color.FromArgb(0, 0, 64), //darkblue
+                                    Color.FromArgb(64, 0, 64), //purple
+                                    Color.FromArgb(0, 64, 64), //green+blue
+                                    Color.FromArgb(128, 64, 0), //brick
+                                    Color.FromArgb(64, 64, 0), //dark olive
+                                };
+                            
+
                             for (int i = 0; i < cmbVerses.Items.Count; i++)
                             {
-                                (cmbVerses.Items[i] as GVideoFrame).BackColor = Color.DarkGreen;
+                                (cmbVerses.Items[i] as GVideoFrame).BackColor = bkColors[0];
                                 (cmbVerses.Items[i] as GVideoFrame).TextBackColorAlpha = 0;
-                            }                           
+                            }
+
+                            int colorIndex = 1;
 
 
                             using (SaveFileDialog dlg = new SaveFileDialog())
@@ -2042,7 +2057,7 @@ namespace gsync2vid
 
                                     int catId = catSelector.SelectedCatID;                                   
 
-                                    string catVideo = GenerateCatVideo(catId, db, Path.GetDirectoryName(mainOutFile), overlayImages, subTitleTexts, ref subtitleShift, ref nIdxSrtLine);
+                                    string catVideo = GenerateCatVideo(catId, db, Path.GetDirectoryName(mainOutFile), overlayImages, subTitleTexts, ref subtitleShift, ref nIdxSrtLine, bkColors, ref colorIndex);
 
                                    
 
@@ -2092,7 +2107,7 @@ namespace gsync2vid
         /// <param name="db"></param>
         /// <param name="outputFolder"></param>
         /// <returns>file path to generated video</returns>
-        private string GenerateCatVideo(int catId, DbBrowser db, string outputFolder, GOverlayImage[] overlayImages, List<string> subtitleTexts, ref int subtitleShift, ref int nIdxSrtLine)
+        private string GenerateCatVideo(int catId, DbBrowser db, string outputFolder, GOverlayImage[] overlayImages, List<string> subtitleTexts, ref int subtitleShift, ref int nIdxSrtLine, Color[] bkColors, ref int colorIndex)
         {
             List<string> poemVideos = new List<string>();
             int vIndex = -1;
@@ -2115,7 +2130,7 @@ namespace gsync2vid
 
                 for (int i = 0; i < cmbVerses.Items.Count; i++)
                 {
-                    (cmbVerses.Items[i] as GVideoFrame).BackColor = Color.DarkGreen;
+                    (cmbVerses.Items[i] as GVideoFrame).BackColor = bkColors[colorIndex];
                     (cmbVerses.Items[i] as GVideoFrame).TextBackColorAlpha = 0;
                 }
 
@@ -2225,7 +2240,9 @@ namespace gsync2vid
                 mixStringPart1 += $" -i \"{poemVid}\"";
                 mixStringPart2 += $"[{vIndex}:v:0][{vIndex}:a:0]";
 
-
+                colorIndex++;
+                if (colorIndex >= bkColors.Length)
+                    colorIndex = 0;
             }
 
 
@@ -3274,18 +3291,12 @@ namespace gsync2vid
 
 
 
-
-            string prevText = "";
             for (int i = 0; i < cmbVerses.Items.Count; i++)
             {
                 GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
                 if (frame.MasterFrame != null)
                 {
-                    if (ignoredFrameIndices.Contains(i))
-                    {
-                        prevText = frame.Text;
-                    }
-                    else
+                    if (!ignoredFrameIndices.Contains(i))
                     {
                         lines.Add(frame.Text);
                         lines.Add("");
