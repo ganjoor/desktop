@@ -1831,7 +1831,7 @@ namespace gsync2vid
         {
             if (MessageBox.Show
                 (
-                "با استفاده از این امکان، می‌توان از خوانشهای یک بخش ویدیو ساخت. ادامه می‌دهید؟",
+                $"با استفاده از این امکان، می‌توان از خوانشهای یک بخش ویدیو ساخت.{Environment.NewLine} لایه‌های تصویری انتخاب شده برای خوانش جاری به تمام قابهای ویدیو کپی می‌شود.{Environment.NewLine} ادامه می‌دهید؟",
                 "تأییدیه",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading
                 ) == DialogResult.No)
@@ -2243,6 +2243,11 @@ namespace gsync2vid
                 colorIndex++;
                 if (colorIndex >= bkColors.Length)
                     colorIndex = 0;
+            }
+
+            foreach(GanjoorCat subCat in db.GetSubCategories(catId))
+            {
+                poemVideos.Add(GenerateCatVideo(subCat._ID, db, outputFolder, overlayImages, subtitleTexts, ref subtitleShift, ref nIdxSrtLine, bkColors, ref colorIndex));
             }
 
 
