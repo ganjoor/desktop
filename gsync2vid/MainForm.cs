@@ -2011,83 +2011,31 @@ namespace gsync2vid
 
                                    
 
-                                    string mixStringPart1 = $"-i \"{mainOutFile}\"";
-                                    string mixStringPart2 = "[0:v:0][0:a:0]";
+                                    
 
 
                                     int catId = catSelector.SelectedCatID;
 
-                                    List<string> poemVideos = new List<string>();
+                                   
+
+                                    string catVideo = GenerateCatVideo(catId, db, Path.GetDirectoryName(mainOutFile));
 
 
-
-
-                                    int vIndex = 0;
-                                    foreach (GanjoorPoem poem in db.GetPoems(catId))
-                                    {
-                                        PoemAudio[] audio = db.GetPoemAudioFiles(poem._ID);
-                                        if(audio.Length == 0)
-                                        {
-                                            MessageBox.Show("err: " + poem._Title);
-                                            return;
-                                        }
-
-                                        Settings.Default.PoemId = poem._ID;
-                                        Settings.Default.AudioId = audio[0].Id;
-                                        Settings.Default.Save();
-
-                                        UpdatePoemAndAudioInfo(db);
-
-                                        for (int i = 0; i < cmbVerses.Items.Count; i++)
-                                        {
-                                            (cmbVerses.Items[i] as GVideoFrame).BackColor = Color.DarkGreen;
-                                            (cmbVerses.Items[i] as GVideoFrame).TextBackColorAlpha = 0;
-                                        }
-
-                                        
-                                        
-                                        
-
-                                        for (int i = 3; i < cmbVerses.Items.Count; i++)
-                                        {
-                                            (cmbVerses.Items[i] as GVideoFrame).TextVerticalPosRatioPortion = 8;
-                                            (cmbVerses.Items[i] as GVideoFrame).TextVerticalPosRatioPortionFrom = 20;
-                                        }
-
-                                        cmbVerses.SelectedIndex = 3;
-
-
-
-
-
-                                        PairNext(2, true);
-
-                                        string poemVid = Path.Combine(Path.GetDirectoryName(mainOutFile), poem._ID.ToString() + ".mp4");
-
-                                        InitiateRendering(poemVid, false, false);
-
-                                        poemVideos.Add(poemVid);
-
-                                        vIndex++;
-                                        mixStringPart1 += $" -i \"{poemVid}\"";
-                                        mixStringPart2 += $"[{vIndex}:v:0][{vIndex}:a:0]";
-
-
-                                    }
+                                    string mixStringPart1 = $"-i \"{mainOutFile}\" -i \"{catVideo}\"";
+                                    string mixStringPart2 = "[0:v:0][0:a:0][1:v:0][1:a:0]";
 
                                     string tempOut = Path.Combine(Path.GetDirectoryName(mainOutFile), catId.ToString() + "-temp.mp4");
 
                                     RunFFmpegCommand(
                                         Settings.Default.FFmpegPath,
-                                        $"{mixStringPart1} -filter_complex \"{mixStringPart2}concat=n={poemVideos.Count + 1}:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{tempOut}\""
+                                        $"{mixStringPart1} -filter_complex \"{mixStringPart2}concat=n=2:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{tempOut}\""
                                         );
 
                                     File.Copy(tempOut, mainOutFile, true);
 
-                                    foreach(string poemvideo in poemVideos)
-                                    {
-                                        File.Delete(poemvideo);
-                                    }
+                                    File.Delete(catVideo);
+
+                                   
                                     File.Delete(tempOut);
                                     
 
@@ -2107,6 +2055,87 @@ namespace gsync2vid
 
 
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="catId"></param>
+        /// <param name="db"></param>
+        /// <param name="outputFolder"></param>
+        /// <returns>file path to generated video</returns>
+        private string GenerateCatVideo(int catId, DbBrowser db, string outputFolder)
+        {
+            List<string> poemVideos = new List<string>();
+            int vIndex = -1;
+            string mixStringPart1 = "";
+            string mixStringPart2 = "";
+            foreach (GanjoorPoem poem in db.GetPoems(catId))
+            {
+                PoemAudio[] audio = db.GetPoemAudioFiles(poem._ID);
+                if (audio.Length == 0)
+                {
+                    MessageBox.Show("err: " + poem._Title);
+                    return null;
+                }
+
+                Settings.Default.PoemId = poem._ID;
+                Settings.Default.AudioId = audio[0].Id;
+                Settings.Default.Save();
+
+                UpdatePoemAndAudioInfo(db);
+
+                for (int i = 0; i < cmbVerses.Items.Count; i++)
+                {
+                    (cmbVerses.Items[i] as GVideoFrame).BackColor = Color.DarkGreen;
+                    (cmbVerses.Items[i] as GVideoFrame).TextBackColorAlpha = 0;
+                }
+
+
+
+
+
+                for (int i = 3; i < cmbVerses.Items.Count; i++)
+                {
+                    (cmbVerses.Items[i] as GVideoFrame).TextVerticalPosRatioPortion = 8;
+                    (cmbVerses.Items[i] as GVideoFrame).TextVerticalPosRatioPortionFrom = 20;
+                }
+
+                cmbVerses.SelectedIndex = 3;
+
+
+
+
+
+                PairNext(2, true);
+
+                string poemVid = Path.Combine(outputFolder, poem._ID.ToString() + ".mp4");
+
+                InitiateRendering(poemVid, false, false);
+
+                poemVideos.Add(poemVid);
+
+                vIndex++;
+                mixStringPart1 += $" -i \"{poemVid}\"";
+                mixStringPart2 += $"[{vIndex}:v:0][{vIndex}:a:0]";
+
+
+            }
+
+
+            string catVideo = Path.Combine(outputFolder, catId.ToString() + "-poems.mp4");
+
+            RunFFmpegCommand(
+                Settings.Default.FFmpegPath,
+                $"{mixStringPart1} -filter_complex \"{mixStringPart2}concat=n={poemVideos.Count}:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{catVideo}\""
+                );
+
+            foreach (string poemvideo in poemVideos)
+            {
+                File.Delete(poemvideo);
+            }
+
+            return catVideo;
         }
 
         #endregion
