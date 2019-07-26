@@ -1857,6 +1857,15 @@ namespace gsync2vid
                         if (catSelector.ShowDialog(this) == DialogResult.OK)
                         {
 
+                            GOverlayImage[] overlayImages = null;
+
+                            if (cmbVerses.SelectedItem != null)
+                            {
+                                overlayImages = (cmbVerses.SelectedItem as GVideoFrame).OverlayImages;                               
+                            }
+
+                            
+
                             PoemAudio fakeAudio = new PoemAudio()
                             {
                                 Id = 0,
@@ -1904,6 +1913,9 @@ namespace gsync2vid
                             int nDurationDividedBy = 1;
                             titleFrame.StartInMiliseconds = -(fakeAudio.SyncArray[0].AudioMiliseconds / nDurationDividedBy);
 
+                            if (overlayImages != null)
+                                titleFrame.OverlayImages = overlayImages;
+
 
                             frames.Add(titleFrame);
 
@@ -1949,11 +1961,22 @@ namespace gsync2vid
 
                             frames.Add(poemFrame);
 
+                            string thirdFrameText = "به خوانش حمیدرضا محمدی";
+                            using (ItemEditor dlg = new ItemEditor(EditItemType.General, "ویرایش متن", "متن:"))
+                            {
+                                dlg.ItemName = thirdFrameText;
+                                if (dlg.ShowDialog(this) == DialogResult.OK)
+                                {
+
+                                    thirdFrameText = dlg.ItemName;                                    
+                                }
+                            }
+
                             GVideoFrame soundFrame = new GVideoFrame()
                             {
                                 AudioBound = false,
                                 StartInMiliseconds = 0,
-                                Text = "به خوانش حمیدرضا محمدی",
+                                Text = thirdFrameText,
                                 BackgroundImagePath = strImagePath,
                                 TextVerticalPosRatioPortion = 3,
                                 TextVerticalPosRatioPortionFrom = 4,
@@ -1985,7 +2008,7 @@ namespace gsync2vid
                             {
                                 (cmbVerses.Items[i] as GVideoFrame).BackColor = Color.DarkGreen;
                                 (cmbVerses.Items[i] as GVideoFrame).TextBackColorAlpha = 0;
-                            }
+                            }                           
 
 
                             using (SaveFileDialog dlg = new SaveFileDialog())
@@ -2018,7 +2041,7 @@ namespace gsync2vid
 
                                    
 
-                                    string catVideo = GenerateCatVideo(catId, db, Path.GetDirectoryName(mainOutFile));
+                                    string catVideo = GenerateCatVideo(catId, db, Path.GetDirectoryName(mainOutFile), overlayImages);
 
 
                                     string mixStringPart1 = $"-i \"{mainOutFile}\" -i \"{catVideo}\"";
@@ -2064,7 +2087,7 @@ namespace gsync2vid
         /// <param name="db"></param>
         /// <param name="outputFolder"></param>
         /// <returns>file path to generated video</returns>
-        private string GenerateCatVideo(int catId, DbBrowser db, string outputFolder)
+        private string GenerateCatVideo(int catId, DbBrowser db, string outputFolder, GOverlayImage[] overlayImages)
         {
             List<string> poemVideos = new List<string>();
             int vIndex = -1;
@@ -2108,6 +2131,12 @@ namespace gsync2vid
 
 
                 PairNext(2, true);
+
+                for (int i = 0; i < cmbVerses.Items.Count; i++)
+                {
+                    if ((cmbVerses.Items[i] as GVideoFrame).MasterFrame == null)
+                        (cmbVerses.Items[i] as GVideoFrame).OverlayImages = overlayImages;
+                }
 
                 string poemVid = Path.Combine(outputFolder, poem._ID.ToString() + ".mp4");
 
