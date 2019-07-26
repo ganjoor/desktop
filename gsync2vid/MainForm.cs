@@ -3319,11 +3319,10 @@ namespace gsync2vid
                     );
 
                 if (!ignoredFrameIndices.Contains(i))
+                {
                     lines.Add(frame.Text);
-                else
-                    lines.Add(prevText);
-
-                lines.Add("");
+                    lines.Add("");
+                }
             }
 
             return lines;
