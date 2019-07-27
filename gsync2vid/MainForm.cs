@@ -2049,7 +2049,7 @@ namespace gsync2vid
 
 
 
-                                    int subtitleShift = 4;
+                                    double subtitleShift = 4000;
                                     List<string> subTitleTexts = new List<string>();
 
                                     int nIdxSrtLine = 0;
@@ -2066,7 +2066,7 @@ namespace gsync2vid
                                     string mixStringPart2 = "[0:v:0][0:a:0][1:v:0][1:a:0]";
 
                                     string tempOut = Path.Combine(Path.GetDirectoryName(mainOutFile), catId.ToString() + "-temp.mp4");
-
+                                    
                                     RunFFmpegCommand(
                                         Settings.Default.FFmpegPath,
                                         $"{mixStringPart1} -filter_complex \"{mixStringPart2}concat=n=2:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{tempOut}\""
@@ -2078,6 +2078,7 @@ namespace gsync2vid
 
                                    
                                     File.Delete(tempOut);
+                                    
 
                                     File.WriteAllLines(Path.Combine(Path.GetDirectoryName(mainOutFile), Path.GetFileNameWithoutExtension(mainOutFile) + ".srt"), subTitleTexts.ToArray());
 
@@ -2107,7 +2108,7 @@ namespace gsync2vid
         /// <param name="db"></param>
         /// <param name="outputFolder"></param>
         /// <returns>file path to generated video</returns>
-        private string GenerateCatVideo(int catId, DbBrowser db, string outputFolder, GOverlayImage[] overlayImages, List<string> subtitleTexts, ref int subtitleShift, ref int nIdxSrtLine, Color[] bkColors, ref int colorIndex)
+        private string GenerateCatVideo(int catId, DbBrowser db, string outputFolder, GOverlayImage[] overlayImages, List<string> subtitleTexts, ref double subtitleShiftInMlliseconds, ref int nIdxSrtLine, Color[] bkColors, ref int colorIndex)
         {
             List<string> poemVideos = new List<string>();
             int vIndex = -1;
@@ -2146,7 +2147,8 @@ namespace gsync2vid
 
                 cmbVerses.SelectedIndex = 3;
 
-                subtitleTexts.AddRange(CreateSubTitle(db, 0, subtitleShift, ref nIdxSrtLine, new int[] { 0, 1}));
+                double playTimeInMilliseconds;
+                subtitleTexts.AddRange(CreateSubTitle(db, subtitleShiftInMlliseconds, ref nIdxSrtLine, out playTimeInMilliseconds, new int[] { 0, 1}));
 
 
 
@@ -2230,9 +2232,9 @@ namespace gsync2vid
 
                 string poemVid = Path.Combine(outputFolder, poem._ID.ToString() + ".mp4");
 
-                int playTime = InitiateRendering(poemVid, false, false);                
+                InitiateRendering(poemVid, false, false);                
 
-                subtitleShift += (playTime / 1000);
+                subtitleShiftInMlliseconds += playTimeInMilliseconds;
 
                 poemVideos.Add(poemVid);
 
@@ -2247,7 +2249,7 @@ namespace gsync2vid
 
             foreach(GanjoorCat subCat in db.GetSubCategories(catId))
             {
-                string subCatVideo = GenerateCatVideo(subCat._ID, db, outputFolder, overlayImages, subtitleTexts, ref subtitleShift, ref nIdxSrtLine, bkColors, ref colorIndex);
+                string subCatVideo = GenerateCatVideo(subCat._ID, db, outputFolder, overlayImages, subtitleTexts, ref subtitleShiftInMlliseconds, ref nIdxSrtLine, bkColors, ref colorIndex);
                 poemVideos.Add(subCatVideo);
 
                 vIndex++;
@@ -2260,7 +2262,7 @@ namespace gsync2vid
             string catVideo = Path.Combine(outputFolder, catId.ToString() + "-poems.mp4");
 
 
-
+            
             RunFFmpegCommand(
                 Settings.Default.FFmpegPath,
                 $"{mixStringPart1} -filter_complex \"{mixStringPart2}concat=n={poemVideos.Count}:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{catVideo}\""
@@ -2271,7 +2273,7 @@ namespace gsync2vid
             {
                 File.Delete(poemvideo);
             }
-
+            
             return catVideo;
         }
         #endregion
@@ -3202,8 +3204,8 @@ namespace gsync2vid
             }
 
             int nIdxSrtLine = 0;
-            int shiftTime = 0;
-            List<string> lines = CreateSubTitle(db, 0, shiftTime, ref nIdxSrtLine);
+            double playTimeInMS;
+            List<string> lines = CreateSubTitle(db, 0, ref nIdxSrtLine, out playTimeInMS);
 
             if(lines != null)
             File.WriteAllLines(outfilePath, lines.ToArray());
@@ -3217,9 +3219,10 @@ namespace gsync2vid
 
 
        
-        private List<string> CreateSubTitle(DbBrowser db, int playtime, int shiftTime, ref int nIdxSrtLine, int[] ignoredFrameIndices = null)
-        {         
+        private List<string> CreateSubTitle(DbBrowser db, double shiftTimeInMilliSeconds, ref int nIdxSrtLine, out double subPlayTimeInMilliseconds, int[] ignoredFrameIndices = null)
+        {
 
+                subPlayTimeInMilliseconds = 0;
                 double dSoundStart = -1.0;
 
                 if(ignoredFrameIndices == null)
@@ -3266,36 +3269,35 @@ namespace gsync2vid
 
                 }
 
-            dSoundStart += shiftTime;
+            dSoundStart += shiftTimeInMilliSeconds / 1000.0;
 
-            if(playtime <= 0)
+            string audioFilePath = "";
+            PoemAudio[] audioFiles = db.GetPoemAudioFiles(Settings.Default.PoemId);
+            if (audioFiles.Length > 0)
             {
-                string audioFilePath = "";
-                PoemAudio[] audioFiles = db.GetPoemAudioFiles(Settings.Default.PoemId);
-                if (audioFiles.Length > 0)
-                {
-                    foreach (PoemAudio audio in audioFiles)
-                        if (audio.Id == Settings.Default.AudioId)
-                        {
-                            audioFilePath = audio.FilePath;
-                            break;
-                        }
-                }
+                foreach (PoemAudio audio in audioFiles)
+                    if (audio.Id == Settings.Default.AudioId)
+                    {
+                        audioFilePath = audio.FilePath;
+                        break;
+                    }
+            }
 
-                if (string.IsNullOrEmpty(audioFilePath))
-                {
-                    MessageBox.Show("(string.IsNullOrEmpty(audioFilePath))", "خطا", MessageBoxButtons.OK);
-                    return null;
-                }
+            if (string.IsNullOrEmpty(audioFilePath))
+            {
+                MessageBox.Show("(string.IsNullOrEmpty(audioFilePath))", "خطا", MessageBoxButtons.OK);
+                return null;
+            }
 
-                Mp3FileReader r = new Mp3FileReader(audioFilePath);
-                playtime = r.TotalTime.Milliseconds;
+            Mp3FileReader r = new Mp3FileReader(audioFilePath);
+            int playtime = r.TotalTime.Milliseconds;
 
-                using (Mp3FileReader mp3 = new Mp3FileReader(audioFilePath))
-                {
-                    playtime = (int)mp3.TotalTime.TotalMilliseconds;
-                }
-            }           
+            using (Mp3FileReader mp3 = new Mp3FileReader(audioFilePath))
+            {
+                playtime = (int)mp3.TotalTime.TotalMilliseconds;
+            }
+
+            
 
 
 
@@ -3316,9 +3318,15 @@ namespace gsync2vid
                     }
                     continue;
                 }
+
+                if(i == 0)
+                {
+                    subPlayTimeInMilliseconds = frame.StartInMiliseconds > 0 ? playtime : playtime - frame.StartInMiliseconds;
+                    subPlayTimeInMilliseconds /= 1000;
+                }
                 
                 nIdxSrtLine++;
-                DateTime dtStart = frame.StartInMiliseconds < 0 ? new DateTime(0).AddMilliseconds(shiftTime * 1000) : new DateTime(0).AddMilliseconds(((frame.StartInMiliseconds) + dSoundStart * 1000.0));
+                DateTime dtStart = frame.StartInMiliseconds < 0 ? new DateTime(0).AddMilliseconds(shiftTimeInMilliSeconds) : new DateTime(0).AddMilliseconds(((frame.StartInMiliseconds) + dSoundStart * 1000.0));
                 int duration = i != (cmbVerses.Items.Count - 1) ? (cmbVerses.Items[i + 1] as GVideoFrame).StartInMiliseconds - frame.StartInMiliseconds : (playtime - frame.StartInMiliseconds);
                 if (frame.AudioBound)
                 {
@@ -3335,6 +3343,8 @@ namespace gsync2vid
                 }
                 DateTime dtEnd = dtStart.AddMilliseconds(duration);
 
+                subPlayTimeInMilliseconds = (dtEnd - new DateTime(0)).TotalMilliseconds - shiftTimeInMilliSeconds;
+
                 lines.Add(nIdxSrtLine.ToString());
                 lines.Add(
                     dtStart.ToString("HH:mm:ss.fff")
@@ -3347,7 +3357,12 @@ namespace gsync2vid
                     lines.Add(frame.Text);
                     lines.Add("");
                 }
+
+               
             }
+
+
+            
 
             return lines;
            
