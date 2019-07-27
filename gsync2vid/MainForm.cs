@@ -2247,17 +2247,26 @@ namespace gsync2vid
 
             foreach(GanjoorCat subCat in db.GetSubCategories(catId))
             {
-                poemVideos.Add(GenerateCatVideo(subCat._ID, db, outputFolder, overlayImages, subtitleTexts, ref subtitleShift, ref nIdxSrtLine, bkColors, ref colorIndex));
+                string subCatVideo = GenerateCatVideo(subCat._ID, db, outputFolder, overlayImages, subtitleTexts, ref subtitleShift, ref nIdxSrtLine, bkColors, ref colorIndex);
+                poemVideos.Add(subCatVideo);
+
+                vIndex++;
+                mixStringPart1 += $" -i \"{subCatVideo}\"";
+                mixStringPart2 += $"[{vIndex}:v:0][{vIndex}:a:0]";
             }
 
+                       
 
             string catVideo = Path.Combine(outputFolder, catId.ToString() + "-poems.mp4");
+
+
 
             RunFFmpegCommand(
                 Settings.Default.FFmpegPath,
                 $"{mixStringPart1} -filter_complex \"{mixStringPart2}concat=n={poemVideos.Count}:v=1:a=1[outv][outa]\" -map \"[outv]\" -map \"[outa]\" \"{catVideo}\""
                 );
 
+        
             foreach (string poemvideo in poemVideos)
             {
                 File.Delete(poemvideo);
@@ -2265,12 +2274,12 @@ namespace gsync2vid
 
             return catVideo;
         }
-
         #endregion
 
         #region Render Frame
         private Image RenderFrame(GVideoFrame frame, Size szImageSize, Image imgMaster = null)
         {
+            
             if (frame == null)
                 return null;
 
@@ -3065,7 +3074,6 @@ namespace gsync2vid
                     File.Delete(Path.Combine(Path.GetTempPath(), Path.GetFileName(wav)));
                 }
                 File.Delete(ffconcat);
-
                 if (File.Exists(outfilePath))
                 {
                     try
@@ -3116,7 +3124,7 @@ namespace gsync2vid
         /// <param name="ffmpegPath"></param>
         /// <param name="cmdArgs"></param>
         private void RunFFmpegCommand(string ffmpegPath, string cmdArgs)
-        {
+        {        
             ProcessStartInfo ps = new ProcessStartInfo
                 (
                 Path.Combine(ffmpegPath, "ffmpeg.exe")
