@@ -2090,7 +2090,7 @@ namespace ganjoor
             {
                 cmd.CommandText = String.Format(
                     "UPDATE verse SET text = \"{0}\" WHERE poem_id={1} AND vorder={2}",
-                    Text, PoemID, Order
+                    Text.Trim(), PoemID, Order
                     );
                 cmd.ExecuteNonQuery();
             }

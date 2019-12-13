@@ -1560,14 +1560,65 @@ namespace ganjoor
         #endregion
 
         #region Simple Copy
-        public void CopyText()
+        public void CopyText(bool ganjoorHtmlFormat)
         {
             string txt = "";
+            GanjoorVerse buffer = null;
             foreach (Control ctl in this.Controls)
                 if (ctl is Label && !(ctl is LinkLabel))
                 {
-                    txt += ctl.Text + "\r\n";
+                    if (ganjoorHtmlFormat)
+                    {
+                        if (ctl.Tag is GanjoorVerse)
+                        {
+                            if(buffer != null && (ctl.Tag as GanjoorVerse)._Position != VersePosition.CenteredVerse2)
+                            {
+                                txt += ("<div class=\"b2\"><p>" + buffer._Text.Trim() + "</p></div>\r\n");
+                                buffer = null;
+                            }
+                            switch ((ctl.Tag as GanjoorVerse)._Position)
+                            {
+                                case VersePosition.Right:
+                                    txt += ("<div class=\"b\"><div class=\"m1\"><p>" + (ctl.Tag as GanjoorVerse)._Text.Trim());
+                                    break;
+                                case VersePosition.Left:
+                                    txt += ("</p></div><div class=\"m2\"><p>" + (ctl.Tag as GanjoorVerse)._Text.Trim() + "</p></div></div>\r\n");
+                                    break;
+                                case VersePosition.CenteredVerse1:
+                                    buffer = (ctl.Tag as GanjoorVerse);
+                                    break;
+                                case VersePosition.CenteredVerse2:
+                                    if(buffer != null)
+                                    {
+                                        txt += ("<div class=\"b2\"><p>"+ buffer._Text+ "</p><p>"+ (ctl.Tag as GanjoorVerse)._Text.Trim() + "</p></div>\r\n");
+                                        buffer = null;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Err!");
+                                    }
+                                    break;
+                                case VersePosition.Single:                                
+                                    {
+                                        MessageBox.Show("Err!");
+                                    }
+                                    break;
+                                case VersePosition.Paragraph:
+                                    txt += ("<div class=\"n\"><p>" + (ctl.Tag as GanjoorVerse)._Text.Trim() + "</p></div>\r\n");
+                                    break;
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        txt += ctl.Text + "\r\n";
+                    }
                 }
+            if (buffer != null)
+            {
+                txt += ("<div class=\"b2\"><p>" + buffer._Text + "</p></div>\r\n");
+            }
             Clipboard.SetText(txt);
         }
         public void StoreSettings()

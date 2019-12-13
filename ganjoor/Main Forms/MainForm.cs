@@ -305,7 +305,7 @@ namespace ganjoor
 
         private void btnCopyText_Click(object sender, EventArgs e)
         {
-            ganjoorView.CopyText();
+            ganjoorView.CopyText(ModifierKeys == Keys.Shift);
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
