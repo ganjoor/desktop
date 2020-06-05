@@ -127,11 +127,9 @@
             this.grpConnection.Controls.Add(this.btnSelDb);
             this.grpConnection.Controls.Add(this.txtSrcDb);
             this.grpConnection.Controls.Add(this.lblSrcDb);
-            this.grpConnection.Location = new System.Drawing.Point(5, 8);
-            this.grpConnection.Margin = new System.Windows.Forms.Padding(2);
+            this.grpConnection.Location = new System.Drawing.Point(8, 12);
             this.grpConnection.Name = "grpConnection";
-            this.grpConnection.Padding = new System.Windows.Forms.Padding(2);
-            this.grpConnection.Size = new System.Drawing.Size(798, 72);
+            this.grpConnection.Size = new System.Drawing.Size(1197, 108);
             this.grpConnection.TabIndex = 0;
             this.grpConnection.TabStop = false;
             this.grpConnection.Text = "فایل پایگاه داده‌های گنجور رومیزی:";
@@ -140,20 +138,18 @@
             // 
             this.lblDbComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDbComment.Location = new System.Drawing.Point(27, 41);
-            this.lblDbComment.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblDbComment.Location = new System.Drawing.Point(40, 62);
             this.lblDbComment.Name = "lblDbComment";
-            this.lblDbComment.Size = new System.Drawing.Size(713, 19);
+            this.lblDbComment.Size = new System.Drawing.Size(1070, 28);
             this.lblDbComment.TabIndex = 3;
             this.lblDbComment.Text = "فایل در مسیر وجود ندارد یا امکان اتصال به آن وجود ندارد. لطفا اطمینان حاصل کنید گ" +
     "نجور رومیزی نصب شده و مسیر فایل درست انتخاب شده است.";
             // 
             // btnSelDb
             // 
-            this.btnSelDb.Location = new System.Drawing.Point(5, 15);
-            this.btnSelDb.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSelDb.Location = new System.Drawing.Point(8, 22);
             this.btnSelDb.Name = "btnSelDb";
-            this.btnSelDb.Size = new System.Drawing.Size(30, 24);
+            this.btnSelDb.Size = new System.Drawing.Size(45, 36);
             this.btnSelDb.TabIndex = 2;
             this.btnSelDb.Text = "...";
             this.btnSelDb.UseVisualStyleBackColor = true;
@@ -163,22 +159,20 @@
             // 
             this.txtSrcDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSrcDb.Location = new System.Drawing.Point(39, 16);
-            this.txtSrcDb.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSrcDb.Location = new System.Drawing.Point(58, 24);
             this.txtSrcDb.Name = "txtSrcDb";
             this.txtSrcDb.ReadOnly = true;
             this.txtSrcDb.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtSrcDb.Size = new System.Drawing.Size(705, 21);
+            this.txtSrcDb.Size = new System.Drawing.Size(1056, 27);
             this.txtSrcDb.TabIndex = 1;
             // 
             // lblSrcDb
             // 
             this.lblSrcDb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSrcDb.AutoSize = true;
-            this.lblSrcDb.Location = new System.Drawing.Point(750, 18);
-            this.lblSrcDb.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSrcDb.Location = new System.Drawing.Point(1125, 27);
             this.lblSrcDb.Name = "lblSrcDb";
-            this.lblSrcDb.Size = new System.Drawing.Size(38, 13);
+            this.lblSrcDb.Size = new System.Drawing.Size(56, 21);
             this.lblSrcDb.TabIndex = 0;
             this.lblSrcDb.Text = "مسیر:";
             // 
@@ -199,21 +193,18 @@
             this.grpPoem.Controls.Add(this.btnSelPoem);
             this.grpPoem.Controls.Add(this.txtPoem);
             this.grpPoem.Controls.Add(this.lblPoem);
-            this.grpPoem.Location = new System.Drawing.Point(5, 87);
-            this.grpPoem.Margin = new System.Windows.Forms.Padding(2);
+            this.grpPoem.Location = new System.Drawing.Point(8, 130);
             this.grpPoem.Name = "grpPoem";
-            this.grpPoem.Padding = new System.Windows.Forms.Padding(2);
-            this.grpPoem.Size = new System.Drawing.Size(798, 70);
+            this.grpPoem.Size = new System.Drawing.Size(1197, 105);
             this.grpPoem.TabIndex = 1;
             this.grpPoem.TabStop = false;
             this.grpPoem.Text = "شعر، خوانش و مشخصات کلی:";
             // 
             // btnCatBatch
             // 
-            this.btnCatBatch.Location = new System.Drawing.Point(425, 41);
-            this.btnCatBatch.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCatBatch.Location = new System.Drawing.Point(638, 62);
             this.btnCatBatch.Name = "btnCatBatch";
-            this.btnCatBatch.Size = new System.Drawing.Size(53, 24);
+            this.btnCatBatch.Size = new System.Drawing.Size(80, 36);
             this.btnCatBatch.TabIndex = 13;
             this.btnCatBatch.Text = "CAT";
             this.btnCatBatch.UseVisualStyleBackColor = true;
@@ -221,10 +212,9 @@
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(76, 38);
-            this.btnApply.Margin = new System.Windows.Forms.Padding(2);
+            this.btnApply.Location = new System.Drawing.Point(114, 57);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(51, 28);
+            this.btnApply.Size = new System.Drawing.Size(76, 42);
             this.btnApply.TabIndex = 12;
             this.btnApply.Text = "اعمال";
             this.btnApply.UseVisualStyleBackColor = true;
@@ -232,10 +222,9 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(5, 38);
-            this.btnReset.Margin = new System.Windows.Forms.Padding(2);
+            this.btnReset.Location = new System.Drawing.Point(8, 57);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(69, 28);
+            this.btnReset.Size = new System.Drawing.Size(104, 42);
             this.btnReset.TabIndex = 11;
             this.btnReset.Text = "پیش‌فرض";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -243,8 +232,7 @@
             // 
             // txtHeight
             // 
-            this.txtHeight.Location = new System.Drawing.Point(136, 43);
-            this.txtHeight.Margin = new System.Windows.Forms.Padding(2);
+            this.txtHeight.Location = new System.Drawing.Point(204, 64);
             this.txtHeight.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -256,7 +244,7 @@
             0,
             0});
             this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(39, 21);
+            this.txtHeight.Size = new System.Drawing.Size(77, 27);
             this.txtHeight.TabIndex = 10;
             this.txtHeight.Value = new decimal(new int[] {
             720,
@@ -267,17 +255,15 @@
             // lblHeight
             // 
             this.lblHeight.AutoSize = true;
-            this.lblHeight.Location = new System.Drawing.Point(179, 45);
-            this.lblHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblHeight.Location = new System.Drawing.Point(283, 68);
             this.lblHeight.Name = "lblHeight";
-            this.lblHeight.Size = new System.Drawing.Size(68, 13);
+            this.lblHeight.Size = new System.Drawing.Size(104, 21);
             this.lblHeight.TabIndex = 9;
             this.lblHeight.Text = "طول خروجی:";
             // 
             // txtWidth
             // 
-            this.txtWidth.Location = new System.Drawing.Point(251, 42);
-            this.txtWidth.Margin = new System.Windows.Forms.Padding(2);
+            this.txtWidth.Location = new System.Drawing.Point(391, 63);
             this.txtWidth.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -289,7 +275,7 @@
             0,
             0});
             this.txtWidth.Name = "txtWidth";
-            this.txtWidth.Size = new System.Drawing.Size(39, 21);
+            this.txtWidth.Size = new System.Drawing.Size(84, 27);
             this.txtWidth.TabIndex = 8;
             this.txtWidth.Value = new decimal(new int[] {
             960,
@@ -300,50 +286,45 @@
             // lblWidth
             // 
             this.lblWidth.AutoSize = true;
-            this.lblWidth.Location = new System.Drawing.Point(294, 44);
-            this.lblWidth.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblWidth.Location = new System.Drawing.Point(478, 66);
             this.lblWidth.Name = "lblWidth";
-            this.lblWidth.Size = new System.Drawing.Size(74, 13);
+            this.lblWidth.Size = new System.Drawing.Size(111, 21);
             this.lblWidth.TabIndex = 6;
             this.lblWidth.Text = "عرض خروجی:";
             // 
             // txtSyncId
             // 
             this.txtSyncId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSyncId.Location = new System.Drawing.Point(482, 42);
-            this.txtSyncId.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSyncId.Location = new System.Drawing.Point(723, 63);
             this.txtSyncId.Name = "txtSyncId";
             this.txtSyncId.ReadOnly = true;
-            this.txtSyncId.Size = new System.Drawing.Size(68, 21);
+            this.txtSyncId.Size = new System.Drawing.Size(100, 27);
             this.txtSyncId.TabIndex = 5;
             // 
             // lblSync
             // 
             this.lblSync.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSync.AutoSize = true;
-            this.lblSync.Location = new System.Drawing.Point(553, 43);
-            this.lblSync.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSync.Location = new System.Drawing.Point(830, 64);
             this.lblSync.Name = "lblSync";
-            this.lblSync.Size = new System.Drawing.Size(57, 13);
+            this.lblSync.Size = new System.Drawing.Size(88, 21);
             this.lblSync.TabIndex = 4;
             this.lblSync.Text = "کد خوانش:";
             // 
             // txtPoemId
             // 
             this.txtPoemId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPoemId.Location = new System.Drawing.Point(621, 41);
-            this.txtPoemId.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPoemId.Location = new System.Drawing.Point(932, 62);
             this.txtPoemId.Name = "txtPoemId";
             this.txtPoemId.ReadOnly = true;
-            this.txtPoemId.Size = new System.Drawing.Size(68, 21);
+            this.txtPoemId.Size = new System.Drawing.Size(100, 27);
             this.txtPoemId.TabIndex = 3;
             // 
             // btnSelPoem
             // 
-            this.btnSelPoem.Location = new System.Drawing.Point(5, 15);
-            this.btnSelPoem.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSelPoem.Location = new System.Drawing.Point(8, 22);
             this.btnSelPoem.Name = "btnSelPoem";
-            this.btnSelPoem.Size = new System.Drawing.Size(30, 24);
+            this.btnSelPoem.Size = new System.Drawing.Size(45, 36);
             this.btnSelPoem.TabIndex = 2;
             this.btnSelPoem.Text = "...";
             this.btnSelPoem.UseVisualStyleBackColor = true;
@@ -353,22 +334,20 @@
             // 
             this.txtPoem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPoem.Location = new System.Drawing.Point(39, 16);
-            this.txtPoem.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPoem.Location = new System.Drawing.Point(58, 24);
             this.txtPoem.Name = "txtPoem";
             this.txtPoem.ReadOnly = true;
             this.txtPoem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtPoem.Size = new System.Drawing.Size(705, 21);
+            this.txtPoem.Size = new System.Drawing.Size(1056, 27);
             this.txtPoem.TabIndex = 1;
             // 
             // lblPoem
             // 
             this.lblPoem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPoem.AutoSize = true;
-            this.lblPoem.Location = new System.Drawing.Point(691, 42);
-            this.lblPoem.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPoem.Location = new System.Drawing.Point(1036, 63);
             this.lblPoem.Name = "lblPoem";
-            this.lblPoem.Size = new System.Drawing.Size(47, 13);
+            this.lblPoem.Size = new System.Drawing.Size(70, 21);
             this.lblPoem.TabIndex = 0;
             this.lblPoem.Text = "کد شعر:";
             // 
@@ -423,21 +402,18 @@
             this.grpVerses.Controls.Add(this.lblBackgroundImage);
             this.grpVerses.Controls.Add(this.chkAudioBound);
             this.grpVerses.Controls.Add(this.cmbVerses);
-            this.grpVerses.Location = new System.Drawing.Point(5, 167);
-            this.grpVerses.Margin = new System.Windows.Forms.Padding(2);
+            this.grpVerses.Location = new System.Drawing.Point(8, 250);
             this.grpVerses.Name = "grpVerses";
-            this.grpVerses.Padding = new System.Windows.Forms.Padding(2);
-            this.grpVerses.Size = new System.Drawing.Size(798, 367);
+            this.grpVerses.Size = new System.Drawing.Size(1197, 550);
             this.grpVerses.TabIndex = 2;
             this.grpVerses.TabStop = false;
             this.grpVerses.Text = "قابها:";
             // 
             // btnIncreaseFontSize
             // 
-            this.btnIncreaseFontSize.Location = new System.Drawing.Point(62, 91);
-            this.btnIncreaseFontSize.Margin = new System.Windows.Forms.Padding(2);
+            this.btnIncreaseFontSize.Location = new System.Drawing.Point(93, 136);
             this.btnIncreaseFontSize.Name = "btnIncreaseFontSize";
-            this.btnIncreaseFontSize.Size = new System.Drawing.Size(25, 24);
+            this.btnIncreaseFontSize.Size = new System.Drawing.Size(38, 36);
             this.btnIncreaseFontSize.TabIndex = 67;
             this.btnIncreaseFontSize.Text = "+";
             this.btnIncreaseFontSize.UseVisualStyleBackColor = true;
@@ -445,10 +421,9 @@
             // 
             // btnDecreaseFontSize
             // 
-            this.btnDecreaseFontSize.Location = new System.Drawing.Point(36, 91);
-            this.btnDecreaseFontSize.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDecreaseFontSize.Location = new System.Drawing.Point(54, 136);
             this.btnDecreaseFontSize.Name = "btnDecreaseFontSize";
-            this.btnDecreaseFontSize.Size = new System.Drawing.Size(25, 24);
+            this.btnDecreaseFontSize.Size = new System.Drawing.Size(38, 36);
             this.btnDecreaseFontSize.TabIndex = 66;
             this.btnDecreaseFontSize.Text = "-";
             this.btnDecreaseFontSize.UseVisualStyleBackColor = true;
@@ -456,10 +431,9 @@
             // 
             // btnVideoTools
             // 
-            this.btnVideoTools.Location = new System.Drawing.Point(69, 13);
-            this.btnVideoTools.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVideoTools.Location = new System.Drawing.Point(104, 20);
             this.btnVideoTools.Name = "btnVideoTools";
-            this.btnVideoTools.Size = new System.Drawing.Size(25, 24);
+            this.btnVideoTools.Size = new System.Drawing.Size(38, 36);
             this.btnVideoTools.TabIndex = 65;
             this.btnVideoTools.Text = "V";
             this.btnVideoTools.UseVisualStyleBackColor = true;
@@ -467,10 +441,9 @@
             // 
             // btnEditTime
             // 
-            this.btnEditTime.Location = new System.Drawing.Point(144, 13);
-            this.btnEditTime.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEditTime.Location = new System.Drawing.Point(216, 20);
             this.btnEditTime.Name = "btnEditTime";
-            this.btnEditTime.Size = new System.Drawing.Size(25, 24);
+            this.btnEditTime.Size = new System.Drawing.Size(38, 36);
             this.btnEditTime.TabIndex = 64;
             this.btnEditTime.Text = "S";
             this.btnEditTime.UseVisualStyleBackColor = true;
@@ -479,10 +452,9 @@
             // btnCopyTo
             // 
             this.btnCopyTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCopyTo.Location = new System.Drawing.Point(251, 338);
-            this.btnCopyTo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCopyTo.Location = new System.Drawing.Point(376, 507);
             this.btnCopyTo.Name = "btnCopyTo";
-            this.btnCopyTo.Size = new System.Drawing.Size(30, 25);
+            this.btnCopyTo.Size = new System.Drawing.Size(45, 38);
             this.btnCopyTo.TabIndex = 63;
             this.btnCopyTo.Text = "C";
             this.btnCopyTo.UseVisualStyleBackColor = true;
@@ -490,10 +462,9 @@
             // 
             // btnAddFrame
             // 
-            this.btnAddFrame.Location = new System.Drawing.Point(119, 13);
-            this.btnAddFrame.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddFrame.Location = new System.Drawing.Point(178, 20);
             this.btnAddFrame.Name = "btnAddFrame";
-            this.btnAddFrame.Size = new System.Drawing.Size(25, 24);
+            this.btnAddFrame.Size = new System.Drawing.Size(38, 36);
             this.btnAddFrame.TabIndex = 62;
             this.btnAddFrame.Text = "+";
             this.btnAddFrame.UseVisualStyleBackColor = true;
@@ -502,12 +473,11 @@
             // trckSize
             // 
             this.trckSize.LargeChange = 15;
-            this.trckSize.Location = new System.Drawing.Point(4, 325);
-            this.trckSize.Margin = new System.Windows.Forms.Padding(2);
+            this.trckSize.Location = new System.Drawing.Point(6, 488);
             this.trckSize.Maximum = 20;
             this.trckSize.Name = "trckSize";
             this.trckSize.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.trckSize.Size = new System.Drawing.Size(200, 45);
+            this.trckSize.Size = new System.Drawing.Size(300, 69);
             this.trckSize.TabIndex = 61;
             this.trckSize.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trckSize.Value = 10;
@@ -517,10 +487,9 @@
             // btnDelImage
             // 
             this.btnDelImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelImage.Location = new System.Drawing.Point(282, 338);
-            this.btnDelImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelImage.Location = new System.Drawing.Point(423, 507);
             this.btnDelImage.Name = "btnDelImage";
-            this.btnDelImage.Size = new System.Drawing.Size(30, 25);
+            this.btnDelImage.Size = new System.Drawing.Size(45, 38);
             this.btnDelImage.TabIndex = 59;
             this.btnDelImage.Text = "-";
             this.btnDelImage.UseVisualStyleBackColor = true;
@@ -529,10 +498,9 @@
             // btnAddImage
             // 
             this.btnAddImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddImage.Location = new System.Drawing.Point(313, 338);
-            this.btnAddImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddImage.Location = new System.Drawing.Point(470, 507);
             this.btnAddImage.Name = "btnAddImage";
-            this.btnAddImage.Size = new System.Drawing.Size(30, 25);
+            this.btnAddImage.Size = new System.Drawing.Size(45, 38);
             this.btnAddImage.TabIndex = 58;
             this.btnAddImage.Text = "+";
             this.btnAddImage.UseVisualStyleBackColor = true;
@@ -542,10 +510,9 @@
             // 
             this.lblOverlayImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblOverlayImages.AutoSize = true;
-            this.lblOverlayImages.Location = new System.Drawing.Point(502, 344);
-            this.lblOverlayImages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblOverlayImages.Location = new System.Drawing.Point(753, 516);
             this.lblOverlayImages.Name = "lblOverlayImages";
-            this.lblOverlayImages.Size = new System.Drawing.Size(51, 13);
+            this.lblOverlayImages.Size = new System.Drawing.Size(77, 21);
             this.lblOverlayImages.TabIndex = 57;
             this.lblOverlayImages.Text = "لایه فعال:";
             // 
@@ -560,19 +527,17 @@
             "انتقال قاب قبل به چپ",
             "انتقال قاب قبل به بالا",
             "انتقال قاب قبل به پایین"});
-            this.cmbOverlayImages.Location = new System.Drawing.Point(345, 341);
-            this.cmbOverlayImages.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbOverlayImages.Location = new System.Drawing.Point(518, 512);
             this.cmbOverlayImages.Name = "cmbOverlayImages";
-            this.cmbOverlayImages.Size = new System.Drawing.Size(150, 21);
+            this.cmbOverlayImages.Size = new System.Drawing.Size(223, 29);
             this.cmbOverlayImages.TabIndex = 56;
             this.cmbOverlayImages.SelectedIndexChanged += new System.EventHandler(this.cmbOverlayImages_SelectedIndexChanged);
             // 
             // btnDelFrame
             // 
-            this.btnDelFrame.Location = new System.Drawing.Point(94, 13);
-            this.btnDelFrame.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelFrame.Location = new System.Drawing.Point(141, 20);
             this.btnDelFrame.Name = "btnDelFrame";
-            this.btnDelFrame.Size = new System.Drawing.Size(25, 24);
+            this.btnDelFrame.Size = new System.Drawing.Size(38, 36);
             this.btnDelFrame.TabIndex = 55;
             this.btnDelFrame.Text = "-";
             this.btnDelFrame.UseVisualStyleBackColor = true;
@@ -580,10 +545,9 @@
             // 
             // btnPairNext
             // 
-            this.btnPairNext.Location = new System.Drawing.Point(5, 39);
-            this.btnPairNext.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPairNext.Location = new System.Drawing.Point(8, 58);
             this.btnPairNext.Name = "btnPairNext";
-            this.btnPairNext.Size = new System.Drawing.Size(23, 21);
+            this.btnPairNext.Size = new System.Drawing.Size(34, 32);
             this.btnPairNext.TabIndex = 54;
             this.btnPairNext.Text = "O";
             this.btnPairNext.UseVisualStyleBackColor = true;
@@ -593,10 +557,9 @@
             // 
             this.btnBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBorderColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBorderColor.Location = new System.Drawing.Point(425, 231);
-            this.btnBorderColor.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBorderColor.Location = new System.Drawing.Point(638, 346);
             this.btnBorderColor.Name = "btnBorderColor";
-            this.btnBorderColor.Size = new System.Drawing.Size(30, 25);
+            this.btnBorderColor.Size = new System.Drawing.Size(45, 38);
             this.btnBorderColor.TabIndex = 53;
             this.btnBorderColor.UseVisualStyleBackColor = true;
             this.btnBorderColor.Click += new System.EventHandler(this.btnBorderColor_Click);
@@ -605,25 +568,23 @@
             // 
             this.lblBorderColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBorderColor.AutoSize = true;
-            this.lblBorderColor.Location = new System.Drawing.Point(469, 236);
-            this.lblBorderColor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBorderColor.Location = new System.Drawing.Point(704, 354);
             this.lblBorderColor.Name = "lblBorderColor";
-            this.lblBorderColor.Size = new System.Drawing.Size(47, 13);
+            this.lblBorderColor.Size = new System.Drawing.Size(70, 21);
             this.lblBorderColor.TabIndex = 52;
             this.lblBorderColor.Text = "رنگ مرز:";
             // 
             // txtThickness
             // 
             this.txtThickness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtThickness.Location = new System.Drawing.Point(596, 231);
-            this.txtThickness.Margin = new System.Windows.Forms.Padding(2);
+            this.txtThickness.Location = new System.Drawing.Point(894, 346);
             this.txtThickness.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.txtThickness.Name = "txtThickness";
-            this.txtThickness.Size = new System.Drawing.Size(38, 21);
+            this.txtThickness.Size = new System.Drawing.Size(57, 27);
             this.txtThickness.TabIndex = 51;
             this.txtThickness.ValueChanged += new System.EventHandler(this.txtThickness_ValueChanged);
             // 
@@ -631,22 +592,20 @@
             // 
             this.lblThickness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblThickness.AutoSize = true;
-            this.lblThickness.Location = new System.Drawing.Point(636, 233);
-            this.lblThickness.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblThickness.Location = new System.Drawing.Point(954, 350);
             this.lblThickness.Name = "lblThickness";
-            this.lblThickness.Size = new System.Drawing.Size(124, 13);
+            this.lblThickness.Size = new System.Drawing.Size(192, 21);
             this.lblThickness.TabIndex = 50;
             this.lblThickness.Text = "ضخامت مرز محیطی متن:";
             // 
             // trckHPosition
             // 
             this.trckHPosition.LargeChange = 15;
-            this.trckHPosition.Location = new System.Drawing.Point(5, 284);
-            this.trckHPosition.Margin = new System.Windows.Forms.Padding(2);
+            this.trckHPosition.Location = new System.Drawing.Point(8, 426);
             this.trckHPosition.Maximum = 20;
             this.trckHPosition.Name = "trckHPosition";
             this.trckHPosition.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.trckHPosition.Size = new System.Drawing.Size(200, 45);
+            this.trckHPosition.Size = new System.Drawing.Size(300, 69);
             this.trckHPosition.TabIndex = 48;
             this.trckHPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trckHPosition.Value = 10;
@@ -655,10 +614,9 @@
             // btnProperties
             // 
             this.btnProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnProperties.Location = new System.Drawing.Point(587, 337);
-            this.btnProperties.Margin = new System.Windows.Forms.Padding(2);
+            this.btnProperties.Location = new System.Drawing.Point(880, 506);
             this.btnProperties.Name = "btnProperties";
-            this.btnProperties.Size = new System.Drawing.Size(175, 26);
+            this.btnProperties.Size = new System.Drawing.Size(262, 39);
             this.btnProperties.TabIndex = 47;
             this.btnProperties.Text = "تنظیم دستی ویژگیهای قاب";
             this.btnProperties.UseVisualStyleBackColor = true;
@@ -666,10 +624,9 @@
             // 
             // btnRandomImage
             // 
-            this.btnRandomImage.Location = new System.Drawing.Point(62, 63);
-            this.btnRandomImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRandomImage.Location = new System.Drawing.Point(93, 94);
             this.btnRandomImage.Name = "btnRandomImage";
-            this.btnRandomImage.Size = new System.Drawing.Size(49, 25);
+            this.btnRandomImage.Size = new System.Drawing.Size(74, 38);
             this.btnRandomImage.TabIndex = 46;
             this.btnRandomImage.Text = "rnd";
             this.btnRandomImage.UseVisualStyleBackColor = true;
@@ -679,10 +636,9 @@
             // 
             this.chkShowLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowLogo.AutoSize = true;
-            this.chkShowLogo.Location = new System.Drawing.Point(646, 316);
-            this.chkShowLogo.Margin = new System.Windows.Forms.Padding(2);
+            this.chkShowLogo.Location = new System.Drawing.Point(964, 474);
             this.chkShowLogo.Name = "chkShowLogo";
-            this.chkShowLogo.Size = new System.Drawing.Size(115, 17);
+            this.chkShowLogo.Size = new System.Drawing.Size(177, 25);
             this.chkShowLogo.TabIndex = 45;
             this.chkShowLogo.Text = "نمایش لوگوی گنجور";
             this.chkShowLogo.UseVisualStyleBackColor = true;
@@ -690,10 +646,9 @@
             // 
             // btnEditText
             // 
-            this.btnEditText.Location = new System.Drawing.Point(169, 13);
-            this.btnEditText.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEditText.Location = new System.Drawing.Point(254, 20);
             this.btnEditText.Name = "btnEditText";
-            this.btnEditText.Size = new System.Drawing.Size(25, 24);
+            this.btnEditText.Size = new System.Drawing.Size(38, 36);
             this.btnEditText.TabIndex = 44;
             this.btnEditText.Text = "T";
             this.btnEditText.UseVisualStyleBackColor = true;
@@ -702,10 +657,9 @@
             // chkSlaveFrame
             // 
             this.chkSlaveFrame.AutoSize = true;
-            this.chkSlaveFrame.Location = new System.Drawing.Point(29, 41);
-            this.chkSlaveFrame.Margin = new System.Windows.Forms.Padding(2);
+            this.chkSlaveFrame.Location = new System.Drawing.Point(44, 62);
             this.chkSlaveFrame.Name = "chkSlaveFrame";
-            this.chkSlaveFrame.Size = new System.Drawing.Size(118, 17);
+            this.chkSlaveFrame.Size = new System.Drawing.Size(181, 25);
             this.chkSlaveFrame.TabIndex = 42;
             this.chkSlaveFrame.Text = "یکی با با قاب پیشین";
             this.chkSlaveFrame.UseVisualStyleBackColor = true;
@@ -713,10 +667,9 @@
             // 
             // btnResetImage
             // 
-            this.btnResetImage.Location = new System.Drawing.Point(35, 64);
-            this.btnResetImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnResetImage.Location = new System.Drawing.Point(52, 96);
             this.btnResetImage.Name = "btnResetImage";
-            this.btnResetImage.Size = new System.Drawing.Size(26, 24);
+            this.btnResetImage.Size = new System.Drawing.Size(39, 36);
             this.btnResetImage.TabIndex = 40;
             this.btnResetImage.Text = "x";
             this.btnResetImage.UseVisualStyleBackColor = true;
@@ -727,12 +680,11 @@
             this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtComment.Location = new System.Drawing.Point(275, 263);
-            this.txtComment.Margin = new System.Windows.Forms.Padding(2);
+            this.txtComment.Location = new System.Drawing.Point(412, 394);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
             this.txtComment.ReadOnly = true;
-            this.txtComment.Size = new System.Drawing.Size(489, 49);
+            this.txtComment.Size = new System.Drawing.Size(734, 74);
             this.txtComment.TabIndex = 39;
             this.txtComment.Text = resources.GetString("txtComment.Text");
             // 
@@ -741,12 +693,11 @@
             this.trckMaxTextWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trckMaxTextWidth.LargeChange = 15;
-            this.trckMaxTextWidth.Location = new System.Drawing.Point(271, 185);
-            this.trckMaxTextWidth.Margin = new System.Windows.Forms.Padding(2);
+            this.trckMaxTextWidth.Location = new System.Drawing.Point(406, 278);
             this.trckMaxTextWidth.Maximum = 255;
             this.trckMaxTextWidth.Name = "trckMaxTextWidth";
             this.trckMaxTextWidth.RightToLeftLayout = true;
-            this.trckMaxTextWidth.Size = new System.Drawing.Size(377, 45);
+            this.trckMaxTextWidth.Size = new System.Drawing.Size(566, 69);
             this.trckMaxTextWidth.TabIndex = 38;
             this.trckMaxTextWidth.TickFrequency = 15;
             this.trckMaxTextWidth.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -756,22 +707,20 @@
             // 
             this.lblMaxTextWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMaxTextWidth.AutoSize = true;
-            this.lblMaxTextWidth.Location = new System.Drawing.Point(676, 193);
-            this.lblMaxTextWidth.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMaxTextWidth.Location = new System.Drawing.Point(1014, 290);
             this.lblMaxTextWidth.Name = "lblMaxTextWidth";
-            this.lblMaxTextWidth.Size = new System.Drawing.Size(90, 13);
+            this.lblMaxTextWidth.Size = new System.Drawing.Size(136, 21);
             this.lblMaxTextWidth.TabIndex = 37;
             this.lblMaxTextWidth.Text = "حداکثر عرض متن:";
             // 
             // trckVPosition
             // 
             this.trckVPosition.LargeChange = 15;
-            this.trckVPosition.Location = new System.Drawing.Point(209, 129);
-            this.trckVPosition.Margin = new System.Windows.Forms.Padding(2);
+            this.trckVPosition.Location = new System.Drawing.Point(314, 194);
             this.trckVPosition.Maximum = 20;
             this.trckVPosition.Name = "trckVPosition";
             this.trckVPosition.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trckVPosition.Size = new System.Drawing.Size(45, 151);
+            this.trckVPosition.Size = new System.Drawing.Size(69, 226);
             this.trckVPosition.TabIndex = 36;
             this.trckVPosition.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trckVPosition.Value = 10;
@@ -779,10 +728,9 @@
             // 
             // btnPreview
             // 
-            this.btnPreview.Location = new System.Drawing.Point(1, 13);
-            this.btnPreview.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPreview.Location = new System.Drawing.Point(2, 20);
             this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(68, 24);
+            this.btnPreview.Size = new System.Drawing.Size(102, 36);
             this.btnPreview.TabIndex = 34;
             this.btnPreview.Text = "پیش‌نمایش";
             this.btnPreview.UseVisualStyleBackColor = true;
@@ -791,10 +739,9 @@
             // pbxPreview
             // 
             this.pbxPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxPreview.Location = new System.Drawing.Point(5, 130);
-            this.pbxPreview.Margin = new System.Windows.Forms.Padding(2);
+            this.pbxPreview.Location = new System.Drawing.Point(8, 195);
             this.pbxPreview.Name = "pbxPreview";
-            this.pbxPreview.Size = new System.Drawing.Size(201, 151);
+            this.pbxPreview.Size = new System.Drawing.Size(300, 226);
             this.pbxPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxPreview.TabIndex = 33;
             this.pbxPreview.TabStop = false;
@@ -804,20 +751,18 @@
             // 
             this.txtFont.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFont.Location = new System.Drawing.Point(91, 91);
-            this.txtFont.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFont.Location = new System.Drawing.Point(136, 136);
             this.txtFont.Name = "txtFont";
             this.txtFont.ReadOnly = true;
             this.txtFont.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtFont.Size = new System.Drawing.Size(597, 21);
+            this.txtFont.Size = new System.Drawing.Size(894, 27);
             this.txtFont.TabIndex = 32;
             // 
             // btnSelectFont
             // 
-            this.btnSelectFont.Location = new System.Drawing.Point(5, 91);
-            this.btnSelectFont.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSelectFont.Location = new System.Drawing.Point(8, 136);
             this.btnSelectFont.Name = "btnSelectFont";
-            this.btnSelectFont.Size = new System.Drawing.Size(30, 25);
+            this.btnSelectFont.Size = new System.Drawing.Size(45, 38);
             this.btnSelectFont.TabIndex = 31;
             this.btnSelectFont.Text = "...";
             this.btnSelectFont.UseVisualStyleBackColor = true;
@@ -827,10 +772,9 @@
             // 
             this.lblFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFont.AutoSize = true;
-            this.lblFont.Location = new System.Drawing.Point(739, 94);
-            this.lblFont.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFont.Location = new System.Drawing.Point(1108, 141);
             this.lblFont.Name = "lblFont";
-            this.lblFont.Size = new System.Drawing.Size(28, 13);
+            this.lblFont.Size = new System.Drawing.Size(41, 21);
             this.lblFont.TabIndex = 29;
             this.lblFont.Text = "قلم:";
             // 
@@ -839,12 +783,11 @@
             this.trckAlpha.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trckAlpha.LargeChange = 15;
-            this.trckAlpha.Location = new System.Drawing.Point(271, 149);
-            this.trckAlpha.Margin = new System.Windows.Forms.Padding(2);
+            this.trckAlpha.Location = new System.Drawing.Point(406, 224);
             this.trckAlpha.Maximum = 255;
             this.trckAlpha.Name = "trckAlpha";
             this.trckAlpha.RightToLeftLayout = true;
-            this.trckAlpha.Size = new System.Drawing.Size(377, 45);
+            this.trckAlpha.Size = new System.Drawing.Size(566, 69);
             this.trckAlpha.TabIndex = 28;
             this.trckAlpha.TickFrequency = 15;
             this.trckAlpha.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -854,10 +797,9 @@
             // 
             this.lblTextBackAlpha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTextBackAlpha.AutoSize = true;
-            this.lblTextBackAlpha.Location = new System.Drawing.Point(645, 159);
-            this.lblTextBackAlpha.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTextBackAlpha.Location = new System.Drawing.Point(968, 238);
             this.lblTextBackAlpha.Name = "lblTextBackAlpha";
-            this.lblTextBackAlpha.Size = new System.Drawing.Size(119, 13);
+            this.lblTextBackAlpha.Size = new System.Drawing.Size(183, 21);
             this.lblTextBackAlpha.TabIndex = 27;
             this.lblTextBackAlpha.Text = "شفافیت رنگ زمینه متن:";
             // 
@@ -865,10 +807,9 @@
             // 
             this.lblTextBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTextBackColor.AutoSize = true;
-            this.lblTextBackColor.Location = new System.Drawing.Point(457, 118);
-            this.lblTextBackColor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTextBackColor.Location = new System.Drawing.Point(686, 177);
             this.lblTextBackColor.Name = "lblTextBackColor";
-            this.lblTextBackColor.Size = new System.Drawing.Size(77, 13);
+            this.lblTextBackColor.Size = new System.Drawing.Size(118, 21);
             this.lblTextBackColor.TabIndex = 25;
             this.lblTextBackColor.Text = "رنگ زمینه متن:";
             // 
@@ -876,10 +817,9 @@
             // 
             this.btnTextColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnTextColor.Location = new System.Drawing.Point(564, 113);
-            this.btnTextColor.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTextColor.Location = new System.Drawing.Point(846, 170);
             this.btnTextColor.Name = "btnTextColor";
-            this.btnTextColor.Size = new System.Drawing.Size(30, 27);
+            this.btnTextColor.Size = new System.Drawing.Size(45, 40);
             this.btnTextColor.TabIndex = 26;
             this.btnTextColor.UseVisualStyleBackColor = true;
             this.btnTextColor.Click += new System.EventHandler(this.btnTextColor_Click);
@@ -888,10 +828,9 @@
             // 
             this.lblTextColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTextColor.AutoSize = true;
-            this.lblTextColor.Location = new System.Drawing.Point(601, 118);
-            this.lblTextColor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTextColor.Location = new System.Drawing.Point(902, 177);
             this.lblTextColor.Name = "lblTextColor";
-            this.lblTextColor.Size = new System.Drawing.Size(50, 13);
+            this.lblTextColor.Size = new System.Drawing.Size(76, 21);
             this.lblTextColor.TabIndex = 23;
             this.lblTextColor.Text = "رنگ متن:";
             // 
@@ -899,10 +838,9 @@
             // 
             this.btnTextBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextBackColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnTextBackColor.Location = new System.Drawing.Point(425, 113);
-            this.btnTextBackColor.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTextBackColor.Location = new System.Drawing.Point(638, 170);
             this.btnTextBackColor.Name = "btnTextBackColor";
-            this.btnTextBackColor.Size = new System.Drawing.Size(28, 27);
+            this.btnTextBackColor.Size = new System.Drawing.Size(42, 40);
             this.btnTextBackColor.TabIndex = 24;
             this.btnTextBackColor.UseVisualStyleBackColor = true;
             this.btnTextBackColor.Click += new System.EventHandler(this.btnTextBackColor_Click);
@@ -911,10 +849,9 @@
             // 
             this.btnBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBackColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBackColor.Location = new System.Drawing.Point(654, 113);
-            this.btnBackColor.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBackColor.Location = new System.Drawing.Point(981, 170);
             this.btnBackColor.Name = "btnBackColor";
-            this.btnBackColor.Size = new System.Drawing.Size(33, 27);
+            this.btnBackColor.Size = new System.Drawing.Size(50, 40);
             this.btnBackColor.TabIndex = 22;
             this.btnBackColor.UseVisualStyleBackColor = true;
             this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
@@ -923,19 +860,17 @@
             // 
             this.lblBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBackColor.AutoSize = true;
-            this.lblBackColor.Location = new System.Drawing.Point(710, 118);
-            this.lblBackColor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBackColor.Location = new System.Drawing.Point(1065, 177);
             this.lblBackColor.Name = "lblBackColor";
-            this.lblBackColor.Size = new System.Drawing.Size(56, 13);
+            this.lblBackColor.Size = new System.Drawing.Size(85, 21);
             this.lblBackColor.TabIndex = 21;
             this.lblBackColor.Text = "رنگ زمینه:";
             // 
             // btnSelBackgroundImage
             // 
-            this.btnSelBackgroundImage.Location = new System.Drawing.Point(5, 64);
-            this.btnSelBackgroundImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSelBackgroundImage.Location = new System.Drawing.Point(8, 96);
             this.btnSelBackgroundImage.Name = "btnSelBackgroundImage";
-            this.btnSelBackgroundImage.Size = new System.Drawing.Size(30, 24);
+            this.btnSelBackgroundImage.Size = new System.Drawing.Size(45, 36);
             this.btnSelBackgroundImage.TabIndex = 8;
             this.btnSelBackgroundImage.Text = "...";
             this.btnSelBackgroundImage.UseVisualStyleBackColor = true;
@@ -945,22 +880,20 @@
             // 
             this.txtBackgroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBackgroundImage.Location = new System.Drawing.Point(115, 65);
-            this.txtBackgroundImage.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBackgroundImage.Location = new System.Drawing.Point(172, 98);
             this.txtBackgroundImage.Name = "txtBackgroundImage";
             this.txtBackgroundImage.ReadOnly = true;
             this.txtBackgroundImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtBackgroundImage.Size = new System.Drawing.Size(573, 21);
+            this.txtBackgroundImage.Size = new System.Drawing.Size(858, 27);
             this.txtBackgroundImage.TabIndex = 7;
             // 
             // lblBackgroundImage
             // 
             this.lblBackgroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBackgroundImage.AutoSize = true;
-            this.lblBackgroundImage.Location = new System.Drawing.Point(703, 67);
-            this.lblBackgroundImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBackgroundImage.Location = new System.Drawing.Point(1054, 100);
             this.lblBackgroundImage.Name = "lblBackgroundImage";
-            this.lblBackgroundImage.Size = new System.Drawing.Size(63, 13);
+            this.lblBackgroundImage.Size = new System.Drawing.Size(96, 21);
             this.lblBackgroundImage.TabIndex = 6;
             this.lblBackgroundImage.Text = "تصویر زمینه:";
             // 
@@ -968,10 +901,9 @@
             // 
             this.chkAudioBound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAudioBound.AutoSize = true;
-            this.chkAudioBound.Location = new System.Drawing.Point(665, 39);
-            this.chkAudioBound.Margin = new System.Windows.Forms.Padding(2);
+            this.chkAudioBound.Location = new System.Drawing.Point(995, 58);
             this.chkAudioBound.Name = "chkAudioBound";
-            this.chkAudioBound.Size = new System.Drawing.Size(99, 17);
+            this.chkAudioBound.Size = new System.Drawing.Size(151, 25);
             this.chkAudioBound.TabIndex = 1;
             this.chkAudioBound.Text = "مربوط به خوانش";
             this.chkAudioBound.UseVisualStyleBackColor = true;
@@ -983,10 +915,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbVerses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVerses.FormattingEnabled = true;
-            this.cmbVerses.Location = new System.Drawing.Point(196, 13);
-            this.cmbVerses.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbVerses.Location = new System.Drawing.Point(294, 23);
             this.cmbVerses.Name = "cmbVerses";
-            this.cmbVerses.Size = new System.Drawing.Size(570, 21);
+            this.cmbVerses.Size = new System.Drawing.Size(853, 29);
             this.cmbVerses.TabIndex = 0;
             this.cmbVerses.SelectedIndexChanged += new System.EventHandler(this.cmbVerses_SelectedIndexChanged);
             // 
@@ -997,32 +928,31 @@
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.prgrss,
             this.lblStatus});
-            this.statusStripMain.Location = new System.Drawing.Point(0, 574);
+            this.statusStripMain.Location = new System.Drawing.Point(0, 865);
             this.statusStripMain.Name = "statusStripMain";
-            this.statusStripMain.Padding = new System.Windows.Forms.Padding(9, 0, 1, 0);
-            this.statusStripMain.Size = new System.Drawing.Size(807, 22);
+            this.statusStripMain.Padding = new System.Windows.Forms.Padding(14, 0, 2, 0);
+            this.statusStripMain.Size = new System.Drawing.Size(1210, 29);
             this.statusStripMain.SizingGrip = false;
             this.statusStripMain.TabIndex = 3;
             // 
             // prgrss
             // 
             this.prgrss.Name = "prgrss";
-            this.prgrss.Size = new System.Drawing.Size(67, 16);
+            this.prgrss.Size = new System.Drawing.Size(100, 21);
             // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(728, 17);
+            this.lblStatus.Size = new System.Drawing.Size(1090, 22);
             this.lblStatus.Spring = true;
             this.lblStatus.Text = "آماده";
             // 
             // btnProduce
             // 
             this.btnProduce.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnProduce.Location = new System.Drawing.Point(5, 534);
-            this.btnProduce.Margin = new System.Windows.Forms.Padding(2);
+            this.btnProduce.Location = new System.Drawing.Point(8, 801);
             this.btnProduce.Name = "btnProduce";
-            this.btnProduce.Size = new System.Drawing.Size(122, 29);
+            this.btnProduce.Size = new System.Drawing.Size(183, 44);
             this.btnProduce.TabIndex = 12;
             this.btnProduce.Text = "تولید خروجی";
             this.btnProduce.UseVisualStyleBackColor = true;
@@ -1031,10 +961,9 @@
             // btnSubtitle
             // 
             this.btnSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSubtitle.Location = new System.Drawing.Point(132, 534);
-            this.btnSubtitle.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSubtitle.Location = new System.Drawing.Point(198, 801);
             this.btnSubtitle.Name = "btnSubtitle";
-            this.btnSubtitle.Size = new System.Drawing.Size(109, 29);
+            this.btnSubtitle.Size = new System.Drawing.Size(164, 44);
             this.btnSubtitle.TabIndex = 14;
             this.btnSubtitle.Text = "تولید زیرنویس";
             this.btnSubtitle.UseVisualStyleBackColor = true;
@@ -1051,10 +980,9 @@
             "انتقال قاب قبل به چپ",
             "انتقال قاب قبل به بالا",
             "انتقال قاب قبل به پایین"});
-            this.cmbTransitionEffect.Location = new System.Drawing.Point(467, 538);
-            this.cmbTransitionEffect.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbTransitionEffect.Location = new System.Drawing.Point(700, 807);
             this.cmbTransitionEffect.Name = "cmbTransitionEffect";
-            this.cmbTransitionEffect.Size = new System.Drawing.Size(201, 21);
+            this.cmbTransitionEffect.Size = new System.Drawing.Size(300, 29);
             this.cmbTransitionEffect.TabIndex = 47;
             this.cmbTransitionEffect.SelectedIndexChanged += new System.EventHandler(this.cmbTransitionEffect_SelectedIndexChanged);
             // 
@@ -1062,10 +990,9 @@
             // 
             this.lblTransitionEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTransitionEffect.AutoSize = true;
-            this.lblTransitionEffect.Location = new System.Drawing.Point(245, 540);
-            this.lblTransitionEffect.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTransitionEffect.Location = new System.Drawing.Point(367, 810);
             this.lblTransitionEffect.Name = "lblTransitionEffect";
-            this.lblTransitionEffect.Size = new System.Drawing.Size(213, 13);
+            this.lblTransitionEffect.Size = new System.Drawing.Size(333, 21);
             this.lblTransitionEffect.TabIndex = 53;
             this.lblTransitionEffect.Text = "پویانمایی انتقال بین قابها (فقط خروجی mp4):";
             // 
@@ -1073,10 +1000,9 @@
             // 
             this.chkAAC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkAAC.AutoSize = true;
-            this.chkAAC.Location = new System.Drawing.Point(671, 539);
-            this.chkAAC.Margin = new System.Windows.Forms.Padding(2);
+            this.chkAAC.Location = new System.Drawing.Point(1006, 809);
             this.chkAAC.Name = "chkAAC";
-            this.chkAAC.Size = new System.Drawing.Size(74, 17);
+            this.chkAAC.Size = new System.Drawing.Size(108, 25);
             this.chkAAC.TabIndex = 54;
             this.chkAAC.Text = "صدای aac";
             this.chkAAC.UseVisualStyleBackColor = true;
@@ -1086,10 +1012,9 @@
             // 
             this.chkDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkDebug.AutoSize = true;
-            this.chkDebug.Location = new System.Drawing.Point(758, 540);
-            this.chkDebug.Margin = new System.Windows.Forms.Padding(2);
+            this.chkDebug.Location = new System.Drawing.Point(1137, 811);
             this.chkDebug.Name = "chkDebug";
-            this.chkDebug.Size = new System.Drawing.Size(44, 17);
+            this.chkDebug.Size = new System.Drawing.Size(63, 25);
             this.chkDebug.TabIndex = 55;
             this.chkDebug.Text = "dbg";
             this.chkDebug.UseVisualStyleBackColor = true;
@@ -1097,9 +1022,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(807, 596);
+            this.ClientSize = new System.Drawing.Size(1210, 894);
             this.Controls.Add(this.chkDebug);
             this.Controls.Add(this.chkAAC);
             this.Controls.Add(this.lblTransitionEffect);
@@ -1112,7 +1037,6 @@
             this.Controls.Add(this.grpPoem);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;

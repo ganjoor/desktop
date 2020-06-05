@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,15 +9,11 @@ using gsync2vid.Properties;
 using System.IO;
 using Splicer.Timeline;
 using Splicer.Renderer;
-using Splicer.WindowsMedia;
 using NAudio.Wave;
 using System.Net;
 using System.Reflection;
 using System.Diagnostics;
 using ganjoor.Utilities;
-using System.Drawing.Drawing2D;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Security;
 
 namespace gsync2vid
 {
@@ -37,7 +31,7 @@ namespace gsync2vid
             UpdatePoemAndAudioInfo();
         }
 
-        #region Vide Background
+        #region Video Background
         private string _VideoBackgroundPath = "";
         #endregion
 
