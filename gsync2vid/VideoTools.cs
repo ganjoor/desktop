@@ -59,6 +59,7 @@ namespace gsync2vid
             using(OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "MP4 Files (*.mp4)|*.mp4";
+                dlg.Multiselect = true;
                 if(dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     foreach(string file in dlg.FileNames)
