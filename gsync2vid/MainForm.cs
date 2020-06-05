@@ -18,6 +18,8 @@ using System.Reflection;
 using System.Diagnostics;
 using ganjoor.Utilities;
 using System.Drawing.Drawing2D;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 namespace gsync2vid
 {
@@ -1702,6 +1704,9 @@ namespace gsync2vid
                 {
                     int nIdx = -1;
 
+
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
                     for (int i = 0; i < cmbVerses.Items.Count; i++)
                     {
                         GVideoFrame frame = cmbVerses.Items[i] as GVideoFrame;
@@ -1746,7 +1751,7 @@ namespace gsync2vid
             }
         }
 
-
+        
         private void cmbTransitionEffect_SelectedIndexChanged(object sender, EventArgs e)
         {
             Settings.Default.TransitionType = cmbTransitionEffect.SelectedIndex;
