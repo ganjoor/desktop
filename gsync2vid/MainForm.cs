@@ -14,6 +14,7 @@ using System.Net;
 using System.Reflection;
 using System.Diagnostics;
 using ganjoor.Utilities;
+using System.Threading;
 
 namespace gsync2vid
 {
@@ -1729,6 +1730,7 @@ namespace gsync2vid
                                 }
                                 cmbVerses.SelectedIndex = i;
                                 Application.DoEvents();
+                                Thread.Sleep(2000); //unsplash brings repeated images often
                             }
 
                         }
