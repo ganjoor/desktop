@@ -101,6 +101,7 @@
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.mnu2verseSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -598,6 +599,7 @@
             this.mnuImport,
             this.mnuExport,
             this.mnuSplit,
+            this.mnu2verseSplit,
             this.btnGDBListEditor});
             this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -707,6 +709,13 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
+            // mnu2verseSplit
+            // 
+            this.mnu2verseSplit.Name = "mnu2verseSplit";
+            this.mnu2verseSplit.Size = new System.Drawing.Size(271, 22);
+            this.mnu2verseSplit.Text = "شکستن شعر به شعرهای دوبیتی";
+            this.mnu2verseSplit.Click += new System.EventHandler(this.Mnu2verseSplit_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -806,5 +815,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuImport;
         private System.Windows.Forms.ToolStripMenuItem mnuSplit;
         private System.Windows.Forms.ToolStripMenuItem mnuExport;
+        private System.Windows.Forms.ToolStripMenuItem mnu2verseSplit;
     }
 }
