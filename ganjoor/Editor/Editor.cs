@@ -1100,7 +1100,7 @@ namespace ganjoor
                 
                 int nNextId = -1;
 
-                string msg = $"از «{verses[linePosition]} به شعر جدید شکسته شود؟»";
+                string msg = $"از «{verses[linePosition]}» به شعر جدید شکسته شود؟";
                 if (MessageBox.Show(msg, "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     GanjoorPoem newPoem = dbBrowser.CreateNewPoem("", nCatId);
