@@ -55,5 +55,11 @@ namespace ganjoor
             _Text = Text;
         }
         #endregion
+        #region Overrides
+        public override string ToString()
+        {
+            return _Text;
+        }
+        #endregion
     }
 }

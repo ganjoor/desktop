@@ -2453,7 +2453,7 @@ namespace ganjoor
             return true;
 
         }
-        private int GetCurrentLine()
+        public int GetCurrentLine()
         {
             int LinePosition = 0;
             int catsTop = 0;
