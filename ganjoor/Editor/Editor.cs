@@ -1094,7 +1094,6 @@ namespace ganjoor
                 }
                 DbBrowser dbBrowser = new DbBrowser();
                 List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
-                //int nPoemStartVerseIndex = 0;
 
                 int nCatId = ganjoorView.CurrentCatId;
                 
@@ -1115,7 +1114,9 @@ namespace ganjoor
 
                     dbBrowser.DeleteVerses(nPoemId, deletingVOrders);
 
-                   
+                    nNextId = nNewPoemId;
+
+
 
                     //Reorder poems so that the new one falls after current one
 
