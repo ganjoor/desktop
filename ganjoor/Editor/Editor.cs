@@ -1088,21 +1088,22 @@ namespace ganjoor
                 int linePosition = ganjoorView.GetCurrentLine();
                 DbBrowser dbBrowser = new DbBrowser();
                 List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
-                if(verses[linePosition]._Position != VersePosition.Paragraph)
+                int verseIndex = 0;
+                for(int i=0; i<verses.Count; i++)
                 {
-                    linePosition -= 2;
+                    if(verses[i]._Order == linePosition)
+                    {
+                        verseIndex = i;
+                        break;
+                    }
                 }
-                else
-                {
-                    linePosition--;
-                }
+
+                if (verses[verseIndex]._Position == VersePosition.Left || verses[verseIndex]._Position == VersePosition.CenteredVerse2)
+                    if (verseIndex > 0)
+                        verseIndex--;
+               
                  
-                if(linePosition < 0)
-                {
-                    MessageBox.Show("linePosition < 0");
-                    dbBrowser.CloseDb();
-                    return;
-                }
+              
                 
                
 
@@ -1110,15 +1111,15 @@ namespace ganjoor
                 
                 int nNextId = -1;
 
-                string msg = $"از «{verses[linePosition]}» به شعر جدید شکسته شود؟";
+                string msg = $"از «{verses[verseIndex]}» به شعر جدید شکسته شود؟";
                 if (MessageBox.Show(msg, "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     GanjoorPoem newPoem = dbBrowser.CreateNewPoem("", nCatId);
                     int nNewPoemId = newPoem._ID;
                     List<int> deletingVOrders = new List<int>();
-                    for (int i = linePosition; i < verses.Count; i++)
+                    for (int i = verseIndex; i < verses.Count; i++)
                     {
-                        GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i - linePosition, verses[i]._Position);
+                        GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i - verseIndex, verses[i]._Position);
                         dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[i]._Text);
                         deletingVOrders.Add(verses[i]._Order);
                     }
