@@ -1086,14 +1086,25 @@ namespace ganjoor
             #endregion
             {
                 int linePosition = ganjoorView.GetCurrentLine();
-                linePosition -= 2;
+                DbBrowser dbBrowser = new DbBrowser();
+                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+                if(verses[linePosition]._Position != VersePosition.Paragraph)
+                {
+                    linePosition -= 2;
+                }
+                else
+                {
+                    linePosition--;
+                }
+                 
                 if(linePosition < 0)
                 {
                     MessageBox.Show("linePosition < 0");
+                    dbBrowser.CloseDb();
                     return;
                 }
-                DbBrowser dbBrowser = new DbBrowser();
-                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+                
+               
 
                 int nCatId = ganjoorView.CurrentCatId;
                 
