@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Reflection;
 using System.IO;
@@ -19,6 +17,7 @@ namespace ganjoor
         /// </summary>
         /// <param name="FileName"></param>
         /// <param name="poemAudio"></param>
+        /// <param name="oldVersion"></param>
         /// <returns></returns>
         public static bool Save(string FileName, PoemAudio poemAudio, bool oldVersion)
         {
@@ -32,6 +31,7 @@ namespace ganjoor
         /// </summary>
         /// <param name="FileName"></param>
         /// <param name="List"></param>
+        /// <param name="oldVersion"></param>
         /// <returns></returns>
         public static bool Save(string FileName, List<PoemAudio> List, bool oldVersion)
         {
