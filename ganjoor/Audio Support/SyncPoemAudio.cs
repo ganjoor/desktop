@@ -29,14 +29,64 @@ namespace ganjoor
             _Saved = false;
             _SyncOrder = -1;
             _LastSearchText = "";
+            _Modifying = false;
+            _PoemVerses = _DbBrowser.GetVerses(poemAudio.PoemId).ToArray();
             if (poemAudio.SyncArray != null)
             { 
-                _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);  
+                _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);
+
+                if(_VerseMilisecPositions.Count > 0 && 
+                    _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder != (_PoemVerses[_PoemVerses.Length - 1]._Order - 1)
+                    )
+                {
+                    if (MessageBox.Show("آیا تمایل دارید همگامسازی را از آخرین نقطهٔ همگام شده ادامه دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                    {
+
+                        if (!_PoemAudioPlayer.BeginPlayback(_PoemAudio))
+                        {
+                            MessageBox.Show("خطایی در پخش فایل صوتی رخ داد. لطفا چک کنید فایل در مسیر تعیین شده قرار داشته باشد.");                            
+                        }
+                        else
+                        {
+                            _Modifying = true;
+
+                            btnPlayPause.Text = "توقف";
+                            btnPlayPause.Image = Properties.Resources.pause;
+                            timer.Start();
+                            trackBar.Maximum = _PoemAudioPlayer.TotalTimeInMiliseconds;
+
+
+                            _PoemAudioPlayer.PositionInMiliseconds = _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].AudioMiliseconds;                            
+                            _TrackbarValueSetting = true;
+                            trackBar.Value = _PoemAudioPlayer.PositionInMiliseconds;
+                            _TrackbarValueSetting = false;
+                            trackBar.Enabled = true;
+                            btnPlayPause_Click(null, null);
+
+
+
+                            _SyncOrder = _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder;
+
+                            if (_SyncOrder >= 0 && _SyncOrder < _PoemVerses.Length)
+                            {
+                                if (_SyncOrder < _PoemVerses.Length - 1)
+                                    lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text;
+                                else
+                                    lblNextVerse.Text = "این مصرع آخر است.";
+
+                                lblVerse.Text = _PoemVerses[_VerseMilisecPositions[_SyncOrder].VerseOrder]._Text;
+                            }
+
+                        }
+                    }
+                   
+                }
+
             }
             else
                 _VerseMilisecPositions = new List<PoemAudio.SyncInfo>();
 
-            _PoemVerses = _DbBrowser.GetVerses(poemAudio.PoemId).ToArray();
+           
 
             EnableButtons();
 
@@ -45,7 +95,7 @@ namespace ganjoor
         private void EnableButtons()
         {
             btnSave.Enabled = _Modified;
-            btnPreVerse.Enabled = btnTrack.Enabled = btnNextVerse.Enabled = btnPlayPause.Enabled = btnStartFromHere.Enabled = btnStopHere.Enabled = btnSearchText.Enabled = _VerseMilisecPositions.Count == 0;
+            btnPreVerse.Enabled = btnTrack.Enabled = btnNextVerse.Enabled = btnPlayPause.Enabled = btnStartFromHere.Enabled = btnStopHere.Enabled = btnSearchText.Enabled = _Modifying || _VerseMilisecPositions.Count == 0;
             btnTest.Enabled = btnReset.Enabled = !btnNextVerse.Enabled;
         }
 
@@ -54,6 +104,7 @@ namespace ganjoor
         private List<PoemAudio.SyncInfo> _VerseMilisecPositions;
         private bool _Modified;
         private bool _Saved;
+        private bool _Modifying;
         private string _LastSearchText;
 
         /// <summary>
@@ -353,7 +404,8 @@ namespace ganjoor
 
             _SyncOrder = -1;
 
-            
+
+            _Modifying = false;
             EnableButtons();
 
             _TrackbarValueSetting = true;
@@ -500,7 +552,7 @@ namespace ganjoor
                     else
                         lblNextVerse.Text = "این مصرع آخر است.";
 
-                    _Modified = true;
+                    _Modified = true;                    
                     EnableButtons();                    
                 }
         }
