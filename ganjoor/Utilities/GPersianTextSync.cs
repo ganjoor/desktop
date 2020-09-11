@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ganjoor
 {
+    /// <summary>
+    /// Persian specific text utility class
+    /// </summary>
     public class GPersianTextSync
     {
+        /// <summary>
+        /// convert arabic characters to persian equivalents
+        /// </summary>
+        /// <param name="inputStr"></param>
+        /// <returns></returns>
         public static string Sync(string inputStr)
         {
             return
@@ -26,6 +32,9 @@ namespace ganjoor
                     .Replace("9", "۹");
         }
 
+        /// <summary>
+        /// list of persian letters
+        /// </summary>
         public static string PersianLetters
         {
             get
@@ -34,16 +43,24 @@ namespace ganjoor
             }
         }
 
+        /// <summary>
+        /// convert persian text to simple pinglish
+        /// </summary>
+        /// <param name="inputStr"></param>
+        /// <returns></returns>
         public static string Farglisize(string inputStr)
         {
             string outStr = "";
             string s;
-            foreach(char c in inputStr)
-                if(_PinglishDic.TryGetValue(c, out s))
+            foreach (char c in inputStr)
+                if (_PinglishDic.TryGetValue(c, out s))
                     outStr += s;
             return outStr;
         }
 
+        /// <summary>
+        /// equaivalnet for persian characters
+        /// </summary>
         private static Dictionary<char, string> _PinglishDic = new Dictionary<char, string>()
         {
             {'ا', "a"},
