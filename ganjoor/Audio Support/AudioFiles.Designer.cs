@@ -46,6 +46,7 @@
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSynced = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnUpload = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -65,7 +66,8 @@
             this.btnImport,
             this.btnExport,
             this.sep2,
-            this.btnDownload});
+            this.btnDownload,
+            this.btnUpload});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
             this.tlbr.Size = new System.Drawing.Size(697, 25);
@@ -222,6 +224,17 @@
             this.clmnSynced.ReadOnly = true;
             this.clmnSynced.Width = 50;
             // 
+            // btnUpload
+            // 
+            this.btnUpload.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnUpload.Image = global::ganjoor.Properties.Resources.up;
+            this.btnUpload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(106, 22);
+            this.btnUpload.Text = "ارسال به سایت";
+            this.btnUpload.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            // 
             // AudioFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -268,5 +281,6 @@
         private System.Windows.Forms.ToolStripSeparator sep2;
         private System.Windows.Forms.ToolStripButton btnDownload;
         private System.Windows.Forms.ToolStripButton btnFixExport;
+        private System.Windows.Forms.ToolStripButton btnUpload;
     }
 }

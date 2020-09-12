@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
-
+using ganjoor.Audio_Support;
 
 namespace ganjoor
 {
@@ -375,12 +375,20 @@ namespace ganjoor
             Cursor.Current = Cursors.Default;
         }
 
-
-
-
-
-
-
-
+        private void btnUpload_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            {
+                using (GLogin gLogin = new GLogin())
+                    if(gLogin.ShowDialog(this) != DialogResult.OK)
+                    {
+                        return;
+                    }
+            }
+            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            {
+                return;
+            }
+        }
     }
 }

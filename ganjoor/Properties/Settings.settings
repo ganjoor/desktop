@@ -194,5 +194,8 @@
     <Setting Name="ExportPoetSep" Type="System.String" Scope="User">
       <Value Profile="(Default)">***</Value>
     </Setting>
+    <Setting Name="MuseumToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
