@@ -197,5 +197,8 @@
     <Setting Name="MuseumToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="GanjoorServiceUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:3439</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

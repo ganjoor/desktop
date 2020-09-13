@@ -8,6 +8,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using ganjoor.Audio_Support;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.IO;
+using System.Net;
 
 namespace ganjoor
 {
@@ -375,9 +379,21 @@ namespace ganjoor
             Cursor.Current = Cursors.Default;
         }
 
-        private void btnUpload_Click(object sender, EventArgs e)
+        private async void btnUpload_ClickAsync(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            if (grdList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("لطفاً ابتدا فایل معادل اطلاعات همگام‌سازی را اضافه کرده، آن را انتخاب کنید.");
+                return;
+            }
+
+            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            if (!poemAudio.IsSynced)
+            {
+                MessageBox.Show("لطفا ابتدا خوانش را همگام کنید.");
+                return;
+            }
+            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
             {
                 using (GLogin gLogin = new GLogin())
                     if(gLogin.ShowDialog(this) != DialogResult.OK)
@@ -389,6 +405,39 @@ namespace ganjoor
             {
                 return;
             }
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+
+                MultipartFormDataContent form = new MultipartFormDataContent();
+
+                string xmlTempPath = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
+
+                PoemAudioListProcessor.Save(xmlTempPath, poemAudio, false);
+                byte[] xmlFileContent = File.ReadAllBytes(xmlTempPath);
+                File.Delete(xmlTempPath);
+                form.Add(new ByteArrayContent(xmlFileContent, 0, xmlFileContent.Length), $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.xml", $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.xml");
+
+                byte[] mp3FileContent = File.ReadAllBytes(poemAudio.FilePath);
+                form.Add(new ByteArrayContent(mp3FileContent, 0, mp3FileContent.Length), Path.GetFileName(poemAudio.FilePath), Path.GetFileName(poemAudio.FilePath));
+
+                HttpResponseMessage response = await httpClient.PostAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio", form);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    Cursor = Cursors.Default;
+                    MessageBox.Show(response.ToString());
+                    return;
+                }
+
+                response.EnsureSuccessStatusCode();
+            }
+
+
+            Cursor = Cursors.Default;
         }
     }
 }

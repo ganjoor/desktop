@@ -42,22 +42,26 @@ namespace ganjoor.Audio_Support
                 ClientAppName = "Desktop Ganjoor",
                 Language = "fa-IR"
             };
-            HttpClient httpClient = new HttpClient();
-            var stringContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("https://ganjgah.ir/api/users/login", stringContent);
-            if (response.StatusCode != HttpStatusCode.OK)
+
+            using (HttpClient httpClient = new HttpClient())
             {
-                Cursor = Cursors.Default;
-                MessageBox.Show(response.ToString());
-                return;
+                var stringContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+                var loginUrl = $"{Properties.Settings.Default.GanjoorServiceUrl}/api/users/login";
+                var response = await httpClient.PostAsync(loginUrl, stringContent);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    Cursor = Cursors.Default;
+                    MessageBox.Show(response.ToString());
+                    return;
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = JObject.Parse(await response.Content.ReadAsStringAsync());
+                Properties.Settings.Default.MuseumToken = result["token"].ToString();
+                Properties.Settings.Default.Save();
             }
-            response.EnsureSuccessStatusCode();
-
-
-            var result = JObject.Parse(await response.Content.ReadAsStringAsync());
            
-            Properties.Settings.Default.MuseumToken = result["token"].ToString();
-            Properties.Settings.Default.Save();
+           
             Cursor = Cursors.Default;
             DialogResult = DialogResult.OK;
 

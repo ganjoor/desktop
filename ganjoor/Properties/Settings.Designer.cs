@@ -783,5 +783,17 @@ namespace ganjoor.Properties {
                 this["MuseumToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:3439")]
+        public string GanjoorServiceUrl {
+            get {
+                return ((string)(this["GanjoorServiceUrl"]));
+            }
+            set {
+                this["GanjoorServiceUrl"] = value;
+            }
+        }
     }
 }

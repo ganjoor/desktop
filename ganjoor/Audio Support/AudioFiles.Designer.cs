@@ -233,7 +233,7 @@
             this.btnUpload.Size = new System.Drawing.Size(106, 22);
             this.btnUpload.Text = "ارسال به سایت";
             this.btnUpload.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_ClickAsync);
             // 
             // AudioFiles
             // 
