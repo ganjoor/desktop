@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.IO;
 using System.Net;
+using NReco.VideoConverter;
 
 namespace ganjoor
 {
@@ -424,6 +425,14 @@ namespace ganjoor
 
                 byte[] mp3FileContent = File.ReadAllBytes(poemAudio.FilePath);
                 form.Add(new ByteArrayContent(mp3FileContent, 0, mp3FileContent.Length), Path.GetFileName(poemAudio.FilePath), Path.GetFileName(poemAudio.FilePath));
+
+                //here we should produce and save ogg file
+                var ffMpeg = new FFMpegConverter();
+                string oggFile = Path.Combine(Path.GetDirectoryName(poemAudio.FilePath), $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.ogg");
+                ffMpeg.ConvertMedia(poemAudio.FilePath, oggFile, Format.ogg);
+
+                byte[] oggFileContent = File.ReadAllBytes(oggFile);
+                form.Add(new ByteArrayContent(oggFileContent, 0, oggFileContent.Length), Path.GetFileName(oggFile), Path.GetFileName(oggFile));
 
                 HttpResponseMessage response = await httpClient.PostAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio", form);
                 if (response.StatusCode != HttpStatusCode.OK)
