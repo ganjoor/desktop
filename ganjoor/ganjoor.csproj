@@ -117,6 +117,12 @@
       <DependentUpon>GLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Audio Support\LoginViewModel.cs" />
+    <Compile Include="Audio Support\UploadedNarrations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Audio Support\UploadedNarrations.Designer.cs">
+      <DependentUpon>UploadedNarrations.cs</DependentUpon>
+    </Compile>
     <Compile Include="DownloadWizard\Audio\DownloadableAudioListProcessor.cs" />
     <Compile Include="DownloadWizard\GDB\GDBDownloadWizard.cs">
       <SubType>Form</SubType>
@@ -400,6 +406,9 @@
     </Compile>
     <EmbeddedResource Include="Audio Support\GLogin.resx">
       <DependentUpon>GLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Audio Support\UploadedNarrations.resx">
+      <DependentUpon>UploadedNarrations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\GeneralTextImporter.resx">
       <DependentUpon>GeneralTextImporter.cs</DependentUpon>
