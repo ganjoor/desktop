@@ -401,6 +401,9 @@ namespace ganjoor
                 return;
             }
 
+            if (MessageBox.Show("آیا از ارسال خوانش انتخاب شده به سایت اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+                return;
+
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
@@ -431,8 +434,12 @@ namespace ganjoor
                 response.EnsureSuccessStatusCode();
             }
 
-
             Cursor = Cursors.Default;
+
+            MessageBox.Show("ارسال به سایت به درستی انجام شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
+
+            
         }
     }
 }
