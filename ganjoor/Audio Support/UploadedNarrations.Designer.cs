@@ -30,11 +30,16 @@
         {
             this.pnl = new System.Windows.Forms.Panel();
             this.grd = new System.Windows.Forms.DataGridView();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grd)).BeginInit();
             this.SuspendLayout();
             // 
             // pnl
             // 
+            this.pnl.Controls.Add(this.cmbStatus);
+            this.pnl.Controls.Add(this.lblStatus);
             this.pnl.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl.Location = new System.Drawing.Point(0, 0);
             this.pnl.Name = "pnl";
@@ -43,6 +48,9 @@
             // 
             // grd
             // 
+            this.grd.AllowUserToAddRows = false;
+            this.grd.AllowUserToDeleteRows = false;
+            this.grd.AllowUserToResizeRows = false;
             this.grd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grd.Location = new System.Drawing.Point(0, 33);
@@ -51,6 +59,33 @@
             this.grd.RowTemplate.Height = 28;
             this.grd.Size = new System.Drawing.Size(867, 447);
             this.grd.TabIndex = 1;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(794, 6);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(63, 19);
+            this.lblStatus.TabIndex = 0;
+            this.lblStatus.Text = "وضعیت:";
+            // 
+            // cmbStatus
+            // 
+            this.cmbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Items.AddRange(new object[] {
+            "همه",
+            "پیش‌نویس",
+            "در انتظار بررسی",
+            "تأیید شده",
+            "رد شده"});
+            this.cmbStatus.Location = new System.Drawing.Point(448, 3);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(340, 27);
+            this.cmbStatus.TabIndex = 1;
+            this.cmbStatus.SelectedIndexChanged += new System.EventHandler(this.cmbStatus_SelectedIndexChanged);
             // 
             // UploadedNarrations
             // 
@@ -69,6 +104,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "خوانشهای بارگذاری شده";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.UploadedNarrations_LoadAsync);
+            this.pnl.ResumeLayout(false);
+            this.pnl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grd)).EndInit();
             this.ResumeLayout(false);
 
@@ -78,5 +116,7 @@
 
         private System.Windows.Forms.Panel pnl;
         private System.Windows.Forms.DataGridView grd;
+        private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.Label lblStatus;
     }
 }

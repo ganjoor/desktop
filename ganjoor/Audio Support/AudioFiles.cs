@@ -441,5 +441,26 @@ namespace ganjoor
 
             
         }
+
+        private void btnMyUploadedNarrations_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            {
+                using (GLogin gLogin = new GLogin())
+                    if (gLogin.ShowDialog(this) != DialogResult.OK)
+                    {
+                        return;
+                    }
+            }
+            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            {
+                return;
+            }
+
+            using (UploadedNarrations uploadedNarrations = new UploadedNarrations())
+            {
+                uploadedNarrations.ShowDialog(this);
+            }
+        }
     }
 }
