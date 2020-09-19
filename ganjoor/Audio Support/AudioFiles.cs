@@ -80,19 +80,20 @@ namespace ganjoor
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "MP3 Files (*.mp3)|*.mp3|WAV Files (*.wav)|*.wav|All Files (*.*)|*.*";
+                openFileDialog.Filter = "MP3 Files (*.mp3)|*.mp3|All Files (*.*)|*.*";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string strDesc = "فایل صوتی " + _DbBrowser.GetPoem(_PoemId)._Title;
+                    string strDesc = _DbBrowser.GetPoem(_PoemId)._Title;
                     if (grdList.Rows.Count > 0)
                         strDesc += (" (" + (grdList.Rows.Count + 1).ToString() + ")");
                     using (ItemEditor itemEditor = new ItemEditor(EditItemType.General, "شرح فایل", "شرح فایل"))
                     {
                         itemEditor.ItemName = strDesc;
-                        if(itemEditor.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                        if (itemEditor.ShowDialog(this) == DialogResult.Cancel)
                         {
-                            strDesc = itemEditor.ItemName;
+                            return;
                         }
+                        strDesc = itemEditor.ItemName;
                     }
                     PoemAudio newAudio = _DbBrowser.AddAudio(_PoemId, openFileDialog.FileName, strDesc);
                     if (newAudio != null)
