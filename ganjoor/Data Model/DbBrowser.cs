@@ -642,7 +642,7 @@ namespace ganjoor
             {
                 DataTable tbl = new DataTable();
                 {
-                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id FROM fav GROUP BY poem_id ORDER BY pos LIMIT " + PageStart.ToString() + "," + Count.ToString(), _con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id FROM fav GROUP BY poem_id ORDER BY pos DESC LIMIT " + PageStart.ToString() + "," + Count.ToString(), _con))
                     {
                         da.Fill(tbl);
                     }
