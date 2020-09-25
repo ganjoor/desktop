@@ -153,7 +153,7 @@ namespace ganjoor
         {
             if (_con != null)
             {
-                _con.Close();
+                _con.Dispose();
                 _con = null;
             }
         }
@@ -1308,7 +1308,6 @@ namespace ganjoor
                     }
                 }
 
-                newConnection.Close();
                 newConnection.Dispose();
             }
 
@@ -1377,7 +1376,6 @@ namespace ganjoor
                     }
                 }
 
-                newConnection.Close();
                 newConnection.Dispose();
             }
 
