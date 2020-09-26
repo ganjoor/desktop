@@ -120,18 +120,34 @@
   <metadata name="tlbr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnMyUploadedNarrations.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAADOSURBVDhPpY6/CoJQFMbPI9RLBL1eq7RUBEFL0RBIi+Am
+        TmF/IFrM65K2RK4HRK2lSShBbufGfYGjP/gOfMP34wAMfQHGGRtFbTtTP+8vQ9lb8KI2XdrCwHvg+5XJ
+        NONFbQzawjhAlA2Zixxh1EIwExnChI7ubP4frFoIzLBA2JBFdzbWlQSWKBoL7OiJYNMburNxYhI4UXOB
+        eyOBSxbd2WyVQB3d2XhKoI7ubE53EhziNK+rUlYfXupvKY+0hfUuEZ5I0L3w4gUJmvtE/AAVM55RRA9+
+        pgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnUpload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAHPSURBVDhPpY7fS1NhHMbfq7ytfyIJBoFBda0XkhjeREMI
+        IS/swquJoKBplAaFRLMwcyYy24VTT2R5+uHqiG07C7edwy7aqYz4LnfONlEp/DHm2Z7enXZnE6YPPIf3
+        eTjPhy9jN/0y65HoSC5uT971G2eGQzjtrMzFzSm+ZR1inLYyOtb0ylzc9PAtuxMkwhE1JBvEbh8DcE/W
+        iQ3wTylXLOuCx8cAuEIpYs84pZTLSt9MwbUyh17fMCbCL2BspK3eHUkTc8upQwFLP8Ooed4C21QzmsVe
+        VLvtuOBpRTQZg6BmiHn4GaV/Dyj5O4OL3hac915Cf6jP6to+OnhuQMP8DYxJGrHZaHnAy+8CWhevYCjc
+        D+HbJLKmiaexEStf912FMzCTYIKSLgvwfnFiLu5AvmCiUPjX5fljP2/iYaQdHuWRzl6r5QHBXwsY9J/F
+        yEotXn3t5hcA46oDo+E6DAbOYTo6n2DiIYCd3DYefL6MzvcnMB5pxC4H3PpUj67FKoypdiwoROydsmbk
+        czvIZQ/azO5B39IwGbPjftCGJ5EmDPhtcMeuYfPPDywp6wYbfaPJoqyREPi/RZlIUnVaXvUlpNWJ5HL8
+        Q0JSyepdbzX5L7BmYxhyxlcrAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="lblDesc.Text" xml:space="preserve">
     <value>برای هر شعر می‌توانید چند فایل صوتی را به عنوان خوانش آن اضافه کنید. لطفاً توجه داشته باشید که فایلهای انتخاب شده از روی کامپیوتر خودتان به جایی کپی نمی‌شوند و در صورت حذف یا نقل مکان از مسیر اولیه قابل پخش نخواهند بود. فایلی که در ردیف اول قرار می‌گیرد خوانش اصلی محسوب می‌شود.</value>
   </data>
-  <metadata name="clmnDesc.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clmnPath.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clmnSynced.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="clmnDesc.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
