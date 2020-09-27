@@ -1609,19 +1609,36 @@ namespace gsync2vid
                 }
                 dlg.Filter =
                     Settings.Default.VidDefExt == ".wmv" ?
-                    "WMV Files (*.wmv)|*.wmv|MP4 Files (*.mp4)|*.mp4"
+                    "WMV Files (*.wmv)|*.wmv|MP4 Files (*.mp4)|*.mp4|PowerPoint Presentation (*.pptx)|*.pptx"
                     :
-                    "MP4 Files (*.mp4)|*.mp4|WMV Files (*.wmv)|*.wmv";
+                    "MP4 Files (*.mp4)|*.mp4|WMV Files (*.wmv)|*.wmv|PowerPoint Presentation (*.pptx)|*.pptx";
                 dlg.DefaultExt = Settings.Default.VidDefExt;
                 dlg.FileName = txtPoemId.Text;
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Default.VidDefExt = Path.GetExtension(dlg.FileName).ToLower();
-                    Settings.Default.Save();
-                    InitiateRendering(dlg.FileName, Settings.Default.AudioId == 0);
+                    string ext = Path.GetExtension(dlg.FileName).ToLower();
+                    if(ext != ".pptx")
+                    {
+                        Settings.Default.VidDefExt = ext;
+                        Settings.Default.Save();
+                        InitiateRendering(dlg.FileName, Settings.Default.AudioId == 0);
+                    }
+                    else
+                    {
+                        CreatePresentation(dlg.FileName);
+                    }
+                   
                 }
             }
         }
+
+
+        private void CreatePresentation(string filePath)
+        {
+            new PowerPointGenerator().CreatePresentation(filePath, cmbVerses);
+        }
+
+
 
         private void btnSubtitle_Click(object sender, EventArgs e)
         {
@@ -3370,5 +3387,7 @@ namespace gsync2vid
         }
 
         #endregion
+
+        
     }
 }
