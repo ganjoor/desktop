@@ -1635,7 +1635,12 @@ namespace gsync2vid
 
         private void CreatePresentation(string filePath)
         {
-            new PowerPointGenerator().CreatePresentation(filePath, cmbVerses);
+            List<GVideoFrame> frames = new List<GVideoFrame>();
+            foreach(var item in cmbVerses.Items)
+            {
+                frames.Add(item as GVideoFrame);
+            }
+            new PowerPointGenerator().CreatePresentation(filePath, frames.ToArray());
         }
 
 
