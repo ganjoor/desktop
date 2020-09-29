@@ -23,8 +23,7 @@ namespace gsync2vid
             int i = 0;
             foreach (GVideoFrame frame in frames)
             {
-                InsertNewSlide(presentationDoc, i, frame);
-                i++;
+                i += InsertNewSlide(presentationDoc, i, frame);
             }
 
 
@@ -35,8 +34,10 @@ namespace gsync2vid
         }
 
         // Insert the specified slide into the presentation at the specified position.
-        public static void InsertNewSlide(PresentationDocument presentationDocument, int position, GVideoFrame frame)
+        public static int InsertNewSlide(PresentationDocument presentationDocument, int position, GVideoFrame frame)
         {
+            //if (frame.MasterFrame != null)
+            //    return 0;
             if (presentationDocument == null)
             {
                 throw new ArgumentNullException("presentationDocument");
@@ -83,8 +84,8 @@ namespace gsync2vid
             {
                 Transform2D = new A.Transform2D()
                 {
-                    Offset = new A.Offset() { X = 1835696L, Y = 1036712L },
-                    Extents = new A.Extents() { Cx = 5334617, Cy = 1025963 }
+                    Offset = new A.Offset() { X = 1335696L, Y = 3036712L },
+                    Extents = new A.Extents() { Cx = 6334617, Cy = 1025963 }
 
                 }
             };
@@ -96,20 +97,30 @@ namespace gsync2vid
 
             // Specify the text of the title shape.
             A.Run run = new A.Run();
-            A.RunProperties runProperties = new A.RunProperties() { Language = "fa-IR", FontSize = 6000, Dirty = false };//Set Font-Size to 60px.
-            A.SolidFill solidFill1 = new A.SolidFill();
-            A.RgbColorModelHex rgbColorModelHex1 = new A.RgbColorModelHex() { Val = "00B050" };//Set Font-Color to Green (Hex "00B050").
-            solidFill1.Append(rgbColorModelHex1);
-            runProperties.Append(solidFill1);
+            A.RunProperties runProperties = new A.RunProperties() { Language = "fa-IR", FontSize = (int)(frame.Font.Size * 100), Dirty = false };//Set Font-Size to 60px.
+            A.LatinFont latinFont10 = new A.LatinFont() { Typeface = frame.Font.Name, Panose = "02040503050201020203", PitchFamily = 18, CharacterSet = -78 };
+            A.ComplexScriptFont complexScriptFont10 = new A.ComplexScriptFont() { Typeface = frame.Font.Name, Panose = "02040503050201020203", PitchFamily = 18, CharacterSet = -78 };
+
 
             A.Text text = new A.Text() { Text = frame.Text };
 
+            
             run.Append(runProperties);
+
+            A.Paragraph paragraph1 = new A.Paragraph();
+            A.ParagraphProperties paragraphProperties1 = new A.ParagraphProperties() { Alignment = A.TextAlignmentTypeValues.Center };
+
+            
             run.Append(text);
+
+            runProperties.Append(latinFont10);
+            runProperties.Append(complexScriptFont10);
+            paragraph1.Append(paragraphProperties1);
+            paragraph1.Append(run);
 
             titleShape.TextBody = new P.TextBody(new A.BodyProperties(),
                     new A.ListStyle(),
-                    new A.Paragraph(run));
+                    paragraph1);
 
            
             // Declare and instantiate the body shape of the new slide.
@@ -185,6 +196,8 @@ namespace gsync2vid
 
             // Save the modified presentation.
             presentationPart.Presentation.Save();
+
+            return 1;
         }
 
 
