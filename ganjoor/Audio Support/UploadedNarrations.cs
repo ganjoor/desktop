@@ -25,7 +25,8 @@ namespace ganjoor.Audio_Support
                 Cursor = Cursors.WaitCursor;
                 Application.DoEvents();
 
-                HttpResponseMessage response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio?status={cmbStatus.SelectedIndex - 1}");
+                //HttpResponseMessage response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio?status={cmbStatus.SelectedIndex - 1}");
+                HttpResponseMessage response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/uploads");
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     Cursor = Cursors.Default;
