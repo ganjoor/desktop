@@ -138,6 +138,12 @@
       <DependentUpon>GLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Audio Support\LoginViewModel.cs" />
+    <Compile Include="Audio Support\NarrationProfiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Audio Support\NarrationProfiles.Designer.cs">
+      <DependentUpon>NarrationProfiles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Audio Support\UploadedNarrations.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -427,6 +433,9 @@
     </Compile>
     <EmbeddedResource Include="Audio Support\GLogin.resx">
       <DependentUpon>GLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Audio Support\NarrationProfiles.resx">
+      <DependentUpon>NarrationProfiles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Audio Support\UploadedNarrations.resx">
       <DependentUpon>UploadedNarrations.cs</DependentUpon>

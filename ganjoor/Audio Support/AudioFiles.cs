@@ -463,5 +463,26 @@ namespace ganjoor
                 uploadedNarrations.ShowDialog(this);
             }
         }
+
+        private void btnProfiles_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            {
+                using (GLogin gLogin = new GLogin())
+                    if (gLogin.ShowDialog(this) != DialogResult.OK)
+                    {
+                        return;
+                    }
+            }
+            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            {
+                return;
+            }
+
+            using (NarrationProfiles dlg = new NarrationProfiles())
+            {
+                dlg.ShowDialog(this);
+            }
+        }
     }
 }
