@@ -47,5 +47,16 @@ namespace ganjoor.Audio_Support
         {
             await LoadProfiles();
         }
+
+        private async void btnAdd_Click(object sender, EventArgs e)
+        {
+            using(NarrationProfile dlg = new NarrationProfile())
+            {
+                if(dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    await LoadProfiles();
+                }
+            }
+        }
     }
 }

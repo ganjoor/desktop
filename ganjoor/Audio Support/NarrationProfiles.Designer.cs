@@ -80,6 +80,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(80, 22);
             this.btnAdd.Text = "نمایهٔ جدید";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // NarrationProfiles
             // 

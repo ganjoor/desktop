@@ -117,31 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblMsg.Text" xml:space="preserve">
-    <value>نمایه‌های خوانش به شما کمک می‌کنند اطلاعاتی مانند نام خوانشگر و نشانی وب‌سایت او را یک جا وارد کنید و به طور خودکار در خوانشهای بارگذاری شده استفاده شود. توجه فرمایید که در هنگام پردازش خوانش به نمایهٔ پیش‌فرض مراجعه می‌شود و تعیین نمایهٔ پیش‌فرض بلافاصله روی خوانشهای در حال پردازش تأثیر می‌گذارد.</value>
-  </data>
-  <metadata name="tlbr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnAdd.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANBSURBVDhPfZJtSJN7GMafDofkEJwvfelD1PmQzT3Psrmn
-        ZZ0kKCEJj71QWSZ6Dhm5uaZTl5pl0yB1GlpTxsplp3MSneLbVhsqbpWys9l8ma2mj5UtbSmbknWKwLWr
-        h7EPgdEPbvjf3Nd9ccH9J74lK4bcJOaTt7IEFCPik+PirVSBgiB+Co9/jJRPktk09UZGk8jfsQUyIQUp
-        TUEsoDRhyQ9ZlUNHmXJjOLhfmQvNqUPI3xYFeSwP2dsoSARUQlj3feRCcp1cyPvQVSrCO5cBjKkBNUf2
-        oiCWQj5rIqW57WHp98mK4W68I0v5uOjswOzgP5gfasbLXjUaTh9gk3BxliZn86Oj14TlK5Fu2bS+NjXx
-        /Zy9CdN99aHyPtLAdOUM8gQcSGOilkWc3zhh+UrOxXIjZTvpz259DV7cr8KUvhLTxir0lJ+GjB8J0eYN
-        qE49kcjYmF8BrLxKHk3GpXEi0Xk5Ex5jBZ7pLoBpv4i+inSU7BJCW1GCKqNm7kKfyqt62DRqGxkqZozG
-        iPA6QUhoniiNy4Ekjg+79ixc/+bAdTcPU21K3NFrEWfIBr/lT5w0lYC8m4K41kwYHP1Gq9X6S8ggPTqy
-        9a9oEmVb9wWHcmXLk10leGVQYsJpwu57Emxv3Q+F7RKbHjhjzmX7RMR3Z8E6OnSOkEQJ19b/ftj/355C
-        zOyuBpOpCDwzFsNjUqJt5AYyzCm46lCgg/kbnwMB3BhXh/q03mTohnUjxOSuUqU36RrmktV4k6bB62PX
-        MJGpCHqKagPN9nJ0TMnxJRhAMBgKwL6DWP4SQO2wBLrR668JT9JVz9uMm/Cdb8bClU4sVuqxcKkb/yt6
-        MTDagnKbAOrHe2GYLGITANox9qc64lE2SMM80e0gPMmqCa9YC1+xDotKPd7V9WCp0YL36n74H4yh1nkY
-        8t4IaIf/wCfWoHQgAYV9EagbPo6nbncO8SKlJmn6qMrnK2zBYhVrUM8a3H6ApZv9+KAywzNmQ8OTk6gY
-        5EHtOIiyRzw0OtPh9jg7XC7X6tAVmNTr6+cLmsT+8s7mhWrj44X6nuf+up5pf2XX2FJZd5vP7q4Zn7fY
-        B543vnR5zdaZmRmZxWL5mSAI4ivyXv8dsfZ11wAAAABJRU5ErkJggg==
-</value>
+  <data name="lblSuffix.Text" xml:space="preserve">
+    <value>نام فایلها روی سرور ترکیبی از شناسهٔ شعر و این پسوند خواهد بود. می‌توانید حروف ابتدایی نام و نام خانوادگیتان را به انگلیسی وارد کنید. در هنگام بروز تداخل اعدادی به انتهای این پسوند اضافه می‌شود. در کل زیاد نگران آن نباشید!</value>
   </data>
 </root>
