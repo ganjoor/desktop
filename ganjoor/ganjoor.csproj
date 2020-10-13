@@ -156,6 +156,7 @@
     <Compile Include="Audio Support\UploadedNarrations.Designer.cs">
       <DependentUpon>UploadedNarrations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Audio Support\UserNarrationProfileViewModel.cs" />
     <Compile Include="DownloadWizard\Audio\DownloadableAudioListProcessor.cs" />
     <Compile Include="DownloadWizard\GDB\GDBDownloadWizard.cs">
       <SubType>Form</SubType>

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace ganjoor
 {
@@ -443,9 +444,37 @@ namespace ganjoor
             
         }
 
-        private void btnMyUploadedNarrations_Click(object sender, EventArgs e)
+        private async Task<bool> TokenIsValid()
         {
             if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+                return false;
+            using (HttpClient httpClient = new HttpClient())
+            {
+
+
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+
+                HttpResponseMessage response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/profile");
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    Cursor = Cursors.Default;
+                    return false;
+                }
+
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+        }
+
+        private async void btnMyUploadedNarrations_Click(object sender, EventArgs e)
+        {
+            bool valid = await TokenIsValid();
+            if (!valid)
             {
                 using (GLogin gLogin = new GLogin())
                     if (gLogin.ShowDialog(this) != DialogResult.OK)
@@ -464,9 +493,10 @@ namespace ganjoor
             }
         }
 
-        private void btnProfiles_Click(object sender, EventArgs e)
+        private async void btnProfiles_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            bool valid = await TokenIsValid();
+            if (!valid)
             {
                 using (GLogin gLogin = new GLogin())
                     if (gLogin.ShowDialog(this) != DialogResult.OK)
