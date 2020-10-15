@@ -97,6 +97,7 @@
             this.grd.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grd.Size = new System.Drawing.Size(800, 352);
             this.grd.TabIndex = 12;
+            this.grd.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grd_CellContentDoubleClick);
             // 
             // btnDelete
             // 

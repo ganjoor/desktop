@@ -60,9 +60,9 @@ namespace ganjoor.Audio_Support
             }
         }
 
-        private async void btnUpdate_Click(object sender, EventArgs e)
+        private async Task UpdateProfile()
         {
-            if(grd.SelectedRows.Count != 1)
+            if (grd.SelectedRows.Count != 1)
             {
                 MessageBox.Show("لطفا ردیفی را انتخاب کنید.");
                 return;
@@ -74,6 +74,10 @@ namespace ganjoor.Audio_Support
                     await LoadProfiles();
                 }
             }
+        }
+        private async void btnUpdate_Click(object sender, EventArgs e)
+        {
+            await UpdateProfile();
         }
 
         private async void btnDelete_Click(object sender, EventArgs e)
@@ -107,6 +111,11 @@ namespace ganjoor.Audio_Support
 
                 await LoadProfiles();
             }
+        }
+
+        private async void grd_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            await UpdateProfile();
         }
     }
 }
