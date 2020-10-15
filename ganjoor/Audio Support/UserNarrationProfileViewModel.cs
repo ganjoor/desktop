@@ -1,11 +1,21 @@
-﻿namespace ganjoor.Audio_Support
+﻿using System;
+
+namespace ganjoor.Audio_Support
 {
     /// <summary>
     /// UserNarrationProfile View Model
     /// </summary>
     public class UserNarrationProfileViewModel
     {
-               /// <summary>
+        /// <summary>
+        /// Id
+        /// </summary>
+        /// <remarks>
+        /// Do not fill it in POST api
+        /// </remarks>
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// this would be appended to audio files names prefixed by a dash to make them unique and specfic to user
         /// filenames usually would look like {GanjoorPostId}-{FileSuffixWithoutDash}.{ext}
         /// for example 2200-hrm.xml

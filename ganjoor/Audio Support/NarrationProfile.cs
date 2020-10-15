@@ -68,6 +68,39 @@ namespace ganjoor.Audio_Support
                 }
                 Cursor = Cursors.Default;
             }
+            else
+            {
+                _editingRecord.ArtistName = txtName.Text;
+                _editingRecord.FileSuffixWithoutDash = txtFileSuffixWithoutDash.Text;
+                _editingRecord.ArtistUrl = txtAudioArtistUrl.Text;
+                _editingRecord.AudioSrc = txtAudioSrc.Text;
+                _editingRecord.AudioSrcUrl = txtAudioArtistUrl.Text;
+                _editingRecord.IsDefault = chkDefault.Checked;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                    Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+
+                    HttpResponseMessage response = await httpClient.PutAsync
+                        (
+                        $"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/profile",
+                        _editingRecord,
+                        new JsonMediaTypeFormatter()
+                        );
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(response.ToString());
+                        DialogResult = DialogResult.None;
+                        return;
+                    }
+
+                }
+                Cursor = Cursors.Default;
+            }
 
 
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -56,6 +57,55 @@ namespace ganjoor.Audio_Support
                 {
                     await LoadProfiles();
                 }
+            }
+        }
+
+        private async void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if(grd.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("لطفا ردیفی را انتخاب کنید.");
+                return;
+            }
+            using (NarrationProfile dlg = new NarrationProfile((grd.SelectedRows[0].DataBoundItem as JObject).ToObject<UserNarrationProfileViewModel>()))
+            {
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    await LoadProfiles();
+                }
+            }
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (grd.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("لطفا ردیفی را انتخاب کنید.");
+                return;
+            }
+
+            if(MessageBox.Show($"آیا از حذف نمایهٔ انتخاب شده ({(grd.SelectedRows[0].DataBoundItem as JObject).ToObject<UserNarrationProfileViewModel>().ArtistName}) اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.Yes)
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                    Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+
+                    HttpResponseMessage response = await httpClient.DeleteAsync(
+                        $"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/profile/{(grd.SelectedRows[0].DataBoundItem as JObject).ToObject<UserNarrationProfileViewModel>().Id}"
+                        );
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(response.ToString());
+                        return;
+                    }
+                }
+                Cursor = Cursors.Default;
+
+                await LoadProfiles();
             }
         }
     }
