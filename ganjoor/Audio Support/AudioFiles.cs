@@ -84,7 +84,7 @@ namespace ganjoor
                 openFileDialog.Filter = "MP3 Files (*.mp3)|*.mp3|All Files (*.*)|*.*";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string strDesc = _DbBrowser.GetPoem(_PoemId)._Title;
+                    string strDesc = "فایل صوتی " + _DbBrowser.GetPoem(_PoemId)._Title;
                     if (grdList.Rows.Count > 0)
                         strDesc += (" (" + (grdList.Rows.Count + 1).ToString() + ")");
                     using (ItemEditor itemEditor = new ItemEditor(EditItemType.General, "شرح فایل", "شرح فایل"))
