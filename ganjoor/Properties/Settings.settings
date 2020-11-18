@@ -200,5 +200,8 @@
     <Setting Name="GanjoorServiceUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://localhost:3439</Value>
     </Setting>
+    <Setting Name="LastSearchType" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

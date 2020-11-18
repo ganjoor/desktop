@@ -47,6 +47,11 @@ namespace ganjoor
         /// </summary>
         #endregion
         #region Constructors
+
+        public GanjoorVerse()
+        {
+            
+        }
         public GanjoorVerse(int PoemID, int Order, VersePosition Position, string Text)
         {
             _PoemID = PoemID;

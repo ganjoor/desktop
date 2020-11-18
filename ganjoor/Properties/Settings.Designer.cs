@@ -795,5 +795,17 @@ namespace ganjoor.Properties {
                 this["GanjoorServiceUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LastSearchType {
+            get {
+                return ((int)(this["LastSearchType"]));
+            }
+            set {
+                this["LastSearchType"] = value;
+            }
+        }
     }
 }

@@ -41,9 +41,9 @@ namespace ganjoor
                 this.WindowState = FormWindowState.Maximized;
             else
                 if (Settings.Default.WindowSize.Width != 0)
-                {
-                    this.Bounds = new Rectangle(Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
-                }
+            {
+                this.Bounds = new Rectangle(Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
+            }
             ApplyUserSettings();
 
         }
@@ -54,7 +54,7 @@ namespace ganjoor
         {
             ganjoorView.CenteredView = (GanjoorViewMode)(Settings.Default.ViewMode) == GanjoorViewMode.Centered;
             ganjoorView.Font = Settings.Default.ViewFont;
-            btnViewInSite.Visible = Settings.Default.BrowseButtonVisible;            
+            btnViewInSite.Visible = Settings.Default.BrowseButtonVisible;
             btnComments.Visible = Settings.Default.CommentsButtonVisible;
             sepWeb.Visible = btnViewInSite.Visible || btnComments.Visible;
             btnCopy.Visible = Settings.Default.CopyButtonVisible;
@@ -70,7 +70,7 @@ namespace ganjoor
             processTextChanged = true;
             ganjoorView.ApplyUISettings();
             ganjoorView.Invalidate();
-           
+
         }
         #endregion
 
@@ -92,7 +92,7 @@ namespace ganjoor
             ganjoorView.StopPlayBack();
 
         }
-#endregion
+        #endregion
 
         #region Button/Menu Commands
 
@@ -103,7 +103,7 @@ namespace ganjoor
 
         private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string HighlightedText, object preItem, object nextItem)
         {
-            lblCurrentPage.Text = PageString.Length > 100 ? PageString.Substring(0, 100)+" ..." : PageString;
+            lblCurrentPage.Text = PageString.Length > 100 ? PageString.Substring(0, 100) + " ..." : PageString;
             if (HasComments)
             {
                 btnNextPoem.Text = "شعر بعد";
@@ -177,7 +177,7 @@ namespace ganjoor
                     btnScrollToNext.Visible = iLastFoundItems > 1;
                     highlight = false;
                 }
-            }            
+            }
             else
                 btnHighlight.Checked = false;
             lblFoundItemCount.Visible = highlight;
@@ -186,7 +186,7 @@ namespace ganjoor
             txtHighlight.Focus();
 
 
-            
+
         }
 
         private void btnPreviousPoem_Click(object sender, EventArgs e)
@@ -264,7 +264,7 @@ namespace ganjoor
             using (PrintPreviewDialog dlg = new PrintPreviewDialog())
             {
                 dlg.ShowIcon = false;
-                dlg.UseAntiAlias = true;                
+                dlg.UseAntiAlias = true;
                 using (PrintDocument Document = ganjoorView.PrepareForPrintPreview())
                 {
                     dlg.Document = Document;
@@ -296,9 +296,11 @@ namespace ganjoor
                 {
                     Properties.Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
                     Properties.Settings.Default.LastSearchPhrase = dlg.Phrase;
+                    Properties.Settings.Default.LastSearchType = dlg.SearchType;
                     Properties.Settings.Default.SearchPageItems = dlg.ItemsInPage;
                     Properties.Settings.Default.Save();
-                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder));
+
+                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), dlg.SearchType);
                 }
             }
         }
@@ -361,7 +363,7 @@ namespace ganjoor
             if (processTextChanged)
             {
                 iLastFoundItems = ganjoorView.HighlightText(GPersianTextSync.Sync(txtHighlight.Text));
-                iLastHighlightedFoundItem = 0;                
+                iLastHighlightedFoundItem = 0;
                 if (lblFoundItemCount.Visible = !string.IsNullOrEmpty(txtHighlight.Text))
                     lblFoundItemCount.Text = String.Format("{0} مورد یافت شد.", iLastFoundItems);
                 btnScrollToNext.Visible = iLastFoundItems > 1;
@@ -409,7 +411,7 @@ namespace ganjoor
 
         private void mnuShowBeytNums_Click(object sender, EventArgs e)
         {
-            mnuShowBeytNums.Checked = btnShowBeytNums.Checked = !btnShowBeytNums.Checked;            
+            mnuShowBeytNums.Checked = btnShowBeytNums.Checked = !btnShowBeytNums.Checked;
         }
 
 
@@ -444,17 +446,17 @@ namespace ganjoor
                                     VersionMajor = Convert.ToInt32(Node.InnerText);
                                 else
                                     if (Node.Name == "Minor")
-                                        VersionMinor = Convert.ToInt32(Node.InnerText);
-                                    else
+                                    VersionMinor = Convert.ToInt32(Node.InnerText);
+                                else
                                         if (Node.Name == "UpdateUrl")
-                                        {
-                                            if (string.IsNullOrEmpty(updateUrl))
-                                                updateUrl = Node.InnerText;
-                                        }
-                                        else 
-                                            if(Node.Name == "UpdateUrl162Plus")
-                                                updateUrl = Node.InnerText;
-                                                
+                                {
+                                    if (string.IsNullOrEmpty(updateUrl))
+                                        updateUrl = Node.InnerText;
+                                }
+                                else
+                                            if (Node.Name == "UpdateUrl162Plus")
+                                    updateUrl = Node.InnerText;
+
                             }
                             if (VersionMajor == MyVersionMajor && VersionMinor == MyVersionMinor)
                             {
@@ -488,7 +490,7 @@ namespace ganjoor
                     {
                         List<GDBInfo> finalList = new List<GDBInfo>();
                         DbBrowser db = new DbBrowser();
-                        foreach(GDBInfo gdb in Lst)
+                        foreach (GDBInfo gdb in Lst)
                             if (
                                 !db.IsInGDBIgnoreList(gdb.CatID)
                                 &&
@@ -501,13 +503,13 @@ namespace ganjoor
                         {
                             using (NewGDBFound dlg = new NewGDBFound(finalList))
                             {
-                                if(dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                                     using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
                                         if (dwnDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                                             foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
                                             {
                                                 ImportGdb(DownloadedFile);
-                                                if(Settings.Default.DeleteDownloadedFiles)
+                                                if (Settings.Default.DeleteDownloadedFiles)
                                                     File.Delete(DownloadedFile);
                                             }
                                 foreach (int CatID in dlg.IgnoreList)
@@ -525,7 +527,7 @@ namespace ganjoor
                     MessageBox.Show(exp.Message, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }        
+        }
 
         private void btnRandom_Click(object sender, EventArgs e)
         {
@@ -557,7 +559,7 @@ namespace ganjoor
             catch
             {
             }
-            
+
             ganjoorView.Visible = true;
         }
 
@@ -582,7 +584,7 @@ namespace ganjoor
 
             if (ganjoorView.CurrentPoet == "همه")
             {
-                MessageBox.Show("لطفاً وارد آثار شاعر مورد نظرتان شوید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign); 
+                MessageBox.Show("لطفاً وارد آثار شاعر مورد نظرتان شوید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
 
@@ -590,7 +592,7 @@ namespace ganjoor
                  MessageBox.Show(
                  String.Format(
                         "آیا از حذف «{0}» و تمام آثار او اطمینان دارید؟", ganjoorView.CurrentPoet
-                        ),"تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                        ), "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
                  ==
                  DialogResult.Yes
                  )
@@ -701,7 +703,7 @@ namespace ganjoor
             using (GDBDownloadWizard wiz = new GDBDownloadWizard())
             {
                 wiz.ShowDialog(this);
-                if(wiz.AnythingInstalled)
+                if (wiz.AnythingInstalled)
                     ganjoorView.ShowHome(true);
             }
         }
@@ -716,7 +718,7 @@ namespace ganjoor
                     txtHighlight.Text = "" + e.KeyChar;
                     txtHighlight.SelectionStart = txtHighlight.Text.Length;
                 }
-            }            
+            }
         }
 
 
@@ -747,9 +749,9 @@ namespace ganjoor
             else
             {
                 PoemAudio poemAudio = poemAudioFiles[0];
-                if(poemAudioFiles.Length > 1)
+                if (poemAudioFiles.Length > 1)
                 {
-                    ItemSelector dlg =  new ItemSelector("گزینش خوانش ...", poemAudioFiles, poemAudio);
+                    ItemSelector dlg = new ItemSelector("گزینش خوانش ...", poemAudioFiles, poemAudio);
                     if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                     {
                         poemAudio = dlg.SelectedItem as PoemAudio;
