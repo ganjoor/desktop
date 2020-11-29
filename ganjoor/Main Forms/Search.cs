@@ -16,7 +16,7 @@ namespace ganjoor
             numItemsInPage.Value = Properties.Settings.Default.SearchPageItems;
             txtPhrase.Text = Properties.Settings.Default.LastSearchPhrase;
             comboBoxSearchType.SelectedIndex = Properties.Settings.Default.LastSearchType;
-
+            comboBoxSearchLocationType.SelectedIndex = Properties.Settings.Default.LastSearchLocationType;
         }
         public string Phrase
         {
@@ -57,11 +57,20 @@ namespace ganjoor
             set => comboBoxSearchType.SelectedIndex = value;
         }
 
+        public int SearchLocationType
+        {
+            get => comboBoxSearchLocationType.SelectedIndex;
+            set => comboBoxSearchLocationType.SelectedIndex = value;
+        }
+
         private void txtPhrase_TextChanged(object sender, EventArgs e)
         {
             btnSearch.Enabled = txtPhrase.Text.Length > 0;
         }
 
+        private void Search_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

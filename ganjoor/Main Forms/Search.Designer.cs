@@ -38,6 +38,8 @@
             this.cmbPoets = new System.Windows.Forms.ComboBox();
             this.labelSearchType = new System.Windows.Forms.Label();
             this.comboBoxSearchType = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxSearchLocationType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numItemsInPage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,7 +47,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 12);
+            this.label1.Location = new System.Drawing.Point(34, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 24);
             this.label1.TabIndex = 0;
@@ -64,7 +66,7 @@
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSearch.Enabled = false;
-            this.btnSearch.Location = new System.Drawing.Point(40, 190);
+            this.btnSearch.Location = new System.Drawing.Point(39, 269);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(105, 45);
             this.btnSearch.TabIndex = 6;
@@ -75,7 +77,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(154, 190);
+            this.btnCancel.Location = new System.Drawing.Point(153, 269);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(105, 45);
             this.btnCancel.TabIndex = 7;
@@ -85,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 100);
+            this.label2.Location = new System.Drawing.Point(24, 160);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(268, 24);
             this.label2.TabIndex = 2;
@@ -98,7 +100,7 @@
             0,
             0,
             0});
-            this.numItemsInPage.Location = new System.Drawing.Point(299, 100);
+            this.numItemsInPage.Location = new System.Drawing.Point(299, 160);
             this.numItemsInPage.Name = "numItemsInPage";
             this.numItemsInPage.Size = new System.Drawing.Size(59, 31);
             this.numItemsInPage.TabIndex = 3;
@@ -111,7 +113,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 140);
+            this.label3.Location = new System.Drawing.Point(24, 211);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(148, 24);
             this.label3.TabIndex = 4;
@@ -121,7 +123,7 @@
             // 
             this.cmbPoets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPoets.FormattingEnabled = true;
-            this.cmbPoets.Location = new System.Drawing.Point(182, 140);
+            this.cmbPoets.Location = new System.Drawing.Point(182, 211);
             this.cmbPoets.Name = "cmbPoets";
             this.cmbPoets.Size = new System.Drawing.Size(343, 31);
             this.cmbPoets.TabIndex = 5;
@@ -131,26 +133,48 @@
             this.labelSearchType.AutoSize = true;
             this.labelSearchType.Location = new System.Drawing.Point(24, 58);
             this.labelSearchType.Name = "labelSearchType";
-            this.labelSearchType.Size = new System.Drawing.Size(114, 24);
+            this.labelSearchType.Size = new System.Drawing.Size(82, 24);
             this.labelSearchType.TabIndex = 8;
-            this.labelSearchType.Text = "نوع جستجو:";
+            this.labelSearchType.Text = "نوع متن:";
             // 
             // comboBoxSearchType
             // 
             this.comboBoxSearchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSearchType.FormattingEnabled = true;
             this.comboBoxSearchType.Items.AddRange(new object[] {
-            "هر جای بیت",
+            "هر نوع",
             "مصرع اول",
             "مصرع دوم",
             "مصرع اول یا تنهای ابیات ترجیع یا ترکیب",
             "مصرع دوم ابیات ترجیع یا ترکیب",
-            "مصرع های شعرهای نیمایی یا آزاد",
+            "شعرهای نیمایی یا آزاد",
             "نثر"});
-            this.comboBoxSearchType.Location = new System.Drawing.Point(147, 58);
+            this.comboBoxSearchType.Location = new System.Drawing.Point(182, 58);
             this.comboBoxSearchType.Name = "comboBoxSearchType";
             this.comboBoxSearchType.Size = new System.Drawing.Size(343, 31);
             this.comboBoxSearchType.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(22, 109);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(126, 24);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "روش جستجو:";
+            // 
+            // comboBoxSearchLocationType
+            // 
+            this.comboBoxSearchLocationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchLocationType.FormattingEnabled = true;
+            this.comboBoxSearchLocationType.Items.AddRange(new object[] {
+            "هر جا",
+            "شروع",
+            "پایان"});
+            this.comboBoxSearchLocationType.Location = new System.Drawing.Point(182, 109);
+            this.comboBoxSearchLocationType.Name = "comboBoxSearchLocationType";
+            this.comboBoxSearchLocationType.Size = new System.Drawing.Size(211, 31);
+            this.comboBoxSearchLocationType.TabIndex = 11;
             // 
             // Search
             // 
@@ -158,7 +182,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(168F, 168F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(586, 258);
+            this.ClientSize = new System.Drawing.Size(585, 340);
+            this.Controls.Add(this.comboBoxSearchLocationType);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxSearchType);
             this.Controls.Add(this.labelSearchType);
             this.Controls.Add(this.cmbPoets);
@@ -180,6 +206,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "جستجو";
+            this.Load += new System.EventHandler(this.Search_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numItemsInPage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -198,5 +225,7 @@
         private System.Windows.Forms.ComboBox cmbPoets;
         private System.Windows.Forms.Label labelSearchType;
         private System.Windows.Forms.ComboBox comboBoxSearchType;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBoxSearchLocationType;
     }
 }

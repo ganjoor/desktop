@@ -297,10 +297,11 @@ namespace ganjoor
                     Properties.Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
                     Properties.Settings.Default.LastSearchPhrase = dlg.Phrase;
                     Properties.Settings.Default.LastSearchType = dlg.SearchType;
+                    Properties.Settings.Default.LastSearchLocationType = dlg.SearchLocationType;
                     Properties.Settings.Default.SearchPageItems = dlg.ItemsInPage;
                     Properties.Settings.Default.Save();
 
-                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), dlg.SearchType);
+                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), searchType: dlg.SearchType, searchLocationType:dlg.SearchLocationType);
                 }
             }
         }

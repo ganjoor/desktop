@@ -494,24 +494,24 @@ namespace ganjoor
         #endregion
 
         #region Search
-        public DataTable FindPoemsContaingPhrase(string phrase, int PageStart, int Count, int PoetID, int dlgSearchType)
+        public DataTable FindPoemsContaingPhrase(string phrase, int pageStart, int count, int poetID, int searchType, int searchLocation)
         {
             if (Connected)
             {
                 DataTable tbl = new DataTable();
                 {
 
-                    int? versePosition = FindVersePosition(dlgSearchType);
+                    int? versePosition = FindVersePosition(searchType);
 
-                    string searchFilterPattern = dlgSearchType == 0 ? $"%{phrase}%" : $"{phrase}%";
-                    string additionalFilterPattern = dlgSearchType == 0 ? "" : $" AND position={versePosition}";
+                    string searchFilterLocationPattern = searchLocation == 0 ? $"%{phrase}%" : (searchLocation == 1 ? $"{phrase}%" : $"%{phrase}");
+                    string additionalFilterPattern = searchType == 0 ? "" : $" AND position={versePosition}";
 
-                    string strQuery = (PoetID == 0)
-                        ? $"SELECT poem_id,vorder,position,text FROM verse WHERE text LIKE '{searchFilterPattern}' {additionalFilterPattern} GROUP BY poem_id LIMIT {PageStart},{Count}"
+                    string strQuery = (poetID == 0)
+                        ? $"SELECT poem_id,vorder,position,text FROM verse WHERE text LIKE '{searchFilterLocationPattern}' {additionalFilterPattern} GROUP BY poem_id LIMIT {pageStart},{count}"
                         :
                         //کوئری جایگزین توسط آقای سیدرضی علوی زاده برنامه نویس ساغز پیشنهاد شده که از کوئری پیشین سریع تر است
-                        $"SELECT poem_id,vorder,position,text FROM verse WHERE poem_id IN (SELECT id FROM poem WHERE cat_id IN (SELECT id FROM cat WHERE poet_id={PoetID})) " +
-                        $"AND text LIKE '{searchFilterPattern}' {additionalFilterPattern} GROUP BY poem_id LIMIT {PageStart}, {Count}"
+                        $"SELECT poem_id,vorder,position,text FROM verse WHERE poem_id IN (SELECT id FROM poem WHERE cat_id IN (SELECT id FROM cat WHERE poet_id={poetID})) " +
+                        $"AND text LIKE '{searchFilterLocationPattern}' {additionalFilterPattern} GROUP BY poem_id LIMIT {pageStart}, {count}"
                         ;
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
                     {

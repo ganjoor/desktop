@@ -316,7 +316,7 @@ namespace ganjoor
 
             for (int i = 0; i < ancestors.Count; i++)
             {
-                if(ancestors[i]._Text=="خانه")
+                if (ancestors[i]._Text == "خانه")
                 {
                     continue;
                 }
@@ -1335,7 +1335,7 @@ namespace ganjoor
         {
             ShowSearchResults(phrase, PageStart, Count, PoetID, true, SearchType);
         }
-        public void ShowSearchResults(string phrase, int PageStart, int Count, int PoetID, bool keepTrack = false, int SearchType = 0)
+        public void ShowSearchResults(string phrase, int PageStart, int Count, int PoetID, bool keepTrack = false, int searchType = 0, int searchLocationType = 0)
         {
             phrase = GPersianTextSync.Sync(phrase);
             if (keepTrack)
@@ -1345,7 +1345,7 @@ namespace ganjoor
             this.VerticalScroll.Value = 0; this.HorizontalScroll.Value = 0;
             ClearControls();
             GanjoorSearchPage prePage = null, nextPage = null;
-            using (DataTable poemsList = _db.FindPoemsContaingPhrase(phrase, PageStart, Count + 1, PoetID, SearchType))
+            using (DataTable poemsList = _db.FindPoemsContaingPhrase(phrase, PageStart, Count + 1, PoetID, searchType, searchLocationType))
             {
                 int CountCopy = Count;
                 bool HasMore = Count > 0 && poemsList.Rows.Count == Count + 1;
@@ -1400,7 +1400,7 @@ namespace ganjoor
                 if (PageStart > 0)
                 {
                     LinkLabel lblPrevPage = new LinkLabel();
-                    prePage = new GanjoorSearchPage(phrase, PageStart - CountCopy, CountCopy, PoetID, SearchType);
+                    prePage = new GanjoorSearchPage(phrase, PageStart - CountCopy, CountCopy, PoetID, searchType);
                     lblPrevPage.Tag = prePage;
                     lblPrevPage.AutoSize = true;
                     lblPrevPage.Text = "صفحهٔ قبل";
@@ -1417,7 +1417,7 @@ namespace ganjoor
                 if (HasMore)
                 {
                     LinkLabel lblNextPage = new LinkLabel();
-                    nextPage = new GanjoorSearchPage(phrase, PageStart + Count, Count, PoetID, SearchType);
+                    nextPage = new GanjoorSearchPage(phrase, PageStart + Count, Count, PoetID, searchType);
                     lblNextPage.Tag = nextPage;
                     lblNextPage.AutoSize = true;
                     lblNextPage.Text = "صفحهٔ بعد";
