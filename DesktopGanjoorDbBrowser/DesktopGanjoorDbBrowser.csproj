@@ -103,6 +103,7 @@
     <Compile Include="Utilities\GAdvisor.cs" />
     <Compile Include="Utilities\GINIParser.cs" />
     <Compile Include="Utilities\GMessageBox.cs" />
+    <Compile Include="Utilities\GPersianTextSync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

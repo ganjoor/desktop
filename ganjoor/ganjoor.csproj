@@ -320,8 +320,6 @@
     <Compile Include="GDBProcessing\GDBPictureDirSelector.Designer.cs">
       <DependentUpon>GDBPictureDirSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\GMessageBox.cs" />
-    <Compile Include="Utilities\GPersianTextSync.cs" />
     <Compile Include="Utilities\GRhymeFinder.cs" />
     <Compile Include="Main User Control\HighlightLabel.cs">
       <SubType>Component</SubType>
