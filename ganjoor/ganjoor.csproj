@@ -197,26 +197,12 @@
     <Compile Include="GDBProcessing\NewGDBFound.Designer.cs">
       <DependentUpon>NewGDBFound.cs</DependentUpon>
     </Compile>
-    <Compile Include="Audio Support\PoemAudio.cs" />
-    <Compile Include="Audio Support\PoemAudioPlayer.cs" />
     <Compile Include="Audio Support\PoemAudioListProcessor.cs" />
     <Compile Include="Audio Support\NarratedPoems.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Audio Support\NarratedPoems.Designer.cs">
       <DependentUpon>NarratedPoems.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reusable Forms\ItemSelector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\ItemSelector.Designer.cs">
-      <DependentUpon>ItemSelector.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reusable Forms\CategorySelector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\CategorySelector.Designer.cs">
-      <DependentUpon>CategorySelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Reusable Forms\ConflictingCats.cs">
       <SubType>Form</SubType>
@@ -230,7 +216,6 @@
     <Compile Include="Reusable Forms\ConflictingPoets.Designer.cs">
       <DependentUpon>ConflictingPoets.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data Model\DbBrowser.cs" />
     <Compile Include="GDBProcessing\DownloadGDBList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,7 +245,6 @@
     <Compile Include="DownloadWizard\GDB\WSSelectList.Designer.cs">
       <DependentUpon>WSSelectList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\EditItemType.cs" />
     <Compile Include="Editor\Editor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -298,13 +282,8 @@
       <DependentUpon>TextImporter.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Extensions.cs" />
-    <Compile Include="Utilities\GAdvisor.cs" />
-    <Compile Include="Data Model\GanjoorCat.cs" />
     <Compile Include="Main User Control\GanjoorFavPage.cs" />
-    <Compile Include="Data Model\GanjoorPoem.cs" />
-    <Compile Include="Data Model\GanjoorPoet.cs" />
     <Compile Include="Main User Control\GanjoorSearchPage.cs" />
-    <Compile Include="Data Model\GanjoorVerse.cs" />
     <Compile Include="Main User Control\GanjoorViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -341,7 +320,6 @@
     <Compile Include="GDBProcessing\GDBPictureDirSelector.Designer.cs">
       <DependentUpon>GDBPictureDirSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\GINIParser.cs" />
     <Compile Include="Utilities\GMessageBox.cs" />
     <Compile Include="Utilities\GPersianTextSync.cs" />
     <Compile Include="Utilities\GRhymeFinder.cs" />
@@ -360,12 +338,6 @@
     <Compile Include="Main Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reusable Forms\MemoEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\MemoEditor.Designer.cs">
-      <DependentUpon>MemoEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Editor\MrgTwoClmns.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -377,12 +349,6 @@
     </Compile>
     <Compile Include="Main Forms\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reusable Forms\ItemEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\ItemEditor.Designer.cs">
-      <DependentUpon>ItemEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\PoemStructure.cs">
       <SubType>Form</SubType>
@@ -414,13 +380,6 @@
       <DependentUpon>WSInstallItems.cs</DependentUpon>
     </Compile>
     <Compile Include="GDBProcessing\ZipStorer.cs" />
-    <Compile Include="Data Model\VersePosition.cs" />
-    <Compile Include="Reusable Forms\WaitMsg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\WaitMsg.Designer.cs">
-      <DependentUpon>WaitMsg.cs</DependentUpon>
-    </Compile>
     <Compile Include="DownloadWizard\Audio\WSSelectSounds.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -470,12 +429,6 @@
     <EmbeddedResource Include="Audio Support\NarratedPoems.resx">
       <DependentUpon>NarratedPoems.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reusable Forms\ItemSelector.resx">
-      <DependentUpon>ItemSelector.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reusable Forms\CategorySelector.resx">
-      <DependentUpon>CategorySelector.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reusable Forms\ConflictingCats.resx">
       <DependentUpon>ConflictingCats.cs</DependentUpon>
     </EmbeddedResource>
@@ -522,17 +475,11 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reusable Forms\MemoEditor.resx">
-      <DependentUpon>MemoEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Editor\MrgTwoClmns.resx">
       <DependentUpon>MrgTwoClmns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main Forms\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reusable Forms\ItemEditor.resx">
-      <DependentUpon>ItemEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\PoemStructure.resx">
       <DependentUpon>PoemStructure.cs</DependentUpon>
@@ -568,9 +515,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadWizard\GDB\WSSelectItems.resx">
       <DependentUpon>WSSelectItems.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reusable Forms\WaitMsg.resx">
-      <DependentUpon>WaitMsg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Audio Support\SyncPoemAudio.resx">
       <DependentUpon>SyncPoemAudio.cs</DependentUpon>
@@ -711,6 +655,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesktopGanjoorDbBrowser\DesktopGanjoorDbBrowser.csproj">
+      <Project>{54c9964d-5855-4abc-99db-8e95c91aade7}</Project>
+      <Name>DesktopGanjoorDbBrowser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

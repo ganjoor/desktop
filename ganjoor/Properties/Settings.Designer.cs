@@ -493,42 +493,6 @@ namespace ganjoor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1001")]
-        public int MinNewPoetID {
-            get {
-                return ((int)(this["MinNewPoetID"]));
-            }
-            set {
-                this["MinNewPoetID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10001")]
-        public int MinNewCatID {
-            get {
-                return ((int)(this["MinNewCatID"]));
-            }
-            set {
-                this["MinNewCatID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100001")]
-        public int MinNewPoemID {
-            get {
-                return ((int)(this["MinNewPoemID"]));
-            }
-            set {
-                this["MinNewPoemID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string HttpProxyServer {
             get {

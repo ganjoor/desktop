@@ -119,15 +119,6 @@
     <Setting Name="EditorButtonVisible" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="MinNewPoetID" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1001</Value>
-    </Setting>
-    <Setting Name="MinNewCatID" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10001</Value>
-    </Setting>
-    <Setting Name="MinNewPoemID" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">100001</Value>
-    </Setting>
     <Setting Name="HttpProxyServer" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

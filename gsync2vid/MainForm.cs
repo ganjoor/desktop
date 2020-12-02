@@ -13,8 +13,8 @@ using NAudio.Wave;
 using System.Net;
 using System.Reflection;
 using System.Diagnostics;
-using ganjoor.Utilities;
 using System.Threading;
+using ganjoor.Utilities;
 
 namespace gsync2vid
 {
