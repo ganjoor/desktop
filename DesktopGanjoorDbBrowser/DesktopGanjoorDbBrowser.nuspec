@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>DesktopGanjoorDbBrowser</id>
+    <version>1.0.0</version>
+    <title>Desktop Ganjoor DbBrowser</title>
+    <authors>Ganjoor Development Team</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/ganjoor/DesktopGanjoorDbBrowser</projectUrl>
+    <description>base classes for working with Desktop Ganjoor sqlite database</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Public Domain</copyright>
+    <tags>ganjoor.net ganjoor Persian literature</tags>
+  </metadata>
+</package>

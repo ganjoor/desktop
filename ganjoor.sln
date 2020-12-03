@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ganjoor", "ganjoor\ganjoor.csproj", "{FA20D261-FE87-49FD-B27D-EEE3B52B20FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopGanjoorDbBrowser", "DesktopGanjoorDbBrowser\DesktopGanjoorDbBrowser.csproj", "{91C238CD-2544-4547-AA21-98CE8897105E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,18 @@ Global
 		{FA20D261-FE87-49FD-B27D-EEE3B52B20FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FA20D261-FE87-49FD-B27D-EEE3B52B20FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FA20D261-FE87-49FD-B27D-EEE3B52B20FA}.Release|x86.ActiveCfg = Release|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Debug|x86.Build.0 = Debug|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Release|x86.ActiveCfg = Release|Any CPU
+		{91C238CD-2544-4547-AA21-98CE8897105E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
