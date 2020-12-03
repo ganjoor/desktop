@@ -2,12 +2,12 @@
 <package >
   <metadata>
     <id>DesktopGanjoorDbBrowser</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>Desktop Ganjoor DbBrowser</title>
     <authors>Ganjoor Development Team</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/ganjoor/DesktopGanjoorDbBrowser</projectUrl>
+    <projectUrl>https://github.com/ganjoor/ganjoor/tree/master/DesktopGanjoorDbBrowser</projectUrl>
     <description>base classes for working with Desktop Ganjoor sqlite database</description>
     <releaseNotes>Initial Release</releaseNotes>
     <copyright>Public Domain</copyright>
