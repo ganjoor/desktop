@@ -750,7 +750,7 @@ namespace ganjoor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:3439")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://ganjgah.ir")]
         public string GanjoorServiceUrl {
             get {
                 return ((string)(this["GanjoorServiceUrl"]));
@@ -781,6 +781,30 @@ namespace ganjoor.Properties {
             }
             set {
                 this["LastSearchLocationType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
+        public global::System.Guid SessionId {
+            get {
+                return ((global::System.Guid)(this["SessionId"]));
+            }
+            set {
+                this["SessionId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DefProfile {
+            get {
+                return ((string)(this["DefProfile"]));
+            }
+            set {
+                this["DefProfile"] = value;
             }
         }
     }

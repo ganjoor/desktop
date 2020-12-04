@@ -25,13 +25,14 @@ namespace ganjoor.Audio_Support
         {
             Cursor = Cursors.WaitCursor;
             Application.DoEvents();
-            Process.Start("https://museum.ganjoor.net/signup");
+            Process.Start("https://gaudiopanel.ganjoor.net");
             Cursor = Cursors.Default;
         }
 
         private async void btnLogin_ClickAsync(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
+            Enabled = false;
             Application.DoEvents();
 
             DialogResult = DialogResult.None;
@@ -51,6 +52,7 @@ namespace ganjoor.Audio_Support
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     Cursor = Cursors.Default;
+                    Enabled = true;
                     MessageBox.Show(response.ToString());
                     return;
                 }
@@ -58,10 +60,11 @@ namespace ganjoor.Audio_Support
 
                 var result = JObject.Parse(await response.Content.ReadAsStringAsync());
                 Properties.Settings.Default.MuseumToken = result["token"].ToString();
+                Properties.Settings.Default.SessionId = Guid.Parse(result["sessionId"].ToString());
                 Properties.Settings.Default.Save();
             }
-           
-           
+
+            Enabled = true;
             Cursor = Cursors.Default;
             DialogResult = DialogResult.OK;
 

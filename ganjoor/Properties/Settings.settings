@@ -189,13 +189,19 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="GanjoorServiceUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost:3439</Value>
+      <Value Profile="(Default)">https://ganjgah.ir</Value>
     </Setting>
     <Setting Name="LastSearchType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LastSearchLocationType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SessionId" Type="System.Guid" Scope="User">
+      <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
+    </Setting>
+    <Setting Name="DefProfile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

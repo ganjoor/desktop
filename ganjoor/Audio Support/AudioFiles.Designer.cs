@@ -41,7 +41,6 @@
             this.btnExport = new System.Windows.Forms.ToolStripButton();
             this.sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDownload = new System.Windows.Forms.ToolStripButton();
-            this.btnProfiles = new System.Windows.Forms.ToolStripButton();
             this.btnMyUploadedNarrations = new System.Windows.Forms.ToolStripButton();
             this.btnUpload = new System.Windows.Forms.ToolStripButton();
             this.lblDesc = new System.Windows.Forms.Label();
@@ -69,7 +68,6 @@
             this.btnExport,
             this.sep2,
             this.btnDownload,
-            this.btnProfiles,
             this.btnMyUploadedNarrations,
             this.btnUpload});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
@@ -176,17 +174,6 @@
             this.btnDownload.Size = new System.Drawing.Size(60, 22);
             this.btnDownload.Text = "دریافت";
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-            // 
-            // btnProfiles
-            // 
-            this.btnProfiles.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnProfiles.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnProfiles.Image = ((System.Drawing.Image)(resources.GetObject("btnProfiles.Image")));
-            this.btnProfiles.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnProfiles.Name = "btnProfiles";
-            this.btnProfiles.Size = new System.Drawing.Size(23, 22);
-            this.btnProfiles.Text = "نمایه‌های خوانش";
-            this.btnProfiles.Click += new System.EventHandler(this.btnProfiles_Click);
             // 
             // btnMyUploadedNarrations
             // 
@@ -314,6 +301,5 @@
         private System.Windows.Forms.ToolStripButton btnFixExport;
         private System.Windows.Forms.ToolStripButton btnUpload;
         private System.Windows.Forms.ToolStripButton btnMyUploadedNarrations;
-        private System.Windows.Forms.ToolStripButton btnProfiles;
     }
 }

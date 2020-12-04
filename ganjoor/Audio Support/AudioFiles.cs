@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace ganjoor
 {
@@ -390,20 +391,52 @@ namespace ganjoor
                 MessageBox.Show("لطفا ابتدا خوانش را همگام کنید.");
                 return;
             }
-            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+
+            if (Path.GetExtension(poemAudio.FilePath).ToLower() != ".mp3")
+            {
+                MessageBox.Show("تنها پسوند mp3 برای فایلهای صوتی قابل بارگذاری است.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            if (!File.Exists(poemAudio.FilePath))
+            {
+                MessageBox.Show("فایل صوتی متناظر وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            bool valid = await TokenIsValid();
+            if (!valid)
             {
                 using (GLogin gLogin = new GLogin())
-                    if(gLogin.ShowDialog(this) != DialogResult.OK)
+                    if (gLogin.ShowDialog(this) != DialogResult.OK)
                     {
+                        Cursor = Cursors.Default;
+                        Application.DoEvents();
                         return;
                     }
+                if (!await TokenIsValid())
+                {
+                    Cursor = Cursors.Default;
+                    Application.DoEvents();
+                    return;
+                }
             }
+            Cursor = Cursors.Default;
+            Application.DoEvents();
             if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
             {
                 return;
             }
 
-            if (MessageBox.Show("آیا از ارسال خوانش انتخاب شده به سایت اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+            if(string.IsNullOrEmpty(Properties.Settings.Default.DefProfile))
+            {
+                MessageBox.Show("لطفا به پیشخان وارد شوید و در قسمت نمایه‌ها، نمایه‌ای را به عنوان نمایهٔ پیش‌فرض تعریف یا فعال کنید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Process.Start("https://gaudiopanel.ganjoor.net");
+                return;
+            }
+
+
+            if (MessageBox.Show($"آیا از ارسال خوانش انتخاب شده با نمایهٔ فعال «{Properties.Settings.Default.DefProfile}» به سایت اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
                 return;
 
             using (HttpClient httpClient = new HttpClient())
@@ -422,6 +455,7 @@ namespace ganjoor
                 File.Delete(xmlTempPath);
                 form.Add(new ByteArrayContent(xmlFileContent, 0, xmlFileContent.Length), $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.xml", $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.xml");
 
+               
                 byte[] mp3FileContent = File.ReadAllBytes(poemAudio.FilePath);
                 form.Add(new ByteArrayContent(mp3FileContent, 0, mp3FileContent.Length), Path.GetFileName(poemAudio.FilePath), Path.GetFileName(poemAudio.FilePath));
                 
@@ -446,73 +480,55 @@ namespace ganjoor
 
         private async Task<bool> TokenIsValid()
         {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
-                return false;
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-
-
-
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
-
-                Cursor = Cursors.WaitCursor;
-                Application.DoEvents();
-
-                HttpResponseMessage response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/profile");
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    Cursor = Cursors.Default;
+                if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
                     return false;
+                using (HttpClient httpClient = new HttpClient())
+                {
+
+
+
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                    Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+
+                    HttpResponseMessage response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/profile/def");
+                    if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        Cursor = Cursors.Default;
+                        Properties.Settings.Default.DefProfile = "";
+                        Properties.Settings.Default.Save();
+                        return true;
+                    }
+
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        return false;
+                    }
+
+                    response.EnsureSuccessStatusCode();
+
+                    var result = JObject.Parse(await response.Content.ReadAsStringAsync());
+                    Properties.Settings.Default.DefProfile = result["name"].ToString();
+                    Properties.Settings.Default.Save();
+                    return true;
                 }
-
-                response.EnsureSuccessStatusCode();
-
-                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        private async void btnMyUploadedNarrations_Click(object sender, EventArgs e)
+        private void btnMyUploadedNarrations_Click(object sender, EventArgs e)
         {
-            bool valid = await TokenIsValid();
-            if (!valid)
-            {
-                using (GLogin gLogin = new GLogin())
-                    if (gLogin.ShowDialog(this) != DialogResult.OK)
-                    {
-                        return;
-                    }
-            }
-            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
-            {
-                return;
-            }
 
-            using (UploadedNarrations uploadedNarrations = new UploadedNarrations())
-            {
-                uploadedNarrations.ShowDialog(this);
-            }
+            Process.Start("https://gaudiopanel.ganjoor.net");
         }
 
-        private async void btnProfiles_Click(object sender, EventArgs e)
-        {
-            bool valid = await TokenIsValid();
-            if (!valid)
-            {
-                using (GLogin gLogin = new GLogin())
-                    if (gLogin.ShowDialog(this) != DialogResult.OK)
-                    {
-                        return;
-                    }
-            }
-            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
-            {
-                return;
-            }
-
-            using (NarrationProfiles dlg = new NarrationProfiles())
-            {
-                dlg.ShowDialog(this);
-            }
-        }
+        
     }
 }
