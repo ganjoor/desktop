@@ -78,6 +78,15 @@ namespace ganjoor
             new string[] { "سیاوش جعفری", "", "دیوان کمال‌الدین اسماعیل", "http://blog.ganjoor.net/1396/12/25/kamal/"},
             new string[] { "سیاوش جعفری", "", "دیوان ظهیرالدین فاریابی", "http://blog.ganjoor.net/1397/01/09/zahir/"},
             new string[] { "سید جابر موسوی صالحی", "", "غزلیات عبدالقادر گیلانی", "http://blog.ganjoor.net/1397/01/14/abdolghader-gilani/"},
+            new string[] { "سید جابر موسوی صالحی", "", "دیوان مولانا خالد نقشبندی", "http://blog.ganjoor.net/1397/03/26/naghshbandi/"},
+            new string[] { "محمد عظیم", "", "غزلیات سلطان باهو", "http://blog.ganjoor.net/1397/03/18/sultan-bahoo/"},
+            new string[] {"امیرحسین موسوی", "", "قدسی مشهدی", "http://blog.ganjoor.net/1397/04/08/ghodsi-mashhadi/"},
+            new string[] { "سید جابر موسوی صالحی", "", "مناجات نامهٔ خواجه عبدالله انصاری", "http://blog.ganjoor.net/1397/06/02/monajatname/"},
+            new string[] { "سید جابر موسوی صالحی", "", "کمال خجندی", "http://blog.ganjoor.net/1397/10/06/kamal-khojandi/"},
+            new string[] { "سید جابر موسوی صالحی", "", "همام تبریزی", "http://blog.ganjoor.net/1398/08/02/homam/"},
+            new string[] { "جواد احشامیان", "", "شیوا فرازمند", "http://blog.ganjoor.net/1398/10/16/shivafarazmand/"},
+            new string[] { "سید صادق هاشمی", "", "دیوان شوق مهدی فیض کاشانی", "http://blog.ganjoor.net/1398/11/22/feyz-ebnh/"},
+            new string[] { "سید صادق هاشمی", "", "موش و گربهٔ شیخ بهایی", "http://blog.ganjoor.net/1399/04/31/sheykh-bahaee-mg/"},
         };
 
         private const int GRDCLMN_NAME = 0;
@@ -120,7 +129,7 @@ namespace ganjoor
 
         private void lnkHamidReza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LaunchUrl("http://ganjoor.net/contact/");            
+            LaunchUrl("https://www.linkedin.com/in/hrmoh/");            
         }
 
         private void lnkSources_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -158,6 +167,11 @@ namespace ganjoor
         private void lnkEditor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LaunchUrl("http://blog.ganjoor.net/1389/04/27/dg-editor/");
+        }
+
+        private void lblImanAbidi_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LaunchUrl("https://www.linkedin.com/in/imanabidi/");
         }
     }
 }

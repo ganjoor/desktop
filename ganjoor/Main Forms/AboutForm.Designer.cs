@@ -44,6 +44,7 @@
             this.lnkBlog = new System.Windows.Forms.LinkLabel();
             this.lnkEditor = new System.Windows.Forms.LinkLabel();
             this.lblIcon = new System.Windows.Forms.Label();
+            this.lblImanAbidi = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.grdContributers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +85,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(179, 415);
+            this.btnOK.Location = new System.Drawing.Point(179, 434);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(60, 22);
@@ -96,7 +97,7 @@
             // 
             this.lnkIcons.AutoSize = true;
             this.lnkIcons.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkIcons.Location = new System.Drawing.Point(160, 87);
+            this.lnkIcons.Location = new System.Drawing.Point(160, 106);
             this.lnkIcons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIcons.Name = "lnkIcons";
             this.lnkIcons.Size = new System.Drawing.Size(98, 13);
@@ -122,7 +123,7 @@
             // 
             this.lnkSources.AutoSize = true;
             this.lnkSources.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkSources.Location = new System.Drawing.Point(149, 127);
+            this.lnkSources.Location = new System.Drawing.Point(149, 146);
             this.lnkSources.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkSources.Name = "lnkSources";
             this.lnkSources.Size = new System.Drawing.Size(120, 13);
@@ -135,7 +136,7 @@
             // 
             this.lnkIconsEditor.AutoSize = true;
             this.lnkIconsEditor.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkIconsEditor.Location = new System.Drawing.Point(139, 107);
+            this.lnkIconsEditor.Location = new System.Drawing.Point(139, 126);
             this.lnkIconsEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIconsEditor.Name = "lnkIconsEditor";
             this.lnkIconsEditor.Size = new System.Drawing.Size(141, 13);
@@ -147,7 +148,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 182);
+            this.label1.Location = new System.Drawing.Point(43, 201);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(333, 13);
@@ -164,7 +165,7 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.grdContributers.Location = new System.Drawing.Point(12, 202);
+            this.grdContributers.Location = new System.Drawing.Point(12, 221);
             this.grdContributers.Name = "grdContributers";
             this.grdContributers.ReadOnly = true;
             this.grdContributers.RowHeadersWidth = 11;
@@ -201,7 +202,7 @@
             // 
             this.lnkBlog.AutoSize = true;
             this.lnkBlog.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkBlog.Location = new System.Drawing.Point(176, 147);
+            this.lnkBlog.Location = new System.Drawing.Point(176, 166);
             this.lnkBlog.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkBlog.Name = "lnkBlog";
             this.lnkBlog.Size = new System.Drawing.Size(71, 13);
@@ -214,7 +215,7 @@
             // 
             this.lnkEditor.AutoSize = true;
             this.lnkEditor.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkEditor.Location = new System.Drawing.Point(147, 395);
+            this.lnkEditor.Location = new System.Drawing.Point(147, 414);
             this.lnkEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkEditor.Name = "lnkEditor";
             this.lnkEditor.Size = new System.Drawing.Size(121, 13);
@@ -226,12 +227,25 @@
             // lblIcon
             // 
             this.lblIcon.AutoSize = true;
-            this.lblIcon.Location = new System.Drawing.Point(79, 165);
+            this.lblIcon.Location = new System.Drawing.Point(79, 184);
             this.lblIcon.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIcon.Name = "lblIcon";
             this.lblIcon.Size = new System.Drawing.Size(257, 13);
             this.lblIcon.TabIndex = 11;
             this.lblIcon.Text = "طراحی آیکونهای برنامه: یوسف زمانی، ارسلان سفیدگر";
+            // 
+            // lblImanAbidi
+            // 
+            this.lblImanAbidi.AutoSize = true;
+            this.lblImanAbidi.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lblImanAbidi.Location = new System.Drawing.Point(139, 88);
+            this.lblImanAbidi.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblImanAbidi.Name = "lblImanAbidi";
+            this.lblImanAbidi.Size = new System.Drawing.Size(144, 13);
+            this.lblImanAbidi.TabIndex = 12;
+            this.lblImanAbidi.TabStop = true;
+            this.lblImanAbidi.Text = "به کمک ایمان عبیدی آشتیانی";
+            this.lblImanAbidi.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblImanAbidi_LinkClicked);
             // 
             // AboutForm
             // 
@@ -239,7 +253,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(419, 449);
+            this.ClientSize = new System.Drawing.Size(419, 462);
+            this.Controls.Add(this.lblImanAbidi);
             this.Controls.Add(this.lblIcon);
             this.Controls.Add(this.lnkEditor);
             this.Controls.Add(this.lnkBlog);
@@ -290,5 +305,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewLinkColumn Column3;
         private System.Windows.Forms.Label lblIcon;
+        private System.Windows.Forms.LinkLabel lblImanAbidi;
     }
 }
