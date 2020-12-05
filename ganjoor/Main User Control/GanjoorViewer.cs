@@ -316,13 +316,11 @@ namespace ganjoor
 
             for (int i = 0; i < ancestors.Count; i++)
             {
-                if (ancestors[i]._Text == "خانه")
+                if (ancestors[i]._Text != "خانه")
                 {
-                    continue;
+                    _strPage += ancestors[i]._Text;
+                    if (category != null && 0 != category._ID) _strPage += " -> ";
                 }
-                _strPage += ancestors[i]._Text;
-                if (category != null && 0 != category._ID) _strPage += " -> ";
-
                 LinkLabel lblCat = new LinkLabel();
                 lblCat.Tag = ancestors[i];
                 lblCat.AutoSize = true;
