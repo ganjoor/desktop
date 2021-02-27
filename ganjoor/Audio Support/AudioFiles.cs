@@ -463,7 +463,7 @@ namespace ganjoor
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     Cursor = Cursors.Default;
-                    MessageBox.Show(response.ToString());
+                    MessageBox.Show(await response.Content.ReadAsStringAsync());
                     return;
                 }
 

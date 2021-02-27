@@ -137,6 +137,7 @@
       <DependentUpon>GLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Audio Support\LoginViewModel.cs" />
+    <Compile Include="DownloadWizard\Audio\PaginationMetadata.cs" />
     <Compile Include="Audio Support\PublicRecitationViewModel.cs" />
     <Compile Include="Audio Support\UserNarrationProfileViewModel.cs" />
     <Compile Include="DownloadWizard\Audio\DownloadableAudioListProcessor.cs" />

@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using RMuseum.Models.GanjoorAudio.ViewModels;
+using Newtonsoft.Json;
 
 namespace ganjoor
 {
@@ -87,29 +88,71 @@ namespace ganjoor
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     Cursor = Cursors.Default;
+                    MessageBox.Show(await response.Content.ReadAsStringAsync());
                     return new Tuple<List<Dictionary<string, string>>, string>(null, await response.Content.ReadAsStringAsync());
                 }
 
                 response.EnsureSuccessStatusCode();
 
                 List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
-                foreach (PublicRecitationViewModel recitation in JArray.Parse(await response.Content.ReadAsStringAsync()).ToObject<List<PublicRecitationViewModel>>())
+
+                bool finished = _PoemId != 0;
+
+                do
                 {
-                    //تبدیل شیئ به چیزی که کد قدیمی با آن کار می‌کرده!
-                    Dictionary<string, string> dic = new Dictionary<string, string>();
-                    dic.Add("audio_post_ID", recitation.PoemId.ToString());
-                    dic.Add("audio_order", recitation.Id.ToString());
-                    dic.Add("audio_xml", $"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/file/{recitation.Id}.xml");
-                    dic.Add("audio_mp3", recitation.Mp3Url);
-                    dic.Add("audio_src", recitation.AudioSrc);
-                    dic.Add("audio_title", recitation.AudioTitle);
-                    dic.Add("audio_artist", recitation.AudioArtist);
-                    dic.Add("audio_artist_url", recitation.AudioArtistUrl);
-                    dic.Add("audio_guid", recitation.LegacyAudioGuid.ToString());
-                    dic.Add("audio_fchecksum", recitation.Mp3FileCheckSum);
-                    dic.Add("audio_mp3bsize", recitation.Mp3SizeInBytes.ToString());
-                    list.Add(dic);
+                    foreach (PublicRecitationViewModel recitation in JArray.Parse(await response.Content.ReadAsStringAsync()).ToObject<List<PublicRecitationViewModel>>())
+                    {
+                        //تبدیل شیئ به چیزی که کد قدیمی با آن کار می‌کرده!
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        dic.Add("audio_post_ID", recitation.PoemId.ToString());
+                        dic.Add("audio_order", recitation.Id.ToString());
+                        dic.Add("audio_xml", $"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/file/{recitation.Id}.xml");
+                        dic.Add("audio_mp3", recitation.Mp3Url);
+                        dic.Add("audio_src", recitation.AudioSrc);
+                        dic.Add("audio_title", recitation.AudioTitle);
+                        dic.Add("audio_artist", recitation.AudioArtist);
+                        dic.Add("audio_artist_url", recitation.AudioArtistUrl);
+                        dic.Add("audio_guid", recitation.LegacyAudioGuid.ToString());
+                        dic.Add("audio_fchecksum", recitation.Mp3FileCheckSum);
+                        dic.Add("audio_mp3bsize", recitation.Mp3SizeInBytes.ToString());
+                        list.Add(dic);
+                    }
+
+                    if(_PoemId == 0)
+                    {
+                        //در این حالت اطلاعات به صورت صفحه بندی شده ارسال می‌شود
+                        string paginnationMetadata = response.Headers.GetValues("paging-headers").FirstOrDefault();
+                        if (!string.IsNullOrEmpty(paginnationMetadata))
+                        {
+                            PaginationMetadata paginationMetadata = JsonConvert.DeserializeObject<PaginationMetadata>(paginnationMetadata);
+                            if(paginationMetadata.currentPage == paginationMetadata.totalPages)
+                            {
+                                finished = true;
+                            }
+                            else
+                            {
+                                lblDesc.Text = $"در حال دریافت اطلاعات (صفحهٔ {paginationMetadata.currentPage + 1} از {paginationMetadata.totalPages}) ...";
+                                Application.DoEvents();
+                                response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published?PageNumber={paginationMetadata.currentPage + 1}&PageSize={paginationMetadata.pageSize}");
+                                if (response.StatusCode != HttpStatusCode.OK)
+                                {
+                                    MessageBox.Show(await response.Content.ReadAsStringAsync());
+                                    break;
+                                }
+
+                                response.EnsureSuccessStatusCode();
+                            }
+                        }
+                        else
+                        {
+                            finished = true;
+                        }
+                    }
+
                 }
+                while (!finished);
+
+                
 
                 return new Tuple<List<Dictionary<string, string>>, string>(list, "");
 

@@ -53,7 +53,7 @@ namespace ganjoor.Audio_Support
                 {
                     Cursor = Cursors.Default;
                     Enabled = true;
-                    MessageBox.Show(response.ToString());
+                    MessageBox.Show(await response.Content.ReadAsStringAsync());
                     return;
                 }
                 response.EnsureSuccessStatusCode();
