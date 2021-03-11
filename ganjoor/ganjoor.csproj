@@ -143,6 +143,12 @@
     <Compile Include="Audio Support\TimingHelper\THFirstVerse.Designer.cs">
       <DependentUpon>THFirstVerse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Audio Support\TimingHelper\THHelper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Audio Support\TimingHelper\THHelper.Designer.cs">
+      <DependentUpon>THHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Audio Support\TimingHelper\TimingHelperWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -397,6 +403,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Audio Support\TimingHelper\THFirstVerse.resx">
       <DependentUpon>THFirstVerse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Audio Support\TimingHelper\THHelper.resx">
+      <DependentUpon>THHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Audio Support\TimingHelper\TimingHelperWizard.resx">
       <DependentUpon>TimingHelperWizard.cs</DependentUpon>
