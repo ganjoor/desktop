@@ -9,6 +9,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using ganjoor.Audio_Support.TimingHelper;
 
 namespace ganjoor
 {
@@ -529,6 +530,12 @@ namespace ganjoor
             Process.Start("https://gaudiopanel.ganjoor.net");
         }
 
-        
+        private void btnTimingHelper_Click(object sender, EventArgs e)
+        {
+            using(TimingHelperWizard dlg = new TimingHelperWizard(_PoemId))
+            {
+                dlg.ShowDialog(this);
+            }
+        }
     }
 }

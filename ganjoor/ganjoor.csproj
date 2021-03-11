@@ -137,6 +137,18 @@
       <DependentUpon>GLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Audio Support\LoginViewModel.cs" />
+    <Compile Include="Audio Support\TimingHelper\THFirstVerse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Audio Support\TimingHelper\THFirstVerse.Designer.cs">
+      <DependentUpon>THFirstVerse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Audio Support\TimingHelper\TimingHelperWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Audio Support\TimingHelper\TimingHelperWizard.Designer.cs">
+      <DependentUpon>TimingHelperWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="DownloadWizard\Audio\PaginationMetadata.cs" />
     <Compile Include="Audio Support\PublicRecitationViewModel.cs" />
     <Compile Include="Audio Support\UserNarrationProfileViewModel.cs" />
@@ -381,6 +393,12 @@
     </Compile>
     <EmbeddedResource Include="Audio Support\GLogin.resx">
       <DependentUpon>GLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Audio Support\TimingHelper\THFirstVerse.resx">
+      <DependentUpon>THFirstVerse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Audio Support\TimingHelper\TimingHelperWizard.resx">
+      <DependentUpon>TimingHelperWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\GeneralTextImporter.resx">
       <DependentUpon>GeneralTextImporter.cs</DependentUpon>

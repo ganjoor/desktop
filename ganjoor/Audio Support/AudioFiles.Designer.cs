@@ -48,6 +48,7 @@
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSynced = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnTimingHelper = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +65,7 @@
             this.btnMoveToTop,
             this.btnDel,
             this.btnFixExport,
+            this.btnTimingHelper,
             this.btnImport,
             this.btnExport,
             this.sep2,
@@ -253,6 +255,17 @@
             this.clmnSynced.ReadOnly = true;
             this.clmnSynced.Width = 50;
             // 
+            // btnTimingHelper
+            // 
+            this.btnTimingHelper.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnTimingHelper.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnTimingHelper.Image = ((System.Drawing.Image)(resources.GetObject("btnTimingHelper.Image")));
+            this.btnTimingHelper.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTimingHelper.Name = "btnTimingHelper";
+            this.btnTimingHelper.Size = new System.Drawing.Size(23, 22);
+            this.btnTimingHelper.Text = "زمان‌بندی خوانش";
+            this.btnTimingHelper.Click += new System.EventHandler(this.btnTimingHelper_Click);
+            // 
             // AudioFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -301,5 +314,6 @@
         private System.Windows.Forms.ToolStripButton btnFixExport;
         private System.Windows.Forms.ToolStripButton btnUpload;
         private System.Windows.Forms.ToolStripButton btnMyUploadedNarrations;
+        private System.Windows.Forms.ToolStripButton btnTimingHelper;
     }
 }

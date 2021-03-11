@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -36,13 +32,6 @@ namespace ganjoor
 
 
         }
-
-        private int _PoemId
-        {
-            get;
-            set;
-        }
-
 
         private void selStage_OnEnableNextButton(object sender, EventArgs e)
         {
