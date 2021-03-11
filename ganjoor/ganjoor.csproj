@@ -149,6 +149,7 @@
     <Compile Include="Audio Support\TimingHelper\TimingHelperWizard.Designer.cs">
       <DependentUpon>TimingHelperWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Audio Support\TimingHelper\TimingStep.cs" />
     <Compile Include="DownloadWizard\Audio\PaginationMetadata.cs" />
     <Compile Include="Audio Support\PublicRecitationViewModel.cs" />
     <Compile Include="Audio Support\UserNarrationProfileViewModel.cs" />

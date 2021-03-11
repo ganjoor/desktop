@@ -37,6 +37,7 @@
             this.btnMoveToTop = new System.Windows.Forms.ToolStripButton();
             this.btnDel = new System.Windows.Forms.ToolStripButton();
             this.btnFixExport = new System.Windows.Forms.ToolStripButton();
+            this.btnTimingHelper = new System.Windows.Forms.ToolStripButton();
             this.btnImport = new System.Windows.Forms.ToolStripButton();
             this.btnExport = new System.Windows.Forms.ToolStripButton();
             this.sep2 = new System.Windows.Forms.ToolStripSeparator();
@@ -48,7 +49,6 @@
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnSynced = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnTimingHelper = new System.Windows.Forms.ToolStripButton();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
@@ -140,6 +140,17 @@
             this.btnFixExport.Size = new System.Drawing.Size(23, 22);
             this.btnFixExport.Text = "رفع اشکال همگامسازیهای قدیمی با تقسیم شروع آنها بر ۲";
             this.btnFixExport.Click += new System.EventHandler(this.btnFixExport_Click);
+            // 
+            // btnTimingHelper
+            // 
+            this.btnTimingHelper.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnTimingHelper.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnTimingHelper.Image = ((System.Drawing.Image)(resources.GetObject("btnTimingHelper.Image")));
+            this.btnTimingHelper.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTimingHelper.Name = "btnTimingHelper";
+            this.btnTimingHelper.Size = new System.Drawing.Size(23, 22);
+            this.btnTimingHelper.Text = "دستیار خوانش";
+            this.btnTimingHelper.Click += new System.EventHandler(this.btnTimingHelper_Click);
             // 
             // btnImport
             // 
@@ -254,17 +265,6 @@
             this.clmnSynced.Name = "clmnSynced";
             this.clmnSynced.ReadOnly = true;
             this.clmnSynced.Width = 50;
-            // 
-            // btnTimingHelper
-            // 
-            this.btnTimingHelper.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnTimingHelper.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnTimingHelper.Image = ((System.Drawing.Image)(resources.GetObject("btnTimingHelper.Image")));
-            this.btnTimingHelper.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTimingHelper.Name = "btnTimingHelper";
-            this.btnTimingHelper.Size = new System.Drawing.Size(23, 22);
-            this.btnTimingHelper.Text = "زمان‌بندی خوانش";
-            this.btnTimingHelper.Click += new System.EventHandler(this.btnTimingHelper_Click);
             // 
             // AudioFiles
             // 
