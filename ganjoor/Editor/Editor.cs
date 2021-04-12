@@ -1170,5 +1170,13 @@ namespace ganjoor
             }
 
         }
+
+        private void btnBreakParagraph_Click(object sender, EventArgs e)
+        {
+            if(!ganjoorView.BreakParagraph())
+            {
+                MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            }
+        }
     }
 }

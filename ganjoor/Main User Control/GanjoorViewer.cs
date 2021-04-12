@@ -2268,9 +2268,9 @@ namespace ganjoor
         {
             return NewLine(VersePosition.Single);
         }
-        public bool NewParagraph()
+        public bool NewParagraph(string text = "")
         {
-            return NewLine(VersePosition.Paragraph);
+            return NewLine(VersePosition.Paragraph, text);
         }
         public bool InsertVerses(string[] verses, bool IsClassicPoem, bool IgnoreEmptyLines, bool IgnoreShortLines, int minLength)
         {
@@ -2383,7 +2383,7 @@ namespace ganjoor
             ShowPoem(_db.GetPoem(_iCurPoem), false);
             return true;
         }
-        private bool NewLine(VersePosition Position)
+        private bool NewLine(VersePosition Position, string text = "")
         {
             Save();
             int LinePosition = GetCurrentLine();
@@ -2453,6 +2453,11 @@ namespace ganjoor
                 if (ctl is TextBox)
                     if ((ctl.Tag as GanjoorVerse)._Order == firstVerse._Order)
                     {
+                        if(!string.IsNullOrEmpty(text))
+                        {
+                            ctl.Text = text;
+                            DRY_ForceSaveVerse(ctl as TextBox);
+                        }
                         ctl.Focus();
                         break;
                     }
@@ -2891,6 +2896,43 @@ namespace ganjoor
                     }
                 }
             return true;
+
+        }
+
+        public bool BreakParagraph()
+        {
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl.Focused)
+                {
+                    if (ctl is TextBox)
+                    {
+                        GanjoorVerse para = (ctl.Tag as GanjoorVerse);
+
+                        if(para._Position == VersePosition.Paragraph)
+                        {
+                            TextBox textBox = (ctl as TextBox);
+                            int nStart = textBox.SelectionStart;
+                            if(nStart >= 0)
+                            {
+                                string startText = textBox.Text.Substring(0, nStart).Trim();
+                                string endText = textBox.Text.Substring(nStart).Trim();
+                                textBox.Text = startText;
+                                DRY_ForceSaveVerse(textBox);
+
+                                return NewParagraph(endText);
+                            }
+                            _db.LastError = "مکان‌نما در جای درستی نیست.";
+                            return false;
+                        }
+
+                      
+                    }
+                    break;
+                }
+            }
+            _db.LastError = "این قابلیت فقط روی پاراگرافها کار می‌کند.";
+            return false;
 
         }
 
