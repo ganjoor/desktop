@@ -130,6 +130,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio Support\ConfirmAudioUpload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Audio Support\ConfirmAudioUpload.Designer.cs">
+      <DependentUpon>ConfirmAudioUpload.cs</DependentUpon>
+    </Compile>
     <Compile Include="Audio Support\GLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -398,6 +404,9 @@
     <Compile Include="DownloadWizard\Audio\WSInstallSounds.Designer.cs">
       <DependentUpon>WSInstallSounds.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Audio Support\ConfirmAudioUpload.resx">
+      <DependentUpon>ConfirmAudioUpload.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Audio Support\GLogin.resx">
       <DependentUpon>GLogin.cs</DependentUpon>
     </EmbeddedResource>

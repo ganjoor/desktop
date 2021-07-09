@@ -436,9 +436,16 @@ namespace ganjoor
                 return;
             }
 
+            bool replaceOldAudio = false;
 
-            if (MessageBox.Show($"آیا از ارسال خوانش انتخاب شده با نمایهٔ فعال «{Properties.Settings.Default.DefProfile}» به سایت اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
-                return;
+            using(ConfirmAudioUpload confirmDlg = new ConfirmAudioUpload(Properties.Settings.Default.DefProfile))
+            {
+                var res = confirmDlg.ShowDialog(this);
+                if (res == DialogResult.Cancel)
+                    return;
+                replaceOldAudio = res == DialogResult.Yes;
+            }
+
 
             using (HttpClient httpClient = new HttpClient())
             {
@@ -460,7 +467,7 @@ namespace ganjoor
                 byte[] mp3FileContent = File.ReadAllBytes(poemAudio.FilePath);
                 form.Add(new ByteArrayContent(mp3FileContent, 0, mp3FileContent.Length), Path.GetFileName(poemAudio.FilePath), Path.GetFileName(poemAudio.FilePath));
                 
-                HttpResponseMessage response = await httpClient.PostAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio", form);
+                HttpResponseMessage response = await httpClient.PostAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio?replace={replaceOldAudio}", form);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     Cursor = Cursors.Default;
