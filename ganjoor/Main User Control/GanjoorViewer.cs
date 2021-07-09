@@ -1601,13 +1601,11 @@ namespace ganjoor
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Err!");
+                                        MessageBox.Show("CenteredVerse2 without CenteredVerse1");
                                     }
                                     break;
                                 case VersePosition.Single:
-                                    {
-                                        MessageBox.Show("Err!");
-                                    }
+                                    txt += ("<div class=\"l\"><p>" + (ctl.Tag as GanjoorVerse)._Text.Trim() + "</p></div>\r\n");
                                     break;
                                 case VersePosition.Paragraph:
                                     txt += ("<div class=\"n\"><p>" + (ctl.Tag as GanjoorVerse)._Text.Trim() + "</p></div>\r\n");
