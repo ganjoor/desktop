@@ -38,10 +38,9 @@ namespace ganjoor.Audio_Support
             // lblMessage
             // 
             this.lblMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMessage.Location = new System.Drawing.Point(7, 5);
-            this.lblMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMessage.Location = new System.Drawing.Point(10, 8);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(410, 42);
+            this.lblMessage.Size = new System.Drawing.Size(615, 63);
             this.lblMessage.TabIndex = 0;
             this.lblMessage.Text = "آیا از ارسال خوانش انتخاب شده با نمایهٔ فعال «نام نمایه طولانی و طولانی‌تر» به سا" +
     "یت اطمینان دارید؟";
@@ -50,20 +49,20 @@ namespace ganjoor.Audio_Support
             // 
             this.chkReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkReplace.AutoSize = true;
-            this.chkReplace.Location = new System.Drawing.Point(7, 48);
-            this.chkReplace.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkReplace.Checked = true;
+            this.chkReplace.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkReplace.Location = new System.Drawing.Point(23, 72);
             this.chkReplace.Name = "chkReplace";
-            this.chkReplace.Size = new System.Drawing.Size(335, 17);
+            this.chkReplace.Size = new System.Drawing.Size(489, 23);
             this.chkReplace.TabIndex = 1;
             this.chkReplace.Text = "جایگزینی خوانش قبلی من برای شعر (در صورت وجود) با همین نمایه";
             this.chkReplace.UseVisualStyleBackColor = true;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(265, 75);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnOK.Location = new System.Drawing.Point(398, 112);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(66, 24);
+            this.btnOK.Size = new System.Drawing.Size(99, 36);
             this.btnOK.TabIndex = 2;
             this.btnOK.Text = "تأیید";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -72,10 +71,9 @@ namespace ganjoor.Audio_Support
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(343, 75);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCancel.Location = new System.Drawing.Point(514, 112);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(66, 24);
+            this.btnCancel.Size = new System.Drawing.Size(99, 36);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "انصراف";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -83,16 +81,15 @@ namespace ganjoor.Audio_Support
             // ConfirmAudioUpload
             // 
             this.AcceptButton = this.btnOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(420, 110);
+            this.ClientSize = new System.Drawing.Size(630, 165);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.chkReplace);
             this.Controls.Add(this.lblMessage);
             this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfirmAudioUpload";
