@@ -486,6 +486,16 @@ namespace ganjoor
             ganjoorView.ConvertVerseToPara();
         }
 
+        private void btnConvertToSingleToEnd_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ConvertToToEnd(VersePosition.Single);
+        }
+
+        private void btnConvertToParaToEnd_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ConvertToToEnd(VersePosition.Paragraph);
+        }
+
         private void mnuCorrectVerses_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("این فرمان برای تصحیح جای مصرعهای اول و دوم طراحی شده و \nفقط باید در زمانی که به هم ریختگی وجود دارد استفاده شود.\nادامه می‌دهید؟",
@@ -1178,5 +1188,7 @@ namespace ganjoor
                 MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
+
+        
     }
 }

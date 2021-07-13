@@ -85,6 +85,8 @@
             this.btnConvertVerseToBand = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertLeftToRight = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertVerseToPara = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnConvertToSingleToEnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnBreakParagraph = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeleteLine = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteAllLine = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,7 +104,7 @@
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnBreakParagraph = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnConvertToParaToEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -481,6 +483,8 @@
             this.btnConvertVerseToBand,
             this.btnConvertLeftToRight,
             this.btnConvertVerseToPara,
+            this.btnConvertToSingleToEnd,
+            this.btnConvertToParaToEnd,
             this.btnBreakParagraph,
             this.toolStripSeparator10,
             this.btnDeleteLine,
@@ -497,7 +501,7 @@
             // 
             this.btnNewNormalLine.Name = "btnNewNormalLine";
             this.btnNewNormalLine.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.btnNewNormalLine.Size = new System.Drawing.Size(382, 34);
+            this.btnNewNormalLine.Size = new System.Drawing.Size(399, 34);
             this.btnNewNormalLine.Text = "بیت معمولی جدید";
             this.btnNewNormalLine.Click += new System.EventHandler(this.btnNewLine_Click);
             // 
@@ -505,7 +509,7 @@
             // 
             this.btnNewBandLine.Name = "btnNewBandLine";
             this.btnNewBandLine.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.btnNewBandLine.Size = new System.Drawing.Size(382, 34);
+            this.btnNewBandLine.Size = new System.Drawing.Size(399, 34);
             this.btnNewBandLine.Text = "بیت بند جدید";
             this.btnNewBandLine.Click += new System.EventHandler(this.btnNewBandLine_Click);
             // 
@@ -513,7 +517,7 @@
             // 
             this.btnNewBandVerse.Name = "btnNewBandVerse";
             this.btnNewBandVerse.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.btnNewBandVerse.Size = new System.Drawing.Size(382, 34);
+            this.btnNewBandVerse.Size = new System.Drawing.Size(399, 34);
             this.btnNewBandVerse.Text = "مصرع بند جدید";
             this.btnNewBandVerse.Click += new System.EventHandler(this.btnNewBandVerse_Click);
             // 
@@ -521,7 +525,7 @@
             // 
             this.btnNewSingleVerse.Name = "btnNewSingleVerse";
             this.btnNewSingleVerse.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.btnNewSingleVerse.Size = new System.Drawing.Size(382, 34);
+            this.btnNewSingleVerse.Size = new System.Drawing.Size(399, 34);
             this.btnNewSingleVerse.Text = "مصرع تنهای جدید (نیمایی/آزاد)";
             this.btnNewSingleVerse.Click += new System.EventHandler(this.btnNewSingleVerse_Click);
             // 
@@ -529,20 +533,20 @@
             // 
             this.btnNewParagraph.Name = "btnNewParagraph";
             this.btnNewParagraph.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.btnNewParagraph.Size = new System.Drawing.Size(382, 34);
+            this.btnNewParagraph.Size = new System.Drawing.Size(399, 34);
             this.btnNewParagraph.Text = "پاراگراف نثر جدید";
             this.btnNewParagraph.Click += new System.EventHandler(this.btnNewParagraph_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(379, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(396, 6);
             // 
             // btnConvertBeytToBand
             // 
             this.btnConvertBeytToBand.Name = "btnConvertBeytToBand";
             this.btnConvertBeytToBand.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.btnConvertBeytToBand.Size = new System.Drawing.Size(382, 34);
+            this.btnConvertBeytToBand.Size = new System.Drawing.Size(399, 34);
             this.btnConvertBeytToBand.Text = "تبدیل بیت جاری به بیت بند";
             this.btnConvertBeytToBand.Click += new System.EventHandler(this.btnConvertBeytToBand_Click);
             // 
@@ -550,14 +554,14 @@
             // 
             this.btnConvertVerseToBand.Name = "btnConvertVerseToBand";
             this.btnConvertVerseToBand.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.btnConvertVerseToBand.Size = new System.Drawing.Size(382, 34);
+            this.btnConvertVerseToBand.Size = new System.Drawing.Size(399, 34);
             this.btnConvertVerseToBand.Text = "تبدیل مصرع جاری به مصرع بند";
             this.btnConvertVerseToBand.Click += new System.EventHandler(this.btnConvertVerseToBand_Click);
             // 
             // btnConvertLeftToRight
             // 
             this.btnConvertLeftToRight.Name = "btnConvertLeftToRight";
-            this.btnConvertLeftToRight.Size = new System.Drawing.Size(382, 34);
+            this.btnConvertLeftToRight.Size = new System.Drawing.Size(399, 34);
             this.btnConvertLeftToRight.Text = "تبدیل مصرع دوم به مصرع اول";
             this.btnConvertLeftToRight.Click += new System.EventHandler(this.btnConvertLeftToRight_Click);
             // 
@@ -565,27 +569,42 @@
             // 
             this.btnConvertVerseToPara.Name = "btnConvertVerseToPara";
             this.btnConvertVerseToPara.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.btnConvertVerseToPara.Size = new System.Drawing.Size(382, 34);
+            this.btnConvertVerseToPara.Size = new System.Drawing.Size(399, 34);
             this.btnConvertVerseToPara.Text = "تبدیل مصرع جاری به پاراگراف نثر";
             this.btnConvertVerseToPara.Click += new System.EventHandler(this.btnConvertVerseToPara_Click);
+            // 
+            // btnConvertToSingleToEnd
+            // 
+            this.btnConvertToSingleToEnd.Name = "btnConvertToSingleToEnd";
+            this.btnConvertToSingleToEnd.Size = new System.Drawing.Size(399, 34);
+            this.btnConvertToSingleToEnd.Text = "تبدیل از این مصرع تا آخر به نیمایی";
+            this.btnConvertToSingleToEnd.Click += new System.EventHandler(this.btnConvertToSingleToEnd_Click);
+            // 
+            // btnBreakParagraph
+            // 
+            this.btnBreakParagraph.Name = "btnBreakParagraph";
+            this.btnBreakParagraph.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.btnBreakParagraph.Size = new System.Drawing.Size(399, 34);
+            this.btnBreakParagraph.Text = "شکستن پاراگراف نثر از مکان‌نما";
+            this.btnBreakParagraph.Click += new System.EventHandler(this.btnBreakParagraph_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(379, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(396, 6);
             // 
             // btnDeleteLine
             // 
             this.btnDeleteLine.Name = "btnDeleteLine";
             this.btnDeleteLine.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.Delete)));
-            this.btnDeleteLine.Size = new System.Drawing.Size(382, 34);
+            this.btnDeleteLine.Size = new System.Drawing.Size(399, 34);
             this.btnDeleteLine.Text = "حذف بیت جاری";
             this.btnDeleteLine.Click += new System.EventHandler(this.btnDeleteLine_Click);
             // 
             // btnDeleteAllLine
             // 
             this.btnDeleteAllLine.Name = "btnDeleteAllLine";
-            this.btnDeleteAllLine.Size = new System.Drawing.Size(382, 34);
+            this.btnDeleteAllLine.Size = new System.Drawing.Size(399, 34);
             this.btnDeleteAllLine.Text = "حذف تمام ابیات";
             this.btnDeleteAllLine.Click += new System.EventHandler(this.btnDeleteAllLine_Click);
             // 
@@ -720,13 +739,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnBreakParagraph
+            // btnConvertToParaToEnd
             // 
-            this.btnBreakParagraph.Name = "btnBreakParagraph";
-            this.btnBreakParagraph.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.btnBreakParagraph.Size = new System.Drawing.Size(382, 34);
-            this.btnBreakParagraph.Text = "شکستن پاراگراف نثر از مکان‌نما";
-            this.btnBreakParagraph.Click += new System.EventHandler(this.btnBreakParagraph_Click);
+            this.btnConvertToParaToEnd.Name = "btnConvertToParaToEnd";
+            this.btnConvertToParaToEnd.Size = new System.Drawing.Size(399, 34);
+            this.btnConvertToParaToEnd.Text = "تبدیل از این مصرع تا آخر به پاراگراف نثر";
+            this.btnConvertToParaToEnd.Click += new System.EventHandler(this.btnConvertToParaToEnd_Click);
             // 
             // Editor
             // 
@@ -738,7 +756,7 @@
             this.Controls.Add(this.toolStripMain);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Editor";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -830,5 +848,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuExport;
         private System.Windows.Forms.ToolStripMenuItem mnu2verseSplit;
         private System.Windows.Forms.ToolStripMenuItem btnBreakParagraph;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertToSingleToEnd;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertToParaToEnd;
     }
 }
