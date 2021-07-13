@@ -104,8 +104,9 @@
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
             this.btnConvertToParaToEnd = new System.Windows.Forms.ToolStripMenuItem();
-            this.ganjoorView = new ganjoor.GanjoorViewer();
             this.btnDefaultToEnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.btnAppendToPre = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -321,6 +322,7 @@
             this.btnRestructurePoem,
             this.btnNormalRestructure,
             this.toolStripSeparator15,
+            this.btnAppendToPre,
             this.btnDeletePoem,
             this.btnMoveToCategory});
             this.btnNewPoem.Image = global::ganjoor.Properties.Resources.add;
@@ -730,6 +732,13 @@
             this.btnConvertToParaToEnd.Text = "تبدیل از این مصرع تا آخر به پاراگراف نثر";
             this.btnConvertToParaToEnd.Click += new System.EventHandler(this.btnConvertToParaToEnd_Click);
             // 
+            // btnDefaultToEnd
+            // 
+            this.btnDefaultToEnd.Name = "btnDefaultToEnd";
+            this.btnDefaultToEnd.Size = new System.Drawing.Size(399, 34);
+            this.btnDefaultToEnd.Text = "چینش پیش‌فرض از این مصرع تا آخر";
+            this.btnDefaultToEnd.Click += new System.EventHandler(this.btnDefaultToEnd_Click);
+            // 
             // ganjoorView
             // 
             this.ganjoorView.AutoScroll = true;
@@ -748,12 +757,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnDefaultToEnd
+            // btnAppendToPre
             // 
-            this.btnDefaultToEnd.Name = "btnDefaultToEnd";
-            this.btnDefaultToEnd.Size = new System.Drawing.Size(399, 34);
-            this.btnDefaultToEnd.Text = "چینش پیش‌فرض از این مصرع تا آخر";
-            this.btnDefaultToEnd.Click += new System.EventHandler(this.btnDefaultToEnd_Click);
+            this.btnAppendToPre.Name = "btnAppendToPre";
+            this.btnAppendToPre.Size = new System.Drawing.Size(399, 34);
+            this.btnAppendToPre.Text = "افزودن شعر به انتهای شعر پیشین";
+            this.btnAppendToPre.Click += new System.EventHandler(this.btnAppendToPre_Click);
             // 
             // Editor
             // 
@@ -860,5 +869,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnConvertToSingleToEnd;
         private System.Windows.Forms.ToolStripMenuItem btnConvertToParaToEnd;
         private System.Windows.Forms.ToolStripMenuItem btnDefaultToEnd;
+        private System.Windows.Forms.ToolStripMenuItem btnAppendToPre;
     }
 }

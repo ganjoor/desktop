@@ -175,6 +175,8 @@ namespace ganjoor
 
         }
 
+        
+
         private void btnNewLine_Click(object sender, EventArgs e)
         {
             ganjoorView.NewNormalLine();
@@ -1046,6 +1048,45 @@ namespace ganjoor
 
             }
 
+        }
+
+        private void btnAppendToPre_Click(object sender, EventArgs e)
+        {
+            int nPoemId = ganjoorView.CurrentPoemId;
+            if (nPoemId < 1)
+            {
+                MessageBox.Show("لطفا شعری را انتخاب کنید.");
+                return;
+            }
+
+            if (
+               MessageBox.Show("آیا از افزودن این شعر به انتهای شعر پیشین اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+               ==
+               DialogResult.Yes
+               )
+            {
+                DbBrowser dbBrowser = new DbBrowser();
+                int nCatId = ganjoorView.CurrentCatId;
+                GanjoorPoem prePoem = dbBrowser.GetPreviousPoem(nPoemId, nCatId);
+
+                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+
+                List<GanjoorVerse> preVerses = dbBrowser.GetVerses(prePoem._ID);
+
+                int verseOrder = preVerses[preVerses.Count - 1]._Order;
+
+                foreach(var verse in verses)
+                {
+                    GanjoorVerse v = dbBrowser.CreateNewVerse(prePoem._ID, verseOrder + 1, verse._Position);
+                    dbBrowser.SetVerseText(prePoem._ID, v._Order, verse._Text);
+
+                    verseOrder = v._Order;
+                }
+
+                dbBrowser.CloseDb();
+
+                MessageBox.Show("انجام شد. شعر قبلی را بررسی کنید و در صورت نیاز این شعر را به صورت دستی پاک کنید.");
+            }
         }
 
         private void mnuSplit_Click(object sender, EventArgs e)
