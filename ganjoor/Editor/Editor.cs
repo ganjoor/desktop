@@ -496,6 +496,11 @@ namespace ganjoor
             ganjoorView.ConvertToToEnd(VersePosition.Paragraph);
         }
 
+        private void btnDefaultToEnd_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ConvertToToEnd(VersePosition.Right);
+        }
+
         private void mnuCorrectVerses_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("این فرمان برای تصحیح جای مصرعهای اول و دوم طراحی شده و \nفقط باید در زمانی که به هم ریختگی وجود دارد استفاده شود.\nادامه می‌دهید؟",

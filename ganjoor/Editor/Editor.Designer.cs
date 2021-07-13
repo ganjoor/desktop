@@ -103,8 +103,9 @@
             this.mnu2verseSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
-            this.ganjoorView = new ganjoor.GanjoorViewer();
             this.btnConvertToParaToEnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.ganjoorView = new ganjoor.GanjoorViewer();
+            this.btnDefaultToEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -485,6 +486,7 @@
             this.btnConvertVerseToPara,
             this.btnConvertToSingleToEnd,
             this.btnConvertToParaToEnd,
+            this.btnDefaultToEnd,
             this.btnBreakParagraph,
             this.toolStripSeparator10,
             this.btnDeleteLine,
@@ -721,6 +723,13 @@
             this.statusStripEditor.TabIndex = 2;
             this.statusStripEditor.Text = "نوار وضعیت";
             // 
+            // btnConvertToParaToEnd
+            // 
+            this.btnConvertToParaToEnd.Name = "btnConvertToParaToEnd";
+            this.btnConvertToParaToEnd.Size = new System.Drawing.Size(399, 34);
+            this.btnConvertToParaToEnd.Text = "تبدیل از این مصرع تا آخر به پاراگراف نثر";
+            this.btnConvertToParaToEnd.Click += new System.EventHandler(this.btnConvertToParaToEnd_Click);
+            // 
             // ganjoorView
             // 
             this.ganjoorView.AutoScroll = true;
@@ -739,12 +748,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnConvertToParaToEnd
+            // btnDefaultToEnd
             // 
-            this.btnConvertToParaToEnd.Name = "btnConvertToParaToEnd";
-            this.btnConvertToParaToEnd.Size = new System.Drawing.Size(399, 34);
-            this.btnConvertToParaToEnd.Text = "تبدیل از این مصرع تا آخر به پاراگراف نثر";
-            this.btnConvertToParaToEnd.Click += new System.EventHandler(this.btnConvertToParaToEnd_Click);
+            this.btnDefaultToEnd.Name = "btnDefaultToEnd";
+            this.btnDefaultToEnd.Size = new System.Drawing.Size(399, 34);
+            this.btnDefaultToEnd.Text = "چینش پیش‌فرض از این مصرع تا آخر";
+            this.btnDefaultToEnd.Click += new System.EventHandler(this.btnDefaultToEnd_Click);
             // 
             // Editor
             // 
@@ -850,5 +859,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnBreakParagraph;
         private System.Windows.Forms.ToolStripMenuItem btnConvertToSingleToEnd;
         private System.Windows.Forms.ToolStripMenuItem btnConvertToParaToEnd;
+        private System.Windows.Forms.ToolStripMenuItem btnDefaultToEnd;
     }
 }

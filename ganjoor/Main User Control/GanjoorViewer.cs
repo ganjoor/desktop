@@ -2901,7 +2901,7 @@ namespace ganjoor
         {
             int nFocus = -1;
             bool bStartFound = false;
-            foreach (Control ctl in this.Controls)
+            foreach (Control ctl in Controls)
             {
                 if (ctl.Focused || bStartFound)
                 {
@@ -2911,7 +2911,13 @@ namespace ganjoor
                         GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
                         nFocus = verseBefore._Order;
                         _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, newPosition);
-                        
+
+                        if (newPosition == VersePosition.Right)
+                            newPosition = VersePosition.Left;
+                        else if (newPosition == VersePosition.Left)
+                            newPosition = VersePosition.Right;
+
+
                     }
                 }
             }
