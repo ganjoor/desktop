@@ -90,6 +90,7 @@ namespace ganjoor.Audio_Support
             this.Controls.Add(this.chkReplace);
             this.Controls.Add(this.lblMessage);
             this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfirmAudioUpload";
@@ -97,6 +98,7 @@ namespace ganjoor.Audio_Support
             this.RightToLeftLayout = true;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "تأییدیه";
             this.ResumeLayout(false);
