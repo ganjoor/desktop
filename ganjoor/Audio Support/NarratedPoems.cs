@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using ganjoor.Audio_Support;
 
 namespace ganjoor
 {
@@ -273,18 +274,23 @@ namespace ganjoor
         /// <param name="e"></param>
         private void btnAllDownloadable_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-            Application.DoEvents();
-            using (SndDownloadWizard dlg = new SndDownloadWizard(0))
+            using(AudioDownloadMethod audioDownloadMethod = new AudioDownloadMethod())
             {
-                dlg.ShowDialog(this);
-                if (dlg.AnythingInstalled)
+                if(audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
                 {
-                    FillGrid();
+                    Cursor.Current = Cursors.WaitCursor;
+                    Application.DoEvents();
+                    using (SndDownloadWizard dlg = new SndDownloadWizard(0))
+                    {
+                        dlg.ShowDialog(this);
+                        if (dlg.AnythingInstalled)
+                        {
+                            FillGrid();
+                        }
+                    }
+                    Cursor.Current = Cursors.Default;
                 }
             }
-            Cursor.Current = Cursors.Default;
-
         }
 
 
