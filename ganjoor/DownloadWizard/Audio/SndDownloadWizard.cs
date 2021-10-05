@@ -7,16 +7,16 @@ namespace ganjoor
     public class SndDownloadWizard : MultiStageWizard
     {
         public SndDownloadWizard()
-            : this(0)
+            : this(0, 0, 0, "")
         {
         }
 
-        public SndDownloadWizard(int nPoemId) : base()
+        public SndDownloadWizard(int nPoemId, int nPoetId, int nCatId, string searchTerm) : base()
         {
 
             AnythingInstalled = false;
 
-            WSSelectSounds selStage = new WSSelectSounds(nPoemId);
+            WSSelectSounds selStage = new WSSelectSounds(nPoemId, nPoetId, nCatId, searchTerm);
             selStage.OnDisableNextButton += new EventHandler(selStage_OnDisableNextButton);
             selStage.OnEnableNextButton += new EventHandler(selStage_OnEnableNextButton);
             AddStage(selStage);

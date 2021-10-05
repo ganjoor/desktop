@@ -367,7 +367,7 @@ namespace ganjoor
         {
             Cursor.Current = Cursors.WaitCursor;
             Application.DoEvents();
-            using (SndDownloadWizard dlg = new SndDownloadWizard(_PoemId))
+            using (SndDownloadWizard dlg = new SndDownloadWizard(_PoemId, 0, 0, ""))
             {
                 dlg.ShowDialog(this);
                 if (dlg.AnythingInstalled)

@@ -15,14 +15,17 @@ namespace ganjoor
 {
     public partial class WSSelectSounds : WizardStage
     {
-        public WSSelectSounds() : this(0)
+        public WSSelectSounds() : this(0, 0, 0, "")
         {
         }
 
-        public WSSelectSounds(int nPoemId)
+        public WSSelectSounds(int nPoemId, int nPoetId, int nCatId, string searchTerm)
         {
             InitializeComponent();
-            _PoemId = nPoemId;            
+            _PoemId = nPoemId;
+            _PoetId = nPoetId;
+            _CatId = nCatId;
+            _SearchTerm = searchTerm;
         }
 
         //شناسه شعر
@@ -33,7 +36,20 @@ namespace ganjoor
             get;
         }
 
-       
+        /// <summary>
+        /// شناسهٔ شاعر - صفر تنظیم نشده همه‌ شاعران
+        /// </summary>
+        public int _PoetId { get; set; }
+
+        /// <summary>
+        /// شناسهٔ بخش
+        /// </summary>
+        public int _CatId { get; set; }
+
+        /// <summary>
+        /// عبارت جستجو
+        /// </summary>
+        public string _SearchTerm { get; set; }
 
         public override async void OnActivated()
         {
@@ -81,7 +97,7 @@ namespace ganjoor
                 Application.DoEvents();
 
                 HttpResponseMessage response = _PoemId == 0 ?
-                    await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published")
+                    await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}")
                     :
                     await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/ganjoor/poem/{_PoemId}/recitations");
 

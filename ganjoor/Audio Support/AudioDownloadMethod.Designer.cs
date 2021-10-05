@@ -132,6 +132,7 @@ namespace ganjoor.Audio_Support
             this.btnOK.TabIndex = 5;
             this.btnOK.Text = "تأیید";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // AudioDownloadMethod
             // 

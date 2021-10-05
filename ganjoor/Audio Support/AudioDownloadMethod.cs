@@ -22,6 +22,8 @@ namespace ganjoor.Audio_Support
 
         public int CatId { get; set; }
 
+        public string SearchTerm { get; set; }
+
         private void btnSelect_Click(object sender, EventArgs e)
         {
             DbBrowser db = new DbBrowser();
@@ -51,6 +53,15 @@ namespace ganjoor.Audio_Support
                         }
                     }
                 }
+            }
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            SearchTerm = txtSearchTerm.Text;
+            if(CatId != 0)
+            {
+                PoetId = 0;
             }
         }
     }

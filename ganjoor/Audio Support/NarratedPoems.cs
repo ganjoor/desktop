@@ -280,7 +280,7 @@ namespace ganjoor
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     Application.DoEvents();
-                    using (SndDownloadWizard dlg = new SndDownloadWizard(0))
+                    using (SndDownloadWizard dlg = new SndDownloadWizard(0, audioDownloadMethod.PoetId, audioDownloadMethod.CatId, audioDownloadMethod.SearchTerm))
                     {
                         dlg.ShowDialog(this);
                         if (dlg.AnythingInstalled)
