@@ -141,7 +141,7 @@ namespace ganjoor
                         if (!string.IsNullOrEmpty(paginnationMetadata))
                         {
                             PaginationMetadata paginationMetadata = JsonConvert.DeserializeObject<PaginationMetadata>(paginnationMetadata);
-                            if(paginationMetadata.currentPage == paginationMetadata.totalPages)
+                            if(paginationMetadata.totalPages == 0 || paginationMetadata.currentPage == paginationMetadata.totalPages)
                             {
                                 finished = true;
                             }
@@ -149,7 +149,7 @@ namespace ganjoor
                             {
                                 lblDesc.Text = $"در حال دریافت اطلاعات (صفحهٔ {paginationMetadata.currentPage + 1} از {paginationMetadata.totalPages}) ...";
                                 Application.DoEvents();
-                                response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published?PageNumber={paginationMetadata.currentPage + 1}&PageSize={paginationMetadata.pageSize}");
+                                response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}&PageNumber={paginationMetadata.currentPage + 1}&PageSize={paginationMetadata.pageSize}");
                                 if (response.StatusCode != HttpStatusCode.OK)
                                 {
                                     MessageBox.Show(await response.Content.ReadAsStringAsync());
