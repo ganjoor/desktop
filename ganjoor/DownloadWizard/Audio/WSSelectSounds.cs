@@ -10,6 +10,7 @@ using System.Net;
 using Newtonsoft.Json.Linq;
 using RMuseum.Models.GanjoorAudio.ViewModels;
 using Newtonsoft.Json;
+using ganjoor.Audio_Support;
 
 namespace ganjoor
 {
@@ -353,8 +354,20 @@ namespace ganjoor
 
         private async void btnAllDownloadable_Click(object sender, EventArgs e)
         {
-            _PoemId = 0;
-            await TryDownloadList();
+            using (AudioDownloadMethod audioDownloadMethod = new AudioDownloadMethod())
+            {
+                if (audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
+                {
+                    _PoemId = 0;
+                    _PoetId = audioDownloadMethod.PoetId;
+                    _CatId = audioDownloadMethod.CatId;
+                    Cursor.Current = Cursors.WaitCursor;
+                    Application.DoEvents();
+                    await TryDownloadList();
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+            
         }
 
     }
