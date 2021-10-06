@@ -500,6 +500,7 @@ namespace ganjoor
                                 MustHave2ndBandBeyt = false;
                                 lblVerse.Location = new Point(this.Width / 2 - MesraWidth / 2, vTop);
                                 break;
+                            case VersePosition.Comment:
                             case VersePosition.Single:
                             case VersePosition.Paragraph:
                                 {
@@ -558,6 +559,7 @@ namespace ganjoor
                                 MustHave2ndBandBeyt = false;
                                 lblVerse.Location = new Point(this.Width / 2 - TextRenderer.MeasureText(verses[i]._Text, this.Font).Width / 2, vTop);
                                 break;
+                            case VersePosition.Comment:
                             case VersePosition.Single:
                             case VersePosition.Paragraph:
                                 (lblVerse as Label).AutoSize = false;
