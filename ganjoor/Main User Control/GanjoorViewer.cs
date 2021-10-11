@@ -596,6 +596,8 @@ namespace ganjoor
                 lblVerse.Text = verses[i]._Text;
                 if (EditMode)
                 {
+                    if (verses[i]._Position == VersePosition.Comment)
+                        lblVerse.BackColor = Color.LightGray;
                     lblVerse.Leave += new EventHandler(lblVerse_Leave);
                     lblVerse.TextChanged += new EventHandler(lblVerse_TextChanged);
                     lblVerse.KeyDown += new KeyEventHandler(lblVerse_KeyDown);
@@ -2898,6 +2900,41 @@ namespace ganjoor
             return true;
 
         }
+
+        public bool ConvertVerseTo(VersePosition versePosition)
+        {
+            int nFocus = -1;
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl.Focused)
+                {
+                    if (ctl is TextBox)
+                    {
+                        GanjoorVerse verseBefore = (ctl.Tag as GanjoorVerse);
+                        nFocus = verseBefore._Order;
+                        _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, versePosition);
+                        RestructureVerses(-1, false, nFocus + 1, true);
+                    }
+                    break;
+                }
+            }
+            if (nFocus == -1)
+                return false;
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            foreach (Control ctl in this.Controls)
+                if (ctl is TextBox)
+                {
+                    if ((ctl.Tag as GanjoorVerse)._Order == nFocus)
+                    {
+                        ctl.Focus();
+                        break;
+                    }
+                }
+            return true;
+
+        }
+
+
 
         public bool ConvertToToEnd(VersePosition newPosition)
         {

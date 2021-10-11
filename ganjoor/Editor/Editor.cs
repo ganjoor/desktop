@@ -488,6 +488,11 @@ namespace ganjoor
             ganjoorView.ConvertVerseToPara();
         }
 
+        private void btnConvertVerseToComment_Click(object sender, EventArgs e)
+        {
+            ganjoorView.ConvertVerseTo(VersePosition.Comment);
+        }
+
         private void btnConvertToSingleToEnd_Click(object sender, EventArgs e)
         {
             ganjoorView.ConvertToToEnd(VersePosition.Single);

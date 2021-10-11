@@ -71,6 +71,7 @@
             this.btnRestructurePoem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNormalRestructure = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnAppendToPre = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeletePoem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMoveToCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -86,6 +87,8 @@
             this.btnConvertLeftToRight = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertVerseToPara = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertToSingleToEnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnConvertToParaToEnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDefaultToEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.btnBreakParagraph = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDeleteLine = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,10 +106,8 @@
             this.mnu2verseSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
-            this.btnConvertToParaToEnd = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnDefaultToEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnAppendToPre = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnConvertVerseToComment = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -454,6 +455,13 @@
             this.toolStripSeparator15.Name = "toolStripSeparator15";
             this.toolStripSeparator15.Size = new System.Drawing.Size(396, 6);
             // 
+            // btnAppendToPre
+            // 
+            this.btnAppendToPre.Name = "btnAppendToPre";
+            this.btnAppendToPre.Size = new System.Drawing.Size(399, 34);
+            this.btnAppendToPre.Text = "افزودن شعر به انتهای شعر پیشین";
+            this.btnAppendToPre.Click += new System.EventHandler(this.btnAppendToPre_Click);
+            // 
             // btnDeletePoem
             // 
             this.btnDeletePoem.Name = "btnDeletePoem";
@@ -486,6 +494,7 @@
             this.btnConvertVerseToBand,
             this.btnConvertLeftToRight,
             this.btnConvertVerseToPara,
+            this.btnConvertVerseToComment,
             this.btnConvertToSingleToEnd,
             this.btnConvertToParaToEnd,
             this.btnDefaultToEnd,
@@ -583,6 +592,20 @@
             this.btnConvertToSingleToEnd.Size = new System.Drawing.Size(399, 34);
             this.btnConvertToSingleToEnd.Text = "تبدیل از این مصرع تا آخر به نیمایی";
             this.btnConvertToSingleToEnd.Click += new System.EventHandler(this.btnConvertToSingleToEnd_Click);
+            // 
+            // btnConvertToParaToEnd
+            // 
+            this.btnConvertToParaToEnd.Name = "btnConvertToParaToEnd";
+            this.btnConvertToParaToEnd.Size = new System.Drawing.Size(399, 34);
+            this.btnConvertToParaToEnd.Text = "تبدیل از این مصرع تا آخر به پاراگراف نثر";
+            this.btnConvertToParaToEnd.Click += new System.EventHandler(this.btnConvertToParaToEnd_Click);
+            // 
+            // btnDefaultToEnd
+            // 
+            this.btnDefaultToEnd.Name = "btnDefaultToEnd";
+            this.btnDefaultToEnd.Size = new System.Drawing.Size(399, 34);
+            this.btnDefaultToEnd.Text = "چینش پیش‌فرض از این مصرع تا آخر";
+            this.btnDefaultToEnd.Click += new System.EventHandler(this.btnDefaultToEnd_Click);
             // 
             // btnBreakParagraph
             // 
@@ -725,20 +748,6 @@
             this.statusStripEditor.TabIndex = 2;
             this.statusStripEditor.Text = "نوار وضعیت";
             // 
-            // btnConvertToParaToEnd
-            // 
-            this.btnConvertToParaToEnd.Name = "btnConvertToParaToEnd";
-            this.btnConvertToParaToEnd.Size = new System.Drawing.Size(399, 34);
-            this.btnConvertToParaToEnd.Text = "تبدیل از این مصرع تا آخر به پاراگراف نثر";
-            this.btnConvertToParaToEnd.Click += new System.EventHandler(this.btnConvertToParaToEnd_Click);
-            // 
-            // btnDefaultToEnd
-            // 
-            this.btnDefaultToEnd.Name = "btnDefaultToEnd";
-            this.btnDefaultToEnd.Size = new System.Drawing.Size(399, 34);
-            this.btnDefaultToEnd.Text = "چینش پیش‌فرض از این مصرع تا آخر";
-            this.btnDefaultToEnd.Click += new System.EventHandler(this.btnDefaultToEnd_Click);
-            // 
             // ganjoorView
             // 
             this.ganjoorView.AutoScroll = true;
@@ -757,12 +766,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnAppendToPre
+            // btnConvertVerseToComment
             // 
-            this.btnAppendToPre.Name = "btnAppendToPre";
-            this.btnAppendToPre.Size = new System.Drawing.Size(399, 34);
-            this.btnAppendToPre.Text = "افزودن شعر به انتهای شعر پیشین";
-            this.btnAppendToPre.Click += new System.EventHandler(this.btnAppendToPre_Click);
+            this.btnConvertVerseToComment.Name = "btnConvertVerseToComment";
+            this.btnConvertVerseToComment.Size = new System.Drawing.Size(399, 34);
+            this.btnConvertVerseToComment.Text = "تبدیل مصرع جاری به توضیح";
+            this.btnConvertVerseToComment.Click += new System.EventHandler(this.btnConvertVerseToComment_Click);
             // 
             // Editor
             // 
@@ -870,5 +879,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnConvertToParaToEnd;
         private System.Windows.Forms.ToolStripMenuItem btnDefaultToEnd;
         private System.Windows.Forms.ToolStripMenuItem btnAppendToPre;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToComment;
     }
 }
