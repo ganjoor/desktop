@@ -1614,6 +1614,9 @@ namespace ganjoor
                                 case VersePosition.Paragraph:
                                     txt += ("<div class=\"n\"><p>" + (ctl.Tag as GanjoorVerse)._Text.Trim() + "</p></div>\r\n");
                                     break;
+                                case VersePosition.Comment:
+                                    txt += ("<div class=\"c\"><p>" + (ctl.Tag as GanjoorVerse)._Text.Trim() + "</p></div>\r\n");
+                                    break;
 
                             }
                         }
