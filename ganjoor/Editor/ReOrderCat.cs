@@ -226,5 +226,30 @@ namespace ganjoor
             }
         }
 
+        private void btnGroupNaming_Click(object sender, EventArgs e)
+        {
+            bool bPrefix = MessageBox.Show("آیا تمایل دارید این نام به عنوان پیشوند به عنوان فعلی اضافه شود (در غیر این صورت عنوان فعلی حذف می‌شود)؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) ==DialogResult.Yes;
+
+            if (MessageBox.Show("آیا از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            _db.BeginBatchOperation();
+            int nNum = 0;
+            foreach (DataGridViewRow Row in grdMain.Rows)
+            {
+                nNum++;
+                string newTitle = $"شمارهٔ { GPersianTextSync.Sync(nNum.ToString())}";
+                if(bPrefix)
+                {
+                    newTitle = $"{newTitle} - {Row.Cells[ClmnTitle].Value}";
+                }
+                _db.SetPoemTitle(Convert.ToInt32(Row.Cells[ClmnID].Value), newTitle);
+            }
+            _db.CommitBatchOperation();
+            LoadGridData();
+
+        }
     }
 }
