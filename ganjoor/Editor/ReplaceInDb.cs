@@ -86,6 +86,22 @@ namespace ganjoor
                 MessageBox.Show(exp.ToString(), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
+        private void btnOther_Click(object sender, EventArgs e)
+        {
+            _db.BeginBatchOperation();
+
+            _db.Replace("ـ", "");
+            _db.Replace("  ", " "); _db.Replace("  ", " "); _db.Replace("  ", " "); _db.Replace("  ", " "); _db.Replace("  ", " "); _db.Replace("  ", " ");
+            _db.Replace(" !", "!");
+            _db.Replace(" ؟", "؟");
+            _db.Replace(" ،", "،");
+
+
+            _db.CommitBatchOperation();
+
+            MessageBox.Show("انجام شد!", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1
+                , MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+        }
     }
 }
