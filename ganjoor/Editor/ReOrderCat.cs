@@ -280,5 +280,23 @@ namespace ganjoor
             }
             Enabled = true;
         }
+
+        private static int CompareGridRowsByRavi(DataGridViewRow Row1, DataGridViewRow Row2)
+        {
+            return Row1.Cells[ClmnRAVIAX].Value.ToString().CompareTo(Row2.Cells[ClmnRAVIAX].Value.ToString());
+        }
+
+        private void btnSortOnRavi_Click(object sender, EventArgs e)
+        {
+            List<DataGridViewRow> lstRows = new List<DataGridViewRow>();
+            foreach (DataGridViewRow Row in grdMain.Rows)
+                lstRows.Add(Row);
+
+            lstRows.Sort(CompareGridRowsByRavi);
+
+            grdMain.Rows.Clear();
+
+            grdMain.Rows.AddRange(lstRows.ToArray());
+        }
     }
 }

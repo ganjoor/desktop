@@ -30,6 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReOrderCat));
             this.grdMain = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stsBar = new System.Windows.Forms.StatusStrip();
             this.lblPoemCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.llblSelectionCount = new System.Windows.Forms.ToolStripStatusLabel();
@@ -45,12 +51,7 @@
             this.btnGroupNaming = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnFillRhymes = new System.Windows.Forms.ToolStripButton();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSortOnRavi = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdMain)).BeginInit();
             this.stsBar.SuspendLayout();
             this.tlbrMain.SuspendLayout();
@@ -78,6 +79,66 @@
             this.grdMain.Size = new System.Drawing.Size(923, 408);
             this.grdMain.TabIndex = 0;
             this.grdMain.SelectionChanged += new System.EventHandler(this.grdMain_SelectionChanged);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.HeaderText = "عنوان";
+            this.Column1.MinimumWidth = 8;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.FillWeight = 50F;
+            this.Column2.HeaderText = "مصرع اول";
+            this.Column2.MinimumWidth = 8;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.FillWeight = 50F;
+            this.Column3.HeaderText = "مصرع دوم";
+            this.Column3.MinimumWidth = 8;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column4.HeaderText = "حروف قافیه";
+            this.Column4.MinimumWidth = 8;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column4.Width = 80;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "عکس قافیه";
+            this.Column6.MinimumWidth = 8;
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column6.Visible = false;
+            this.Column6.Width = 150;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "ID";
+            this.Column5.MinimumWidth = 8;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column5.Visible = false;
+            this.Column5.Width = 150;
             // 
             // stsBar
             // 
@@ -121,7 +182,8 @@
             this.toolStripSeparator2,
             this.btnGroupNaming,
             this.toolStripSeparator3,
-            this.btnFillRhymes});
+            this.btnFillRhymes,
+            this.btnSortOnRavi});
             this.tlbrMain.Location = new System.Drawing.Point(0, 0);
             this.tlbrMain.Name = "tlbrMain";
             this.tlbrMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -225,65 +287,15 @@
             this.btnFillRhymes.Text = "محاسبهٔ حروف قافیه";
             this.btnFillRhymes.Click += new System.EventHandler(this.btnFillRhymes_Click);
             // 
-            // Column1
+            // btnSortOnRavi
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.HeaderText = "عنوان";
-            this.Column1.MinimumWidth = 8;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column1.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column2.FillWeight = 50F;
-            this.Column2.HeaderText = "مصرع اول";
-            this.Column2.MinimumWidth = 8;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.FillWeight = 50F;
-            this.Column3.HeaderText = "مصرع دوم";
-            this.Column3.MinimumWidth = 8;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column4.HeaderText = "حروف قافیه";
-            this.Column4.MinimumWidth = 8;
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column4.Width = 80;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "عکس قافیه";
-            this.Column6.MinimumWidth = 8;
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column6.Visible = false;
-            this.Column6.Width = 150;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "ID";
-            this.Column5.MinimumWidth = 8;
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column5.Visible = false;
-            this.Column5.Width = 150;
+            this.btnSortOnRavi.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSortOnRavi.Image = ((System.Drawing.Image)(resources.GetObject("btnSortOnRavi.Image")));
+            this.btnSortOnRavi.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSortOnRavi.Name = "btnSortOnRavi";
+            this.btnSortOnRavi.Size = new System.Drawing.Size(145, 22);
+            this.btnSortOnRavi.Text = "مرتب‌سازی بر اساس قافیه";
+            this.btnSortOnRavi.Click += new System.EventHandler(this.btnSortOnRavi_Click);
             // 
             // ReOrderCat
             // 
@@ -335,5 +347,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.ToolStripButton btnSortOnRavi;
     }
 }
