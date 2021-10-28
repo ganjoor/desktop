@@ -176,6 +176,12 @@ namespace ganjoor
 
         private void btnDefault_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show(
+                    "آیا از بازگشت پیکربندی پیش‌فرض اطمینان دارید؟",
+                    "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
+                return;
+
             bool showLineNumbers = Settings.Default.ShowBeytNums;
             Settings.Default.Reset();
             Settings.Default.IsNewVersion = false;
