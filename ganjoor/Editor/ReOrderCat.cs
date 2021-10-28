@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using ganjoor.Properties;
 
@@ -210,7 +206,7 @@ namespace ganjoor
                     else
                     {
                         GanjoorCat cat = _db.GetCategory(NewCatId);
-                        if (MessageBox.Show(String.Format("از انتقال {0} شعر انتخابی از بخش «{1}» به بخش «{2}» اطمینان دارید؟", grdMain.SelectedRows.Count, _db.GetCategory(Settings.Default.LastCat)._Text, cat._Text),
+                        if (MessageBox.Show(string.Format("از انتقال {0} شعر انتخابی از بخش «{1}» به بخش «{2}» اطمینان دارید؟", grdMain.SelectedRows.Count, _db.GetCategory(Settings.Default.LastCat)._Text, cat._Text),
                             "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                             return;
                         _db.BeginBatchOperation();
@@ -250,6 +246,39 @@ namespace ganjoor
             _db.CommitBatchOperation();
             LoadGridData();
 
+        }
+
+        private static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+        private void btnFillRhymes_Click(object sender, EventArgs e)
+        {
+            Enabled = false;
+            Application.DoEvents();
+            foreach (DataGridViewRow Row in grdMain.Rows)
+            {
+                List<GanjoorVerse> verses = _db.GetVerses((int)Row.Cells[ClmnID].Value);
+                try
+                {
+                    var ravi = RhymeFinder.FindRhyme(verses, false);
+                    if(!string.IsNullOrEmpty(ravi.Rhyme))
+                    {
+                        Row.Cells[ClmnRAVI].Value = ravi.Rhyme;
+                        Row.Cells[ClmnRAVIAX].Value = Reverse(ravi.Rhyme);
+                        Application.DoEvents();
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show(Row.Cells[ClmnTitle].Value.ToString());
+                }
+                
+            }
+            Enabled = true;
         }
     }
 }
