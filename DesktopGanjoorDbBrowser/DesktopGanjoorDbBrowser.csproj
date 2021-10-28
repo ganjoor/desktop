@@ -96,9 +96,11 @@
     </Compile>
     <Compile Include="Reusable Forms\WaitMsg.Designer.cs" />
     <Compile Include="Utilities\GAdvisor.cs" />
+    <Compile Include="Utilities\GanjooRhymeAnalysisResult.cs" />
     <Compile Include="Utilities\GINIParser.cs" />
     <Compile Include="Utilities\GMessageBox.cs" />
     <Compile Include="Utilities\GPersianTextSync.cs" />
+    <Compile Include="Utilities\RhymeFinder.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
