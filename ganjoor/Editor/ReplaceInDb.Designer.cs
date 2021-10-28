@@ -40,6 +40,7 @@
             this.txtRep = new System.Windows.Forms.TextBox();
             this.txtFind = new System.Windows.Forms.TextBox();
             this.btnOther = new System.Windows.Forms.Button();
+            this.chkOnlyPoemTitles = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -160,11 +161,22 @@
             this.btnOther.UseVisualStyleBackColor = true;
             this.btnOther.Click += new System.EventHandler(this.btnOther_Click);
             // 
+            // chkOnlyPoemTitles
+            // 
+            this.chkOnlyPoemTitles.AutoSize = true;
+            this.chkOnlyPoemTitles.Location = new System.Drawing.Point(20, 295);
+            this.chkOnlyPoemTitles.Name = "chkOnlyPoemTitles";
+            this.chkOnlyPoemTitles.Size = new System.Drawing.Size(213, 17);
+            this.chkOnlyPoemTitles.TabIndex = 5;
+            this.chkOnlyPoemTitles.Text = "فقط در عنوان اشعار جایگزینی صورت گیرد";
+            this.chkOnlyPoemTitles.UseVisualStyleBackColor = true;
+            // 
             // ReplaceInDb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(627, 329);
+            this.Controls.Add(this.chkOnlyPoemTitles);
             this.Controls.Add(this.btnOther);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnNumbers);
@@ -202,5 +214,6 @@
         private System.Windows.Forms.TextBox txtRep;
         private System.Windows.Forms.TextBox txtFind;
         private System.Windows.Forms.Button btnOther;
+        private System.Windows.Forms.CheckBox chkOnlyPoemTitles;
     }
 }

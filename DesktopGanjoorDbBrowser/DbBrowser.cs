@@ -2431,25 +2431,28 @@ namespace ganjoor
         #endregion
 
         #region Replace
-        public void Replace(string searchterm, string replacement)
+        public void Replace(string searchterm, string replacement, bool onlyInPoemTitles)
         {
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
-                cmd.CommandText = "UPDATE poet SET name = REPLACE(name, '" + searchterm + "', '" + replacement + "');";
-                cmd.ExecuteNonQuery();
-
-                cmd.CommandText = "UPDATE poet SET description = REPLACE(description, '" + searchterm + "', '" + replacement + "');";
-                cmd.ExecuteNonQuery();
-
-
-                cmd.CommandText = "UPDATE cat SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
-                cmd.ExecuteNonQuery();
-
                 cmd.CommandText = "UPDATE poem SET title = REPLACE(title, '" + searchterm + "', '" + replacement + "');";
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "UPDATE verse SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
-                cmd.ExecuteNonQuery();
+                if(!onlyInPoemTitles)
+                {
+                    cmd.CommandText = "UPDATE poet SET name = REPLACE(name, '" + searchterm + "', '" + replacement + "');";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "UPDATE poet SET description = REPLACE(description, '" + searchterm + "', '" + replacement + "');";
+                    cmd.ExecuteNonQuery();
+
+
+                    cmd.CommandText = "UPDATE cat SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "UPDATE verse SET text = REPLACE(text, '" + searchterm + "', '" + replacement + "');";
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
         #endregion

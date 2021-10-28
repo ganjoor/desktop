@@ -23,8 +23,8 @@ namespace ganjoor
         {            
 
             _db.BeginBatchOperation();
-            _db.Replace("ي", "ی");
-            _db.Replace("ك", "ک");
+            _db.Replace("ي", "ی", chkOnlyPoemTitles.Checked);
+            _db.Replace("ك", "ک", chkOnlyPoemTitles.Checked);
 
             _db.CommitBatchOperation();
 
@@ -36,8 +36,8 @@ namespace ganjoor
         private void btnHeye_Click(object sender, EventArgs e)
         {
             _db.BeginBatchOperation();
-            _db.Replace("هٔ", "هٔ");
-            _db.Replace("ه‌ی", "هٔ");
+            _db.Replace("هٔ", "هٔ", chkOnlyPoemTitles.Checked);
+            _db.Replace("ه‌ی", "هٔ", chkOnlyPoemTitles.Checked);
 
             _db.CommitBatchOperation();
 
@@ -50,16 +50,20 @@ namespace ganjoor
         {
             _db.BeginBatchOperation();
 
-            _db.Replace("0", "۰");
-            _db.Replace("1", "۱");
-            _db.Replace("2", "۲");
-            _db.Replace("3", "۳");
-            _db.Replace("4", "۴");
-            _db.Replace("5", "۵");
-            _db.Replace("6", "۶");
-            _db.Replace("7", "۷");
-            _db.Replace("8", "۸");
-            _db.Replace("9", "۹");
+            _db.Replace("0", "۰", chkOnlyPoemTitles.Checked);
+            _db.Replace("1", "۱", chkOnlyPoemTitles.Checked);
+            _db.Replace("2", "۲", chkOnlyPoemTitles.Checked);
+            _db.Replace("3", "۳", chkOnlyPoemTitles.Checked);
+            _db.Replace("4", "۴", chkOnlyPoemTitles.Checked);
+            _db.Replace("5", "۵", chkOnlyPoemTitles.Checked);
+            _db.Replace("6", "۶", chkOnlyPoemTitles.Checked);
+            _db.Replace("7", "۷", chkOnlyPoemTitles.Checked);
+            _db.Replace("8", "۸", chkOnlyPoemTitles.Checked);
+            _db.Replace("9", "۹", chkOnlyPoemTitles.Checked);
+
+            _db.Replace("٤", "۴", chkOnlyPoemTitles.Checked);
+            _db.Replace("٥", "۵", chkOnlyPoemTitles.Checked);
+            _db.Replace("٦", "۶", chkOnlyPoemTitles.Checked);
 
             _db.CommitBatchOperation();
 
@@ -74,7 +78,7 @@ namespace ganjoor
 
             try
             {
-                _db.Replace(txtFind.Text, txtRep.Text);
+                _db.Replace(txtFind.Text, txtRep.Text, chkOnlyPoemTitles.Checked);
 
                 _db.CommitBatchOperation();
 
@@ -91,11 +95,11 @@ namespace ganjoor
         {
             _db.BeginBatchOperation();
 
-            _db.Replace("ـ", "");
-            _db.Replace("  ", " "); _db.Replace("  ", " "); _db.Replace("  ", " "); _db.Replace("  ", " "); _db.Replace("  ", " "); _db.Replace("  ", " ");
-            _db.Replace(" !", "!");
-            _db.Replace(" ؟", "؟");
-            _db.Replace(" ،", "،");
+            _db.Replace("ـ", "", chkOnlyPoemTitles.Checked);
+            _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked);
+            _db.Replace(" !", "!", chkOnlyPoemTitles.Checked);
+            _db.Replace(" ؟", "؟", chkOnlyPoemTitles.Checked);
+            _db.Replace(" ،", "،", chkOnlyPoemTitles.Checked);
 
 
             _db.CommitBatchOperation();
