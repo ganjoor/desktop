@@ -61,9 +61,16 @@ namespace ganjoor
             _db.Replace("8", "۸", chkOnlyPoemTitles.Checked);
             _db.Replace("9", "۹", chkOnlyPoemTitles.Checked);
 
+            _db.Replace("٠", "۰", chkOnlyPoemTitles.Checked);
+            _db.Replace("١", "۱", chkOnlyPoemTitles.Checked);
+            _db.Replace("٢", "۲", chkOnlyPoemTitles.Checked);
+            _db.Replace("٣", "۳", chkOnlyPoemTitles.Checked);
             _db.Replace("٤", "۴", chkOnlyPoemTitles.Checked);
             _db.Replace("٥", "۵", chkOnlyPoemTitles.Checked);
             _db.Replace("٦", "۶", chkOnlyPoemTitles.Checked);
+            _db.Replace("٧", "۷", chkOnlyPoemTitles.Checked);
+            _db.Replace("٨", "۸", chkOnlyPoemTitles.Checked);
+            _db.Replace("٩", "۹", chkOnlyPoemTitles.Checked);
 
             _db.CommitBatchOperation();
 

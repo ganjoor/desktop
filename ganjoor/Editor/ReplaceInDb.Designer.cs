@@ -84,7 +84,7 @@
             this.btnNumbers.Name = "btnNumbers";
             this.btnNumbers.Size = new System.Drawing.Size(597, 23);
             this.btnNumbers.TabIndex = 3;
-            this.btnNumbers.Text = "جایگزینی اعداد انگلیسی با شکل فارسی آنها";
+            this.btnNumbers.Text = "جایگزینی اعداد انگلیسی و عربی با شکل فارسی آنها";
             this.btnNumbers.UseVisualStyleBackColor = true;
             this.btnNumbers.Click += new System.EventHandler(this.btnNumbers_Click);
             // 
