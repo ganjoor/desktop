@@ -277,7 +277,12 @@ namespace ganjoor
             this.Hide();
             using (ReOrderCat dlg = new ReOrderCat())
             {
-                dlg.ShowDialog(this);
+                if(dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    DbBrowser dbBrowser = new DbBrowser();
+                    ganjoorView.ShowPoem(dbBrowser.GetPoem(dlg.SelectedPoemId), true);
+                    dbBrowser.CloseDb();
+                }
             }
             this.Show();
             ganjoorView.Font = ganjoorView.Font;

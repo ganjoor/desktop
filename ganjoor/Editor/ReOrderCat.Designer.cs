@@ -78,6 +78,7 @@
             this.grdMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdMain.Size = new System.Drawing.Size(923, 408);
             this.grdMain.TabIndex = 0;
+            this.grdMain.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdMain_CellContentDoubleClick);
             this.grdMain.SelectionChanged += new System.EventHandler(this.grdMain_SelectionChanged);
             // 
             // Column1

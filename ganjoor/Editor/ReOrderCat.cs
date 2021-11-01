@@ -298,5 +298,13 @@ namespace ganjoor
 
             grdMain.Rows.AddRange(lstRows.ToArray());
         }
+
+        public int SelectedPoemId { get; set; }
+
+        private void grdMain_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SelectedPoemId = Convert.ToInt32(grdMain.Rows[e.RowIndex].Cells[ClmnID].Value);
+            DialogResult = DialogResult.OK;
+        }
     }
 }
