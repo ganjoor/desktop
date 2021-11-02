@@ -306,5 +306,61 @@ namespace ganjoor
             SelectedPoemId = Convert.ToInt32(grdMain.Rows[e.RowIndex].Cells[ClmnID].Value);
             DialogResult = DialogResult.OK;
         }
+
+        private void btnFirstNoRavi_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < grdMain.Rows.Count; i++)
+            {
+                if(grdMain.Rows[i].Cells[ClmnRAVIAX].Value == null || grdMain.Rows[i].Cells[ClmnRAVIAX].Value.ToString() == "")
+                {
+                    grdMain.ClearSelection();
+                    grdMain.Rows[i].Selected = true;
+                    grdMain.FirstDisplayedCell = grdMain.Rows[i].Cells[0];
+                    return;
+                }
+            }
+            MessageBox.Show("نبود!");
+        }
+
+        private void btnFixFirstVerse_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("آیا از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            if (MessageBox.Show("آیا تمایل دارید ادامه ندهید؟",
+                           "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                return;
+            if (MessageBox.Show("آیا واقعاً از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+
+            foreach (DataGridViewRow row in grdMain.SelectedRows)
+            {
+                Application.DoEvents();
+                int poemId = Convert.ToInt32(row.Cells[ClmnID].Value);
+                var verses = _db.GetVerses(poemId);
+
+                List<int> versesToDelete = new List<int>();
+                foreach (GanjoorVerse Verse in verses)
+                    versesToDelete.Add(Verse._Order);
+
+                if (_db.DeleteVerses(poemId, versesToDelete))
+                {
+                    VersePosition pos = VersePosition.Right;
+                    for (int i = 1; i < verses.Count; i++)
+                    {
+                        var v = _db.CreateNewVerse(poemId, i - 1, pos);
+                        _db.SetVerseText(poemId, v._Order, verses[i]._Text);
+                        pos = pos == VersePosition.Right ? VersePosition.Left : VersePosition.Right;
+                    }
+
+                    _db.SetPoemTitle(poemId, verses[0]._Text);
+                }
+            }
+
+            LoadGridData();
+
+        }
     }
 }
