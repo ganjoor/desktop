@@ -240,7 +240,10 @@ namespace ganjoor
                 if(bPrefix)
                 {
                     string title = Row.Cells[ClmnTitle].Value.ToString().Trim();
-                    if(title.StartsWith("شمارهٔ "))
+                    string verse1 = Row.Cells[ClmnVerse1].Value.ToString().Trim();
+                    if (title == verse1)
+                        title = "";
+                    if (title.StartsWith("شمارهٔ "))
                     {
                         if (title.IndexOf(" - ") != -1)
                         {
