@@ -239,7 +239,20 @@ namespace ganjoor
                 string newTitle = $"شمارهٔ { GPersianTextSync.Sync(nNum.ToString())}";
                 if(bPrefix)
                 {
-                    newTitle = $"{newTitle} - {Row.Cells[ClmnTitle].Value}";
+                    string title = Row.Cells[ClmnTitle].Value.ToString().Trim();
+                    if(title.StartsWith("شمارهٔ "))
+                    {
+                        if (title.IndexOf(" - ") != -1)
+                        {
+                            title = title.Substring(title.IndexOf(" - ") + " - ".Length);
+                            newTitle = $"{newTitle} - {title}";
+                        }
+                    }
+                    else
+                    if(!string.IsNullOrEmpty(title))
+                    {
+                        newTitle = $"{newTitle} - {Row.Cells[ClmnTitle].Value}";
+                    }
                 }
                 _db.SetPoemTitle(Convert.ToInt32(Row.Cells[ClmnID].Value), newTitle);
             }
