@@ -1245,6 +1245,45 @@ namespace ganjoor
             }
         }
 
-        
+        private void mnuSingleVerseSplit_Click(object sender, EventArgs e)
+        {
+            int nPoemId = ganjoorView.CurrentPoemId;
+            if (nPoemId < 1)
+            {
+                MessageBox.Show("لطفا شعری را انتخاب کنید.");
+                return;
+            }
+            if (MessageBox.Show("با اجرای این فرمان هر بیت شعر جدیدی محسوب می‌شود. شعرهای جدید به بخش جاری اضافه می‌شوند.\n\rآیا ادامه می‌دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+            {
+                DbBrowser dbBrowser = new DbBrowser();
+                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+
+                int nCatId = ganjoorView.CurrentCatId;
+                int nPoemNo = 0;
+                int nLastPoemId = nPoemId;
+
+                for (int nIndex = 0; nIndex < verses.Count; nIndex += 2)
+                {
+                    nPoemNo++;
+                    dbBrowser.BeginBatchOperation();
+                    GanjoorPoem newPoem = dbBrowser.CreateNewPoem("شمارهٔ " + GPersianTextSync.Sync(nPoemNo.ToString()), nCatId);
+                    nLastPoemId = newPoem._ID;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i, verses[nIndex + i]._Position);
+                        dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[nIndex + i]._Text);
+                    }
+                    dbBrowser.CommitBatchOperation();
+                }
+                if (MessageBox.Show("آیا تمایل دارید شعر جاری را حذف کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.Yes)
+                {
+                    dbBrowser.DeletePoem(nPoemId);
+                }
+                ganjoorView.ShowPoem(dbBrowser.GetPoem(nLastPoemId), true);
+                dbBrowser.CloseDb();
+
+
+            }
+        }
     }
 }

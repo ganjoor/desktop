@@ -86,6 +86,7 @@
             this.btnConvertVerseToBand = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertLeftToRight = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertVerseToPara = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnConvertVerseToComment = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertToSingleToEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertToParaToEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDefaultToEnd = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,7 +108,7 @@
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnConvertVerseToComment = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSingleVerseSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -586,6 +587,13 @@
             this.btnConvertVerseToPara.Text = "تبدیل مصرع جاری به پاراگراف نثر";
             this.btnConvertVerseToPara.Click += new System.EventHandler(this.btnConvertVerseToPara_Click);
             // 
+            // btnConvertVerseToComment
+            // 
+            this.btnConvertVerseToComment.Name = "btnConvertVerseToComment";
+            this.btnConvertVerseToComment.Size = new System.Drawing.Size(399, 34);
+            this.btnConvertVerseToComment.Text = "تبدیل مصرع جاری به توضیح";
+            this.btnConvertVerseToComment.Click += new System.EventHandler(this.btnConvertVerseToComment_Click);
+            // 
             // btnConvertToSingleToEnd
             // 
             this.btnConvertToSingleToEnd.Name = "btnConvertToSingleToEnd";
@@ -649,6 +657,7 @@
             this.mnuExport,
             this.mnuSplit,
             this.mnu2verseSplit,
+            this.mnuSingleVerseSplit,
             this.btnGDBListEditor});
             this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -766,12 +775,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnConvertVerseToComment
+            // mnuSingleVerseSplit
             // 
-            this.btnConvertVerseToComment.Name = "btnConvertVerseToComment";
-            this.btnConvertVerseToComment.Size = new System.Drawing.Size(399, 34);
-            this.btnConvertVerseToComment.Text = "تبدیل مصرع جاری به توضیح";
-            this.btnConvertVerseToComment.Click += new System.EventHandler(this.btnConvertVerseToComment_Click);
+            this.mnuSingleVerseSplit.Name = "mnuSingleVerseSplit";
+            this.mnuSingleVerseSplit.Size = new System.Drawing.Size(405, 34);
+            this.mnuSingleVerseSplit.Text = "تبدیل به مفردات";
+            this.mnuSingleVerseSplit.Click += new System.EventHandler(this.mnuSingleVerseSplit_Click);
             // 
             // Editor
             // 
@@ -880,5 +889,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnDefaultToEnd;
         private System.Windows.Forms.ToolStripMenuItem btnAppendToPre;
         private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToComment;
+        private System.Windows.Forms.ToolStripMenuItem mnuSingleVerseSplit;
     }
 }
