@@ -1285,5 +1285,21 @@ namespace ganjoor
 
             }
         }
+
+        private void btnTechnicalProblems_Click(object sender, EventArgs e)
+        {
+            DbBrowser dbBrowser = new DbBrowser();
+            var list = dbBrowser.GetVersesWithTechnicalProblems(true);
+            if(list.Count == 0)
+            {
+                MessageBox.Show("مشکلی نبود.");
+            }
+            else
+            {
+                ganjoorView.ShowPoem(dbBrowser.GetPoem(list[0]._PoemID), true);
+                MessageBox.Show(list[0]._Text);
+            }
+            dbBrowser.CloseDb();
+        }
     }
 }

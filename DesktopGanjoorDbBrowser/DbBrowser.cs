@@ -3303,5 +3303,33 @@ namespace ganjoor
 
 
         #endregion
+
+        #region Technical Problems
+        public List<GanjoorVerse> GetVersesWithTechnicalProblems(bool top1)
+        {
+            List<GanjoorVerse> lst = new List<GanjoorVerse>();
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+                    string sql = "SELECT v2.vorder, v2.position, v2.text, v2.poem_id FROM verse v2 WHERE v2.position = 1 AND NOT EXISTS (SELECT * FROM verse v1 WHERE v2.poem_id = v1.poem_id AND v1.vorder = (v2.vorder - 1) AND v1.position = 0 )";
+                    if (top1)
+                        sql += " LIMIT 1";
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(sql, _con))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                            lst.Add(new GanjoorVerse(
+                                Convert.ToInt32(row.ItemArray[3]),
+                                Convert.ToInt32(row.ItemArray[0]),
+                                (VersePosition)Convert.ToInt32(row.ItemArray[1]),
+                                row.ItemArray[2].ToString()
+                                ));
+                    }
+                }
+            }
+            return lst;
+        }
+        #endregion
     }
 }

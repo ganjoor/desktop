@@ -105,10 +105,11 @@
             this.mnuExport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu2verseSplit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSingleVerseSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.mnuSingleVerseSplit = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnTechnicalProblems = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -658,6 +659,7 @@
             this.mnuSplit,
             this.mnu2verseSplit,
             this.mnuSingleVerseSplit,
+            this.btnTechnicalProblems,
             this.btnGDBListEditor});
             this.btnTools.Image = global::ganjoor.Properties.Resources.tools;
             this.btnTools.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -736,6 +738,13 @@
             this.mnu2verseSplit.Text = "شکستن شعر به شعرهای دوبیتی";
             this.mnu2verseSplit.Click += new System.EventHandler(this.Mnu2verseSplit_Click);
             // 
+            // mnuSingleVerseSplit
+            // 
+            this.mnuSingleVerseSplit.Name = "mnuSingleVerseSplit";
+            this.mnuSingleVerseSplit.Size = new System.Drawing.Size(405, 34);
+            this.mnuSingleVerseSplit.Text = "تبدیل به مفردات";
+            this.mnuSingleVerseSplit.Click += new System.EventHandler(this.mnuSingleVerseSplit_Click);
+            // 
             // btnGDBListEditor
             // 
             this.btnGDBListEditor.Name = "btnGDBListEditor";
@@ -775,12 +784,12 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // mnuSingleVerseSplit
+            // btnTechnicalProblems
             // 
-            this.mnuSingleVerseSplit.Name = "mnuSingleVerseSplit";
-            this.mnuSingleVerseSplit.Size = new System.Drawing.Size(405, 34);
-            this.mnuSingleVerseSplit.Text = "تبدیل به مفردات";
-            this.mnuSingleVerseSplit.Click += new System.EventHandler(this.mnuSingleVerseSplit_Click);
+            this.btnTechnicalProblems.Name = "btnTechnicalProblems";
+            this.btnTechnicalProblems.Size = new System.Drawing.Size(405, 34);
+            this.btnTechnicalProblems.Text = "اشکالات فنی";
+            this.btnTechnicalProblems.Click += new System.EventHandler(this.btnTechnicalProblems_Click);
             // 
             // Editor
             // 
@@ -890,5 +899,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnAppendToPre;
         private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToComment;
         private System.Windows.Forms.ToolStripMenuItem mnuSingleVerseSplit;
+        private System.Windows.Forms.ToolStripMenuItem btnTechnicalProblems;
     }
 }
