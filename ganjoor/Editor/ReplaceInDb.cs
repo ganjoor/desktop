@@ -36,7 +36,7 @@ namespace ganjoor
         private void btnHeye_Click(object sender, EventArgs e)
         {
             _db.BeginBatchOperation();
-            _db.Replace("هٔ", "هٔ", chkOnlyPoemTitles.Checked);
+            _db.Replace("ۀ", "هٔ", chkOnlyPoemTitles.Checked);
             _db.Replace("ه‌ی", "هٔ", chkOnlyPoemTitles.Checked);
 
             _db.CommitBatchOperation();
