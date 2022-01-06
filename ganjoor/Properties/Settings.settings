@@ -132,25 +132,19 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="CustomDownloadUrls" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="CustomDownloadListNames" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="CustomDownloadListDescriptions" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LastDownloadUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://i.ganjoor.net/android/androidgdbs.xml</Value>
     </Setting>
     <Setting Name="CustomDownloadListMoreInfoUrls" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string /&gt;
-&lt;/ArrayOfString&gt;</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="DownloadPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -189,7 +183,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="GanjoorServiceUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://ganjgah.ir</Value>
+      <Value Profile="(Default)">https://api.ganjoor.net</Value>
     </Setting>
     <Setting Name="LastSearchType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>

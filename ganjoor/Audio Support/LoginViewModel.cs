@@ -1,7 +1,7 @@
 ﻿namespace ganjoor.Audio_Support
 {
     /// <summary>
-    /// ganjgah.ir login view model
+    /// login view model
     /// </summary>
     class LoginViewModel
     {
