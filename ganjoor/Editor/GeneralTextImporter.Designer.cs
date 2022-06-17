@@ -35,12 +35,13 @@
             this.lblMainCatText = new System.Windows.Forms.Label();
             this.lblComment = new System.Windows.Forms.Label();
             this.chkStartShort = new System.Windows.Forms.CheckBox();
+            this.lblNextPoemStartTextComment = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(262, 111);
+            this.btnCancel.Location = new System.Drawing.Point(262, 131);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(123, 23);
@@ -51,7 +52,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(135, 111);
+            this.btnOK.Location = new System.Drawing.Point(135, 131);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(123, 23);
@@ -91,13 +92,22 @@
             // chkStartShort
             // 
             this.chkStartShort.AutoSize = true;
-            this.chkStartShort.Location = new System.Drawing.Point(12, 90);
+            this.chkStartShort.Location = new System.Drawing.Point(12, 110);
             this.chkStartShort.Name = "chkStartShort";
             this.chkStartShort.Size = new System.Drawing.Size(296, 17);
             this.chkStartShort.TabIndex = 17;
             this.chkStartShort.Text = "خطوط با طول کمتر از ۱۰ نویسه را آغاز شعر بعد محسوب کن";
             this.chkStartShort.UseVisualStyleBackColor = true;
-            this.chkStartShort.CheckedChanged += new System.EventHandler(this.chkStartShort_CheckedChanged);
+            // 
+            // lblNextPoemStartTextComment
+            // 
+            this.lblNextPoemStartTextComment.AutoSize = true;
+            this.lblNextPoemStartTextComment.Location = new System.Drawing.Point(127, 88);
+            this.lblNextPoemStartTextComment.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNextPoemStartTextComment.Name = "lblNextPoemStartTextComment";
+            this.lblNextPoemStartTextComment.Size = new System.Drawing.Size(212, 13);
+            this.lblNextPoemStartTextComment.TabIndex = 18;
+            this.lblNextPoemStartTextComment.Text = "متون متعدد را با سمیکالن (;) از هم جدا کنید.";
             // 
             // GeneralTextImporter
             // 
@@ -105,7 +115,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(397, 142);
+            this.ClientSize = new System.Drawing.Size(397, 158);
+            this.Controls.Add(this.lblNextPoemStartTextComment);
             this.Controls.Add(this.chkStartShort);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -135,5 +146,6 @@
         private System.Windows.Forms.Label lblMainCatText;
         private System.Windows.Forms.Label lblComment;
         private System.Windows.Forms.CheckBox chkStartShort;
+        private System.Windows.Forms.Label lblNextPoemStartTextComment;
     }
 }

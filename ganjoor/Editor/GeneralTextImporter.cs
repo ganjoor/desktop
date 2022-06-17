@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -40,11 +34,6 @@ namespace ganjoor
             {
                 return 10;
             }
-        }
-
-        private void chkStartShort_CheckedChanged(object sender, EventArgs e)
-        {
-            txtNextPoemStartText.Enabled = !chkStartShort.Checked;
         }
 
 

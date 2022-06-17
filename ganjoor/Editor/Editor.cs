@@ -734,9 +734,11 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     string fileName = dlg.FileName;
-                    string nextPoemStartText = dlg.NextPoemStartText;
+                    string[] starts = dlg.NextPoemStartText.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
                     bool nextPoemStartIsAShortText = dlg.NextPoemStartIsAShortText;
                     int nShortTextLength = dlg.ShortTextLength;
+
+                     
 
                     Cursor = Cursors.WaitCursor;
                     Application.DoEvents();
@@ -768,12 +770,21 @@ namespace ganjoor
                     while (nCurLine < nTotalLines)
                     {
                         string line = lines[nCurLine].Trim();
+                        bool startsWith = false;
+                        foreach (var startText in starts)
+                        {
+                            if(line.IndexOf(startText) == 0)
+                            {
+                                startsWith = true;
+                            }
+                                
+                        }
                         if (!string.IsNullOrEmpty(line))
                         {
                             if (
-                                (nextPoemStartIsAShortText && line.Length < nShortTextLength)
+                                startsWith
                                 ||
-                                (!nextPoemStartIsAShortText && line.IndexOf(nextPoemStartText) == 0)
+                                (nextPoemStartIsAShortText && line.Length < nShortTextLength)
                                 )
                             {
                                 curPoem = dbBrowser.CreateNewPoem(line, nCurCatId);
