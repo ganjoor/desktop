@@ -208,6 +208,18 @@ namespace ganjoor
             ganjoorView.DeleteLine();
         }
 
+        private void btnAddFirstVerseToTitle_Click(object sender, EventArgs e)
+        {
+            if (
+                MessageBox.Show("آیا می‌دانید چه می‌کنید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                ==
+                DialogResult.Yes
+                )
+            {
+                ganjoorView.AppendFirstVerseToTileAndDeleteIt();
+            }
+        }
+
         private void btnDeletePoet_Click(object sender, EventArgs e)
         {
             if (
@@ -1312,5 +1324,7 @@ namespace ganjoor
             }
             dbBrowser.CloseDb();
         }
+
+        
     }
 }

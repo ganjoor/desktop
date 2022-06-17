@@ -2982,6 +2982,22 @@ namespace ganjoor
 
         }
 
+        public bool AppendFirstVerseToTileAndDeleteIt()
+        {
+            var verses = _db.GetVerses(_iCurPoem);
+            if (verses.Count > 0)
+            {
+                string firstVerseText = verses[0]._Text;
+                var poem = _db.GetPoem(_iCurPoem);
+                _db.SetPoemTitle(_iCurPoem, $"{poem._Title} - {firstVerseText}");
+                _db.DeleteVerses(_iCurPoem, new List<int>(new int[] { verses[0]._Order }));
+                RestructureVerses(-1, true, -1, false);
+                Save();
+                return true;
+            }
+            return false;
+        }
+
         public bool BreakParagraph()
         {
             foreach (Control ctl in this.Controls)
