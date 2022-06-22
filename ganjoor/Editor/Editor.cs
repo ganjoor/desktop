@@ -1325,6 +1325,28 @@ namespace ganjoor
             dbBrowser.CloseDb();
         }
 
-        
+        private void btnRhymeError_Click(object sender, EventArgs e)
+        {
+            int nPoemId = ganjoorView.CurrentPoemId;
+            if (nPoemId < 1)
+            {
+                MessageBox.Show("لطفا شعری را انتخاب کنید.");
+                return;
+            }
+            DbBrowser dbBrowser = new DbBrowser();
+            List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+            var ravi = RhymeFinder.FindRhyme(verses, false);
+            if (!string.IsNullOrEmpty(ravi.Rhyme))
+            {
+                MessageBox.Show($"خطایی روی نداد. حروف قافیه: {ravi.Rhyme}");
+            }
+            else
+            {
+                MessageBox.Show(ravi.FailVerse);
+                ganjoorView.HighlightText(ravi.FailVerse);
+            }
+
+            dbBrowser.CloseDb();
+        }
     }
 }

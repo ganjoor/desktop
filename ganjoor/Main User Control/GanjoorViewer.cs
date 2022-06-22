@@ -1523,6 +1523,13 @@ namespace ganjoor
                                 }
                             }
                         }
+                        else
+                            if (ctl is TextBox && ctl.Text == phrase)
+                        {
+                            ctl.BackColor = Color.Red;
+                            this.AutoScrollPosition = ctl.Location;
+                            return 0;
+                        }
                     }
                     if (count == 0)
                         this.AutoScrollPosition = new Point();
@@ -2458,7 +2465,7 @@ namespace ganjoor
                 if (ctl is TextBox)
                     if ((ctl.Tag as GanjoorVerse)._Order == firstVerse._Order)
                     {
-                        if(!string.IsNullOrEmpty(text))
+                        if (!string.IsNullOrEmpty(text))
                         {
                             ctl.Text = text;
                             DRY_ForceSaveVerse(ctl as TextBox);
@@ -3008,11 +3015,11 @@ namespace ganjoor
                     {
                         GanjoorVerse para = (ctl.Tag as GanjoorVerse);
 
-                        if(para._Position == VersePosition.Paragraph)
+                        if (para._Position == VersePosition.Paragraph)
                         {
                             TextBox textBox = (ctl as TextBox);
                             int nStart = textBox.SelectionStart;
-                            if(nStart >= 0)
+                            if (nStart >= 0)
                             {
                                 string startText = textBox.Text.Substring(0, nStart).Trim();
                                 string endText = textBox.Text.Substring(nStart).Trim();
@@ -3025,7 +3032,7 @@ namespace ganjoor
                             return false;
                         }
 
-                      
+
                     }
                     break;
                 }

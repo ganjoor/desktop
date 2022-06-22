@@ -117,7 +117,7 @@ namespace ganjoor
                         return new GanjooRhymeAnalysisResult()
                         {
                             Rhyme = "",
-                            FailVerse = verseText
+                            FailVerse = verseTextList[j]
                         };
                     }
 
