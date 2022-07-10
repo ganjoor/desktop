@@ -2996,7 +2996,7 @@ namespace ganjoor
             {
                 string firstVerseText = verses[0]._Text;
                 var poem = _db.GetPoem(_iCurPoem);
-                _db.SetPoemTitle(_iCurPoem, $"{poem._Title} - {firstVerseText}");
+                _db.SetPoemTitle(_iCurPoem, string.IsNullOrEmpty(poem._Title) ? firstVerseText : $"{poem._Title} - {firstVerseText}");
                 _db.DeleteVerses(_iCurPoem, new List<int>(new int[] { verses[0]._Order }));
                 RestructureVerses(-1, true, -1, false);
                 Save();
