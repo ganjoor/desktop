@@ -74,7 +74,7 @@
             this.Column5});
             this.grdMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdMain.Location = new System.Drawing.Point(0, 38);
-            this.grdMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grdMain.Margin = new System.Windows.Forms.Padding(4);
             this.grdMain.Name = "grdMain";
             this.grdMain.ReadOnly = true;
             this.grdMain.RowHeadersWidth = 62;
@@ -311,8 +311,8 @@
             this.btnFirstNoRavi.Image = ((System.Drawing.Image)(resources.GetObject("btnFirstNoRavi.Image")));
             this.btnFirstNoRavi.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnFirstNoRavi.Name = "btnFirstNoRavi";
-            this.btnFirstNoRavi.Size = new System.Drawing.Size(115, 33);
-            this.btnFirstNoRavi.Text = "اولین بی‌قافیه";
+            this.btnFirstNoRavi.Size = new System.Drawing.Size(118, 33);
+            this.btnFirstNoRavi.Text = "بی‌قافیهٔ بعدی";
             this.btnFirstNoRavi.Click += new System.EventHandler(this.btnFirstNoRavi_Click);
             // 
             // btnFixFirstVerse
@@ -335,7 +335,7 @@
             this.Controls.Add(this.stsBar);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ReOrderCat";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;

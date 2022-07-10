@@ -325,7 +325,8 @@ namespace ganjoor
 
         private void btnFirstNoRavi_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < grdMain.Rows.Count; i++)
+            int start = grdMain.SelectedRows.Count == 0 ? 0 : grdMain.SelectedRows[0].Index;
+            for (int i = start; i < grdMain.Rows.Count; i++)
             {
                 if(grdMain.Rows[i].Cells[ClmnRAVIAX].Value == null || grdMain.Rows[i].Cells[ClmnRAVIAX].Value.ToString() == "")
                 {
