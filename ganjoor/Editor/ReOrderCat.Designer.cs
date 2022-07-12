@@ -54,6 +54,7 @@
             this.btnSortOnRavi = new System.Windows.Forms.ToolStripButton();
             this.btnFirstNoRavi = new System.Windows.Forms.ToolStripButton();
             this.btnFixFirstVerse = new System.Windows.Forms.ToolStripButton();
+            this.btnNormalVersePositions = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdMain)).BeginInit();
             this.stsBar.SuspendLayout();
             this.tlbrMain.SuspendLayout();
@@ -79,7 +80,7 @@
             this.grdMain.ReadOnly = true;
             this.grdMain.RowHeadersWidth = 62;
             this.grdMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdMain.Size = new System.Drawing.Size(1384, 612);
+            this.grdMain.Size = new System.Drawing.Size(1502, 673);
             this.grdMain.TabIndex = 0;
             this.grdMain.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdMain_CellContentDoubleClick);
             this.grdMain.SelectionChanged += new System.EventHandler(this.grdMain_SelectionChanged);
@@ -151,11 +152,11 @@
             this.stsBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblPoemCount,
             this.llblSelectionCount});
-            this.stsBar.Location = new System.Drawing.Point(0, 650);
+            this.stsBar.Location = new System.Drawing.Point(0, 711);
             this.stsBar.Name = "stsBar";
             this.stsBar.Padding = new System.Windows.Forms.Padding(21, 0, 2, 0);
             this.stsBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.stsBar.Size = new System.Drawing.Size(1384, 32);
+            this.stsBar.Size = new System.Drawing.Size(1502, 32);
             this.stsBar.TabIndex = 1;
             this.stsBar.Text = "نوار وضعیت";
             // 
@@ -191,11 +192,12 @@
             this.btnFillRhymes,
             this.btnSortOnRavi,
             this.btnFirstNoRavi,
-            this.btnFixFirstVerse});
+            this.btnFixFirstVerse,
+            this.btnNormalVersePositions});
             this.tlbrMain.Location = new System.Drawing.Point(0, 0);
             this.tlbrMain.Name = "tlbrMain";
             this.tlbrMain.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.tlbrMain.Size = new System.Drawing.Size(1384, 38);
+            this.tlbrMain.Size = new System.Drawing.Size(1502, 38);
             this.tlbrMain.TabIndex = 2;
             this.tlbrMain.Text = "نوار ابزار";
             // 
@@ -325,11 +327,21 @@
             this.btnFixFirstVerse.Text = "انتقال مصرع اول به عنوان";
             this.btnFixFirstVerse.Click += new System.EventHandler(this.btnFixFirstVerse_Click);
             // 
+            // btnNormalVersePositions
+            // 
+            this.btnNormalVersePositions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnNormalVersePositions.Image = ((System.Drawing.Image)(resources.GetObject("btnNormalVersePositions.Image")));
+            this.btnNormalVersePositions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNormalVersePositions.Name = "btnNormalVersePositions";
+            this.btnNormalVersePositions.Size = new System.Drawing.Size(107, 33);
+            this.btnNormalVersePositions.Text = "چینش عادی";
+            this.btnNormalVersePositions.Click += new System.EventHandler(this.btnNormalVersePositions_Click);
+            // 
             // ReOrderCat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1384, 682);
+            this.ClientSize = new System.Drawing.Size(1502, 743);
             this.Controls.Add(this.grdMain);
             this.Controls.Add(this.tlbrMain);
             this.Controls.Add(this.stsBar);
@@ -379,5 +391,6 @@
         private System.Windows.Forms.ToolStripButton btnSortOnRavi;
         private System.Windows.Forms.ToolStripButton btnFirstNoRavi;
         private System.Windows.Forms.ToolStripButton btnFixFirstVerse;
+        private System.Windows.Forms.ToolStripButton btnNormalVersePositions;
     }
 }

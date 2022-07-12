@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using ganjoor.Properties;
 
@@ -378,6 +379,37 @@ namespace ganjoor
 
             LoadGridData();
 
+        }
+
+        private void btnNormalVersePositions_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("آیا از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            if (MessageBox.Show("آیا تمایل دارید ادامه ندهید؟",
+                           "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                return;
+            if (MessageBox.Show("آیا واقعاً از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+
+            foreach (DataGridViewRow row in grdMain.SelectedRows)
+            {
+                Application.DoEvents();
+                int poemId = Convert.ToInt32(row.Cells[ClmnID].Value);
+                var verses = _db.GetVerses(poemId);
+
+                if(verses.Any(v => v._Position != VersePosition.Right && v._Position != VersePosition.Left))
+                {
+                    for (int i = 0; i < verses.Count; i++)
+                    {
+                        _db.SetVersePosition(poemId, verses[i]._Order, i % 2 == 0 ? VersePosition.Right : VersePosition.Left);
+                    }
+                }
+            }
+
+            LoadGridData();
         }
     }
 }
