@@ -411,5 +411,92 @@ namespace ganjoor
 
             LoadGridData();
         }
+
+        private void btnNasafi_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("آیا از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            if (MessageBox.Show("آیا تمایل دارید ادامه ندهید؟",
+                           "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                return;
+            if (MessageBox.Show("آیا واقعاً از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+
+            List<GanjoorPoem> catPoems;
+            bool breakHappened;
+            do
+            {
+                breakHappened = false;
+                catPoems = _db.GetPoems(Settings.Default.LastCat);
+                foreach (var catPoem in catPoems)
+                {
+                    Application.DoEvents();
+                    int poemId = catPoem._ID;
+                    var verses = _db.GetVerses(poemId);
+                    if (verses.Count == 2) continue;
+
+                    var rhyme = RhymeFinder.FindRhyme(verses, false);
+                    if (rhyme.FailVerseOrder != -1)
+                    {
+                        GanjoorPoem newPoem = _db.CreateNewPoem(catPoem._Title, Settings.Default.LastCat);
+                        int nNewPoemId = newPoem._ID;
+                        List<int> deletingVOrders = new List<int>();
+                        for (int i = rhyme.FailVerseOrder; i < verses.Count; i++)
+                        {
+                            GanjoorVerse v = _db.CreateNewVerse(newPoem._ID, i - rhyme.FailVerseOrder, verses[i]._Position);
+                            _db.SetVerseText(newPoem._ID, v._Order, verses[i]._Text);
+                            deletingVOrders.Add(verses[i]._Order);
+                        }
+
+                        _db.DeleteVerses(poemId, deletingVOrders);
+
+
+
+
+                        //Reorder poems so that the new one falls after current one
+
+                        List<GanjoorPoem> poems = _db.GetPoems(Settings.Default.LastCat);
+                        _db.BeginBatchOperation();
+                        bool firstNextPoemMet = false;
+
+                        for (int i = 0; i < poems.Count; i++)
+                        {
+                            GanjoorPoem poem = poems[i];
+                            if (poem._ID > poemId && poem._ID != nNewPoemId)
+                            {
+                                if (!firstNextPoemMet)
+                                {
+                                    _db.SetPoemID(nNewPoemId, -poem._ID);
+                                    firstNextPoemMet = true;
+                                }
+                                _db.SetPoemID(poem._ID, -poems[i + 1]._ID);
+                            }
+                        }
+                        _db.CommitBatchOperation();
+
+                        poems = _db.GetPoems(Settings.Default.LastCat);
+                        _db.BeginBatchOperation();
+                        foreach (GanjoorPoem poem in poems)
+                        {
+                            if (poem._ID < 0)
+                            {
+                                _db.SetPoemID(poem._ID, -poem._ID);
+                            }
+                        }
+                        _db.CommitBatchOperation();
+
+                        breakHappened = true;
+                        break;
+                    }
+                }
+            }
+            while (breakHappened);
+            
+
+            LoadGridData();
+        }
     }
 }

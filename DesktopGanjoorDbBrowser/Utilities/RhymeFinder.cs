@@ -109,7 +109,7 @@ namespace ganjoor
                     {
                         rhyme = oldRhyme[i] + rhyme;
                         i--;
-                        if ((i == -1))
+                        if (i == -1)
                             break;
                     }
                     if (rhyme.Length == 0)
@@ -117,7 +117,8 @@ namespace ganjoor
                         return new GanjooRhymeAnalysisResult()
                         {
                             Rhyme = "",
-                            FailVerse = verseTextList[j]
+                            FailVerse = verseTextList[j],
+                            FailVerseOrder = 2 * j,
                         };
                     }
 
@@ -134,12 +135,13 @@ namespace ganjoor
                 return new GanjooRhymeAnalysisResult()
                 {
                     Rhyme = rhyme,
-                    FailVerse = ""
+                    FailVerse = "",
+                    FailVerseOrder = -1,
                 };
 
             }
 
-            return new GanjooRhymeAnalysisResult() { Rhyme = "", FailVerse = "" };
+            return new GanjooRhymeAnalysisResult() { Rhyme = "", FailVerse = "", FailVerseOrder = -1 };
         }
 
         /// <summary>

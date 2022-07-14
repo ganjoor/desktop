@@ -14,5 +14,10 @@
         /// the verse analysis stopped at
         /// </summary>
         public string FailVerse { get; set; }
+
+        /// <summary>
+        /// fail verse order
+        /// </summary>
+        public int FailVerseOrder { get; set; }
     }
 }

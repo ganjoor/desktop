@@ -55,6 +55,7 @@
             this.btnFirstNoRavi = new System.Windows.Forms.ToolStripButton();
             this.btnFixFirstVerse = new System.Windows.Forms.ToolStripButton();
             this.btnNormalVersePositions = new System.Windows.Forms.ToolStripButton();
+            this.btnNasafi = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdMain)).BeginInit();
             this.stsBar.SuspendLayout();
             this.tlbrMain.SuspendLayout();
@@ -74,13 +75,13 @@
             this.Column6,
             this.Column5});
             this.grdMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdMain.Location = new System.Drawing.Point(0, 38);
+            this.grdMain.Location = new System.Drawing.Point(0, 33);
             this.grdMain.Margin = new System.Windows.Forms.Padding(4);
             this.grdMain.Name = "grdMain";
             this.grdMain.ReadOnly = true;
             this.grdMain.RowHeadersWidth = 62;
             this.grdMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdMain.Size = new System.Drawing.Size(1502, 673);
+            this.grdMain.Size = new System.Drawing.Size(1762, 716);
             this.grdMain.TabIndex = 0;
             this.grdMain.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdMain_CellContentDoubleClick);
             this.grdMain.SelectionChanged += new System.EventHandler(this.grdMain_SelectionChanged);
@@ -152,11 +153,11 @@
             this.stsBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblPoemCount,
             this.llblSelectionCount});
-            this.stsBar.Location = new System.Drawing.Point(0, 711);
+            this.stsBar.Location = new System.Drawing.Point(0, 749);
             this.stsBar.Name = "stsBar";
             this.stsBar.Padding = new System.Windows.Forms.Padding(21, 0, 2, 0);
             this.stsBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.stsBar.Size = new System.Drawing.Size(1502, 32);
+            this.stsBar.Size = new System.Drawing.Size(1762, 32);
             this.stsBar.TabIndex = 1;
             this.stsBar.Text = "نوار وضعیت";
             // 
@@ -193,11 +194,12 @@
             this.btnSortOnRavi,
             this.btnFirstNoRavi,
             this.btnFixFirstVerse,
-            this.btnNormalVersePositions});
+            this.btnNormalVersePositions,
+            this.btnNasafi});
             this.tlbrMain.Location = new System.Drawing.Point(0, 0);
             this.tlbrMain.Name = "tlbrMain";
             this.tlbrMain.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.tlbrMain.Size = new System.Drawing.Size(1502, 38);
+            this.tlbrMain.Size = new System.Drawing.Size(1762, 33);
             this.tlbrMain.TabIndex = 2;
             this.tlbrMain.Text = "نوار ابزار";
             // 
@@ -207,7 +209,7 @@
             this.btnMoveFirst.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveFirst.Image")));
             this.btnMoveFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveFirst.Name = "btnMoveFirst";
-            this.btnMoveFirst.Size = new System.Drawing.Size(34, 33);
+            this.btnMoveFirst.Size = new System.Drawing.Size(34, 28);
             this.btnMoveFirst.Text = "انتقال به ابتدای فهرست";
             this.btnMoveFirst.Click += new System.EventHandler(this.btnMoveFirst_Click);
             // 
@@ -217,7 +219,7 @@
             this.btnMoveLast.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveLast.Image")));
             this.btnMoveLast.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveLast.Name = "btnMoveLast";
-            this.btnMoveLast.Size = new System.Drawing.Size(34, 33);
+            this.btnMoveLast.Size = new System.Drawing.Size(34, 28);
             this.btnMoveLast.Text = "انتقال به انتهای فهرست";
             this.btnMoveLast.Click += new System.EventHandler(this.btnMoveLast_Click);
             // 
@@ -227,7 +229,7 @@
             this.btnMoveUp.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveUp.Image")));
             this.btnMoveUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveUp.Name = "btnMoveUp";
-            this.btnMoveUp.Size = new System.Drawing.Size(34, 33);
+            this.btnMoveUp.Size = new System.Drawing.Size(34, 28);
             this.btnMoveUp.Text = "یک ردیف بالاتر";
             this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
             // 
@@ -237,7 +239,7 @@
             this.btnMoveDown.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveDown.Image")));
             this.btnMoveDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveDown.Name = "btnMoveDown";
-            this.btnMoveDown.Size = new System.Drawing.Size(34, 33);
+            this.btnMoveDown.Size = new System.Drawing.Size(34, 28);
             this.btnMoveDown.Text = "یک ردیف پایین‌تر";
             this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
             // 
@@ -248,14 +250,14 @@
             this.btnSaveOrder.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveOrder.Image")));
             this.btnSaveOrder.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveOrder.Name = "btnSaveOrder";
-            this.btnSaveOrder.Size = new System.Drawing.Size(132, 33);
+            this.btnSaveOrder.Size = new System.Drawing.Size(132, 28);
             this.btnSaveOrder.Text = "ذخیرهٔ این ترتیب";
             this.btnSaveOrder.Click += new System.EventHandler(this.btnSaveOrder_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 33);
             // 
             // btnMoveToCat
             // 
@@ -263,21 +265,21 @@
             this.btnMoveToCat.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveToCat.Image")));
             this.btnMoveToCat.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveToCat.Name = "btnMoveToCat";
-            this.btnMoveToCat.Size = new System.Drawing.Size(159, 33);
+            this.btnMoveToCat.Size = new System.Drawing.Size(159, 28);
             this.btnMoveToCat.Text = "انتقال به بخش دیگر";
             this.btnMoveToCat.Click += new System.EventHandler(this.btnMoveToCat_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 33);
             // 
             // btnGroupNaming
             // 
             this.btnGroupNaming.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnGroupNaming.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnGroupNaming.Name = "btnGroupNaming";
-            this.btnGroupNaming.Size = new System.Drawing.Size(141, 33);
+            this.btnGroupNaming.Size = new System.Drawing.Size(141, 28);
             this.btnGroupNaming.Text = "نامگذاری گروهی";
             this.btnGroupNaming.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnGroupNaming.Click += new System.EventHandler(this.btnGroupNaming_Click);
@@ -285,7 +287,7 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 33);
             // 
             // btnFillRhymes
             // 
@@ -293,7 +295,7 @@
             this.btnFillRhymes.Image = ((System.Drawing.Image)(resources.GetObject("btnFillRhymes.Image")));
             this.btnFillRhymes.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnFillRhymes.Name = "btnFillRhymes";
-            this.btnFillRhymes.Size = new System.Drawing.Size(165, 33);
+            this.btnFillRhymes.Size = new System.Drawing.Size(165, 28);
             this.btnFillRhymes.Text = "محاسبهٔ حروف قافیه";
             this.btnFillRhymes.Click += new System.EventHandler(this.btnFillRhymes_Click);
             // 
@@ -303,7 +305,7 @@
             this.btnSortOnRavi.Image = ((System.Drawing.Image)(resources.GetObject("btnSortOnRavi.Image")));
             this.btnSortOnRavi.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSortOnRavi.Name = "btnSortOnRavi";
-            this.btnSortOnRavi.Size = new System.Drawing.Size(214, 33);
+            this.btnSortOnRavi.Size = new System.Drawing.Size(214, 28);
             this.btnSortOnRavi.Text = "مرتب‌سازی بر اساس قافیه";
             this.btnSortOnRavi.Click += new System.EventHandler(this.btnSortOnRavi_Click);
             // 
@@ -313,7 +315,7 @@
             this.btnFirstNoRavi.Image = ((System.Drawing.Image)(resources.GetObject("btnFirstNoRavi.Image")));
             this.btnFirstNoRavi.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnFirstNoRavi.Name = "btnFirstNoRavi";
-            this.btnFirstNoRavi.Size = new System.Drawing.Size(118, 33);
+            this.btnFirstNoRavi.Size = new System.Drawing.Size(118, 28);
             this.btnFirstNoRavi.Text = "بی‌قافیهٔ بعدی";
             this.btnFirstNoRavi.Click += new System.EventHandler(this.btnFirstNoRavi_Click);
             // 
@@ -323,7 +325,7 @@
             this.btnFixFirstVerse.Image = ((System.Drawing.Image)(resources.GetObject("btnFixFirstVerse.Image")));
             this.btnFixFirstVerse.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnFixFirstVerse.Name = "btnFixFirstVerse";
-            this.btnFixFirstVerse.Size = new System.Drawing.Size(201, 33);
+            this.btnFixFirstVerse.Size = new System.Drawing.Size(201, 28);
             this.btnFixFirstVerse.Text = "انتقال مصرع اول به عنوان";
             this.btnFixFirstVerse.Click += new System.EventHandler(this.btnFixFirstVerse_Click);
             // 
@@ -333,15 +335,25 @@
             this.btnNormalVersePositions.Image = ((System.Drawing.Image)(resources.GetObject("btnNormalVersePositions.Image")));
             this.btnNormalVersePositions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNormalVersePositions.Name = "btnNormalVersePositions";
-            this.btnNormalVersePositions.Size = new System.Drawing.Size(107, 33);
+            this.btnNormalVersePositions.Size = new System.Drawing.Size(107, 28);
             this.btnNormalVersePositions.Text = "چینش عادی";
             this.btnNormalVersePositions.Click += new System.EventHandler(this.btnNormalVersePositions_Click);
+            // 
+            // btnNasafi
+            // 
+            this.btnNasafi.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnNasafi.Image = ((System.Drawing.Image)(resources.GetObject("btnNasafi.Image")));
+            this.btnNasafi.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNasafi.Name = "btnNasafi";
+            this.btnNasafi.Size = new System.Drawing.Size(283, 28);
+            this.btnNasafi.Text = "شکستن اشعار از محل اشکال قافیه";
+            this.btnNasafi.Click += new System.EventHandler(this.btnNasafi_Click);
             // 
             // ReOrderCat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1502, 743);
+            this.ClientSize = new System.Drawing.Size(1762, 781);
             this.Controls.Add(this.grdMain);
             this.Controls.Add(this.tlbrMain);
             this.Controls.Add(this.stsBar);
@@ -392,5 +404,6 @@
         private System.Windows.Forms.ToolStripButton btnFirstNoRavi;
         private System.Windows.Forms.ToolStripButton btnFixFirstVerse;
         private System.Windows.Forms.ToolStripButton btnNormalVersePositions;
+        private System.Windows.Forms.ToolStripButton btnNasafi;
     }
 }

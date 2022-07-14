@@ -108,10 +108,10 @@
             this.mnu2verseSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSingleVerseSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnTechnicalProblems = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRhymeError = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGDBListEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditor = new System.Windows.Forms.StatusStrip();
             this.ganjoorView = new ganjoor.GanjoorViewer();
-            this.btnRhymeError = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -760,8 +760,15 @@
             // 
             this.btnTechnicalProblems.Name = "btnTechnicalProblems";
             this.btnTechnicalProblems.Size = new System.Drawing.Size(405, 34);
-            this.btnTechnicalProblems.Text = "اشکالات فنی";
+            this.btnTechnicalProblems.Text = "بررسی پایگاه داده برای اشکالات فنی";
             this.btnTechnicalProblems.Click += new System.EventHandler(this.btnTechnicalProblems_Click);
+            // 
+            // btnRhymeError
+            // 
+            this.btnRhymeError.Name = "btnRhymeError";
+            this.btnRhymeError.Size = new System.Drawing.Size(405, 34);
+            this.btnRhymeError.Text = "اشکالیاب قافیه";
+            this.btnRhymeError.Click += new System.EventHandler(this.btnRhymeError_Click);
             // 
             // btnGDBListEditor
             // 
@@ -802,13 +809,6 @@
             this.ganjoorView.TabIndex = 1;
             this.ganjoorView.OnPageChanged += new ganjoor.PageChangedEvent(this.ganjoorView_OnPageChanged);
             // 
-            // btnRhymeError
-            // 
-            this.btnRhymeError.Name = "btnRhymeError";
-            this.btnRhymeError.Size = new System.Drawing.Size(405, 34);
-            this.btnRhymeError.Text = "اشکالیاب قافیه";
-            this.btnRhymeError.Click += new System.EventHandler(this.btnRhymeError_Click);
-            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -819,7 +819,7 @@
             this.Controls.Add(this.toolStripMain);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Editor";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
