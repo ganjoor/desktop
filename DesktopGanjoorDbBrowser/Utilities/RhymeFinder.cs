@@ -114,12 +114,25 @@ namespace ganjoor
                     }
                     if (rhyme.Length == 0)
                     {
-                        return new GanjooRhymeAnalysisResult()
+                        if(verses.Count == 2 && verseTextList.Count == 2)
                         {
-                            Rhyme = "",
-                            FailVerse = verseTextList[j],
-                            FailVerseOrder = 2 * j,
-                        };
+                            return new GanjooRhymeAnalysisResult()
+                            {
+                                Rhyme = PrepareTextForFindingRhyme(verseTextList[1]),
+                                FailVerse = "",
+                                FailVerseOrder = -1,
+                            };
+                        }
+                        else
+                        {
+                            return new GanjooRhymeAnalysisResult()
+                            {
+                                Rhyme = "",
+                                FailVerse = verseTextList[j],
+                                FailVerseOrder = 2 * j,
+                            };
+                        }
+                       
                     }
 
                 }
