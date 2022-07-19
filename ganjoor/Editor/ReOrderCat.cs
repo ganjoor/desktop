@@ -352,7 +352,8 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-
+            this.Enabled = false;
+            Application.DoEvents();
             foreach (DataGridViewRow row in grdMain.SelectedRows)
             {
                 Application.DoEvents();
@@ -377,6 +378,8 @@ namespace ganjoor
                 }
             }
 
+            this.Enabled = true;
+
             LoadGridData();
 
         }
@@ -393,7 +396,8 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-
+            this.Enabled = false;
+            Application.DoEvents();
             foreach (DataGridViewRow row in grdMain.SelectedRows)
             {
                 Application.DoEvents();
@@ -408,6 +412,8 @@ namespace ganjoor
                     }
                 }
             }
+
+            this.Enabled = true;
 
             LoadGridData();
         }
@@ -424,7 +430,8 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-
+            this.Enabled = false;
+            Application.DoEvents();
             List<GanjoorPoem> catPoems;
             bool breakHappened;
             do
@@ -494,8 +501,8 @@ namespace ganjoor
                 }
             }
             while (breakHappened);
-            
 
+            this.Enabled = true;
             LoadGridData();
         }
     }
