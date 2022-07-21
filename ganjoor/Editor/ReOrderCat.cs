@@ -505,5 +505,62 @@ namespace ganjoor
             this.Enabled = true;
             LoadGridData();
         }
+
+        /// <summary>
+        /// یک بار استفاده شده برای روز مبادا کد را نگاه داشتم
+        /// </summary>
+        public void MergeRelatedPoems()
+        {
+            if (MessageBox.Show("آیا از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            if (MessageBox.Show("آیا تمایل دارید ادامه ندهید؟",
+                           "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                return;
+            if (MessageBox.Show("آیا واقعاً از ادامهٔ عملیات اطمینان دارید؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            this.Enabled = false;
+            Application.DoEvents();
+            List<int> poemIds = new List<int>();
+            foreach (DataGridViewRow row in grdMain.SelectedRows)
+            {
+                poemIds.Add(Convert.ToInt32(row.Cells[ClmnID].Value));
+            }
+            poemIds.Sort();
+            int i = 0;
+            while (i < poemIds.Count)
+            {
+                int poemId = poemIds[i];
+                var poem = _db.GetPoem(poemId);
+                if (!poem._Title.Contains("سؤال"))
+                {
+                    i++;
+                    continue;
+                }
+
+                var verses1 = _db.GetVerses(poemId);
+                GanjoorVerse v = _db.CreateNewVerse(poemId, verses1.Count, VersePosition.Paragraph);
+                _db.SetVerseText(poemId, v._Order, "در جواب او");
+
+                var verses2 = _db.GetVerses(poemId + 1);
+                foreach (var verse in verses2)
+                {
+                    GanjoorVerse v2 = _db.CreateNewVerse(poemId, verses1.Count + 1 + verse._Order, verse._Position);
+                    _db.SetVerseText(poemId, v2._Order, verse._Text);
+                }
+
+                _db.DeletePoem(poemId + 1);
+
+                i += 2;
+
+            }
+
+            this.Enabled = true;
+
+            LoadGridData();
+        }
+
     }
 }
