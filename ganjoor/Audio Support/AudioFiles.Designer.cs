@@ -43,8 +43,8 @@
             this.sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDownload = new System.Windows.Forms.ToolStripButton();
             this.btnMyUploadedNarrations = new System.Windows.Forms.ToolStripButton();
-            this.btnLogout = new System.Windows.Forms.ToolStripButton();
             this.btnUpload = new System.Windows.Forms.ToolStripButton();
+            this.btnLogout = new System.Windows.Forms.ToolStripButton();
             this.lblDesc = new System.Windows.Forms.Label();
             this.grdList = new System.Windows.Forms.DataGridView();
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,9 +71,10 @@
             this.btnExport,
             this.sep2,
             this.btnDownload,
-            this.btnMyUploadedNarrations,
             this.btnLogout,
-            this.btnUpload});
+            this.btnMyUploadedNarrations,
+            this.btnUpload
+           });
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
             this.tlbr.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -209,7 +210,8 @@
             this.btnLogout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(23, 22);
-            this.btnLogout.Text = "خروجی از حساب کاربری";
+            this.btnLogout.Text = "خروج از حساب کاربری";
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // btnUpload
             // 

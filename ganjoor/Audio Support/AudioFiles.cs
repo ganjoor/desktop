@@ -544,5 +544,24 @@ namespace ganjoor
                 dlg.ShowDialog(this);
             }
         }
+
+        private async void btnLogout_Click(object sender, EventArgs e)
+        {
+            bool valid = await TokenIsValid();
+            if (!valid)
+            {
+                MessageBox.Show("اطلاعات حساب پیشخان شما معتبر نیست یا وارد نشده‌اید.");
+                return;
+            }
+
+            if (MessageBox.Show("آیا از خروج از حساب پیشخان اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
+            {
+                return;
+            }
+
+            Properties.Settings.Default.MuseumToken = "";
+            Properties.Settings.Default.Save();
+            MessageBox.Show("از حساب پیشخان خود خارج شدید.");
+        }
     }
 }
