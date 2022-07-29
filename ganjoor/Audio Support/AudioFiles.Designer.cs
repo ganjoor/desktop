@@ -43,6 +43,7 @@
             this.sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDownload = new System.Windows.Forms.ToolStripButton();
             this.btnMyUploadedNarrations = new System.Windows.Forms.ToolStripButton();
+            this.btnLogout = new System.Windows.Forms.ToolStripButton();
             this.btnUpload = new System.Windows.Forms.ToolStripButton();
             this.lblDesc = new System.Windows.Forms.Label();
             this.grdList = new System.Windows.Forms.DataGridView();
@@ -71,6 +72,7 @@
             this.sep2,
             this.btnDownload,
             this.btnMyUploadedNarrations,
+            this.btnLogout,
             this.btnUpload});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
@@ -198,6 +200,16 @@
             this.btnMyUploadedNarrations.Size = new System.Drawing.Size(23, 22);
             this.btnMyUploadedNarrations.Text = "خوانشهای بارگذاری شده";
             this.btnMyUploadedNarrations.Click += new System.EventHandler(this.btnMyUploadedNarrations_Click);
+            //
+            // btnLogout
+            // 
+            this.btnLogout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnLogout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnMyUploadedNarrations.Image")));
+            this.btnLogout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(23, 22);
+            this.btnLogout.Text = "خروجی از حساب کاربری";
             // 
             // btnUpload
             // 
@@ -315,5 +327,6 @@
         private System.Windows.Forms.ToolStripButton btnUpload;
         private System.Windows.Forms.ToolStripButton btnMyUploadedNarrations;
         private System.Windows.Forms.ToolStripButton btnTimingHelper;
+        private System.Windows.Forms.ToolStripButton btnLogout;
     }
 }
