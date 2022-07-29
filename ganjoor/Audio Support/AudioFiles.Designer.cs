@@ -206,7 +206,7 @@
             // 
             this.btnLogout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btnLogout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnMyUploadedNarrations.Image")));
+            this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnLogout.Image")));
             this.btnLogout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(23, 22);

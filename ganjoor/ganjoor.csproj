@@ -440,6 +440,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Audio Support\AudioFiles.resx">
       <DependentUpon>AudioFiles.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GDBProcessing\NewGDBFound.resx">
       <DependentUpon>NewGDBFound.cs</DependentUpon>
