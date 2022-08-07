@@ -45,8 +45,7 @@ namespace ganjoor
             wavePlayer.PlaybackStopped += wavePlayer_PlaybackStopped;
             wavePlayer.Play();
 
-            if (PlaybackStarted != null)
-                PlaybackStarted(this, new EventArgs());
+            PlaybackStarted?.Invoke(this, EventArgs.Empty);
             return true;
         }
 
@@ -90,13 +89,13 @@ namespace ganjoor
         /// آیا در حال پخش است؟
         /// </summary>
         /// <returns></returns>
-        public bool IsPlaying => wavePlayer != null && wavePlayer.PlaybackState == PlaybackState.Playing;
+        public bool IsPlaying => wavePlayer is {PlaybackState: PlaybackState.Playing};
 
         /// <summary>
         /// آیا در حال توقف موقت است؟
         /// </summary>
         /// <returns></returns>
-        public bool IsInPauseState => wavePlayer != null && wavePlayer.PlaybackState == PlaybackState.Paused;
+        public bool IsInPauseState => wavePlayer is {PlaybackState: PlaybackState.Paused};
 
         /// <summary>
         /// محل فعلی فایل صوتی بر حسب میلی ثانیه
@@ -140,8 +139,7 @@ namespace ganjoor
         {
             // we want it to be safe to clean up input stream and playback device in the handler for PlaybackStopped
             CleanUp();
-            if (PlaybackStopped != null)
-                PlaybackStopped(sender, e);
+            PlaybackStopped?.Invoke(sender, e);
         }
         #endregion
 

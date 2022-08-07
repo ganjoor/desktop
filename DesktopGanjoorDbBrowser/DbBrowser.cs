@@ -104,11 +104,12 @@ namespace ganjoor
                 }
                 else
                 {
-                    SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                    conString.DataSource = fileName;
-                    conString.DefaultTimeout = 5000;
-                    conString.FailIfMissing = false;
-                    conString.ReadOnly = false;
+                    SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                        DataSource = fileName,
+                        DefaultTimeout = 5000,
+                        FailIfMissing = false,
+                        ReadOnly = false
+                    };
                     using SQLiteConnection newConnection = new SQLiteConnection(conString.ConnectionString);
                     newConnection.Open();
                     CreateEmptyDB(newConnection);
@@ -125,11 +126,12 @@ namespace ganjoor
             try
             {
                 _dbfilepath = sqliteDatabaseNameFileName;
-                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                conString.DataSource = sqliteDatabaseNameFileName;
-                conString.DefaultTimeout = 5000;
-                conString.FailIfMissing = true;
-                conString.ReadOnly = false;
+                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                    DataSource = sqliteDatabaseNameFileName,
+                    DefaultTimeout = 5000,
+                    FailIfMissing = true,
+                    ReadOnly = false
+                };
                 _con = new SQLiteConnection(conString.ConnectionString);
                 _con.Open();
             }
@@ -731,11 +733,12 @@ namespace ganjoor
                     //position field values are incorrect,
                     //correct it using vg.s3db file and then create version table
 
-                    SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                    conString.DataSource = "vg.s3db";
-                    conString.DefaultTimeout = 5000;
-                    conString.FailIfMissing = true;
-                    conString.ReadOnly = true;
+                    SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                        DataSource = "vg.s3db",
+                        DefaultTimeout = 5000,
+                        FailIfMissing = true,
+                        ReadOnly = true
+                    };
                     using SQLiteConnection vgCon = new SQLiteConnection(conString.ConnectionString);
                     vgCon.Open();
                     BeginBatchOperation();
@@ -952,11 +955,12 @@ namespace ganjoor
             SQLiteConnection newConnection;
             try
             {
-                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                conString.DataSource = fileName;
-                conString.DefaultTimeout = 5000;
-                conString.FailIfMissing = true;
-                conString.ReadOnly = false;
+                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                    DataSource = fileName,
+                    DefaultTimeout = 5000,
+                    FailIfMissing = true,
+                    ReadOnly = false
+                };
                 newConnection = new SQLiteConnection(conString.ConnectionString);
                 newConnection.Open();
             }
@@ -1201,11 +1205,12 @@ namespace ganjoor
             }
             try
             {
-                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                conString.DataSource = fileName;
-                conString.DefaultTimeout = 5000;
-                conString.FailIfMissing = true;
-                conString.ReadOnly = false;
+                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                    DataSource = fileName,
+                    DefaultTimeout = 5000,
+                    FailIfMissing = true,
+                    ReadOnly = false
+                };
                 newConnection = new SQLiteConnection(conString.ConnectionString);
                 newConnection.Open();
             }
@@ -1309,11 +1314,12 @@ namespace ganjoor
             SQLiteConnection newConnection;
             try
             {
-                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                conString.DataSource = fileName;
-                conString.DefaultTimeout = 5000;
-                conString.FailIfMissing = true;
-                conString.ReadOnly = false;
+                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                    DataSource = fileName,
+                    DefaultTimeout = 5000,
+                    FailIfMissing = true,
+                    ReadOnly = false
+                };
                 newConnection = new SQLiteConnection(conString.ConnectionString);
                 newConnection.Open();
             }
@@ -1448,11 +1454,12 @@ namespace ganjoor
         {
             if (File.Exists(fileName))
                 File.Delete(fileName);
-            SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-            conString.DataSource = fileName;
-            conString.DefaultTimeout = 5000;
-            conString.FailIfMissing = false;
-            conString.ReadOnly = false;
+            SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                DataSource = fileName,
+                DefaultTimeout = 5000,
+                FailIfMissing = false,
+                ReadOnly = false
+            };
             using SQLiteConnection connection = new SQLiteConnection(conString.ConnectionString);
             connection.Open();
 
@@ -1487,11 +1494,12 @@ namespace ganjoor
         {
             int ImportedFavs = 0;
             dupFavs = errFavs = 0;
-            SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-            conString.DataSource = fileName;
-            conString.DefaultTimeout = 5000;
-            conString.FailIfMissing = true;
-            conString.ReadOnly = true;
+            SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                DataSource = fileName,
+                DefaultTimeout = 5000,
+                FailIfMissing = true,
+                ReadOnly = true
+            };
             using SQLiteConnection connection = new SQLiteConnection(conString.ConnectionString);
             connection.Open();
 
@@ -2101,11 +2109,12 @@ namespace ganjoor
             SQLiteConnection newConnection;
             try
             {
-                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
-                conString.DataSource = fileName;
-                conString.DefaultTimeout = 5000;
-                conString.FailIfMissing = false;
-                conString.ReadOnly = false;
+                SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder {
+                    DataSource = fileName,
+                    DefaultTimeout = 5000,
+                    FailIfMissing = false,
+                    ReadOnly = false
+                };
                 newConnection = new SQLiteConnection(conString.ConnectionString);
                 newConnection.Open();
             }
