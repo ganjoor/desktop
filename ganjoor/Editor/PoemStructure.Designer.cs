@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class PoemStructure
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -159,12 +162,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numLineCount;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton chkHalfLine;
-        private System.Windows.Forms.RadioButton chkFullLine;
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCancel;
+        private Label label1;
+        private NumericUpDown numLineCount;
+        private Label label2;
+        private RadioButton chkHalfLine;
+        private RadioButton chkFullLine;
+        private Button btnOK;
+        private Button btnCancel;
     }
 }

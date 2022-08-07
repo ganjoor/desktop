@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class GdbDownloadInfo
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -68,7 +71,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblGdbName;
-        private System.Windows.Forms.ProgressBar prgess;
+        private Label lblGdbName;
+        private ProgressBar prgess;
     }
 }

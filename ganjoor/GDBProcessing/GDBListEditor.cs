@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Windows.Forms;
@@ -34,7 +35,7 @@ namespace ganjoor
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "XML Files (*.xml)|*.xml";
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     _FileName = dlg.FileName;
                     FillGridWithListInfo(_FileName);
@@ -52,7 +53,7 @@ namespace ganjoor
                     dlg.InitialDirectory = Path.GetDirectoryName(_FileName);
                     dlg.FileName = Path.GetFileName(_FileName);
                 }
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     _FileName = dlg.FileName;
                     SaveToXml(_FileName);
@@ -77,11 +78,11 @@ namespace ganjoor
                 if (
                 MessageBox.Show("فایل به درستی ذخیره شد. می‌خواهید آن را مشاهده کنید؟", "اعلان", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
                     ==
-                    System.Windows.Forms.DialogResult.Yes
+                    DialogResult.Yes
                 )
                     try
                     {
-                        System.Diagnostics.Process.Start(FileName);
+                        Process.Start(FileName);
 
                     }
                     catch { }
@@ -315,13 +316,13 @@ namespace ganjoor
             {
                 dlg.Description = "مسیر خروجیها را انتخاب کنید";
                 dlg.ShowNewFolderButton = true;
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     bool embedPictures = false;
                     string picPath = string.Empty;
                     string picUrPrefix = string.Empty;
                     using (GDBPictureDirSelector plg = new GDBPictureDirSelector())
-                        if (plg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                        if (plg.ShowDialog(this) == DialogResult.OK)
                         {
                             embedPictures = plg.EmbedPictures;
                             picPath = plg.PicturesPath;
@@ -329,7 +330,7 @@ namespace ganjoor
                             if (!Directory.Exists(picPath))
                                 embedPictures = false;
                         }
-                    this.Enabled = false;
+                    Enabled = false;
 
                     List<int> existingIDs = new List<int>();
                     foreach (DataGridViewRow Row in grd.Rows)
@@ -355,7 +356,7 @@ namespace ganjoor
                                     zipStorer.AddFile(ZipStorer.Compression.Deflate, gdbFile, Path.GetFileName(gdbFile), "");
                                     if (embedPictures)
                                     {
-                                        string pngPath = Path.Combine(picPath, Poet._ID.ToString() + ".png");
+                                        string pngPath = Path.Combine(picPath, Poet._ID + ".png");
                                         if (File.Exists(pngPath))
                                         {
                                             zipStorer.AddFile(ZipStorer.Compression.Deflate, pngPath, Path.GetFileName(pngPath), "");
@@ -366,7 +367,7 @@ namespace ganjoor
                                 int RowIndex = AddGdbOrZipFileToGrid(zipFile);
                                 if (embedPictures && !string.IsNullOrEmpty(picUrPrefix))
                                 {
-                                    string pngPath = Path.Combine(picPath, Poet._ID.ToString() + ".png");
+                                    string pngPath = Path.Combine(picPath, Poet._ID + ".png");
                                     if (File.Exists(pngPath))
                                     {
                                         grd.Rows[RowIndex].Cells[CLMN_IMAGE].Value = picUrPrefix + Path.GetFileName(pngPath);
@@ -381,7 +382,7 @@ namespace ganjoor
                                 MessageBox.Show(db.LastError);
                             }
                         }
-                    this.Enabled = true;
+                    Enabled = true;
                     db.CloseDb();
                 }
             }

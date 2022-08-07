@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel;
+
 namespace ganjoor.Audio_Support.TimingHelper
 {
     partial class TimingHelperWizard
@@ -6,7 +8,7 @@ namespace ganjoor.Audio_Support.TimingHelper
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.

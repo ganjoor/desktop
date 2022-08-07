@@ -9,9 +9,7 @@ namespace ganjoor
     partial class WSDownloadItems : WizardStage
     {
 
-        public WSDownloadItems()
-            : base()
-        {
+        public WSDownloadItems() {
             InitializeComponent();
         }
 
@@ -43,12 +41,12 @@ namespace ganjoor
                 foreach (GDBInfo gdbInfo in dwnldList)
                 {
                     GdbDownloadInfo ctl = new GdbDownloadInfo(gdbInfo);
-                    this.pnlList.Controls.Add(ctl);
+                    pnlList.Controls.Add(ctl);
                     ctl.Dock = DockStyle.Top;
                     ctl.SendToBack();
                 }
 
-            (this.Parent.Parent as Form).AcceptButton = btnStop;
+            (Parent.Parent as Form).AcceptButton = btnStop;
             btnStop.Focus();
 
             BeginNextDownload();
@@ -56,15 +54,15 @@ namespace ganjoor
         }
 
         #region Automatic Next Stage Event
-        public event EventHandler OnStageDone = null;
+        public event EventHandler OnStageDone;
         #endregion
 
-        private int _DownloadIndex = 0;
+        private int _DownloadIndex;
         private int _RealDownloadIndex
         {
             get
             {
-                return (this.pnlList.Controls.Count - 1 - _DownloadIndex);
+                return (pnlList.Controls.Count - 1 - _DownloadIndex);
             }
         }
         private List<string> _DownloadedFiles = new List<string>();
@@ -80,12 +78,12 @@ namespace ganjoor
 
         private void BeginNextDownload()
         {
-            if (_DownloadIndex < this.pnlList.Controls.Count)
+            if (_DownloadIndex < pnlList.Controls.Count)
             {
                 backgroundWorker.RunWorkerAsync();
             }
             else
-                if (this.OnStageDone != null)
+                if (OnStageDone != null)
                 OnStageDone(this, new EventArgs());
 
         }
@@ -96,21 +94,21 @@ namespace ganjoor
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
             string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
-                ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl,
+                ((pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl,
                 targetDir,
-                this.backgroundWorker, out string expString);
+                backgroundWorker, out string expString);
             if (!string.IsNullOrEmpty(sFileDownloaded))
                 _DownloadedFiles.Add(sFileDownloaded);
             else
                 if (_RealDownloadIndex >= 0)
-                MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.\n{1}", ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName, expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.\n{1}", ((pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName, expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (_DownloadIndex < this.pnlList.Controls.Count)//شانسی که من دارم باید چک کنم ;)
+            if (_DownloadIndex < pnlList.Controls.Count)//شانسی که من دارم باید چک کنم ;)
             {
-                (this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Progress = e.ProgressPercentage;
+                (pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Progress = e.ProgressPercentage;
                 Application.DoEvents();
             }
         }
@@ -119,7 +117,7 @@ namespace ganjoor
         {
             if (e.Cancelled || !btnStop.Enabled)
             {
-                if (this.OnStageDone != null)
+                if (OnStageDone != null)
                     OnStageDone(this, new EventArgs());
             }
             else
@@ -133,7 +131,7 @@ namespace ganjoor
         {
             if (backgroundWorker.IsBusy)
             {
-                if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     lblMsg.Text = "لطفاً منتظر بمانید تا دریافت فایل جاری متوقف شود ...";
                     btnStop.Enabled = false;

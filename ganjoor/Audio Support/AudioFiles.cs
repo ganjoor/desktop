@@ -1,7 +1,4 @@
-﻿using ganjoor.Audio_Support;
-using ganjoor.Audio_Support.TimingHelper;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,6 +7,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ganjoor.Audio_Support;
+using ganjoor.Audio_Support.TimingHelper;
+using ganjoor.Properties;
+using NAudio.Wave;
+using Newtonsoft.Json.Linq;
 
 namespace ganjoor
 {
@@ -88,7 +90,7 @@ namespace ganjoor
                 {
                     string strDesc = "فایل صوتی " + _DbBrowser.GetPoem(_PoemId)._Title;
                     if (grdList.Rows.Count > 0)
-                        strDesc += (" (" + (grdList.Rows.Count + 1).ToString() + ")");
+                        strDesc += (" (" + (grdList.Rows.Count + 1) + ")");
                     using (ItemEditor itemEditor = new ItemEditor(EditItemType.General, "شرح فایل", "شرح فایل"))
                     {
                         itemEditor.ItemName = strDesc;
@@ -120,11 +122,11 @@ namespace ganjoor
 
             if (MessageBox.Show("از حذف ارتباط فایل صوتی ردیفی جاری با شعر اطمینان دارید؟",
                 "تأییدیه",
-                MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (_DbBrowser.DeleteAudio(this.grdList.SelectedRows[0].Tag as PoemAudio))
+                if (_DbBrowser.DeleteAudio(grdList.SelectedRows[0].Tag as PoemAudio))
                 {
-                    this.grdList.Rows.Remove(this.grdList.SelectedRows[0]);
+                    grdList.Rows.Remove(grdList.SelectedRows[0]);
                 }
             }
 
@@ -142,7 +144,7 @@ namespace ganjoor
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
                 return;
             }
-            if (_DbBrowser.MoveToTop(this.grdList.SelectedRows[0].Tag as PoemAudio))
+            if (_DbBrowser.MoveToTop(grdList.SelectedRows[0].Tag as PoemAudio))
             {
                 FillGrid();
             }
@@ -174,14 +176,14 @@ namespace ganjoor
             if (_PoemAudioPlayer == null)
             {
                 _PoemAudioPlayer = new PoemAudioPlayer();
-                _PoemAudioPlayer.PlaybackStarted += new EventHandler(_PoemAudioPlayer_PlaybackStarted);
-                _PoemAudioPlayer.PlaybackStopped += new EventHandler<NAudio.Wave.StoppedEventArgs>(_PoemAudioPlayer_PlaybackStopped);
+                _PoemAudioPlayer.PlaybackStarted += _PoemAudioPlayer_PlaybackStarted;
+                _PoemAudioPlayer.PlaybackStopped += _PoemAudioPlayer_PlaybackStopped;
             }
             PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
             if (!_PoemAudioPlayer.BeginPlayback(poemAudio))
             {
                 btnPlayStop.Text = "پخش";
-                btnPlayStop.Image = Properties.Resources.play16;
+                btnPlayStop.Image = Resources.play16;
 
                 MessageBox.Show("خطایی در پخش فایل صوتی رخ داد. لطفا چک کنید فایل در مسیر تعیین شده قرار داشته باشد.");
             }
@@ -194,25 +196,25 @@ namespace ganjoor
         }
 
 
-        PoemAudioPlayer _PoemAudioPlayer = null;
+        PoemAudioPlayer _PoemAudioPlayer;
 
-        private void _PoemAudioPlayer_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
+        private void _PoemAudioPlayer_PlaybackStopped(object sender, StoppedEventArgs e)
         {
             // we want to be always on the GUI thread and be able to change GUI components
-            Debug.Assert(!this.InvokeRequired, "PlaybackStopped on wrong thread");
+            Debug.Assert(!InvokeRequired, "PlaybackStopped on wrong thread");
             if (e.Exception != null)
             {
                 MessageBox.Show(String.Format("Playback Stopped due to an error {0}", e.Exception.Message));
             }
             btnPlayStop.Text = "پخش";
-            btnPlayStop.Image = Properties.Resources.play16;
+            btnPlayStop.Image = Resources.play16;
 
         }
 
         private void _PoemAudioPlayer_PlaybackStarted(object sender, EventArgs e)
         {
             btnPlayStop.Text = "ایست";
-            btnPlayStop.Image = Properties.Resources.stop16;
+            btnPlayStop.Image = Resources.stop16;
         }
 
 
@@ -275,9 +277,9 @@ namespace ganjoor
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
                 dlg.Filter = "XML Files (*.xml)|*.xml";
-                dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(poemAudio.FilePath);
+                dlg.FileName = Path.GetFileNameWithoutExtension(poemAudio.FilePath);
 
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     List<PoemAudio> lst = new List<PoemAudio>();
                     lst.Add(poemAudio);
@@ -295,7 +297,7 @@ namespace ganjoor
 
         private void btnFixExport_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("کاربرد این گزینه رفع اشکال نسخه های قدیمی است. آیا می دانید این گزینه چگونه کار می کند؟", "هشدار", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show("کاربرد این گزینه رفع اشکال نسخه های قدیمی است. آیا می دانید این گزینه چگونه کار می کند؟", "هشدار", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 return;
             Export(true);
 
@@ -317,14 +319,14 @@ namespace ganjoor
                     String.Format("فایل انتخاب شده با شرح «{0}» و مسیر '{1}' در حال حاضر دارای اطلاعات همگام‌سازی است.\n" +
                     "از جایگزینی این اطلاعات اطمینان دارید؟", poemAudio.Description, poemAudio.FilePath),
                     "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
-                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
                     return;
             }
 
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "XML Files (*.xml)|*.xml";
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     List<PoemAudio> lstPoemAudio = PoemAudioListProcessor.Load(dlg.FileName);
                     if (lstPoemAudio.Count == 0)
@@ -342,7 +344,7 @@ namespace ganjoor
                                 if (MessageBox.Show(
                                     "اطلاعات فایل همگام شده با فایل انتخاب شده همسانی ندارد. از استفاده از این اطلاعات اطمینان دارید؟",
                                     "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
-                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
                                     return;
 
                             }
@@ -424,12 +426,12 @@ namespace ganjoor
             }
             Cursor = Cursors.Default;
             Application.DoEvents();
-            if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+            if (string.IsNullOrEmpty(Settings.Default.MuseumToken))
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(Properties.Settings.Default.DefProfile))
+            if (string.IsNullOrEmpty(Settings.Default.DefProfile))
             {
                 MessageBox.Show("لطفا به پیشخان وارد شوید و در قسمت نمایه‌ها، نمایه‌ای را به عنوان نمایهٔ پیش‌فرض تعریف یا فعال کنید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 Process.Start("https://gaudiopanel.ganjoor.net");
@@ -438,7 +440,7 @@ namespace ganjoor
 
             bool replaceOldAudio = false;
 
-            using (ConfirmAudioUpload confirmDlg = new ConfirmAudioUpload(Properties.Settings.Default.DefProfile))
+            using (ConfirmAudioUpload confirmDlg = new ConfirmAudioUpload(Settings.Default.DefProfile))
             {
                 var res = confirmDlg.ShowDialog(this);
                 if (res == DialogResult.Cancel)
@@ -449,7 +451,7 @@ namespace ganjoor
 
             using (HttpClient httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Default.MuseumToken);
 
                 Cursor = Cursors.WaitCursor;
                 Application.DoEvents();
@@ -467,7 +469,7 @@ namespace ganjoor
                 byte[] mp3FileContent = File.ReadAllBytes(poemAudio.FilePath);
                 form.Add(new ByteArrayContent(mp3FileContent, 0, mp3FileContent.Length), Path.GetFileName(poemAudio.FilePath), Path.GetFileName(poemAudio.FilePath));
 
-                HttpResponseMessage response = await httpClient.PostAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio?replace={replaceOldAudio}", form);
+                HttpResponseMessage response = await httpClient.PostAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio?replace={replaceOldAudio}", form);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     Cursor = Cursors.Default;
@@ -490,24 +492,24 @@ namespace ganjoor
         {
             try
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+                if (string.IsNullOrEmpty(Settings.Default.MuseumToken))
                     return false;
                 using (HttpClient httpClient = new HttpClient())
                 {
 
 
 
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Default.MuseumToken);
 
                     Cursor = Cursors.WaitCursor;
                     Application.DoEvents();
 
-                    HttpResponseMessage response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/profile/def");
+                    HttpResponseMessage response = await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio/profile/def");
                     if (response.StatusCode == HttpStatusCode.NoContent)
                     {
                         Cursor = Cursors.Default;
-                        Properties.Settings.Default.DefProfile = "";
-                        Properties.Settings.Default.Save();
+                        Settings.Default.DefProfile = "";
+                        Settings.Default.Save();
                         return true;
                     }
 
@@ -520,8 +522,8 @@ namespace ganjoor
                     response.EnsureSuccessStatusCode();
 
                     var result = JObject.Parse(await response.Content.ReadAsStringAsync());
-                    Properties.Settings.Default.DefProfile = result["name"].ToString();
-                    Properties.Settings.Default.Save();
+                    Settings.Default.DefProfile = result["name"].ToString();
+                    Settings.Default.Save();
                     return true;
                 }
             }
@@ -559,8 +561,8 @@ namespace ganjoor
                 return;
             }
 
-            Properties.Settings.Default.MuseumToken = "";
-            Properties.Settings.Default.Save();
+            Settings.Default.MuseumToken = "";
+            Settings.Default.Save();
             MessageBox.Show("از حساب پیشخان خود خارج شدید.");
         }
     }

@@ -1,4 +1,7 @@
 ﻿
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace ganjoor.Audio_Support
 {
     partial class AudioDownloadMethod
@@ -6,7 +9,7 @@ namespace ganjoor.Audio_Support
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -163,14 +166,14 @@ namespace ganjoor.Audio_Support
 
         #endregion
 
-        private System.Windows.Forms.GroupBox grp;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.TextBox txtSearchTerm;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton rdSelected;
-        private System.Windows.Forms.RadioButton rdAll;
-        private System.Windows.Forms.TextBox txtSelectedPoetOrCategory;
-        private System.Windows.Forms.Button btnSelect;
+        private GroupBox grp;
+        private Button btnCancel;
+        private Button btnOK;
+        private TextBox txtSearchTerm;
+        private Label label1;
+        private RadioButton rdSelected;
+        private RadioButton rdAll;
+        private TextBox txtSelectedPoetOrCategory;
+        private Button btnSelect;
     }
 }

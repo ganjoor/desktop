@@ -1,6 +1,7 @@
-﻿using ganjoor.Properties;
-using System;
-
+﻿using System;
+using System.Diagnostics;
+using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -8,7 +9,7 @@ namespace ganjoor
     partial class WSSelectList : WizardStage
     {
 
-        public WSSelectList() : base() { InitializeComponent(); }
+        public WSSelectList() { InitializeComponent(); }
         public override void OnBeforeActivate()
         {
             InitiateList();
@@ -70,7 +71,7 @@ namespace ganjoor
             }
         }
 
-        private void lnkMoreInfo_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        private void lnkMoreInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (lnkMoreInfo.Tag != null && lnkMoreInfo.Tag is string)
             {
@@ -78,7 +79,7 @@ namespace ganjoor
                 if (!string.IsNullOrEmpty(moreInfoUrl))
                     try
                     {
-                        System.Diagnostics.Process.Start(moreInfoUrl);
+                        Process.Start(moreInfoUrl);
                     }
                     catch
                     {

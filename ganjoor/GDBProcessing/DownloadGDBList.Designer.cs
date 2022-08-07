@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class DownloadGDBList
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -164,14 +167,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnDownloadList;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView grdList;
-        private System.Windows.Forms.Button btnDownloadChecked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewLinkColumn Column2;
-        private System.Windows.Forms.DataGridViewLinkColumn Column3;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column4;
+        private Panel panel1;
+        private Button btnDownloadList;
+        private Label label1;
+        private DataGridView grdList;
+        private Button btnDownloadChecked;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewLinkColumn Column2;
+        private DataGridViewLinkColumn Column3;
+        private DataGridViewCheckBoxColumn Column4;
     }
 }

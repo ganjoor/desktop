@@ -40,7 +40,7 @@ namespace ganjoor
         private void btnSelectPath_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                     txtPath.Text = dlg.SelectedPath;
         }
 

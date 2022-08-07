@@ -1,10 +1,10 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Xml;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -245,7 +245,7 @@ namespace ganjoor
                                             break;
                                         case "PubDate":
                                             {
-                                                string[] dateParts = Node.InnerText.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                                                string[] dateParts = Node.InnerText.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
                                                 int Year = Convert.ToInt32(dateParts[0]);
                                                 int Month = Convert.ToInt32(dateParts[1]);
                                                 int Day = Convert.ToInt32(dateParts[2]);

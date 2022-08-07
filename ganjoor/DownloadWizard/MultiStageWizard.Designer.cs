@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class MultiStageWizard
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -123,10 +126,10 @@
 
         #endregion
 
-        protected System.Windows.Forms.Panel pnlCurrentStage;
-        protected System.Windows.Forms.Button btnPrevious;
-        protected System.Windows.Forms.Button btnNext;
-        protected System.Windows.Forms.Button btnCancel;
-        protected System.Windows.Forms.Button btnSettings;
+        protected Panel pnlCurrentStage;
+        protected Button btnPrevious;
+        protected Button btnNext;
+        protected Button btnCancel;
+        protected Button btnSettings;
     }
 }

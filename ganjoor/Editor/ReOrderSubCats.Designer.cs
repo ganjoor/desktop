@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class ReOrderSubCats
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -219,19 +222,19 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStripStatusLabel llblSelectionCount;
-        private System.Windows.Forms.DataGridView grdMain;
-        private System.Windows.Forms.ToolStripButton btnMoveFirst;
-        private System.Windows.Forms.ToolStripStatusLabel lblCatCount;
-        private System.Windows.Forms.ToolStripButton btnMoveDown;
-        private System.Windows.Forms.ToolStripButton btnMoveLast;
-        private System.Windows.Forms.StatusStrip stsBar;
-        private System.Windows.Forms.ToolStripButton btnMoveUp;
-        private System.Windows.Forms.ToolStrip tlbrMain;
-        private System.Windows.Forms.ToolStripButton btnSaveOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnMoveToCat;
+        private ToolStripStatusLabel llblSelectionCount;
+        private DataGridView grdMain;
+        private ToolStripButton btnMoveFirst;
+        private ToolStripStatusLabel lblCatCount;
+        private ToolStripButton btnMoveDown;
+        private ToolStripButton btnMoveLast;
+        private StatusStrip stsBar;
+        private ToolStripButton btnMoveUp;
+        private ToolStrip tlbrMain;
+        private ToolStripButton btnSaveOrder;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column5;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnMoveToCat;
     }
 }

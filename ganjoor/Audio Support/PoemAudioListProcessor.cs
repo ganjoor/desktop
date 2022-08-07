@@ -206,8 +206,7 @@ namespace ganjoor
                                     {
 
                                         lstSyncInfo.Add(
-                                            new PoemAudio.SyncInfo()
-                                            {
+                                            new PoemAudio.SyncInfo {
                                                 VerseOrder = Convert.ToInt32(nodeSyncIndo.SelectSingleNode("VerseOrder").InnerText),
                                                 AudioMiliseconds = Convert.ToInt32(nodeSyncIndo.SelectSingleNode("AudioMiliseconds").InnerText),
                                             }

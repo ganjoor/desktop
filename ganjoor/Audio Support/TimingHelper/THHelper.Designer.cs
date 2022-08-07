@@ -1,4 +1,7 @@
 ﻿
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace ganjoor.Audio_Support.TimingHelper
 {
     partial class THHelper
@@ -6,7 +9,7 @@ namespace ganjoor.Audio_Support.TimingHelper
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -87,9 +90,9 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         #endregion
 
-        private ganjoor.HighlightLabel lblVerse;
-        private System.Windows.Forms.ProgressBar progressBar;
-        private System.Windows.Forms.Label lblNextVerse;
-        private System.Windows.Forms.Timer timer;
+        private HighlightLabel lblVerse;
+        private ProgressBar progressBar;
+        private Label lblNextVerse;
+        private Timer timer;
     }
 }

@@ -29,24 +29,24 @@ namespace ganjoor
 
             Uri url = new Uri(sUrlToReadFileFrom);
 
-            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-            if (req is System.Net.HttpWebRequest)
+            WebRequest req = WebRequest.Create(url);
+            if (req is HttpWebRequest)
             {
-                System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)req;
+                HttpWebRequest request = (HttpWebRequest)req;
 
-                System.Net.HttpWebResponse response;
+                HttpWebResponse response;
 
                 try
                 {
-                    response = (System.Net.HttpWebResponse)request.GetResponse();
+                    response = (HttpWebResponse)request.GetResponse();
                 }
                 catch (WebException)
                 {
                     sUrlToReadFileFrom = sUrlToReadFileFrom.Replace("https", "http"); // this is a workaround for https://i.ganjoor.net recent problems
                     url = new Uri(sUrlToReadFileFrom);
-                    req = System.Net.WebRequest.Create(url);
-                    request = (System.Net.HttpWebRequest)req;
-                    response = (System.Net.HttpWebResponse)request.GetResponse();
+                    req = WebRequest.Create(url);
+                    request = (HttpWebRequest)req;
+                    response = (HttpWebResponse)request.GetResponse();
                 }
 
                 response.Close();
@@ -67,12 +67,12 @@ namespace ganjoor
 
                 // use the webclient object to download the file
 
-                using (System.Net.WebClient client = new System.Net.WebClient())
+                using (WebClient client = new WebClient())
                 {
 
                     // open the file at the remote URL for reading
 
-                    using (System.IO.Stream streamRemote = client.OpenRead(new Uri(sUrlToReadFileFrom)))
+                    using (Stream streamRemote = client.OpenRead(new Uri(sUrlToReadFileFrom)))
                     {
 
                         // using the FileStream object, we can write the downloaded bytes to the file system
@@ -99,9 +99,9 @@ namespace ganjoor
 
                                 // calculate the progress out of a base "100"
 
-                                double dIndex = (double)(iRunningByteTotal);
+                                double dIndex = iRunningByteTotal;
 
-                                double dTotal = (double)byteBuffer.Length;
+                                double dTotal = byteBuffer.Length;
 
 
                                 double dProgressPercentage = (dIndex / dTotal);
@@ -135,15 +135,15 @@ namespace ganjoor
                 }
                 return sFilePathToWriteFileTo;
             }
-            else
-                if (req is System.Net.FileWebRequest)
+
+            if (req is FileWebRequest)
             {
                 string sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(sUrlToReadFileFrom));
                 File.Copy(sUrlToReadFileFrom, sFilePathToWriteFileTo, true);
                 return sFilePathToWriteFileTo;
             }
-            else
-                return string.Empty;
+
+            return string.Empty;
 
         }
     }

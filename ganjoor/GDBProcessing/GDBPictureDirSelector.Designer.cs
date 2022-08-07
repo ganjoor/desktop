@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class GDBPictureDirSelector
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -170,15 +173,15 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox chkPicturesEnabled;
-        private System.Windows.Forms.GroupBox grpPictures;
-        private System.Windows.Forms.Button btnSelectPath;
-        private System.Windows.Forms.TextBox txtPath;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtPicturesUrlPrefix;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnOK;
+        private CheckBox chkPicturesEnabled;
+        private GroupBox grpPictures;
+        private Button btnSelectPath;
+        private TextBox txtPath;
+        private Label label1;
+        private Label label2;
+        private Label label4;
+        private TextBox txtPicturesUrlPrefix;
+        private Label label3;
+        private Button btnOK;
     }
 }

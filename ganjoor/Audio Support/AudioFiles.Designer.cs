@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class AudioFiles
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -309,26 +312,26 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip tlbr;
-        private System.Windows.Forms.ToolStripButton btnAdd;
-        private System.Windows.Forms.ToolStripButton btnDel;
-        private System.Windows.Forms.Label lblDesc;
-        private System.Windows.Forms.DataGridView grdList;
-        private System.Windows.Forms.ToolStripButton btnPlayStop;
-        private System.Windows.Forms.ToolStripSeparator sep1;
-        private System.Windows.Forms.ToolStripButton btnMoveToTop;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmnDesc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmnPath;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn clmnSynced;
-        private System.Windows.Forms.ToolStripButton btnSync;
-        private System.Windows.Forms.ToolStripButton btnExport;
-        private System.Windows.Forms.ToolStripButton btnImport;
-        private System.Windows.Forms.ToolStripSeparator sep2;
-        private System.Windows.Forms.ToolStripButton btnDownload;
-        private System.Windows.Forms.ToolStripButton btnFixExport;
-        private System.Windows.Forms.ToolStripButton btnUpload;
-        private System.Windows.Forms.ToolStripButton btnMyUploadedNarrations;
-        private System.Windows.Forms.ToolStripButton btnTimingHelper;
-        private System.Windows.Forms.ToolStripButton btnLogout;
+        private ToolStrip tlbr;
+        private ToolStripButton btnAdd;
+        private ToolStripButton btnDel;
+        private Label lblDesc;
+        private DataGridView grdList;
+        private ToolStripButton btnPlayStop;
+        private ToolStripSeparator sep1;
+        private ToolStripButton btnMoveToTop;
+        private DataGridViewTextBoxColumn clmnDesc;
+        private DataGridViewTextBoxColumn clmnPath;
+        private DataGridViewCheckBoxColumn clmnSynced;
+        private ToolStripButton btnSync;
+        private ToolStripButton btnExport;
+        private ToolStripButton btnImport;
+        private ToolStripSeparator sep2;
+        private ToolStripButton btnDownload;
+        private ToolStripButton btnFixExport;
+        private ToolStripButton btnUpload;
+        private ToolStripButton btnMyUploadedNarrations;
+        private ToolStripButton btnTimingHelper;
+        private ToolStripButton btnLogout;
     }
 }

@@ -33,7 +33,7 @@ namespace ganjoor
         {
             bool bTab = chkTab.Checked;
             bool bSpace = chkSpace.Checked;
-            string[] txtLines = mainText.Text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] txtLines = mainText.Text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             string resultText = "";
             foreach (string txtLine in txtLines)
             {
@@ -43,7 +43,7 @@ namespace ganjoor
                 bool bTabDoneIt = false;
                 if (bTab)
                 {
-                    string[] tabSep = txt.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] tabSep = txt.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     if (tabSep.Length == 2)
                     {
                         resultText += tabSep[0].Trim() + "\r\n";

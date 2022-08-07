@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class SyncPoemAudio
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -355,29 +358,29 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStrip tlbr;
-        private System.Windows.Forms.ToolStripButton btnNextVerse;
-        private System.Windows.Forms.Label lblDesc;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton btnPlayPause;
-        private System.Windows.Forms.Label lblVerse;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton btnTest;
-        private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.ToolStripButton btnSave;
-        private System.Windows.Forms.ToolStripButton btnReset;
-        private System.Windows.Forms.ToolStripButton chkWaveForm;
-        private ganjoor.CustomWaveViewer waveViewer;
-        private System.Windows.Forms.ToolStripButton btnStartFromHere;
-        private System.Windows.Forms.Label lblNextVerse;
-        private System.Windows.Forms.ToolStripButton btnStopHere;
-        private System.Windows.Forms.ToolStripButton chkShowNextVerse;
-        private System.Windows.Forms.TrackBar trackBar;
-        private System.Windows.Forms.StatusStrip stsBar;
-        private System.Windows.Forms.ToolStripStatusLabel lblTime;
-        private System.Windows.Forms.ToolStripButton btnPreVerse;
-        private System.Windows.Forms.ToolStripButton btnTrack;
-        private System.Windows.Forms.ToolStripButton btnSearchText;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStrip tlbr;
+        private ToolStripButton btnNextVerse;
+        private Label lblDesc;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripButton btnPlayPause;
+        private Label lblVerse;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton btnTest;
+        private Timer timer;
+        private ToolStripButton btnSave;
+        private ToolStripButton btnReset;
+        private ToolStripButton chkWaveForm;
+        private CustomWaveViewer waveViewer;
+        private ToolStripButton btnStartFromHere;
+        private Label lblNextVerse;
+        private ToolStripButton btnStopHere;
+        private ToolStripButton chkShowNextVerse;
+        private TrackBar trackBar;
+        private StatusStrip stsBar;
+        private ToolStripStatusLabel lblTime;
+        private ToolStripButton btnPreVerse;
+        private ToolStripButton btnTrack;
+        private ToolStripButton btnSearchText;
     }
 }

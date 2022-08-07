@@ -1,7 +1,7 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -181,7 +181,7 @@ namespace ganjoor
             int PoetId = _db.GetCategory(Settings.Default.LastCat)._PoetID;
             using (CategorySelector dlg = new CategorySelector(PoetId))
             {
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     int NewCatId = dlg.SelectedCatID;
                     if (NewCatId == Settings.Default.LastCat)
@@ -190,7 +190,7 @@ namespace ganjoor
                     {
                         GanjoorCat cat = _db.GetCategory(NewCatId);
                         if (MessageBox.Show(String.Format("از انتقال {0} بخش انتخابی از بخش «{1}» به بخش «{2}» اطمینان دارید؟", grdMain.SelectedRows.Count, _db.GetCategory(Settings.Default.LastCat)._Text, cat._Text),
-                            "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                             return;
                         _db.BeginBatchOperation();
                         foreach (DataGridViewRow Row in grdMain.SelectedRows)

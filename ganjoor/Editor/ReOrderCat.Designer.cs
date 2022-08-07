@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class ReOrderCat
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -378,32 +381,32 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView grdMain;
-        private System.Windows.Forms.StatusStrip stsBar;
-        private System.Windows.Forms.ToolStrip tlbrMain;
-        private System.Windows.Forms.ToolStripStatusLabel lblPoemCount;
-        private System.Windows.Forms.ToolStripStatusLabel llblSelectionCount;
-        private System.Windows.Forms.ToolStripButton btnMoveFirst;
-        private System.Windows.Forms.ToolStripButton btnMoveLast;
-        private System.Windows.Forms.ToolStripButton btnMoveUp;
-        private System.Windows.Forms.ToolStripButton btnMoveDown;
-        private System.Windows.Forms.ToolStripButton btnSaveOrder;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnMoveToCat;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton btnGroupNaming;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton btnFillRhymes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.ToolStripButton btnSortOnRavi;
-        private System.Windows.Forms.ToolStripButton btnFirstNoRavi;
-        private System.Windows.Forms.ToolStripButton btnFixFirstVerse;
-        private System.Windows.Forms.ToolStripButton btnNormalVersePositions;
-        private System.Windows.Forms.ToolStripButton btnNasafi;
+        private DataGridView grdMain;
+        private StatusStrip stsBar;
+        private ToolStrip tlbrMain;
+        private ToolStripStatusLabel lblPoemCount;
+        private ToolStripStatusLabel llblSelectionCount;
+        private ToolStripButton btnMoveFirst;
+        private ToolStripButton btnMoveLast;
+        private ToolStripButton btnMoveUp;
+        private ToolStripButton btnMoveDown;
+        private ToolStripButton btnSaveOrder;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnMoveToCat;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripButton btnGroupNaming;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton btnFillRhymes;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
+        private DataGridViewTextBoxColumn Column6;
+        private DataGridViewTextBoxColumn Column5;
+        private ToolStripButton btnSortOnRavi;
+        private ToolStripButton btnFirstNoRavi;
+        private ToolStripButton btnFixFirstVerse;
+        private ToolStripButton btnNormalVersePositions;
+        private ToolStripButton btnNasafi;
     }
 }

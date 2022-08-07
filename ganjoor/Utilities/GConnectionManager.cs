@@ -1,6 +1,6 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Net;
+using ganjoor.Properties;
 
 namespace ganjoor
 {

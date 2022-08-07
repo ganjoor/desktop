@@ -1,7 +1,7 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -44,7 +44,7 @@ namespace ganjoor
                 )
                )
             {
-                string txt = this.Text;
+                string txt = Text;
                 using (SolidBrush hbrsh = new(HighlightColor))
                 {
                     float fx = e.ClipRectangle.Right;//only right to left text for now
@@ -75,7 +75,7 @@ namespace ganjoor
                                 txt = txt.Substring(index);
                             }
                         }
-                        SizeF sz = TextRenderer.MeasureText(thisPart, this.Font, Size.Empty, TextFormatFlags.TextBoxControl | TextFormatFlags.RightToLeft);
+                        SizeF sz = TextRenderer.MeasureText(thisPart, Font, Size.Empty, TextFormatFlags.TextBoxControl | TextFormatFlags.RightToLeft);
                         if (index == 0)
                         {
                             e.Graphics.FillRectangle(hbrsh, new RectangleF(fx - sz.Width, fy, sz.Width, sz.Height));
@@ -83,9 +83,9 @@ namespace ganjoor
                         fx -= sz.Width;
                         if (fx <= 0)
                         {//multiline label
-                            int nLines = (int)sz.Width / this.Width;
+                            int nLines = (int)sz.Width / Width;
                             fy += nLines * sz.Height;
-                            fx = e.ClipRectangle.Right - (sz.Width - nLines * this.Width);
+                            fx = e.ClipRectangle.Right - (sz.Width - nLines * Width);
                         }
                     }
                 }

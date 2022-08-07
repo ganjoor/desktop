@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class GDBListEditor
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -341,33 +344,33 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip tlbr;
-        private System.Windows.Forms.ToolStripButton btnOpen;
-        private System.Windows.Forms.ToolStripButton btnSave;
-        private System.Windows.Forms.Panel pnlListInfo;
-        private System.Windows.Forms.ToolStrip tlbrGDBs;
-        private System.Windows.Forms.ToolStripButton btnAdd;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnFromDb;
-        private System.Windows.Forms.DataGridView grd;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox txtMoreInfoUrl;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel lblRefUrl;
-        private System.Windows.Forms.ToolStripTextBox txtRefUrl;
+        private ToolStrip tlbr;
+        private ToolStripButton btnOpen;
+        private ToolStripButton btnSave;
+        private Panel pnlListInfo;
+        private ToolStrip tlbrGDBs;
+        private ToolStripButton btnAdd;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnFromDb;
+        private DataGridView grd;
+        private Label lblName;
+        private TextBox txtMoreInfoUrl;
+        private Label label2;
+        private TextBox txtDescription;
+        private Label label1;
+        private TextBox txtName;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
+        private DataGridViewTextBoxColumn Column5;
+        private DataGridViewTextBoxColumn Column6;
+        private DataGridViewTextBoxColumn Column7;
+        private DataGridViewTextBoxColumn Column8;
+        private DataGridViewTextBoxColumn Column9;
+        private DataGridViewTextBoxColumn Column10;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripLabel lblRefUrl;
+        private ToolStripTextBox txtRefUrl;
     }
 }

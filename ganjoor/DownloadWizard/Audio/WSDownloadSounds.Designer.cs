@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class WSDownloadSounds
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -88,9 +91,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlList;
-        private System.ComponentModel.BackgroundWorker backgroundWorker;
-        private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Label lblMsg;
+        private Panel pnlList;
+        private BackgroundWorker backgroundWorker;
+        private Button btnStop;
+        private Label lblMsg;
     }
 }

@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class NarratedPoems
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -208,19 +211,19 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView grdList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.ToolStrip tlbr;
-        private System.Windows.Forms.ToolStripButton btnView;
-        private System.Windows.Forms.ToolStripSeparator sep1;
-        private System.Windows.Forms.ToolStripButton btnExport;
-        private System.Windows.Forms.ToolStripButton btnImport;
-        private System.Windows.Forms.StatusStrip strip;
-        private System.Windows.Forms.ToolStripProgressBar prgss;
-        private System.Windows.Forms.ToolStripStatusLabel lblCount;
-        private System.Windows.Forms.ToolStripStatusLabel lblSpring;
-        private System.Windows.Forms.ToolStripButton btnAllDownloadable;
+        private DataGridView grdList;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
+        private ToolStrip tlbr;
+        private ToolStripButton btnView;
+        private ToolStripSeparator sep1;
+        private ToolStripButton btnExport;
+        private ToolStripButton btnImport;
+        private StatusStrip strip;
+        private ToolStripProgressBar prgss;
+        private ToolStripStatusLabel lblCount;
+        private ToolStripStatusLabel lblSpring;
+        private ToolStripButton btnAllDownloadable;
     }
 }

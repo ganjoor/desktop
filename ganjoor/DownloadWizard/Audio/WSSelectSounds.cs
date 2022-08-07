@@ -1,8 +1,4 @@
-﻿using ganjoor.Audio_Support;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RMuseum.Models.GanjoorAudio.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -11,6 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ganjoor.Audio_Support;
+using ganjoor.Properties;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RMuseum.Models.GanjoorAudio.ViewModels;
 
 namespace ganjoor
 {
@@ -62,7 +63,7 @@ namespace ganjoor
         {
             btnRefresh.Visible = false;
             tlbr.Enabled = false;
-            lblDesc.BackColor = System.Drawing.SystemColors.Window;
+            lblDesc.BackColor = SystemColors.Window;
             lblDesc.Text = "در حال دریافت اطلاعات ...";
             Cursor.Current = Cursors.WaitCursor;
             Application.DoEvents();
@@ -98,9 +99,9 @@ namespace ganjoor
                 Application.DoEvents();
 
                 HttpResponseMessage response = _PoemId == 0 ?
-                    await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}")
+                    await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}")
                     :
-                    await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/ganjoor/poem/{_PoemId}/recitations");
+                    await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/ganjoor/poem/{_PoemId}/recitations");
 
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -123,7 +124,7 @@ namespace ganjoor
                         Dictionary<string, string> dic = new Dictionary<string, string>();
                         dic.Add("audio_post_ID", recitation.PoemId.ToString());
                         dic.Add("audio_order", recitation.Id.ToString());
-                        dic.Add("audio_xml", $"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/file/{recitation.Id}.xml");
+                        dic.Add("audio_xml", $"{Settings.Default.GanjoorServiceUrl}/api/audio/file/{recitation.Id}.xml");
                         dic.Add("audio_mp3", recitation.Mp3Url);
                         dic.Add("audio_src", recitation.AudioSrc);
                         dic.Add("audio_title", recitation.AudioTitle);
@@ -150,7 +151,7 @@ namespace ganjoor
                             {
                                 lblDesc.Text = $"در حال دریافت اطلاعات (صفحهٔ {paginationMetadata.currentPage + 1} از {paginationMetadata.totalPages}) ...";
                                 Application.DoEvents();
-                                response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}&PageNumber={paginationMetadata.currentPage + 1}&PageSize={paginationMetadata.pageSize}");
+                                response = await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}&PageNumber={paginationMetadata.currentPage + 1}&PageSize={paginationMetadata.pageSize}");
                                 if (response.StatusCode != HttpStatusCode.OK)
                                 {
                                     MessageBox.Show(await response.Content.ReadAsStringAsync());
@@ -325,8 +326,8 @@ namespace ganjoor
                     dwnldList.Add(_Lst[Row.Index]);
         }
 
-        public event EventHandler OnEnableNextButton = null;
-        public event EventHandler OnDisableNextButton = null;
+        public event EventHandler OnEnableNextButton;
+        public event EventHandler OnDisableNextButton;
 
         private void btnSelNone_Click(object sender, EventArgs e)
         {

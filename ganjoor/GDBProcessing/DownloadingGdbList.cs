@@ -14,19 +14,19 @@ namespace ganjoor
             foreach (GDBInfo gdbInfo in Lst)
             {
                 GdbDownloadInfo ctl = new GdbDownloadInfo(gdbInfo);
-                this.pnlList.Controls.Add(ctl);
+                pnlList.Controls.Add(ctl);
                 ctl.Dock = DockStyle.Top;
                 ctl.SendToBack();
             }
         }
 
 
-        private int _DownloadIndex = 0;
+        private int _DownloadIndex;
         private int _RealDownloadIndex
         {
             get
             {
-                return (this.pnlList.Controls.Count - 1 - _DownloadIndex);
+                return (pnlList.Controls.Count - 1 - _DownloadIndex);
             }
         }
         private List<string> _DownloadedFiles = new List<string>();
@@ -47,12 +47,12 @@ namespace ganjoor
 
         private void BeginNextDownload()
         {
-            if (_DownloadIndex < this.pnlList.Controls.Count)
+            if (_DownloadIndex < pnlList.Controls.Count)
             {
                 backgroundWorker.RunWorkerAsync();
             }
             else
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                DialogResult = DialogResult.OK;
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -61,20 +61,20 @@ namespace ganjoor
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
             string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
-                ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl,
+                ((pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl,
                 targetDir,
-                this.backgroundWorker, out string expString);
+                backgroundWorker, out string expString);
             if (!string.IsNullOrEmpty(sFileDownloaded))
                 _DownloadedFiles.Add(sFileDownloaded);
             else
-                MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.\n{1}", ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName, expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.\n{1}", ((pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName, expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (_DownloadIndex < this.pnlList.Controls.Count)//شانسی که من دارم باید چک کنم ;)
+            if (_DownloadIndex < pnlList.Controls.Count)//شانسی که من دارم باید چک کنم ;)
             {
-                (this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Progress = e.ProgressPercentage;
+                (pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Progress = e.ProgressPercentage;
                 Application.DoEvents();
             }
         }
@@ -82,7 +82,7 @@ namespace ganjoor
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled || !btnStop.Enabled)
-                DialogResult = System.Windows.Forms.DialogResult.OK;
+                DialogResult = DialogResult.OK;
             else
             {
                 _DownloadIndex++;
@@ -95,19 +95,19 @@ namespace ganjoor
             if (backgroundWorker.IsBusy)
             {
                 e.Cancel = true;
-                if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     btnStop.Enabled = false;
                     backgroundWorker.CancelAsync();
                 }
             }
             else
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                DialogResult = DialogResult.OK;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

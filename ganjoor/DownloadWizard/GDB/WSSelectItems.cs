@@ -1,18 +1,16 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
     partial class WSSelectItems : WizardStage
     {
 
-        public WSSelectItems()
-            : base()
-        {
+        public WSSelectItems() {
             InitializeComponent();
         }
 
@@ -130,8 +128,8 @@ namespace ganjoor
                     dwnldList.Add(_Lst[Row.Index]);
         }
 
-        public event EventHandler OnEnableNextButton = null;
-        public event EventHandler OnDisableNextButton = null;
+        public event EventHandler OnEnableNextButton;
+        public event EventHandler OnDisableNextButton;
 
         private void btnSelNone_Click(object sender, EventArgs e)
         {

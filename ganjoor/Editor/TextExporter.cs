@@ -1,6 +1,6 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {

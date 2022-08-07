@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class GeneralTextImporter
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -140,12 +143,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.TextBox txtNextPoemStartText;
-        private System.Windows.Forms.Label lblMainCatText;
-        private System.Windows.Forms.Label lblComment;
-        private System.Windows.Forms.CheckBox chkStartShort;
-        private System.Windows.Forms.Label lblNextPoemStartTextComment;
+        private Button btnCancel;
+        private Button btnOK;
+        private TextBox txtNextPoemStartText;
+        private Label lblMainCatText;
+        private Label lblComment;
+        private CheckBox chkStartShort;
+        private Label lblNextPoemStartTextComment;
     }
 }

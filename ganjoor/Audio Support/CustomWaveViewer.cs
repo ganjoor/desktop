@@ -1,14 +1,15 @@
-﻿using NAudio.Wave;
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using NAudio.Wave;
 
 namespace ganjoor
 {
     /// <summary>
     /// Control for viewing waveforms
     /// </summary>
-    public class CustomWaveViewer : System.Windows.Forms.UserControl
+    public class CustomWaveViewer : UserControl
     {
         public Color PenColor { get; set; }
         public float PenWidth { get; set; }
@@ -19,7 +20,7 @@ namespace ganjoor
 
             int samples = (int)(waveStream.Length / bytesPerSample);
             startPosition = 0;
-            SamplesPerPixel = samples / this.Width;
+            SamplesPerPixel = samples / Width;
             PreparePaintData();
             Invalidate();
 
@@ -28,20 +29,20 @@ namespace ganjoor
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 _CurrentPosition = e.X;
                 if (OnPositionChanged != null)
                     OnPositionChanged(this, new EventArgs());
 
-                this.Invalidate();
+                Invalidate();
 
             }
 
             base.OnMouseDown(e);
         }
 
-        private int _CurrentPosition = 0;
+        private int _CurrentPosition;
 
         public int Position
         {
@@ -50,7 +51,7 @@ namespace ganjoor
                 if (waveStream != null)
                 {
                     float f = (float)(value / waveStream.TotalTime.TotalMilliseconds);
-                    _CurrentPosition = (int)(f * this.Width);
+                    _CurrentPosition = (int)(f * Width);
                     Invalidate();
                 }
             }
@@ -60,7 +61,7 @@ namespace ganjoor
             }
         }
 
-        public event EventHandler OnPositionChanged = null;
+        public event EventHandler OnPositionChanged;
 
 
 
@@ -76,7 +77,7 @@ namespace ganjoor
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.Container components = null;
+        private Container components;
         private WaveStream waveStream;
         private int samplesPerPixel = 128;
         private long startPosition;
@@ -88,10 +89,10 @@ namespace ganjoor
         {
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
-            this.DoubleBuffered = true;
+            DoubleBuffered = true;
 
-            this.PenColor = Color.DodgerBlue;
-            this.PenWidth = 1;
+            PenColor = Color.DodgerBlue;
+            PenWidth = 1;
         }
 
         /// <summary>
@@ -126,7 +127,7 @@ namespace ganjoor
             set
             {
                 samplesPerPixel = Math.Max(1, value);
-                this.Invalidate();
+                Invalidate();
             }
         }
 
@@ -160,7 +161,7 @@ namespace ganjoor
             base.Dispose(disposing);
         }
 
-        private PointF[] _PrepareData = null;
+        private PointF[] _PrepareData;
 
         private void PreparePaintData()
         {
@@ -168,7 +169,7 @@ namespace ganjoor
             if (waveStream != null)
             {
                 int StartX = 0;
-                int EndX = this.Width;
+                int EndX = Width;
                 _PrepareData = new PointF[EndX];
                 waveStream.Position = 0;
                 int bytesRead;
@@ -213,11 +214,11 @@ namespace ganjoor
                     {
                         if (x >= _PrepareData.Length)
                             break;
-                        e.Graphics.DrawLine(linePen, x, this.Height * _PrepareData[(int)x].X, x, this.Height * _PrepareData[(int)x].Y);
+                        e.Graphics.DrawLine(linePen, x, Height * _PrepareData[x].X, x, Height * _PrepareData[x].Y);
                     }
                 }
 
-                e.Graphics.DrawLine(Pens.Black, _CurrentPosition, 0, _CurrentPosition, this.Height);
+                e.Graphics.DrawLine(Pens.Black, _CurrentPosition, 0, _CurrentPosition, Height);
 
             }
 

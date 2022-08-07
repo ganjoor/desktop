@@ -1,9 +1,10 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -18,9 +19,9 @@ namespace ganjoor
 
         private void InitializeControls()
         {
-            ViewFont = Properties.Settings.Default.ViewFont;
-            lblFont.Text = ViewFont.Name + "(" + ViewFont.Style.ToString() + ") " + ViewFont.Size.ToString();
-            chkHighlightSearchResults.Checked = Properties.Settings.Default.HighlightKeyword;
+            ViewFont = Settings.Default.ViewFont;
+            lblFont.Text = ViewFont.Name + "(" + ViewFont.Style + ") " + ViewFont.Size;
+            chkHighlightSearchResults.Checked = Settings.Default.HighlightKeyword;
             chkBrowseButton.Checked = Settings.Default.BrowseButtonVisible;
             chkCommentsButton.Checked = Settings.Default.CommentsButtonVisible;
             chkCopyButton.Checked = Settings.Default.CopyButtonVisible;
@@ -85,7 +86,7 @@ namespace ganjoor
 
 
 
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private Font ViewFont { set; get; }
@@ -98,7 +99,7 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     ViewFont = dlg.Font;
-                    lblFont.Text = ViewFont.Name + "(" + ViewFont.Style.ToString() + ") " + ViewFont.Size.ToString();
+                    lblFont.Text = ViewFont.Name + "(" + ViewFont.Style + ") " + ViewFont.Size;
                 }
             }
         }
@@ -247,7 +248,7 @@ namespace ganjoor
                 if (_RandomCatIDs == "0")
                     return "همه";
                 DbBrowser db = new DbBrowser();
-                string[] CatStrs = _RandomCatIDs.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] CatStrs = _RandomCatIDs.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
                 List<GanjoorCat> SelectedCats = new List<GanjoorCat>();
                 foreach (string CatStr in CatStrs)
@@ -284,7 +285,7 @@ namespace ganjoor
             using (CategorySelector dlg = new CategorySelector())
             {
                 dlg.CheckedCatsString = _RandomCatIDs;
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     _RandomCatIDs = dlg.CheckedCatsString;
                     lblRandomCat.Text = RandomCatPath;
@@ -296,7 +297,7 @@ namespace ganjoor
         {
             try
             {
-                System.Diagnostics.Process.Start(txtDbPath.Text);
+                Process.Start(txtDbPath.Text);
             }
             catch
             {

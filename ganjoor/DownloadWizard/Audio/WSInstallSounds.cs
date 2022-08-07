@@ -11,7 +11,7 @@ namespace ganjoor
         {
             InitializeComponent();
 
-            this.InstalledFilesCount = 0;
+            InstalledFilesCount = 0;
         }
 
         public override bool PreviousStageButton
@@ -76,8 +76,8 @@ namespace ganjoor
                 OnInstallFinished(this, new EventArgs());
         }
 
-        public event EventHandler OnInstallStarted = null;
-        public event EventHandler OnInstallFinished = null;
+        public event EventHandler OnInstallStarted;
+        public event EventHandler OnInstallFinished;
 
         public int InstalledFilesCount
         {

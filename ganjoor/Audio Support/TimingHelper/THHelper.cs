@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ganjoor.Properties;
 
 namespace ganjoor.Audio_Support.TimingHelper
 {
@@ -7,7 +8,7 @@ namespace ganjoor.Audio_Support.TimingHelper
     {
         public THHelper(int nPoemId = 0)
         {
-            Font = Properties.Settings.Default.ViewFont;
+            Font = Settings.Default.ViewFont;
 
             InitializeComponent();
 
@@ -29,10 +30,10 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         private bool _firstVerse = true;
 
-        private bool _started = false;
+        private bool _started;
         private TimingStep _step = TimingStep.NotStarted;
 
-        private int _CurVerse = 0;
+        private int _CurVerse;
 
 
         private List<GanjoorVerse> _Verses;

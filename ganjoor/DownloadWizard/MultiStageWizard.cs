@@ -10,7 +10,7 @@ namespace ganjoor
         public MultiStageWizard()
         {
             InitializeComponent();
-            this.Text = DownloadCaption;
+            Text = DownloadCaption;
         }
 
 
@@ -63,7 +63,7 @@ namespace ganjoor
                 if (StageIndex == (_Stages.Count - 1))
                 {
                     btnCancel.Text = "تأیید";
-                    this.AcceptButton = btnCancel;
+                    AcceptButton = btnCancel;
                     btnCancel.Focus();
                 }
                 btnNext.Enabled = btnPrevious.Enabled = false; Application.DoEvents();

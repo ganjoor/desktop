@@ -1,8 +1,8 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -199,7 +199,7 @@ namespace ganjoor
             int PoetId = _db.GetCategory(Settings.Default.LastCat)._PoetID;
             using (CategorySelector dlg = new CategorySelector(PoetId))
             {
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     int NewCatId = dlg.SelectedCatID;
                     if (NewCatId == Settings.Default.LastCat)
@@ -208,7 +208,7 @@ namespace ganjoor
                     {
                         GanjoorCat cat = _db.GetCategory(NewCatId);
                         if (MessageBox.Show(string.Format("از انتقال {0} شعر انتخابی از بخش «{1}» به بخش «{2}» اطمینان دارید؟", grdMain.SelectedRows.Count, _db.GetCategory(Settings.Default.LastCat)._Text, cat._Text),
-                            "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                             return;
                         _db.BeginBatchOperation();
                         foreach (DataGridViewRow Row in grdMain.SelectedRows)
@@ -281,7 +281,7 @@ namespace ganjoor
                 List<GanjoorVerse> verses = _db.GetVerses((int)Row.Cells[ClmnID].Value);
                 try
                 {
-                    var ravi = RhymeFinder.FindRhyme(verses, false);
+                    var ravi = RhymeFinder.FindRhyme(verses);
                     if (!string.IsNullOrEmpty(ravi.Rhyme))
                     {
                         Row.Cells[ClmnRAVI].Value = ravi.Rhyme;
@@ -352,7 +352,7 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            this.Enabled = false;
+            Enabled = false;
             Application.DoEvents();
             foreach (DataGridViewRow row in grdMain.SelectedRows)
             {
@@ -378,7 +378,7 @@ namespace ganjoor
                 }
             }
 
-            this.Enabled = true;
+            Enabled = true;
 
             LoadGridData();
 
@@ -396,7 +396,7 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            this.Enabled = false;
+            Enabled = false;
             Application.DoEvents();
             foreach (DataGridViewRow row in grdMain.SelectedRows)
             {
@@ -413,7 +413,7 @@ namespace ganjoor
                 }
             }
 
-            this.Enabled = true;
+            Enabled = true;
 
             LoadGridData();
         }
@@ -430,7 +430,7 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            this.Enabled = false;
+            Enabled = false;
             Application.DoEvents();
             List<GanjoorPoem> catPoems;
             bool breakHappened;
@@ -445,7 +445,7 @@ namespace ganjoor
                     var verses = _db.GetVerses(poemId);
                     if (verses.Count == 2) continue;
 
-                    var rhyme = RhymeFinder.FindRhyme(verses, false);
+                    var rhyme = RhymeFinder.FindRhyme(verses);
                     if (rhyme.FailVerseOrder != -1)
                     {
                         GanjoorPoem newPoem = _db.CreateNewPoem(catPoem._Title, Settings.Default.LastCat);
@@ -502,7 +502,7 @@ namespace ganjoor
             }
             while (breakHappened);
 
-            this.Enabled = true;
+            Enabled = true;
             LoadGridData();
         }
 
@@ -521,7 +521,7 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            this.Enabled = false;
+            Enabled = false;
             Application.DoEvents();
             List<int> poemIds = new List<int>();
             foreach (DataGridViewRow row in grdMain.SelectedRows)
@@ -557,7 +557,7 @@ namespace ganjoor
 
             }
 
-            this.Enabled = true;
+            Enabled = true;
 
             LoadGridData();
         }

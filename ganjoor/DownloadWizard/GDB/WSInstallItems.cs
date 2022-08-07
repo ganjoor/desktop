@@ -1,20 +1,18 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
     partial class WSInstallItems : WizardStage
     {
-        public WSInstallItems()
-            : base()
-        {
+        public WSInstallItems() {
             InitializeComponent();
 
-            this.InstalledFilesCount = 0;
+            InstalledFilesCount = 0;
 
         }
 
@@ -69,7 +67,7 @@ namespace ganjoor
             {
                 using (ConflictingPoets dlg = new ConflictingPoets(cnflts))
                 {
-                    if (dlg.ShowDialog(this.Parent) == DialogResult.Cancel)
+                    if (dlg.ShowDialog(Parent) == DialogResult.Cancel)
                     {
                         grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "صرف نظر به علت تداخل شاعر";
                         return;
@@ -84,7 +82,7 @@ namespace ganjoor
             {
                 using (ConflictingCats dlg = new ConflictingCats(catCnlts))
                 {
-                    if (dlg.ShowDialog(this.Parent) == DialogResult.Cancel)
+                    if (dlg.ShowDialog(Parent) == DialogResult.Cancel)
                     {
                         grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "صرف نظر به علت تداخل بخش";
                         return;
@@ -147,8 +145,8 @@ namespace ganjoor
                 OnInstallFinished(this, new EventArgs());
         }
 
-        public event EventHandler OnInstallStarted = null;
-        public event EventHandler OnInstallFinished = null;
+        public event EventHandler OnInstallStarted;
+        public event EventHandler OnInstallFinished;
 
         public int InstalledFilesCount
         {

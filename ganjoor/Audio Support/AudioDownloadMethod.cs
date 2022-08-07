@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Windows.Forms;
 
 namespace ganjoor.Audio_Support
@@ -37,7 +36,7 @@ namespace ganjoor.Audio_Support
                     if (MessageBox.Show(
                     $"آیا تمایل دارید خوانش‌های بخش خاصی از آثار {poet._Name} را دریافت کنید؟",
                     "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
-                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
                     {
                         db.CloseDb();
 

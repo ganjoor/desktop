@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class Search
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -237,17 +240,17 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtPhrase;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numItemsInPage;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cmbPoets;
-        private System.Windows.Forms.Label labelSearchType;
-        private System.Windows.Forms.ComboBox comboBoxSearchType;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBoxSearchLocationType;
+        private Label label1;
+        private TextBox txtPhrase;
+        private Button btnSearch;
+        private Button btnCancel;
+        private Label label2;
+        private NumericUpDown numItemsInPage;
+        private Label label3;
+        private ComboBox cmbPoets;
+        private Label labelSearchType;
+        private ComboBox comboBoxSearchType;
+        private Label label4;
+        private ComboBox comboBoxSearchLocationType;
     }
 }

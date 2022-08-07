@@ -1,9 +1,9 @@
-﻿using ganjoor.Audio_Support;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ganjoor.Audio_Support;
 
 namespace ganjoor
 {
@@ -71,7 +71,7 @@ namespace ganjoor
             {
                 SelectedPoem = _DbBrowser.GetPoem((grdList.Rows[e.RowIndex].Tag as PoemAudio).PoemId);
                 if (SelectedPoem != null)
-                    DialogResult = System.Windows.Forms.DialogResult.OK;
+                    DialogResult = DialogResult.OK;
             }
         }
 
@@ -81,7 +81,7 @@ namespace ganjoor
             {
                 SelectedPoem = _DbBrowser.GetPoem((grdList.SelectedRows[0].Tag as PoemAudio).PoemId);
                 if (SelectedPoem != null)
-                    DialogResult = System.Windows.Forms.DialogResult.OK;
+                    DialogResult = DialogResult.OK;
             }
             else
             {
@@ -98,13 +98,13 @@ namespace ganjoor
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     string strOutDir = dlg.SelectedPath;
                     bool bIsEmpty = Directory.GetFiles(strOutDir).Length == 0;
                     if (!bIsEmpty)
                     {
-                        if (MessageBox.Show("مسیر انتخاب شده خالی نیست. آیا از انتخاب این مسیر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                        if (MessageBox.Show("مسیر انتخاب شده خالی نیست. آیا از انتخاب این مسیر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
                         {
                             return;
                         }
@@ -112,7 +112,7 @@ namespace ganjoor
 
                     prgss.Maximum = grdList.RowCount;
                     prgss.Value = 0;
-                    this.Enabled = false;
+                    Enabled = false;
 
                     foreach (DataGridViewRow Row in grdList.Rows)
                     {
@@ -133,10 +133,10 @@ namespace ganjoor
                             if (bRes)
                             {
                                 if (File.Exists(outFileName))
-                                    outFileName = Path.Combine(strOutDir, audio.PoemId.ToString() + ".mp3");
+                                    outFileName = Path.Combine(strOutDir, audio.PoemId + ".mp3");
 
                                 if (File.Exists(outFileName))
-                                    outFileName = Path.Combine(strOutDir, audio.SyncGuid.ToString() + ".mp3");
+                                    outFileName = Path.Combine(strOutDir, audio.SyncGuid + ".mp3");
 
                                 string xmlFilePath = Path.Combine(strOutDir, Path.GetFileNameWithoutExtension(outFileName) + ".xml");
                                 if (bRes)
@@ -166,7 +166,7 @@ namespace ganjoor
                         Row.DefaultCellStyle.BackColor = bRes ? Color.LightGreen : Color.Red;
                     }
 
-                    this.Enabled = true;
+                    Enabled = true;
 
                     MessageBox.Show("فرایند پشتیبانگیری انجام شد. ردیفهای قرمزرنگ به دلایلی از قبیل عدم وجود فایل صوتی دارای اشکال بوده‌اند.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
@@ -184,7 +184,7 @@ namespace ganjoor
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     string strInDir = dlg.SelectedPath;
 
@@ -202,7 +202,7 @@ namespace ganjoor
                     prgss.Maximum = xmlFiles.Length;
                     prgss.Value = 0;
 
-                    this.Enabled = false;
+                    Enabled = false;
 
                     int nErr = 0;
                     foreach (string xmlFile in xmlFiles)
@@ -241,7 +241,7 @@ namespace ganjoor
 
                     }//foreach
 
-                    this.Enabled = true;
+                    Enabled = true;
 
                     FillGrid();
 

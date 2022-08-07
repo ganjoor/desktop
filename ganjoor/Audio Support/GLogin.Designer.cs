@@ -1,11 +1,14 @@
-﻿namespace ganjoor.Audio_Support
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor.Audio_Support
 {
     partial class GLogin
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -121,11 +124,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblEmail;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.Button btnSignUp;
+        private Label lblEmail;
+        private TextBox txtEmail;
+        private Label lblPassword;
+        private TextBox txtPassword;
+        private Button btnLogin;
+        private Button btnSignUp;
     }
 }

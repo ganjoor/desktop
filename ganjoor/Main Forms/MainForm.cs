@@ -1,6 +1,6 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
@@ -9,6 +9,7 @@ using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
+using ganjoor.Properties;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
@@ -32,13 +33,13 @@ namespace ganjoor
             tlbrSearch.BringToFront();
             ganjoorView.BringToFront();
 
-            this.Bounds = Screen.PrimaryScreen.Bounds;
+            Bounds = Screen.PrimaryScreen.Bounds;
             if (Settings.Default.WindowMaximized)
-                this.WindowState = FormWindowState.Maximized;
+                WindowState = FormWindowState.Maximized;
             else
                 if (Settings.Default.WindowSize.Width != 0)
             {
-                this.Bounds = new Rectangle(Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
+                Bounds = new Rectangle(Settings.Default.WindowLocation, Settings.Default.WindowSize);
             }
             ApplyUserSettings();
 
@@ -81,10 +82,10 @@ namespace ganjoor
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             ganjoorView.StoreSettings();
-            Properties.Settings.Default.WindowMaximized = (this.WindowState == FormWindowState.Maximized);
-            Properties.Settings.Default.WindowLocation = this.Location;
-            Properties.Settings.Default.WindowSize = this.Size;
-            Properties.Settings.Default.Save();
+            Settings.Default.WindowMaximized = (WindowState == FormWindowState.Maximized);
+            Settings.Default.WindowLocation = Location;
+            Settings.Default.WindowSize = Size;
+            Settings.Default.Save();
             ganjoorView.StopPlayBack();
 
         }
@@ -133,7 +134,7 @@ namespace ganjoor
 
             mnuShowFavs.Checked = btnFavs.Checked = FavsPage;
             mnuFavUnFav.Enabled = btnFavUnFav.Enabled = HasComments;
-            mnuFavUnFav.Image = btnFavUnFav.Image = IsFaved ? Properties.Resources.favorite_remove : Properties.Resources.favorite_add;
+            mnuFavUnFav.Image = btnFavUnFav.Image = IsFaved ? Resources.favorite_remove : Resources.favorite_add;
             mnuFavUnFav.Text = btnFavUnFav.Text = IsFaved ? "حذف نشانه" : "نشانه‌گذاری";
             mnuFavUnFav.Checked = btnFavUnFav.Checked = IsFaved;
 
@@ -148,7 +149,7 @@ namespace ganjoor
             mnuHighlight.Enabled = btnHighlight.Enabled;
 
 
-            bool highlight = !string.IsNullOrEmpty(HighlightedText) && Properties.Settings.Default.ScrollToFavedVerse;
+            bool highlight = !string.IsNullOrEmpty(HighlightedText) && Settings.Default.ScrollToFavedVerse;
             if (highlight)
             {
                 if (GanjoorViewer.OnlyScrollString != HighlightedText)
@@ -218,7 +219,7 @@ namespace ganjoor
             else
                 try
                 {
-                    System.Diagnostics.Process.Start(ganjoorView.CurrentPageGanjoorUrl);
+                    Process.Start(ganjoorView.CurrentPageGanjoorUrl);
                 }
                 catch
                 {
@@ -234,7 +235,7 @@ namespace ganjoor
             else
                 try
                 {
-                    System.Diagnostics.Process.Start(ganjoorView.CurrentPoemCommentsUrl);
+                    Process.Start(ganjoorView.CurrentPoemCommentsUrl);
                 }
                 catch
                 {
@@ -287,15 +288,15 @@ namespace ganjoor
             using (Search dlg = new Search())
             {
                 dlg.Poets = ganjoorView.Poets;
-                dlg.PoetOrder = ganjoorView.GetPoetOrder(Properties.Settings.Default.LastSearchPoetID);
+                dlg.PoetOrder = ganjoorView.GetPoetOrder(Settings.Default.LastSearchPoetID);
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    Properties.Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
-                    Properties.Settings.Default.LastSearchPhrase = dlg.Phrase;
-                    Properties.Settings.Default.LastSearchType = dlg.SearchType;
-                    Properties.Settings.Default.LastSearchLocationType = dlg.SearchLocationType;
-                    Properties.Settings.Default.SearchPageItems = dlg.ItemsInPage;
-                    Properties.Settings.Default.Save();
+                    Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
+                    Settings.Default.LastSearchPhrase = dlg.Phrase;
+                    Settings.Default.LastSearchType = dlg.SearchType;
+                    Settings.Default.LastSearchLocationType = dlg.SearchLocationType;
+                    Settings.Default.SearchPageItems = dlg.ItemsInPage;
+                    Settings.Default.Save();
 
                     ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), searchType: dlg.SearchType, searchLocationType: dlg.SearchLocationType);
                 }
@@ -344,7 +345,7 @@ namespace ganjoor
 
         private void mnuExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void mnuHighlight_Click(object sender, EventArgs e)
@@ -354,7 +355,7 @@ namespace ganjoor
 
         #region Find In Page
         private bool processTextChanged = true;
-        private int iLastFoundItems = 0;
+        private int iLastFoundItems;
         private void txtHighlight_TextChanged(object sender, EventArgs e)
         {
             if (processTextChanged)
@@ -367,7 +368,7 @@ namespace ganjoor
 
             }
         }
-        private int iLastHighlightedFoundItem = 0;
+        private int iLastHighlightedFoundItem;
         private void btnScrollToNext_Click(object sender, EventArgs e)
         {
             iLastHighlightedFoundItem++;
@@ -386,7 +387,7 @@ namespace ganjoor
         private void btnFavUnFav_Click(object sender, EventArgs e)
         {
             bool result = ganjoorView.ToggleFav();
-            mnuFavUnFav.Image = btnFavUnFav.Image = result ? Properties.Resources.favorite_remove : Properties.Resources.favorite_add;
+            mnuFavUnFav.Image = btnFavUnFav.Image = result ? Resources.favorite_remove : Resources.favorite_add;
             mnuFavUnFav.Text = btnFavUnFav.Text = result ? "حذف نشانه" : "نشانه‌گذاری";
             mnuFavUnFav.Checked = btnFavUnFav.Checked = result;
         }
@@ -465,12 +466,12 @@ namespace ganjoor
                             else
                             {
                                 if (
-                                MessageBox.Show("ویرایش جدیدتر " + VersionMajor.ToString() + "." + VersionMinor.ToString() + " از نرم‌افزار ارائه شده است. صفحهٔ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                                MessageBox.Show("ویرایش جدیدتر " + VersionMajor + "." + VersionMinor + " از نرم‌افزار ارائه شده است. صفحهٔ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
                                    ==
                                    DialogResult.Yes
                                     )
                                 {
-                                    System.Diagnostics.Process.Start(updateUrl);
+                                    Process.Start(updateUrl);
                                     if (!Prompt)//check for new gdbs
                                         return;
                                 }
@@ -500,9 +501,9 @@ namespace ganjoor
                         {
                             using (NewGDBFound dlg = new NewGDBFound(finalList))
                             {
-                                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                if (dlg.ShowDialog(this) == DialogResult.OK)
                                     using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
-                                        if (dwnDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                        if (dwnDlg.ShowDialog(this) == DialogResult.OK)
                                             foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
                                             {
                                                 ImportGdb(DownloadedFile);
@@ -652,10 +653,10 @@ namespace ganjoor
         private void btnEditor_Click(object sender, EventArgs e)
         {
             ganjoorView.StoreSettings();
-            this.Hide();
+            Hide();
             using (Editor dlg = new Editor())
                 dlg.ShowDialog(this);
-            this.Show();
+            Show();
         }
 
         private void mnuAddUnsafe_Click(object sender, EventArgs e)
@@ -671,7 +672,7 @@ namespace ganjoor
         }
 
         #region AutoScroll fix found at http://www.devnewsgroups.net/group/microsoft.public.dotnet.framework.windowsforms/topic22846.aspx
-        private Point thumbPos = new Point();
+        private Point thumbPos;
         private void MainForm_Deactivate(object sender, EventArgs e)
         {
             thumbPos = ganjoorView.AutoScrollPosition;
@@ -687,7 +688,7 @@ namespace ganjoor
 
         private void btnChangeLog_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://dg.ganjoor.net/changelog/");
+            Process.Start("http://dg.ganjoor.net/changelog/");
         }
 
         private void btnDownload_VisibleChanged(object sender, EventArgs e)
@@ -705,7 +706,7 @@ namespace ganjoor
             }
         }
 
-        private void ganjoorView_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        private void ganjoorView_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!btnHighlight.Checked)
             {
@@ -727,18 +728,18 @@ namespace ganjoor
             {
                 ganjoorView.Pause();
                 mnuPlayAudio.Text = btnPlayAudio.Text = "ادامه";
-                mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.play;
+                mnuPlayAudio.Image = btnPlayAudio.Image = Resources.play;
                 return;
             }
             if (ganjoorView.IsInPauseState)
             {
                 ganjoorView.Resume();
                 mnuPlayAudio.Text = btnPlayAudio.Text = "توقف";
-                mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.pause;
+                mnuPlayAudio.Image = btnPlayAudio.Image = Resources.pause;
                 return;
 
             }
-            PoemAudio[] poemAudioFiles = this.ganjoorView.PoemAudioFiles;
+            PoemAudio[] poemAudioFiles = ganjoorView.PoemAudioFiles;
             if (poemAudioFiles.Length == 0)
             {
                 ManagePoemAudioFiles();
@@ -749,7 +750,7 @@ namespace ganjoor
                 if (poemAudioFiles.Length > 1)
                 {
                     ItemSelector dlg = new ItemSelector("گزینش خوانش ...", poemAudioFiles, poemAudio);
-                    if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                    if (dlg.ShowDialog(this) == DialogResult.OK)
                     {
                         poemAudio = dlg.SelectedItem as PoemAudio;
                     }
@@ -763,7 +764,7 @@ namespace ganjoor
         private void ganjoorView_PlaybackStarted(object sender, EventArgs e)
         {
             mnuPlayAudio.Text = btnPlayAudio.Text = "توقف";
-            mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.pause;
+            mnuPlayAudio.Image = btnPlayAudio.Image = Resources.pause;
             mnuAudioStop.Enabled = true;
 
         }
@@ -771,7 +772,7 @@ namespace ganjoor
         private void ganjoorView_PlaybackStopped(object sender, EventArgs e)
         {
             mnuPlayAudio.Text = btnPlayAudio.Text = "خوانش";
-            mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.sound;
+            mnuPlayAudio.Image = btnPlayAudio.Image = Resources.sound;
             mnuAudioStop.Enabled = false;
         }
 
@@ -799,7 +800,7 @@ namespace ganjoor
         private void mnuAllAudioFile_Click(object sender, EventArgs e)
         {
             using NarratedPoems dlg = new();
-            if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 ganjoorView.ShowPoem(dlg.SelectedPoem, true);
             }
