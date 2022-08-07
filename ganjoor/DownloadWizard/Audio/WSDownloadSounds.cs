@@ -38,9 +38,9 @@ namespace ganjoor
         public override void OnActivated()
         {
             if (DownloadList != null)
-                foreach (Dictionary<string, string> audioInfo in DownloadList)
+                foreach (var audioInfo in DownloadList)
                 {
-                    SndDownloadInfo ctl = new SndDownloadInfo(audioInfo);
+                    var ctl = new SndDownloadInfo(audioInfo);
                     pnlList.Controls.Add(ctl);
                     ctl.Dock = DockStyle.Top;
                     ctl.SendToBack();
@@ -90,10 +90,10 @@ namespace ganjoor
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            string targetDir = DownloadableAudioListProcessor.SoundsPath;
+            var targetDir = DownloadableAudioListProcessor.SoundsPath;
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
-            Dictionary<string, string> audioInfo = (pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>;
+            var audioInfo = (pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>;
             string strException;
             if (!DownloadableAudioListProcessor.DownloadAudioXml(audioInfo["audio_xml"], targetDir, true, out strException))
             {
@@ -101,10 +101,10 @@ namespace ganjoor
             }
             else
             {
-                string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
+                var sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
                     ((pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>)["audio_mp3"],
                     targetDir,
-                    backgroundWorker, out string expString);
+                    backgroundWorker, out var expString);
                 if (!string.IsNullOrEmpty(sFileDownloaded))
                     _DownloadedSounds.Add(audioInfo);
                 else

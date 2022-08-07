@@ -18,7 +18,7 @@ namespace ganjoor
         private void InitiateList()
         {
             cmbListUrl.Items.Clear();
-            foreach (string Url in DownloadListManager.Urls)
+            foreach (var Url in DownloadListManager.Urls)
                 cmbListUrl.Items.Add(Url);
             cmbListUrl.Text = Settings.Default.LastDownloadUrl;
         }
@@ -39,7 +39,7 @@ namespace ganjoor
         {
             lblListName.Text = DownloadListManager.GetListName(cmbListUrl.Text);
             lblListDescription.Text = DownloadListManager.GetListDescription(cmbListUrl.Text);
-            string moreInfoUrl = DownloadListManager.GetListMoreInfoUrl(cmbListUrl.Text);
+            var moreInfoUrl = DownloadListManager.GetListMoreInfoUrl(cmbListUrl.Text);
             if (lnkMoreInfo.Visible = !string.IsNullOrEmpty(moreInfoUrl))
             {
                 lnkMoreInfo.Tag = moreInfoUrl;

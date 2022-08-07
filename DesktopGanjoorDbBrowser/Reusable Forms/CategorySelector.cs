@@ -22,22 +22,22 @@ namespace ganjoor
 
         private void FillTree(int PoetID)
         {
-            DbBrowser db = _RefDb == null ? new DbBrowser() : _RefDb;
+            var db = _RefDb == null ? new DbBrowser() : _RefDb;
             treeCats.Nodes.Clear();
             if (PoetID == 0)
             {
                 treeCats.Nodes.Add("همه").Tag = 0;
-                foreach (GanjoorPoet poet in db.Poets)
+                foreach (var poet in db.Poets)
                 {
-                    TreeNode newPoet = treeCats.Nodes.Add(poet._Name);
+                    var newPoet = treeCats.Nodes.Add(poet._Name);
                     newPoet.Tag = poet._CatID;
                     AddSubCats(db, newPoet, poet._CatID);
                 }
             }
             else
             {
-                GanjoorPoet poet = db.GetPoet(PoetID);
-                TreeNode newPoet = treeCats.Nodes.Add(poet._Name);
+                var poet = db.GetPoet(PoetID);
+                var newPoet = treeCats.Nodes.Add(poet._Name);
                 newPoet.Tag = poet._CatID;
                 AddSubCats(db, newPoet, poet._CatID);
             }
@@ -49,9 +49,9 @@ namespace ganjoor
 
         private void AddSubCats(DbBrowser db, TreeNode Node, int CatID)
         {
-            foreach (GanjoorCat Cat in db.GetSubCategories(CatID))
+            foreach (var Cat in db.GetSubCategories(CatID))
             {
-                TreeNode catNode = Node.Nodes.Add(Cat._Text);
+                var catNode = Node.Nodes.Add(Cat._Text);
                 catNode.Tag = Cat._ID;
                 AddSubCats(db, catNode, Cat._ID);
             }
@@ -97,14 +97,14 @@ namespace ganjoor
         }
         private void CheckCatList(int[] CatList, TreeNode Node)
         {
-            int NodeID = (int)Node.Tag;
-            foreach (int CatID in CatList)
+            var NodeID = (int)Node.Tag;
+            foreach (var CatID in CatList)
                 if (CatID == NodeID)
                 {
                     Node.Checked = true;
                     CheckUnCheckChildren(Node, true);
                     Node.ExpandAll();
-                    TreeNode parent = Node.Parent;
+                    var parent = Node.Parent;
                     while (parent != null)
                     {
                         parent.Expand();
@@ -135,7 +135,7 @@ namespace ganjoor
             set => CheckCatList(value);
             get
             {
-                List<int> checkedCatList = new List<int>();
+                var checkedCatList = new List<int>();
                 FillWithCheckedList(checkedCatList);
                 return checkedCatList.ToArray();
             }
@@ -147,16 +147,16 @@ namespace ganjoor
         {
             set
             {
-                string[] CatStrs = value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                int[] Cats = new int[CatStrs.Length];
-                for (int i = 0; i < CatStrs.Length; i++)
+                var CatStrs = value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                var Cats = new int[CatStrs.Length];
+                for (var i = 0; i < CatStrs.Length; i++)
                     Cats[i] = Convert.ToInt32(CatStrs[i]);
                 CheckedCats = Cats;
             }
             get
             {
-                string result = "";
-                foreach (int Cat in CheckedCats)
+                var result = "";
+                foreach (var Cat in CheckedCats)
                 {
                     result += Cat.ToString();
                     result += ";";
@@ -169,10 +169,10 @@ namespace ganjoor
         {
             if (e.Node.Checked)
             {
-                int Cat = (int)e.Node.Tag;
+                var Cat = (int)e.Node.Tag;
                 if (Cat == 0)
                 {
-                    for (int i = 1; i < treeCats.Nodes.Count; i++)
+                    for (var i = 1; i < treeCats.Nodes.Count; i++)
                         CheckUnCheckChildren(treeCats.Nodes[i], false);
                 }
                 else

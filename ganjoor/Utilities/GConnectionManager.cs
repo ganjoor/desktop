@@ -10,8 +10,8 @@ namespace ganjoor
         {
             if (!string.IsNullOrEmpty(Settings.Default.HttpProxyServer) && !string.IsNullOrEmpty(Settings.Default.HttpProxyPort))
             {
-                int port = Convert.ToInt32(Settings.Default.HttpProxyPort);//try?!
-                WebProxy proxy = new WebProxy(Settings.Default.HttpProxyServer, port);
+                var port = Convert.ToInt32(Settings.Default.HttpProxyPort);//try?!
+                var proxy = new WebProxy(Settings.Default.HttpProxyServer, port);
                 req.Proxy = proxy;
                 return true;
             }

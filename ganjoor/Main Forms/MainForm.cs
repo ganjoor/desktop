@@ -149,7 +149,7 @@ namespace ganjoor
             mnuHighlight.Enabled = btnHighlight.Enabled;
 
 
-            bool highlight = !string.IsNullOrEmpty(HighlightedText) && Settings.Default.ScrollToFavedVerse;
+            var highlight = !string.IsNullOrEmpty(HighlightedText) && Settings.Default.ScrollToFavedVerse;
             if (highlight)
             {
                 if (GanjoorViewer.OnlyScrollString != HighlightedText)
@@ -243,7 +243,7 @@ namespace ganjoor
         }
 
         private void btnPrint_Click(object sender, EventArgs e) {
-            using PrintDialog dlg = new PrintDialog();
+            using var dlg = new PrintDialog();
             using (dlg.Document = new PrintDocument())
             {
                 if (dlg.ShowDialog(this) == DialogResult.OK)
@@ -254,10 +254,10 @@ namespace ganjoor
         }
 
         private void mnuPrintPreview_Click(object sender, EventArgs e) {
-            using PrintPreviewDialog dlg = new PrintPreviewDialog();
+            using var dlg = new PrintPreviewDialog();
             dlg.ShowIcon = false;
             dlg.UseAntiAlias = true;
-            using PrintDocument Document = ganjoorView.PrepareForPrintPreview();
+            using var Document = ganjoorView.PrepareForPrintPreview();
             dlg.Document = Document;
             dlg.ShowDialog(this);
         }
@@ -268,12 +268,12 @@ namespace ganjoor
         }
 
         private void btnAbout_Click(object sender, EventArgs e) {
-            using AboutForm dlg = new AboutForm();
+            using var dlg = new AboutForm();
             dlg.ShowDialog(this);
         }
 
         private void btnSearch_Click(object sender, EventArgs e) {
-            using Search dlg = new Search();
+            using var dlg = new Search();
             dlg.Poets = ganjoorView.Poets;
             dlg.PoetOrder = ganjoorView.GetPoetOrder(Settings.Default.LastSearchPoetID);
             if (dlg.ShowDialog(this) == DialogResult.OK)
@@ -295,7 +295,7 @@ namespace ganjoor
         }
 
         private void btnOptions_Click(object sender, EventArgs e) {
-            using Options dlg = new Options();
+            using var dlg = new Options();
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 ApplyUserSettings();
@@ -369,7 +369,7 @@ namespace ganjoor
 
         private void btnFavUnFav_Click(object sender, EventArgs e)
         {
-            bool result = ganjoorView.ToggleFav();
+            var result = ganjoorView.ToggleFav();
             mnuFavUnFav.Image = btnFavUnFav.Image = result ? Resources.favorite_remove : Resources.favorite_add;
             mnuFavUnFav.Text = btnFavUnFav.Text = result ? "حذف نشانه" : "نشانه‌گذاری";
             mnuFavUnFav.Checked = btnFavUnFav.Checked = result;
@@ -405,22 +405,22 @@ namespace ganjoor
         {
             try
             {
-                WebRequest req = WebRequest.Create("http://dg.ganjoor.net/version.xml");
+                var req = WebRequest.Create("http://dg.ganjoor.net/version.xml");
                 GConnectionManager.ConfigureProxy(ref req);
-                using (WebResponse response = req.GetResponse())
+                using (var response = req.GetResponse())
                 {
-                    using (Stream stream = response.GetResponseStream())
+                    using (var stream = response.GetResponseStream())
                     {
-                        using (StreamReader reader = new StreamReader(stream))
+                        using (var reader = new StreamReader(stream))
                         {
-                            XmlDocument doc = new XmlDocument();
+                            var doc = new XmlDocument();
                             doc.LoadXml(reader.ReadToEnd());
-                            int MyVersionMajor = Assembly.GetExecutingAssembly().GetName().Version.Major;
-                            int MyVersionMinor = Assembly.GetExecutingAssembly().GetName().Version.Minor;
-                            int VersionMajor = 0;
-                            int VersionMinor = 0;
-                            string updateUrl = string.Empty;
-                            XmlNode versionNode = doc.GetElementsByTagName("Version")[0];
+                            var MyVersionMajor = Assembly.GetExecutingAssembly().GetName().Version.Major;
+                            var MyVersionMinor = Assembly.GetExecutingAssembly().GetName().Version.Minor;
+                            var VersionMajor = 0;
+                            var VersionMinor = 0;
+                            var updateUrl = string.Empty;
+                            var versionNode = doc.GetElementsByTagName("Version")[0];
                             foreach (XmlNode Node in versionNode.ChildNodes)
                             {
                                 if (Node.Name == "Major")
@@ -466,12 +466,12 @@ namespace ganjoor
                 if (!Prompt)//check for new gdbs
                 {
                     string strException;
-                    List<GDBInfo> Lst = GDBListProcessor.RetrieveList("http://i.ganjoor.net/android/androidgdbs.xml", out strException);
+                    var Lst = GDBListProcessor.RetrieveList("http://i.ganjoor.net/android/androidgdbs.xml", out strException);
                     if (Lst != null && string.IsNullOrEmpty(strException))
                     {
-                        List<GDBInfo> finalList = new List<GDBInfo>();
-                        DbBrowser db = new DbBrowser();
-                        foreach (GDBInfo gdb in Lst)
+                        var finalList = new List<GDBInfo>();
+                        var db = new DbBrowser();
+                        foreach (var gdb in Lst)
                             if (
                                 !db.IsInGDBIgnoreList(gdb.CatID)
                                 &&
@@ -481,17 +481,17 @@ namespace ganjoor
                                 finalList.Add(gdb);
                             }
                         if (finalList.Count > 0) {
-                            using NewGDBFound dlg = new NewGDBFound(finalList);
+                            using var dlg = new NewGDBFound(finalList);
                             if (dlg.ShowDialog(this) == DialogResult.OK)
-                                using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
+                                using (var dwnDlg = new DownloadingGdbList(dlg.dwnldList))
                                     if (dwnDlg.ShowDialog(this) == DialogResult.OK)
-                                        foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
+                                        foreach (var DownloadedFile in dwnDlg.DownloadedFiles)
                                         {
                                             ImportGdb(DownloadedFile);
                                             if (Settings.Default.DeleteDownloadedFiles)
                                                 File.Delete(DownloadedFile);
                                         }
-                            foreach (int CatID in dlg.IgnoreList)
+                            foreach (var CatID in dlg.IgnoreList)
                                 db.AddToGDBIgnoreList(CatID);
                         }
                     }
@@ -542,12 +542,12 @@ namespace ganjoor
         }
 
         private void mnuAdd_Click(object sender, EventArgs e) {
-            using OpenFileDialog dlg = new OpenFileDialog();
+            using var dlg = new OpenFileDialog();
             dlg.Filter = "All Supported Packages|*.gdb;*.s3db;*.zip|GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db|Zipped GDB Files(*.zip)|*.zip";
             dlg.Multiselect = true;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                foreach (string FileName in dlg.FileNames)
+                foreach (var FileName in dlg.FileNames)
                 {
                     ImportGdb(FileName);
                 }
@@ -579,17 +579,17 @@ namespace ganjoor
         private void ImportGdb(string FileName)
         {
             if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase)) {
-                using ZipStorer zip = ZipStorer.Open(FileName, FileAccess.Read);
-                List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
-                foreach (ZipStorer.ZipFileEntry entry in dir)
+                using var zip = ZipStorer.Open(FileName, FileAccess.Read);
+                var dir = zip.ReadCentralDir();
+                foreach (var entry in dir)
                 {
-                    string gdbFileName = Path.GetFileName(entry.FilenameInZip);
+                    var gdbFileName = Path.GetFileName(entry.FilenameInZip);
                     if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
                     {
-                        string ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+                        var ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
                         if (!Directory.Exists(ganjoorPath))
                             Directory.CreateDirectory(ganjoorPath);
-                        string gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
+                        var gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
                         if (zip.ExtractFile(entry, gdbExtractPath))
                         {
                             ganjoorView.ImportDb(gdbExtractPath);
@@ -603,7 +603,7 @@ namespace ganjoor
         }
 
         private void mnuExportFavs_Click(object sender, EventArgs e) {
-            using SaveFileDialog dlg = new SaveFileDialog();
+            using var dlg = new SaveFileDialog();
             dlg.Filter = "*.gdb|*.gdb";
             dlg.FileName = "export.gdb";
             if (dlg.ShowDialog(this) == DialogResult.OK)
@@ -611,7 +611,7 @@ namespace ganjoor
         }
 
         private void mnuImportFavs_Click(object sender, EventArgs e) {
-            using OpenFileDialog dlg = new OpenFileDialog();
+            using var dlg = new OpenFileDialog();
             dlg.Filter = "*.gdb|*.gdb|*.*|*.*";
             dlg.FileName = "export.gdb";
             if (dlg.ShowDialog(this) == DialogResult.OK)
@@ -622,7 +622,7 @@ namespace ganjoor
         {
             ganjoorView.StoreSettings();
             Hide();
-            using (Editor dlg = new Editor())
+            using (var dlg = new Editor())
                 dlg.ShowDialog(this);
             Show();
         }
@@ -630,7 +630,7 @@ namespace ganjoor
         private void mnuAddUnsafe_Click(object sender, EventArgs e)
         {
             MessageBox.Show("در این روش اضافه کردن اشعار آزمونهای جلوگیری از خطا انجام نمی‌شود. به همین دلیل فرایند اضافه شدن شعرها سریع‌تر است. در صورت برخورد به خطا در هنگام استفاده از این روش، از فرمان استاندارد اضافه کردن اشعار استفاده کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            using OpenFileDialog dlg = new OpenFileDialog();
+            using var dlg = new OpenFileDialog();
             dlg.Filter = "*.gdb|*.gdb|*.s3db|*.s3db";
             dlg.FileName = "new.gdb";
             if (dlg.ShowDialog(this) == DialogResult.OK)
@@ -663,7 +663,7 @@ namespace ganjoor
         }
 
         private void btnDownload_Click(object sender, EventArgs e) {
-            using GDBDownloadWizard wiz = new GDBDownloadWizard();
+            using var wiz = new GDBDownloadWizard();
             wiz.ShowDialog(this);
             if (wiz.AnythingInstalled)
                 ganjoorView.ShowHome(true);
@@ -702,17 +702,17 @@ namespace ganjoor
                 return;
 
             }
-            PoemAudio[] poemAudioFiles = ganjoorView.PoemAudioFiles;
+            var poemAudioFiles = ganjoorView.PoemAudioFiles;
             if (poemAudioFiles.Length == 0)
             {
                 ManagePoemAudioFiles();
             }
             else
             {
-                PoemAudio poemAudio = poemAudioFiles[0];
+                var poemAudio = poemAudioFiles[0];
                 if (poemAudioFiles.Length > 1)
                 {
-                    ItemSelector dlg = new ItemSelector("گزینش خوانش ...", poemAudioFiles, poemAudio);
+                    var dlg = new ItemSelector("گزینش خوانش ...", poemAudioFiles, poemAudio);
                     if (dlg.ShowDialog(this) == DialogResult.OK)
                     {
                         poemAudio = dlg.SelectedItem as PoemAudio;

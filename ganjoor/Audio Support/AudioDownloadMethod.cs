@@ -25,11 +25,11 @@ namespace ganjoor.Audio_Support
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            DbBrowser db = new DbBrowser();
-            using ItemSelector poetSeletor = new ItemSelector("انتخاب شاعر", db.Poets.ToArray(), null);
+            var db = new DbBrowser();
+            using var poetSeletor = new ItemSelector("انتخاب شاعر", db.Poets.ToArray(), null);
             if (poetSeletor.ShowDialog(this) == DialogResult.OK)
             {
-                GanjoorPoet poet = poetSeletor.SelectedItem as GanjoorPoet;
+                var poet = poetSeletor.SelectedItem as GanjoorPoet;
                 PoetId = poet._ID;
                 txtSelectedPoetOrCategory.Text = poet._Name;
                 if (MessageBox.Show(
@@ -42,7 +42,7 @@ namespace ganjoor.Audio_Support
                     return;
                 }
 
-                using CategorySelector catSelector = new CategorySelector(poet._ID, db);
+                using var catSelector = new CategorySelector(poet._ID, db);
                 if (catSelector.ShowDialog(this) == DialogResult.OK)
                 {
                     CatId = catSelector.SelectedCatID;

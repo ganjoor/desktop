@@ -92,7 +92,7 @@ namespace ganjoor
         private Font ViewFont { set; get; }
 
         private void btnSelectFont_Click(object sender, EventArgs e) {
-            using FontDialog dlg = new FontDialog();
+            using var dlg = new FontDialog();
             dlg.Font = ViewFont;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -109,7 +109,7 @@ namespace ganjoor
         }
 
         private void btnGradiantBegin_Click(object sender, EventArgs e) {
-            using ColorDialog dlg = new ColorDialog();
+            using var dlg = new ColorDialog();
             dlg.Color = btnGradiantBegin.BackColor;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -118,7 +118,7 @@ namespace ganjoor
         }
 
         private void btnGradiantEnd_Click(object sender, EventArgs e) {
-            using ColorDialog dlg = new ColorDialog();
+            using var dlg = new ColorDialog();
             dlg.Color = btnGradiantEnd.BackColor;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -127,7 +127,7 @@ namespace ganjoor
         }
 
         private void btnBackColor_Click(object sender, EventArgs e) {
-            using ColorDialog dlg = new ColorDialog();
+            using var dlg = new ColorDialog();
             dlg.Color = btnBackColor.BackColor;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -136,7 +136,7 @@ namespace ganjoor
         }
 
         private void btnTextColor_Click(object sender, EventArgs e) {
-            using ColorDialog dlg = new ColorDialog();
+            using var dlg = new ColorDialog();
             dlg.Color = btnTextColor.BackColor;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -146,7 +146,7 @@ namespace ganjoor
 
 
         private void btnSelect_Click(object sender, EventArgs e) {
-            using OpenFileDialog dlg = new OpenFileDialog();
+            using var dlg = new OpenFileDialog();
             dlg.Filter = "تصاویر|*.jpg;*.bmp;*.png;*.gif|انواع فایلها|*.*";
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -162,7 +162,7 @@ namespace ganjoor
                     MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
                 return;
 
-            bool showLineNumbers = Settings.Default.ShowBeytNums;
+            var showLineNumbers = Settings.Default.ShowBeytNums;
             Settings.Default.Reset();
             Settings.Default.IsNewVersion = false;
             Settings.Default.ShowBeytNums = showLineNumbers;
@@ -175,7 +175,7 @@ namespace ganjoor
         }
 
         private void btnLinkColor_Click(object sender, EventArgs e) {
-            using ColorDialog dlg = new ColorDialog();
+            using var dlg = new ColorDialog();
             dlg.Color = btnLinkColor.BackColor;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -184,7 +184,7 @@ namespace ganjoor
         }
 
         private void btnCurrentLinkColor_Click(object sender, EventArgs e) {
-            using ColorDialog dlg = new ColorDialog();
+            using var dlg = new ColorDialog();
             dlg.Color = btnCurrentLinkColor.BackColor;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -193,7 +193,7 @@ namespace ganjoor
         }
 
         private void btnHighlightColor_Click(object sender, EventArgs e) {
-            using ColorDialog dlg = new ColorDialog();
+            using var dlg = new ColorDialog();
             dlg.Color = btnHighlightColor.BackColor;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -202,7 +202,7 @@ namespace ganjoor
         }
 
         private void btnBandLinkColor_Click(object sender, EventArgs e) {
-            using ColorDialog dlg = new ColorDialog();
+            using var dlg = new ColorDialog();
             dlg.Color = btnBandLinkColor.BackColor;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -217,27 +217,27 @@ namespace ganjoor
             {
                 if (_RandomCatIDs == "0")
                     return "همه";
-                DbBrowser db = new DbBrowser();
-                string[] CatStrs = _RandomCatIDs.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                var db = new DbBrowser();
+                var CatStrs = _RandomCatIDs.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-                List<GanjoorCat> SelectedCats = new List<GanjoorCat>();
-                foreach (string CatStr in CatStrs)
+                var SelectedCats = new List<GanjoorCat>();
+                foreach (var CatStr in CatStrs)
                 {
-                    GanjoorCat cat = db.GetCategory(Convert.ToInt32(CatStr));
+                    var cat = db.GetCategory(Convert.ToInt32(CatStr));
                     if (cat != null)
                         SelectedCats.Add(cat);
 
                 }
-                string result = "";
+                var result = "";
                 if (SelectedCats.Count == 0)
                     result = "همه";
                 else
                 {
-                    foreach (GanjoorCat cat in SelectedCats)
+                    foreach (var cat in SelectedCats)
                     {
-                        List<GanjoorCat> cats = db.GetParentCategories(cat);
-                        string catString = "";
-                        foreach (GanjoorCat parCat in cats)
+                        var cats = db.GetParentCategories(cat);
+                        var catString = "";
+                        foreach (var parCat in cats)
                             if (parCat._ID != 0)
                                 catString += parCat._Text + " ->";
                         catString += cat._Text;
@@ -251,7 +251,7 @@ namespace ganjoor
             }
         }
         private void btnSelectRandomCat_Click(object sender, EventArgs e) {
-            using CategorySelector dlg = new CategorySelector();
+            using var dlg = new CategorySelector();
             dlg.CheckedCatsString = _RandomCatIDs;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {

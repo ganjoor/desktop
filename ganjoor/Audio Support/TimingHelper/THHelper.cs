@@ -12,7 +12,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
             InitializeComponent();
 
-            DbBrowser dbBrowser = new DbBrowser();
+            var dbBrowser = new DbBrowser();
 
             _Verses = dbBrowser.GetVerses(nPoemId);
 
@@ -61,7 +61,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan span = DateTime.Now - _start;
+            var span = DateTime.Now - _start;
             switch (_step)
             {
                 case TimingStep.StartToSilence:
@@ -83,8 +83,8 @@ namespace ganjoor.Audio_Support.TimingHelper
                     }
                     else
                     {
-                        double ratio = span.TotalMilliseconds / StartToSilence.TotalMilliseconds;
-                        string verse = lblVerse.Text;
+                        var ratio = span.TotalMilliseconds / StartToSilence.TotalMilliseconds;
+                        var verse = lblVerse.Text;
                         lblVerse.Keyword = verse.Substring(0, (int)(ratio * verse.Length));
                         lblVerse.Invalidate();
                         progressBar.Value = (int)(ratio * 100);

@@ -14,13 +14,13 @@ namespace ganjoor
             _Values = new Dictionary<string, Dictionary<string, string>>();
             if (File.Exists(filePath))
             {
-                string[] Lines = File.ReadAllLines(filePath);
-                string curSection = "";
-                foreach (string Line in Lines)
+                var Lines = File.ReadAllLines(filePath);
+                var curSection = "";
+                foreach (var Line in Lines)
                 {
-                    string trimedLine = Line.Trim();
-                    int bracketStart = trimedLine.IndexOf('[');
-                    int bracketEnd = trimedLine.IndexOf(']');
+                    var trimedLine = Line.Trim();
+                    var bracketStart = trimedLine.IndexOf('[');
+                    var bracketEnd = trimedLine.IndexOf(']');
                     if (bracketStart != -1 && bracketEnd > bracketStart)
                     {
                         //section
@@ -28,10 +28,10 @@ namespace ganjoor
                     }
                     else
                     {
-                        string[] keyValue = trimedLine.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                        var keyValue = trimedLine.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
                         if (keyValue.Length == 2)
                         {
-                            Dictionary<string, string> newKeyValue = new Dictionary<string, string>();
+                            var newKeyValue = new Dictionary<string, string>();
                             newKeyValue.Add(keyValue[0].Trim(), keyValue[1].Trim());
                             _Values.Add(curSection, newKeyValue);
                         }

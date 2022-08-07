@@ -152,7 +152,7 @@ namespace ganjoor
                         Application.DoEvents();
 
 
-                        string ext = Path.GetExtension(_PoemAudio.FilePath).ToLower();
+                        var ext = Path.GetExtension(_PoemAudio.FilePath).ToLower();
                         if (ext == ".mp3")
                         {
                             waveViewer.WaveStream = new Mp3FileReader(_PoemAudio.FilePath);
@@ -263,15 +263,15 @@ namespace ganjoor
         }
 
         private void btnSearchText_Click(object sender, EventArgs e) {
-            using ItemEditor itemEditor = new ItemEditor(EditItemType.General, "جستجوی بعدی", "متن:");
+            using var itemEditor = new ItemEditor(EditItemType.General, "جستجوی بعدی", "متن:");
             itemEditor.ItemName = _LastSearchText;
             if (itemEditor.ShowDialog(this) == DialogResult.OK)
             {
                 _LastSearchText = itemEditor.ItemName;
-                int nStart = _SyncOrder;
-                for (int n = 0; n < 2; n++)
+                var nStart = _SyncOrder;
+                for (var n = 0; n < 2; n++)
                 {
-                    for (int i = nStart + 1; i < _PoemVerses.Length; i++)
+                    for (var i = nStart + 1; i < _PoemVerses.Length; i++)
                         if (_PoemVerses[i]._Text.Contains(_LastSearchText))
                         {
                             _SyncOrder = i;
@@ -435,10 +435,10 @@ namespace ganjoor
             }
 
             //رفع اشکال نسخه قدیمی NAudio           
-            int nLen = _VerseMilisecPositions.Count;
+            var nLen = _VerseMilisecPositions.Count;
             if (nLen > 0 && _VerseMilisecPositions[nLen - 1].AudioMiliseconds > _PoemAudioPlayer.TotalTimeInMiliseconds)
             {
-                for (int i = 0; i < nLen; i++)
+                for (var i = 0; i < nLen; i++)
                 {
                     _VerseMilisecPositions[i] = new PoemAudio.SyncInfo {
                         AudioMiliseconds = _VerseMilisecPositions[i].AudioMiliseconds / 2,
@@ -479,7 +479,7 @@ namespace ganjoor
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            int nPositionInMiliseconds = _PoemAudioPlayer.PositionInMiliseconds;
+            var nPositionInMiliseconds = _PoemAudioPlayer.PositionInMiliseconds;
             _TrackbarValueSetting = true;
             trackBar.Value = nPositionInMiliseconds;
             _TrackbarValueSetting = false;
@@ -488,7 +488,7 @@ namespace ganjoor
             if (!_Testing)
                 return;
 
-            int nNextSyncOrder = _SyncOrder + 1;
+            var nNextSyncOrder = _SyncOrder + 1;
             if (nNextSyncOrder < _VerseMilisecPositions.Count)
             {
 

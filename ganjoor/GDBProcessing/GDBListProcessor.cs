@@ -25,10 +25,10 @@ namespace ganjoor
         public static bool Save(string FileName, string Name, string Description, string MoreInfoUrl, List<GDBInfo> List)
         {
             XmlDocument doc = new();
-            XmlNode gdbRootNode = doc.CreateNode(XmlNodeType.Element, "DesktopGanjoorGDBList", "");
+            var gdbRootNode = doc.CreateNode(XmlNodeType.Element, "DesktopGanjoorGDBList", "");
             doc.AppendChild(gdbRootNode);
-            XmlNode newNode = doc.CreateNode(XmlNodeType.Element, "RedirectInfo", "");
-            XmlNode redirUrl = doc.CreateNode(XmlNodeType.Element, "Url", "");
+            var newNode = doc.CreateNode(XmlNodeType.Element, "RedirectInfo", "");
+            var redirUrl = doc.CreateNode(XmlNodeType.Element, "Url", "");
             newNode.AppendChild(redirUrl);
             gdbRootNode.AppendChild(newNode);
             if (!string.IsNullOrEmpty(Name))
@@ -49,18 +49,18 @@ namespace ganjoor
                 newNode.InnerText = MoreInfoUrl;
                 gdbRootNode.AppendChild(newNode);
             }
-            foreach (GDBInfo gdb in List)
+            foreach (var gdb in List)
             {
                 if (!string.IsNullOrEmpty(gdb.DownloadUrl))
                 {
-                    XmlNode gdbNode = doc.CreateNode(XmlNodeType.Element, "gdb", "");
-                    foreach (PropertyInfo prop in typeof(GDBInfo).GetProperties())
+                    var gdbNode = doc.CreateNode(XmlNodeType.Element, "gdb", "");
+                    foreach (var prop in typeof(GDBInfo).GetProperties())
                     {
-                        bool ignoreProp = false;
-                        XmlNode propNode = doc.CreateNode(XmlNodeType.Element, prop.Name, "");
+                        var ignoreProp = false;
+                        var propNode = doc.CreateNode(XmlNodeType.Element, prop.Name, "");
                         if (prop.PropertyType == typeof(string))
                         {
-                            string value = prop.GetValue(gdb, null).ToString();
+                            var value = prop.GetValue(gdb, null).ToString();
                             if (string.IsNullOrEmpty(value))
                             {
                                 ignoreProp = true;
@@ -71,7 +71,7 @@ namespace ganjoor
                         else
                             if (prop.PropertyType == typeof(Int32))
                         {
-                            int value = Convert.ToInt32(prop.GetValue(gdb, null));
+                            var value = Convert.ToInt32(prop.GetValue(gdb, null));
                             if (value == 0)
                             {
                                 ignoreProp = true;
@@ -123,19 +123,19 @@ namespace ganjoor
             Name = Description = MoreInfoUrl = "";
             try
             {
-                WebRequest req = WebRequest.Create(url);
+                var req = WebRequest.Create(url);
                 GConnectionManager.ConfigureProxy(ref req);
-                using WebResponse response = req.GetResponse();
-                using Stream stream = response.GetResponseStream();
+                using var response = req.GetResponse();
+                using var stream = response.GetResponseStream();
                 using StreamReader reader = new(stream);
                 XmlDocument doc = new();
                 doc.LoadXml(reader.ReadToEnd());
 
                 //Should Redirect?
-                XmlNodeList ndListRedirect = doc.GetElementsByTagName("RedirectInfo");
+                var ndListRedirect = doc.GetElementsByTagName("RedirectInfo");
                 if (ndListRedirect.Count > 0)
                 {
-                    XmlNode redirectNode = ndListRedirect[0];
+                    var redirectNode = ndListRedirect[0];
                     foreach (XmlNode Node in redirectNode.ChildNodes)
                     {
                         if (Node.Name == "Url")
@@ -146,13 +146,13 @@ namespace ganjoor
                     }
                 }
 
-                XmlNodeList nameNodeList = doc.GetElementsByTagName("Name");
+                var nameNodeList = doc.GetElementsByTagName("Name");
                 if (nameNodeList is {Count: 1})
                     Name = nameNodeList[0].InnerText;
-                XmlNodeList descNodeList = doc.GetElementsByTagName("Description");
+                var descNodeList = doc.GetElementsByTagName("Description");
                 if (descNodeList is {Count: 1})
                     Description = descNodeList[0].InnerText;
-                XmlNodeList urlNodeList = doc.GetElementsByTagName("MoreInfoUrl");
+                var urlNodeList = doc.GetElementsByTagName("MoreInfoUrl");
                 if (urlNodeList is {Count: 1})
                     MoreInfoUrl = urlNodeList[0].InnerText;
                 return true;
@@ -174,11 +174,11 @@ namespace ganjoor
             List<GDBInfo> lstGDBs = new();
             try
             {
-                WebRequest req = WebRequest.Create(url);
+                var req = WebRequest.Create(url);
                 GConnectionManager.ConfigureProxy(ref req);
-                using (WebResponse response = req.GetResponse())
+                using (var response = req.GetResponse())
                 {
-                    using (Stream stream = response.GetResponseStream())
+                    using (var stream = response.GetResponseStream())
                     {
                         using (StreamReader reader = new(stream))
                         {
@@ -186,10 +186,10 @@ namespace ganjoor
                             doc.LoadXml(reader.ReadToEnd());
 
                             //Should Redirect?
-                            XmlNodeList ndListRedirect = doc.GetElementsByTagName("RedirectInfo");
+                            var ndListRedirect = doc.GetElementsByTagName("RedirectInfo");
                             if (ndListRedirect.Count > 0)
                             {
-                                XmlNode redirectNode = ndListRedirect[0];
+                                var redirectNode = ndListRedirect[0];
                                 foreach (XmlNode Node in redirectNode.ChildNodes)
                                 {
                                     if (Node.Name == "Url")
@@ -202,7 +202,7 @@ namespace ganjoor
 
                             //Collect List:
                             lstGDBs.Clear();
-                            XmlNodeList gdbNodes = doc.GetElementsByTagName("gdb");
+                            var gdbNodes = doc.GetElementsByTagName("gdb");
                             foreach (XmlNode gdbNode in gdbNodes)
                             {
                                 GDBInfo gdbInfo = new();
@@ -239,10 +239,10 @@ namespace ganjoor
                                             break;
                                         case "PubDate":
                                             {
-                                                string[] dateParts = Node.InnerText.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
-                                                int Year = Convert.ToInt32(dateParts[0]);
-                                                int Month = Convert.ToInt32(dateParts[1]);
-                                                int Day = Convert.ToInt32(dateParts[2]);
+                                                var dateParts = Node.InnerText.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                                                var Year = Convert.ToInt32(dateParts[0]);
+                                                var Month = Convert.ToInt32(dateParts[1]);
+                                                var Day = Convert.ToInt32(dateParts[2]);
                                                 gdbInfo.PubDate = new DateTime(Year, Month, Day);
                                             }
                                             break;
@@ -272,11 +272,11 @@ namespace ganjoor
         {
             get
             {
-                string reS = Settings.Default.DownloadPath;
+                var reS = Settings.Default.DownloadPath;
 
                 if (string.IsNullOrEmpty(reS))
                 {
-                    string ganjoorUserDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+                    var ganjoorUserDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
                     if (!Directory.Exists(ganjoorUserDir))
                         Directory.CreateDirectory(ganjoorUserDir);
                     reS = Path.Combine(ganjoorUserDir, "download");

@@ -55,7 +55,7 @@ namespace ganjoor
         private void FillGrid()
         {
             grdList.Rows.Clear();
-            foreach (PoemAudio Audio in _DbBrowser.GetPoemAudioFiles(_PoemId))
+            foreach (var Audio in _DbBrowser.GetPoemAudioFiles(_PoemId))
             {
                 AddAudioInfoToGrid(Audio);
             }
@@ -67,7 +67,7 @@ namespace ganjoor
         /// <param name="Audio"></param>
         private int AddAudioInfoToGrid(PoemAudio Audio)
         {
-            int nRowIdx = grdList.Rows.Add();
+            var nRowIdx = grdList.Rows.Add();
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_DESC].Value = Audio.Description;
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_FILEPATH].Value = Audio.FilePath;
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_SYNCED].Value = Audio.IsSynced;
@@ -82,14 +82,14 @@ namespace ganjoor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e) {
-            using OpenFileDialog openFileDialog = new OpenFileDialog();
+            using var openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "MP3 Files (*.mp3)|*.mp3|All Files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string strDesc = "فایل صوتی " + _DbBrowser.GetPoem(_PoemId)._Title;
+                var strDesc = "فایل صوتی " + _DbBrowser.GetPoem(_PoemId)._Title;
                 if (grdList.Rows.Count > 0)
                     strDesc += (" (" + (grdList.Rows.Count + 1) + ")");
-                using (ItemEditor itemEditor = new ItemEditor(EditItemType.General, "شرح فایل", "شرح فایل"))
+                using (var itemEditor = new ItemEditor(EditItemType.General, "شرح فایل", "شرح فایل"))
                 {
                     itemEditor.ItemName = strDesc;
                     if (itemEditor.ShowDialog(this) == DialogResult.Cancel)
@@ -98,7 +98,7 @@ namespace ganjoor
                     }
                     strDesc = itemEditor.ItemName;
                 }
-                PoemAudio newAudio = _DbBrowser.AddAudio(_PoemId, openFileDialog.FileName, strDesc);
+                var newAudio = _DbBrowser.AddAudio(_PoemId, openFileDialog.FileName, strDesc);
                 if (newAudio != null)
                     grdList.Rows[AddAudioInfoToGrid(newAudio)].Selected = true;
             }
@@ -172,7 +172,7 @@ namespace ganjoor
                 _PoemAudioPlayer.PlaybackStarted += _PoemAudioPlayer_PlaybackStarted;
                 _PoemAudioPlayer.PlaybackStopped += _PoemAudioPlayer_PlaybackStopped;
             }
-            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            var poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
             if (!_PoemAudioPlayer.BeginPlayback(poemAudio))
             {
                 btnPlayStop.Text = "پخش";
@@ -233,8 +233,8 @@ namespace ganjoor
             {
                 _PoemAudioPlayer.CleanUp();
             }
-            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
-            using SyncPoemAudio dlg = new SyncPoemAudio(_DbBrowser, poemAudio);
+            var poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            using var dlg = new SyncPoemAudio(_DbBrowser, poemAudio);
             dlg.ShowDialog(this);
             if (dlg.Saved)
             {
@@ -256,20 +256,20 @@ namespace ganjoor
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
                 return;
             }
-            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            var poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
             if (!poemAudio.IsSynced)
             {
                 MessageBox.Show("ردیف جاری همگام نشده است.");
                 return;
             }
 
-            using SaveFileDialog dlg = new SaveFileDialog();
+            using var dlg = new SaveFileDialog();
             dlg.Filter = "XML Files (*.xml)|*.xml";
             dlg.FileName = Path.GetFileNameWithoutExtension(poemAudio.FilePath);
 
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                List<PoemAudio> lst = new List<PoemAudio>();
+                var lst = new List<PoemAudio>();
                 lst.Add(poemAudio);
                 if (PoemAudioListProcessor.Save(dlg.FileName, lst, bFix))
                 {
@@ -299,7 +299,7 @@ namespace ganjoor
                 return;
             }
 
-            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            var poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
             if (poemAudio.IsSynced)
             {
                 if (MessageBox.Show(
@@ -310,18 +310,18 @@ namespace ganjoor
                     return;
             }
 
-            using OpenFileDialog dlg = new OpenFileDialog();
+            using var dlg = new OpenFileDialog();
             dlg.Filter = "XML Files (*.xml)|*.xml";
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                List<PoemAudio> lstPoemAudio = PoemAudioListProcessor.Load(dlg.FileName);
+                var lstPoemAudio = PoemAudioListProcessor.Load(dlg.FileName);
                 if (lstPoemAudio.Count == 0)
                 {
                     MessageBox.Show("فایل انتخاب شده حاوی اطلاعات همگام‌سازی شعرها نیست.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     return;
                 }
 
-                foreach (PoemAudio xmlAudio in lstPoemAudio)
+                foreach (var xmlAudio in lstPoemAudio)
                 {
                     if (xmlAudio.PoemId == poemAudio.PoemId)
                     {
@@ -352,7 +352,7 @@ namespace ganjoor
         {
             Cursor.Current = Cursors.WaitCursor;
             Application.DoEvents();
-            using (SndDownloadWizard dlg = new SndDownloadWizard(_PoemId, 0, 0, ""))
+            using (var dlg = new SndDownloadWizard(_PoemId, 0, 0, ""))
             {
                 dlg.ShowDialog(this);
                 if (dlg.AnythingInstalled)
@@ -371,7 +371,7 @@ namespace ganjoor
                 return;
             }
 
-            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            var poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
             if (!poemAudio.IsSynced)
             {
                 MessageBox.Show("لطفا ابتدا خوانش را همگام کنید.");
@@ -390,10 +390,10 @@ namespace ganjoor
                 return;
             }
 
-            bool valid = await TokenIsValid();
+            var valid = await TokenIsValid();
             if (!valid)
             {
-                using (GLogin gLogin = new GLogin())
+                using (var gLogin = new GLogin())
                     if (gLogin.ShowDialog(this) != DialogResult.OK)
                     {
                         Cursor = Cursors.Default;
@@ -421,9 +421,9 @@ namespace ganjoor
                 return;
             }
 
-            bool replaceOldAudio = false;
+            var replaceOldAudio = false;
 
-            using (ConfirmAudioUpload confirmDlg = new ConfirmAudioUpload(Settings.Default.DefProfile))
+            using (var confirmDlg = new ConfirmAudioUpload(Settings.Default.DefProfile))
             {
                 var res = confirmDlg.ShowDialog(this);
                 if (res == DialogResult.Cancel)
@@ -432,27 +432,27 @@ namespace ganjoor
             }
 
 
-            using (HttpClient httpClient = new HttpClient())
+            using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Default.MuseumToken);
 
                 Cursor = Cursors.WaitCursor;
                 Application.DoEvents();
 
-                MultipartFormDataContent form = new MultipartFormDataContent();
+                var form = new MultipartFormDataContent();
 
-                string xmlTempPath = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
+                var xmlTempPath = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
 
                 PoemAudioListProcessor.Save(xmlTempPath, poemAudio, false);
-                byte[] xmlFileContent = File.ReadAllBytes(xmlTempPath);
+                var xmlFileContent = File.ReadAllBytes(xmlTempPath);
                 File.Delete(xmlTempPath);
                 form.Add(new ByteArrayContent(xmlFileContent, 0, xmlFileContent.Length), $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.xml", $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.xml");
 
 
-                byte[] mp3FileContent = File.ReadAllBytes(poemAudio.FilePath);
+                var mp3FileContent = File.ReadAllBytes(poemAudio.FilePath);
                 form.Add(new ByteArrayContent(mp3FileContent, 0, mp3FileContent.Length), Path.GetFileName(poemAudio.FilePath), Path.GetFileName(poemAudio.FilePath));
 
-                HttpResponseMessage response = await httpClient.PostAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio?replace={replaceOldAudio}", form);
+                var response = await httpClient.PostAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio?replace={replaceOldAudio}", form);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     Cursor = Cursors.Default;
@@ -477,13 +477,13 @@ namespace ganjoor
             {
                 if (string.IsNullOrEmpty(Settings.Default.MuseumToken))
                     return false;
-                using HttpClient httpClient = new HttpClient();
+                using var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Default.MuseumToken);
 
                 Cursor = Cursors.WaitCursor;
                 Application.DoEvents();
 
-                HttpResponseMessage response = await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio/profile/def");
+                var response = await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio/profile/def");
                 if (response.StatusCode == HttpStatusCode.NoContent)
                 {
                     Cursor = Cursors.Default;
@@ -518,13 +518,13 @@ namespace ganjoor
         }
 
         private void btnTimingHelper_Click(object sender, EventArgs e) {
-            using TimingHelperWizard dlg = new TimingHelperWizard(_PoemId);
+            using var dlg = new TimingHelperWizard(_PoemId);
             dlg.ShowDialog(this);
         }
 
         private async void btnLogout_Click(object sender, EventArgs e)
         {
-            bool valid = await TokenIsValid();
+            var valid = await TokenIsValid();
             if (!valid)
             {
                 MessageBox.Show("اطلاعات حساب پیشخان شما معتبر نیست یا وارد نشده‌اید.");

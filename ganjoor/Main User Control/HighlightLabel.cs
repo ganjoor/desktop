@@ -44,13 +44,13 @@ namespace ganjoor
                 )
                )
             {
-                string txt = Text;
+                var txt = Text;
                 using SolidBrush hbrsh = new(HighlightColor);
                 float fx = e.ClipRectangle.Right;//only right to left text for now
                 float fy = e.ClipRectangle.Y;
                 while (txt.Length > 0)
                 {
-                    int index = txt.IndexOf(Keyword);
+                    var index = txt.IndexOf(Keyword);
                     string thisPart;
                     if (index == -1)
                     {
@@ -82,7 +82,7 @@ namespace ganjoor
                     fx -= sz.Width;
                     if (fx <= 0)
                     {//multiline label
-                        int nLines = (int)sz.Width / Width;
+                        var nLines = (int)sz.Width / Width;
                         fy += nLines * sz.Height;
                         fx = e.ClipRectangle.Right - (sz.Width - nLines * Width);
                     }

@@ -36,10 +36,10 @@ namespace ganjoor
 
             if (_Lst.Count > 0)
             {
-                DbBrowser db = new DbBrowser();
-                foreach (GDBInfo gdbInfo in _Lst)
+                var db = new DbBrowser();
+                foreach (var gdbInfo in _Lst)
                 {
-                    int RowIndex = grdList.Rows.Add();
+                    var RowIndex = grdList.Rows.Add();
                     if (db.GetCategory(gdbInfo.CatID) != null)
                         grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
                     grdList.Rows[RowIndex].Cells[GRDCLMN_CAT].Value = gdbInfo.CatName;

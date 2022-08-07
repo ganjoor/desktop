@@ -15,16 +15,16 @@ namespace ganjoor
 
             AnythingInstalled = false;
 
-            WSSelectSounds selStage = new WSSelectSounds(nPoemId, nPoetId, nCatId, searchTerm);
+            var selStage = new WSSelectSounds(nPoemId, nPoetId, nCatId, searchTerm);
             selStage.OnDisableNextButton += selStage_OnDisableNextButton;
             selStage.OnEnableNextButton += selStage_OnEnableNextButton;
             AddStage(selStage);
 
-            WSDownloadSounds dwnStage = new WSDownloadSounds();
+            var dwnStage = new WSDownloadSounds();
             dwnStage.OnStageDone += dwnStage_OnStageDone;
             AddStage(dwnStage);
 
-            WSInstallSounds instStage = new WSInstallSounds();
+            var instStage = new WSInstallSounds();
             instStage.OnInstallStarted += instStage_OnInstallStarted;
             instStage.OnInstallFinished += instStage_OnInstallFinished;
             AddStage(instStage);
@@ -98,7 +98,7 @@ namespace ganjoor
         }
 
         protected override void ShowSettings() {
-            using SndWizOptions dlg = new SndWizOptions();
+            using var dlg = new SndWizOptions();
             dlg.ShowDialog(this);
         }
 

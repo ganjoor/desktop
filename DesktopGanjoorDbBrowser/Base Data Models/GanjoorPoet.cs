@@ -62,7 +62,7 @@
         {
             if (obj is GanjoorPoet)
             {
-                GanjoorPoet otherPoet = obj as GanjoorPoet;
+                var otherPoet = obj as GanjoorPoet;
                 return
                     _ID == otherPoet._ID && _Name == otherPoet._Name;
             }

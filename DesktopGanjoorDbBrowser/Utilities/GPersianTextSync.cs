@@ -44,9 +44,9 @@ namespace ganjoor
         /// <returns></returns>
         public static string Farglisize(string inputStr)
         {
-            string outStr = "";
+            var outStr = "";
             string s;
-            foreach (char c in inputStr)
+            foreach (var c in inputStr)
                 if (_PinglishDic.TryGetValue(c, out s))
                     outStr += s;
             return outStr;

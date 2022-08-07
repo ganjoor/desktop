@@ -71,7 +71,7 @@ namespace ganjoor
         }
 
         private void btnNewPoet_ButtonClick(object sender, EventArgs e) {
-            using ItemEditor dlg = new ItemEditor();
+            using var dlg = new ItemEditor();
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 if (!ganjoorView.NewPoet(dlg.ItemName))
@@ -80,7 +80,7 @@ namespace ganjoor
         }
 
         private void btnEditPoet_Click(object sender, EventArgs e) {
-            using ItemEditor dlg = new ItemEditor();
+            using var dlg = new ItemEditor();
             dlg.ItemName = ganjoorView.CurrentPoet;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -90,7 +90,7 @@ namespace ganjoor
         }
 
         private void btnNewCat_ButtonClick(object sender, EventArgs e) {
-            using ItemEditor dlg = new ItemEditor(EditItemType.Category);
+            using var dlg = new ItemEditor(EditItemType.Category);
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 if (!ganjoorView.NewCat(dlg.ItemName))
@@ -100,7 +100,7 @@ namespace ganjoor
         }
 
         private void btnEditPoetBio_Click(object sender, EventArgs e) {
-            using MemoEditor dlg = new MemoEditor(ganjoorView.CurrentPoetBio);
+            using var dlg = new MemoEditor(ganjoorView.CurrentPoetBio);
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 if (!ganjoorView.EditPoetBio(dlg.MemoText))
@@ -110,7 +110,7 @@ namespace ganjoor
 
 
         private void btnEditCat_Click(object sender, EventArgs e) {
-            using ItemEditor dlg = new ItemEditor(EditItemType.Category);
+            using var dlg = new ItemEditor(EditItemType.Category);
             dlg.ItemName = ganjoorView.CurrentCategory;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -120,7 +120,7 @@ namespace ganjoor
         }
 
         private void btnNewPoem_ButtonClick(object sender, EventArgs e) {
-            using ItemEditor dlg = new ItemEditor(EditItemType.Poem);
+            using var dlg = new ItemEditor(EditItemType.Poem);
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 if (!ganjoorView.NewPoem(dlg.ItemName))
@@ -130,7 +130,7 @@ namespace ganjoor
         }
 
         private void btnEditPoem_Click(object sender, EventArgs e) {
-            using ItemEditor dlg = new ItemEditor(EditItemType.Poem);
+            using var dlg = new ItemEditor(EditItemType.Poem);
             dlg.ItemName = ganjoorView.CurrentPoem;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -220,7 +220,7 @@ namespace ganjoor
         }
 
         private void btnExportPoet_Click(object sender, EventArgs e) {
-            using SaveFileDialog dlg = new SaveFileDialog();
+            using var dlg = new SaveFileDialog();
             dlg.Filter = "*.gdb|*.gdb";
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -234,7 +234,7 @@ namespace ganjoor
         }
 
         private void btnExportCat_Click(object sender, EventArgs e) {
-            using SaveFileDialog dlg = new SaveFileDialog();
+            using var dlg = new SaveFileDialog();
             dlg.Filter = "*.gdb|*.gdb";
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -257,11 +257,11 @@ namespace ganjoor
             ganjoorView.Save();
             ganjoorView.StoreSettings();
             Hide();
-            using (ReOrderCat dlg = new ReOrderCat())
+            using (var dlg = new ReOrderCat())
             {
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    DbBrowser dbBrowser = new DbBrowser();
+                    var dbBrowser = new DbBrowser();
                     ganjoorView.ShowPoem(dbBrowser.GetPoem(dlg.SelectedPoemId), true);
                     dbBrowser.CloseDb();
                 }
@@ -275,7 +275,7 @@ namespace ganjoor
             ganjoorView.Save();
             ganjoorView.StoreSettings();
             Hide();
-            using (ReOrderSubCats dlg = new ReOrderSubCats())
+            using (var dlg = new ReOrderSubCats())
             {
                 dlg.ShowDialog(this);
             }
@@ -284,11 +284,11 @@ namespace ganjoor
         }
 
         private void btnImportFromTextFile_Click(object sender, EventArgs e) {
-            using OpenFileDialog dlg = new OpenFileDialog();
+            using var dlg = new OpenFileDialog();
             dlg.Filter = "Unicode Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                string srcText = File.ReadAllText(dlg.FileName);
+                var srcText = File.ReadAllText(dlg.FileName);
                 ganjoorView.InsertVerses(srcText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
                 ganjoorView.Save();
             }
@@ -308,7 +308,7 @@ namespace ganjoor
         private void btnImportFromClipboadStructuredPoem_Click(object sender, EventArgs e)
         {
             if (Clipboard.ContainsText()) {
-                using PoemStructure dlg = new PoemStructure();
+                using var dlg = new PoemStructure();
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     ganjoorView.InsertVerses(Clipboard.GetText().Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), dlg.LinesCount, dlg.FullLine, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
@@ -347,7 +347,7 @@ namespace ganjoor
         #endregion
 
         private void btnMergeTwoTextColumns_Click(object sender, EventArgs e) {
-            using MrgTwoClmns dlg = new MrgTwoClmns();
+            using var dlg = new MrgTwoClmns();
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 ganjoorView.InsertVerses(dlg.ResulText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), true, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
@@ -355,12 +355,12 @@ namespace ganjoor
         }
 
         private void btnReplaceInDb_Click(object sender, EventArgs e) {
-            using ReplaceInDb dlg = new ReplaceInDb();
+            using var dlg = new ReplaceInDb();
             dlg.ShowDialog(this);
         }
 
         private void btnChangeIDs_Click(object sender, EventArgs e) {
-            using IDChanger dlg = new IDChanger();
+            using var dlg = new IDChanger();
             int PoetID, MinCatID, MinPoemID;
             ganjoorView.GetIDs(out PoetID, out MinCatID, out MinPoemID);
             dlg.PoetID = PoetID;
@@ -375,7 +375,7 @@ namespace ganjoor
         }
 
         private void btnMoveToCategory_Click(object sender, EventArgs e) {
-            using CategorySelector dlg = new CategorySelector(ganjoorView.GetCurrentPoetID());
+            using var dlg = new CategorySelector(ganjoorView.GetCurrentPoetID());
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 ganjoorView.MoveToCategory(dlg.SelectedCatID);
@@ -383,20 +383,20 @@ namespace ganjoor
         }
 
         private void btnGDBListEditor_Click(object sender, EventArgs e) {
-            using GDBListEditor dlg = new GDBListEditor();
+            using var dlg = new GDBListEditor();
             dlg.ShowDialog(this);
         }
 
         private void btnReplaceToolStripMenuItem_Click(object sender, EventArgs e) {
-            using ItemEditor dlgFind = new ItemEditor(EditItemType.General, "متن جستجو", "متن جستجو");
+            using var dlgFind = new ItemEditor(EditItemType.General, "متن جستجو", "متن جستجو");
             if (dlgFind.ShowDialog(this) == DialogResult.OK)
             {
-                string strFindText = dlgFind.ItemName;
+                var strFindText = dlgFind.ItemName;
 
-                using ItemEditor dlgReplace = new ItemEditor(EditItemType.General, "متن جایگزین", "متن جایگزین");
+                using var dlgReplace = new ItemEditor(EditItemType.General, "متن جایگزین", "متن جایگزین");
                 if (dlgReplace.ShowDialog(this) == DialogResult.OK)
                 {
-                    string strReplaceText = dlgReplace.ItemName;
+                    var strReplaceText = dlgReplace.ItemName;
                     if (MessageBox.Show(String.Format("از جایگزینی «{0}» با «{1}» در شعر جاری اطمینان دارید؟", strFindText, strReplaceText),
                             "پرسش و هشدار", MessageBoxButtons.YesNo) == DialogResult.No)
                         return;
@@ -407,7 +407,7 @@ namespace ganjoor
         }
 
         private void btnRestructurePoem_Click(object sender, EventArgs e) {
-            using PoemStructure dlg = new PoemStructure();
+            using var dlg = new PoemStructure();
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 ganjoorView.RestructureVerses(dlg.LinesCount, dlg.FullLine, -1, false);
@@ -479,7 +479,7 @@ namespace ganjoor
         }
 
         private void btnSpaceTabText_Click(object sender, EventArgs e) {
-            using SpaceSeparatedPoem dlg = new SpaceSeparatedPoem();
+            using var dlg = new SpaceSeparatedPoem();
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                 ganjoorView.InsertVerses(dlg.ResulText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), true, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
@@ -494,7 +494,7 @@ namespace ganjoor
                 MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.No)
                 return;
 
-            using OpenFileDialog dlg = new OpenFileDialog();
+            using var dlg = new OpenFileDialog();
             dlg.Filter = "*.s3db|*.s3db";
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -507,8 +507,8 @@ namespace ganjoor
 
         private void mnuImport_Click(object sender, EventArgs e)
         {
-            int nCurCatId = ganjoorView.CurrentCatId;
-            int nCurPoetId = ganjoorView.CurrentPoetId;
+            var nCurCatId = ganjoorView.CurrentCatId;
+            var nCurPoetId = ganjoorView.CurrentPoetId;
 
             if (nCurCatId < 0 || nCurPoetId < 0)
             {
@@ -518,19 +518,19 @@ namespace ganjoor
             #region Old Code
             if ((ModifierKeys | Keys.Shift) == ModifierKeys)
             {
-                using TextImporter dlgOld = new TextImporter();
+                using var dlgOld = new TextImporter();
                 if (dlgOld.ShowDialog(this) == DialogResult.OK)
                 {
-                    string fileName = dlgOld.FileName;
-                    string mainCatText = dlgOld.MainCatText;
-                    string[] subCatTexts = dlgOld.SubCatTexts;
-                    int nMaxVerseTextLength = dlgOld.MaxVerseTextLength;
-                    bool bTabularVerses = dlgOld.TabularVerses;
+                    var fileName = dlgOld.FileName;
+                    var mainCatText = dlgOld.MainCatText;
+                    var subCatTexts = dlgOld.SubCatTexts;
+                    var nMaxVerseTextLength = dlgOld.MaxVerseTextLength;
+                    var bTabularVerses = dlgOld.TabularVerses;
 
                     Cursor = Cursors.WaitCursor;
                     Application.DoEvents();
 
-                    string[] lines = File.ReadAllLines(fileName);
+                    var lines = File.ReadAllLines(fileName);
 
                     Application.DoEvents();
 
@@ -544,14 +544,14 @@ namespace ganjoor
                     GanjoorCat curMainCat = null;
                     GanjoorPoem curPoem = null;
 
-                    int nTotalLines = lines.Length;
-                    int nCurLine = 0;
+                    var nTotalLines = lines.Length;
+                    var nCurLine = 0;
 
-                    int nCurVerse = 0;
+                    var nCurVerse = 0;
 
 
 
-                    DbBrowser dbBrowser = new DbBrowser();
+                    var dbBrowser = new DbBrowser();
 
                     dbBrowser.BeginBatchOperation();
                     while (nCurLine < nTotalLines)
@@ -562,8 +562,8 @@ namespace ganjoor
                         }
                         else if (curMainCat != null)
                         {
-                            bool bNewCatOrPoem = false;
-                            foreach (string subCatText in subCatTexts)
+                            var bNewCatOrPoem = false;
+                            foreach (var subCatText in subCatTexts)
                             {
                                 if (lines[nCurLine].Contains(subCatText))
                                 {
@@ -580,34 +580,34 @@ namespace ganjoor
 
                             if (!bNewCatOrPoem)
                             {
-                                string line = lines[nCurLine].Trim();
+                                var line = lines[nCurLine].Trim();
                                 if (!string.IsNullOrEmpty(line))
                                 {
-                                    int nWordsCount = line.Split(' ').Length;
+                                    var nWordsCount = line.Split(' ').Length;
 
-                                    bool bVerseDetected = false;
+                                    var bVerseDetected = false;
 
                                     if (nWordsCount <= nMaxVerseTextLength)
                                     {
-                                        int nNextLine = nCurLine + 1;
+                                        var nNextLine = nCurLine + 1;
                                         if (nNextLine < nTotalLines)
                                         {
                                             while (nNextLine < nTotalLines)
                                             {
-                                                string nextLine = lines[nNextLine].Trim();
+                                                var nextLine = lines[nNextLine].Trim();
                                                 if (string.IsNullOrEmpty(nextLine))
                                                     nNextLine++;
                                                 else
                                                 {
-                                                    int nNextWordsCount = nextLine.Split(' ').Length;
+                                                    var nNextWordsCount = nextLine.Split(' ').Length;
                                                     if (nNextWordsCount <= nMaxVerseTextLength)
                                                     {
                                                         if (nextLine.Contains(mainCatText))
                                                         {
                                                             break;
                                                         }
-                                                        bool bBreak = false;
-                                                        foreach (string subCatText in subCatTexts)
+                                                        var bBreak = false;
+                                                        foreach (var subCatText in subCatTexts)
                                                         {
                                                             if (nextLine.Contains(subCatText))
                                                             {
@@ -624,10 +624,10 @@ namespace ganjoor
                                                         }
                                                         bVerseDetected = true;
 
-                                                        GanjoorVerse v1 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Right);
+                                                        var v1 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Right);
                                                         dbBrowser.SetVerseText(curPoem._ID, v1._Order, line);
                                                         nCurVerse++;
-                                                        GanjoorVerse v2 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Left);
+                                                        var v2 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Left);
                                                         dbBrowser.SetVerseText(curPoem._ID, v2._Order, nextLine);
                                                         nCurVerse++;
 
@@ -648,7 +648,7 @@ namespace ganjoor
                                             MessageBox.Show("curPoem == null");
                                             return;
                                         }
-                                        GanjoorVerse p = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Paragraph);
+                                        var p = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Paragraph);
                                         dbBrowser.SetVerseText(curPoem._ID, p._Order, line);
                                         nCurVerse++;
                                     }
@@ -676,32 +676,32 @@ namespace ganjoor
             }
             #endregion
 
-            using GeneralTextImporter dlg = new GeneralTextImporter();
+            using var dlg = new GeneralTextImporter();
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                string fileName = dlg.FileName;
-                string[] starts = dlg.NextPoemStartText.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                bool nextPoemStartIsAShortText = dlg.NextPoemStartIsAShortText;
-                int nShortTextLength = dlg.ShortTextLength;
+                var fileName = dlg.FileName;
+                var starts = dlg.NextPoemStartText.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                var nextPoemStartIsAShortText = dlg.NextPoemStartIsAShortText;
+                var nShortTextLength = dlg.ShortTextLength;
 
 
 
                 Cursor = Cursors.WaitCursor;
                 Application.DoEvents();
 
-                string[] lines = File.ReadAllLines(fileName);
+                var lines = File.ReadAllLines(fileName);
 
                 Application.DoEvents();
 
 
 
-                int nTotalLines = lines.Length;
-                int nCurLine = 0;
+                var nTotalLines = lines.Length;
+                var nCurLine = 0;
 
-                int nCurVerse = 0;
+                var nCurVerse = 0;
 
-                DbBrowser dbBrowser = new DbBrowser();
-                GanjoorCat cat = dbBrowser.GetCategory(nCurCatId);
+                var dbBrowser = new DbBrowser();
+                var cat = dbBrowser.GetCategory(nCurCatId);
                 if (cat == null)
                 {
                     MessageBox.Show("cat == null");
@@ -715,8 +715,8 @@ namespace ganjoor
                 dbBrowser.BeginBatchOperation();
                 while (nCurLine < nTotalLines)
                 {
-                    string line = lines[nCurLine].Trim();
-                    bool startsWith = false;
+                    var line = lines[nCurLine].Trim();
+                    var startsWith = false;
                     foreach (var startText in starts)
                     {
                         if (line.IndexOf(startText) == 0)
@@ -739,7 +739,7 @@ namespace ganjoor
                         else
                         if (curPoem != null)
                         {
-                            GanjoorVerse v = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, nCurVerse % 2 == 0 ? VersePosition.Right : VersePosition.Left);
+                            var v = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, nCurVerse % 2 == 0 ? VersePosition.Right : VersePosition.Left);
                             dbBrowser.SetVerseText(curPoem._ID, v._Order, line);
                             nCurVerse++;
                         }
@@ -762,16 +762,16 @@ namespace ganjoor
         {
             if (curPoem != null)
             {
-                List<GanjoorVerse> verses = dbBrowser.GetVerses(curPoem._ID);
+                var verses = dbBrowser.GetVerses(curPoem._ID);
 
-                int nVIndex = 0;
+                var nVIndex = 0;
                 while (nVIndex < verses.Count)
                 {
                     if (verses[nVIndex]._Position == VersePosition.Right)
                     {
-                        List<string> vTexts = new List<string>();
+                        var vTexts = new List<string>();
                         vTexts.Add(verses[nVIndex]._Text);
-                        int nStart = nVIndex;
+                        var nStart = nVIndex;
                         nVIndex++;
                         if (nVIndex < verses.Count)
                         {
@@ -788,15 +788,15 @@ namespace ganjoor
                                 vTexts.Add(verses[nVIndex]._Text);
                                 nVIndex++;
                             }
-                            int nEndPlusOne = nVIndex;
+                            var nEndPlusOne = nVIndex;
                             if ((nEndPlusOne - nStart) > 2)
                             {
-                                int nText = 0;
-                                for (int nRight = nStart; nRight < nEndPlusOne; nRight += 2, nText++)
+                                var nText = 0;
+                                for (var nRight = nStart; nRight < nEndPlusOne; nRight += 2, nText++)
                                 {
                                     dbBrowser.SetVerseText(curPoem._ID, verses[nRight]._Order, vTexts[nText]);
                                 }
-                                for (int nLeft = nStart + 1; nLeft < nEndPlusOne; nLeft += 2, nText++)
+                                for (var nLeft = nStart + 1; nLeft < nEndPlusOne; nLeft += 2, nText++)
                                 {
                                     dbBrowser.SetVerseText(curPoem._ID, verses[nLeft]._Order, vTexts[nText]);
                                 }
@@ -814,9 +814,9 @@ namespace ganjoor
 
 
         private void mnuExport_Click(object sender, EventArgs e) {
-            using TextExporter eDlg = new TextExporter();
+            using var eDlg = new TextExporter();
             if (eDlg.ShowDialog(this) == DialogResult.OK) {
-                using FolderBrowserDialog dlg = new FolderBrowserDialog();
+                using var dlg = new FolderBrowserDialog();
                 dlg.Description = "مسیر خروجیها را انتخاب کنید";
                 dlg.ShowNewFolderButton = true;
 
@@ -826,13 +826,13 @@ namespace ganjoor
                     Cursor.Current = Cursors.WaitCursor;
                     Enabled = false;
                     Application.DoEvents();
-                    string targetFolder = dlg.SelectedPath;
+                    var targetFolder = dlg.SelectedPath;
 
-                    DbBrowser dbBrowser = new DbBrowser();
+                    var dbBrowser = new DbBrowser();
 
-                    for (int i = 0; i < dbBrowser.Poets.Count; i++)
+                    for (var i = 0; i < dbBrowser.Poets.Count; i++)
                     {
-                        GanjoorPoet poet = dbBrowser.Poets[i];
+                        var poet = dbBrowser.Poets[i];
                         switch (Settings.Default.ExportLevel)
                         {
                             case "Poet":
@@ -863,10 +863,10 @@ namespace ganjoor
                 Directory.CreateDirectory(targetFolder);
             }
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             if (Settings.Default.ExportPoetName)
             {
-                string poetNameSeparator = Settings.Default.ExportPoetSep;
+                var poetNameSeparator = Settings.Default.ExportPoetSep;
                 if (!string.IsNullOrEmpty(poetNameSeparator))
                     sb.AppendLine(poetNameSeparator);
                 sb.AppendLine(poet._Name);
@@ -874,11 +874,11 @@ namespace ganjoor
                     sb.AppendLine(poetNameSeparator);
             }
 
-            GanjoorCat poetCat = dbBrowser.GetCategory(poet._CatID);
+            var poetCat = dbBrowser.GetCategory(poet._CatID);
             DRY_ExportCat(dbBrowser, poetCat, sb);
 
-            List<int> lstSubCategories = dbBrowser.GetAllSubCats(poetCat._ID);
-            foreach (int catId in lstSubCategories)
+            var lstSubCategories = dbBrowser.GetAllSubCats(poetCat._ID);
+            foreach (var catId in lstSubCategories)
             {
                 DRY_ExportCat(dbBrowser, dbBrowser.GetCategory(catId), sb);
             }
@@ -889,16 +889,16 @@ namespace ganjoor
 
         private void ExportCatToTextFile(int nOrder, GanjoorCat cat, string targetFolder, DbBrowser dbBrowser, bool separateFiles = false)
         {
-            string catInLatinLetters = (nOrder + 1).ToString("D3") + "-" + GPersianTextSync.Farglisize(cat._Text);
+            var catInLatinLetters = (nOrder + 1).ToString("D3") + "-" + GPersianTextSync.Farglisize(cat._Text);
             if (catInLatinLetters.Length > 16)
                 catInLatinLetters = catInLatinLetters.Substring(0, 16);
-            string catFolder = Path.Combine(targetFolder, catInLatinLetters);
+            var catFolder = Path.Combine(targetFolder, catInLatinLetters);
             if (!Directory.Exists(catFolder))
             {
                 Directory.CreateDirectory(catFolder);
             }
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             if (DRY_ExportCat(dbBrowser, cat, sb, separateFiles ? catFolder : ""))
             {
                 if (!separateFiles)
@@ -908,8 +908,8 @@ namespace ganjoor
             }
 
 
-            List<GanjoorCat> cats = dbBrowser.GetSubCategories(cat._ID);
-            for (int i = 0; i < cats.Count; i++)
+            var cats = dbBrowser.GetSubCategories(cat._ID);
+            for (var i = 0; i < cats.Count; i++)
             {
                 ExportCatToTextFile(i, cats[i], catFolder, dbBrowser, separateFiles);
             }
@@ -919,7 +919,7 @@ namespace ganjoor
         {
             if (Settings.Default.ExportCatName)
             {
-                string catNameSeparator = Settings.Default.ExportCatSep;
+                var catNameSeparator = Settings.Default.ExportCatSep;
                 if (!string.IsNullOrEmpty(catNameSeparator))
                     sb.AppendLine(catNameSeparator);
                 sb.AppendLine(cat._Text);
@@ -927,12 +927,12 @@ namespace ganjoor
                     sb.AppendLine(catNameSeparator);
             }
 
-            List<GanjoorPoem> poems = dbBrowser.GetPoems(cat._ID);
+            var poems = dbBrowser.GetPoems(cat._ID);
             if (poems.Count > 0)
             {
-                bool exportPoemName = Settings.Default.ExportPoemName;
-                string poemNameSeparator = Settings.Default.ExportPoemSep;
-                foreach (GanjoorPoem poem in poems)
+                var exportPoemName = Settings.Default.ExportPoemName;
+                var poemNameSeparator = Settings.Default.ExportPoemSep;
+                foreach (var poem in poems)
                 {
                     if (!string.IsNullOrEmpty(catFolderForSeparatePorms))
                     {
@@ -960,7 +960,7 @@ namespace ganjoor
                 if (!string.IsNullOrEmpty(poemNameSeparator))
                     sb.AppendLine(poemNameSeparator);
             }
-            foreach (GanjoorVerse verse in dbBrowser.GetVerses(poem._ID))
+            foreach (var verse in dbBrowser.GetVerses(poem._ID))
             {
                 sb.AppendLine(verse._Text);
             }
@@ -968,7 +968,7 @@ namespace ganjoor
 
         private void Mnu2verseSplit_Click(object sender, EventArgs e)
         {
-            int nPoemId = ganjoorView.CurrentPoemId;
+            var nPoemId = ganjoorView.CurrentPoemId;
             if (nPoemId < 1)
             {
                 MessageBox.Show("لطفا شعری را انتخاب کنید.");
@@ -976,22 +976,22 @@ namespace ganjoor
             }
             if (MessageBox.Show("با اجرای این فرمان هر دو بیت شعر جدیدی محسوب می‌شود. شعرهای جدید به بخش جاری اضافه می‌شوند.\n\rآیا ادامه می‌دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
             {
-                DbBrowser dbBrowser = new DbBrowser();
-                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+                var dbBrowser = new DbBrowser();
+                var verses = dbBrowser.GetVerses(nPoemId);
 
-                int nCatId = ganjoorView.CurrentCatId;
-                int nPoemNo = 0;
-                int nLastPoemId = nPoemId;
+                var nCatId = ganjoorView.CurrentCatId;
+                var nPoemNo = 0;
+                var nLastPoemId = nPoemId;
 
-                for (int nIndex = 0; nIndex < verses.Count; nIndex += 4)
+                for (var nIndex = 0; nIndex < verses.Count; nIndex += 4)
                 {
                     nPoemNo++;
                     dbBrowser.BeginBatchOperation();
-                    GanjoorPoem newPoem = dbBrowser.CreateNewPoem("شمارهٔ " + GPersianTextSync.Sync(nPoemNo.ToString()), nCatId);
+                    var newPoem = dbBrowser.CreateNewPoem("شمارهٔ " + GPersianTextSync.Sync(nPoemNo.ToString()), nCatId);
                     nLastPoemId = newPoem._ID;
-                    for (int i = 0; i < 4; i++)
+                    for (var i = 0; i < 4; i++)
                     {
-                        GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i, verses[nIndex + i]._Position);
+                        var v = dbBrowser.CreateNewVerse(newPoem._ID, i, verses[nIndex + i]._Position);
                         dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[nIndex + i]._Text);
                     }
                     dbBrowser.CommitBatchOperation();
@@ -1010,7 +1010,7 @@ namespace ganjoor
 
         private void btnAppendToPre_Click(object sender, EventArgs e)
         {
-            int nPoemId = ganjoorView.CurrentPoemId;
+            var nPoemId = ganjoorView.CurrentPoemId;
             if (nPoemId < 1)
             {
                 MessageBox.Show("لطفا شعری را انتخاب کنید.");
@@ -1023,19 +1023,19 @@ namespace ganjoor
                DialogResult.Yes
                )
             {
-                DbBrowser dbBrowser = new DbBrowser();
-                int nCatId = ganjoorView.CurrentCatId;
-                GanjoorPoem prePoem = dbBrowser.GetPreviousPoem(nPoemId, nCatId);
+                var dbBrowser = new DbBrowser();
+                var nCatId = ganjoorView.CurrentCatId;
+                var prePoem = dbBrowser.GetPreviousPoem(nPoemId, nCatId);
 
-                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+                var verses = dbBrowser.GetVerses(nPoemId);
 
-                List<GanjoorVerse> preVerses = dbBrowser.GetVerses(prePoem._ID);
+                var preVerses = dbBrowser.GetVerses(prePoem._ID);
 
-                int verseOrder = preVerses[preVerses.Count - 1]._Order;
+                var verseOrder = preVerses[preVerses.Count - 1]._Order;
 
                 foreach (var verse in verses)
                 {
-                    GanjoorVerse v = dbBrowser.CreateNewVerse(prePoem._ID, verseOrder + 1, verse._Position);
+                    var v = dbBrowser.CreateNewVerse(prePoem._ID, verseOrder + 1, verse._Position);
                     dbBrowser.SetVerseText(prePoem._ID, v._Order, verse._Text);
 
                     verseOrder = v._Order;
@@ -1049,7 +1049,7 @@ namespace ganjoor
 
         private void mnuSplit_Click(object sender, EventArgs e)
         {
-            int nPoemId = ganjoorView.CurrentPoemId;
+            var nPoemId = ganjoorView.CurrentPoemId;
             if (nPoemId < 1)
             {
                 MessageBox.Show("لطفا شعری را انتخاب کنید.");
@@ -1060,15 +1060,15 @@ namespace ganjoor
             {
                 if (MessageBox.Show("با اجرای این فرمان بیتهای با مصرع خالی یا طول کمتر از ۴ آغاز شعر جدید محسوب می‌شوند.\n\rاشعار جدید به بخش جاری اضافه می‌شوند.\n\rآیا ادامه می‌دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
-                    DbBrowser dbBrowser = new DbBrowser();
-                    List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
-                    int nPoemStartVerseIndex = 0;
+                    var dbBrowser = new DbBrowser();
+                    var verses = dbBrowser.GetVerses(nPoemId);
+                    var nPoemStartVerseIndex = 0;
 
-                    int nCatId = ganjoorView.CurrentCatId;
-                    int nPoemNo = 0;
-                    int nLastPoemId = nPoemId;
+                    var nCatId = ganjoorView.CurrentCatId;
+                    var nPoemNo = 0;
+                    var nLastPoemId = nPoemId;
 
-                    for (int nIndex = 0; nIndex < verses.Count; nIndex++)
+                    for (var nIndex = 0; nIndex < verses.Count; nIndex++)
                     {
                         if (verses[nIndex]._Text.Length < 4)
                         {
@@ -1080,11 +1080,11 @@ namespace ganjoor
                             {
                                 nPoemNo++;
                                 dbBrowser.BeginBatchOperation();
-                                GanjoorPoem newPoem = dbBrowser.CreateNewPoem("شمارهٔ " + GPersianTextSync.Sync(nPoemNo.ToString()), nCatId);
+                                var newPoem = dbBrowser.CreateNewPoem("شمارهٔ " + GPersianTextSync.Sync(nPoemNo.ToString()), nCatId);
                                 nLastPoemId = newPoem._ID;
-                                for (int i = nPoemStartVerseIndex; i < nIndex; i++)
+                                for (var i = nPoemStartVerseIndex; i < nIndex; i++)
                                 {
-                                    GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i - nPoemStartVerseIndex, verses[i]._Position);
+                                    var v = dbBrowser.CreateNewVerse(newPoem._ID, i - nPoemStartVerseIndex, verses[i]._Position);
                                     dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[i]._Text);
                                 }
                                 dbBrowser.CommitBatchOperation();
@@ -1099,11 +1099,11 @@ namespace ganjoor
             }
             #endregion
             {
-                int linePosition = ganjoorView.GetCurrentLine();
-                DbBrowser dbBrowser = new DbBrowser();
-                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
-                int verseIndex = 0;
-                for (int i = 0; i < verses.Count; i++)
+                var linePosition = ganjoorView.GetCurrentLine();
+                var dbBrowser = new DbBrowser();
+                var verses = dbBrowser.GetVerses(nPoemId);
+                var verseIndex = 0;
+                for (var i = 0; i < verses.Count; i++)
                 {
                     if (verses[i]._Order == linePosition)
                     {
@@ -1121,19 +1121,19 @@ namespace ganjoor
 
 
 
-                int nCatId = ganjoorView.CurrentCatId;
+                var nCatId = ganjoorView.CurrentCatId;
 
-                int nNextId = -1;
+                var nNextId = -1;
 
-                string msg = $"از «{verses[verseIndex]}» به شعر جدید شکسته شود؟";
+                var msg = $"از «{verses[verseIndex]}» به شعر جدید شکسته شود؟";
                 if (MessageBox.Show(msg, "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
-                    GanjoorPoem newPoem = dbBrowser.CreateNewPoem("", nCatId);
-                    int nNewPoemId = newPoem._ID;
-                    List<int> deletingVOrders = new List<int>();
-                    for (int i = verseIndex; i < verses.Count; i++)
+                    var newPoem = dbBrowser.CreateNewPoem("", nCatId);
+                    var nNewPoemId = newPoem._ID;
+                    var deletingVOrders = new List<int>();
+                    for (var i = verseIndex; i < verses.Count; i++)
                     {
-                        GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i - verseIndex, verses[i]._Position);
+                        var v = dbBrowser.CreateNewVerse(newPoem._ID, i - verseIndex, verses[i]._Position);
                         dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[i]._Text);
                         deletingVOrders.Add(verses[i]._Order);
                     }
@@ -1146,13 +1146,13 @@ namespace ganjoor
 
                     //Reorder poems so that the new one falls after current one
 
-                    List<GanjoorPoem> poems = dbBrowser.GetPoems(nCatId);
+                    var poems = dbBrowser.GetPoems(nCatId);
                     dbBrowser.BeginBatchOperation();
-                    bool firstNextPoemMet = false;
+                    var firstNextPoemMet = false;
 
-                    for (int i = 0; i < poems.Count; i++)
+                    for (var i = 0; i < poems.Count; i++)
                     {
-                        GanjoorPoem poem = poems[i];
+                        var poem = poems[i];
                         if (poem._ID > nPoemId && poem._ID != nNewPoemId)
                         {
                             if (!firstNextPoemMet)
@@ -1168,7 +1168,7 @@ namespace ganjoor
 
                     poems = dbBrowser.GetPoems(nCatId);
                     dbBrowser.BeginBatchOperation();
-                    foreach (GanjoorPoem poem in poems)
+                    foreach (var poem in poems)
                     {
                         if (poem._ID < 0)
                         {
@@ -1195,7 +1195,7 @@ namespace ganjoor
 
         private void mnuSingleVerseSplit_Click(object sender, EventArgs e)
         {
-            int nPoemId = ganjoorView.CurrentPoemId;
+            var nPoemId = ganjoorView.CurrentPoemId;
             if (nPoemId < 1)
             {
                 MessageBox.Show("لطفا شعری را انتخاب کنید.");
@@ -1203,22 +1203,22 @@ namespace ganjoor
             }
             if (MessageBox.Show("با اجرای این فرمان هر بیت شعر جدیدی محسوب می‌شود. شعرهای جدید به بخش جاری اضافه می‌شوند.\n\rآیا ادامه می‌دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
             {
-                DbBrowser dbBrowser = new DbBrowser();
-                List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+                var dbBrowser = new DbBrowser();
+                var verses = dbBrowser.GetVerses(nPoemId);
 
-                int nCatId = ganjoorView.CurrentCatId;
-                int nPoemNo = 0;
-                int nLastPoemId = nPoemId;
+                var nCatId = ganjoorView.CurrentCatId;
+                var nPoemNo = 0;
+                var nLastPoemId = nPoemId;
 
-                for (int nIndex = 0; nIndex < verses.Count; nIndex += 2)
+                for (var nIndex = 0; nIndex < verses.Count; nIndex += 2)
                 {
                     nPoemNo++;
                     dbBrowser.BeginBatchOperation();
-                    GanjoorPoem newPoem = dbBrowser.CreateNewPoem("شمارهٔ " + GPersianTextSync.Sync(nPoemNo.ToString()), nCatId);
+                    var newPoem = dbBrowser.CreateNewPoem("شمارهٔ " + GPersianTextSync.Sync(nPoemNo.ToString()), nCatId);
                     nLastPoemId = newPoem._ID;
-                    for (int i = 0; i < 2; i++)
+                    for (var i = 0; i < 2; i++)
                     {
-                        GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i, verses[nIndex + i]._Position);
+                        var v = dbBrowser.CreateNewVerse(newPoem._ID, i, verses[nIndex + i]._Position);
                         dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[nIndex + i]._Text);
                     }
                     dbBrowser.CommitBatchOperation();
@@ -1236,7 +1236,7 @@ namespace ganjoor
 
         private void btnTechnicalProblems_Click(object sender, EventArgs e)
         {
-            DbBrowser dbBrowser = new DbBrowser();
+            var dbBrowser = new DbBrowser();
             var list = dbBrowser.GetVersesWithTechnicalProblems(true);
             if (list.Count == 0)
             {
@@ -1252,14 +1252,14 @@ namespace ganjoor
 
         private void btnRhymeError_Click(object sender, EventArgs e)
         {
-            int nPoemId = ganjoorView.CurrentPoemId;
+            var nPoemId = ganjoorView.CurrentPoemId;
             if (nPoemId < 1)
             {
                 MessageBox.Show("لطفا شعری را انتخاب کنید.");
                 return;
             }
-            DbBrowser dbBrowser = new DbBrowser();
-            List<GanjoorVerse> verses = dbBrowser.GetVerses(nPoemId);
+            var dbBrowser = new DbBrowser();
+            var verses = dbBrowser.GetVerses(nPoemId);
             var ravi = RhymeFinder.FindRhyme(verses);
             if (!string.IsNullOrEmpty(ravi.Rhyme))
             {

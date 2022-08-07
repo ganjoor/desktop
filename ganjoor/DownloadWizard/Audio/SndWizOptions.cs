@@ -19,7 +19,7 @@ namespace ganjoor
         }
 
         private void btnSelectTempPath_Click(object sender, EventArgs e) {
-            using FolderBrowserDialog dlg = new FolderBrowserDialog();
+            using var dlg = new FolderBrowserDialog();
             dlg.SelectedPath = txtTempPath.Text;
             if (dlg.ShowDialog(this) == DialogResult.OK)
                 txtTempPath.Text = dlg.SelectedPath;

@@ -11,9 +11,9 @@ namespace ganjoor
         public DownloadingGdbList(List<GDBInfo> Lst)
         {
             InitializeComponent();
-            foreach (GDBInfo gdbInfo in Lst)
+            foreach (var gdbInfo in Lst)
             {
-                GdbDownloadInfo ctl = new GdbDownloadInfo(gdbInfo);
+                var ctl = new GdbDownloadInfo(gdbInfo);
                 pnlList.Controls.Add(ctl);
                 ctl.Dock = DockStyle.Top;
                 ctl.SendToBack();
@@ -57,13 +57,13 @@ namespace ganjoor
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            string targetDir = GDBListProcessor.DownloadPath;
+            var targetDir = GDBListProcessor.DownloadPath;
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
-            string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
+            var sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
                 ((pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl,
                 targetDir,
-                backgroundWorker, out string expString);
+                backgroundWorker, out var expString);
             if (!string.IsNullOrEmpty(sFileDownloaded))
                 _DownloadedFiles.Add(sFileDownloaded);
             else

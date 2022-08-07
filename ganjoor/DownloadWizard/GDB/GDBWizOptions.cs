@@ -26,7 +26,7 @@ namespace ganjoor
         }
 
         private void btnGDBListEditor_Click(object sender, EventArgs e) {
-            using GDBListEditor dlg = new GDBListEditor();
+            using var dlg = new GDBListEditor();
             dlg.ShowDialog(this);
         }
 
@@ -37,7 +37,7 @@ namespace ganjoor
         }
 
         private void btnSelectTempPath_Click(object sender, EventArgs e) {
-            using FolderBrowserDialog dlg = new FolderBrowserDialog();
+            using var dlg = new FolderBrowserDialog();
             dlg.SelectedPath = txtTempPath.Text;
             if (dlg.ShowDialog(this) == DialogResult.OK)
                 txtTempPath.Text = dlg.SelectedPath;

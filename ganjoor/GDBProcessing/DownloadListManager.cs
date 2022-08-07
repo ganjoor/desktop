@@ -11,17 +11,17 @@ namespace ganjoor
         {
             get
             {
-                List<string> reS = new List<string>();
+                var reS = new List<string>();
                 reS.AddRange(_DefaultUrls);
                 if (Settings.Default.CustomDownloadUrls != null)
-                    foreach (string CustomDownloadUrl in Settings.Default.CustomDownloadUrls)
+                    foreach (var CustomDownloadUrl in Settings.Default.CustomDownloadUrls)
                         reS.Add(CustomDownloadUrl);
                 return reS.ToArray();
             }
         }
         public static string GetListName(string Url)
         {
-            int index = Array.IndexOf(Urls, Url);
+            var index = Array.IndexOf(Urls, Url);
             if (index != -1) {
                 if (index < _DefaultUrls.Length)
                     return _DefaultListNames[index];
@@ -33,7 +33,7 @@ namespace ganjoor
         }
         public static string GetListDescription(string Url)
         {
-            int index = Array.IndexOf(Urls, Url);
+            var index = Array.IndexOf(Urls, Url);
             if (index != -1) {
                 if (index < _DefaultUrls.Length)
                     return _DefaultListDescriptions[index];
@@ -45,7 +45,7 @@ namespace ganjoor
         }
         public static string GetListMoreInfoUrl(string Url)
         {
-            int index = Array.IndexOf(Urls, Url);
+            var index = Array.IndexOf(Urls, Url);
             if (index != -1) {
                 if (index < _DefaultUrls.Length)
                     return string.Empty;//no default urls!
@@ -57,7 +57,7 @@ namespace ganjoor
         }
         public static bool Cache(string Url, string Name, string Description, string MoreInfoUrl)
         {
-            int index = Array.IndexOf(Urls, Url);
+            var index = Array.IndexOf(Urls, Url);
             if (index != -1) {
                 if (index < _DefaultUrls.Length)
                     return false;

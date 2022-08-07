@@ -32,14 +32,14 @@ namespace ganjoor.Audio_Support
             Application.DoEvents();
 
             DialogResult = DialogResult.None;
-            LoginViewModel model = new LoginViewModel {
+            var model = new LoginViewModel {
                 Username = txtEmail.Text,
                 Password = txtPassword.Text,
                 ClientAppName = "Desktop Ganjoor",
                 Language = "fa-IR"
             };
 
-            using (HttpClient httpClient = new HttpClient())
+            using (var httpClient = new HttpClient())
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
                 var loginUrl = $"{Settings.Default.GanjoorServiceUrl}/api/users/login";

@@ -94,10 +94,10 @@ namespace ganjoor
                 "ویرایش " + Assembly.GetExecutingAssembly().GetName().Version.Major + "." + Assembly.GetExecutingAssembly().GetName().Version.Minor;
 
 
-            int num = Contributers.GetLength(0);
-            for (int i = 0; i < num; i++)
+            var num = Contributers.GetLength(0);
+            for (var i = 0; i < num; i++)
             {
-                int RowIndex = grdContributers.Rows.Add();
+                var RowIndex = grdContributers.Rows.Add();
                 grdContributers.Rows[RowIndex].Cells[GRDCLMN_NAME].Value = Contributers[i][DTCLMN_NAME];
                 grdContributers.Rows[RowIndex].Cells[GRDCLMN_SEC].Value = Contributers[i][DTCLMN_SEC];
                 grdContributers.Rows[RowIndex].Cells[GRDCLMN_MORE].Value = "کلیک کنید";
@@ -144,14 +144,14 @@ namespace ganjoor
         {
             if (e.ColumnIndex == GRDCLMN_NAME)
             {
-                string link = Contributers[e.RowIndex][DTCLMN_LINK];
+                var link = Contributers[e.RowIndex][DTCLMN_LINK];
                 if (!string.IsNullOrEmpty(link))
                     LaunchUrl(link);
             }
             else
                 if (e.ColumnIndex == GRDCLMN_MORE)
             {
-                string link = Contributers[e.RowIndex][DTCLMN_MORE];
+                var link = Contributers[e.RowIndex][DTCLMN_MORE];
                 if (!string.IsNullOrEmpty(link))
                     LaunchUrl(link);
             }

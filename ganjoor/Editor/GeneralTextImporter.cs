@@ -38,7 +38,7 @@ namespace ganjoor
 
 
         private void btnOK_Click(object sender, EventArgs e) {
-            using OpenFileDialog dlg = new OpenFileDialog();
+            using var dlg = new OpenFileDialog();
             dlg.Filter = "Unicode Text File (*.txt)|*.txt";
             if (dlg.ShowDialog(this) != DialogResult.OK)
             {

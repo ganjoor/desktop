@@ -27,9 +27,9 @@ namespace ganjoor
         {
             // first, we need to get the exact size (in bytes) of the file we are downloading
 
-            Uri url = new Uri(sUrlToReadFileFrom);
+            var url = new Uri(sUrlToReadFileFrom);
 
-            WebRequest req = WebRequest.Create(url);
+            var req = WebRequest.Create(url);
             if (req is HttpWebRequest request)
             {
                 HttpWebResponse response;
@@ -49,11 +49,11 @@ namespace ganjoor
 
                 response.Close();
 
-                string sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(response.ResponseUri.LocalPath));
+                var sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(response.ResponseUri.LocalPath));
 
                 // gets the size of the file in bytes
 
-                Int64 iSize = response.ContentLength;
+                var iSize = response.ContentLength;
 
 
 
@@ -65,10 +65,10 @@ namespace ganjoor
 
                 // use the webclient object to download the file
 
-                using WebClient client = new WebClient();
+                using var client = new WebClient();
                 // open the file at the remote URL for reading
 
-                using Stream streamRemote = client.OpenRead(new Uri(sUrlToReadFileFrom));
+                using var streamRemote = client.OpenRead(new Uri(sUrlToReadFileFrom));
                 // using the FileStream object, we can write the downloaded bytes to the file system
 
                 using (Stream streamLocal = new FileStream(sFilePathToWriteFileTo, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -76,9 +76,9 @@ namespace ganjoor
 
                     // loop the stream and get the file into the byte buffer
 
-                    int iByteSize = 0;
+                    var iByteSize = 0;
 
-                    byte[] byteBuffer = new byte[iSize];
+                    var byteBuffer = new byte[iSize];
 
                     while ((iByteSize = streamRemote.Read(byteBuffer, 0, byteBuffer.Length)) > 0)
                     {
@@ -98,9 +98,9 @@ namespace ganjoor
                         double dTotal = byteBuffer.Length;
 
 
-                        double dProgressPercentage = (dIndex / dTotal);
+                        var dProgressPercentage = (dIndex / dTotal);
 
-                        int iProgressPercentage = (int)(dProgressPercentage * 100);
+                        var iProgressPercentage = (int)(dProgressPercentage * 100);
 
 
 
@@ -129,7 +129,7 @@ namespace ganjoor
 
             if (req is FileWebRequest)
             {
-                string sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(sUrlToReadFileFrom));
+                var sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(sUrlToReadFileFrom));
                 File.Copy(sUrlToReadFileFrom, sFilePathToWriteFileTo, true);
                 return sFilePathToWriteFileTo;
             }

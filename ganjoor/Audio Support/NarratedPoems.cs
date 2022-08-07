@@ -39,7 +39,7 @@ namespace ganjoor
         {
             lblCount.Text = "0";
             grdList.Rows.Clear();
-            foreach (PoemAudio Audio in _DbBrowser.GetAllPoemAudioFiles())
+            foreach (var Audio in _DbBrowser.GetAllPoemAudioFiles())
             {
                 AddAudioInfoToGrid(Audio);
             }
@@ -52,7 +52,7 @@ namespace ganjoor
         /// <param name="Audio"></param>
         private int AddAudioInfoToGrid(PoemAudio Audio)
         {
-            int nRowIdx = grdList.Rows.Add();
+            var nRowIdx = grdList.Rows.Add();
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_POET].Value = Audio.PoetName;
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_TITLE].Value = Audio.PoemTitle;
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_DESC].Value = Audio.Description;
@@ -95,11 +95,11 @@ namespace ganjoor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnExport_Click(object sender, EventArgs e) {
-            using FolderBrowserDialog dlg = new FolderBrowserDialog();
+            using var dlg = new FolderBrowserDialog();
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                string strOutDir = dlg.SelectedPath;
-                bool bIsEmpty = Directory.GetFiles(strOutDir).Length == 0;
+                var strOutDir = dlg.SelectedPath;
+                var bIsEmpty = Directory.GetFiles(strOutDir).Length == 0;
                 if (!bIsEmpty)
                 {
                     if (MessageBox.Show("مسیر انتخاب شده خالی نیست. آیا از انتخاب این مسیر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
@@ -115,17 +115,17 @@ namespace ganjoor
                 foreach (DataGridViewRow Row in grdList.Rows)
                 {
                     prgss.Value++;
-                    bool bRes = true;
+                    var bRes = true;
                     Row.Selected = true;
                     grdList.FirstDisplayedCell = Row.Cells[0];
                     Application.DoEvents();
-                    PoemAudio audio = Row.Tag as PoemAudio;
+                    var audio = Row.Tag as PoemAudio;
                     if (audio == null)
                         bRes = false;
                     audio.SyncArray = _DbBrowser.GetPoemSync(audio);
                     if (bRes)
                     {
-                        string outFileName = Path.Combine(strOutDir, Path.GetFileName(audio.FilePath));
+                        var outFileName = Path.Combine(strOutDir, Path.GetFileName(audio.FilePath));
                         if (!File.Exists(audio.FilePath))
                             bRes = false;
                         if (bRes)
@@ -136,7 +136,7 @@ namespace ganjoor
                             if (File.Exists(outFileName))
                                 outFileName = Path.Combine(strOutDir, audio.SyncGuid + ".mp3");
 
-                            string xmlFilePath = Path.Combine(strOutDir, Path.GetFileNameWithoutExtension(outFileName) + ".xml");
+                            var xmlFilePath = Path.Combine(strOutDir, Path.GetFileNameWithoutExtension(outFileName) + ".xml");
                             if (bRes)
                             {
                                 if (!PoemAudioListProcessor.Save(xmlFilePath, audio, false))
@@ -177,14 +177,14 @@ namespace ganjoor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnImport_Click(object sender, EventArgs e) {
-            using FolderBrowserDialog dlg = new FolderBrowserDialog();
+            using var dlg = new FolderBrowserDialog();
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                string strInDir = dlg.SelectedPath;
+                var strInDir = dlg.SelectedPath;
 
 
 
-                string[] xmlFiles = Directory.GetFiles(strInDir, "*.xml");
+                var xmlFiles = Directory.GetFiles(strInDir, "*.xml");
 
                 if (xmlFiles.Length == 0)
                 {
@@ -198,19 +198,19 @@ namespace ganjoor
 
                 Enabled = false;
 
-                int nErr = 0;
-                foreach (string xmlFile in xmlFiles)
+                var nErr = 0;
+                foreach (var xmlFile in xmlFiles)
                 {
                     prgss.Value++;
                     Application.DoEvents();
 
-                    List<PoemAudio> lstPoemAudio = PoemAudioListProcessor.Load(xmlFile);
+                    var lstPoemAudio = PoemAudioListProcessor.Load(xmlFile);
 
                     if (lstPoemAudio.Count == 1)
                     {
-                        foreach (PoemAudio xmlAudio in lstPoemAudio)
+                        foreach (var xmlAudio in lstPoemAudio)
                         {
-                            string mp3FilePath = Path.Combine(strInDir, Path.GetFileNameWithoutExtension(xmlFile)) + Path.GetExtension(xmlAudio.FilePath);
+                            var mp3FilePath = Path.Combine(strInDir, Path.GetFileNameWithoutExtension(xmlFile)) + Path.GetExtension(xmlAudio.FilePath);
                             if (!File.Exists(mp3FilePath))
                             {
                                 nErr++;
@@ -260,12 +260,12 @@ namespace ganjoor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAllDownloadable_Click(object sender, EventArgs e) {
-            using AudioDownloadMethod audioDownloadMethod = new AudioDownloadMethod();
+            using var audioDownloadMethod = new AudioDownloadMethod();
             if (audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
             {
                 Cursor.Current = Cursors.WaitCursor;
                 Application.DoEvents();
-                using (SndDownloadWizard dlg = new SndDownloadWizard(0, audioDownloadMethod.PoetId, audioDownloadMethod.CatId, audioDownloadMethod.SearchTerm))
+                using (var dlg = new SndDownloadWizard(0, audioDownloadMethod.PoetId, audioDownloadMethod.CatId, audioDownloadMethod.SearchTerm))
                 {
                     dlg.ShowDialog(this);
                     if (dlg.AnythingInstalled)

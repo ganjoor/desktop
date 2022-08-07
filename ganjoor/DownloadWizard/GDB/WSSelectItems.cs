@@ -31,7 +31,7 @@ namespace ganjoor
 
         private bool DownloadList(string url)
         {
-            bool reS = true;
+            var reS = true;
             grdList.Rows.Clear();
             Application.DoEvents();
             string strException;
@@ -49,11 +49,11 @@ namespace ganjoor
 
             if (_Lst.Count > 0)
             {
-                DbBrowser db = new DbBrowser();
-                foreach (GDBInfo gdbInfo in _Lst)
+                var db = new DbBrowser();
+                foreach (var gdbInfo in _Lst)
                 {
-                    int RowIndex = grdList.Rows.Add();
-                    bool haveIt = (db.GetCategory(gdbInfo.CatID) != null);
+                    var RowIndex = grdList.Rows.Add();
+                    var haveIt = (db.GetCategory(gdbInfo.CatID) != null);
                     grdList.Rows[RowIndex].Tag = haveIt;
                     if (haveIt)
                         grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;

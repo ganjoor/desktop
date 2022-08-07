@@ -92,11 +92,11 @@ namespace ganjoor
         private List<Dictionary<string, string>> _Lst = new List<Dictionary<string, string>>();
 
         private async Task<Tuple<List<Dictionary<string, string>>, string>> _RetrieveDictionaryListAsync() {
-            using HttpClient httpClient = new HttpClient();
+            using var httpClient = new HttpClient();
             Cursor = Cursors.WaitCursor;
             Application.DoEvents();
 
-            HttpResponseMessage response = _PoemId == 0 ?
+            var response = _PoemId == 0 ?
                 await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}")
                 :
                 await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/ganjoor/poem/{_PoemId}/recitations");
@@ -110,16 +110,16 @@ namespace ganjoor
 
             response.EnsureSuccessStatusCode();
 
-            List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
+            var list = new List<Dictionary<string, string>>();
 
-            bool finished = _PoemId != 0;
+            var finished = _PoemId != 0;
 
             do
             {
-                foreach (PublicRecitationViewModel recitation in JArray.Parse(await response.Content.ReadAsStringAsync()).ToObject<List<PublicRecitationViewModel>>())
+                foreach (var recitation in JArray.Parse(await response.Content.ReadAsStringAsync()).ToObject<List<PublicRecitationViewModel>>())
                 {
                     //تبدیل شیئ به چیزی که کد قدیمی با آن کار می‌کرده!
-                    Dictionary<string, string> dic = new Dictionary<string, string>();
+                    var dic = new Dictionary<string, string>();
                     dic.Add("audio_post_ID", recitation.PoemId.ToString());
                     dic.Add("audio_order", recitation.Id.ToString());
                     dic.Add("audio_xml", $"{Settings.Default.GanjoorServiceUrl}/api/audio/file/{recitation.Id}.xml");
@@ -137,10 +137,10 @@ namespace ganjoor
                 if (_PoemId == 0)
                 {
                     //در این حالت اطلاعات به صورت صفحه بندی شده ارسال می‌شود
-                    string paginnationMetadata = response.Headers.GetValues("paging-headers").FirstOrDefault();
+                    var paginnationMetadata = response.Headers.GetValues("paging-headers").FirstOrDefault();
                     if (!string.IsNullOrEmpty(paginnationMetadata))
                     {
-                        PaginationMetadata paginationMetadata = JsonConvert.DeserializeObject<PaginationMetadata>(paginnationMetadata);
+                        var paginationMetadata = JsonConvert.DeserializeObject<PaginationMetadata>(paginnationMetadata);
                         if (paginationMetadata.totalPages == 0 || paginationMetadata.currentPage == paginationMetadata.totalPages)
                         {
                             finished = true;
@@ -176,7 +176,7 @@ namespace ganjoor
         //دریافت فهرست
         private async Task<bool> RetrieveList()
         {
-            bool reS = true;
+            var reS = true;
             var r = await _RetrieveDictionaryListAsync();
 
             if (!string.IsNullOrEmpty(r.Item2))
@@ -188,7 +188,7 @@ namespace ganjoor
             {
                 _Lst = r.Item1;
 
-                DbBrowser db = new DbBrowser();
+                var db = new DbBrowser();
 
                 //در صورتی که تمام خوانشهای موجود را دریافت می‌کنیم برای تعیین وجود فایل صوتی از روش بهینه‌تری استفاده می‌کنیم.
                 PoemAudio[] poemAudios = null;
@@ -198,19 +198,19 @@ namespace ganjoor
                 }
 
                 grdList.Columns.Clear();
-                DataTable tbl = new DataTable();
+                var tbl = new DataTable();
                 tbl.Columns.Add("عنوان");
                 tbl.Columns.Add("اندازه");
                 tbl.Columns.Add("دریافت", typeof(bool));
 
-                int firstSuggestableDownload = -1;
-                int idx = -1;
+                var firstSuggestableDownload = -1;
+                var idx = -1;
 
-                foreach (Dictionary<string, string> audioInfo in _Lst)
+                foreach (var audioInfo in _Lst)
                 {
                     idx++;
-                    int nPoemId = Convert.ToInt32(audioInfo["audio_post_ID"]);
-                    bool haveIt =
+                    var nPoemId = Convert.ToInt32(audioInfo["audio_post_ID"]);
+                    var haveIt =
                         _PoemId == 0 ?
                         poemAudios.Where(p => p.SyncGuid.ToString() == audioInfo["audio_guid"]).FirstOrDefault() != null
                         :
@@ -350,7 +350,7 @@ namespace ganjoor
         }
 
         private async void btnAllDownloadable_Click(object sender, EventArgs e) {
-            using AudioDownloadMethod audioDownloadMethod = new AudioDownloadMethod();
+            using var audioDownloadMethod = new AudioDownloadMethod();
             if (audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
             {
                 _PoemId = 0;

@@ -10,14 +10,14 @@ namespace ganjoor
 
             AnythingInstalled = false;
             AddStage(new WSSelectList());
-            WSSelectItems selStage = new WSSelectItems();
+            var selStage = new WSSelectItems();
             selStage.OnDisableNextButton += selStage_OnDisableNextButton;
             selStage.OnEnableNextButton += selStage_OnEnableNextButton;
             AddStage(selStage);
-            WSDownloadItems dwnStage = new WSDownloadItems();
+            var dwnStage = new WSDownloadItems();
             dwnStage.OnStageDone += dwnStage_OnStageDone;
             AddStage(dwnStage);
-            WSInstallItems instStage = new WSInstallItems();
+            var instStage = new WSInstallItems();
             instStage.OnInstallStarted += instStage_OnInstallStarted;
             instStage.OnInstallFinished += instStage_OnInstallFinished;
             AddStage(instStage);
@@ -89,7 +89,7 @@ namespace ganjoor
         }
 
         protected override void ShowSettings() {
-            using GDBWizOptions dlg = new GDBWizOptions();
+            using var dlg = new GDBWizOptions();
             dlg.ShowDialog(this);
         }
 

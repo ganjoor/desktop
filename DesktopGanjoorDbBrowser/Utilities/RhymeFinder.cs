@@ -16,11 +16,11 @@ namespace ganjoor
         /// <returns></returns>
         public static GanjooRhymeAnalysisResult FindRhyme(List<GanjoorVerse> verses, bool secondPhase = false)
         {
-            List<string> verseTextList = verses.Count == 2 ? verses.Select(v => v._Text).ToList()
+            var verseTextList = verses.Count == 2 ? verses.Select(v => v._Text).ToList()
                                                            : verses.Where(v => v._Position == VersePosition.Left).Select(v => v._Text).ToList();
             if (verseTextList.Count > 1)
             {
-                string rhyme = PrepareTextForFindingRhyme(verseTextList[0]);
+                var rhyme = PrepareTextForFindingRhyme(verseTextList[0]);
                 if (string.IsNullOrEmpty(rhyme))
                 {
                     return new GanjooRhymeAnalysisResult {
@@ -35,9 +35,9 @@ namespace ganjoor
                             rhyme = rhyme.Remove(rhyme.Length - 1);
                 }
 
-                for (int j = 1; j < verseTextList.Count; j++)
+                for (var j = 1; j < verseTextList.Count; j++)
                 {
-                    string verseText = PrepareTextForFindingRhyme(verseTextList[j]);
+                    var verseText = PrepareTextForFindingRhyme(verseTextList[j]);
                     if (secondPhase)
                     {
                         if (verseText[verseText.Length - 1] == 'ی')
@@ -45,9 +45,9 @@ namespace ganjoor
                             verseText = verseText.Remove(verseText.Length - 1);
                         }
                     }
-                    string oldRhyme = rhyme;
+                    var oldRhyme = rhyme;
                     rhyme = "";
-                    int i = oldRhyme.Length - 1;
+                    var i = oldRhyme.Length - 1;
                     while (
                         (oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i])
                         ||

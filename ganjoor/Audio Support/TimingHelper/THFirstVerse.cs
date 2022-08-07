@@ -12,7 +12,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
             InitializeComponent();
 
-            DbBrowser dbBrowser = new DbBrowser();
+            var dbBrowser = new DbBrowser();
 
             var verses = dbBrowser.GetVerses(nPoemId);
 

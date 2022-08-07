@@ -18,7 +18,7 @@ namespace ganjoor
         {
             if (waveStream == null) return;
 
-            int samples = (int)(waveStream.Length / bytesPerSample);
+            var samples = (int)(waveStream.Length / bytesPerSample);
             startPosition = 0;
             SamplesPerPixel = samples / Width;
             PreparePaintData();
@@ -50,7 +50,7 @@ namespace ganjoor
             {
                 if (waveStream != null)
                 {
-                    float f = (float)(value / waveStream.TotalTime.TotalMilliseconds);
+                    var f = (float)(value / waveStream.TotalTime.TotalMilliseconds);
                     _CurrentPosition = (int)(f * Width);
                     Invalidate();
                 }
@@ -168,17 +168,17 @@ namespace ganjoor
 
             if (waveStream != null)
             {
-                int StartX = 0;
-                int EndX = Width;
+                var StartX = 0;
+                var EndX = Width;
                 _PrepareData = new PointF[EndX];
                 waveStream.Position = 0;
                 int bytesRead;
-                byte[] waveData = new byte[samplesPerPixel * bytesPerSample];
+                var waveData = new byte[samplesPerPixel * bytesPerSample];
                 waveStream.Position = startPosition + (StartX * bytesPerSample * samplesPerPixel);
 
 
 
-                for (int x = StartX; x < EndX; x++)
+                for (var x = StartX; x < EndX; x++)
                 {
                     short low = 0;
                     short high = 0;
@@ -186,14 +186,14 @@ namespace ganjoor
                     if (bytesRead == 0)
                         break;
 
-                    for (int n = 0; n < bytesRead; n += 2)
+                    for (var n = 0; n < bytesRead; n += 2)
                     {
-                        short sample = BitConverter.ToInt16(waveData, n);
+                        var sample = BitConverter.ToInt16(waveData, n);
                         if (sample < low) low = sample;
                         if (sample > high) high = sample;
                     }
-                    float lowPercent = ((((float)low) - short.MinValue) / ushort.MaxValue);
-                    float highPercent = ((((float)high) - short.MinValue) / ushort.MaxValue);
+                    var lowPercent = ((((float)low) - short.MinValue) / ushort.MaxValue);
+                    var highPercent = ((((float)high) - short.MinValue) / ushort.MaxValue);
                     _PrepareData[x] = new PointF(lowPercent, highPercent);
                 }
             }
@@ -208,9 +208,9 @@ namespace ganjoor
         {
             if (_PrepareData != null)
             {
-                using (Pen linePen = new Pen(PenColor, PenWidth))
+                using (var linePen = new Pen(PenColor, PenWidth))
                 {
-                    for (int x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x++)
+                    for (var x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x++)
                     {
                         if (x >= _PrepareData.Length)
                             break;
