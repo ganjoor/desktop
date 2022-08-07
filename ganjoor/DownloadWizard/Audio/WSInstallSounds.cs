@@ -30,8 +30,7 @@ namespace ganjoor
 
         public override void OnActivated()
         {
-            if (OnInstallStarted != null)
-                OnInstallStarted(this, new EventArgs());
+            OnInstallStarted?.Invoke(this, new EventArgs());
             var db = new DbBrowser();
             Application.DoEvents();
             var targetDir = DownloadableAudioListProcessor.SoundsPath;
@@ -72,8 +71,7 @@ namespace ganjoor
                     Application.DoEvents();
                 }
             db.CloseDb();
-            if (OnInstallFinished != null)
-                OnInstallFinished(this, new EventArgs());
+            OnInstallFinished?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler OnInstallStarted;

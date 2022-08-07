@@ -273,10 +273,7 @@ namespace ganjoor
                 _strPage += string.Format(" ({0} شاعر)", subcats.Count);
             StopPlayBack();
             _CurrentPoemAudio = null;
-            if (null != OnPageChanged)
-            {
-                OnPageChanged(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
-            }
+            OnPageChanged?.Invoke(_strPage, false, true, false, false, string.Empty, preCat, nextCat);
         }
 
         private void lblNextPage_Click(object sender, LinkLabelLinkClickedEventArgs e)
@@ -745,8 +742,7 @@ namespace ganjoor
             _strLastPhrase = null;
             StopPlayBack();
             _CurrentPoemAudio = _db.GetMainPoemAudio(_iCurPoem);
-            if (null != OnPageChanged)
-                OnPageChanged(_strPage, true, true, poem._Faved, false, highlightWord, null, null);
+            OnPageChanged?.Invoke(_strPage, true, true, poem._Faved, false, highlightWord, null, null);
             return string.IsNullOrEmpty(highlightWord) || !Settings.Default.HighlightKeyword ? 0 : HighlightText(highlightWord);
         }
 
@@ -905,8 +901,7 @@ namespace ganjoor
                 {
                     if (File.Exists(Settings.Default.BackImagePath))
                     {
-                        if (BackgroundBrush != null)
-                            BackgroundBrush.Dispose();
+                        BackgroundBrush?.Dispose();
                         try
                         {
                             BackgroundBrush = new TextureBrush(new Bitmap(Settings.Default.BackImagePath));
@@ -919,8 +914,7 @@ namespace ganjoor
                 }
                 else
                 {
-                    if (BackgroundBrush != null)
-                        BackgroundBrush.Dispose();
+                    BackgroundBrush?.Dispose();
                     BackgroundBrush = null;
 
                 }
@@ -1463,10 +1457,7 @@ namespace ganjoor
             _strPage = "نتایج جستجو برای \"" + phrase + "\" در آثار " + _db.GetPoet(PoetID)._Name + " صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : 1 + PageStart / Count + " (مورد " + (PageStart + 1) + " تا " + (PageStart + Count) + ")");
             StopPlayBack();
             _CurrentPoemAudio = null;
-            if (null != OnPageChanged)
-            {
-                OnPageChanged(_strPage, false, false, false, false, string.Empty, prePage, nextPage);
-            }
+            OnPageChanged?.Invoke(_strPage, false, false, false, false, string.Empty, prePage, nextPage);
 
             if (Count < 1)
                 MessageBox.Show("موردی یافت نشد.", "جستجو", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -1796,10 +1787,7 @@ namespace ganjoor
             _strPage = "نشانه‌ها - صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : 1 + PageStart / Count + " (مورد " + (PageStart + 1) + " تا " + (PageStart + Count) + ")");
             StopPlayBack();
             _CurrentPoemAudio = null;
-            if (null != OnPageChanged)
-            {
-                OnPageChanged(_strPage, false, false, false, true, string.Empty, prePage, nextPage);
-            }
+            OnPageChanged?.Invoke(_strPage, false, false, false, true, string.Empty, prePage, nextPage);
 
             if (Count < 1)
                 MessageBox.Show("موردی یافت نشد.", "نشانه‌ها", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -2631,8 +2619,8 @@ namespace ganjoor
 
                         lastCtl = ctl;
                     }
-                if (lastCtl != null)
-                    lastCtl.Focus();
+
+                lastCtl?.Focus();
 
 
                 return true;
@@ -3182,8 +3170,8 @@ namespace ganjoor
                 _PlaybackTimer.Dispose();
                 _PlaybackTimer = null;
             }
-            if (_PoemAudioPlayer != null)
-                _PoemAudioPlayer.PausePlayBack();
+
+            _PoemAudioPlayer?.PausePlayBack();
         }
 
         public void Resume()
@@ -3285,21 +3273,13 @@ namespace ganjoor
                 HighlightVerse(_CurAudioVerseOrder - 1, true, Color.Red, _ControlStartFrom);
             }
 
-            if (PlaybackStopped != null)
-            {
-                PlaybackStopped(this, new EventArgs());
-
-            }
+            PlaybackStopped?.Invoke(this, new EventArgs());
 
 
         }
 
-        private void _PoemAudioPlayer_PlaybackStarted(object sender, EventArgs e)
-        {
-            if (PlaybackStarted != null)
-            {
-                PlaybackStarted(sender, e);
-            }
+        private void _PoemAudioPlayer_PlaybackStarted(object sender, EventArgs e) {
+            PlaybackStarted?.Invoke(sender, e);
         }
 
         #endregion

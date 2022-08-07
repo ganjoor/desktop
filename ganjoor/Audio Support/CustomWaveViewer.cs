@@ -32,8 +32,7 @@ namespace ganjoor
             if (e.Button == MouseButtons.Left)
             {
                 _CurrentPosition = e.X;
-                if (OnPositionChanged != null)
-                    OnPositionChanged(this, new EventArgs());
+                OnPositionChanged?.Invoke(this, new EventArgs());
 
                 Invalidate();
 
@@ -151,12 +150,8 @@ namespace ganjoor
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
+            if (disposing) {
+                components?.Dispose();
             }
             base.Dispose(disposing);
         }

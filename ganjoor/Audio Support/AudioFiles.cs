@@ -213,12 +213,8 @@ namespace ganjoor
 
 
 
-        private void AudioFiles_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (_PoemAudioPlayer != null)
-            {
-                _PoemAudioPlayer.CleanUp();
-            }
+        private void AudioFiles_FormClosing(object sender, FormClosingEventArgs e) {
+            _PoemAudioPlayer?.CleanUp();
         }
 
         private void btnSync_Click(object sender, EventArgs e)
@@ -229,10 +225,7 @@ namespace ganjoor
                 return;
             }
 
-            if (_PoemAudioPlayer != null)
-            {
-                _PoemAudioPlayer.CleanUp();
-            }
+            _PoemAudioPlayer?.CleanUp();
             var poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
             using var dlg = new SyncPoemAudio(_DbBrowser, poemAudio);
             dlg.ShowDialog(this);

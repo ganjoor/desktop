@@ -298,13 +298,12 @@ namespace ganjoor
             foreach (DataGridViewRow Row in grdList.Rows)
                 if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
                 {
-                    if (OnEnableNextButton != null)
-                        OnEnableNextButton(this, new EventArgs());
+                    OnEnableNextButton?.Invoke(this, new EventArgs());
                     return;
 
                 }
-            if (OnDisableNextButton != null)
-                OnDisableNextButton(this, new EventArgs());
+
+            OnDisableNextButton?.Invoke(this, new EventArgs());
         }
 
 
