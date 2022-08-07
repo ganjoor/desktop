@@ -67,72 +67,65 @@ namespace ganjoor
 
                 // use the webclient object to download the file
 
-                using (WebClient client = new WebClient())
+                using WebClient client = new WebClient();
+                // open the file at the remote URL for reading
+
+                using Stream streamRemote = client.OpenRead(new Uri(sUrlToReadFileFrom));
+                // using the FileStream object, we can write the downloaded bytes to the file system
+
+                using (Stream streamLocal = new FileStream(sFilePathToWriteFileTo, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
 
-                    // open the file at the remote URL for reading
+                    // loop the stream and get the file into the byte buffer
 
-                    using (Stream streamRemote = client.OpenRead(new Uri(sUrlToReadFileFrom)))
+                    int iByteSize = 0;
+
+                    byte[] byteBuffer = new byte[iSize];
+
+                    while ((iByteSize = streamRemote.Read(byteBuffer, 0, byteBuffer.Length)) > 0)
                     {
 
-                        // using the FileStream object, we can write the downloaded bytes to the file system
+                        // write the bytes to the file system at the file path specified
 
-                        using (Stream streamLocal = new FileStream(sFilePathToWriteFileTo, FileMode.Create, FileAccess.Write, FileShare.None))
-                        {
+                        streamLocal.Write(byteBuffer, 0, iByteSize);
 
-                            // loop the stream and get the file into the byte buffer
-
-                            int iByteSize = 0;
-
-                            byte[] byteBuffer = new byte[iSize];
-
-                            while ((iByteSize = streamRemote.Read(byteBuffer, 0, byteBuffer.Length)) > 0)
-                            {
-
-                                // write the bytes to the file system at the file path specified
-
-                                streamLocal.Write(byteBuffer, 0, iByteSize);
-
-                                iRunningByteTotal += iByteSize;
+                        iRunningByteTotal += iByteSize;
 
 
 
-                                // calculate the progress out of a base "100"
+                        // calculate the progress out of a base "100"
 
-                                double dIndex = iRunningByteTotal;
+                        double dIndex = iRunningByteTotal;
 
-                                double dTotal = byteBuffer.Length;
-
-
-                                double dProgressPercentage = (dIndex / dTotal);
-
-                                int iProgressPercentage = (int)(dProgressPercentage * 100);
+                        double dTotal = byteBuffer.Length;
 
 
+                        double dProgressPercentage = (dIndex / dTotal);
 
-                                // update the progress bar
-
-                                backgroundWorker.ReportProgress(iProgressPercentage);
-
-                            }
+                        int iProgressPercentage = (int)(dProgressPercentage * 100);
 
 
 
-                            // clean up the file stream
+                        // update the progress bar
 
-                            streamLocal.Close();
-
-                        }
-
-
-
-                        // close the connection to the remote server
-
-                        streamRemote.Close();
+                        backgroundWorker.ReportProgress(iProgressPercentage);
 
                     }
 
+
+
+                    // clean up the file stream
+
+                    streamLocal.Close();
+
                 }
+
+
+
+                // close the connection to the remote server
+
+                streamRemote.Close();
+
                 return sFilePathToWriteFileTo;
             }
 

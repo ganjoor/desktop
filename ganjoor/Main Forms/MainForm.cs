@@ -242,32 +242,24 @@ namespace ganjoor
                 }
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            using (PrintDialog dlg = new PrintDialog())
+        private void btnPrint_Click(object sender, EventArgs e) {
+            using PrintDialog dlg = new PrintDialog();
+            using (dlg.Document = new PrintDocument())
             {
-                using (dlg.Document = new PrintDocument())
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    if (dlg.ShowDialog(this) == DialogResult.OK)
-                    {
-                        ganjoorView.Print(dlg.Document);
-                    }
+                    ganjoorView.Print(dlg.Document);
                 }
             }
         }
 
-        private void mnuPrintPreview_Click(object sender, EventArgs e)
-        {
-            using (PrintPreviewDialog dlg = new PrintPreviewDialog())
-            {
-                dlg.ShowIcon = false;
-                dlg.UseAntiAlias = true;
-                using (PrintDocument Document = ganjoorView.PrepareForPrintPreview())
-                {
-                    dlg.Document = Document;
-                    dlg.ShowDialog(this);
-                }
-            }
+        private void mnuPrintPreview_Click(object sender, EventArgs e) {
+            using PrintPreviewDialog dlg = new PrintPreviewDialog();
+            dlg.ShowIcon = false;
+            dlg.UseAntiAlias = true;
+            using PrintDocument Document = ganjoorView.PrepareForPrintPreview();
+            dlg.Document = Document;
+            dlg.ShowDialog(this);
         }
 
         private void btnHistoryBack_Click(object sender, EventArgs e)
@@ -275,31 +267,25 @@ namespace ganjoor
             ganjoorView.GoBackInHistory();
         }
 
-        private void btnAbout_Click(object sender, EventArgs e)
-        {
-            using (AboutForm dlg = new AboutForm())
-            {
-                dlg.ShowDialog(this);
-            }
+        private void btnAbout_Click(object sender, EventArgs e) {
+            using AboutForm dlg = new AboutForm();
+            dlg.ShowDialog(this);
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            using (Search dlg = new Search())
+        private void btnSearch_Click(object sender, EventArgs e) {
+            using Search dlg = new Search();
+            dlg.Poets = ganjoorView.Poets;
+            dlg.PoetOrder = ganjoorView.GetPoetOrder(Settings.Default.LastSearchPoetID);
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Poets = ganjoorView.Poets;
-                dlg.PoetOrder = ganjoorView.GetPoetOrder(Settings.Default.LastSearchPoetID);
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
-                    Settings.Default.LastSearchPhrase = dlg.Phrase;
-                    Settings.Default.LastSearchType = dlg.SearchType;
-                    Settings.Default.LastSearchLocationType = dlg.SearchLocationType;
-                    Settings.Default.SearchPageItems = dlg.ItemsInPage;
-                    Settings.Default.Save();
+                Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
+                Settings.Default.LastSearchPhrase = dlg.Phrase;
+                Settings.Default.LastSearchType = dlg.SearchType;
+                Settings.Default.LastSearchLocationType = dlg.SearchLocationType;
+                Settings.Default.SearchPageItems = dlg.ItemsInPage;
+                Settings.Default.Save();
 
-                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), searchType: dlg.SearchType, searchLocationType: dlg.SearchLocationType);
-                }
+                ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), searchType: dlg.SearchType, searchLocationType: dlg.SearchLocationType);
             }
         }
 
@@ -308,14 +294,11 @@ namespace ganjoor
             ganjoorView.CopyText(ModifierKeys == Keys.Shift);
         }
 
-        private void btnOptions_Click(object sender, EventArgs e)
-        {
-            using (Options dlg = new Options())
+        private void btnOptions_Click(object sender, EventArgs e) {
+            using Options dlg = new Options();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    ApplyUserSettings();
-                }
+                ApplyUserSettings();
             }
         }
 
@@ -497,22 +480,19 @@ namespace ganjoor
                             {
                                 finalList.Add(gdb);
                             }
-                        if (finalList.Count > 0)
-                        {
-                            using (NewGDBFound dlg = new NewGDBFound(finalList))
-                            {
-                                if (dlg.ShowDialog(this) == DialogResult.OK)
-                                    using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
-                                        if (dwnDlg.ShowDialog(this) == DialogResult.OK)
-                                            foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
-                                            {
-                                                ImportGdb(DownloadedFile);
-                                                if (Settings.Default.DeleteDownloadedFiles)
-                                                    File.Delete(DownloadedFile);
-                                            }
-                                foreach (int CatID in dlg.IgnoreList)
-                                    db.AddToGDBIgnoreList(CatID);
-                            }
+                        if (finalList.Count > 0) {
+                            using NewGDBFound dlg = new NewGDBFound(finalList);
+                            if (dlg.ShowDialog(this) == DialogResult.OK)
+                                using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
+                                    if (dwnDlg.ShowDialog(this) == DialogResult.OK)
+                                        foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
+                                        {
+                                            ImportGdb(DownloadedFile);
+                                            if (Settings.Default.DeleteDownloadedFiles)
+                                                File.Delete(DownloadedFile);
+                                        }
+                            foreach (int CatID in dlg.IgnoreList)
+                                db.AddToGDBIgnoreList(CatID);
                         }
                     }
 
@@ -561,18 +541,15 @@ namespace ganjoor
             ganjoorView.Visible = true;
         }
 
-        private void mnuAdd_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
+        private void mnuAdd_Click(object sender, EventArgs e) {
+            using OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "All Supported Packages|*.gdb;*.s3db;*.zip|GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db|Zipped GDB Files(*.zip)|*.zip";
+            dlg.Multiselect = true;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Filter = "All Supported Packages|*.gdb;*.s3db;*.zip|GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db|Zipped GDB Files(*.zip)|*.zip";
-                dlg.Multiselect = true;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
+                foreach (string FileName in dlg.FileNames)
                 {
-                    foreach (string FileName in dlg.FileNames)
-                    {
-                        ImportGdb(FileName);
-                    }
+                    ImportGdb(FileName);
                 }
             }
         }
@@ -601,25 +578,22 @@ namespace ganjoor
 
         private void ImportGdb(string FileName)
         {
-            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
-            {
-                using (ZipStorer zip = ZipStorer.Open(FileName, FileAccess.Read))
+            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase)) {
+                using ZipStorer zip = ZipStorer.Open(FileName, FileAccess.Read);
+                List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
+                foreach (ZipStorer.ZipFileEntry entry in dir)
                 {
-                    List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
-                    foreach (ZipStorer.ZipFileEntry entry in dir)
+                    string gdbFileName = Path.GetFileName(entry.FilenameInZip);
+                    if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
                     {
-                        string gdbFileName = Path.GetFileName(entry.FilenameInZip);
-                        if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
+                        string ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+                        if (!Directory.Exists(ganjoorPath))
+                            Directory.CreateDirectory(ganjoorPath);
+                        string gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
+                        if (zip.ExtractFile(entry, gdbExtractPath))
                         {
-                            string ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
-                            if (!Directory.Exists(ganjoorPath))
-                                Directory.CreateDirectory(ganjoorPath);
-                            string gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
-                            if (zip.ExtractFile(entry, gdbExtractPath))
-                            {
-                                ganjoorView.ImportDb(gdbExtractPath);
-                                File.Delete(gdbExtractPath);
-                            }
+                            ganjoorView.ImportDb(gdbExtractPath);
+                            File.Delete(gdbExtractPath);
                         }
                     }
                 }
@@ -628,26 +602,20 @@ namespace ganjoor
                 ganjoorView.ImportDb(FileName);
         }
 
-        private void mnuExportFavs_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog dlg = new SaveFileDialog())
-            {
-                dlg.Filter = "*.gdb|*.gdb";
-                dlg.FileName = "export.gdb";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                    ganjoorView.ExportFavs(dlg.FileName);
-            }
+        private void mnuExportFavs_Click(object sender, EventArgs e) {
+            using SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "*.gdb|*.gdb";
+            dlg.FileName = "export.gdb";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+                ganjoorView.ExportFavs(dlg.FileName);
         }
 
-        private void mnuImportFavs_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
-            {
-                dlg.Filter = "*.gdb|*.gdb|*.*|*.*";
-                dlg.FileName = "export.gdb";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                    ganjoorView.ImportMixFavs(dlg.FileName);
-            }
+        private void mnuImportFavs_Click(object sender, EventArgs e) {
+            using OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "*.gdb|*.gdb|*.*|*.*";
+            dlg.FileName = "export.gdb";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+                ganjoorView.ImportMixFavs(dlg.FileName);
         }
 
         private void btnEditor_Click(object sender, EventArgs e)
@@ -662,13 +630,11 @@ namespace ganjoor
         private void mnuAddUnsafe_Click(object sender, EventArgs e)
         {
             MessageBox.Show("در این روش اضافه کردن اشعار آزمونهای جلوگیری از خطا انجام نمی‌شود. به همین دلیل فرایند اضافه شدن شعرها سریع‌تر است. در صورت برخورد به خطا در هنگام استفاده از این روش، از فرمان استاندارد اضافه کردن اشعار استفاده کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            using (OpenFileDialog dlg = new OpenFileDialog())
-            {
-                dlg.Filter = "*.gdb|*.gdb|*.s3db|*.s3db";
-                dlg.FileName = "new.gdb";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                    ganjoorView.ImportDbUnsafe(dlg.FileName);
-            }
+            using OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "*.gdb|*.gdb|*.s3db|*.s3db";
+            dlg.FileName = "new.gdb";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+                ganjoorView.ImportDbUnsafe(dlg.FileName);
         }
 
         #region AutoScroll fix found at http://www.devnewsgroups.net/group/microsoft.public.dotnet.framework.windowsforms/topic22846.aspx
@@ -696,14 +662,11 @@ namespace ganjoor
             sepDownloadOptions.Visible = btnDownload.Visible;
         }
 
-        private void btnDownload_Click(object sender, EventArgs e)
-        {
-            using (GDBDownloadWizard wiz = new GDBDownloadWizard())
-            {
-                wiz.ShowDialog(this);
-                if (wiz.AnythingInstalled)
-                    ganjoorView.ShowHome(true);
-            }
+        private void btnDownload_Click(object sender, EventArgs e) {
+            using GDBDownloadWizard wiz = new GDBDownloadWizard();
+            wiz.ShowDialog(this);
+            if (wiz.AnythingInstalled)
+                ganjoorView.ShowHome(true);
         }
 
         private void ganjoorView_KeyPress(object sender, KeyPressEventArgs e)

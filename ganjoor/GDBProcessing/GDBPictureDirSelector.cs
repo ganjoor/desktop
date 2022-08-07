@@ -37,11 +37,10 @@ namespace ganjoor
             grpPictures.Enabled = chkPicturesEnabled.Checked;
         }
 
-        private void btnSelectPath_Click(object sender, EventArgs e)
-        {
-            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                    txtPath.Text = dlg.SelectedPath;
+        private void btnSelectPath_Click(object sender, EventArgs e) {
+            using FolderBrowserDialog dlg = new FolderBrowserDialog();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+                txtPath.Text = dlg.SelectedPath;
         }
 
     }

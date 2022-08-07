@@ -85,21 +85,14 @@ namespace ganjoor
                     }
                 WebRequest req = WebRequest.Create(url);
                 GConnectionManager.ConfigureProxy(ref req);
-                using (WebResponse response = req.GetResponse())
-                {
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        using (StreamReader reader = new StreamReader(stream))
-                        {
+                using WebResponse response = req.GetResponse();
+                using Stream stream = response.GetResponseStream();
+                using StreamReader reader = new StreamReader(stream);
+                XmlDocument doc = new XmlDocument(); //this is unnecessary, but at least does some kind of verification
+                doc.LoadXml(reader.ReadToEnd());
 
-                            XmlDocument doc = new XmlDocument(); //this is unnecessary, but at least does some kind of verification
-                            doc.LoadXml(reader.ReadToEnd());
+                doc.Save(targetFilePath);
 
-                            doc.Save(targetFilePath);
-
-                        }
-                    }
-                }
                 return true;
             }
             catch (Exception exp)

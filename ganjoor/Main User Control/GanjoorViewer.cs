@@ -953,12 +953,9 @@ namespace ganjoor
         }
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (GradiantBackground)
-            {
-                using (LinearGradientBrush brsh = new LinearGradientBrush(Bounds, bBegin, bEnd, 0.0f))
-                {
-                    e.Graphics.FillRectangle(brsh, e.ClipRectangle);
-                }
+            if (GradiantBackground) {
+                using LinearGradientBrush brsh = new LinearGradientBrush(Bounds, bBegin, bEnd, 0.0f);
+                e.Graphics.FillRectangle(brsh, e.ClipRectangle);
             }
             else
                 if (BackgroundBrush != null)
@@ -1947,28 +1944,22 @@ namespace ganjoor
         public void ImportDb(string fileName)
         {
             GanjoorPoet[] cnflts = _db.GetConflictingPoets(fileName);
-            if (cnflts.Length > 0)
-            {
-                using (ConflictingPoets dlg = new ConflictingPoets(cnflts))
-                {
-                    if (dlg.ShowDialog(Parent) == DialogResult.Cancel)
-                        return;
-                    cnflts = dlg.DeleteList;
-                    foreach (GanjoorPoet delPoet in cnflts)
-                        _db.DeletePoet(delPoet._ID);
-                }
+            if (cnflts.Length > 0) {
+                using ConflictingPoets dlg = new ConflictingPoets(cnflts);
+                if (dlg.ShowDialog(Parent) == DialogResult.Cancel)
+                    return;
+                cnflts = dlg.DeleteList;
+                foreach (GanjoorPoet delPoet in cnflts)
+                    _db.DeletePoet(delPoet._ID);
             }
             GanjoorCat[] catCnlts = _db.GetConflictingCats(fileName);
-            if (catCnlts.Length > 0)
-            {
-                using (ConflictingCats dlg = new ConflictingCats(catCnlts))
-                {
-                    if (dlg.ShowDialog(Parent) == DialogResult.Cancel)
-                        return;
-                    catCnlts = dlg.DeleteList;
-                    foreach (GanjoorCat delCat in catCnlts)
-                        _db.DeleteCat(delCat._ID);
-                }
+            if (catCnlts.Length > 0) {
+                using ConflictingCats dlg = new ConflictingCats(catCnlts);
+                if (dlg.ShowDialog(Parent) == DialogResult.Cancel)
+                    return;
+                catCnlts = dlg.DeleteList;
+                foreach (GanjoorCat delCat in catCnlts)
+                    _db.DeleteCat(delCat._ID);
             }
             GanjoorCat[] missingPoets = _db.GetCategoriesWithMissingPoet(fileName);
             if (missingPoets.Length > 0)

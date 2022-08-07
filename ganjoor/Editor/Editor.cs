@@ -70,94 +70,72 @@ namespace ganjoor
             }
         }
 
-        private void btnNewPoet_ButtonClick(object sender, EventArgs e)
-        {
-            using (ItemEditor dlg = new ItemEditor())
+        private void btnNewPoet_ButtonClick(object sender, EventArgs e) {
+            using ItemEditor dlg = new ItemEditor();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (!ganjoorView.NewPoet(dlg.ItemName))
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                }
+                if (!ganjoorView.NewPoet(dlg.ItemName))
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
-        private void btnEditPoet_Click(object sender, EventArgs e)
-        {
-            using (ItemEditor dlg = new ItemEditor())
+        private void btnEditPoet_Click(object sender, EventArgs e) {
+            using ItemEditor dlg = new ItemEditor();
+            dlg.ItemName = ganjoorView.CurrentPoet;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.ItemName = ganjoorView.CurrentPoet;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (!ganjoorView.EditPoet(dlg.ItemName))
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                }
+                if (!ganjoorView.EditPoet(dlg.ItemName))
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
-        private void btnNewCat_ButtonClick(object sender, EventArgs e)
-        {
-            using (ItemEditor dlg = new ItemEditor(EditItemType.Category))
+        private void btnNewCat_ButtonClick(object sender, EventArgs e) {
+            using ItemEditor dlg = new ItemEditor(EditItemType.Category);
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (!ganjoorView.NewCat(dlg.ItemName))
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                if (!ganjoorView.NewCat(dlg.ItemName))
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
-                }
             }
         }
 
-        private void btnEditPoetBio_Click(object sender, EventArgs e)
-        {
-            using (MemoEditor dlg = new MemoEditor(ganjoorView.CurrentPoetBio))
+        private void btnEditPoetBio_Click(object sender, EventArgs e) {
+            using MemoEditor dlg = new MemoEditor(ganjoorView.CurrentPoetBio);
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (!ganjoorView.EditPoetBio(dlg.MemoText))
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                }
-            }
-
-        }
-
-
-        private void btnEditCat_Click(object sender, EventArgs e)
-        {
-            using (ItemEditor dlg = new ItemEditor(EditItemType.Category))
-            {
-                dlg.ItemName = ganjoorView.CurrentCategory;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (!ganjoorView.EditCat(dlg.ItemName))
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                }
+                if (!ganjoorView.EditPoetBio(dlg.MemoText))
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
-        private void btnNewPoem_ButtonClick(object sender, EventArgs e)
-        {
-            using (ItemEditor dlg = new ItemEditor(EditItemType.Poem))
-            {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (!ganjoorView.NewPoem(dlg.ItemName))
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
-                }
+        private void btnEditCat_Click(object sender, EventArgs e) {
+            using ItemEditor dlg = new ItemEditor(EditItemType.Category);
+            dlg.ItemName = ganjoorView.CurrentCategory;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                if (!ganjoorView.EditCat(dlg.ItemName))
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
-        private void btnEditPoem_Click(object sender, EventArgs e)
-        {
-            using (ItemEditor dlg = new ItemEditor(EditItemType.Poem))
+        private void btnNewPoem_ButtonClick(object sender, EventArgs e) {
+            using ItemEditor dlg = new ItemEditor(EditItemType.Poem);
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.ItemName = ganjoorView.CurrentPoem;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (!ganjoorView.EditPoem(dlg.ItemName))
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                }
+                if (!ganjoorView.NewPoem(dlg.ItemName))
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
+            }
+        }
+
+        private void btnEditPoem_Click(object sender, EventArgs e) {
+            using ItemEditor dlg = new ItemEditor(EditItemType.Poem);
+            dlg.ItemName = ganjoorView.CurrentPoem;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                if (!ganjoorView.EditPoem(dlg.ItemName))
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
@@ -241,37 +219,31 @@ namespace ganjoor
                     MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
 
-        private void btnExportPoet_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog dlg = new SaveFileDialog())
+        private void btnExportPoet_Click(object sender, EventArgs e) {
+            using SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "*.gdb|*.gdb";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Filter = "*.gdb|*.gdb";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (File.Exists(dlg.FileName))
-                        File.Delete(dlg.FileName);
-                    if (ganjoorView.ExportPoet(dlg.FileName))
-                        MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                    else
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                }
+                if (File.Exists(dlg.FileName))
+                    File.Delete(dlg.FileName);
+                if (ganjoorView.ExportPoet(dlg.FileName))
+                    MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                else
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
-        private void btnExportCat_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog dlg = new SaveFileDialog())
+        private void btnExportCat_Click(object sender, EventArgs e) {
+            using SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "*.gdb|*.gdb";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Filter = "*.gdb|*.gdb";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (File.Exists(dlg.FileName))
-                        File.Delete(dlg.FileName);
-                    if (ganjoorView.ExportCategory(dlg.FileName))
-                        MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                    else
-                        MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                }
+                if (File.Exists(dlg.FileName))
+                    File.Delete(dlg.FileName);
+                if (ganjoorView.ExportCategory(dlg.FileName))
+                    MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                else
+                    MessageBox.Show(string.Format("خطا رخ داد. {0}", ganjoorView.LastError), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
@@ -311,17 +283,14 @@ namespace ganjoor
             ganjoorView.Font = ganjoorView.Font;
         }
 
-        private void btnImportFromTextFile_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
+        private void btnImportFromTextFile_Click(object sender, EventArgs e) {
+            using OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Unicode Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Filter = "Unicode Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    string srcText = File.ReadAllText(dlg.FileName);
-                    ganjoorView.InsertVerses(srcText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
-                    ganjoorView.Save();
-                }
+                string srcText = File.ReadAllText(dlg.FileName);
+                ganjoorView.InsertVerses(srcText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), !chkEachlineOneverse.Checked, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
+                ganjoorView.Save();
             }
         }
 
@@ -338,15 +307,12 @@ namespace ganjoor
 
         private void btnImportFromClipboadStructuredPoem_Click(object sender, EventArgs e)
         {
-            if (Clipboard.ContainsText())
-            {
-                using (PoemStructure dlg = new PoemStructure())
+            if (Clipboard.ContainsText()) {
+                using PoemStructure dlg = new PoemStructure();
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    if (dlg.ShowDialog(this) == DialogResult.OK)
-                    {
-                        ganjoorView.InsertVerses(Clipboard.GetText().Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), dlg.LinesCount, dlg.FullLine, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
-                        ganjoorView.Save();
-                    }
+                    ganjoorView.InsertVerses(Clipboard.GetText().Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), dlg.LinesCount, dlg.FullLine, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
+                    ganjoorView.Save();
                 }
             }
             else
@@ -380,97 +346,73 @@ namespace ganjoor
         }
         #endregion
 
-        private void btnMergeTwoTextColumns_Click(object sender, EventArgs e)
-        {
-            using (MrgTwoClmns dlg = new MrgTwoClmns())
+        private void btnMergeTwoTextColumns_Click(object sender, EventArgs e) {
+            using MrgTwoClmns dlg = new MrgTwoClmns();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
+                ganjoorView.InsertVerses(dlg.ResulText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), true, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
+            }
+        }
+
+        private void btnReplaceInDb_Click(object sender, EventArgs e) {
+            using ReplaceInDb dlg = new ReplaceInDb();
+            dlg.ShowDialog(this);
+        }
+
+        private void btnChangeIDs_Click(object sender, EventArgs e) {
+            using IDChanger dlg = new IDChanger();
+            int PoetID, MinCatID, MinPoemID;
+            ganjoorView.GetIDs(out PoetID, out MinCatID, out MinPoemID);
+            dlg.PoetID = PoetID;
+            dlg.StartCatID = MinCatID;
+            dlg.StartPoemID = MinPoemID;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                Enabled = false;
+                ganjoorView.SetIDs(dlg.PoetID, dlg.StartCatID, dlg.StartPoemID);
+                Enabled = true;
+            }
+        }
+
+        private void btnMoveToCategory_Click(object sender, EventArgs e) {
+            using CategorySelector dlg = new CategorySelector(ganjoorView.GetCurrentPoetID());
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                ganjoorView.MoveToCategory(dlg.SelectedCatID);
+            }
+        }
+
+        private void btnGDBListEditor_Click(object sender, EventArgs e) {
+            using GDBListEditor dlg = new GDBListEditor();
+            dlg.ShowDialog(this);
+        }
+
+        private void btnReplaceToolStripMenuItem_Click(object sender, EventArgs e) {
+            using ItemEditor dlgFind = new ItemEditor(EditItemType.General, "متن جستجو", "متن جستجو");
+            if (dlgFind.ShowDialog(this) == DialogResult.OK)
+            {
+                string strFindText = dlgFind.ItemName;
+
+                using ItemEditor dlgReplace = new ItemEditor(EditItemType.General, "متن جایگزین", "متن جایگزین");
+                if (dlgReplace.ShowDialog(this) == DialogResult.OK)
                 {
-                    ganjoorView.InsertVerses(dlg.ResulText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), true, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
+                    string strReplaceText = dlgReplace.ItemName;
+                    if (MessageBox.Show(String.Format("از جایگزینی «{0}» با «{1}» در شعر جاری اطمینان دارید؟", strFindText, strReplaceText),
+                            "پرسش و هشدار", MessageBoxButtons.YesNo) == DialogResult.No)
+                        return;
+
+                    ganjoorView.ReplaceText(strFindText, strReplaceText);
                 }
             }
         }
 
-        private void btnReplaceInDb_Click(object sender, EventArgs e)
-        {
-            using (ReplaceInDb dlg = new ReplaceInDb())
-                dlg.ShowDialog(this);
-
-        }
-
-        private void btnChangeIDs_Click(object sender, EventArgs e)
-        {
-            using (IDChanger dlg = new IDChanger())
+        private void btnRestructurePoem_Click(object sender, EventArgs e) {
+            using PoemStructure dlg = new PoemStructure();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                int PoetID, MinCatID, MinPoemID;
-                ganjoorView.GetIDs(out PoetID, out MinCatID, out MinPoemID);
-                dlg.PoetID = PoetID;
-                dlg.StartCatID = MinCatID;
-                dlg.StartPoemID = MinPoemID;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    Enabled = false;
-                    ganjoorView.SetIDs(dlg.PoetID, dlg.StartCatID, dlg.StartPoemID);
-                    Enabled = true;
-                }
-
+                ganjoorView.RestructureVerses(dlg.LinesCount, dlg.FullLine, -1, false);
+                ganjoorView.Save();
             }
-        }
-
-        private void btnMoveToCategory_Click(object sender, EventArgs e)
-        {
-            using (CategorySelector dlg = new CategorySelector(ganjoorView.GetCurrentPoetID()))
-            {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    ganjoorView.MoveToCategory(dlg.SelectedCatID);
-                }
-            }
-
-        }
-
-        private void btnGDBListEditor_Click(object sender, EventArgs e)
-        {
-            using (GDBListEditor dlg = new GDBListEditor())
-                dlg.ShowDialog(this);
-        }
-
-        private void btnReplaceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (ItemEditor dlgFind = new ItemEditor(EditItemType.General, "متن جستجو", "متن جستجو"))
-            {
-                if (dlgFind.ShowDialog(this) == DialogResult.OK)
-                {
-                    string strFindText = dlgFind.ItemName;
-
-                    using (ItemEditor dlgReplace = new ItemEditor(EditItemType.General, "متن جایگزین", "متن جایگزین"))
-                    {
-                        if (dlgReplace.ShowDialog(this) == DialogResult.OK)
-                        {
-                            string strReplaceText = dlgReplace.ItemName;
-                            if (MessageBox.Show(String.Format("از جایگزینی «{0}» با «{1}» در شعر جاری اطمینان دارید؟", strFindText, strReplaceText),
-                                "پرسش و هشدار", MessageBoxButtons.YesNo) == DialogResult.No)
-                                return;
-
-                            ganjoorView.ReplaceText(strFindText, strReplaceText);
-                        }
-
-                    }
-                }
-            }
-        }
-
-        private void btnRestructurePoem_Click(object sender, EventArgs e)
-        {
-            using (PoemStructure dlg = new PoemStructure())
-            {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    ganjoorView.RestructureVerses(dlg.LinesCount, dlg.FullLine, -1, false);
-                    ganjoorView.Save();
-                }
-            }
-
         }
 
         private void btnNormalRestructure_Click(object sender, EventArgs e)
@@ -536,14 +478,11 @@ namespace ganjoor
 
         }
 
-        private void btnSpaceTabText_Click(object sender, EventArgs e)
-        {
-            using (SpaceSeparatedPoem dlg = new SpaceSeparatedPoem())
+        private void btnSpaceTabText_Click(object sender, EventArgs e) {
+            using SpaceSeparatedPoem dlg = new SpaceSeparatedPoem();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    ganjoorView.InsertVerses(dlg.ResulText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), true, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
-                }
+                ganjoorView.InsertVerses(dlg.ResulText.Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries), true, chkIgnoreBlankLines.Checked, chkIgnoreShortLines.Checked, 4);
             }
         }
 
@@ -555,15 +494,13 @@ namespace ganjoor
                 MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.No)
                 return;
 
-            using (OpenFileDialog dlg = new OpenFileDialog())
+            using OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "*.s3db|*.s3db";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Filter = "*.s3db|*.s3db";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
+                if (!ganjoorView.ImportDbPoetBioText(dlg.FileName))
                 {
-                    if (!ganjoorView.ImportDbPoetBioText(dlg.FileName))
-                    {
-                        MessageBox.Show("خطا رخ داد.", "خطا");
-                    }
+                    MessageBox.Show("خطا رخ داد.", "خطا");
                 }
             }
         }
@@ -581,174 +518,14 @@ namespace ganjoor
             #region Old Code
             if ((ModifierKeys | Keys.Shift) == ModifierKeys)
             {
-                using (TextImporter dlgOld = new TextImporter())
+                using TextImporter dlgOld = new TextImporter();
+                if (dlgOld.ShowDialog(this) == DialogResult.OK)
                 {
-                    if (dlgOld.ShowDialog(this) == DialogResult.OK)
-                    {
-                        string fileName = dlgOld.FileName;
-                        string mainCatText = dlgOld.MainCatText;
-                        string[] subCatTexts = dlgOld.SubCatTexts;
-                        int nMaxVerseTextLength = dlgOld.MaxVerseTextLength;
-                        bool bTabularVerses = dlgOld.TabularVerses;
-
-                        Cursor = Cursors.WaitCursor;
-                        Application.DoEvents();
-
-                        string[] lines = File.ReadAllLines(fileName);
-
-                        Application.DoEvents();
-
-
-
-
-
-
-
-
-                        GanjoorCat curMainCat = null;
-                        GanjoorPoem curPoem = null;
-
-                        int nTotalLines = lines.Length;
-                        int nCurLine = 0;
-
-                        int nCurVerse = 0;
-
-
-
-                        DbBrowser dbBrowser = new DbBrowser();
-
-                        dbBrowser.BeginBatchOperation();
-                        while (nCurLine < nTotalLines)
-                        {
-                            if (lines[nCurLine].Contains(mainCatText))
-                            {
-                                curMainCat = dbBrowser.CreateNewCategory(lines[nCurLine].Trim(), nCurCatId, nCurPoetId);
-                            }
-                            else if (curMainCat != null)
-                            {
-                                bool bNewCatOrPoem = false;
-                                foreach (string subCatText in subCatTexts)
-                                {
-                                    if (lines[nCurLine].Contains(subCatText))
-                                    {
-                                        if (bTabularVerses)
-                                        {
-                                            ReArrangeTabularVerses(curPoem, dbBrowser);
-                                        }
-                                        curPoem = dbBrowser.CreateNewPoem(lines[nCurLine].Trim(), curMainCat._ID);
-                                        bNewCatOrPoem = true;
-                                        nCurVerse = 0;
-                                        break;
-                                    }
-                                }
-
-                                if (!bNewCatOrPoem)
-                                {
-                                    string line = lines[nCurLine].Trim();
-                                    if (!string.IsNullOrEmpty(line))
-                                    {
-                                        int nWordsCount = line.Split(' ').Length;
-
-                                        bool bVerseDetected = false;
-
-                                        if (nWordsCount <= nMaxVerseTextLength)
-                                        {
-                                            int nNextLine = nCurLine + 1;
-                                            if (nNextLine < nTotalLines)
-                                            {
-                                                while (nNextLine < nTotalLines)
-                                                {
-                                                    string nextLine = lines[nNextLine].Trim();
-                                                    if (string.IsNullOrEmpty(nextLine))
-                                                        nNextLine++;
-                                                    else
-                                                    {
-                                                        int nNextWordsCount = nextLine.Split(' ').Length;
-                                                        if (nNextWordsCount <= nMaxVerseTextLength)
-                                                        {
-                                                            if (nextLine.Contains(mainCatText))
-                                                            {
-                                                                break;
-                                                            }
-                                                            bool bBreak = false;
-                                                            foreach (string subCatText in subCatTexts)
-                                                            {
-                                                                if (nextLine.Contains(subCatText))
-                                                                {
-                                                                    bBreak = true;
-                                                                    break;
-                                                                }
-                                                            }
-                                                            if (bBreak)
-                                                                break;
-                                                            if (curPoem == null)
-                                                            {
-                                                                MessageBox.Show("curPoem == null");
-                                                                return;
-                                                            }
-                                                            bVerseDetected = true;
-
-                                                            GanjoorVerse v1 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Right);
-                                                            dbBrowser.SetVerseText(curPoem._ID, v1._Order, line);
-                                                            nCurVerse++;
-                                                            GanjoorVerse v2 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Left);
-                                                            dbBrowser.SetVerseText(curPoem._ID, v2._Order, nextLine);
-                                                            nCurVerse++;
-
-                                                            nCurLine = nNextLine;
-                                                            break;
-                                                        }
-
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        if (!bVerseDetected)
-                                        {
-                                            if (curPoem == null)
-                                            {
-                                                MessageBox.Show("curPoem == null");
-                                                return;
-                                            }
-                                            GanjoorVerse p = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Paragraph);
-                                            dbBrowser.SetVerseText(curPoem._ID, p._Order, line);
-                                            nCurVerse++;
-                                        }
-                                    }
-                                }
-                            }
-                            nCurLine++;
-                        }
-                        if (bTabularVerses)
-                        {
-                            ReArrangeTabularVerses(curPoem, dbBrowser);
-                        }
-                        dbBrowser.CommitBatchOperation();
-                        dbBrowser.CloseDb();
-
-
-                        Cursor = Cursors.Default;
-                        MessageBox.Show("انجام شد");
-
-                        ganjoorView.Font = ganjoorView.Font;
-
-                    }
-                }
-                return;
-            }
-            #endregion
-            using (GeneralTextImporter dlg = new GeneralTextImporter())
-            {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    string fileName = dlg.FileName;
-                    string[] starts = dlg.NextPoemStartText.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                    bool nextPoemStartIsAShortText = dlg.NextPoemStartIsAShortText;
-                    int nShortTextLength = dlg.ShortTextLength;
-
-
+                    string fileName = dlgOld.FileName;
+                    string mainCatText = dlgOld.MainCatText;
+                    string[] subCatTexts = dlgOld.SubCatTexts;
+                    int nMaxVerseTextLength = dlgOld.MaxVerseTextLength;
+                    bool bTabularVerses = dlgOld.TabularVerses;
 
                     Cursor = Cursors.WaitCursor;
                     Application.DoEvents();
@@ -759,56 +536,130 @@ namespace ganjoor
 
 
 
+
+
+
+
+
+                    GanjoorCat curMainCat = null;
+                    GanjoorPoem curPoem = null;
+
                     int nTotalLines = lines.Length;
                     int nCurLine = 0;
 
                     int nCurVerse = 0;
 
+
+
                     DbBrowser dbBrowser = new DbBrowser();
-                    GanjoorCat cat = dbBrowser.GetCategory(nCurCatId);
-                    if (cat == null)
-                    {
-                        MessageBox.Show("cat == null");
-                        dbBrowser.CloseDb();
-                        return;
-                    }
-
-
-                    GanjoorPoem curPoem = null;
 
                     dbBrowser.BeginBatchOperation();
                     while (nCurLine < nTotalLines)
                     {
-                        string line = lines[nCurLine].Trim();
-                        bool startsWith = false;
-                        foreach (var startText in starts)
+                        if (lines[nCurLine].Contains(mainCatText))
                         {
-                            if (line.IndexOf(startText) == 0)
+                            curMainCat = dbBrowser.CreateNewCategory(lines[nCurLine].Trim(), nCurCatId, nCurPoetId);
+                        }
+                        else if (curMainCat != null)
+                        {
+                            bool bNewCatOrPoem = false;
+                            foreach (string subCatText in subCatTexts)
                             {
-                                startsWith = true;
+                                if (lines[nCurLine].Contains(subCatText))
+                                {
+                                    if (bTabularVerses)
+                                    {
+                                        ReArrangeTabularVerses(curPoem, dbBrowser);
+                                    }
+                                    curPoem = dbBrowser.CreateNewPoem(lines[nCurLine].Trim(), curMainCat._ID);
+                                    bNewCatOrPoem = true;
+                                    nCurVerse = 0;
+                                    break;
+                                }
                             }
 
-                        }
-                        if (!string.IsNullOrEmpty(line))
-                        {
-                            if (
-                                startsWith
-                                ||
-                                (nextPoemStartIsAShortText && line.Length < nShortTextLength)
-                                )
+                            if (!bNewCatOrPoem)
                             {
-                                curPoem = dbBrowser.CreateNewPoem(line, nCurCatId);
-                                nCurVerse = 0;
-                            }
-                            else
-                            if (curPoem != null)
-                            {
-                                GanjoorVerse v = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, nCurVerse % 2 == 0 ? VersePosition.Right : VersePosition.Left);
-                                dbBrowser.SetVerseText(curPoem._ID, v._Order, line);
-                                nCurVerse++;
+                                string line = lines[nCurLine].Trim();
+                                if (!string.IsNullOrEmpty(line))
+                                {
+                                    int nWordsCount = line.Split(' ').Length;
+
+                                    bool bVerseDetected = false;
+
+                                    if (nWordsCount <= nMaxVerseTextLength)
+                                    {
+                                        int nNextLine = nCurLine + 1;
+                                        if (nNextLine < nTotalLines)
+                                        {
+                                            while (nNextLine < nTotalLines)
+                                            {
+                                                string nextLine = lines[nNextLine].Trim();
+                                                if (string.IsNullOrEmpty(nextLine))
+                                                    nNextLine++;
+                                                else
+                                                {
+                                                    int nNextWordsCount = nextLine.Split(' ').Length;
+                                                    if (nNextWordsCount <= nMaxVerseTextLength)
+                                                    {
+                                                        if (nextLine.Contains(mainCatText))
+                                                        {
+                                                            break;
+                                                        }
+                                                        bool bBreak = false;
+                                                        foreach (string subCatText in subCatTexts)
+                                                        {
+                                                            if (nextLine.Contains(subCatText))
+                                                            {
+                                                                bBreak = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                        if (bBreak)
+                                                            break;
+                                                        if (curPoem == null)
+                                                        {
+                                                            MessageBox.Show("curPoem == null");
+                                                            return;
+                                                        }
+                                                        bVerseDetected = true;
+
+                                                        GanjoorVerse v1 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Right);
+                                                        dbBrowser.SetVerseText(curPoem._ID, v1._Order, line);
+                                                        nCurVerse++;
+                                                        GanjoorVerse v2 = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Left);
+                                                        dbBrowser.SetVerseText(curPoem._ID, v2._Order, nextLine);
+                                                        nCurVerse++;
+
+                                                        nCurLine = nNextLine;
+                                                        break;
+                                                    }
+
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (!bVerseDetected)
+                                    {
+                                        if (curPoem == null)
+                                        {
+                                            MessageBox.Show("curPoem == null");
+                                            return;
+                                        }
+                                        GanjoorVerse p = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, VersePosition.Paragraph);
+                                        dbBrowser.SetVerseText(curPoem._ID, p._Order, line);
+                                        nCurVerse++;
+                                    }
+                                }
                             }
                         }
                         nCurLine++;
+                    }
+                    if (bTabularVerses)
+                    {
+                        ReArrangeTabularVerses(curPoem, dbBrowser);
                     }
                     dbBrowser.CommitBatchOperation();
                     dbBrowser.CloseDb();
@@ -820,6 +671,90 @@ namespace ganjoor
                     ganjoorView.Font = ganjoorView.Font;
 
                 }
+
+                return;
+            }
+            #endregion
+
+            using GeneralTextImporter dlg = new GeneralTextImporter();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                string fileName = dlg.FileName;
+                string[] starts = dlg.NextPoemStartText.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                bool nextPoemStartIsAShortText = dlg.NextPoemStartIsAShortText;
+                int nShortTextLength = dlg.ShortTextLength;
+
+
+
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+
+                string[] lines = File.ReadAllLines(fileName);
+
+                Application.DoEvents();
+
+
+
+                int nTotalLines = lines.Length;
+                int nCurLine = 0;
+
+                int nCurVerse = 0;
+
+                DbBrowser dbBrowser = new DbBrowser();
+                GanjoorCat cat = dbBrowser.GetCategory(nCurCatId);
+                if (cat == null)
+                {
+                    MessageBox.Show("cat == null");
+                    dbBrowser.CloseDb();
+                    return;
+                }
+
+
+                GanjoorPoem curPoem = null;
+
+                dbBrowser.BeginBatchOperation();
+                while (nCurLine < nTotalLines)
+                {
+                    string line = lines[nCurLine].Trim();
+                    bool startsWith = false;
+                    foreach (var startText in starts)
+                    {
+                        if (line.IndexOf(startText) == 0)
+                        {
+                            startsWith = true;
+                        }
+
+                    }
+                    if (!string.IsNullOrEmpty(line))
+                    {
+                        if (
+                            startsWith
+                            ||
+                            (nextPoemStartIsAShortText && line.Length < nShortTextLength)
+                        )
+                        {
+                            curPoem = dbBrowser.CreateNewPoem(line, nCurCatId);
+                            nCurVerse = 0;
+                        }
+                        else
+                        if (curPoem != null)
+                        {
+                            GanjoorVerse v = dbBrowser.CreateNewVerse(curPoem._ID, nCurVerse, nCurVerse % 2 == 0 ? VersePosition.Right : VersePosition.Left);
+                            dbBrowser.SetVerseText(curPoem._ID, v._Order, line);
+                            nCurVerse++;
+                        }
+                    }
+                    nCurLine++;
+                }
+                dbBrowser.CommitBatchOperation();
+                dbBrowser.CloseDb();
+
+
+                Cursor = Cursors.Default;
+                MessageBox.Show("انجام شد");
+
+                ganjoorView.Font = ganjoorView.Font;
+
             }
         }
 
@@ -878,55 +813,47 @@ namespace ganjoor
 
 
 
-        private void mnuExport_Click(object sender, EventArgs e)
-        {
+        private void mnuExport_Click(object sender, EventArgs e) {
+            using TextExporter eDlg = new TextExporter();
+            if (eDlg.ShowDialog(this) == DialogResult.OK) {
+                using FolderBrowserDialog dlg = new FolderBrowserDialog();
+                dlg.Description = "مسیر خروجیها را انتخاب کنید";
+                dlg.ShowNewFolderButton = true;
 
-            using (TextExporter eDlg = new TextExporter())
-            {
-                if (eDlg.ShowDialog(this) == DialogResult.OK)
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+
+                    Cursor.Current = Cursors.WaitCursor;
+                    Enabled = false;
+                    Application.DoEvents();
+                    string targetFolder = dlg.SelectedPath;
+
+                    DbBrowser dbBrowser = new DbBrowser();
+
+                    for (int i = 0; i < dbBrowser.Poets.Count; i++)
                     {
-                        dlg.Description = "مسیر خروجیها را انتخاب کنید";
-                        dlg.ShowNewFolderButton = true;
-
-                        if (dlg.ShowDialog(this) == DialogResult.OK)
+                        GanjoorPoet poet = dbBrowser.Poets[i];
+                        switch (Settings.Default.ExportLevel)
                         {
-
-                            Cursor.Current = Cursors.WaitCursor;
-                            Enabled = false;
-                            Application.DoEvents();
-                            string targetFolder = dlg.SelectedPath;
-
-                            DbBrowser dbBrowser = new DbBrowser();
-
-                            for (int i = 0; i < dbBrowser.Poets.Count; i++)
-                            {
-                                GanjoorPoet poet = dbBrowser.Poets[i];
-                                switch (Settings.Default.ExportLevel)
-                                {
-                                    case "Poet":
-                                        ExportPoetToTextFile(poet, targetFolder, dbBrowser);
-                                        break;
-                                    case "Cat":
-                                        ExportCatToTextFile(i, dbBrowser.GetCategory(poet._CatID), targetFolder, dbBrowser);
-                                        break;
-                                    default:
-                                        ExportCatToTextFile(i, dbBrowser.GetCategory(poet._CatID), targetFolder, dbBrowser, true);
-                                        break;
-                                }
-                            }
-
-                            dbBrowser.CloseDb();
-
-                            Cursor.Current = Cursors.Default;
-                            Enabled = true;
-                            MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                            case "Poet":
+                                ExportPoetToTextFile(poet, targetFolder, dbBrowser);
+                                break;
+                            case "Cat":
+                                ExportCatToTextFile(i, dbBrowser.GetCategory(poet._CatID), targetFolder, dbBrowser);
+                                break;
+                            default:
+                                ExportCatToTextFile(i, dbBrowser.GetCategory(poet._CatID), targetFolder, dbBrowser, true);
+                                break;
                         }
                     }
+
+                    dbBrowser.CloseDb();
+
+                    Cursor.Current = Cursors.Default;
+                    Enabled = true;
+                    MessageBox.Show("خروجی تولید شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 }
             }
-
         }
 
         private void ExportPoetToTextFile(GanjoorPoet poet, string targetFolder, DbBrowser dbBrowser)

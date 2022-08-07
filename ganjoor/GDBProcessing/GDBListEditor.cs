@@ -30,34 +30,28 @@ namespace ganjoor
         private string _FileName = string.Empty;
 
 
-        private void btnOpen_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
+        private void btnOpen_Click(object sender, EventArgs e) {
+            using OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "XML Files (*.xml)|*.xml";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Filter = "XML Files (*.xml)|*.xml";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    _FileName = dlg.FileName;
-                    FillGridWithListInfo(_FileName);
-                }
+                _FileName = dlg.FileName;
+                FillGridWithListInfo(_FileName);
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog dlg = new SaveFileDialog())
+        private void btnSave_Click(object sender, EventArgs e) {
+            using SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "XML Files (*.xml)|*.xml";
+            if (!string.IsNullOrEmpty(_FileName))
             {
-                dlg.Filter = "XML Files (*.xml)|*.xml";
-                if (!string.IsNullOrEmpty(_FileName))
-                {
-                    dlg.InitialDirectory = Path.GetDirectoryName(_FileName);
-                    dlg.FileName = Path.GetFileName(_FileName);
-                }
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    _FileName = dlg.FileName;
-                    SaveToXml(_FileName);
-                }
+                dlg.InitialDirectory = Path.GetDirectoryName(_FileName);
+                dlg.FileName = Path.GetFileName(_FileName);
+            }
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                _FileName = dlg.FileName;
+                SaveToXml(_FileName);
             }
         }
 
@@ -227,18 +221,15 @@ namespace ganjoor
             return RowIndex;
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
+        private void btnAdd_Click(object sender, EventArgs e) {
+            using OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "All Supported Packages|*.gdb;*.s3db;*.zip|GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db|Zipped GDB Files(*.zip)|*.zip";
+            dlg.Multiselect = true;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Filter = "All Supported Packages|*.gdb;*.s3db;*.zip|GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db|Zipped GDB Files(*.zip)|*.zip";
-                dlg.Multiselect = true;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
+                foreach (string FileName in dlg.FileNames)
                 {
-                    foreach (string FileName in dlg.FileNames)
-                    {
-                        AddGdbOrZipFileToGrid(FileName);
-                    }
+                    AddGdbOrZipFileToGrid(FileName);
                 }
             }
         }
@@ -246,25 +237,22 @@ namespace ganjoor
         {
             int FileSize = File.ReadAllBytes(FileName).Length;
             GDBInfo gdb = null;
-            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
-            {
-                using (ZipStorer zip = ZipStorer.Open(FileName, FileAccess.Read))
+            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase)) {
+                using ZipStorer zip = ZipStorer.Open(FileName, FileAccess.Read);
+                List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
+                foreach (ZipStorer.ZipFileEntry entry in dir)
                 {
-                    List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
-                    foreach (ZipStorer.ZipFileEntry entry in dir)
+                    string gdbFileName = Path.GetFileName(entry.FilenameInZip);
+                    if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
                     {
-                        string gdbFileName = Path.GetFileName(entry.FilenameInZip);
-                        if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
+                        string ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+                        if (!Directory.Exists(ganjoorPath))
+                            Directory.CreateDirectory(ganjoorPath);
+                        string gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
+                        if (zip.ExtractFile(entry, gdbExtractPath))
                         {
-                            string ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
-                            if (!Directory.Exists(ganjoorPath))
-                                Directory.CreateDirectory(ganjoorPath);
-                            string gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
-                            if (zip.ExtractFile(entry, gdbExtractPath))
-                            {
-                                gdb = ExtracInfoFromGDBFileAndAddToGrid(gdbExtractPath, Path.GetExtension(FileName), FileSize);
-                                File.Delete(gdbExtractPath);
-                            }
+                            gdb = ExtracInfoFromGDBFileAndAddToGrid(gdbExtractPath, Path.GetExtension(FileName), FileSize);
+                            File.Delete(gdbExtractPath);
                         }
                     }
                 }
@@ -310,81 +298,78 @@ namespace ganjoor
             return gdb;
         }
 
-        private void btnFromDb_Click(object sender, EventArgs e)
-        {
-            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+        private void btnFromDb_Click(object sender, EventArgs e) {
+            using FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.Description = "مسیر خروجیها را انتخاب کنید";
+            dlg.ShowNewFolderButton = true;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Description = "مسیر خروجیها را انتخاب کنید";
-                dlg.ShowNewFolderButton = true;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    bool embedPictures = false;
-                    string picPath = string.Empty;
-                    string picUrPrefix = string.Empty;
-                    using (GDBPictureDirSelector plg = new GDBPictureDirSelector())
-                        if (plg.ShowDialog(this) == DialogResult.OK)
-                        {
-                            embedPictures = plg.EmbedPictures;
-                            picPath = plg.PicturesPath;
-                            picUrPrefix = plg.PicturesUrlPrefix;
-                            if (!Directory.Exists(picPath))
-                                embedPictures = false;
-                        }
-                    Enabled = false;
+                bool embedPictures = false;
+                string picPath = string.Empty;
+                string picUrPrefix = string.Empty;
+                using (GDBPictureDirSelector plg = new GDBPictureDirSelector())
+                    if (plg.ShowDialog(this) == DialogResult.OK)
+                    {
+                        embedPictures = plg.EmbedPictures;
+                        picPath = plg.PicturesPath;
+                        picUrPrefix = plg.PicturesUrlPrefix;
+                        if (!Directory.Exists(picPath))
+                            embedPictures = false;
+                    }
+                Enabled = false;
 
-                    List<int> existingIDs = new List<int>();
-                    foreach (DataGridViewRow Row in grd.Rows)
-                        if (!Row.IsNewRow)
-                        {
-                            bool err = false;
-                            GDBInfo gdb = ConvertGridRowToGDBInfo(Row, ref err);
-                            if (!err)
-                                existingIDs.Add(gdb.PoetID);
-                        }
+                List<int> existingIDs = new List<int>();
+                foreach (DataGridViewRow Row in grd.Rows)
+                    if (!Row.IsNewRow)
+                    {
+                        bool err = false;
+                        GDBInfo gdb = ConvertGridRowToGDBInfo(Row, ref err);
+                        if (!err)
+                            existingIDs.Add(gdb.PoetID);
+                    }
 
-                    DbBrowser db = new DbBrowser();
-                    foreach (GanjoorPoet Poet in db.Poets)
-                        if (existingIDs.IndexOf(Poet._ID) == -1)//existing items in grid
+                DbBrowser db = new DbBrowser();
+                foreach (GanjoorPoet Poet in db.Poets)
+                    if (existingIDs.IndexOf(Poet._ID) == -1)//existing items in grid
+                    {
+                        string outFile = Path.Combine(dlg.SelectedPath, GPersianTextSync.Farglisize(Poet._Name));
+                        string gdbFile = outFile + ".gdb";
+                        if (db.ExportPoet(gdbFile, Poet._ID))
                         {
-                            string outFile = Path.Combine(dlg.SelectedPath, GPersianTextSync.Farglisize(Poet._Name));
-                            string gdbFile = outFile + ".gdb";
-                            if (db.ExportPoet(gdbFile, Poet._ID))
+                            string zipFile = outFile + ".zip";
+                            using (ZipStorer zipStorer = ZipStorer.Create(zipFile, ""))
                             {
-                                string zipFile = outFile + ".zip";
-                                using (ZipStorer zipStorer = ZipStorer.Create(zipFile, ""))
-                                {
-                                    zipStorer.AddFile(ZipStorer.Compression.Deflate, gdbFile, Path.GetFileName(gdbFile), "");
-                                    if (embedPictures)
-                                    {
-                                        string pngPath = Path.Combine(picPath, Poet._ID + ".png");
-                                        if (File.Exists(pngPath))
-                                        {
-                                            zipStorer.AddFile(ZipStorer.Compression.Deflate, pngPath, Path.GetFileName(pngPath), "");
-                                        }
-                                    }
-                                }
-                                File.Delete(gdbFile);
-                                int RowIndex = AddGdbOrZipFileToGrid(zipFile);
-                                if (embedPictures && !string.IsNullOrEmpty(picUrPrefix))
+                                zipStorer.AddFile(ZipStorer.Compression.Deflate, gdbFile, Path.GetFileName(gdbFile), "");
+                                if (embedPictures)
                                 {
                                     string pngPath = Path.Combine(picPath, Poet._ID + ".png");
                                     if (File.Exists(pngPath))
                                     {
-                                        grd.Rows[RowIndex].Cells[CLMN_IMAGE].Value = picUrPrefix + Path.GetFileName(pngPath);
+                                        zipStorer.AddFile(ZipStorer.Compression.Deflate, pngPath, Path.GetFileName(pngPath), "");
                                     }
                                 }
-
-
-                                Application.DoEvents();
                             }
-                            else
+                            File.Delete(gdbFile);
+                            int RowIndex = AddGdbOrZipFileToGrid(zipFile);
+                            if (embedPictures && !string.IsNullOrEmpty(picUrPrefix))
                             {
-                                MessageBox.Show(db.LastError);
+                                string pngPath = Path.Combine(picPath, Poet._ID + ".png");
+                                if (File.Exists(pngPath))
+                                {
+                                    grd.Rows[RowIndex].Cells[CLMN_IMAGE].Value = picUrPrefix + Path.GetFileName(pngPath);
+                                }
                             }
+
+
+                            Application.DoEvents();
                         }
-                    Enabled = true;
-                    db.CloseDb();
-                }
+                        else
+                        {
+                            MessageBox.Show(db.LastError);
+                        }
+                    }
+                Enabled = true;
+                db.CloseDb();
             }
         }
 

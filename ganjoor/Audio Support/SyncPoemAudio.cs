@@ -262,58 +262,54 @@ namespace ganjoor
 
         }
 
-        private void btnSearchText_Click(object sender, EventArgs e)
-        {
-            using (ItemEditor itemEditor = new ItemEditor(EditItemType.General, "جستجوی بعدی", "متن:"))
+        private void btnSearchText_Click(object sender, EventArgs e) {
+            using ItemEditor itemEditor = new ItemEditor(EditItemType.General, "جستجوی بعدی", "متن:");
+            itemEditor.ItemName = _LastSearchText;
+            if (itemEditor.ShowDialog(this) == DialogResult.OK)
             {
-                itemEditor.ItemName = _LastSearchText;
-                if (itemEditor.ShowDialog(this) == DialogResult.OK)
+                _LastSearchText = itemEditor.ItemName;
+                int nStart = _SyncOrder;
+                for (int n = 0; n < 2; n++)
                 {
-                    _LastSearchText = itemEditor.ItemName;
-                    int nStart = _SyncOrder;
-                    for (int n = 0; n < 2; n++)
+                    for (int i = nStart + 1; i < _PoemVerses.Length; i++)
+                        if (_PoemVerses[i]._Text.Contains(_LastSearchText))
+                        {
+                            _SyncOrder = i;
+
+                            if (btnTrack.Checked)
+                            {
+                                _VerseMilisecPositions.Add
+                                (
+                                    new PoemAudio.SyncInfo {
+                                        VerseOrder = _SyncOrder,
+                                        AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
+                                    }
+                                );
+                            }
+
+                            lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
+
+                            if (_SyncOrder < _PoemVerses.Length - 1)
+                                lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text;
+                            else
+                                lblNextVerse.Text = "این مصرع آخر است.";
+                            _Modified = true;
+                            return;
+                        }
+                    if (n == 0)
                     {
-                        for (int i = nStart + 1; i < _PoemVerses.Length; i++)
-                            if (_PoemVerses[i]._Text.Contains(_LastSearchText))
-                            {
-                                _SyncOrder = i;
-
-                                if (btnTrack.Checked)
-                                {
-                                    _VerseMilisecPositions.Add
-                                        (
-                                        new PoemAudio.SyncInfo {
-                                            VerseOrder = _SyncOrder,
-                                            AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
-                                        }
-                                        );
-                                }
-
-                                lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
-
-                                if (_SyncOrder < _PoemVerses.Length - 1)
-                                    lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text;
-                                else
-                                    lblNextVerse.Text = "این مصرع آخر است.";
-                                _Modified = true;
-                                return;
-                            }
-                        if (n == 0)
+                        if (MessageBox.Show("متن یافت نشد. آیا تمایل دارید جستجو از ابتدای شعر صورت گیرد؟", "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                         {
-                            if (MessageBox.Show("متن یافت نشد. آیا تمایل دارید جستجو از ابتدای شعر صورت گیرد؟", "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
-                            {
-                                return;
-                            }
-                            nStart = -1;
+                            return;
                         }
-                        else
-                        {
-                            MessageBox.Show("متن یافت نشد.", "خطا", MessageBoxButtons.OK);
-                        }
+                        nStart = -1;
+                    }
+                    else
+                    {
+                        MessageBox.Show("متن یافت نشد.", "خطا", MessageBoxButtons.OK);
                     }
                 }
             }
-
         }
 
 

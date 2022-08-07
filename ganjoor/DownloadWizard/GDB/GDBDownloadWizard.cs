@@ -88,10 +88,9 @@ namespace ganjoor
             }
         }
 
-        protected override void ShowSettings()
-        {
-            using (GDBWizOptions dlg = new GDBWizOptions())
-                dlg.ShowDialog(this);
+        protected override void ShowSettings() {
+            using GDBWizOptions dlg = new GDBWizOptions();
+            dlg.ShowDialog(this);
         }
 
 

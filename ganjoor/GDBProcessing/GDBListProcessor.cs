@@ -125,43 +125,37 @@ namespace ganjoor
             {
                 WebRequest req = WebRequest.Create(url);
                 GConnectionManager.ConfigureProxy(ref req);
-                using (WebResponse response = req.GetResponse())
+                using WebResponse response = req.GetResponse();
+                using Stream stream = response.GetResponseStream();
+                using StreamReader reader = new(stream);
+                XmlDocument doc = new();
+                doc.LoadXml(reader.ReadToEnd());
+
+                //Should Redirect?
+                XmlNodeList ndListRedirect = doc.GetElementsByTagName("RedirectInfo");
+                if (ndListRedirect.Count > 0)
                 {
-                    using (Stream stream = response.GetResponseStream())
+                    XmlNode redirectNode = ndListRedirect[0];
+                    foreach (XmlNode Node in redirectNode.ChildNodes)
                     {
-                        using (StreamReader reader = new(stream))
-                        {
-                            XmlDocument doc = new();
-                            doc.LoadXml(reader.ReadToEnd());
-
-                            //Should Redirect?
-                            XmlNodeList ndListRedirect = doc.GetElementsByTagName("RedirectInfo");
-                            if (ndListRedirect.Count > 0)
+                        if (Node.Name == "Url")
+                            if (!string.IsNullOrEmpty(Node.InnerText))
                             {
-                                XmlNode redirectNode = ndListRedirect[0];
-                                foreach (XmlNode Node in redirectNode.ChildNodes)
-                                {
-                                    if (Node.Name == "Url")
-                                        if (!string.IsNullOrEmpty(Node.InnerText))
-                                        {
-                                            return RetrieveProperties(Node.InnerText, out Name, out Description, out MoreInfoUrl);
-                                        }
-                                }
+                                return RetrieveProperties(Node.InnerText, out Name, out Description, out MoreInfoUrl);
                             }
-
-                            XmlNodeList nameNodeList = doc.GetElementsByTagName("Name");
-                            if (nameNodeList != null && nameNodeList.Count == 1)
-                                Name = nameNodeList[0].InnerText;
-                            XmlNodeList descNodeList = doc.GetElementsByTagName("Description");
-                            if (descNodeList != null && descNodeList.Count == 1)
-                                Description = descNodeList[0].InnerText;
-                            XmlNodeList urlNodeList = doc.GetElementsByTagName("MoreInfoUrl");
-                            if (urlNodeList != null && urlNodeList.Count == 1)
-                                MoreInfoUrl = urlNodeList[0].InnerText;
-                            return true;
-                        }
                     }
                 }
+
+                XmlNodeList nameNodeList = doc.GetElementsByTagName("Name");
+                if (nameNodeList != null && nameNodeList.Count == 1)
+                    Name = nameNodeList[0].InnerText;
+                XmlNodeList descNodeList = doc.GetElementsByTagName("Description");
+                if (descNodeList != null && descNodeList.Count == 1)
+                    Description = descNodeList[0].InnerText;
+                XmlNodeList urlNodeList = doc.GetElementsByTagName("MoreInfoUrl");
+                if (urlNodeList != null && urlNodeList.Count == 1)
+                    MoreInfoUrl = urlNodeList[0].InnerText;
+                return true;
             }
             catch
             {

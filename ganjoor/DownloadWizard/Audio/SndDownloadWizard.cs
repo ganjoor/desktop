@@ -97,10 +97,9 @@ namespace ganjoor
             }
         }
 
-        protected override void ShowSettings()
-        {
-            using (SndWizOptions dlg = new SndWizOptions())
-                dlg.ShowDialog(this);
+        protected override void ShowSettings() {
+            using SndWizOptions dlg = new SndWizOptions();
+            dlg.ShowDialog(this);
         }
 
 
