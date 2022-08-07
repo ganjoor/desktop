@@ -25,13 +25,7 @@ namespace ganjoor
         }
 
 
-        public object SelectedItem
-        {
-            get
-            {
-                return lstItems.SelectedItem;
-            }
-        }
+        public object SelectedItem => lstItems.SelectedItem;
 
         private void btnOK_Click(object sender, EventArgs e)
         {

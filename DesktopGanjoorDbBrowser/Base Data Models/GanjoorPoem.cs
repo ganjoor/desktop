@@ -75,10 +75,7 @@
         #endregion
 
         #region ToString
-        public override string ToString()
-        {
-            return this._Title;
-        }
+        public override string ToString() => _Title;
         #endregion
 
     }

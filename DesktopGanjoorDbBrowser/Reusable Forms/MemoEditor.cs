@@ -15,14 +15,8 @@ namespace ganjoor
         }
         public string MemoText
         {
-            get
-            {
-                return this.txtMemo.Text;
-            }
-            set
-            {
-                this.txtMemo.Text = value;
-            }
+            get => this.txtMemo.Text;
+            set => this.txtMemo.Text = value;
         }
     }
 }

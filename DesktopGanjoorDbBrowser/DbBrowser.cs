@@ -168,27 +168,12 @@ namespace ganjoor
         #endregion 
 
         #region Properties & Methods
-        public string DbFilePath
-        {
-            get
-            {
-                return _dbfilepath;
-            }
-        }
-        public bool Failed
-        {
-            get
-            {
-                return (null == _con);
-            }
-        }
-        public bool Connected
-        {
-            get
-            {
-                return (null != _con);
-            }
-        }
+        public string DbFilePath => _dbfilepath;
+
+        public bool Failed => (null == _con);
+
+        public bool Connected => (null != _con);
+
         public List<GanjoorPoet> Poets
         {
             get

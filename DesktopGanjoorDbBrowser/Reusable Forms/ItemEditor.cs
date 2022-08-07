@@ -43,8 +43,8 @@ namespace ganjoor
 
         public string ItemName
         {
-            get { return txtName.Text.Trim(); }
-            set { txtName.Text = value; }
+            get => txtName.Text.Trim();
+            set => txtName.Text = value;
         }
 
 

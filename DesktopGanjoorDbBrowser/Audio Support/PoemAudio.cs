@@ -55,13 +55,7 @@ namespace ganjoor
         /// <summary>
         /// آیا همگام شده
         /// </summary>
-        public bool IsSynced
-        {
-            get
-            {
-                return SyncArray != null;
-            }
-        }
+        public bool IsSynced => SyncArray != null;
 
 
         /// <summary>

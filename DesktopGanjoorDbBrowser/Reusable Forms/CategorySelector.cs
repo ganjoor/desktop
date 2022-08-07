@@ -85,10 +85,7 @@ namespace ganjoor
                     return (int)treeCats.SelectedNode.Tag;
                 return 0;
             }
-            set
-            {
-                SelectCat(value);
-            }
+            set => SelectCat(value);
         }
 
         private void CheckCatList(int[] CatList)
@@ -135,10 +132,7 @@ namespace ganjoor
 
         public int[] CheckedCats
         {
-            set
-            {
-                CheckCatList(value);
-            }
+            set => CheckCatList(value);
             get
             {
                 List<int> checkedCatList = new List<int>();

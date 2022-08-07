@@ -42,12 +42,6 @@ namespace ganjoor
 
         private Dictionary<string, Dictionary<string, string>> _Values;
 
-        public Dictionary<string, Dictionary<string, string>> Values
-        {
-            get
-            {
-                return _Values;
-            }
-        }
+        public Dictionary<string, Dictionary<string, string>> Values => _Values;
     }
 }

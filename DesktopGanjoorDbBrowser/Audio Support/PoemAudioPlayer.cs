@@ -96,35 +96,20 @@ namespace ganjoor
         /// آیا در حال پخش است؟
         /// </summary>
         /// <returns></returns>
-        public bool IsPlaying
-        {
-            get
-            {
-                return this.wavePlayer != null && this.wavePlayer.PlaybackState == PlaybackState.Playing;
-            }
-        }
+        public bool IsPlaying => this.wavePlayer != null && this.wavePlayer.PlaybackState == PlaybackState.Playing;
 
         /// <summary>
         /// آیا در حال توقف موقت است؟
         /// </summary>
         /// <returns></returns>
-        public bool IsInPauseState
-        {
-            get
-            {
-                return this.wavePlayer != null && this.wavePlayer.PlaybackState == PlaybackState.Paused;
-            }
-        }
+        public bool IsInPauseState => this.wavePlayer != null && this.wavePlayer.PlaybackState == PlaybackState.Paused;
 
         /// <summary>
         /// محل فعلی فایل صوتی بر حسب میلی ثانیه
         /// </summary>
         public int PositionInMiliseconds
         {
-            get
-            {
-                return this.file == null ? 0 : (int)file.CurrentTime.TotalMilliseconds;
-            }
+            get => this.file == null ? 0 : (int)file.CurrentTime.TotalMilliseconds;
             set
             {
                 if (this.file != null)
@@ -135,13 +120,7 @@ namespace ganjoor
         /// <summary>
         /// طول فایل بر حسب میلی ثانیه
         /// </summary>
-        public int TotalTimeInMiliseconds
-        {
-            get
-            {
-                return this.file == null ? 0 : (int)file.TotalTime.TotalMilliseconds;
-            }
-        }
+        public int TotalTimeInMiliseconds => this.file == null ? 0 : (int)file.TotalTime.TotalMilliseconds;
 
         /// <summary>
         /// پاکسازی متغیرها

@@ -35,13 +35,7 @@ namespace ganjoor
         /// <summary>
         /// list of persian letters
         /// </summary>
-        public static string PersianLetters
-        {
-            get
-            {
-                return "اآئأإءبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی";
-            }
-        }
+        public static string PersianLetters => "اآئأإءبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی";
 
         /// <summary>
         /// convert persian text to simple pinglish
