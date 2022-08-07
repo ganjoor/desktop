@@ -68,7 +68,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
                     if (span >= StartToSilence)
                     {
-                        if ((_CurVerse + 1) >= _Verses.Count)
+                        if (_CurVerse + 1 >= _Verses.Count)
                         {
                             timer.Enabled = false;
                             progressBar.Value = 100;
@@ -94,7 +94,7 @@ namespace ganjoor.Audio_Support.TimingHelper
                     if (
                         (_firstVerse && span >= SilenceToStop)
                         ||
-                        (!_firstVerse && span >= (SilenceToStop + SilenceToStop))
+                        (!_firstVerse && span >= SilenceToStop + SilenceToStop)
                         )
                     {
                         _CurVerse++;
@@ -102,7 +102,7 @@ namespace ganjoor.Audio_Support.TimingHelper
                         {
                             lblVerse.Text = _Verses[_CurVerse]._Text;
 
-                            if ((_CurVerse + 1) < _Verses.Count)
+                            if (_CurVerse + 1 < _Verses.Count)
                             {
                                 lblNextVerse.Text = _Verses[_CurVerse + 1]._Text;
                             }

@@ -12,7 +12,7 @@ namespace ganjoor
             expMessage += "Application Version = " + Assembly.GetExecutingAssembly().GetName().Version + Environment.NewLine;
             expMessage += "Application Path = " + Application.ExecutablePath + Environment.NewLine;
             expMessage += "Windows Version = " + Environment.OSVersion.VersionString + Environment.NewLine;
-            expMessage += ((IntPtr.Size == 8) ? "64 bit mode" : (IntPtr.Size == 4) ? "32 bit mode" : "unknown mode") + Environment.NewLine;
+            expMessage += (IntPtr.Size == 8 ? "64 bit mode" : IntPtr.Size == 4 ? "32 bit mode" : "unknown mode") + Environment.NewLine;
             expMessage += exception;
             MessageBox.Show(expMessage, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }

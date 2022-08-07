@@ -789,7 +789,7 @@ namespace ganjoor
                                 nVIndex++;
                             }
                             var nEndPlusOne = nVIndex;
-                            if ((nEndPlusOne - nStart) > 2)
+                            if (nEndPlusOne - nStart > 2)
                             {
                                 var nText = 0;
                                 for (var nRight = nStart; nRight < nEndPlusOne; nRight += 2, nText++)

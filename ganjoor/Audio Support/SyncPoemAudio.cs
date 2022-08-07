@@ -32,7 +32,7 @@ namespace ganjoor
                 _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);
 
                 if (_VerseMilisecPositions.Count > 0 &&
-                    _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder != (_PoemVerses[_PoemVerses.Length - 1]._Order - 1)
+                    _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder != _PoemVerses[_PoemVerses.Length - 1]._Order - 1
                     )
                 {
                     if (MessageBox.Show("آیا تمایل دارید همگامسازی را از آخرین نقطهٔ همگام شده ادامه دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)

@@ -62,7 +62,7 @@ namespace ganjoor
         {
             get
             {
-                return (pnlList.Controls.Count - 1 - _DownloadIndex);
+                return pnlList.Controls.Count - 1 - _DownloadIndex;
             }
         }
         private List<Dictionary<string, string>> _DownloadedSounds = new List<Dictionary<string, string>>();

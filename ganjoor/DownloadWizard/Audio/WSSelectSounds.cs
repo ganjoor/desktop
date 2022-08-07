@@ -235,7 +235,7 @@ namespace ganjoor
                 grdList.Columns[2].Width = 50;
 
                 foreach (DataGridViewRow row in grdList.Rows)
-                    row.Tag = !((bool)row.Cells[GRDCLMN_CHECK].Value);
+                    row.Tag = !(bool)row.Cells[GRDCLMN_CHECK].Value;
                 if (firstSuggestableDownload != -1)
                 {
                     grdList.FirstDisplayedScrollingRowIndex = firstSuggestableDownload;
@@ -252,7 +252,7 @@ namespace ganjoor
         {
             if (grdList.Rows[e.RowIndex].Tag != null)
             {
-                e.CellStyle.BackColor = ((bool)grdList.Rows[e.RowIndex].Tag) ? Color.LightGray : Color.White;
+                e.CellStyle.BackColor = (bool)grdList.Rows[e.RowIndex].Tag ? Color.LightGray : Color.White;
             }
         }
 
@@ -339,7 +339,7 @@ namespace ganjoor
             if (grdList.IsCurrentCellInEditMode)
                 grdList.EndEdit();
             foreach (DataGridViewRow Row in grdList.Rows)
-                if (!((bool)Row.Tag))
+                if (!(bool)Row.Tag)
                     Row.Cells[GRDCLMN_CHECK].Value = true;
         }
 

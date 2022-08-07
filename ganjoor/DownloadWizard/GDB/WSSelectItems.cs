@@ -53,7 +53,7 @@ namespace ganjoor
                 foreach (var gdbInfo in _Lst)
                 {
                     var RowIndex = grdList.Rows.Add();
-                    var haveIt = (db.GetCategory(gdbInfo.CatID) != null);
+                    var haveIt = db.GetCategory(gdbInfo.CatID) != null;
                     grdList.Rows[RowIndex].Tag = haveIt;
                     if (haveIt)
                         grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
@@ -145,7 +145,7 @@ namespace ganjoor
             if (grdList.IsCurrentCellInEditMode)
                 grdList.EndEdit();
             foreach (DataGridViewRow Row in grdList.Rows)
-                if (!((bool)Row.Tag))
+                if (!(bool)Row.Tag)
                     Row.Cells[GRDCLMN_CHECK].Value = true;
         }
 

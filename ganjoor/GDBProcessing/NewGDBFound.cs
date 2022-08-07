@@ -46,7 +46,7 @@ namespace ganjoor
                                 Process.Start(gdb.BlogUrl);
                             break;
                         case GRDCLMN_IGNORE:
-                            grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !((bool)grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);//why do I need this?                            
+                            grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !(bool)grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;//why do I need this?                            
                             break;
                         case GRDCLMN_CHECK:
                             grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !Convert.ToBoolean(grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);

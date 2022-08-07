@@ -88,7 +88,7 @@ namespace ganjoor
             {
                 var strDesc = "فایل صوتی " + _DbBrowser.GetPoem(_PoemId)._Title;
                 if (grdList.Rows.Count > 0)
-                    strDesc += (" (" + (grdList.Rows.Count + 1) + ")");
+                    strDesc += " (" + (grdList.Rows.Count + 1) + ")";
                 using (var itemEditor = new ItemEditor(EditItemType.General, "شرح فایل", "شرح فایل"))
                 {
                     itemEditor.ItemName = strDesc;

@@ -109,7 +109,7 @@ namespace ganjoor
                 waveStream = value;
                 if (waveStream != null)
                 {
-                    bytesPerSample = (waveStream.WaveFormat.BitsPerSample / 8) * waveStream.WaveFormat.Channels;
+                    bytesPerSample = waveStream.WaveFormat.BitsPerSample / 8 * waveStream.WaveFormat.Channels;
                 }
                 //this.Invalidate();
             }
@@ -174,7 +174,7 @@ namespace ganjoor
                 waveStream.Position = 0;
                 int bytesRead;
                 var waveData = new byte[samplesPerPixel * bytesPerSample];
-                waveStream.Position = startPosition + (StartX * bytesPerSample * samplesPerPixel);
+                waveStream.Position = startPosition + StartX * bytesPerSample * samplesPerPixel;
 
 
 
@@ -192,8 +192,8 @@ namespace ganjoor
                         if (sample < low) low = sample;
                         if (sample > high) high = sample;
                     }
-                    var lowPercent = ((((float)low) - short.MinValue) / ushort.MaxValue);
-                    var highPercent = ((((float)high) - short.MinValue) / ushort.MaxValue);
+                    var lowPercent = ((float)low - short.MinValue) / ushort.MaxValue;
+                    var highPercent = ((float)high - short.MinValue) / ushort.MaxValue;
                     _PrepareData[x] = new PointF(lowPercent, highPercent);
                 }
             }

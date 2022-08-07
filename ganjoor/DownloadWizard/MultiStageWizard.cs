@@ -40,8 +40,8 @@ namespace ganjoor
                 }
 
 
-                btnNext.Visible = _Stages[StageIndex].NextStageButton && (StageIndex < (_Stages.Count - 1));
-                btnPrevious.Visible = _Stages[StageIndex].PreviousStageButton && (StageIndex > 0);
+                btnNext.Visible = _Stages[StageIndex].NextStageButton && StageIndex < _Stages.Count - 1;
+                btnPrevious.Visible = _Stages[StageIndex].PreviousStageButton && StageIndex > 0;
 
                 btnNext.Text = _Stages[StageIndex].NextStageText;
                 btnPrevious.Text = _Stages[StageIndex].PreviousStageText;
@@ -60,7 +60,7 @@ namespace ganjoor
                     btnNext.Location = new Point(16, btnNext.Top);
 
                 PostDataToNextStage(StageIndex);
-                if (StageIndex == (_Stages.Count - 1))
+                if (StageIndex == _Stages.Count - 1)
                 {
                     btnCancel.Text = "تأیید";
                     AcceptButton = btnCancel;

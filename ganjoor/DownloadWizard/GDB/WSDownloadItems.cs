@@ -62,7 +62,7 @@ namespace ganjoor
         {
             get
             {
-                return (pnlList.Controls.Count - 1 - _DownloadIndex);
+                return pnlList.Controls.Count - 1 - _DownloadIndex;
             }
         }
         private List<string> _DownloadedFiles = new List<string>();

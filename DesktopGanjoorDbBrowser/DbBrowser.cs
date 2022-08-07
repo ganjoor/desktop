@@ -171,9 +171,9 @@ namespace ganjoor
         #region Properties & Methods
         public string DbFilePath => _dbfilepath;
 
-        public bool Failed => (null == _con);
+        public bool Failed => null == _con;
 
-        public bool Connected => (null != _con);
+        public bool Connected => null != _con;
 
         public List<GanjoorPoet> Poets
         {
@@ -435,10 +435,10 @@ namespace ganjoor
 
                     var versePosition = FindVersePosition(searchType);
 
-                    var searchFilterLocationPattern = searchLocation == 0 ? $"%{phrase}%" : (searchLocation == 1 ? $"{phrase}%" : $"%{phrase}");
+                    var searchFilterLocationPattern = searchLocation == 0 ? $"%{phrase}%" : searchLocation == 1 ? $"{phrase}%" : $"%{phrase}";
                     var additionalFilterPattern = searchType == 0 ? "" : $" AND position={versePosition}";
 
-                    var strQuery = (poetID == 0)
+                    var strQuery = poetID == 0
                         ? $"SELECT poem_id,vorder,position,text FROM verse WHERE text LIKE '{searchFilterLocationPattern}' {additionalFilterPattern} GROUP BY poem_id LIMIT {pageStart},{count}"
                         :
                         //کوئری جایگزین توسط آقای سیدرضی علوی زاده برنامه نویس ساغز پیشنهاد شده که از کوئری پیشین سریع تر است
@@ -1972,7 +1972,7 @@ namespace ganjoor
                 using var cmd = new SQLiteCommand(_con);
                 cmd.CommandText = String.Format(
                     "UPDATE verse SET vorder= {0} WHERE poem_id={1} AND vorder={2}",
-                    (1 + v), PoemID, -(1 + v)
+                    1 + v, PoemID, -(1 + v)
                 );
                 cmd.ExecuteNonQuery();
             }

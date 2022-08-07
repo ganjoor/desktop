@@ -49,7 +49,7 @@ namespace ganjoor
         #region ReUsable Methods
         private void ApplyUserSettings()
         {
-            ganjoorView.CenteredView = (GanjoorViewMode)(Settings.Default.ViewMode) == GanjoorViewMode.Centered;
+            ganjoorView.CenteredView = (GanjoorViewMode)Settings.Default.ViewMode == GanjoorViewMode.Centered;
             ganjoorView.Font = Settings.Default.ViewFont;
             btnViewInSite.Visible = Settings.Default.BrowseButtonVisible;
             btnComments.Visible = Settings.Default.CommentsButtonVisible;
@@ -82,7 +82,7 @@ namespace ganjoor
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             ganjoorView.StoreSettings();
-            Settings.Default.WindowMaximized = (WindowState == FormWindowState.Maximized);
+            Settings.Default.WindowMaximized = WindowState == FormWindowState.Maximized;
             Settings.Default.WindowLocation = Location;
             Settings.Default.WindowSize = Size;
             Settings.Default.Save();
@@ -356,7 +356,7 @@ namespace ganjoor
         {
             iLastHighlightedFoundItem++;
             ganjoorView.HighlightText(GPersianTextSync.Sync(txtHighlight.Text), iLastHighlightedFoundItem);
-            btnScrollToNext.Visible = (iLastHighlightedFoundItem + 1 < iLastFoundItems);
+            btnScrollToNext.Visible = iLastHighlightedFoundItem + 1 < iLastFoundItems;
         }
         private void txtHighlight_KeyDown(object sender, KeyEventArgs e)
         {

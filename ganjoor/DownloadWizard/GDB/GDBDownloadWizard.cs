@@ -30,7 +30,7 @@ namespace ganjoor
 
         private void instStage_OnInstallFinished(object sender, EventArgs e)
         {
-            AnythingInstalled = ((_Stages[_Stages.Count - 1]) as WSInstallItems).InstalledFilesCount > 0;
+            AnythingInstalled = (_Stages[_Stages.Count - 1] as WSInstallItems).InstalledFilesCount > 0;
             btnCancel.Enabled = true;
             btnCancel.Focus();
             Application.DoEvents();

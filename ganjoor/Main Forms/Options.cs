@@ -242,7 +242,7 @@ namespace ganjoor
                                 catString += parCat._Text + " ->";
                         catString += cat._Text;
 
-                        result += (catString + "؛");
+                        result += catString + "؛";
                     }
                 }
                 db.CloseDb();

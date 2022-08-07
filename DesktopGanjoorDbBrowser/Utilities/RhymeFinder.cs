@@ -49,58 +49,58 @@ namespace ganjoor
                     rhyme = "";
                     var i = oldRhyme.Length - 1;
                     while (
-                        (oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i])
+                        oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i]
                         ||
                         (
-                        (oldRhyme[i] == 'ذ')
+                        oldRhyme[i] == 'ذ'
                         &&
-                        (verseText[verseText.Length - oldRhyme.Length + i] == 'د')
+                        verseText[verseText.Length - oldRhyme.Length + i] == 'د'
                         )
                         ||
                         (
-                        (oldRhyme[i] == 'د')
+                        oldRhyme[i] == 'د'
                         &&
-                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ذ')
+                        verseText[verseText.Length - oldRhyme.Length + i] == 'ذ'
                         )
                         ||
 
                         (
-                        (oldRhyme[i] == 'ی')
+                        oldRhyme[i] == 'ی'
                         &&
-                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ا')
+                        verseText[verseText.Length - oldRhyme.Length + i] == 'ا'
                         )
                         ||
                         (
-                        (oldRhyme[i] == 'ا')
+                        oldRhyme[i] == 'ا'
                         &&
-                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ی')
+                        verseText[verseText.Length - oldRhyme.Length + i] == 'ی'
                         )
 
                         ||
 
-                        (oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i])
+                        oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i]
                         ||
                         (
-                        (oldRhyme[i] == 'پ')
+                        oldRhyme[i] == 'پ'
                         &&
-                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ب')
+                        verseText[verseText.Length - oldRhyme.Length + i] == 'ب'
                         )
                         ||
                         (
-                        (oldRhyme[i] == 'ب')
+                        oldRhyme[i] == 'ب'
                         &&
-                        (verseText[verseText.Length - oldRhyme.Length + i] == 'پ')
+                        verseText[verseText.Length - oldRhyme.Length + i] == 'پ'
                         )
 
                         ||
-                        (oldRhyme[i] == 'ة')
+                        oldRhyme[i] == 'ة'
                         &&
-                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ت')
+                        verseText[verseText.Length - oldRhyme.Length + i] == 'ت'
 
                         ||
-                        (oldRhyme[i] == 'ت')
+                        oldRhyme[i] == 'ت'
                         &&
-                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ة')
+                        verseText[verseText.Length - oldRhyme.Length + i] == 'ة'
 
 
 

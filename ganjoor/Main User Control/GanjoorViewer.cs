@@ -172,7 +172,7 @@ namespace ganjoor
                 {
                     var vText = v[0]._Text;
                     if (vText.Length > MaxPoemPreviewLength)
-                        vText = vText.Substring(0, (MaxPoemPreviewLength - 4)) + " ...";
+                        vText = vText.Substring(0, MaxPoemPreviewLength - 4) + " ...";
                     lblPoem.Text += " : " + vText;
                 }
                 lblPoem.Location = new Point(poemsDistanceFromRight, poemsTop + (i - category._StartPoem) * DistanceBetweenLines + ParagraphShift);
@@ -180,7 +180,7 @@ namespace ganjoor
                 var szPoemTitleSizeWithoutWordWrap = TextRenderer.MeasureText(lblPoem.Text, Font, new Size(Width - lastDistanceFromRight - 20, Int32.MaxValue), TextFormatFlags.Default);
                 if (szPoemTitleSizeWithWordWrap.Width != szPoemTitleSizeWithoutWordWrap.Width)
                 {
-                    ParagraphShift += (szPoemTitleSizeWithWordWrap.Height - lblPoem.Height / 2);
+                    ParagraphShift += szPoemTitleSizeWithWordWrap.Height - lblPoem.Height / 2;
                     lblPoem.AutoSize = false;
                     lblPoem.Size = new Size(Width - lastDistanceFromRight - 20, szPoemTitleSizeWithWordWrap.Height);
 
@@ -287,7 +287,7 @@ namespace ganjoor
         private void lblPoem_Click(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowPoem(
-                ((GanjoorPoem)((LinkLabel)sender).Tag)
+                (GanjoorPoem)((LinkLabel)sender).Tag
                 ,
                 true
                 );
@@ -297,7 +297,7 @@ namespace ganjoor
         {
             GanjoorCat category = null;
             if (sender != null)
-                category = ((GanjoorCat)((LinkLabel)sender).Tag);
+                category = (GanjoorCat)((LinkLabel)sender).Tag;
             else
                 category = new GanjoorCat(0, 0, "", 0, "");
 
@@ -337,7 +337,7 @@ namespace ganjoor
             }
 
 
-            catsTop += (ancestors.Count * DistanceBetweenLines);
+            catsTop += ancestors.Count * DistanceBetweenLines;
             //خود این دسته
 
             if (category != null && category._ID != 0)
@@ -424,7 +424,7 @@ namespace ganjoor
             var ParagraphShift = 0;
             if (szPoemTitleSizeWithWordWrap.Width != szPoemTitleSizeWithoutWordWrap.Width)
             {
-                ParagraphShift += (szPoemTitleSizeWithWordWrap.Height - lblPoem.Height);
+                ParagraphShift += szPoemTitleSizeWithWordWrap.Height - lblPoem.Height;
                 lblPoem.AutoSize = false;
                 lblPoem.Size = new Size(Width - lastDistanceFromRight - 20, szPoemTitleSizeWithWordWrap.Height);
                 lblPoem.Location = new Point(lastDistanceFromRight, catsTop);
@@ -467,7 +467,7 @@ namespace ganjoor
             }
 
 
-            var versDistanceFromRight = ShowBeytNums ? lastDistanceFromRight + TextRenderer.MeasureText((verses.Count).ToString(), Font).Width : lastDistanceFromRight;
+            var versDistanceFromRight = ShowBeytNums ? lastDistanceFromRight + TextRenderer.MeasureText(verses.Count.ToString(), Font).Width : lastDistanceFromRight;
             for (var i = 0; i < verses.Count; i++)
             {
                 Control lblVerse;
@@ -606,7 +606,7 @@ namespace ganjoor
                 Controls.Add(lblVerse);
 
 
-                if (verses[i]._Position == VersePosition.Right || verses[i]._Position == VersePosition.CenteredVerse1 || (verses[i]._Position == VersePosition.Single))
+                if (verses[i]._Position == VersePosition.Right || verses[i]._Position == VersePosition.CenteredVerse1 || verses[i]._Position == VersePosition.Single)
                 {
                     if (!string.IsNullOrEmpty(verses[i]._Text.Trim()))//empty verse strings have been seen sometimes, it seems that we have some errors in our database
                     {
@@ -821,7 +821,7 @@ namespace ganjoor
                                 var oldSelStart = txtBox.SelectionStart;
                                 var CurrentVerse = txtBox.Tag as GanjoorVerse;
                                 var newFocusTag =
-                                    (CurrentVerse._Position == VersePosition.Right) || (CurrentVerse._Position == VersePosition.Left)
+                                    CurrentVerse._Position == VersePosition.Right || CurrentVerse._Position == VersePosition.Left
                                     ?
                                     CurrentVerse._Order - 2
                                     :
@@ -842,7 +842,7 @@ namespace ganjoor
                                 var oldSelStart = txtBox.SelectionStart;
                                 var CurrentVerse = txtBox.Tag as GanjoorVerse;
                                 var newFocusTag =
-                                    (CurrentVerse._Position == VersePosition.Right) || (CurrentVerse._Position == VersePosition.Left)
+                                    CurrentVerse._Position == VersePosition.Right || CurrentVerse._Position == VersePosition.Left
                                     ?
                                     CurrentVerse._Order + 2
                                     :
@@ -937,7 +937,7 @@ namespace ganjoor
                 if (ctl is LinkLabel label)
                 {
                     var lbl = label;
-                    if (lbl.Tag is GanjoorVerse verse && (verse._Position == VersePosition.CenteredVerse1))
+                    if (lbl.Tag is GanjoorVerse verse && verse._Position == VersePosition.CenteredVerse1)
                         lbl.LinkColor = Settings.Default.BandLinkColor;
                     else
                         lbl.LinkColor = Settings.Default.LinkColor;
@@ -1232,7 +1232,7 @@ namespace ganjoor
             }
             else
                 if (
-                    (_history.Count == 0) || !((_history.Peek()._CatID == _iCurCat) && (_history.Peek()._CatPageStart == _iCurCatStart) && ((_history.Peek()._PoemID == _iCurPoem)))
+                    _history.Count == 0 || !(_history.Peek()._CatID == _iCurCat && _history.Peek()._CatPageStart == _iCurCatStart && _history.Peek()._PoemID == _iCurPoem)
                     )
             {
                 _history.Push(new GanjoorBrowsingHistory(_iCurCat, _iCurPoem, _iCurCatStart, AutoScrollPosition));
@@ -1293,7 +1293,7 @@ namespace ganjoor
         private void Document_PrintPage(object sender, PrintPageEventArgs e)
         {
             _iRemainingUnprintedLines = PrintPoem(e, _iRemainingUnprintedLines);
-            e.HasMorePages = (0 != _iRemainingUnprintedLines);
+            e.HasMorePages = 0 != _iRemainingUnprintedLines;
 
         }
         private int _iRemainingUnprintedLines;
@@ -1301,7 +1301,7 @@ namespace ganjoor
         {
             if (0 != _iCurPoem)
             {
-                var dist = (0 == StartFrom) ? (int)(2.5f * DistanceBetweenLines) : DistanceBetweenLines + (int)(0.25f * DistanceBetweenLines);
+                var dist = 0 == StartFrom ? (int)(2.5f * DistanceBetweenLines) : DistanceBetweenLines + (int)(0.25f * DistanceBetweenLines);
                 var top = e.PageBounds.Top + 100;
                 var mid = e.PageBounds.Left + e.PageBounds.Width / 2;
                 var format = new StringFormat(StringFormatFlags.DirectionRightToLeft);
@@ -1460,7 +1460,7 @@ namespace ganjoor
             _iCurPoem = 0;
 
 
-            _strPage = "نتایج جستجو برای \"" + phrase + "\" در آثار " + _db.GetPoet(PoetID)._Name + " صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count) + " (مورد " + (PageStart + 1) + " تا " + (PageStart + Count) + ")");
+            _strPage = "نتایج جستجو برای \"" + phrase + "\" در آثار " + _db.GetPoet(PoetID)._Name + " صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : 1 + PageStart / Count + " (مورد " + (PageStart + 1) + " تا " + (PageStart + Count) + ")");
             StopPlayBack();
             _CurrentPoemAudio = null;
             if (null != OnPageChanged)
@@ -1493,7 +1493,7 @@ namespace ganjoor
                         {
                             if (OnlyScroll)
                             {
-                                if ((label.Tag is GanjoorVerse verse) && _db.IsVerseFaved(verse._PoemID, verse._Order))
+                                if (label.Tag is GanjoorVerse verse && _db.IsVerseFaved(verse._PoemID, verse._Order))
                                 {
                                     AutoScrollPosition = label.Location;
                                     return 0;
@@ -1507,13 +1507,13 @@ namespace ganjoor
                                     var index = label.Text.IndexOf(phrase);
                                     if (index != -1)
                                     {
-                                        if (!scrolled && (scrollindex == count))
+                                        if (!scrolled && scrollindex == count)
                                         {
                                             AutoScrollPosition = new Point(-AutoScrollPosition.X + label.Left, -AutoScrollPosition.Y + label.Top);
                                             scrolled = true;
                                         }
                                         count++;
-                                        while ((index + 1 != label.Text.Length) && (index = label.Text.IndexOf(phrase, index + 1)) != -1)
+                                        while (index + 1 != label.Text.Length && (index = label.Text.IndexOf(phrase, index + 1)) != -1)
                                         {
                                             count++;
                                         }
@@ -1550,13 +1550,13 @@ namespace ganjoor
                             if (index != -1)
                             {
                                 label.LinkColor = Settings.Default.HighlightColor;
-                                if (!scrolled && (scrollindex == count))
+                                if (!scrolled && scrollindex == count)
                                 {
                                     AutoScrollPosition = new Point(-AutoScrollPosition.X + label.Left, -AutoScrollPosition.Y + label.Top);
                                     scrolled = true;
                                 }
                                 count++;
-                                while ((index + 1 != label.Text.Length) && (index = label.Text.IndexOf(phrase, index + 1)) != -1)
+                                while (index + 1 != label.Text.Length && (index = label.Text.IndexOf(phrase, index + 1)) != -1)
                                 {
                                     count++;
                                 }
@@ -1588,16 +1588,16 @@ namespace ganjoor
                         {
                             if (buffer != null && verse._Position != VersePosition.CenteredVerse2)
                             {
-                                txt += ("<div class=\"b2\"><p>" + buffer._Text.Trim() + "</p></div>\r\n");
+                                txt += "<div class=\"b2\"><p>" + buffer._Text.Trim() + "</p></div>\r\n";
                                 buffer = null;
                             }
                             switch (verse._Position)
                             {
                                 case VersePosition.Right:
-                                    txt += ("<div class=\"b\"><div class=\"m1\"><p>" + verse._Text.Trim());
+                                    txt += "<div class=\"b\"><div class=\"m1\"><p>" + verse._Text.Trim();
                                     break;
                                 case VersePosition.Left:
-                                    txt += ("</p></div><div class=\"m2\"><p>" + verse._Text.Trim() + "</p></div></div>\r\n");
+                                    txt += "</p></div><div class=\"m2\"><p>" + verse._Text.Trim() + "</p></div></div>\r\n";
                                     break;
                                 case VersePosition.CenteredVerse1:
                                     buffer = verse;
@@ -1605,7 +1605,7 @@ namespace ganjoor
                                 case VersePosition.CenteredVerse2:
                                     if (buffer != null)
                                     {
-                                        txt += ("<div class=\"b2\"><p>" + buffer._Text + "</p><p>" + verse._Text.Trim() + "</p></div>\r\n");
+                                        txt += "<div class=\"b2\"><p>" + buffer._Text + "</p><p>" + verse._Text.Trim() + "</p></div>\r\n";
                                         buffer = null;
                                     }
                                     else
@@ -1614,13 +1614,13 @@ namespace ganjoor
                                     }
                                     break;
                                 case VersePosition.Single:
-                                    txt += ("<div class=\"l\"><p>" + verse._Text.Trim() + "</p></div>\r\n");
+                                    txt += "<div class=\"l\"><p>" + verse._Text.Trim() + "</p></div>\r\n";
                                     break;
                                 case VersePosition.Paragraph:
-                                    txt += ("<div class=\"n\"><p>" + verse._Text.Trim() + "</p></div>\r\n");
+                                    txt += "<div class=\"n\"><p>" + verse._Text.Trim() + "</p></div>\r\n";
                                     break;
                                 case VersePosition.Comment:
-                                    txt += ("<div class=\"c\"><p>" + verse._Text.Trim() + "</p></div>\r\n");
+                                    txt += "<div class=\"c\"><p>" + verse._Text.Trim() + "</p></div>\r\n";
                                     break;
 
                             }
@@ -1633,7 +1633,7 @@ namespace ganjoor
                 }
             if (buffer != null)
             {
-                txt += ("<div class=\"b2\"><p>" + buffer._Text + "</p></div>\r\n");
+                txt += "<div class=\"b2\"><p>" + buffer._Text + "</p></div>\r\n";
             }
             Clipboard.SetText(txt);
         }
@@ -1793,7 +1793,7 @@ namespace ganjoor
             Cursor = Cursors.Default;
 
 
-            _strPage = "نشانه‌ها - صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : (1 + PageStart / Count) + " (مورد " + (PageStart + 1) + " تا " + (PageStart + Count) + ")");
+            _strPage = "نشانه‌ها - صفحهٔ " + (Count < 1 ? "1 (موردی یافت نشد.)" : 1 + PageStart / Count + " (مورد " + (PageStart + 1) + " تا " + (PageStart + Count) + ")");
             StopPlayBack();
             _CurrentPoemAudio = null;
             if (null != OnPageChanged)
@@ -2348,7 +2348,7 @@ namespace ganjoor
                             if (newVerse == null)
                                 return false;
                             numPassed++;
-                            Position = (numPassed == LineCount) ? VersePosition.CenteredVerse1 : VersePosition.Right;
+                            Position = numPassed == LineCount ? VersePosition.CenteredVerse1 : VersePosition.Right;
                         }
                         break;
                     case VersePosition.CenteredVerse1:
@@ -2479,7 +2479,7 @@ namespace ganjoor
                 {
                     if (ctl is TextBox)
                     {
-                        var verseBefore = (ctl.Tag as GanjoorVerse);
+                        var verseBefore = ctl.Tag as GanjoorVerse;
                         if (verseBefore._Position == VersePosition.Right)
                         {
                             foreach (Control ctlO in Controls)
@@ -2488,7 +2488,7 @@ namespace ganjoor
                                 {
                                     if ((ctlO.Tag as GanjoorVerse)._Order == verseBefore._Order + 1)
                                     {
-                                        verseBefore = (ctlO.Tag as GanjoorVerse);
+                                        verseBefore = ctlO.Tag as GanjoorVerse;
                                         break;
                                     }
                                 }
@@ -2505,7 +2505,7 @@ namespace ganjoor
                                     {
                                         if ((ctlO.Tag as GanjoorVerse)._Position == VersePosition.CenteredVerse2)
                                         {
-                                            verseBefore = (ctlO.Tag as GanjoorVerse);
+                                            verseBefore = ctlO.Tag as GanjoorVerse;
                                         }
                                         break;
                                     }
@@ -2576,7 +2576,7 @@ namespace ganjoor
                 {
                     if (ctl is TextBox)
                     {
-                        var verseBefore = (ctl.Tag as GanjoorVerse);
+                        var verseBefore = ctl.Tag as GanjoorVerse;
                         versesToDelete.Add(verseBefore._Order);
                         if (verseBefore._Position == VersePosition.Left)
                         {
@@ -2764,7 +2764,7 @@ namespace ganjoor
                     case VersePosition.Left:
                         {
                             numPassed++;
-                            Position = (numPassed == LineCount) ? VersePosition.CenteredVerse1 : VersePosition.Right;
+                            Position = numPassed == LineCount ? VersePosition.CenteredVerse1 : VersePosition.Right;
                         }
                         break;
                     case VersePosition.CenteredVerse1:
@@ -2795,7 +2795,7 @@ namespace ganjoor
                 {
                     if (ctl is TextBox)
                     {
-                        var verseBefore = (ctl.Tag as GanjoorVerse);
+                        var verseBefore = ctl.Tag as GanjoorVerse;
                         nFocus = verseBefore._Order;
                         if (verseBefore._Position == VersePosition.Right)
                         {
@@ -2837,7 +2837,7 @@ namespace ganjoor
                 {
                     if (ctl is TextBox)
                     {
-                        var verseBefore = (ctl.Tag as GanjoorVerse);
+                        var verseBefore = ctl.Tag as GanjoorVerse;
                         nFocus = verseBefore._Order;
                         _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, VersePosition.CenteredVerse1);
                         RestructureVerses(-1, false, nFocus + 1, true);
@@ -2869,7 +2869,7 @@ namespace ganjoor
                 {
                     if (ctl is TextBox)
                     {
-                        var verseBefore = (ctl.Tag as GanjoorVerse);
+                        var verseBefore = ctl.Tag as GanjoorVerse;
                         nFocus = verseBefore._Order;
                         _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, VersePosition.Paragraph);
                         RestructureVerses(-1, false, nFocus + 1, true);
@@ -2902,7 +2902,7 @@ namespace ganjoor
                 {
                     if (ctl is TextBox)
                     {
-                        var verseBefore = (ctl.Tag as GanjoorVerse);
+                        var verseBefore = ctl.Tag as GanjoorVerse;
                         nFocus = verseBefore._Order;
                         _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, versePosition);
                         RestructureVerses(-1, false, nFocus + 1, true);
@@ -2939,7 +2939,7 @@ namespace ganjoor
                     if (ctl is TextBox)
                     {
                         bStartFound = true;
-                        var verseBefore = (ctl.Tag as GanjoorVerse);
+                        var verseBefore = ctl.Tag as GanjoorVerse;
                         nFocus = verseBefore._Order;
                         _db.SetVersePosition(verseBefore._PoemID, verseBefore._Order, newPosition);
 
@@ -2995,7 +2995,7 @@ namespace ganjoor
                 {
                     if (ctl is TextBox box)
                     {
-                        var para = (box.Tag as GanjoorVerse);
+                        var para = box.Tag as GanjoorVerse;
 
                         if (para._Position == VersePosition.Paragraph)
                         {
@@ -3034,7 +3034,7 @@ namespace ganjoor
                 {
                     if (ctl is TextBox)
                     {
-                        var verseBefore = (ctl.Tag as GanjoorVerse);
+                        var verseBefore = ctl.Tag as GanjoorVerse;
                         nFocus = verseBefore._Order;
                         if (verseBefore._Position == VersePosition.Right)
                         {
@@ -3076,9 +3076,9 @@ namespace ganjoor
                 for (var i = 0; i < verses.Count; i++)
                 {
                     if (
-                        (verses[i]._Position == VersePosition.Left)
+                        verses[i]._Position == VersePosition.Left
                         ||
-                        (verses[i]._Position == VersePosition.Right)
+                        verses[i]._Position == VersePosition.Right
                       )
                     {
                         _db.SetVersePosition(Poem._ID, verses[i]._Order, vPosition);
@@ -3333,7 +3333,7 @@ namespace ganjoor
                 var ctl = Controls[i];
                 if (ctl is HighlightLabel)
                 {
-                    if ((ctl.Tag is GanjoorVerse verse) && verse._Order == nVerseOrder)
+                    if (ctl.Tag is GanjoorVerse verse && verse._Order == nVerseOrder)
                     {
                         ScrollControlIntoView(ctl);
                         if (dehighlight)

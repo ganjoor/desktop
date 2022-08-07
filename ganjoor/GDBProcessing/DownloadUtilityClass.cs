@@ -98,7 +98,7 @@ namespace ganjoor
                         double dTotal = byteBuffer.Length;
 
 
-                        var dProgressPercentage = (dIndex / dTotal);
+                        var dProgressPercentage = dIndex / dTotal;
 
                         var iProgressPercentage = (int)(dProgressPercentage * 100);
 
