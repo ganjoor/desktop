@@ -29,8 +29,8 @@ namespace ganjoor
 
                 foreach (DataGridViewRow Row in grdConflictingPoets.Rows)
                     if (Convert.ToBoolean(Row.Cells[1].Value))
-                        if (Row.Tag != null && Row.Tag is GanjoorPoet)
-                            lstDelete.Add(Row.Tag as GanjoorPoet);
+                        if (Row.Tag is GanjoorPoet tag)
+                            lstDelete.Add(tag);
                 return lstDelete.ToArray();
             }
         }

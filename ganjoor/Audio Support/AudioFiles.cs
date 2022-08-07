@@ -155,14 +155,10 @@ namespace ganjoor
         /// <param name="e"></param>
         private void btnPlayStop_Click(object sender, EventArgs e)
         {
-            if (_PoemAudioPlayer != null)
+            if (_PoemAudioPlayer is {IsPlaying: true})
             {
-                if (_PoemAudioPlayer.IsPlaying)
-                {
-                    _PoemAudioPlayer.StopPlayBack();
-                    return;
-                }
-
+                _PoemAudioPlayer.StopPlayBack();
+                return;
             }
             if (grdList.SelectedRows.Count == 0)
             {
@@ -185,7 +181,7 @@ namespace ganjoor
                 MessageBox.Show("خطایی در پخش فایل صوتی رخ داد. لطفا چک کنید فایل در مسیر تعیین شده قرار داشته باشد.");
             }
 
-            if (poemAudio != null && poemAudio.SyncArray != null && poemAudio.SyncArray[0].VerseOrder == -1)
+            if (poemAudio is {SyncArray: { }} && poemAudio.SyncArray[0].VerseOrder == -1)
             {
                 _PoemAudioPlayer.PositionInMiliseconds = poemAudio.SyncArray[0].AudioMiliseconds;
             }

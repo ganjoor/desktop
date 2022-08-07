@@ -30,8 +30,8 @@ namespace ganjoor
 
                 foreach (DataGridViewRow Row in grdConflictingCats.Rows)
                     if (Convert.ToBoolean(Row.Cells[1].Value))
-                        if (Row.Tag != null && Row.Tag is GanjoorCat)
-                            lstDelete.Add(Row.Tag as GanjoorCat);
+                        if (Row.Tag is GanjoorCat cat)
+                            lstDelete.Add(cat);
                 return lstDelete.ToArray();
             }
         }

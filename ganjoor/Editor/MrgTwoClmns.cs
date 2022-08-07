@@ -24,9 +24,9 @@ namespace ganjoor
             btnMerge.Enabled = !string.IsNullOrEmpty(clmn1.Text.Trim()) && !string.IsNullOrEmpty(clmn2.Text.Trim());
             if (chkAutomaticFocus.Checked)
             {
-                if (sender is TextBox)
+                if (sender is TextBox box)
                 {
-                    if ((sender as TextBox).Name == clmn1.Name)
+                    if (box.Name == clmn1.Name)
                         clmn2.Focus();
                     else
                         btnMerge.Focus();

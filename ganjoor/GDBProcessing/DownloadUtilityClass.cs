@@ -30,10 +30,8 @@ namespace ganjoor
             Uri url = new Uri(sUrlToReadFileFrom);
 
             WebRequest req = WebRequest.Create(url);
-            if (req is HttpWebRequest)
+            if (req is HttpWebRequest request)
             {
-                HttpWebRequest request = (HttpWebRequest)req;
-
                 HttpWebResponse response;
 
                 try

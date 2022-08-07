@@ -61,7 +61,7 @@ namespace ganjoor
 
         private void RetriveNameDesc(object sender, EventArgs e)
         {
-            if (cmbListUrl.SelectedIndex >= 0 && cmbListUrl.SelectedIndex < 3 && cmbListUrl.Text == cmbListUrl.Items[cmbListUrl.SelectedIndex].ToString())
+            if (cmbListUrl.SelectedIndex is >= 0 and < 3 && cmbListUrl.Text == cmbListUrl.Items[cmbListUrl.SelectedIndex].ToString())
                 return;
             string Name, Desc, MoreInfoUrl;
             if (GDBListProcessor.RetrieveProperties(cmbListUrl.Text, out Name, out Desc, out MoreInfoUrl))
@@ -73,9 +73,8 @@ namespace ganjoor
 
         private void lnkMoreInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (lnkMoreInfo.Tag != null && lnkMoreInfo.Tag is string)
+            if (lnkMoreInfo.Tag is string moreInfoUrl)
             {
-                string moreInfoUrl = lnkMoreInfo.Tag as string;
                 if (!string.IsNullOrEmpty(moreInfoUrl))
                     try
                     {

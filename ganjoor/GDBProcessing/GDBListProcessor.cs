@@ -147,13 +147,13 @@ namespace ganjoor
                 }
 
                 XmlNodeList nameNodeList = doc.GetElementsByTagName("Name");
-                if (nameNodeList != null && nameNodeList.Count == 1)
+                if (nameNodeList is {Count: 1})
                     Name = nameNodeList[0].InnerText;
                 XmlNodeList descNodeList = doc.GetElementsByTagName("Description");
-                if (descNodeList != null && descNodeList.Count == 1)
+                if (descNodeList is {Count: 1})
                     Description = descNodeList[0].InnerText;
                 XmlNodeList urlNodeList = doc.GetElementsByTagName("MoreInfoUrl");
-                if (urlNodeList != null && urlNodeList.Count == 1)
+                if (urlNodeList is {Count: 1})
                     MoreInfoUrl = urlNodeList[0].InnerText;
                 return true;
             }
