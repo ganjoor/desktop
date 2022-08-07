@@ -14,7 +14,7 @@ namespace ganjoor
         public ItemSelector(string strCaption, object[] items, object selectedItem)
         {
             InitializeComponent();
-            this.Text = strCaption;
+            Text = strCaption;
             if (items != null)
                 lstItems.Items.AddRange(items);
             if (selectedItem != null)
@@ -29,17 +29,17 @@ namespace ganjoor
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (this.SelectedItem == null)
+            if (SelectedItem == null)
             {
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
-                DialogResult = System.Windows.Forms.DialogResult.None;
+                DialogResult = DialogResult.None;
             }
         }
 
         private void lstItems_DoubleClick(object sender, EventArgs e)
         {
-            if (this.SelectedItem != null)
-                DialogResult = System.Windows.Forms.DialogResult.OK;
+            if (SelectedItem != null)
+                DialogResult = DialogResult.OK;
         }
 
     }

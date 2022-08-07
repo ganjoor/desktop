@@ -28,7 +28,7 @@ namespace ganjoor
                     }
                     else
                     {
-                        string[] keyValue = trimedLine.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] keyValue = trimedLine.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
                         if (keyValue.Length == 2)
                         {
                             Dictionary<string, string> newKeyValue = new Dictionary<string, string>();

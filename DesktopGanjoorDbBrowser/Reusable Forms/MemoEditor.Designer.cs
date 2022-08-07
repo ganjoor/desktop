@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class MemoEditor
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -89,8 +92,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtMemo;
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCancel;
+        private TextBox txtMemo;
+        private Button btnOK;
+        private Button btnCancel;
     }
 }

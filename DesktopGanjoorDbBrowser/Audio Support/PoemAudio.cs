@@ -149,7 +149,7 @@ namespace ganjoor
         /// <returns>شرح</returns>
         public override string ToString()
         {
-            return this.Description;
+            return Description;
         }
 
 

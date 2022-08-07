@@ -18,7 +18,7 @@ namespace ganjoor
             FillTree(PoetID);
         }
 
-        private DbBrowser _RefDb = null;
+        private DbBrowser _RefDb;
 
         private void FillTree(int PoetID)
         {
@@ -91,7 +91,7 @@ namespace ganjoor
         private void CheckCatList(int[] CatList)
         {
             if (CatList.Length == 0)
-                CatList = new int[] { 0 };
+                CatList = new[] { 0 };
             foreach (TreeNode Node in treeCats.Nodes)
                 CheckCatList(CatList, Node);
         }
@@ -147,7 +147,7 @@ namespace ganjoor
         {
             set
             {
-                string[] CatStrs = value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] CatStrs = value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                 int[] Cats = new int[CatStrs.Length];
                 for (int i = 0; i < CatStrs.Length; i++)
                     Cats[i] = Convert.ToInt32(CatStrs[i]);
@@ -156,7 +156,7 @@ namespace ganjoor
             get
             {
                 string result = "";
-                foreach (int Cat in this.CheckedCats)
+                foreach (int Cat in CheckedCats)
                 {
                     result += Cat.ToString();
                     result += ";";

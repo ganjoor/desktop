@@ -1,28 +1,22 @@
-﻿using NAudio.Wave;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
-
+using NAudio.Wave;
 
 namespace ganjoor
 {
     public class PoemAudioPlayer
     {
-        #region Constructor
-        public PoemAudioPlayer()
-        {
-        }
-        #endregion
 
         #region Public / State Reporting Events
-        public event EventHandler PlaybackStarted = null;
-        public event EventHandler<StoppedEventArgs> PlaybackStopped = null;
+        public event EventHandler PlaybackStarted;
+        public event EventHandler<StoppedEventArgs> PlaybackStopped;
 
         #endregion
 
         #region internal variables
-        private IWavePlayer wavePlayer = null;
-        private AudioFileReader file = null;
+        private IWavePlayer wavePlayer;
+        private AudioFileReader file;
         #endregion
 
         #region Main Methods
@@ -35,7 +29,7 @@ namespace ganjoor
         /// <param name="poemAudio"></param>
         public bool BeginPlayback(PoemAudio poemAudio)
         {
-            if (this.wavePlayer != null)
+            if (wavePlayer != null)
             {
                 Debug.Assert(false);
                 return false;
@@ -44,12 +38,12 @@ namespace ganjoor
             {
                 return false;
             }
-            this.PoemAudio = poemAudio;
-            this.wavePlayer = new WaveOut();
-            this.file = new AudioFileReader(poemAudio.FilePath);
-            this.wavePlayer.Init(file);
-            this.wavePlayer.PlaybackStopped += wavePlayer_PlaybackStopped;
-            this.wavePlayer.Play();
+            PoemAudio = poemAudio;
+            wavePlayer = new WaveOut();
+            file = new AudioFileReader(poemAudio.FilePath);
+            wavePlayer.Init(file);
+            wavePlayer.PlaybackStopped += wavePlayer_PlaybackStopped;
+            wavePlayer.Play();
 
             if (PlaybackStarted != null)
                 PlaybackStarted(this, new EventArgs());
@@ -62,9 +56,9 @@ namespace ganjoor
         /// <returns></returns>
         public bool PausePlayBack()
         {
-            if (this.wavePlayer == null)
+            if (wavePlayer == null)
                 return false;
-            this.wavePlayer.Pause();
+            wavePlayer.Pause();
             return true;
 
         }
@@ -75,9 +69,9 @@ namespace ganjoor
         /// <returns></returns>
         public bool ResumePlayBack()
         {
-            if (this.wavePlayer == null)
+            if (wavePlayer == null)
                 return false;
-            this.wavePlayer.Play();
+            wavePlayer.Play();
             return true;
         }
 
@@ -86,9 +80,9 @@ namespace ganjoor
         /// </summary>
         public bool StopPlayBack()
         {
-            if (this.wavePlayer == null)
+            if (wavePlayer == null)
                 return false;
-            this.wavePlayer.Stop();
+            wavePlayer.Stop();
             return true;
         }
 
@@ -96,23 +90,23 @@ namespace ganjoor
         /// آیا در حال پخش است؟
         /// </summary>
         /// <returns></returns>
-        public bool IsPlaying => this.wavePlayer != null && this.wavePlayer.PlaybackState == PlaybackState.Playing;
+        public bool IsPlaying => wavePlayer != null && wavePlayer.PlaybackState == PlaybackState.Playing;
 
         /// <summary>
         /// آیا در حال توقف موقت است؟
         /// </summary>
         /// <returns></returns>
-        public bool IsInPauseState => this.wavePlayer != null && this.wavePlayer.PlaybackState == PlaybackState.Paused;
+        public bool IsInPauseState => wavePlayer != null && wavePlayer.PlaybackState == PlaybackState.Paused;
 
         /// <summary>
         /// محل فعلی فایل صوتی بر حسب میلی ثانیه
         /// </summary>
         public int PositionInMiliseconds
         {
-            get => this.file == null ? 0 : (int)file.CurrentTime.TotalMilliseconds;
+            get => file == null ? 0 : (int)file.CurrentTime.TotalMilliseconds;
             set
             {
-                if (this.file != null)
+                if (file != null)
                     file.CurrentTime = TimeSpan.FromMilliseconds(value);
             }
         }
@@ -120,22 +114,22 @@ namespace ganjoor
         /// <summary>
         /// طول فایل بر حسب میلی ثانیه
         /// </summary>
-        public int TotalTimeInMiliseconds => this.file == null ? 0 : (int)file.TotalTime.TotalMilliseconds;
+        public int TotalTimeInMiliseconds => file == null ? 0 : (int)file.TotalTime.TotalMilliseconds;
 
         /// <summary>
         /// پاکسازی متغیرها
         /// </summary>
         public void CleanUp()
         {
-            if (this.file != null)
+            if (file != null)
             {
-                this.file.Dispose();
-                this.file = null;
+                file.Dispose();
+                file = null;
             }
-            if (this.wavePlayer != null)
+            if (wavePlayer != null)
             {
-                this.wavePlayer.Dispose();
-                this.wavePlayer = null;
+                wavePlayer.Dispose();
+                wavePlayer = null;
             }
         }
         #endregion
@@ -146,8 +140,8 @@ namespace ganjoor
         {
             // we want it to be safe to clean up input stream and playback device in the handler for PlaybackStopped
             CleanUp();
-            if (this.PlaybackStopped != null)
-                this.PlaybackStopped(sender, e);
+            if (PlaybackStopped != null)
+                PlaybackStopped(sender, e);
         }
         #endregion
 

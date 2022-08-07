@@ -1,11 +1,14 @@
-﻿namespace ganjoor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace ganjoor
 {
     partial class CategorySelector
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -93,9 +96,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TreeView treeCats;
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCancel;
+        private TreeView treeCats;
+        private Button btnOK;
+        private Button btnCancel;
 
     }
 }

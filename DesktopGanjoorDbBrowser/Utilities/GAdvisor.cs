@@ -9,7 +9,7 @@ namespace ganjoor
         public static void AdviseOnUnhandledException(string exception)
         {
             string expMessage = "خطای پیشبینی نشده‌ای روی سیستم شما رخ داد. لطفاً محتوای این پیغام را برای ایمیل ganjoor@ganjoor.net ارسال کنید تا دربارهٔ آن تحقیق شود: \r\n با زدن کلید Ctrl+C می‌توانید متن این پنجره را کپی کنید." + Environment.NewLine;
-            expMessage += "Application Version = " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine;
+            expMessage += "Application Version = " + Assembly.GetExecutingAssembly().GetName().Version + Environment.NewLine;
             expMessage += "Application Path = " + Application.ExecutablePath + Environment.NewLine;
             expMessage += "Windows Version = " + Environment.OSVersion.VersionString + Environment.NewLine;
             expMessage += ((IntPtr.Size == 8) ? "64 bit mode" : (IntPtr.Size == 4) ? "32 bit mode" : "unknown mode") + Environment.NewLine;

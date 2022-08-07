@@ -15,24 +15,24 @@ namespace ganjoor
         public ItemEditor(EditItemType ItemType, string caption, string itemname)
         {
             InitializeComponent();
-            txtName.Text = this.ItemName;
+            txtName.Text = ItemName;
             btnOK.Enabled = !string.IsNullOrEmpty(ItemName);
             if (ItemType == EditItemType.Category)
             {
-                this.Text = "ویرایش مشخصات بخش";
-                this.lblCat.Text = "نام بخش:";
+                Text = "ویرایش مشخصات بخش";
+                lblCat.Text = "نام بخش:";
             }
             else
                 if (ItemType == EditItemType.Poem)
             {
-                this.Text = "ویرایش مشخصات شعر";
-                this.lblCat.Text = "نام شعر:";
+                Text = "ویرایش مشخصات شعر";
+                lblCat.Text = "نام شعر:";
             }
             else
                     if (ItemType == EditItemType.General)
             {
-                this.Text = caption;
-                this.lblCat.Text = itemname;
+                Text = caption;
+                lblCat.Text = itemname;
             }
         }
 

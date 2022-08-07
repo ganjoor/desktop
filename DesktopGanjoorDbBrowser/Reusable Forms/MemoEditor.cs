@@ -11,12 +11,12 @@ namespace ganjoor
         public MemoEditor(string memoText)
             : this()
         {
-            this.txtMemo.Text = memoText;
+            txtMemo.Text = memoText;
         }
         public string MemoText
         {
-            get => this.txtMemo.Text;
-            set => this.txtMemo.Text = value;
+            get => txtMemo.Text;
+            set => txtMemo.Text = value;
         }
     }
 }

@@ -55,8 +55,7 @@ namespace ganjoor
         /// <summary>
         /// equaivalnet for persian characters
         /// </summary>
-        private static Dictionary<char, string> _PinglishDic = new Dictionary<char, string>()
-        {
+        private static Dictionary<char, string> _PinglishDic = new() {
             {'ا', "a"},
             {'آ', "a"},
             {'ب', "b"},

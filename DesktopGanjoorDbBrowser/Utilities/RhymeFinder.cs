@@ -23,8 +23,7 @@ namespace ganjoor
                 string rhyme = PrepareTextForFindingRhyme(verseTextList[0]);
                 if (string.IsNullOrEmpty(rhyme))
                 {
-                    return new GanjooRhymeAnalysisResult()
-                    {
+                    return new GanjooRhymeAnalysisResult {
                         Rhyme = "",
                         FailVerse = verseTextList[0]
                     };
@@ -112,26 +111,21 @@ namespace ganjoor
                         if (i == -1)
                             break;
                     }
-                    if (rhyme.Length == 0)
-                    {
+                    if (rhyme.Length == 0) {
                         if (verses.Count == 2 && verseTextList.Count == 2)
                         {
-                            return new GanjooRhymeAnalysisResult()
-                            {
+                            return new GanjooRhymeAnalysisResult {
                                 Rhyme = PrepareTextForFindingRhyme(verseTextList[1]),
                                 FailVerse = "",
                                 FailVerseOrder = -1,
                             };
                         }
-                        else
-                        {
-                            return new GanjooRhymeAnalysisResult()
-                            {
-                                Rhyme = "",
-                                FailVerse = verseTextList[j],
-                                FailVerseOrder = 2 * j,
-                            };
-                        }
+
+                        return new GanjooRhymeAnalysisResult {
+                            Rhyme = "",
+                            FailVerse = verseTextList[j],
+                            FailVerseOrder = 2 * j,
+                        };
 
                     }
 
@@ -145,8 +139,7 @@ namespace ganjoor
                     }
                 }
 
-                return new GanjooRhymeAnalysisResult()
-                {
+                return new GanjooRhymeAnalysisResult {
                     Rhyme = rhyme,
                     FailVerse = "",
                     FailVerseOrder = -1,
@@ -154,7 +147,7 @@ namespace ganjoor
 
             }
 
-            return new GanjooRhymeAnalysisResult() { Rhyme = "", FailVerse = "", FailVerseOrder = -1 };
+            return new GanjooRhymeAnalysisResult { Rhyme = "", FailVerse = "", FailVerseOrder = -1 };
         }
 
         /// <summary>
