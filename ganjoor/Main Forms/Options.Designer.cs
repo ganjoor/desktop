@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class Options
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -815,60 +812,60 @@ namespace ganjoor
 
         #endregion
 
-        private Label label1;
-        private Label lblFont;
-        private Button btnSelectFont;
-        private Button btnOK;
-        private Button btnCancel;
-        private CheckBox chkHighlightSearchResults;
-        private Label label3;
-        private NumericUpDown numMaxPoems;
-        private CheckBox chkGradiantBk;
-        private Button btnGradiantEnd;
-        private Label lblNormalBk;
-        private Label lblGradiantEnd;
-        private Label lblGradiantBegin;
-        private Button btnGradiantBegin;
-        private Button btnBackColor;
-        private Label lblImage;
-        private Label lblImagePath;
-        private Button btnSelect;
-        private Label label4;
-        private Button btnTextColor;
-        private Button btnDefault;
-        private CheckBox chkCheckForUpdate;
-        private Label label5;
-        private Button btnNoBkImage;
-        private Label label6;
-        private Button btnLinkColor;
-        private Label label7;
-        private Button btnCurrentLinkColor;
-        private Label label8;
-        private Button btnHighlightColor;
-        private Label label9;
-        private Button btnBandLinkColor;
-        private CheckBox chkScrollToFaved;
-        private CheckBox chkCenteredViewMode;
-        private NumericUpDown numMaxFavs;
-        private Label label10;
-        private Label lblRandomCat;
-        private Button btnSelectRandomCat;
-        private Label label11;
-        private TextBox txtProxyServer;
-        private TextBox txtProxyPort;
-        private Label label12;
-        private GroupBox grpOptionalButtons;
-        private CheckBox chkDownloadButton;
-        private CheckBox chkEditorButton;
-        private CheckBox chkRandomButton;
-        private CheckBox chkHomeButton;
-        private CheckBox chkShowNumsButton;
-        private CheckBox chkPrintButton;
-        private CheckBox chkCopyButton;
-        private CheckBox chkCommentsButton;
-        private CheckBox chkBrowseButton;
-        private Button btnBrowseDbPath;
-        private Label lblDbPath;
-        private TextBox txtDbPath;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblFont;
+        private System.Windows.Forms.Button btnSelectFont;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox chkHighlightSearchResults;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numMaxPoems;
+        private System.Windows.Forms.CheckBox chkGradiantBk;
+        private System.Windows.Forms.Button btnGradiantEnd;
+        private System.Windows.Forms.Label lblNormalBk;
+        private System.Windows.Forms.Label lblGradiantEnd;
+        private System.Windows.Forms.Label lblGradiantBegin;
+        private System.Windows.Forms.Button btnGradiantBegin;
+        private System.Windows.Forms.Button btnBackColor;
+        private System.Windows.Forms.Label lblImage;
+        private System.Windows.Forms.Label lblImagePath;
+        private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnTextColor;
+        private System.Windows.Forms.Button btnDefault;
+        private System.Windows.Forms.CheckBox chkCheckForUpdate;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnNoBkImage;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnLinkColor;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnCurrentLinkColor;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnHighlightColor;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnBandLinkColor;
+        private System.Windows.Forms.CheckBox chkScrollToFaved;
+        private System.Windows.Forms.CheckBox chkCenteredViewMode;
+        private System.Windows.Forms.NumericUpDown numMaxFavs;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblRandomCat;
+        private System.Windows.Forms.Button btnSelectRandomCat;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtProxyServer;
+        private System.Windows.Forms.TextBox txtProxyPort;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox grpOptionalButtons;
+        private System.Windows.Forms.CheckBox chkDownloadButton;
+        private System.Windows.Forms.CheckBox chkEditorButton;
+        private System.Windows.Forms.CheckBox chkRandomButton;
+        private System.Windows.Forms.CheckBox chkHomeButton;
+        private System.Windows.Forms.CheckBox chkShowNumsButton;
+        private System.Windows.Forms.CheckBox chkPrintButton;
+        private System.Windows.Forms.CheckBox chkCopyButton;
+        private System.Windows.Forms.CheckBox chkCommentsButton;
+        private System.Windows.Forms.CheckBox chkBrowseButton;
+        private System.Windows.Forms.Button btnBrowseDbPath;
+        private System.Windows.Forms.Label lblDbPath;
+        private System.Windows.Forms.TextBox txtDbPath;
     }
 }

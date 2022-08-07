@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class DownloadingGdbList
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -106,9 +103,9 @@ namespace ganjoor
 
         #endregion
 
-        private Panel pnlList;
-        private Button btnStop;
-        private BackgroundWorker backgroundWorker;
-        private Label label1;
+        private System.Windows.Forms.Panel pnlList;
+        private System.Windows.Forms.Button btnStop;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.Windows.Forms.Label label1;
     }
 }

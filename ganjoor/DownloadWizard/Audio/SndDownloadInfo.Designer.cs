@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class SndDownloadInfo
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -71,7 +68,7 @@ namespace ganjoor
 
         #endregion
 
-        private ProgressBar prgess;
-        private Label lblSndName;
+        private System.Windows.Forms.ProgressBar prgess;
+        private System.Windows.Forms.Label lblSndName;
     }
 }

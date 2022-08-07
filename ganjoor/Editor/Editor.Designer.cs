@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class Editor
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -840,88 +837,88 @@ namespace ganjoor
 
         #endregion
 
-        private ToolStrip toolStripMain;
+        private System.Windows.Forms.ToolStrip toolStripMain;
         private GanjoorViewer ganjoorView;
-        private StatusStrip statusStripEditor;
-        private ToolStripSplitButton btnNewCat;
-        private ToolStripMenuItem btnEditCat;
-        private ToolStripSplitButton btnNewPoem;
-        private ToolStripMenuItem btnEditPoem;
-        private ToolStripButton btnPreviousPoem;
-        private ToolStripButton btnNextPoem;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripSeparator toolStripSeparator3;
-        private ToolStripMenuItem btnDeletePoem;
-        private ToolStripSplitButton btnNewPoet;
-        private ToolStripMenuItem btnEditPoet;
-        private ToolStripSplitButton btnNewLine;
-        private ToolStripMenuItem btnNewNormalLine;
-        private ToolStripMenuItem btnNewBandLine;
-        private ToolStripMenuItem btnNewBandVerse;
-        private ToolStripMenuItem btnNewCatSub;
-        private ToolStripMenuItem btnDeleteCat;
-        private ToolStripMenuItem btnNewPoemSub;
-        private ToolStripSeparator toolStripSeparator4;
-        private ToolStripSeparator toolStripSeparator5;
-        private ToolStripMenuItem btnNewPoetSub;
-        private ToolStripSeparator toolStripSeparator6;
-        private ToolStripSeparator toolStripSeparator7;
-        private ToolStripMenuItem btnDeletePoet;
-        private ToolStripSeparator toolStripSeparator8;
-        private ToolStripSeparator toolStripSeparator9;
-        private ToolStripSeparator toolStripSeparator10;
-        private ToolStripMenuItem btnDeleteLine;
-        private ToolStripSeparator toolStripSeparator11;
-        private ToolStripMenuItem btnExportCat;
-        private ToolStripSeparator toolStripSeparator12;
-        private ToolStripMenuItem btnExportPoet;
-        private ToolStripMenuItem btnReOrderCat;
-        private ToolStripMenuItem btnReOrderSubCat;
-        private ToolStripMenuItem btnNewSingleVerse;
-        private ToolStripSeparator toolStripSeparator13;
-        private ToolStripMenuItem btnDeleteAllLine;
-        private ToolStripSplitButton btnTools;
-        private ToolStripMenuItem btnMergeTwoTextColumns;
-        private ToolStripMenuItem btnReplaceInDb;
-        private ToolStripMenuItem btnChangeIDs;
-        private ToolStripMenuItem btnNewParagraph;
-        private ToolStripMenuItem btnMoveToCategory;
-        private ToolStripMenuItem btnEditPoetBio;
-        private ToolStripMenuItem btnGDBListEditor;
-        private ToolStripMenuItem btnReplaceToolStripMenuItem;
-        private ToolStripMenuItem mnuFileClipboard;
-        private ToolStripMenuItem btnImportFromTextFile;
-        private ToolStripMenuItem btnImportFromClipboard;
-        private ToolStripMenuItem btnImportFromClipboadStructuredPoem;
-        private ToolStripSeparator toolStripSeparator14;
-        private ToolStripMenuItem chkEachlineOneverse;
-        private ToolStripMenuItem chkIgnoreBlankLines;
-        private ToolStripMenuItem chkIgnoreShortLines;
-        private ToolStripSeparator toolStripSeparator15;
-        private ToolStripMenuItem btnRestructurePoem;
-        private ToolStripMenuItem btnNormalRestructure;
-        private ToolStripSeparator toolStripSeparator16;
-        private ToolStripMenuItem btnConvertBeytToBand;
-        private ToolStripMenuItem btnConvertVerseToBand;
-        private ToolStripMenuItem btnConvertLeftToRight;
-        private ToolStripMenuItem btnConvertVerseToPara;
-        private ToolStripMenuItem mnuCorrectVerses;
-        private ToolStripMenuItem btnSpaceTabText;
-        private ToolStripMenuItem mnuBio;
-        private ToolStripMenuItem mnuImport;
-        private ToolStripMenuItem mnuSplit;
-        private ToolStripMenuItem mnuExport;
-        private ToolStripMenuItem mnu2verseSplit;
-        private ToolStripMenuItem btnBreakParagraph;
-        private ToolStripMenuItem btnConvertToSingleToEnd;
-        private ToolStripMenuItem btnConvertToParaToEnd;
-        private ToolStripMenuItem btnDefaultToEnd;
-        private ToolStripMenuItem btnAppendToPre;
-        private ToolStripMenuItem btnConvertVerseToComment;
-        private ToolStripMenuItem mnuSingleVerseSplit;
-        private ToolStripMenuItem btnTechnicalProblems;
-        private ToolStripMenuItem btnAddFirstVerseToTitle;
-        private ToolStripMenuItem btnRhymeError;
+        private System.Windows.Forms.StatusStrip statusStripEditor;
+        private System.Windows.Forms.ToolStripSplitButton btnNewCat;
+        private System.Windows.Forms.ToolStripMenuItem btnEditCat;
+        private System.Windows.Forms.ToolStripSplitButton btnNewPoem;
+        private System.Windows.Forms.ToolStripMenuItem btnEditPoem;
+        private System.Windows.Forms.ToolStripButton btnPreviousPoem;
+        private System.Windows.Forms.ToolStripButton btnNextPoem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem btnDeletePoem;
+        private System.Windows.Forms.ToolStripSplitButton btnNewPoet;
+        private System.Windows.Forms.ToolStripMenuItem btnEditPoet;
+        private System.Windows.Forms.ToolStripSplitButton btnNewLine;
+        private System.Windows.Forms.ToolStripMenuItem btnNewNormalLine;
+        private System.Windows.Forms.ToolStripMenuItem btnNewBandLine;
+        private System.Windows.Forms.ToolStripMenuItem btnNewBandVerse;
+        private System.Windows.Forms.ToolStripMenuItem btnNewCatSub;
+        private System.Windows.Forms.ToolStripMenuItem btnDeleteCat;
+        private System.Windows.Forms.ToolStripMenuItem btnNewPoemSub;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem btnNewPoetSub;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem btnDeletePoet;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem btnDeleteLine;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem btnExportCat;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem btnExportPoet;
+        private System.Windows.Forms.ToolStripMenuItem btnReOrderCat;
+        private System.Windows.Forms.ToolStripMenuItem btnReOrderSubCat;
+        private System.Windows.Forms.ToolStripMenuItem btnNewSingleVerse;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ToolStripMenuItem btnDeleteAllLine;
+        private System.Windows.Forms.ToolStripSplitButton btnTools;
+        private System.Windows.Forms.ToolStripMenuItem btnMergeTwoTextColumns;
+        private System.Windows.Forms.ToolStripMenuItem btnReplaceInDb;
+        private System.Windows.Forms.ToolStripMenuItem btnChangeIDs;
+        private System.Windows.Forms.ToolStripMenuItem btnNewParagraph;
+        private System.Windows.Forms.ToolStripMenuItem btnMoveToCategory;
+        private System.Windows.Forms.ToolStripMenuItem btnEditPoetBio;
+        private System.Windows.Forms.ToolStripMenuItem btnGDBListEditor;
+        private System.Windows.Forms.ToolStripMenuItem btnReplaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileClipboard;
+        private System.Windows.Forms.ToolStripMenuItem btnImportFromTextFile;
+        private System.Windows.Forms.ToolStripMenuItem btnImportFromClipboard;
+        private System.Windows.Forms.ToolStripMenuItem btnImportFromClipboadStructuredPoem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripMenuItem chkEachlineOneverse;
+        private System.Windows.Forms.ToolStripMenuItem chkIgnoreBlankLines;
+        private System.Windows.Forms.ToolStripMenuItem chkIgnoreShortLines;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.ToolStripMenuItem btnRestructurePoem;
+        private System.Windows.Forms.ToolStripMenuItem btnNormalRestructure;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertBeytToBand;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToBand;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertLeftToRight;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToPara;
+        private System.Windows.Forms.ToolStripMenuItem mnuCorrectVerses;
+        private System.Windows.Forms.ToolStripMenuItem btnSpaceTabText;
+        private System.Windows.Forms.ToolStripMenuItem mnuBio;
+        private System.Windows.Forms.ToolStripMenuItem mnuImport;
+        private System.Windows.Forms.ToolStripMenuItem mnuSplit;
+        private System.Windows.Forms.ToolStripMenuItem mnuExport;
+        private System.Windows.Forms.ToolStripMenuItem mnu2verseSplit;
+        private System.Windows.Forms.ToolStripMenuItem btnBreakParagraph;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertToSingleToEnd;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertToParaToEnd;
+        private System.Windows.Forms.ToolStripMenuItem btnDefaultToEnd;
+        private System.Windows.Forms.ToolStripMenuItem btnAppendToPre;
+        private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToComment;
+        private System.Windows.Forms.ToolStripMenuItem mnuSingleVerseSplit;
+        private System.Windows.Forms.ToolStripMenuItem btnTechnicalProblems;
+        private System.Windows.Forms.ToolStripMenuItem btnAddFirstVerseToTitle;
+        private System.Windows.Forms.ToolStripMenuItem btnRhymeError;
     }
 }

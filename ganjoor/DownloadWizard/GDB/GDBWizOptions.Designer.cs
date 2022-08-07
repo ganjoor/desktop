@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class GDBWizOptions
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -165,15 +162,15 @@ namespace ganjoor
 
         #endregion
 
-        private Button btnClearHistory;
-        private Label label1;
-        private TextBox txtTempPath;
-        private Button btnSelectTempPath;
-        private Button btnBrowseTempPath;
-        private CheckBox chkDeleteDownloadedFiles;
-        private Button btnGDBListEditor;
-        private Button btnOK;
-        private Button btnCancel;
+        private System.Windows.Forms.Button btnClearHistory;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtTempPath;
+        private System.Windows.Forms.Button btnSelectTempPath;
+        private System.Windows.Forms.Button btnBrowseTempPath;
+        private System.Windows.Forms.CheckBox chkDeleteDownloadedFiles;
+        private System.Windows.Forms.Button btnGDBListEditor;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
 
     }
 }

@@ -1,7 +1,4 @@
 ﻿
-using System.ComponentModel;
-using System.Windows.Forms;
-
 namespace ganjoor.Audio_Support
 {
     partial class ConfirmAudioUpload
@@ -9,7 +6,7 @@ namespace ganjoor.Audio_Support
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -111,9 +108,9 @@ namespace ganjoor.Audio_Support
 
         #endregion
 
-        private Label lblMessage;
-        private CheckBox chkReplace;
-        private Button btnOK;
-        private Button btnCancel;
+        private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.CheckBox chkReplace;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

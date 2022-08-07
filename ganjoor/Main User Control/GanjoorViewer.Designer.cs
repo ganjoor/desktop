@@ -1,13 +1,11 @@
-﻿using System.ComponentModel;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class GanjoorViewer
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.

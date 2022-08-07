@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class NewGDBFound
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -164,15 +161,15 @@ namespace ganjoor
 
         #endregion
 
-        private Panel panel1;
-        private Label label1;
-        private DataGridView grdList;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewButtonColumn Column2;
-        private DataGridViewLinkColumn Column3;
-        private DataGridViewCheckBoxColumn Column4;
-        private DataGridViewCheckBoxColumn Column5;
-        private Button btnDownloadChecked;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView grdList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewButtonColumn Column2;
+        private System.Windows.Forms.DataGridViewLinkColumn Column3;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column5;
+        private System.Windows.Forms.Button btnDownloadChecked;
 
     }
 }

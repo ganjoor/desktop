@@ -8,22 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.CodeDom.Compiler;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Diagnostics;
-using System.Drawing;
-using System.Runtime.CompilerServices;
-
 namespace ganjoor.Properties {
     
     
-    [CompilerGenerated()]
-    [GeneratedCode("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
-    internal sealed partial class Settings : ApplicationSettingsBase {
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(Synchronized(new Settings())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
         public static Settings Default {
             get {
@@ -31,9 +23,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("10")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int SearchPageItems {
             get {
                 return ((int)(this["SearchPageItems"]));
@@ -43,9 +35,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int LastCat {
             get {
                 return ((int)(this["LastCat"]));
@@ -55,9 +47,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int LastPoem {
             get {
                 return ((int)(this["LastPoem"]));
@@ -67,9 +59,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LastSearchPhrase {
             get {
                 return ((string)(this["LastSearchPhrase"]));
@@ -79,9 +71,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int LastSeachStart {
             get {
                 return ((int)(this["LastSeachStart"]));
@@ -91,9 +83,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool WindowMaximized {
             get {
                 return ((bool)(this["WindowMaximized"]));
@@ -103,45 +95,45 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0, 0")]
-        public Point WindowLocation {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point WindowLocation {
             get {
-                return ((Point)(this["WindowLocation"]));
+                return ((global::System.Drawing.Point)(this["WindowLocation"]));
             }
             set {
                 this["WindowLocation"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0, 0")]
-        public Size WindowSize {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size WindowSize {
             get {
-                return ((Size)(this["WindowSize"]));
+                return ((global::System.Drawing.Size)(this["WindowSize"]));
             }
             set {
                 this["WindowSize"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("Tahoma, 8.25pt")]
-        public Font ViewFont {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Tahoma, 8.25pt")]
+        public global::System.Drawing.Font ViewFont {
             get {
-                return ((Font)(this["ViewFont"]));
+                return ((global::System.Drawing.Font)(this["ViewFont"]));
             }
             set {
                 this["ViewFont"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool HighlightKeyword {
             get {
                 return ((bool)(this["HighlightKeyword"]));
@@ -151,9 +143,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool WasShowingFavs {
             get {
                 return ((bool)(this["WasShowingFavs"]));
@@ -163,9 +155,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool BrowseButtonVisible {
             get {
                 return ((bool)(this["BrowseButtonVisible"]));
@@ -175,9 +167,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool CommentsButtonVisible {
             get {
                 return ((bool)(this["CommentsButtonVisible"]));
@@ -187,9 +179,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool CopyButtonVisible {
             get {
                 return ((bool)(this["CopyButtonVisible"]));
@@ -199,9 +191,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool PrintButtonVisible {
             get {
                 return ((bool)(this["PrintButtonVisible"]));
@@ -211,9 +203,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ShowBeytNums {
             get {
                 return ((bool)(this["ShowBeytNums"]));
@@ -223,9 +215,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ShowNumsVisible {
             get {
                 return ((bool)(this["ShowNumsVisible"]));
@@ -235,9 +227,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("500")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
         public int MaxPoemsInList {
             get {
                 return ((int)(this["MaxPoemsInList"]));
@@ -247,9 +239,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int LastCatStart {
             get {
                 return ((int)(this["LastCatStart"]));
@@ -259,9 +251,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool GradiantBackground {
             get {
                 return ((bool)(this["GradiantBackground"]));
@@ -271,45 +263,45 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("LightGray")]
-        public Color GradiantBegin {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightGray")]
+        public global::System.Drawing.Color GradiantBegin {
             get {
-                return ((Color)(this["GradiantBegin"]));
+                return ((global::System.Drawing.Color)(this["GradiantBegin"]));
             }
             set {
                 this["GradiantBegin"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("White")]
-        public Color GradiantEnd {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color GradiantEnd {
             get {
-                return ((Color)(this["GradiantEnd"]));
+                return ((global::System.Drawing.Color)(this["GradiantEnd"]));
             }
             set {
                 this["GradiantEnd"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("Window")]
-        public Color BackColor {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Window")]
+        public global::System.Drawing.Color BackColor {
             get {
-                return ((Color)(this["BackColor"]));
+                return ((global::System.Drawing.Color)(this["BackColor"]));
             }
             set {
                 this["BackColor"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string BackImagePath {
             get {
                 return ((string)(this["BackImagePath"]));
@@ -319,21 +311,21 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("ControlText")]
-        public Color TextColor {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
+        public global::System.Drawing.Color TextColor {
             get {
-                return ((Color)(this["TextColor"]));
+                return ((global::System.Drawing.Color)(this["TextColor"]));
             }
             set {
                 this["TextColor"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool CheckForUpdate {
             get {
                 return ((bool)(this["CheckForUpdate"]));
@@ -343,9 +335,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int LastSearchPoetID {
             get {
                 return ((int)(this["LastSearchPoetID"]));
@@ -355,9 +347,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool HomeButtonVisible {
             get {
                 return ((bool)(this["HomeButtonVisible"]));
@@ -367,9 +359,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool RandomButtonVisible {
             get {
                 return ((bool)(this["RandomButtonVisible"]));
@@ -379,45 +371,45 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("Blue")]
-        public Color LinkColor {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
+        public global::System.Drawing.Color LinkColor {
             get {
-                return ((Color)(this["LinkColor"]));
+                return ((global::System.Drawing.Color)(this["LinkColor"]));
             }
             set {
                 this["LinkColor"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("Purple")]
-        public Color CurrentLinkColor {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Purple")]
+        public global::System.Drawing.Color CurrentLinkColor {
             get {
-                return ((Color)(this["CurrentLinkColor"]));
+                return ((global::System.Drawing.Color)(this["CurrentLinkColor"]));
             }
             set {
                 this["CurrentLinkColor"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("Red")]
-        public Color HighlightColor {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color HighlightColor {
             get {
-                return ((Color)(this["HighlightColor"]));
+                return ((global::System.Drawing.Color)(this["HighlightColor"]));
             }
             set {
                 this["HighlightColor"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IsNewVersion {
             get {
                 return ((bool)(this["IsNewVersion"]));
@@ -427,21 +419,21 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("Red")]
-        public Color BandLinkColor {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color BandLinkColor {
             get {
-                return ((Color)(this["BandLinkColor"]));
+                return ((global::System.Drawing.Color)(this["BandLinkColor"]));
             }
             set {
                 this["BandLinkColor"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ScrollToFavedVerse {
             get {
                 return ((bool)(this["ScrollToFavedVerse"]));
@@ -451,9 +443,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int ViewMode {
             get {
                 return ((int)(this["ViewMode"]));
@@ -463,9 +455,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("10")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int FavItemsInPage {
             get {
                 return ((int)(this["FavItemsInPage"]));
@@ -475,9 +467,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("3")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int ScrollingSpeed {
             get {
                 return ((int)(this["ScrollingSpeed"]));
@@ -487,9 +479,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool EditorButtonVisible {
             get {
                 return ((bool)(this["EditorButtonVisible"]));
@@ -499,9 +491,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string HttpProxyServer {
             get {
                 return ((string)(this["HttpProxyServer"]));
@@ -511,9 +503,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string HttpProxyPort {
             get {
                 return ((string)(this["HttpProxyPort"]));
@@ -523,9 +515,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("24")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
         public string RandomCats {
             get {
                 return ((string)(this["RandomCats"]));
@@ -535,9 +527,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DownloadButtonVisible {
             get {
                 return ((bool)(this["DownloadButtonVisible"]));
@@ -547,42 +539,42 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        public StringCollection CustomDownloadUrls {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection CustomDownloadUrls {
             get {
-                return ((StringCollection)(this["CustomDownloadUrls"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomDownloadUrls"]));
             }
             set {
                 this["CustomDownloadUrls"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        public StringCollection CustomDownloadListNames {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection CustomDownloadListNames {
             get {
-                return ((StringCollection)(this["CustomDownloadListNames"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomDownloadListNames"]));
             }
             set {
                 this["CustomDownloadListNames"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        public StringCollection CustomDownloadListDescriptions {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection CustomDownloadListDescriptions {
             get {
-                return ((StringCollection)(this["CustomDownloadListDescriptions"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomDownloadListDescriptions"]));
             }
             set {
                 this["CustomDownloadListDescriptions"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("http://i.ganjoor.net/android/androidgdbs.xml")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://i.ganjoor.net/android/androidgdbs.xml")]
         public string LastDownloadUrl {
             get {
                 return ((string)(this["LastDownloadUrl"]));
@@ -592,20 +584,20 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        public StringCollection CustomDownloadListMoreInfoUrls {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection CustomDownloadListMoreInfoUrls {
             get {
-                return ((StringCollection)(this["CustomDownloadListMoreInfoUrls"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomDownloadListMoreInfoUrls"]));
             }
             set {
                 this["CustomDownloadListMoreInfoUrls"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string DownloadPath {
             get {
                 return ((string)(this["DownloadPath"]));
@@ -615,9 +607,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DeleteDownloadedFiles {
             get {
                 return ((bool)(this["DeleteDownloadedFiles"]));
@@ -627,9 +619,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool DbIsIndexed {
             get {
                 return ((bool)(this["DbIsIndexed"]));
@@ -639,9 +631,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string SoundsPath {
             get {
                 return ((string)(this["SoundsPath"]));
@@ -651,9 +643,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("Poet")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Poet")]
         public string ExportLevel {
             get {
                 return ((string)(this["ExportLevel"]));
@@ -663,9 +655,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ExportPoetName {
             get {
                 return ((bool)(this["ExportPoetName"]));
@@ -675,9 +667,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("False")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ExportCatName {
             get {
                 return ((bool)(this["ExportCatName"]));
@@ -687,9 +679,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("True")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ExportPoemName {
             get {
                 return ((bool)(this["ExportPoemName"]));
@@ -699,9 +691,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("===")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("===")]
         public string ExportPoemSep {
             get {
                 return ((string)(this["ExportPoemSep"]));
@@ -711,9 +703,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("---")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("---")]
         public string ExportCatSep {
             get {
                 return ((string)(this["ExportCatSep"]));
@@ -723,9 +715,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("***")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("***")]
         public string ExportPoetSep {
             get {
                 return ((string)(this["ExportPoetSep"]));
@@ -735,9 +727,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string MuseumToken {
             get {
                 return ((string)(this["MuseumToken"]));
@@ -747,9 +739,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("https://api.ganjoor.net")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.ganjoor.net")]
         public string GanjoorServiceUrl {
             get {
                 return ((string)(this["GanjoorServiceUrl"]));
@@ -759,9 +751,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int LastSearchType {
             get {
                 return ((int)(this["LastSearchType"]));
@@ -771,9 +763,9 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("0")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int LastSearchLocationType {
             get {
                 return ((int)(this["LastSearchLocationType"]));
@@ -783,21 +775,21 @@ namespace ganjoor.Properties {
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("00000000-0000-0000-0000-000000000000")]
-        public Guid SessionId {
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
+        public global::System.Guid SessionId {
             get {
-                return ((Guid)(this["SessionId"]));
+                return ((global::System.Guid)(this["SessionId"]));
             }
             set {
                 this["SessionId"] = value;
             }
         }
         
-        [UserScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("")]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string DefProfile {
             get {
                 return ((string)(this["DefProfile"]));

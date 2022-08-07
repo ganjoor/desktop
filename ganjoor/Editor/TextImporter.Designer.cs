@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class TextImporter
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -208,18 +205,18 @@ namespace ganjoor
 
         #endregion
 
-        private Label lblComment;
-        private Label lblMainCatText;
-        private TextBox txtMainCat;
-        private Label lblSubCats;
-        private TextBox txtSubCats;
-        private Label lblParagraphs;
-        private Label lblV1;
-        private Label lblV2;
-        private Label lblMinVerseWords;
-        private NumericUpDown numMaxVerse;
-        private Button btnOK;
-        private Button btnCancel;
-        private CheckBox chkTabularVerses;
+        private System.Windows.Forms.Label lblComment;
+        private System.Windows.Forms.Label lblMainCatText;
+        private System.Windows.Forms.TextBox txtMainCat;
+        private System.Windows.Forms.Label lblSubCats;
+        private System.Windows.Forms.TextBox txtSubCats;
+        private System.Windows.Forms.Label lblParagraphs;
+        private System.Windows.Forms.Label lblV1;
+        private System.Windows.Forms.Label lblV2;
+        private System.Windows.Forms.Label lblMinVerseWords;
+        private System.Windows.Forms.NumericUpDown numMaxVerse;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox chkTabularVerses;
     }
 }

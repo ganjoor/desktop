@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class ReplaceInDb
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -206,17 +203,17 @@ namespace ganjoor
 
         #endregion
 
-        private Label label1;
-        private Button btnYaKaf;
-        private Button btnHeye;
-        private Button btnNumbers;
-        private GroupBox groupBox1;
-        private Button btnReplace;
-        private Label label3;
-        private Label label2;
-        private TextBox txtRep;
-        private TextBox txtFind;
-        private Button btnOther;
-        private CheckBox chkOnlyPoemTitles;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnYaKaf;
+        private System.Windows.Forms.Button btnHeye;
+        private System.Windows.Forms.Button btnNumbers;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnReplace;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtRep;
+        private System.Windows.Forms.TextBox txtFind;
+        private System.Windows.Forms.Button btnOther;
+        private System.Windows.Forms.CheckBox chkOnlyPoemTitles;
     }
 }

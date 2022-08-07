@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class IDChanger
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -170,13 +167,13 @@ namespace ganjoor
 
         #endregion
 
-        private Label label1;
-        private NumericUpDown ictlPoet;
-        private NumericUpDown ictlCat;
-        private Label label2;
-        private Label label3;
-        private NumericUpDown ictlPoem;
-        private Button btnOK;
-        private Button btnCancel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown ictlPoet;
+        private System.Windows.Forms.NumericUpDown ictlCat;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown ictlPoem;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

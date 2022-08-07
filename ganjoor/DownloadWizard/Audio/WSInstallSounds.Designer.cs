@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class WSInstallSounds
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -100,9 +97,9 @@ namespace ganjoor
 
         #endregion
 
-        private DataGridView grdList;
-        private Label lblDesc;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridView grdList;
+        private System.Windows.Forms.Label lblDesc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }

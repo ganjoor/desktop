@@ -8,16 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.CodeDom.Compiler;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Globalization;
-using System.Resources;
-using System.Runtime.CompilerServices;
-
 namespace ganjoor.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -25,27 +19,27 @@ namespace ganjoor.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
-    [DebuggerNonUserCode()]
-    [CompilerGenerated()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
         
-        private static ResourceManager resourceMan;
+        private static global::System.Resources.ResourceManager resourceMan;
         
-        private static CultureInfo resourceCulture;
+        private static global::System.Globalization.CultureInfo resourceCulture;
         
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static ResourceManager ResourceManager {
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if (ReferenceEquals(resourceMan, null)) {
-                    ResourceManager temp = new ResourceManager("ganjoor.Properties.Resources", typeof(Resources).Assembly);
+                if (object.ReferenceEquals(resourceMan, null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ganjoor.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -56,8 +50,8 @@ namespace ganjoor.Properties {
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static CultureInfo Culture {
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -69,530 +63,530 @@ namespace ganjoor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap accept {
+        internal static System.Drawing.Bitmap accept {
             get {
                 object obj = ResourceManager.GetObject("accept", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap add {
+        internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap application_edit {
+        internal static System.Drawing.Bitmap application_edit {
             get {
                 object obj = ResourceManager.GetObject("application_edit", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap back {
+        internal static System.Drawing.Bitmap back {
             get {
                 object obj = ResourceManager.GetObject("back", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap back16 {
+        internal static System.Drawing.Bitmap back16 {
             get {
                 object obj = ResourceManager.GetObject("back16", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap calculator_accept {
+        internal static System.Drawing.Bitmap calculator_accept {
             get {
                 object obj = ResourceManager.GetObject("calculator_accept", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap clock {
+        internal static System.Drawing.Bitmap clock {
             get {
                 object obj = ResourceManager.GetObject("clock", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap comments {
+        internal static System.Drawing.Bitmap comments {
             get {
                 object obj = ResourceManager.GetObject("comments", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap database_add {
+        internal static System.Drawing.Bitmap database_add {
             get {
                 object obj = ResourceManager.GetObject("database_add", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap database_down {
+        internal static System.Drawing.Bitmap database_down {
             get {
                 object obj = ResourceManager.GetObject("database_down", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap database_search {
+        internal static System.Drawing.Bitmap database_search {
             get {
                 object obj = ResourceManager.GetObject("database_search", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap dices_32 {
+        internal static System.Drawing.Bitmap dices_32 {
             get {
                 object obj = ResourceManager.GetObject("dices_32", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap displaywaveform {
+        internal static System.Drawing.Bitmap displaywaveform {
             get {
                 object obj = ResourceManager.GetObject("displaywaveform", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap down {
+        internal static System.Drawing.Bitmap down {
             get {
                 object obj = ResourceManager.GetObject("down", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap edit {
+        internal static System.Drawing.Bitmap edit {
             get {
                 object obj = ResourceManager.GetObject("edit", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap fast_forward {
+        internal static System.Drawing.Bitmap fast_forward {
             get {
                 object obj = ResourceManager.GetObject("fast_forward", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap fav {
+        internal static System.Drawing.Bitmap fav {
             get {
                 object obj = ResourceManager.GetObject("fav", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap favorite {
+        internal static System.Drawing.Bitmap favorite {
             get {
                 object obj = ResourceManager.GetObject("favorite", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap favorite_add {
+        internal static System.Drawing.Bitmap favorite_add {
             get {
                 object obj = ResourceManager.GetObject("favorite_add", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap favorite_remove {
+        internal static System.Drawing.Bitmap favorite_remove {
             get {
                 object obj = ResourceManager.GetObject("favorite_remove", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap firefox_alt {
+        internal static System.Drawing.Bitmap firefox_alt {
             get {
                 object obj = ResourceManager.GetObject("firefox_alt", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap folder {
+        internal static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap folder_down {
+        internal static System.Drawing.Bitmap folder_down {
             get {
                 object obj = ResourceManager.GetObject("folder_down", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap folder_up {
+        internal static System.Drawing.Bitmap folder_up {
             get {
                 object obj = ResourceManager.GetObject("folder_up", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap gear16 {
+        internal static System.Drawing.Bitmap gear16 {
             get {
                 object obj = ResourceManager.GetObject("gear16", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap help {
+        internal static System.Drawing.Bitmap help {
             get {
                 object obj = ResourceManager.GetObject("help", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap home_next {
+        internal static System.Drawing.Bitmap home_next {
             get {
                 object obj = ResourceManager.GetObject("home_next", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap next {
+        internal static System.Drawing.Bitmap next {
             get {
                 object obj = ResourceManager.GetObject("next", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap note_accept {
+        internal static System.Drawing.Bitmap note_accept {
             get {
                 object obj = ResourceManager.GetObject("note_accept", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap notrack32 {
+        internal static System.Drawing.Bitmap notrack32 {
             get {
                 object obj = ResourceManager.GetObject("notrack32", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap pause {
+        internal static System.Drawing.Bitmap pause {
             get {
                 object obj = ResourceManager.GetObject("pause", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap play {
+        internal static System.Drawing.Bitmap play {
             get {
                 object obj = ResourceManager.GetObject("play", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap play16 {
+        internal static System.Drawing.Bitmap play16 {
             get {
                 object obj = ResourceManager.GetObject("play16", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap printer {
+        internal static System.Drawing.Bitmap printer {
             get {
                 object obj = ResourceManager.GetObject("printer", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap process {
+        internal static System.Drawing.Bitmap process {
             get {
                 object obj = ResourceManager.GetObject("process", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap remove {
+        internal static System.Drawing.Bitmap remove {
             get {
                 object obj = ResourceManager.GetObject("remove", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap repeat {
+        internal static System.Drawing.Bitmap repeat {
             get {
                 object obj = ResourceManager.GetObject("repeat", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap repeat1 {
+        internal static System.Drawing.Bitmap repeat1 {
             get {
                 object obj = ResourceManager.GetObject("repeat1", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap rewind {
+        internal static System.Drawing.Bitmap rewind {
             get {
                 object obj = ResourceManager.GetObject("rewind", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap search {
+        internal static System.Drawing.Bitmap search {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap search_add {
+        internal static System.Drawing.Bitmap search_add {
             get {
                 object obj = ResourceManager.GetObject("search_add", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap search_remove {
+        internal static System.Drawing.Bitmap search_remove {
             get {
                 object obj = ResourceManager.GetObject("search_remove", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap selall {
+        internal static System.Drawing.Bitmap selall {
             get {
                 object obj = ResourceManager.GetObject("selall", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap selnone {
+        internal static System.Drawing.Bitmap selnone {
             get {
                 object obj = ResourceManager.GetObject("selnone", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap sound {
+        internal static System.Drawing.Bitmap sound {
             get {
                 object obj = ResourceManager.GetObject("sound", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap sound_off {
+        internal static System.Drawing.Bitmap sound_off {
             get {
                 object obj = ResourceManager.GetObject("sound_off", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap sound_on {
+        internal static System.Drawing.Bitmap sound_on {
             get {
                 object obj = ResourceManager.GetObject("sound_on", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap stop {
+        internal static System.Drawing.Bitmap stop {
             get {
                 object obj = ResourceManager.GetObject("stop", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap stop16 {
+        internal static System.Drawing.Bitmap stop16 {
             get {
                 object obj = ResourceManager.GetObject("stop16", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap tools {
+        internal static System.Drawing.Bitmap tools {
             get {
                 object obj = ResourceManager.GetObject("tools", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap track32 {
+        internal static System.Drawing.Bitmap track32 {
             get {
                 object obj = ResourceManager.GetObject("track32", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap up {
+        internal static System.Drawing.Bitmap up {
             get {
                 object obj = ResourceManager.GetObject("up", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static Bitmap user {
+        internal static System.Drawing.Bitmap user {
             get {
                 object obj = ResourceManager.GetObject("user", resourceCulture);
-                return ((Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

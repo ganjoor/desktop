@@ -1,7 +1,4 @@
 ﻿
-using System.ComponentModel;
-using System.Windows.Forms;
-
 namespace ganjoor.Audio_Support.TimingHelper
 {
     partial class THFirstVerse
@@ -9,7 +6,7 @@ namespace ganjoor.Audio_Support.TimingHelper
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -95,10 +92,10 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         #endregion
 
-        private Button btnStart;
-        private Label lblVerse;
-        private Panel pnlBottom;
-        private Timer timerStartToSilence;
-        private Timer timerSilenceToStop;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Label lblVerse;
+        private System.Windows.Forms.Panel pnlBottom;
+        private System.Windows.Forms.Timer timerStartToSilence;
+        private System.Windows.Forms.Timer timerSilenceToStop;
     }
 }

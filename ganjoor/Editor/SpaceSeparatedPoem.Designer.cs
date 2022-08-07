@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class SpaceSeparatedPoem
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -177,14 +174,14 @@ namespace ganjoor
 
         #endregion
 
-        private Panel panel1;
-        private CheckBox chkTab;
-        private CheckBox chkSpace;
-        private Button btnInsert;
-        private Button btnConvert;
-        private GroupBox grpResult;
-        private TextBox result;
-        private GroupBox grpUnFormattedText;
-        private TextBox mainText;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox chkTab;
+        private System.Windows.Forms.CheckBox chkSpace;
+        private System.Windows.Forms.Button btnInsert;
+        private System.Windows.Forms.Button btnConvert;
+        private System.Windows.Forms.GroupBox grpResult;
+        private System.Windows.Forms.TextBox result;
+        private System.Windows.Forms.GroupBox grpUnFormattedText;
+        private System.Windows.Forms.TextBox mainText;
     }
 }

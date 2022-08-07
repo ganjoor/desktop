@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class ConflictingCats
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -156,13 +153,13 @@ namespace ganjoor
 
         #endregion
 
-        private Panel panel2;
-        private Button btnCancel;
-        private Button btnOK;
-        private Label label1;
-        private DataGridView grdConflictingCats;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewCheckBoxColumn Column2;
-        private Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView grdConflictingCats;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

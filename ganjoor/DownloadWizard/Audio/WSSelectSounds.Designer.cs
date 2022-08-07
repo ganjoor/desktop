@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class WSSelectSounds
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -199,18 +196,18 @@ namespace ganjoor
 
         #endregion
 
-        private ToolStripButton btnSelAllWhites;
-        private Label lblDesc;
-        private ToolStripButton btnSelNone;
-        private ToolStrip tlbr;
-        private ToolStripButton btnRefresh;
-        private DataGridView grdList;
-        private DataGridViewTextBoxColumn clmnDesc;
-        private DataGridViewTextBoxColumn clmnSize;
-        private DataGridViewCheckBoxColumn clmnDownload;
-        private ToolStripButton btnAllDownloadable;
-        private ToolStripSeparator sep;
-        private ToolStripButton btnMarkSelected;
-        private ToolStripButton btnUnMarkSelected;
+        private System.Windows.Forms.ToolStripButton btnSelAllWhites;
+        private System.Windows.Forms.Label lblDesc;
+        private System.Windows.Forms.ToolStripButton btnSelNone;
+        private System.Windows.Forms.ToolStrip tlbr;
+        private System.Windows.Forms.ToolStripButton btnRefresh;
+        private System.Windows.Forms.DataGridView grdList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmnDesc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmnSize;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn clmnDownload;
+        private System.Windows.Forms.ToolStripButton btnAllDownloadable;
+        private System.Windows.Forms.ToolStripSeparator sep;
+        private System.Windows.Forms.ToolStripButton btnMarkSelected;
+        private System.Windows.Forms.ToolStripButton btnUnMarkSelected;
     }
 }

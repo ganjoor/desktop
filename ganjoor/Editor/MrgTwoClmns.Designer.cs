@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class MrgTwoClmns
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -219,16 +216,16 @@ namespace ganjoor
 
         #endregion
 
-        private GroupBox groupBox1;
-        private TextBox clmn1;
-        private GroupBox groupBox2;
-        private TextBox clmn2;
-        private GroupBox groupBox3;
-        private TextBox result;
-        private Panel panel1;
-        private CheckBox chkIgnoreBlankLines;
-        private Button btnInsert;
-        private Button btnMerge;
-        private CheckBox chkAutomaticFocus;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox clmn1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox clmn2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox result;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox chkIgnoreBlankLines;
+        private System.Windows.Forms.Button btnInsert;
+        private System.Windows.Forms.Button btnMerge;
+        private System.Windows.Forms.CheckBox chkAutomaticFocus;
     }
 }

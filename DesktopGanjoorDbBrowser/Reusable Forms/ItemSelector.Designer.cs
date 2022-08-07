@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class ItemSelector
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -97,9 +94,9 @@ namespace ganjoor
 
         #endregion
 
-        private Button btnCancel;
-        private Button btnOK;
-        private ListBox lstItems;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.ListBox lstItems;
 
     }
 }

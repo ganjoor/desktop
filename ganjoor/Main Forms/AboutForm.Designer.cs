@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class AboutForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -310,23 +307,23 @@ namespace ganjoor
 
         #endregion
 
-        private Label lblAppTitle;
-        private Label lblAppVersion;
-        private LinkLabel lnkGanjoorOnSFNet;
-        private Button btnOK;
-        private LinkLabel lnkIcons;
-        private LinkLabel lnkHamidReza;
-        private LinkLabel lnkSources;
-        private LinkLabel lnkIconsEditor;
-        private Label label1;
-        private DataGridView grdContributers;
-        private LinkLabel lnkBlog;
-        private LinkLabel lnkEditor;
-        private DataGridViewLinkColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewLinkColumn Column3;
-        private Label lblIcon;
-        private LinkLabel lblImanAbidi;
-        private LinkLabel lblHrBDev;
+        private System.Windows.Forms.Label lblAppTitle;
+        private System.Windows.Forms.Label lblAppVersion;
+        private System.Windows.Forms.LinkLabel lnkGanjoorOnSFNet;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.LinkLabel lnkIcons;
+        private System.Windows.Forms.LinkLabel lnkHamidReza;
+        private System.Windows.Forms.LinkLabel lnkSources;
+        private System.Windows.Forms.LinkLabel lnkIconsEditor;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView grdContributers;
+        private System.Windows.Forms.LinkLabel lnkBlog;
+        private System.Windows.Forms.LinkLabel lnkEditor;
+        private System.Windows.Forms.DataGridViewLinkColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewLinkColumn Column3;
+        private System.Windows.Forms.Label lblIcon;
+        private System.Windows.Forms.LinkLabel lblImanAbidi;
+        private System.Windows.Forms.LinkLabel lblHrBDev;
     }
 }

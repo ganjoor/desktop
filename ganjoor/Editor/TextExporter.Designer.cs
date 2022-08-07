@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class TextExporter
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -198,17 +195,17 @@ namespace ganjoor
 
         #endregion
 
-        private Label lblExportLevel;
-        private ComboBox cmbTextExportLevel;
-        private Label lblExportLevelComment;
-        private CheckBox chkPoet;
-        private TextBox txtPoetSeparator;
-        private TextBox txtCatSeparator;
-        private CheckBox chkCat;
-        private TextBox txtPoemSeparator;
-        private CheckBox chkPoem;
-        private Label lblComment;
-        private Button btnCancel;
-        private Button btnOK;
+        private System.Windows.Forms.Label lblExportLevel;
+        private System.Windows.Forms.ComboBox cmbTextExportLevel;
+        private System.Windows.Forms.Label lblExportLevelComment;
+        private System.Windows.Forms.CheckBox chkPoet;
+        private System.Windows.Forms.TextBox txtPoetSeparator;
+        private System.Windows.Forms.TextBox txtCatSeparator;
+        private System.Windows.Forms.CheckBox chkCat;
+        private System.Windows.Forms.TextBox txtPoemSeparator;
+        private System.Windows.Forms.CheckBox chkPoem;
+        private System.Windows.Forms.Label lblComment;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
     }
 }

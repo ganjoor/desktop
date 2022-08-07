@@ -1,14 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     partial class SndWizOptions
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -128,11 +125,11 @@ namespace ganjoor
 
         #endregion
 
-        private Button btnCancel;
-        private Button btnOK;
-        private Button btnBrowseTempPath;
-        private Button btnSelectTempPath;
-        private TextBox txtTempPath;
-        private Label label1;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnBrowseTempPath;
+        private System.Windows.Forms.Button btnSelectTempPath;
+        private System.Windows.Forms.TextBox txtTempPath;
+        private System.Windows.Forms.Label label1;
     }
 }
