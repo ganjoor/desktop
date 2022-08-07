@@ -12,7 +12,7 @@ using System.Xml;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
- * Hamid Reza Mohammadi http://ganjoor.net
+ * Hamid Reza Mohammadi https://ganjoor.net
  *
  * Version 1.0:
  *   Changelog (after a pre 1.0 release):   

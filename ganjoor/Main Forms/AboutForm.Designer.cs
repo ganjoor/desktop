@@ -45,26 +45,27 @@
             this.lnkEditor = new System.Windows.Forms.LinkLabel();
             this.lblIcon = new System.Windows.Forms.Label();
             this.lblImanAbidi = new System.Windows.Forms.LinkLabel();
+            this.lblHrBDev = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.grdContributers)).BeginInit();
             this.SuspendLayout();
             // 
             // lblAppTitle
             // 
             this.lblAppTitle.AutoSize = true;
-            this.lblAppTitle.Location = new System.Drawing.Point(75, 11);
+            this.lblAppTitle.Location = new System.Drawing.Point(121, 9);
             this.lblAppTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAppTitle.Name = "lblAppTitle";
-            this.lblAppTitle.Size = new System.Drawing.Size(273, 13);
+            this.lblAppTitle.Size = new System.Drawing.Size(416, 21);
             this.lblAppTitle.TabIndex = 0;
             this.lblAppTitle.Text = "گنجور رومیزی (نرم‌افزار رایگان و بازمتن مرور اشعار فارسی)";
             // 
             // lblAppVersion
             // 
             this.lblAppVersion.AutoSize = true;
-            this.lblAppVersion.Location = new System.Drawing.Point(180, 30);
+            this.lblAppVersion.Location = new System.Drawing.Point(252, 45);
             this.lblAppVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAppVersion.Name = "lblAppVersion";
-            this.lblAppVersion.Size = new System.Drawing.Size(59, 13);
+            this.lblAppVersion.Size = new System.Drawing.Size(88, 21);
             this.lblAppVersion.TabIndex = 1;
             this.lblAppVersion.Text = "ویرایش 0.0";
             // 
@@ -72,11 +73,11 @@
             // 
             this.lnkGanjoorOnSFNet.AutoSize = true;
             this.lnkGanjoorOnSFNet.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(171, 50);
+            this.lnkGanjoorOnSFNet.Location = new System.Drawing.Point(242, 81);
             this.lnkGanjoorOnSFNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkGanjoorOnSFNet.Name = "lnkGanjoorOnSFNet";
             this.lnkGanjoorOnSFNet.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lnkGanjoorOnSFNet.Size = new System.Drawing.Size(80, 13);
+            this.lnkGanjoorOnSFNet.Size = new System.Drawing.Size(118, 21);
             this.lnkGanjoorOnSFNet.TabIndex = 2;
             this.lnkGanjoorOnSFNet.TabStop = true;
             this.lnkGanjoorOnSFNet.Text = "dg.ganjoor.net";
@@ -85,10 +86,10 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(179, 434);
+            this.btnOK.Location = new System.Drawing.Point(261, 671);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(60, 22);
+            this.btnOK.Size = new System.Drawing.Size(106, 43);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "تأیید";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -97,10 +98,10 @@
             // 
             this.lnkIcons.AutoSize = true;
             this.lnkIcons.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkIcons.Location = new System.Drawing.Point(160, 106);
+            this.lnkIcons.Location = new System.Drawing.Point(237, 225);
             this.lnkIcons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIcons.Name = "lnkIcons";
-            this.lnkIcons.Size = new System.Drawing.Size(98, 13);
+            this.lnkIcons.Size = new System.Drawing.Size(152, 21);
             this.lnkIcons.TabIndex = 4;
             this.lnkIcons.TabStop = true;
             this.lnkIcons.Text = "منبع آیکونهای برنامه";
@@ -110,10 +111,10 @@
             // 
             this.lnkHamidReza.AutoSize = true;
             this.lnkHamidReza.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkHamidReza.Location = new System.Drawing.Point(166, 69);
+            this.lnkHamidReza.Location = new System.Drawing.Point(237, 117);
             this.lnkHamidReza.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkHamidReza.Name = "lnkHamidReza";
-            this.lnkHamidReza.Size = new System.Drawing.Size(86, 13);
+            this.lnkHamidReza.Size = new System.Drawing.Size(130, 21);
             this.lnkHamidReza.TabIndex = 3;
             this.lnkHamidReza.TabStop = true;
             this.lnkHamidReza.Text = "حمیدرضا محمدی";
@@ -123,10 +124,10 @@
             // 
             this.lnkSources.AutoSize = true;
             this.lnkSources.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkSources.Location = new System.Drawing.Point(149, 146);
+            this.lnkSources.Location = new System.Drawing.Point(210, 297);
             this.lnkSources.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkSources.Name = "lnkSources";
-            this.lnkSources.Size = new System.Drawing.Size(120, 13);
+            this.lnkSources.Size = new System.Drawing.Size(186, 21);
             this.lnkSources.TabIndex = 6;
             this.lnkSources.TabStop = true;
             this.lnkSources.Text = "منابع متون و اشعار گنجور";
@@ -136,10 +137,10 @@
             // 
             this.lnkIconsEditor.AutoSize = true;
             this.lnkIconsEditor.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkIconsEditor.Location = new System.Drawing.Point(139, 126);
+            this.lnkIconsEditor.Location = new System.Drawing.Point(200, 261);
             this.lnkIconsEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkIconsEditor.Name = "lnkIconsEditor";
-            this.lnkIconsEditor.Size = new System.Drawing.Size(141, 13);
+            this.lnkIconsEditor.Size = new System.Drawing.Size(217, 21);
             this.lnkIconsEditor.TabIndex = 5;
             this.lnkIconsEditor.TabStop = true;
             this.lnkIconsEditor.Text = "منبع آیکونهای بخش ویرایشگر";
@@ -148,10 +149,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 201);
+            this.label1.Location = new System.Drawing.Point(69, 418);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(333, 13);
+            this.label1.Size = new System.Drawing.Size(517, 21);
             this.label1.TabIndex = 8;
             this.label1.Text = "دوستانی که با تایپ آثار شاعران به گسترش گنجور رومیزی کمک کرده‌اند:";
             // 
@@ -165,18 +166,19 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.grdContributers.Location = new System.Drawing.Point(12, 221);
+            this.grdContributers.Location = new System.Drawing.Point(0, 442);
             this.grdContributers.Name = "grdContributers";
             this.grdContributers.ReadOnly = true;
             this.grdContributers.RowHeadersWidth = 11;
             this.grdContributers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdContributers.Size = new System.Drawing.Size(395, 186);
+            this.grdContributers.Size = new System.Drawing.Size(643, 186);
             this.grdContributers.TabIndex = 9;
             this.grdContributers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdContributers_CellContentClick);
             // 
             // Column1
             // 
             this.Column1.HeaderText = "نام";
+            this.Column1.MinimumWidth = 8;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -187,6 +189,7 @@
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.HeaderText = "بخش";
+            this.Column2.MinimumWidth = 8;
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
@@ -194,6 +197,7 @@
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column3.HeaderText = "توضیح بیشتر";
+            this.Column3.MinimumWidth = 8;
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             this.Column3.Width = 75;
@@ -202,10 +206,10 @@
             // 
             this.lnkBlog.AutoSize = true;
             this.lnkBlog.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkBlog.Location = new System.Drawing.Point(176, 166);
+            this.lnkBlog.Location = new System.Drawing.Point(250, 333);
             this.lnkBlog.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkBlog.Name = "lnkBlog";
-            this.lnkBlog.Size = new System.Drawing.Size(71, 13);
+            this.lnkBlog.Size = new System.Drawing.Size(110, 21);
             this.lnkBlog.TabIndex = 7;
             this.lnkBlog.TabStop = true;
             this.lnkBlog.Text = "تازه‌های گنجور";
@@ -215,10 +219,10 @@
             // 
             this.lnkEditor.AutoSize = true;
             this.lnkEditor.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lnkEditor.Location = new System.Drawing.Point(147, 414);
+            this.lnkEditor.Location = new System.Drawing.Point(210, 631);
             this.lnkEditor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lnkEditor.Name = "lnkEditor";
-            this.lnkEditor.Size = new System.Drawing.Size(121, 13);
+            this.lnkEditor.Size = new System.Drawing.Size(188, 21);
             this.lnkEditor.TabIndex = 10;
             this.lnkEditor.TabStop = true;
             this.lnkEditor.Text = "چگونه اشعار را تایپ کنم؟";
@@ -227,10 +231,10 @@
             // lblIcon
             // 
             this.lblIcon.AutoSize = true;
-            this.lblIcon.Location = new System.Drawing.Point(79, 184);
+            this.lblIcon.Location = new System.Drawing.Point(121, 369);
             this.lblIcon.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIcon.Name = "lblIcon";
-            this.lblIcon.Size = new System.Drawing.Size(257, 13);
+            this.lblIcon.Size = new System.Drawing.Size(396, 21);
             this.lblIcon.TabIndex = 11;
             this.lblIcon.Text = "طراحی آیکونهای برنامه: یوسف زمانی، ارسلان سفیدگر";
             // 
@@ -238,22 +242,36 @@
             // 
             this.lblImanAbidi.AutoSize = true;
             this.lblImanAbidi.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lblImanAbidi.Location = new System.Drawing.Point(139, 88);
+            this.lblImanAbidi.Location = new System.Drawing.Point(200, 189);
             this.lblImanAbidi.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblImanAbidi.Name = "lblImanAbidi";
-            this.lblImanAbidi.Size = new System.Drawing.Size(144, 13);
+            this.lblImanAbidi.Size = new System.Drawing.Size(220, 21);
             this.lblImanAbidi.TabIndex = 12;
             this.lblImanAbidi.TabStop = true;
             this.lblImanAbidi.Text = "به کمک ایمان عبیدی آشتیانی";
             this.lblImanAbidi.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblImanAbidi_LinkClicked);
             // 
+            // lblHrBDev
+            // 
+            this.lblHrBDev.AutoSize = true;
+            this.lblHrBDev.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lblHrBDev.Location = new System.Drawing.Point(184, 153);
+            this.lblHrBDev.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblHrBDev.Name = "lblHrBDev";
+            this.lblHrBDev.Size = new System.Drawing.Size(258, 21);
+            this.lblHrBDev.TabIndex = 13;
+            this.lblHrBDev.TabStop = true;
+            this.lblHrBDev.Text = "پورت دانت ۶ به همت حمیدرضا بیات";
+            this.lblHrBDev.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblHrBDev_LinkClicked);
+            // 
             // AboutForm
             // 
             this.AcceptButton = this.btnOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(419, 462);
+            this.ClientSize = new System.Drawing.Size(644, 740);
+            this.Controls.Add(this.lblHrBDev);
             this.Controls.Add(this.lblImanAbidi);
             this.Controls.Add(this.lblIcon);
             this.Controls.Add(this.lnkEditor);
@@ -268,7 +286,7 @@
             this.Controls.Add(this.lnkGanjoorOnSFNet);
             this.Controls.Add(this.lblAppVersion);
             this.Controls.Add(this.lblAppTitle);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
@@ -306,5 +324,6 @@
         private System.Windows.Forms.DataGridViewLinkColumn Column3;
         private System.Windows.Forms.Label lblIcon;
         private System.Windows.Forms.LinkLabel lblImanAbidi;
+        private System.Windows.Forms.LinkLabel lblHrBDev;
     }
 }

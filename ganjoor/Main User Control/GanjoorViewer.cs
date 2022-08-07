@@ -1165,14 +1165,14 @@ namespace ganjoor
             get
             {
                 if (0 == _iCurCat)
-                    return "http://ganjoor.net";
+                    return "https://ganjoor.net";
                 if (0 == _iCurPoem)
                     return _db.GetCategory(_iCurCat)._Url;
                 return _db.GetPoem(_iCurPoem)._Url;
                 /*
                  * using following code you can delete url field in poem table,
                  * 
-                 * return "http://ganjoor.net/?p=" + _iCurPoem.ToString();
+                 * return "https://ganjoor.net/?p=" + _iCurPoem.ToString();
                  * 
                  * it causes ganjoor.net to perform a redirect to SEO frinedly url,
                  * however size of database is reduced only by 2 mb (for 69 mb one) in this way                    
@@ -1185,8 +1185,8 @@ namespace ganjoor
             get
             {
                 if (0 == _iCurPoem)
-                    return "http://ganjoor.net";
-                return "http://ganjoor.net/?comments_popup=" + _iCurPoem.ToString();
+                    return "https://ganjoor.net";
+                return "https://ganjoor.net/?comments_popup=" + _iCurPoem.ToString();
             }
         }
         [DefaultValue(false)]
