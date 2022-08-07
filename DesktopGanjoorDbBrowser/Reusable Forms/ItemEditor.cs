@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -29,16 +24,16 @@ namespace ganjoor
             }
             else
                 if (ItemType == EditItemType.Poem)
-                {
-                    this.Text = "ویرایش مشخصات شعر";
-                    this.lblCat.Text = "نام شعر:";
-                }
-                else
+            {
+                this.Text = "ویرایش مشخصات شعر";
+                this.lblCat.Text = "نام شعر:";
+            }
+            else
                     if (ItemType == EditItemType.General)
-                    {
-                        this.Text = caption;
-                        this.lblCat.Text = itemname;
-                    }
+            {
+                this.Text = caption;
+                this.lblCat.Text = itemname;
+            }
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)

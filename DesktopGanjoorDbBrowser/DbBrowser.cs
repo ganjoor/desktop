@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -2438,7 +2438,7 @@ namespace ganjoor
                 cmd.CommandText = "UPDATE poem SET title = REPLACE(title, '" + searchterm + "', '" + replacement + "');";
                 cmd.ExecuteNonQuery();
 
-                if(!onlyInPoemTitles)
+                if (!onlyInPoemTitles)
                 {
                     cmd.CommandText = "UPDATE poet SET name = REPLACE(name, '" + searchterm + "', '" + replacement + "');";
                     cmd.ExecuteNonQuery();

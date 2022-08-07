@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -21,13 +15,13 @@ namespace ganjoor
         {
             InitializeComponent();
             this.Text = strCaption;
-            if(items != null)
+            if (items != null)
                 lstItems.Items.AddRange(items);
             if (selectedItem != null)
                 lstItems.SelectedItem = selectedItem;
             else
-                if(lstItems.Items.Count > 0)
-                    lstItems.SelectedIndex = 0;
+                if (lstItems.Items.Count > 0)
+                lstItems.SelectedIndex = 0;
         }
 
 
@@ -53,6 +47,6 @@ namespace ganjoor
             if (this.SelectedItem != null)
                 DialogResult = System.Windows.Forms.DialogResult.OK;
         }
-    
+
     }
 }

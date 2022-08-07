@@ -114,7 +114,7 @@ namespace ganjoor
                     }
                     if (rhyme.Length == 0)
                     {
-                        if(verses.Count == 2 && verseTextList.Count == 2)
+                        if (verses.Count == 2 && verseTextList.Count == 2)
                         {
                             return new GanjooRhymeAnalysisResult()
                             {
@@ -132,7 +132,7 @@ namespace ganjoor
                                 FailVerseOrder = 2 * j,
                             };
                         }
-                       
+
                     }
 
                 }

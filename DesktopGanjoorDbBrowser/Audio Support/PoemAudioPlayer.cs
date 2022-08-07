@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
+﻿using NAudio.Wave;
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -21,7 +17,7 @@ namespace ganjoor
         #region Public / State Reporting Events
         public event EventHandler PlaybackStarted = null;
         public event EventHandler<StoppedEventArgs> PlaybackStopped = null;
-        
+
         #endregion
 
         #region internal variables
@@ -30,7 +26,7 @@ namespace ganjoor
         #endregion
 
         #region Main Methods
-     
+
 
         public PoemAudio PoemAudio;
         /// <summary>

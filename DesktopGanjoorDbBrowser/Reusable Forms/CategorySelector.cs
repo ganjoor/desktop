@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -69,7 +65,7 @@ namespace ganjoor
             return false;
         }
         private bool SelectCat(int CatID, TreeNode Node)
-        {            
+        {
             if ((int)Node.Tag == CatID)
             {
                 treeCats.SelectedNode = Node;
@@ -104,8 +100,8 @@ namespace ganjoor
         }
         private void CheckCatList(int[] CatList, TreeNode Node)
         {
-            int NodeID = (int)Node.Tag;            
-            foreach(int CatID in CatList)
+            int NodeID = (int)Node.Tag;
+            foreach (int CatID in CatList)
                 if (CatID == NodeID)
                 {
                     Node.Checked = true;
@@ -133,8 +129,8 @@ namespace ganjoor
             if (Node.Checked)
                 outputList.Add((int)Node.Tag);
             else//if a node is check all its children is assumed to be checked
-            foreach (TreeNode ChildNode in Node.Nodes)
-                FillWithCheckedList(outputList, ChildNode);
+                foreach (TreeNode ChildNode in Node.Nodes)
+                    FillWithCheckedList(outputList, ChildNode);
         }
 
         public int[] CheckedCats
@@ -157,7 +153,7 @@ namespace ganjoor
         {
             set
             {
-                string[] CatStrs = value.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+                string[] CatStrs = value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                 int[] Cats = new int[CatStrs.Length];
                 for (int i = 0; i < CatStrs.Length; i++)
                     Cats[i] = Convert.ToInt32(CatStrs[i]);

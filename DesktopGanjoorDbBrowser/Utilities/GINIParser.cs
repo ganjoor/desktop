@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 
 namespace ganjoor
@@ -32,7 +31,7 @@ namespace ganjoor
                         string[] keyValue = trimedLine.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
                         if (keyValue.Length == 2)
                         {
-                            Dictionary<string, string> newKeyValue = new Dictionary<string,string>();
+                            Dictionary<string, string> newKeyValue = new Dictionary<string, string>();
                             newKeyValue.Add(keyValue[0].Trim(), keyValue[1].Trim());
                             _Values.Add(curSection, newKeyValue);
                         }

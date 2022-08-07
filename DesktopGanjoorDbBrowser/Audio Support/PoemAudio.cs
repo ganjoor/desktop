@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace ganjoor
 {
@@ -144,7 +144,7 @@ namespace ganjoor
                     return ""; //problem with file
                 }
             }
-            
+
         }
 
         /// <summary>

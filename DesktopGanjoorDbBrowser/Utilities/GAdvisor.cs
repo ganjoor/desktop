@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -8,7 +8,7 @@ namespace ganjoor
     {
         public static void AdviseOnUnhandledException(string exception)
         {
-            string expMessage = "خطای پیشبینی نشده‌ای روی سیستم شما رخ داد. لطفاً محتوای این پیغام را برای ایمیل ganjoor@ganjoor.net ارسال کنید تا دربارهٔ آن تحقیق شود: \r\n با زدن کلید Ctrl+C می‌توانید متن این پنجره را کپی کنید."+ Environment.NewLine;
+            string expMessage = "خطای پیشبینی نشده‌ای روی سیستم شما رخ داد. لطفاً محتوای این پیغام را برای ایمیل ganjoor@ganjoor.net ارسال کنید تا دربارهٔ آن تحقیق شود: \r\n با زدن کلید Ctrl+C می‌توانید متن این پنجره را کپی کنید." + Environment.NewLine;
             expMessage += "Application Version = " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine;
             expMessage += "Application Path = " + Application.ExecutablePath + Environment.NewLine;
             expMessage += "Windows Version = " + Environment.OSVersion.VersionString + Environment.NewLine;
@@ -33,7 +33,7 @@ namespace ganjoor
                     +
                     "این مشکل را حل کنید.";
 
-            MessageBox.Show(expMessage, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);            
+            MessageBox.Show(expMessage, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
     }
 }

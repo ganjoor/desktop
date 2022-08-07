@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -17,7 +11,7 @@ namespace ganjoor
         public MemoEditor(string memoText)
             : this()
         {
-            this.txtMemo.Text = memoText;               
+            this.txtMemo.Text = memoText;
         }
         public string MemoText
         {
