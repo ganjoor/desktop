@@ -122,23 +122,16 @@ namespace ganjoor
         /// محاسبه چک سام فایل
         /// </summary>
         /// <param name="filePath"></param>
-        public static string ComputeCheckSum(string filePath)
-        {
-            using (var md5 = MD5.Create())
-            {
-                try
-                {
-                    using (var stream = File.OpenRead(filePath))
-                    {
-                        return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
-                    }
-                }
-                catch
-                {
-                    return ""; //problem with file
-                }
+        public static string ComputeCheckSum(string filePath) {
+            using var md5 = MD5.Create();
+            try {
+                using var stream = File.OpenRead(filePath);
+                return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
             }
-
+            catch
+            {
+                return ""; //problem with file
+            }
         }
 
         /// <summary>
