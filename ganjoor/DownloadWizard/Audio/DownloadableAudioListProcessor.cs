@@ -1,11 +1,9 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Net;
 using System.Xml;
-using System.IO;
-using ganjoor.Properties;
 
 
 namespace ganjoor
@@ -42,7 +40,7 @@ namespace ganjoor
                                 Dictionary<string, string> audioInfo = new Dictionary<string, string>();
                                 foreach (XmlNode Node in gdbNode.ChildNodes)
                                 {
-                                    audioInfo.Add(Node.Name, Node.InnerText);                                   
+                                    audioInfo.Add(Node.Name, Node.InnerText);
                                 }
                                 lst.Add(audioInfo);
                             }
@@ -77,7 +75,7 @@ namespace ganjoor
 
             try
             {
-                if(File.Exists(targetFilePath))
+                if (File.Exists(targetFilePath))
                     if (!overwrite)
                     {
                         return true;
@@ -96,13 +94,13 @@ namespace ganjoor
                         {
 
                             XmlDocument doc = new XmlDocument(); //this is unnecessary, but at least does some kind of verification
-                            doc.LoadXml(reader.ReadToEnd());                            
+                            doc.LoadXml(reader.ReadToEnd());
 
                             doc.Save(targetFilePath);
 
                         }
                     }
-                }                
+                }
                 return true;
             }
             catch (Exception exp)

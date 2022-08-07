@@ -1,14 +1,13 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using ganjoor.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Text;
-using System.Windows.Forms;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
-using ganjoor.Properties;
-using ganjoor.Utilities;
+using System.Windows.Forms;
 
 
 namespace ganjoor

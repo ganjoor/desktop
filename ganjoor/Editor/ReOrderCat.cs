@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -19,12 +19,12 @@ namespace ganjoor
 
         private List<int> _IDs = new List<int>();
 
-        private const int ClmnTitle     = 0;
-        private const int ClmnVerse1    = 1;
-        private const int ClmnVerse2    = 2;
-        private const int ClmnRAVI      = 3;
-        private const int ClmnRAVIAX    = 4;
-        private const int ClmnID        = 5;
+        private const int ClmnTitle = 0;
+        private const int ClmnVerse1 = 1;
+        private const int ClmnVerse2 = 2;
+        private const int ClmnRAVI = 3;
+        private const int ClmnRAVIAX = 4;
+        private const int ClmnID = 5;
 
         private void ReOrderCat_Load(object sender, EventArgs e)
         {
@@ -89,13 +89,13 @@ namespace ganjoor
             lstSelected.Sort(CompareGridRows);
             grdMain.Rows.Insert(0, lstSelected.Count);
             grdMain.ClearSelection();
-            for (int iRow = 0; iRow < lstSelected.Count ; iRow++)
-            {                
+            for (int iRow = 0; iRow < lstSelected.Count; iRow++)
+            {
                 for (int iCell = 0; iCell < lstSelected[iRow].Cells.Count; iCell++)
                     grdMain.Rows[iRow].Cells[iCell].Value = lstSelected[iRow].Cells[iCell].Value;
                 grdMain.Rows[iRow].Selected = true;
             }
-            
+
         }
 
         private void btnMoveLast_Click(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace ganjoor
             }
             lstSelected.Sort(CompareGridRows);
             int oldRowCount = grdMain.Rows.Count;
-            grdMain.Rows.Insert(oldRowCount , lstSelected.Count);
+            grdMain.Rows.Insert(oldRowCount, lstSelected.Count);
             grdMain.ClearSelection();
             for (int iRow = 0; iRow < lstSelected.Count; iRow++)
             {
@@ -157,7 +157,7 @@ namespace ganjoor
             {
                 int RowIndex = Row.Index;
                 if (RowIndex < grdMain.RowCount - 1)
-                {                    
+                {
                     grdMain.Rows.Insert(RowIndex + 2, 1);
                     grdMain.Rows.Remove(Row);
 
@@ -211,7 +211,7 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                             return;
                         _db.BeginBatchOperation();
-                        foreach(DataGridViewRow Row in grdMain.SelectedRows)
+                        foreach (DataGridViewRow Row in grdMain.SelectedRows)
                         {
                             int PoemID = Convert.ToInt32(Row.Cells[ClmnID].Value);
                             _db.SetPoemCatID(PoemID, NewCatId);
@@ -226,7 +226,7 @@ namespace ganjoor
         private void btnGroupNaming_Click(object sender, EventArgs e)
         {
             bool bPrefix = MessageBox.Show("آیا تمایل دارید این نام به عنوان پیشوند به عنوان فعلی اضافه شود (در غیر این صورت عنوان فعلی حذف می‌شود)؟",
-                            "تأییدیه", MessageBoxButtons.YesNo) ==DialogResult.Yes;
+                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.Yes;
 
             if (MessageBox.Show("آیا از ادامهٔ عملیات اطمینان دارید؟",
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -237,8 +237,8 @@ namespace ganjoor
             foreach (DataGridViewRow Row in grdMain.Rows)
             {
                 nNum++;
-                string newTitle = $"شمارهٔ { GPersianTextSync.Sync(nNum.ToString())}";
-                if(bPrefix)
+                string newTitle = $"شمارهٔ {GPersianTextSync.Sync(nNum.ToString())}";
+                if (bPrefix)
                 {
                     string title = Row.Cells[ClmnTitle].Value.ToString().Trim();
                     string verse1 = Row.Cells[ClmnVerse1].Value.ToString().Trim();
@@ -253,7 +253,7 @@ namespace ganjoor
                         }
                     }
                     else
-                    if(!string.IsNullOrEmpty(title))
+                    if (!string.IsNullOrEmpty(title))
                     {
                         newTitle = $"{newTitle} - {Row.Cells[ClmnTitle].Value}";
                     }
@@ -282,7 +282,7 @@ namespace ganjoor
                 try
                 {
                     var ravi = RhymeFinder.FindRhyme(verses, false);
-                    if(!string.IsNullOrEmpty(ravi.Rhyme))
+                    if (!string.IsNullOrEmpty(ravi.Rhyme))
                     {
                         Row.Cells[ClmnRAVI].Value = ravi.Rhyme;
                         Row.Cells[ClmnRAVIAX].Value = Reverse(ravi.Rhyme);
@@ -293,7 +293,7 @@ namespace ganjoor
                 {
                     MessageBox.Show(Row.Cells[ClmnTitle].Value.ToString());
                 }
-                
+
             }
             Enabled = true;
         }
@@ -329,7 +329,7 @@ namespace ganjoor
             int start = grdMain.SelectedRows.Count == 0 ? 0 : grdMain.SelectedRows[0].Index;
             for (int i = start; i < grdMain.Rows.Count; i++)
             {
-                if(grdMain.Rows[i].Cells[ClmnRAVIAX].Value == null || grdMain.Rows[i].Cells[ClmnRAVIAX].Value.ToString() == "")
+                if (grdMain.Rows[i].Cells[ClmnRAVIAX].Value == null || grdMain.Rows[i].Cells[ClmnRAVIAX].Value.ToString() == "")
                 {
                     grdMain.ClearSelection();
                     grdMain.Rows[i].Selected = true;
@@ -404,7 +404,7 @@ namespace ganjoor
                 int poemId = Convert.ToInt32(row.Cells[ClmnID].Value);
                 var verses = _db.GetVerses(poemId);
 
-                if(verses.Any(v => v._Position != VersePosition.Right && v._Position != VersePosition.Left))
+                if (verses.Any(v => v._Position != VersePosition.Right && v._Position != VersePosition.Left))
                 {
                     for (int i = 0; i < verses.Count; i++)
                     {

@@ -1,7 +1,6 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -13,9 +12,9 @@ namespace ganjoor
             {
                 List<string> reS = new List<string>();
                 reS.AddRange(_DefaultUrls);
-                if(Settings.Default.CustomDownloadUrls != null)
-                foreach (string CustomDownloadUrl in Settings.Default.CustomDownloadUrls)
-                    reS.Add(CustomDownloadUrl);
+                if (Settings.Default.CustomDownloadUrls != null)
+                    foreach (string CustomDownloadUrl in Settings.Default.CustomDownloadUrls)
+                        reS.Add(CustomDownloadUrl);
                 return reS.ToArray();
             }
         }
@@ -29,7 +28,7 @@ namespace ganjoor
                 else
                 {
                     index = index - _DefaultUrls.Length;
-                    if(Settings.Default.CustomDownloadListNames != null && index < Settings.Default.CustomDownloadListNames.Count)
+                    if (Settings.Default.CustomDownloadListNames != null && index < Settings.Default.CustomDownloadListNames.Count)
                         return Settings.Default.CustomDownloadListNames[index];
                 }
             }
@@ -109,7 +108,7 @@ namespace ganjoor
         #region Default Urls
         private static string[] _DefaultUrls = new string[]
         {
-            "http://i.ganjoor.net/android/androidgdbs.xml",           
+            "http://i.ganjoor.net/android/androidgdbs.xml",
         };
         private static string[] _DefaultListNames = new string[]
         {

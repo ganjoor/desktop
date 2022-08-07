@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -88,7 +84,7 @@ namespace ganjoor
             }
             else
                 if (this.OnStageDone != null)
-                    OnStageDone(this, new EventArgs());
+                OnStageDone(this, new EventArgs());
 
         }
 
@@ -113,7 +109,7 @@ namespace ganjoor
                     _DownloadedSounds.Add(audioInfo);
                 else
                     if (_RealDownloadIndex >= 0)
-                        MessageBox.Show(string.Format("دریافت فایل صوتی خوانش {0} با خطا مواجه شد.\n{1}", DownloadableAudioListProcessor.SuggestTitle((this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>), expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(string.Format("دریافت فایل صوتی خوانش {0} با خطا مواجه شد.\n{1}", DownloadableAudioListProcessor.SuggestTitle((this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>), expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 

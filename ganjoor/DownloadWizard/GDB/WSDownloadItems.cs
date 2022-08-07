@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
 using System.ComponentModel;
+using System.IO;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
     partial class WSDownloadItems : WizardStage
     {
-    
+
         public WSDownloadItems()
             : base()
         {
@@ -87,7 +86,7 @@ namespace ganjoor
             }
             else
                 if (this.OnStageDone != null)
-                    OnStageDone(this, new EventArgs());                    
+                OnStageDone(this, new EventArgs());
 
         }
 
@@ -103,8 +102,8 @@ namespace ganjoor
             if (!string.IsNullOrEmpty(sFileDownloaded))
                 _DownloadedFiles.Add(sFileDownloaded);
             else
-                if(_RealDownloadIndex>=0)
-                    MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.\n{1}", ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName, expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                if (_RealDownloadIndex >= 0)
+                MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.\n{1}", ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName, expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)

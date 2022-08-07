@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
 {
-    public partial class TextImporter: Form
+    public partial class TextImporter : Form
     {
         public TextImporter()
         {
@@ -21,7 +15,7 @@ namespace ganjoor
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "Unicode Text File (*.txt)|*.txt";
-                if(dlg.ShowDialog(this)  != DialogResult.OK)
+                if (dlg.ShowDialog(this) != DialogResult.OK)
                 {
                     DialogResult = DialogResult.None;
                     return;

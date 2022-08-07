@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -45,9 +40,9 @@ namespace ganjoor
                 {
                     grdList.Rows[grdList.Rows.Add()].Cells[0].Value = DownloadableAudioListProcessor.SuggestTitle(audioInfo);
                     string mp3FilePath = Path.Combine(targetDir, Path.GetFileName(new Uri(audioInfo["audio_mp3"]).LocalPath));
-                    PoemAudio poemAudio =  db.AddAudio(
-                        Int32.Parse(audioInfo["audio_post_ID"]), 
-                        mp3FilePath, 
+                    PoemAudio poemAudio = db.AddAudio(
+                        Int32.Parse(audioInfo["audio_post_ID"]),
+                        mp3FilePath,
                         DownloadableAudioListProcessor.SuggestTitle(audioInfo),
                         Int32.Parse(audioInfo["audio_order"])
                         );
@@ -58,8 +53,8 @@ namespace ganjoor
                         foreach (PoemAudio xmlAudio in lstPoemAudio)
                         {
                             if (xmlAudio.PoemId == poemAudio.PoemId)
-                            {                                
-                                poemAudio.SyncArray = xmlAudio.SyncArray;                                
+                            {
+                                poemAudio.SyncArray = xmlAudio.SyncArray;
                                 db.SavePoemSync(poemAudio, poemAudio.SyncArray, false);
                                 poemAudio.SyncGuid = Guid.Parse(audioInfo["audio_guid"]);
                                 db.WritePoemAudioGuid(poemAudio);

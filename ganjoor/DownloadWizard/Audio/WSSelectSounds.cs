@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net;
+﻿using ganjoor.Audio_Support;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RMuseum.Models.GanjoorAudio.ViewModels;
-using Newtonsoft.Json;
-using ganjoor.Audio_Support;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -135,14 +135,14 @@ namespace ganjoor
                         list.Add(dic);
                     }
 
-                    if(_PoemId == 0)
+                    if (_PoemId == 0)
                     {
                         //در این حالت اطلاعات به صورت صفحه بندی شده ارسال می‌شود
                         string paginnationMetadata = response.Headers.GetValues("paging-headers").FirstOrDefault();
                         if (!string.IsNullOrEmpty(paginnationMetadata))
                         {
                             PaginationMetadata paginationMetadata = JsonConvert.DeserializeObject<PaginationMetadata>(paginnationMetadata);
-                            if(paginationMetadata.totalPages == 0 || paginationMetadata.currentPage == paginationMetadata.totalPages)
+                            if (paginationMetadata.totalPages == 0 || paginationMetadata.currentPage == paginationMetadata.totalPages)
                             {
                                 finished = true;
                             }
@@ -169,7 +169,7 @@ namespace ganjoor
                 }
                 while (!finished);
 
-                
+
 
                 return new Tuple<List<Dictionary<string, string>>, string>(list, "");
 
@@ -181,7 +181,7 @@ namespace ganjoor
         {
             bool reS = true;
             var r = await _RetrieveDictionaryListAsync();
-            
+
             if (!string.IsNullOrEmpty(r.Item2))
             {
                 MessageBox.Show(r.Item2, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -192,10 +192,10 @@ namespace ganjoor
                 _Lst = r.Item1;
 
                 DbBrowser db = new DbBrowser();
-                
+
                 //در صورتی که تمام خوانشهای موجود را دریافت می‌کنیم برای تعیین وجود فایل صوتی از روش بهینه‌تری استفاده می‌کنیم.
                 PoemAudio[] poemAudios = null;
-                if(_PoemId == 0)
+                if (_PoemId == 0)
                 {
                     poemAudios = db.GetAllPoemAudioFiles();
                 }
@@ -239,7 +239,7 @@ namespace ganjoor
 
                 foreach (DataGridViewRow row in grdList.Rows)
                     row.Tag = !((bool)row.Cells[GRDCLMN_CHECK].Value);
-                if(firstSuggestableDownload != -1)
+                if (firstSuggestableDownload != -1)
                 {
                     grdList.FirstDisplayedScrollingRowIndex = firstSuggestableDownload;
                 }
@@ -275,7 +275,7 @@ namespace ganjoor
 
         private void btnMarkSelected_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow row in grdList.SelectedRows)
+            foreach (DataGridViewRow row in grdList.SelectedRows)
             {
                 row.Cells[GRDCLMN_CHECK].Value = true;
             }
@@ -367,7 +367,7 @@ namespace ganjoor
                     Cursor.Current = Cursors.Default;
                 }
             }
-            
+
         }
 
     }

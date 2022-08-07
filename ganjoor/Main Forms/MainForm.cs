@@ -1,18 +1,14 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing.Printing;
-using System.Net;
-using System.Xml;
 using System.IO;
-using System.Reflection;
-using ganjoor.Properties;
 using System.IO.Compression;
-using System.Diagnostics;
+using System.Net;
+using System.Reflection;
+using System.Windows.Forms;
+using System.Xml;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
@@ -301,7 +297,7 @@ namespace ganjoor
                     Properties.Settings.Default.SearchPageItems = dlg.ItemsInPage;
                     Properties.Settings.Default.Save();
 
-                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), searchType: dlg.SearchType, searchLocationType:dlg.SearchLocationType);
+                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), searchType: dlg.SearchType, searchLocationType: dlg.SearchLocationType);
                 }
             }
         }
@@ -787,10 +783,8 @@ namespace ganjoor
 
         private void ManagePoemAudioFiles()
         {
-            using (AudioFiles dlg = new AudioFiles(this.ganjoorView.CurrentPoemId))
-            {
-                dlg.ShowDialog();
-            }
+            using AudioFiles dlg = new(ganjoorView.CurrentPoemId);
+            dlg.ShowDialog();
         }
 
         private void mnuAudioFiles_Click(object sender, EventArgs e)
@@ -804,12 +798,10 @@ namespace ganjoor
 
         private void mnuAllAudioFile_Click(object sender, EventArgs e)
         {
-            using (NarratedPoems dlg = new NarratedPoems())
+            using NarratedPoems dlg = new();
+            if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    ganjoorView.ShowPoem(dlg.SelectedPoem, true);
-                }
+                ganjoorView.ShowPoem(dlg.SelectedPoem, true);
             }
         }
         #endregion

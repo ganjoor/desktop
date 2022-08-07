@@ -15,7 +15,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
             var verses = dbBrowser.GetVerses(nPoemId);
 
-            if(verses.Count > 1)
+            if (verses.Count > 1)
             {
                 _firstVerse = verses[0]._Text;
                 _secondVerse = verses[1]._Text;
@@ -39,7 +39,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         private void btnStart_Click(object sender, System.EventArgs e)
         {
-            switch(step)
+            switch (step)
             {
                 case TimingStep.NotStarted:
                     _start = DateTime.Now;

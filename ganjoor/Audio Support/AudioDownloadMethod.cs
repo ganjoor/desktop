@@ -59,7 +59,7 @@ namespace ganjoor.Audio_Support
         private void btnOK_Click(object sender, EventArgs e)
         {
             SearchTerm = txtSearchTerm.Text;
-            if(CatId != 0)
+            if (CatId != 0)
             {
                 PoetId = 0;
             }

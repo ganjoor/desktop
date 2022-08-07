@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -19,7 +15,7 @@ namespace ganjoor
         {
             foreach (GanjoorCat Cat in Cats)
             {
-                int RowIndex  = grdConflictingCats.Rows.Add();
+                int RowIndex = grdConflictingCats.Rows.Add();
                 grdConflictingCats.Rows[RowIndex].Tag = Cat;
                 grdConflictingCats.Rows[RowIndex].Cells[0].Value = Cat._Text;
                 grdConflictingCats.Rows[RowIndex].Cells[1].Value = true;
@@ -33,9 +29,9 @@ namespace ganjoor
                 List<GanjoorCat> lstDelete = new List<GanjoorCat>();
 
                 foreach (DataGridViewRow Row in grdConflictingCats.Rows)
-                    if(Convert.ToBoolean(Row.Cells[1].Value))
+                    if (Convert.ToBoolean(Row.Cells[1].Value))
                         if (Row.Tag != null && Row.Tag is GanjoorCat)
-                        lstDelete.Add(Row.Tag as GanjoorCat);
+                            lstDelete.Add(Row.Tag as GanjoorCat);
                 return lstDelete.ToArray();
             }
         }

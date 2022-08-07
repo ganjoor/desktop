@@ -1,15 +1,15 @@
-﻿using System;
+﻿using ganjoor.Audio_Support;
+using ganjoor.Audio_Support.TimingHelper;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Diagnostics;
-using ganjoor.Audio_Support;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using ganjoor.Audio_Support.TimingHelper;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -249,9 +249,9 @@ namespace ganjoor
                     grdList.SelectedRows[0].Cells[GRDCOLUMN_IDX_SYNCED].Value = poemAudio.IsSynced;
                 }
             }
-            
 
-            
+
+
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -290,7 +290,7 @@ namespace ganjoor
                         MessageBox.Show("خطایی در ذخیرۀ فایل رخ داد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     }
                 }
-            }            
+            }
         }
 
         private void btnFixExport_Click(object sender, EventArgs e)
@@ -319,9 +319,9 @@ namespace ganjoor
                     "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
                     MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
                     return;
-            }         
-   
-            using(OpenFileDialog dlg = new OpenFileDialog())
+            }
+
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "XML Files (*.xml)|*.xml";
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
@@ -359,7 +359,7 @@ namespace ganjoor
 
                 }
             }
-            
+
 
         }
 
@@ -429,7 +429,7 @@ namespace ganjoor
                 return;
             }
 
-            if(string.IsNullOrEmpty(Properties.Settings.Default.DefProfile))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.DefProfile))
             {
                 MessageBox.Show("لطفا به پیشخان وارد شوید و در قسمت نمایه‌ها، نمایه‌ای را به عنوان نمایهٔ پیش‌فرض تعریف یا فعال کنید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 Process.Start("https://gaudiopanel.ganjoor.net");
@@ -438,7 +438,7 @@ namespace ganjoor
 
             bool replaceOldAudio = false;
 
-            using(ConfirmAudioUpload confirmDlg = new ConfirmAudioUpload(Properties.Settings.Default.DefProfile))
+            using (ConfirmAudioUpload confirmDlg = new ConfirmAudioUpload(Properties.Settings.Default.DefProfile))
             {
                 var res = confirmDlg.ShowDialog(this);
                 if (res == DialogResult.Cancel)
@@ -463,10 +463,10 @@ namespace ganjoor
                 File.Delete(xmlTempPath);
                 form.Add(new ByteArrayContent(xmlFileContent, 0, xmlFileContent.Length), $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.xml", $"{Path.GetFileNameWithoutExtension(poemAudio.FilePath)}.xml");
 
-               
+
                 byte[] mp3FileContent = File.ReadAllBytes(poemAudio.FilePath);
                 form.Add(new ByteArrayContent(mp3FileContent, 0, mp3FileContent.Length), Path.GetFileName(poemAudio.FilePath), Path.GetFileName(poemAudio.FilePath));
-                
+
                 HttpResponseMessage response = await httpClient.PostAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio?replace={replaceOldAudio}", form);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -483,7 +483,7 @@ namespace ganjoor
             MessageBox.Show("ارسال به سایت به درستی انجام شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
 
-            
+
         }
 
         private async Task<bool> TokenIsValid()
@@ -539,7 +539,7 @@ namespace ganjoor
 
         private void btnTimingHelper_Click(object sender, EventArgs e)
         {
-            using(TimingHelperWizard dlg = new TimingHelperWizard(_PoemId))
+            using (TimingHelperWizard dlg = new TimingHelperWizard(_PoemId))
             {
                 dlg.ShowDialog(this);
             }
