@@ -3273,7 +3273,7 @@ namespace ganjoor
                 HighlightVerse(_CurAudioVerseOrder - 1, true, Color.Red, _ControlStartFrom);
             }
 
-            PlaybackStopped?.Invoke(this, new EventArgs());
+            PlaybackStopped?.Invoke(this, EventArgs.Empty);
 
 
         }

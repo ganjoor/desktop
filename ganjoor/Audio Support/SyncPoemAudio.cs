@@ -602,11 +602,11 @@ namespace ganjoor
             {
                 if (e.Control)
                 {
-                    btnPreVerse_Click(sender, new EventArgs());
+                    btnPreVerse_Click(sender, EventArgs.Empty);
                 }
                 else
                 {
-                    btnNextVerse_Click(sender, new EventArgs());
+                    btnNextVerse_Click(sender, EventArgs.Empty);
                 }
             }
             else
@@ -614,12 +614,12 @@ namespace ganjoor
             {
                 if (e.KeyCode == Keys.P)
                 {
-                    btnPlayPause_Click(sender, new EventArgs());
+                    btnPlayPause_Click(sender, EventArgs.Empty);
                 }
                 else
                     if (e.KeyCode == Keys.F)
                 {
-                    btnSearchText_Click(sender, new EventArgs());
+                    btnSearchText_Click(sender, EventArgs.Empty);
                 }
             }
 

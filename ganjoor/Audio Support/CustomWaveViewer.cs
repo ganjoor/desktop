@@ -32,7 +32,7 @@ namespace ganjoor
             if (e.Button == MouseButtons.Left)
             {
                 _CurrentPosition = e.X;
-                OnPositionChanged?.Invoke(this, new EventArgs());
+                OnPositionChanged?.Invoke(this, EventArgs.Empty);
 
                 Invalidate();
 

@@ -362,7 +362,7 @@ namespace ganjoor
         {
             if (e.KeyCode == Keys.Enter)
                 if (btnScrollToNext.Visible)
-                    btnScrollToNext_Click(sender, new EventArgs());
+                    btnScrollToNext_Click(sender, EventArgs.Empty);
         }
         #endregion
 

@@ -18,7 +18,7 @@ namespace ganjoor
         {
             tlbr.Enabled = false;
             lblDesc.Text = "در حال دریافت اطلاعات ...";
-            OnDisableNextButton?.Invoke(this, new EventArgs());
+            OnDisableNextButton?.Invoke(this, EventArgs.Empty);
             if (DownloadList(Settings.Default.LastDownloadUrl))
                 lblDesc.Text = "ردیفهای سفیدرنگ نشانگر مجموعه‌هایی است که شما آنها را در گنجور رومیزی خود ندارید. با علامتگذاری ستون «دریافت» در هر ردیف؛ آن را به فهرست مجموعه‌هایی که می‌خواهید دریافت شوند اضافه کنید تا در مرحلهٔ بعد دریافت فهرست انتخابی شروع شود.";
             else
@@ -103,12 +103,12 @@ namespace ganjoor
             foreach (DataGridViewRow Row in grdList.Rows)
                 if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
                 {
-                    OnEnableNextButton?.Invoke(this, new EventArgs());
+                    OnEnableNextButton?.Invoke(this, EventArgs.Empty);
                     return;
 
                 }
 
-            OnDisableNextButton?.Invoke(this, new EventArgs());
+            OnDisableNextButton?.Invoke(this, EventArgs.Empty);
         }
 
 

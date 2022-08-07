@@ -83,7 +83,7 @@ namespace ganjoor
                 backgroundWorker.RunWorkerAsync();
             }
             else {
-                OnStageDone?.Invoke(this, new EventArgs());
+                OnStageDone?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -115,7 +115,7 @@ namespace ganjoor
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled || !btnStop.Enabled) {
-                OnStageDone?.Invoke(this, new EventArgs());
+                OnStageDone?.Invoke(this, EventArgs.Empty);
             }
             else
             {
