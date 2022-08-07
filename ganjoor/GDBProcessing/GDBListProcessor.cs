@@ -1,11 +1,10 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Xml;
 using System.IO;
-using ganjoor.Properties;
+using System.Net;
 using System.Reflection;
+using System.Xml;
 
 namespace ganjoor
 {
@@ -25,7 +24,7 @@ namespace ganjoor
         /// <returns></returns>
         public static bool Save(string FileName, string Name, string Description, string MoreInfoUrl, List<GDBInfo> List)
         {
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc = new();
             XmlNode gdbRootNode = doc.CreateNode(XmlNodeType.Element, "DesktopGanjoorGDBList", "");
             doc.AppendChild(gdbRootNode);
             XmlNode newNode = doc.CreateNode(XmlNodeType.Element, "RedirectInfo", "");
@@ -71,27 +70,27 @@ namespace ganjoor
                         }
                         else
                             if (prop.PropertyType == typeof(Int32))
+                        {
+                            int value = Convert.ToInt32(prop.GetValue(gdb, null));
+                            if (value == 0)
                             {
-                                int value = Convert.ToInt32(prop.GetValue(gdb, null));
-                                if (value == 0)
-                                {
-                                    ignoreProp = true;
-                                }
-                                else
-                                    propNode.InnerText = value.ToString();
+                                ignoreProp = true;
                             }
                             else
+                                propNode.InnerText = value.ToString();
+                        }
+                        else
                                 if (prop.PropertyType == typeof(DateTime))
-                                {
-                                    try
-                                    {
-                                        propNode.InnerText = ((DateTime)prop.GetValue(gdb, null)).ToString("yyyy-MM-dd");
-                                    }
-                                    catch//fix it!
-                                    {
-                                        propNode.InnerText = DateTime.Now.ToString("yyyy-MM-dd");
-                                    }
-                                }
+                        {
+                            try
+                            {
+                                propNode.InnerText = ((DateTime)prop.GetValue(gdb, null)).ToString("yyyy-MM-dd");
+                            }
+                            catch//fix it!
+                            {
+                                propNode.InnerText = DateTime.Now.ToString("yyyy-MM-dd");
+                            }
+                        }
                         if (!ignoreProp)
                             gdbNode.AppendChild(propNode);
                     }
@@ -130,9 +129,9 @@ namespace ganjoor
                 {
                     using (Stream stream = response.GetResponseStream())
                     {
-                        using (StreamReader reader = new StreamReader(stream))
+                        using (StreamReader reader = new(stream))
                         {
-                            XmlDocument doc = new XmlDocument();
+                            XmlDocument doc = new();
                             doc.LoadXml(reader.ReadToEnd());
 
                             //Should Redirect?
@@ -178,7 +177,7 @@ namespace ganjoor
         /// <returns></returns>
         public static List<GDBInfo> RetrieveList(string url, out string Exception)
         {
-            List<GDBInfo> lstGDBs = new List<GDBInfo>();
+            List<GDBInfo> lstGDBs = new();
             try
             {
                 WebRequest req = WebRequest.Create(url);
@@ -187,9 +186,9 @@ namespace ganjoor
                 {
                     using (Stream stream = response.GetResponseStream())
                     {
-                        using (StreamReader reader = new StreamReader(stream))
+                        using (StreamReader reader = new(stream))
                         {
-                            XmlDocument doc = new XmlDocument();
+                            XmlDocument doc = new();
                             doc.LoadXml(reader.ReadToEnd());
 
                             //Should Redirect?
@@ -212,7 +211,7 @@ namespace ganjoor
                             XmlNodeList gdbNodes = doc.GetElementsByTagName("gdb");
                             foreach (XmlNode gdbNode in gdbNodes)
                             {
-                                GDBInfo gdbInfo = new GDBInfo();
+                                GDBInfo gdbInfo = new();
                                 foreach (XmlNode Node in gdbNode.ChildNodes)
                                 {
                                     switch (Node.Name)

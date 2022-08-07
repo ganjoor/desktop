@@ -1,12 +1,9 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
-using ganjoor.Properties;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -90,7 +87,7 @@ namespace ganjoor
 
             Properties.Settings.Default.Save();
         }
-        
+
         private Font ViewFont { set; get; }
 
         private void btnSelectFont_Click(object sender, EventArgs e)
@@ -106,7 +103,7 @@ namespace ganjoor
             }
         }
 
-        
+
         private void chkGradiantBk_CheckedChanged(object sender, EventArgs e)
         {
             lblGradiantBegin.Enabled = lblGradiantEnd.Enabled = btnGradiantBegin.Enabled = btnGradiantEnd.Enabled = chkGradiantBk.Checked;
@@ -250,18 +247,18 @@ namespace ganjoor
                 if (_RandomCatIDs == "0")
                     return "همه";
                 DbBrowser db = new DbBrowser();
-                string[] CatStrs = _RandomCatIDs.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+                string[] CatStrs = _RandomCatIDs.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
                 List<GanjoorCat> SelectedCats = new List<GanjoorCat>();
-                foreach(string CatStr in CatStrs)
+                foreach (string CatStr in CatStrs)
                 {
                     GanjoorCat cat = db.GetCategory(Convert.ToInt32(CatStr));
-                    if(cat != null)
+                    if (cat != null)
                         SelectedCats.Add(cat);
-                        
+
                 }
                 string result = "";
-                if(SelectedCats.Count == 0)
+                if (SelectedCats.Count == 0)
                     result = "همه";
                 else
                 {
@@ -279,7 +276,7 @@ namespace ganjoor
                 }
                 db.CloseDb();
                 return result;
-                    
+
             }
         }
         private void btnSelectRandomCat_Click(object sender, EventArgs e)

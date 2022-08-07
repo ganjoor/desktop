@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using ganjoor.Properties;
+using System;
 using System.Windows.Forms;
-using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -32,7 +26,7 @@ namespace ganjoor
         private void btnOK_Click(object sender, EventArgs e)
         {
 
-            Settings.Default.ExportLevel  = cmbTextExportLevel.SelectedIndex == 0 ? "Poet" : cmbTextExportLevel.SelectedIndex == 1 ? "Cat"  : "Poem";
+            Settings.Default.ExportLevel = cmbTextExportLevel.SelectedIndex == 0 ? "Poet" : cmbTextExportLevel.SelectedIndex == 1 ? "Cat" : "Poem";
 
             Settings.Default.ExportPoetName = chkPoet.Checked;
             Settings.Default.ExportPoetSep = txtPoetSeparator.Text;
@@ -49,7 +43,7 @@ namespace ganjoor
 
         private void cmbTextExportLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(cmbTextExportLevel.SelectedIndex)
+            switch (cmbTextExportLevel.SelectedIndex)
             {
                 case 0:
                     lblExportLevelComment.Text = "تمام اشعار شاعر در یک فایل متنی گنجانده می‌شود.";

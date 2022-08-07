@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using ganjoor.Properties;
+﻿using ganjoor.Properties;
+using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ganjoor
 {

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -51,9 +46,9 @@ namespace ganjoor
             int iLine2 = 0;
             string resultText = result.Text;
             if (!string.IsNullOrEmpty(resultText.Trim()))
-                if(resultText[resultText.Length - 1] != '\n')
+                if (resultText[resultText.Length - 1] != '\n')
                     resultText += "\r\n";
-            while(iLine1 < clmn1.Lines.Length)
+            while (iLine1 < clmn1.Lines.Length)
             {
                 bool ignore = false;
                 if (chkIgnoreBlankLines.Checked)
@@ -63,7 +58,7 @@ namespace ganjoor
                 }
                 if (!ignore)
                 {
-                    resultText += clmn1.Lines[iLine1] + "\r\n";                    
+                    resultText += clmn1.Lines[iLine1] + "\r\n";
                 }
 
                 if (iLine2 >= clmn2.Lines.Length)
@@ -99,7 +94,7 @@ namespace ganjoor
                 }
                 if (!ignore)
                 {
-                    resultText += clmn2.Lines[iLine2] + "\r\n";                    
+                    resultText += clmn2.Lines[iLine2] + "\r\n";
                 }
                 iLine2++;
             }
@@ -113,7 +108,7 @@ namespace ganjoor
                 clmn1.Text = clmn2.Text = "";
                 btnInsert.Focus();
             }
-            
+
         }
     }
 }

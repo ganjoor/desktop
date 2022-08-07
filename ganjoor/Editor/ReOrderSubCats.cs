@@ -1,11 +1,7 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -211,7 +207,7 @@ namespace ganjoor
 
 
 
-        
+
 
     }
 }

@@ -11,4 +11,108 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Audio Support\AudioDownloadMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Audio Support\AudioFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Audio Support\ConfirmAudioUpload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Audio Support\GLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Audio Support\NarratedPoems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Audio Support\SyncPoemAudio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Audio Support\TimingHelper\TimingHelperWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DownloadWizard\Audio\SndDownloadWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DownloadWizard\Audio\SndWizOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DownloadWizard\GDB\GDBDownloadWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DownloadWizard\GDB\GDBWizOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DownloadWizard\MultiStageWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\GeneralTextImporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\IDChanger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\MrgTwoClmns.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\PoemStructure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\ReOrderCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\ReOrderSubCats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\ReplaceInDb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\SpaceSeparatedPoem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\TextExporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Editor\TextImporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GDBProcessing\DownloadGDBList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GDBProcessing\DownloadingGdbList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GDBProcessing\GDBListEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GDBProcessing\GDBPictureDirSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GDBProcessing\NewGDBFound.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Main Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Main Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Main Forms\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Main Forms\Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reusable Forms\ConflictingCats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reusable Forms\ConflictingPoets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

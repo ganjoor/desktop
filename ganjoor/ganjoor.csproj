@@ -1,28 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FA20D261-FE87-49FD-B27D-EEE3B52B20FA}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ganjoor</RootNamespace>
-    <AssemblyName>ganjoor</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <ApplicationIcon>GanjoorRounded.ico</ApplicationIcon>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -37,621 +18,65 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Deterministic>false</Deterministic>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>
     </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Audio Support\AudioDownloadMethod.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Audio Support\AudioDownloadMethod.Designer.cs">
-      <DependentUpon>AudioDownloadMethod.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\ConfirmAudioUpload.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Audio Support\ConfirmAudioUpload.Designer.cs">
-      <DependentUpon>ConfirmAudioUpload.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\GLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Audio Support\GLogin.Designer.cs">
-      <DependentUpon>GLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\LoginViewModel.cs" />
-    <Compile Include="Audio Support\TimingHelper\THFirstVerse.cs">
+    <Compile Update="Audio Support\TimingHelper\THFirstVerse.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Audio Support\TimingHelper\THFirstVerse.Designer.cs">
-      <DependentUpon>THFirstVerse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\TimingHelper\THHelper.cs">
+    <Compile Update="Audio Support\TimingHelper\THHelper.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Audio Support\TimingHelper\THHelper.Designer.cs">
-      <DependentUpon>THHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\TimingHelper\TimingHelperWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Audio Support\TimingHelper\TimingHelperWizard.Designer.cs">
-      <DependentUpon>TimingHelperWizard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\TimingHelper\TimingStep.cs" />
-    <Compile Include="DownloadWizard\Audio\PaginationMetadata.cs" />
-    <Compile Include="Audio Support\PublicRecitationViewModel.cs" />
-    <Compile Include="Audio Support\UserNarrationProfileViewModel.cs" />
-    <Compile Include="DownloadWizard\Audio\DownloadableAudioListProcessor.cs" />
-    <Compile Include="DownloadWizard\GDB\GDBDownloadWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DownloadWizard\Audio\SndDownloadWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\GeneralTextImporter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\GeneralTextImporter.Designer.cs">
-      <DependentUpon>GeneralTextImporter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\TextExporter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\TextExporter.Designer.cs">
-      <DependentUpon>TextExporter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Main Forms\AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main Forms\AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\AudioFiles.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Audio Support\AudioFiles.Designer.cs">
-      <DependentUpon>AudioFiles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\CustomWaveViewer.cs">
+    <Compile Update="Audio Support\CustomWaveViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GDBProcessing\NewGDBFound.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GDBProcessing\NewGDBFound.Designer.cs">
-      <DependentUpon>NewGDBFound.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\PoemAudioListProcessor.cs" />
-    <Compile Include="Audio Support\NarratedPoems.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Audio Support\NarratedPoems.Designer.cs">
-      <DependentUpon>NarratedPoems.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reusable Forms\ConflictingCats.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\ConflictingCats.Designer.cs">
-      <DependentUpon>ConflictingCats.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reusable Forms\ConflictingPoets.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\ConflictingPoets.Designer.cs">
-      <DependentUpon>ConflictingPoets.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GDBProcessing\DownloadGDBList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GDBProcessing\DownloadGDBList.Designer.cs">
-      <DependentUpon>DownloadGDBList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GDBProcessing\DownloadingGdbList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GDBProcessing\DownloadingGdbList.Designer.cs">
-      <DependentUpon>DownloadingGdbList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GDBProcessing\DownloadListManager.cs" />
-    <Compile Include="GDBProcessing\DownloadUtilityClass.cs" />
-    <Compile Include="DownloadWizard\MultiStageWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DownloadWizard\MultiStageWizard.Designer.cs">
-      <DependentUpon>MultiStageWizard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DownloadWizard\GDB\WSDownloadItems.Designer.cs">
-      <DependentUpon>WSDownloadItems.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DownloadWizard\GDB\WSSelectItems.Designer.cs">
-      <DependentUpon>WSSelectItems.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DownloadWizard\GDB\WSSelectList.Designer.cs">
-      <DependentUpon>WSSelectList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\Editor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\Editor.Designer.cs">
-      <DependentUpon>Editor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Audio Support\SyncPoemAudio.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Audio Support\SyncPoemAudio.Designer.cs">
-      <DependentUpon>SyncPoemAudio.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\SpaceSeparatedPoem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\SpaceSeparatedPoem.Designer.cs">
-      <DependentUpon>SpaceSeparatedPoem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DownloadWizard\Audio\SndDownloadInfo.cs">
+    <Compile Update="DownloadWizard\Audio\SndDownloadInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\Audio\SndDownloadInfo.Designer.cs">
-      <DependentUpon>SndDownloadInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DownloadWizard\Audio\SndWizOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DownloadWizard\Audio\SndWizOptions.Designer.cs">
-      <DependentUpon>SndWizOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\TextImporter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\TextImporter.Designer.cs">
-      <DependentUpon>TextImporter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\Extensions.cs" />
-    <Compile Include="Main User Control\GanjoorFavPage.cs" />
-    <Compile Include="Main User Control\GanjoorSearchPage.cs" />
-    <Compile Include="Main User Control\GanjoorViewer.cs">
+    <Compile Update="Main User Control\GanjoorViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Main User Control\GanjoorViewer.Designer.cs">
-      <DependentUpon>GanjoorViewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Main User Control\GanjoorViewEvents.cs" />
-    <Compile Include="Main User Control\GanjoorViewMode.cs" />
-    <Compile Include="Main User Control\GanjoorBrowsingHistory.cs" />
-    <Compile Include="Utilities\GConnectionManager.cs" />
-    <Compile Include="GDBProcessing\GdbDownloadInfo.cs">
+    <Compile Update="GDBProcessing\GdbDownloadInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GDBProcessing\GdbDownloadInfo.Designer.cs">
-      <DependentUpon>GdbDownloadInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GDBProcessing\GDBInfo.cs" />
-    <Compile Include="GDBProcessing\GDBListEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GDBProcessing\GDBListEditor.Designer.cs">
-      <DependentUpon>GDBListEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GDBProcessing\GDBListProcessor.cs" />
-    <Compile Include="DownloadWizard\GDB\GDBWizOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DownloadWizard\GDB\GDBWizOptions.Designer.cs">
-      <DependentUpon>GDBWizOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GDBProcessing\GDBPictureDirSelector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GDBProcessing\GDBPictureDirSelector.Designer.cs">
-      <DependentUpon>GDBPictureDirSelector.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\GRhymeFinder.cs" />
-    <Compile Include="Main User Control\HighlightLabel.cs">
+    <Compile Update="Main User Control\HighlightLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Editor\IDChanger.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\IDChanger.Designer.cs">
-      <DependentUpon>IDChanger.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Main Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\MrgTwoClmns.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\MrgTwoClmns.Designer.cs">
-      <DependentUpon>MrgTwoClmns.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Main Forms\Options.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main Forms\Options.Designer.cs">
-      <DependentUpon>Options.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\PoemStructure.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\PoemStructure.Designer.cs">
-      <DependentUpon>PoemStructure.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DownloadWizard\WizardStage.cs">
+    <Compile Update="DownloadWizard\WizardStage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\WizardStage.Designer.cs">
-      <DependentUpon>WizardStage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DownloadWizard\GDB\WSSelectList.cs">
+    <Compile Update="DownloadWizard\GDB\WSSelectList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\GDB\WSSelectItems.cs">
+    <Compile Update="DownloadWizard\GDB\WSSelectItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\GDB\WSDownloadItems.cs">
+    <Compile Update="DownloadWizard\GDB\WSDownloadItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\GDB\WSInstallItems.cs">
+    <Compile Update="DownloadWizard\GDB\WSInstallItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\GDB\WSInstallItems.Designer.cs">
-      <DependentUpon>WSInstallItems.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GDBProcessing\ZipStorer.cs" />
-    <Compile Include="DownloadWizard\Audio\WSSelectSounds.cs">
+    <Compile Update="DownloadWizard\Audio\WSSelectSounds.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\Audio\WSSelectSounds.Designer.cs">
-      <DependentUpon>WSSelectSounds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DownloadWizard\Audio\WSDownloadSounds.cs">
+    <Compile Update="DownloadWizard\Audio\WSDownloadSounds.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DownloadWizard\Audio\WSDownloadSounds.Designer.cs">
-      <DependentUpon>WSDownloadSounds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DownloadWizard\Audio\WSInstallSounds.cs">
+    <Compile Update="DownloadWizard\Audio\WSInstallSounds.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DownloadWizard\Audio\WSInstallSounds.Designer.cs">
-      <DependentUpon>WSInstallSounds.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Audio Support\AudioDownloadMethod.resx">
-      <DependentUpon>AudioDownloadMethod.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Audio Support\ConfirmAudioUpload.resx">
-      <DependentUpon>ConfirmAudioUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Audio Support\GLogin.resx">
-      <DependentUpon>GLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Audio Support\TimingHelper\THFirstVerse.resx">
-      <DependentUpon>THFirstVerse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Audio Support\TimingHelper\THHelper.resx">
-      <DependentUpon>THHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Audio Support\TimingHelper\TimingHelperWizard.resx">
-      <DependentUpon>TimingHelperWizard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\GeneralTextImporter.resx">
-      <DependentUpon>GeneralTextImporter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TextExporter.resx">
-      <DependentUpon>TextExporter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main Forms\AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Audio Support\AudioFiles.resx">
-      <DependentUpon>AudioFiles.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GDBProcessing\NewGDBFound.resx">
-      <DependentUpon>NewGDBFound.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Audio Support\NarratedPoems.resx">
-      <DependentUpon>NarratedPoems.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reusable Forms\ConflictingCats.resx">
-      <DependentUpon>ConflictingCats.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reusable Forms\ConflictingPoets.resx">
-      <DependentUpon>ConflictingPoets.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GDBProcessing\DownloadGDBList.resx">
-      <DependentUpon>DownloadGDBList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GDBProcessing\DownloadingGdbList.resx">
-      <DependentUpon>DownloadingGdbList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\MultiStageWizard.resx">
-      <DependentUpon>MultiStageWizard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\GDB\WSDownloadItems.resx">
-      <DependentUpon>WSDownloadItems.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\GDB\WSInstallItems.resx">
-      <DependentUpon>WSInstallItems.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\Editor.resx">
-      <DependentUpon>Editor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main User Control\GanjoorViewer.resx">
-      <DependentUpon>GanjoorViewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GDBProcessing\GdbDownloadInfo.resx">
-      <DependentUpon>GdbDownloadInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GDBProcessing\GDBListEditor.resx">
-      <DependentUpon>GDBListEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\GDB\GDBWizOptions.resx">
-      <DependentUpon>GDBWizOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GDBProcessing\GDBPictureDirSelector.resx">
-      <DependentUpon>GDBPictureDirSelector.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\IDChanger.resx">
-      <DependentUpon>IDChanger.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\MrgTwoClmns.resx">
-      <DependentUpon>MrgTwoClmns.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main Forms\Options.resx">
-      <DependentUpon>Options.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\PoemStructure.resx">
-      <DependentUpon>PoemStructure.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\ReOrderCat.resx">
-      <DependentUpon>ReOrderCat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\ReOrderSubCats.resx">
-      <DependentUpon>ReOrderSubCats.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\ReplaceInDb.resx">
-      <DependentUpon>ReplaceInDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main Forms\Search.resx">
-      <DependentUpon>Search.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="DownloadWizard\WizardStage.resx">
-      <DependentUpon>WizardStage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\GDB\WSSelectList.resx">
-      <DependentUpon>WSSelectList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\GDB\WSSelectItems.resx">
-      <DependentUpon>WSSelectItems.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Audio Support\SyncPoemAudio.resx">
-      <DependentUpon>SyncPoemAudio.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\SpaceSeparatedPoem.resx">
-      <DependentUpon>SpaceSeparatedPoem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\Audio\WSSelectSounds.resx">
-      <DependentUpon>WSSelectSounds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\Audio\SndDownloadInfo.resx">
-      <DependentUpon>SndDownloadInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\Audio\WSDownloadSounds.resx">
-      <DependentUpon>WSDownloadSounds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\Audio\WSInstallSounds.resx">
-      <DependentUpon>WSInstallSounds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadWizard\Audio\SndWizOptions.resx">
-      <DependentUpon>SndWizOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TextImporter.resx">
-      <DependentUpon>TextImporter.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Editor\ReOrderCat.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\ReOrderCat.Designer.cs">
-      <DependentUpon>ReOrderCat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\ReOrderSubCats.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\ReOrderSubCats.Designer.cs">
-      <DependentUpon>ReOrderSubCats.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\ReplaceInDb.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\ReplaceInDb.Designer.cs">
-      <DependentUpon>ReplaceInDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Main Forms\Search.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main Forms\Search.Designer.cs">
-      <DependentUpon>Search.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="GanjoorRounded.ico" />
-    <None Include="Resources\repeat1.png" />
-    <None Include="Resources\down.png" />
-    <None Include="Resources\folder_up.png" />
-    <None Include="Resources\track32.png" />
-    <None Include="Resources\notrack32.png" />
-    <None Include="Resources\displaywaveform.png" />
-    <None Include="Resources\remove.png" />
-    <None Include="Resources\accept.png" />
-    <None Include="Resources\play16.png" />
-    <None Include="Resources\play.png" />
-    <None Include="Resources\clock.png" />
-    <None Include="Resources\up.png" />
-    <None Include="Resources\sound.png" />
-    <None Include="Resources\stop.png" />
-    <None Include="Resources\stop16.png" />
-    <None Include="Resources\sound_on.png" />
-    <None Include="Resources\sound_off.png" />
-    <None Include="Resources\opensnd.png" />
-    <None Include="Resources\back16.png" />
-    <None Include="Resources\selnone.png" />
-    <None Include="Resources\selall.png" />
-    <None Include="Resources\gear16.png" />
-    <None Include="Resources\database_add.png" />
-    <None Include="Resources\database_down.png" />
-    <None Include="Resources\tools.png" />
-    <None Include="Resources\edit.png" />
-    <None Include="Resources\user.png" />
-    <None Include="Resources\next.png" />
-    <None Include="Resources\folder.png" />
-    <None Include="Resources\back.png" />
-    <None Include="Resources\add.png" />
-    <None Include="Resources\application_edit.png" />
-    <None Include="Resources\search_remove.png" />
-    <None Include="Resources\search_add.png" />
-    <None Include="Resources\repeat.png" />
-    <None Include="Resources\folder_down.png" />
-    <None Include="Resources\dices_32.png" />
-    <None Include="Resources\calculator_accept.png" />
-    <None Include="Resources\fav.png" />
-    <None Include="Resources\favorite_remove.png" />
-    <None Include="Resources\favorite_add.png" />
-    <None Include="Resources\favorite.png" />
-    <None Include="Resources\search.png" />
-    <None Include="Resources\process.png" />
-    <None Include="Resources\note_accept.png" />
-    <None Include="app.config" />
-    <None Include="Resources\help.png" />
-    <None Include="Resources\firefox_alt.png" />
-    <None Include="Resources\comments.png" />
-    <None Include="Resources\printer.png" />
-    <None Include="Resources\database_search.png" />
-    <None Include="Resources\fast_forward.png" />
-    <None Include="Resources\rewind.png" />
-    <None Include="Resources\home_next.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -676,27 +101,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesktopGanjoorDbBrowser\DesktopGanjoorDbBrowser.csproj">
-      <Project>{91c238cd-2544-4547-aa21-98ce8897105e}</Project>
-      <Name>DesktopGanjoorDbBrowser</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\DesktopGanjoorDbBrowser\DesktopGanjoorDbBrowser.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
-  </Target>
-  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
-  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+  </ItemGroup>
 </Project>

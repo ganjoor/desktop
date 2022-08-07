@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -39,15 +33,15 @@ namespace ganjoor
         {
             bool bTab = chkTab.Checked;
             bool bSpace = chkSpace.Checked;
-            string[] txtLines = mainText.Text.Split(new char[]{'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
+            string[] txtLines = mainText.Text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             string resultText = "";
             foreach (string txtLine in txtLines)
             {
                 string txt = txtLine.Trim();
                 if (txt.Length == 0)
-                    continue;                
+                    continue;
                 bool bTabDoneIt = false;
-                if(bTab)
+                if (bTab)
                 {
                     string[] tabSep = txt.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     if (tabSep.Length == 2)
@@ -62,7 +56,7 @@ namespace ganjoor
                         if (nIdx > 0)
                         {
                             resultText += txt.Substring(0, nIdx).Trim() + "\r\n";
-                            resultText += txt.Substring(nIdx+1).Trim() + "\r\n";
+                            resultText += txt.Substring(nIdx + 1).Trim() + "\r\n";
                             bTabDoneIt = true;
                         }
                     }

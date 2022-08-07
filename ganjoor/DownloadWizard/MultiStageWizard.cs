@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -59,8 +56,8 @@ namespace ganjoor
                     btnNext.Location = new Point(btnPrevious.Left + btnNext.Width + 16, btnNext.Top);
                 }
                 else
-                    if(btnNext.Visible)
-                        btnNext.Location = new Point(16, btnNext.Top);
+                    if (btnNext.Visible)
+                    btnNext.Location = new Point(16, btnNext.Top);
 
                 PostDataToNextStage(StageIndex);
                 if (StageIndex == (_Stages.Count - 1))
@@ -69,7 +66,7 @@ namespace ganjoor
                     this.AcceptButton = btnCancel;
                     btnCancel.Focus();
                 }
-                btnNext.Enabled = btnPrevious.Enabled = false;Application.DoEvents();
+                btnNext.Enabled = btnPrevious.Enabled = false; Application.DoEvents();
                 _Stages[StageIndex].OnBeforeActivate();
                 _Stages[StageIndex].Visible = true;
                 btnNext.Enabled = btnPrevious.Enabled = true; Application.DoEvents();

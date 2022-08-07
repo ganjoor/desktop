@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -64,7 +61,7 @@ namespace ganjoor
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
             string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
-                ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl, 
+                ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl,
                 targetDir,
                 this.backgroundWorker, out string expString);
             if (!string.IsNullOrEmpty(sFileDownloaded))

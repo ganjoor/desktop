@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
+﻿using ganjoor.Properties;
+using System;
 using System.Drawing;
-using ganjoor.Properties;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -37,17 +35,17 @@ namespace ganjoor
         }
         protected override void OnPaint(PaintEventArgs e)
         {
-                       
+
             if (!
                 (
                 string.IsNullOrEmpty(Keyword)
                 ||
-                this.Text.IndexOf(Keyword) == -1
+                Text.IndexOf(Keyword) == -1
                 )
                )
             {
                 string txt = this.Text;
-                using (SolidBrush hbrsh = new SolidBrush(HighlightColor))
+                using (SolidBrush hbrsh = new(HighlightColor))
                 {
                     float fx = e.ClipRectangle.Right;//only right to left text for now
                     float fy = e.ClipRectangle.Y;

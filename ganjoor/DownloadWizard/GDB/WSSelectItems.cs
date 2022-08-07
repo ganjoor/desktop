@@ -1,16 +1,15 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using System.Drawing;
-using ganjoor.Properties;
 using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
     partial class WSSelectItems : WizardStage
     {
-   
+
         public WSSelectItems()
             : base()
         {

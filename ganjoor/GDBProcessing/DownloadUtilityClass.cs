@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
 using System.ComponentModel;
+using System.IO;
 using System.Net;
 
 //Based On: http://www.devtoolshed.com/content/c-download-file-progress-bar
@@ -18,7 +16,7 @@ namespace ganjoor
             {
                 return DownloadFile(sUrlToReadFileFrom, TargetDir, backgroundWorker);
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 expString = exp.ToString();
                 return string.Empty;
@@ -28,10 +26,10 @@ namespace ganjoor
         public static string DownloadFile(string sUrlToReadFileFrom, string TargetDir, BackgroundWorker backgroundWorker)
         {
             // first, we need to get the exact size (in bytes) of the file we are downloading
-            
+
             Uri url = new Uri(sUrlToReadFileFrom);
 
-            System.Net.WebRequest req = System.Net.WebRequest.Create(url);            
+            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
             if (req is System.Net.HttpWebRequest)
             {
                 System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)req;
@@ -42,7 +40,7 @@ namespace ganjoor
                 {
                     response = (System.Net.HttpWebResponse)request.GetResponse();
                 }
-                catch(WebException)
+                catch (WebException)
                 {
                     sUrlToReadFileFrom = sUrlToReadFileFrom.Replace("https", "http"); // this is a workaround for https://i.ganjoor.net recent problems
                     url = new Uri(sUrlToReadFileFrom);
@@ -139,14 +137,14 @@ namespace ganjoor
             }
             else
                 if (req is System.Net.FileWebRequest)
-                {
-                    string sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(sUrlToReadFileFrom));
-                    File.Copy(sUrlToReadFileFrom, sFilePathToWriteFileTo, true);
-                    return sFilePathToWriteFileTo;
-                }
-                else
-                    return string.Empty;
-            
+            {
+                string sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(sUrlToReadFileFrom));
+                File.Copy(sUrlToReadFileFrom, sFilePathToWriteFileTo, true);
+                return sFilePathToWriteFileTo;
+            }
+            else
+                return string.Empty;
+
         }
     }
 }

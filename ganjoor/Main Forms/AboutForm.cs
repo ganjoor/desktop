@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.Reflection;
 using System.Diagnostics;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -108,7 +103,7 @@ namespace ganjoor
                 grdContributers.Rows[RowIndex].Cells[GRDCLMN_SEC].Value = Contributers[i][DTCLMN_SEC];
                 grdContributers.Rows[RowIndex].Cells[GRDCLMN_MORE].Value = "کلیک کنید";
             }
-            
+
         }
 
         private void LaunchUrl(string url)
@@ -124,22 +119,22 @@ namespace ganjoor
 
         private void lnkIcons_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LaunchUrl("http://dryicons.com/free-icons/preview/aesthetica/");            
+            LaunchUrl("http://dryicons.com/free-icons/preview/aesthetica/");
         }
 
         private void lnkHamidReza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LaunchUrl("https://www.linkedin.com/in/hrmoh/");            
+            LaunchUrl("https://www.linkedin.com/in/hrmoh/");
         }
 
         private void lnkSources_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LaunchUrl("http://ganjoor.net/sources/");                        
+            LaunchUrl("http://ganjoor.net/sources/");
         }
 
         private void lnkIconsEditor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LaunchUrl("http://dryicons.com/free-icons/preview/grace-icons-set/");            
+            LaunchUrl("http://dryicons.com/free-icons/preview/grace-icons-set/");
         }
 
         private void grdContributers_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -152,16 +147,16 @@ namespace ganjoor
             }
             else
                 if (e.ColumnIndex == GRDCLMN_MORE)
-                {
-                    string link = Contributers[e.RowIndex][DTCLMN_MORE];
-                    if (!string.IsNullOrEmpty(link))
-                        LaunchUrl(link);
-                }
+            {
+                string link = Contributers[e.RowIndex][DTCLMN_MORE];
+                if (!string.IsNullOrEmpty(link))
+                    LaunchUrl(link);
+            }
         }
 
         private void lnkBlog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LaunchUrl("http://blog.ganjoor.net");            
+            LaunchUrl("http://blog.ganjoor.net");
         }
 
         private void lnkEditor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

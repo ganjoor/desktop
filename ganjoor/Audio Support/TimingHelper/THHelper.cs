@@ -18,7 +18,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
             dbBrowser.CloseDb();
 
-            if(_Verses.Count > 0)
+            if (_Verses.Count > 0)
             {
                 lblNextVerse.Text = _Verses[0]._Text;
             }
@@ -41,7 +41,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         private void lblVerse_Click(object sender, EventArgs e)
         {
-            if(!_started)
+            if (!_started)
             {
                 _start = DateTime.Now;
                 _started = true;
@@ -90,18 +90,18 @@ namespace ganjoor.Audio_Support.TimingHelper
                     }
                     break;
                 case TimingStep.SilenceToStop:
-                    if(
+                    if (
                         (_firstVerse && span >= SilenceToStop)
                         ||
                         (!_firstVerse && span >= (SilenceToStop + SilenceToStop))
                         )
                     {
                         _CurVerse++;
-                        if(_CurVerse < _Verses.Count)
+                        if (_CurVerse < _Verses.Count)
                         {
                             lblVerse.Text = _Verses[_CurVerse]._Text;
 
-                            if((_CurVerse + 1) < _Verses.Count)
+                            if ((_CurVerse + 1) < _Verses.Count)
                             {
                                 lblNextVerse.Text = _Verses[_CurVerse + 1]._Text;
                             }
@@ -114,7 +114,7 @@ namespace ganjoor.Audio_Support.TimingHelper
                         _step = TimingStep.StartToSilence;
                         _start = DateTime.Now;
                     }
-                   
+
                     break;
             }
         }

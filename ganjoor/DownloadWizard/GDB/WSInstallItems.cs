@@ -1,10 +1,9 @@
-﻿using System;
+﻿using ganjoor.Properties;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.IO.Compression;
 using System.Windows.Forms;
-using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -34,7 +33,7 @@ namespace ganjoor
         }
 
 
-       private void ImportGdb(string FileName, DbBrowser db)
+        private void ImportGdb(string FileName, DbBrowser db)
         {
             if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
             {

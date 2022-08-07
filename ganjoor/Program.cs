@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ganjoor.Properties;
+using System;
 using System.Windows.Forms;
-using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -21,6 +20,7 @@ namespace ganjoor
             }
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             Application.EnableVisualStyles();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -69,7 +65,7 @@ namespace ganjoor
             private set;
         }
 
-        protected override void GetDataFromPreStage(int StageIndex) 
+        protected override void GetDataFromPreStage(int StageIndex)
         {
             if (_Stages[_CurrentStage] is WSSelectItems)
                 _DownloadList = (_Stages[_CurrentStage] as WSSelectItems).dwnldList;
@@ -96,7 +92,7 @@ namespace ganjoor
         protected override void ShowSettings()
         {
             using (GDBWizOptions dlg = new GDBWizOptions())
-                dlg.ShowDialog(this); 
+                dlg.ShowDialog(this);
         }
 
 

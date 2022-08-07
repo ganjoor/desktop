@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -31,7 +27,7 @@ namespace ganjoor
         private const int CLMN_PUBDATE = CLMN_POEMID + 1;
         #endregion
         private string _FileName = string.Empty;
-         
+
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
@@ -78,7 +74,7 @@ namespace ganjoor
                 }
             if (GDBListProcessor.Save(FileName, txtName.Text, txtDescription.Text, txtMoreInfoUrl.Text, lst))
             {
-                if(
+                if (
                 MessageBox.Show("فایل به درستی ذخیره شد. می‌خواهید آن را مشاهده کنید؟", "اعلان", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
                     ==
                     System.Windows.Forms.DialogResult.Yes
@@ -307,7 +303,7 @@ namespace ganjoor
                 gdb.FileExt = ext;
                 gdb.FileSizeInByte = FileSize;
                 gdb.LowestPoemID = minPoemID;
-                gdb.PubDate = DateTime.Now;                
+                gdb.PubDate = DateTime.Now;
             }
             gdbBrowser.CloseDb();
             return gdb;
@@ -324,7 +320,7 @@ namespace ganjoor
                     bool embedPictures = false;
                     string picPath = string.Empty;
                     string picUrPrefix = string.Empty;
-                    using(GDBPictureDirSelector plg = new GDBPictureDirSelector())
+                    using (GDBPictureDirSelector plg = new GDBPictureDirSelector())
                         if (plg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                         {
                             embedPictures = plg.EmbedPictures;
@@ -341,8 +337,8 @@ namespace ganjoor
                         {
                             bool err = false;
                             GDBInfo gdb = ConvertGridRowToGDBInfo(Row, ref err);
-                            if(!err)
-                               existingIDs.Add(gdb.PoetID);
+                            if (!err)
+                                existingIDs.Add(gdb.PoetID);
                         }
 
                     DbBrowser db = new DbBrowser();
@@ -391,7 +387,7 @@ namespace ganjoor
             }
         }
 
-        
+
 
     }
 }

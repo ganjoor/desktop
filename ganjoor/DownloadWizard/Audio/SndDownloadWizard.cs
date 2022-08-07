@@ -74,7 +74,7 @@ namespace ganjoor
             private set;
         }
 
-        protected override void GetDataFromPreStage(int StageIndex) 
+        protected override void GetDataFromPreStage(int StageIndex)
         {
             if (_Stages[_CurrentStage] is WSSelectSounds)
                 _DownloadList = (_Stages[_CurrentStage] as WSSelectSounds).dwnldList;

@@ -1,13 +1,9 @@
-﻿using System;
+﻿using ganjoor.Audio_Support;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
-using ganjoor.Audio_Support;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -108,7 +104,7 @@ namespace ganjoor
                     bool bIsEmpty = Directory.GetFiles(strOutDir).Length == 0;
                     if (!bIsEmpty)
                     {
-                        if(MessageBox.Show("مسیر انتخاب شده خالی نیست. آیا از انتخاب این مسیر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                        if (MessageBox.Show("مسیر انتخاب شده خالی نیست. آیا از انتخاب این مسیر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
                         {
                             return;
                         }
@@ -117,13 +113,13 @@ namespace ganjoor
                     prgss.Maximum = grdList.RowCount;
                     prgss.Value = 0;
                     this.Enabled = false;
-                    
+
                     foreach (DataGridViewRow Row in grdList.Rows)
                     {
                         prgss.Value++;
                         bool bRes = true;
                         Row.Selected = true;
-                        grdList.FirstDisplayedCell = Row.Cells[0];                        
+                        grdList.FirstDisplayedCell = Row.Cells[0];
                         Application.DoEvents();
                         PoemAudio audio = Row.Tag as PoemAudio;
                         if (audio == null)
@@ -191,12 +187,12 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     string strInDir = dlg.SelectedPath;
-                    
+
 
 
                     string[] xmlFiles = Directory.GetFiles(strInDir, "*.xml");
 
-                    if(xmlFiles.Length == 0)
+                    if (xmlFiles.Length == 0)
                     {
                         MessageBox.Show("در مسیر انتخابی فایل XML وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                         return;
@@ -226,7 +222,7 @@ namespace ganjoor
                                     nErr++;
                                     break;
                                 }
-                                
+
                                 if (_DbBrowser.AddAudio(
                                     mp3FilePath,
                                     xmlAudio
@@ -258,8 +254,8 @@ namespace ganjoor
                         MessageBox.Show("فرایند بازگشت پشتیبان خوانشها بدون خطا انجام شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     }
 
-                    
-                    
+
+
 
                 }//if
             }//using
@@ -274,9 +270,9 @@ namespace ganjoor
         /// <param name="e"></param>
         private void btnAllDownloadable_Click(object sender, EventArgs e)
         {
-            using(AudioDownloadMethod audioDownloadMethod = new AudioDownloadMethod())
+            using (AudioDownloadMethod audioDownloadMethod = new AudioDownloadMethod())
             {
-                if(audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
+                if (audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     Application.DoEvents();

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -15,9 +9,9 @@ namespace ganjoor
             InitializeComponent();
         }
         #region Overridables
-        public virtual void OnBeforeActivate(){}
-        public virtual void OnActivated(){}
-        public virtual void OnApplied(){}
+        public virtual void OnBeforeActivate() { }
+        public virtual void OnActivated() { }
+        public virtual void OnApplied() { }
         public virtual bool OnRequestCloseWindow() { return true; }
         public virtual bool NextStageButton { get { return true; } }
         public virtual bool PreviousStageButton { get { return true; } }

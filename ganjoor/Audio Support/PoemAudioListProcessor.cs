@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
-using System.Reflection;
 using System.IO;
+using System.Reflection;
+using System.Xml;
 
 namespace ganjoor
 {
@@ -59,41 +59,41 @@ namespace ganjoor
                     }
                     else
                         if (prop.PropertyType == typeof(Int32))
+                    {
+                        int value = Convert.ToInt32(prop.GetValue(audio, null));
+                        if (value == 0)
                         {
-                            int value = Convert.ToInt32(prop.GetValue(audio, null));
-                            if (value == 0)
-                            {
-                                ignoreProp = true;
-                            }
-                            else
-                                propNode.InnerText = value.ToString();
+                            ignoreProp = true;
                         }
                         else
+                            propNode.InnerText = value.ToString();
+                    }
+                    else
                             if (prop.PropertyType == typeof(bool))
-                            {
-                                bool value = Convert.ToBoolean(prop.GetValue(audio, null));
-                                if (!value)
-                                {
-                                    ignoreProp = true;
-                                }
-                                else
-                                    propNode.InnerText = value.ToString();
-                            }
-                           else
+                    {
+                        bool value = Convert.ToBoolean(prop.GetValue(audio, null));
+                        if (!value)
+                        {
+                            ignoreProp = true;
+                        }
+                        else
+                            propNode.InnerText = value.ToString();
+                    }
+                    else
                                 if (prop.PropertyType == typeof(Guid))
-                                {
-                                    string value = prop.GetValue(audio, null).ToString();
-                                    if (string.IsNullOrEmpty(value))
-                                    {
-                                        ignoreProp = true;
-                                    }
-                                    else
-                                        propNode.InnerText = value;
-                                }
-                                else
-                                    {
-                                         ignoreProp = true;
-                                    }
+                    {
+                        string value = prop.GetValue(audio, null).ToString();
+                        if (string.IsNullOrEmpty(value))
+                        {
+                            ignoreProp = true;
+                        }
+                        else
+                            propNode.InnerText = value;
+                    }
+                    else
+                    {
+                        ignoreProp = true;
+                    }
 
                     if (!ignoreProp)
                         poemAudioNode.AppendChild(propNode);
@@ -118,7 +118,7 @@ namespace ganjoor
                         XmlNode vAudioMiliseconds = doc.CreateNode(XmlNodeType.Element, "AudioMiliseconds", "");
                         if (oldVersion)
                         {
-                            vAudioMiliseconds.InnerText = (info.AudioMiliseconds/2).ToString();
+                            vAudioMiliseconds.InnerText = (info.AudioMiliseconds / 2).ToString();
                         }
                         else
                             vAudioMiliseconds.InnerText = info.AudioMiliseconds.ToString();

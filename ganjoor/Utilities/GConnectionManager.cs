@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ganjoor.Properties;
+using System;
 using System.Net;
-using ganjoor.Properties;
 
 namespace ganjoor
 {

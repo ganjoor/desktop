@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
+﻿using NAudio.Wave;
+using System;
 using System.Drawing;
-using System.Data;
 using System.Windows.Forms;
-using NAudio.Wave;
 
 namespace ganjoor
 {
@@ -66,10 +63,10 @@ namespace ganjoor
         public event EventHandler OnPositionChanged = null;
 
 
- 
 
 
-   
+
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -167,7 +164,7 @@ namespace ganjoor
 
         private void PreparePaintData()
         {
-        
+
             if (waveStream != null)
             {
                 int StartX = 0;
@@ -178,7 +175,7 @@ namespace ganjoor
                 byte[] waveData = new byte[samplesPerPixel * bytesPerSample];
                 waveStream.Position = startPosition + (StartX * bytesPerSample * samplesPerPixel);
 
-                
+
 
                 for (int x = StartX; x < EndX; x++)
                 {
@@ -187,7 +184,7 @@ namespace ganjoor
                     bytesRead = waveStream.Read(waveData, 0, samplesPerPixel * bytesPerSample);
                     if (bytesRead == 0)
                         break;
-                    
+
                     for (int n = 0; n < bytesRead; n += 2)
                     {
                         short sample = BitConverter.ToInt16(waveData, n);

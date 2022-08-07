@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -36,7 +32,7 @@ namespace ganjoor
         private void grdList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             GDBInfo gdb = grdList.Rows[e.RowIndex].Tag as GDBInfo;
-            if(gdb != null)
+            if (gdb != null)
                 try
                 {
                     switch (e.ColumnIndex)
@@ -70,7 +66,7 @@ namespace ganjoor
             {
                 List<int> Lst = new List<int>();
                 foreach (DataGridViewRow Row in grdList.Rows)
-                    if((bool)Row.Cells[GRDCLMN_IGNORE].Value)
+                    if ((bool)Row.Cells[GRDCLMN_IGNORE].Value)
                     {
                         GDBInfo gdb = Row.Tag as GDBInfo;
                         if (gdb != null)
