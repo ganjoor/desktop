@@ -2264,17 +2264,7 @@ namespace ganjoor
             {
                 var cats = GetAllSubCats(MainCatID);
                 cats.Add(MainCatID);
-                var strQuery = "SELECT MIN(id) FROM poem WHERE cat_id IN (";
-                for (var i = 0; i < cats.Count - 1; i++)
-                {
-                    strQuery += cats[i].ToString();
-                    strQuery += ", ";
-                }
-                if (cats.Count - 1 >= 0)
-                {
-                    strQuery += cats[^1].ToString();
-                }
-                strQuery += ");";
+                var strQuery = "SELECT MIN(id) FROM poem WHERE cat_id IN (" + string.Join(", ", cats) + ");";
                 using var tbl = new DataTable();
                 using var da = new SQLiteDataAdapter(strQuery, _con);
                 da.Fill(tbl);
