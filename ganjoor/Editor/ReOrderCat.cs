@@ -246,7 +246,7 @@ namespace ganjoor
                     {
                         if (title.IndexOf(" - ") != -1)
                         {
-                            title = title.Substring(title.IndexOf(" - ") + " - ".Length);
+                            title = title[(title.IndexOf(" - ") + " - ".Length)..];
                             newTitle = $"{newTitle} - {title}";
                         }
                     }

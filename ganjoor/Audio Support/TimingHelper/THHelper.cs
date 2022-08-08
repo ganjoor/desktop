@@ -85,7 +85,7 @@ namespace ganjoor.Audio_Support.TimingHelper
                     {
                         var ratio = span.TotalMilliseconds / StartToSilence.TotalMilliseconds;
                         var verse = lblVerse.Text;
-                        lblVerse.Keyword = verse.Substring(0, (int)(ratio * verse.Length));
+                        lblVerse.Keyword = verse[..(int)(ratio * verse.Length)];
                         lblVerse.Invalidate();
                         progressBar.Value = (int)(ratio * 100);
                     }

@@ -61,7 +61,7 @@ namespace ganjoor
                     {
                         if (index == 0)
                         {
-                            thisPart = txt.Substring(0, Keyword.Length);
+                            thisPart = txt[..Keyword.Length];
                             if (txt == Keyword)
                                 txt = string.Empty;
                             else
@@ -70,8 +70,8 @@ namespace ganjoor
                         }
                         else
                         {
-                            thisPart = txt.Substring(0, index);
-                            txt = txt.Substring(index);
+                            thisPart = txt[..index];
+                            txt = txt[index..];
                         }
                     }
                     SizeF sz = TextRenderer.MeasureText(thisPart, Font, Size.Empty, TextFormatFlags.TextBoxControl | TextFormatFlags.RightToLeft);

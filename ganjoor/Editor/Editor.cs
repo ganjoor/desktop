@@ -891,7 +891,7 @@ namespace ganjoor
         {
             var catInLatinLetters = (nOrder + 1).ToString("D3") + "-" + GPersianTextSync.Farglisize(cat._Text);
             if (catInLatinLetters.Length > 16)
-                catInLatinLetters = catInLatinLetters.Substring(0, 16);
+                catInLatinLetters = catInLatinLetters[..16];
             var catFolder = Path.Combine(targetFolder, catInLatinLetters);
             if (!Directory.Exists(catFolder))
             {

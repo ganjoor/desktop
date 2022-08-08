@@ -172,7 +172,7 @@ namespace ganjoor
                 {
                     var vText = v[0]._Text;
                     if (vText.Length > MaxPoemPreviewLength)
-                        vText = vText.Substring(0, MaxPoemPreviewLength - 4) + " ...";
+                        vText = vText[..(MaxPoemPreviewLength - 4)] + " ...";
                     lblPoem.Text += " : " + vText;
                 }
                 lblPoem.Location = new Point(poemsDistanceFromRight, poemsTop + (i - category._StartPoem) * DistanceBetweenLines + ParagraphShift);
@@ -2991,8 +2991,8 @@ namespace ganjoor
                             var nStart = textBox.SelectionStart;
                             if (nStart >= 0)
                             {
-                                var startText = textBox.Text.Substring(0, nStart).Trim();
-                                var endText = textBox.Text.Substring(nStart).Trim();
+                                var startText = textBox.Text[..nStart].Trim();
+                                var endText = textBox.Text[nStart..].Trim();
                                 textBox.Text = startText;
                                 DRY_ForceSaveVerse(textBox);
 
