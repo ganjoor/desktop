@@ -381,8 +381,8 @@ namespace ganjoor
             }
 
             _FavsPage = false;
-            _iCurCat = category != null ? category._ID : 0;
-            _iCurCatStart = category != null ? category._StartPoem : 0;
+            _iCurCat = category?._ID ?? 0;
+            _iCurCatStart = category?._StartPoem ?? 0;
             _iCurPoem = 0;
         }
         public int ShowPoem(GanjoorPoem poem, bool keepTrack)
@@ -2692,7 +2692,7 @@ namespace ganjoor
         public void GetIDs(out int PoetID, out int MinCatID, out int MinPoemID)
         {
             var poet = _db.GetPoetForCat(_iCurCat);
-            PoetID = poet == null ? 0 : poet._ID;
+            PoetID = poet?._ID ?? 0;
             _db.GetMinIDs(PoetID, out MinCatID, out MinPoemID);
 
         }

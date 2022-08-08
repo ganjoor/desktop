@@ -217,7 +217,7 @@ namespace System.IO.Compression
             zfe.Method = _method;
             zfe.EncodeUTF8 = EncodeUTF8;
             zfe.FilenameInZip = NormalizedFilename(_filenameInZip);
-            zfe.Comment = _comment == null ? "" : _comment;
+            zfe.Comment = _comment ?? "";
 
             // Even though we write the header now, it will have to be rewritten, since we don't know compressed size or crc.
             zfe.Crc32 = 0;  // to be updated later
