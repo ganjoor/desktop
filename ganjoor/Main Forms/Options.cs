@@ -1,9 +1,10 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -18,9 +19,9 @@ namespace ganjoor
 
         private void InitializeControls()
         {
-            ViewFont = Properties.Settings.Default.ViewFont;
-            lblFont.Text = ViewFont.Name + "(" + ViewFont.Style.ToString() + ") " + ViewFont.Size.ToString();
-            chkHighlightSearchResults.Checked = Properties.Settings.Default.HighlightKeyword;
+            ViewFont = Settings.Default.ViewFont;
+            lblFont.Text = ViewFont.Name + "(" + ViewFont.Style + ") " + ViewFont.Size;
+            chkHighlightSearchResults.Checked = Settings.Default.HighlightKeyword;
             chkBrowseButton.Checked = Settings.Default.BrowseButtonVisible;
             chkCommentsButton.Checked = Settings.Default.CommentsButtonVisible;
             chkCopyButton.Checked = Settings.Default.CopyButtonVisible;
@@ -85,21 +86,18 @@ namespace ganjoor
 
 
 
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private Font ViewFont { set; get; }
 
-        private void btnSelectFont_Click(object sender, EventArgs e)
-        {
-            using (FontDialog dlg = new FontDialog())
+        private void btnSelectFont_Click(object sender, EventArgs e) {
+            using var dlg = new FontDialog();
+            dlg.Font = ViewFont;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Font = ViewFont;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    ViewFont = dlg.Font;
-                    lblFont.Text = ViewFont.Name + "(" + ViewFont.Style.ToString() + ") " + ViewFont.Size.ToString();
-                }
+                ViewFont = dlg.Font;
+                lblFont.Text = ViewFont.Name + "(" + ViewFont.Style + ") " + ViewFont.Size;
             }
         }
 
@@ -110,64 +108,49 @@ namespace ganjoor
             btnNoBkImage.Enabled = lblNormalBk.Enabled = btnBackColor.Enabled = lblImagePath.Enabled = lblImage.Enabled = btnSelect.Enabled = !chkGradiantBk.Checked;
         }
 
-        private void btnGradiantBegin_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog dlg = new ColorDialog())
+        private void btnGradiantBegin_Click(object sender, EventArgs e) {
+            using var dlg = new ColorDialog();
+            dlg.Color = btnGradiantBegin.BackColor;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Color = btnGradiantBegin.BackColor;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    btnGradiantBegin.BackColor = dlg.Color;
-                }
+                btnGradiantBegin.BackColor = dlg.Color;
             }
         }
 
-        private void btnGradiantEnd_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog dlg = new ColorDialog())
+        private void btnGradiantEnd_Click(object sender, EventArgs e) {
+            using var dlg = new ColorDialog();
+            dlg.Color = btnGradiantEnd.BackColor;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Color = btnGradiantEnd.BackColor;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    btnGradiantEnd.BackColor = dlg.Color;
-                }
+                btnGradiantEnd.BackColor = dlg.Color;
             }
         }
 
-        private void btnBackColor_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog dlg = new ColorDialog())
+        private void btnBackColor_Click(object sender, EventArgs e) {
+            using var dlg = new ColorDialog();
+            dlg.Color = btnBackColor.BackColor;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Color = btnBackColor.BackColor;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    btnBackColor.BackColor = dlg.Color;
-                }
+                btnBackColor.BackColor = dlg.Color;
             }
         }
 
-        private void btnTextColor_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog dlg = new ColorDialog())
+        private void btnTextColor_Click(object sender, EventArgs e) {
+            using var dlg = new ColorDialog();
+            dlg.Color = btnTextColor.BackColor;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Color = btnTextColor.BackColor;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    btnTextColor.BackColor = dlg.Color;
-                }
+                btnTextColor.BackColor = dlg.Color;
             }
         }
 
 
-        private void btnSelect_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
+        private void btnSelect_Click(object sender, EventArgs e) {
+            using var dlg = new OpenFileDialog();
+            dlg.Filter = "تصاویر|*.jpg;*.bmp;*.png;*.gif|انواع فایلها|*.*";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Filter = "تصاویر|*.jpg;*.bmp;*.png;*.gif|انواع فایلها|*.*";
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    lblImagePath.Text = dlg.FileName;
-                }
+                lblImagePath.Text = dlg.FileName;
             }
         }
 
@@ -179,7 +162,7 @@ namespace ganjoor
                     MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
                 return;
 
-            bool showLineNumbers = Settings.Default.ShowBeytNums;
+            var showLineNumbers = Settings.Default.ShowBeytNums;
             Settings.Default.Reset();
             Settings.Default.IsNewVersion = false;
             Settings.Default.ShowBeytNums = showLineNumbers;
@@ -191,51 +174,39 @@ namespace ganjoor
             lblImagePath.Text = "";
         }
 
-        private void btnLinkColor_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog dlg = new ColorDialog())
+        private void btnLinkColor_Click(object sender, EventArgs e) {
+            using var dlg = new ColorDialog();
+            dlg.Color = btnLinkColor.BackColor;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Color = btnLinkColor.BackColor;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    btnLinkColor.BackColor = dlg.Color;
-                }
+                btnLinkColor.BackColor = dlg.Color;
             }
         }
 
-        private void btnCurrentLinkColor_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog dlg = new ColorDialog())
+        private void btnCurrentLinkColor_Click(object sender, EventArgs e) {
+            using var dlg = new ColorDialog();
+            dlg.Color = btnCurrentLinkColor.BackColor;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Color = btnCurrentLinkColor.BackColor;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    btnCurrentLinkColor.BackColor = dlg.Color;
-                }
+                btnCurrentLinkColor.BackColor = dlg.Color;
             }
         }
 
-        private void btnHighlightColor_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog dlg = new ColorDialog())
+        private void btnHighlightColor_Click(object sender, EventArgs e) {
+            using var dlg = new ColorDialog();
+            dlg.Color = btnHighlightColor.BackColor;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Color = btnHighlightColor.BackColor;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    btnHighlightColor.BackColor = dlg.Color;
-                }
+                btnHighlightColor.BackColor = dlg.Color;
             }
         }
 
-        private void btnBandLinkColor_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog dlg = new ColorDialog())
+        private void btnBandLinkColor_Click(object sender, EventArgs e) {
+            using var dlg = new ColorDialog();
+            dlg.Color = btnBandLinkColor.BackColor;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.Color = btnBandLinkColor.BackColor;
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    btnBandLinkColor.BackColor = dlg.Color;
-                }
+                btnBandLinkColor.BackColor = dlg.Color;
             }
         }
 
@@ -246,32 +217,32 @@ namespace ganjoor
             {
                 if (_RandomCatIDs == "0")
                     return "همه";
-                DbBrowser db = new DbBrowser();
-                string[] CatStrs = _RandomCatIDs.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                var db = new DbBrowser();
+                var CatStrs = _RandomCatIDs.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-                List<GanjoorCat> SelectedCats = new List<GanjoorCat>();
-                foreach (string CatStr in CatStrs)
+                var SelectedCats = new List<GanjoorCat>();
+                foreach (var CatStr in CatStrs)
                 {
-                    GanjoorCat cat = db.GetCategory(Convert.ToInt32(CatStr));
+                    var cat = db.GetCategory(Convert.ToInt32(CatStr));
                     if (cat != null)
                         SelectedCats.Add(cat);
 
                 }
-                string result = "";
+                var result = "";
                 if (SelectedCats.Count == 0)
                     result = "همه";
                 else
                 {
-                    foreach (GanjoorCat cat in SelectedCats)
+                    foreach (var cat in SelectedCats)
                     {
-                        List<GanjoorCat> cats = db.GetParentCategories(cat);
-                        string catString = "";
-                        foreach (GanjoorCat parCat in cats)
+                        var cats = db.GetParentCategories(cat);
+                        var catString = "";
+                        foreach (var parCat in cats)
                             if (parCat._ID != 0)
                                 catString += parCat._Text + " ->";
                         catString += cat._Text;
 
-                        result += (catString + "؛");
+                        result += catString + "؛";
                     }
                 }
                 db.CloseDb();
@@ -279,16 +250,13 @@ namespace ganjoor
 
             }
         }
-        private void btnSelectRandomCat_Click(object sender, EventArgs e)
-        {
-            using (CategorySelector dlg = new CategorySelector())
+        private void btnSelectRandomCat_Click(object sender, EventArgs e) {
+            using var dlg = new CategorySelector();
+            dlg.CheckedCatsString = _RandomCatIDs;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                dlg.CheckedCatsString = _RandomCatIDs;
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    _RandomCatIDs = dlg.CheckedCatsString;
-                    lblRandomCat.Text = RandomCatPath;
-                }
+                _RandomCatIDs = dlg.CheckedCatsString;
+                lblRandomCat.Text = RandomCatPath;
             }
         }
 
@@ -296,7 +264,7 @@ namespace ganjoor
         {
             try
             {
-                System.Diagnostics.Process.Start(txtDbPath.Text);
+                Process.Start(txtDbPath.Text);
             }
             catch
             {

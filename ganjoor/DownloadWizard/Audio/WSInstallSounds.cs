@@ -11,7 +11,7 @@ namespace ganjoor
         {
             InitializeComponent();
 
-            this.InstalledFilesCount = 0;
+            InstalledFilesCount = 0;
         }
 
         public override bool PreviousStageButton
@@ -30,27 +30,26 @@ namespace ganjoor
 
         public override void OnActivated()
         {
-            if (OnInstallStarted != null)
-                OnInstallStarted(this, new EventArgs());
-            DbBrowser db = new DbBrowser();
+            OnInstallStarted?.Invoke(this, EventArgs.Empty);
+            var db = new DbBrowser();
             Application.DoEvents();
-            string targetDir = DownloadableAudioListProcessor.SoundsPath;
+            var targetDir = DownloadableAudioListProcessor.SoundsPath;
             if (DownloadedSounds != null)
-                foreach (Dictionary<string, string> audioInfo in DownloadedSounds)
+                foreach (var audioInfo in DownloadedSounds)
                 {
                     grdList.Rows[grdList.Rows.Add()].Cells[0].Value = DownloadableAudioListProcessor.SuggestTitle(audioInfo);
-                    string mp3FilePath = Path.Combine(targetDir, Path.GetFileName(new Uri(audioInfo["audio_mp3"]).LocalPath));
-                    PoemAudio poemAudio = db.AddAudio(
+                    var mp3FilePath = Path.Combine(targetDir, Path.GetFileName(new Uri(audioInfo["audio_mp3"]).LocalPath));
+                    var poemAudio = db.AddAudio(
                         Int32.Parse(audioInfo["audio_post_ID"]),
                         mp3FilePath,
                         DownloadableAudioListProcessor.SuggestTitle(audioInfo),
                         Int32.Parse(audioInfo["audio_order"])
                         );
-                    string xmlFilePath = Path.Combine(targetDir, Path.GetFileName(new Uri(audioInfo["audio_xml"]).LocalPath));
-                    List<PoemAudio> lstPoemAudio = PoemAudioListProcessor.Load(xmlFilePath);
+                    var xmlFilePath = Path.Combine(targetDir, Path.GetFileName(new Uri(audioInfo["audio_xml"]).LocalPath));
+                    var lstPoemAudio = PoemAudioListProcessor.Load(xmlFilePath);
                     if (lstPoemAudio.Count == 1)
                     {
-                        foreach (PoemAudio xmlAudio in lstPoemAudio)
+                        foreach (var xmlAudio in lstPoemAudio)
                         {
                             if (xmlAudio.PoemId == poemAudio.PoemId)
                             {
@@ -72,12 +71,11 @@ namespace ganjoor
                     Application.DoEvents();
                 }
             db.CloseDb();
-            if (OnInstallFinished != null)
-                OnInstallFinished(this, new EventArgs());
+            OnInstallFinished?.Invoke(this, EventArgs.Empty);
         }
 
-        public event EventHandler OnInstallStarted = null;
-        public event EventHandler OnInstallFinished = null;
+        public event EventHandler OnInstallStarted;
+        public event EventHandler OnInstallFinished;
 
         public int InstalledFilesCount
         {

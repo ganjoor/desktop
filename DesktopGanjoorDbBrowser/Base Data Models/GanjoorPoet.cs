@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ganjoor
+﻿namespace ganjoor
 {
     /// <summary>
     /// اطلاعات شاعر
@@ -66,25 +62,19 @@ namespace ganjoor
         {
             if (obj is GanjoorPoet)
             {
-                GanjoorPoet otherPoet = obj as GanjoorPoet;
+                var otherPoet = obj as GanjoorPoet;
                 return
-                    this._ID == otherPoet._ID && this._Name == otherPoet._Name;
+                    _ID == otherPoet._ID && _Name == otherPoet._Name;
             }
-             return false;
+            return false;
         }
 
-        public override int GetHashCode()
-        {
-            return this._ID;
-        }
+        public override int GetHashCode() => _ID;
 
         #endregion
 
         #region ToString
-        public override string ToString()
-        {
-            return this._Name;
-        }
+        public override string ToString() => _Name;
         #endregion
 
     }

@@ -1,7 +1,8 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -24,10 +25,9 @@ namespace ganjoor
             Settings.Default.Save();
         }
 
-        private void btnGDBListEditor_Click(object sender, EventArgs e)
-        {
-            using (GDBListEditor dlg = new GDBListEditor())
-                dlg.ShowDialog(this);
+        private void btnGDBListEditor_Click(object sender, EventArgs e) {
+            using var dlg = new GDBListEditor();
+            dlg.ShowDialog(this);
         }
 
         private void GDBWizOptions_Load(object sender, EventArgs e)
@@ -36,21 +36,18 @@ namespace ganjoor
             chkDeleteDownloadedFiles.Checked = Settings.Default.DeleteDownloadedFiles;
         }
 
-        private void btnSelectTempPath_Click(object sender, EventArgs e)
-        {
-            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
-            {
-                dlg.SelectedPath = txtTempPath.Text;
-                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                    txtTempPath.Text = dlg.SelectedPath;
-            }
+        private void btnSelectTempPath_Click(object sender, EventArgs e) {
+            using var dlg = new FolderBrowserDialog();
+            dlg.SelectedPath = txtTempPath.Text;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+                txtTempPath.Text = dlg.SelectedPath;
         }
 
         private void btnBrowseTempPath_Click(object sender, EventArgs e)
         {
             try
             {
-                System.Diagnostics.Process.Start(txtTempPath.Text);
+                Process.Start(txtTempPath.Text);
             }
             catch { }
         }

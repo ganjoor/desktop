@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor.Audio_Support.TimingHelper
 {
@@ -7,11 +8,11 @@ namespace ganjoor.Audio_Support.TimingHelper
     {
         public THFirstVerse(int nPoemId = 0)
         {
-            Font = Properties.Settings.Default.ViewFont;
+            Font = Settings.Default.ViewFont;
 
             InitializeComponent();
 
-            DbBrowser dbBrowser = new DbBrowser();
+            var dbBrowser = new DbBrowser();
 
             var verses = dbBrowser.GetVerses(nPoemId);
 
@@ -37,7 +38,7 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         private DateTime _start;
 
-        private void btnStart_Click(object sender, System.EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
             switch (step)
             {
@@ -64,7 +65,7 @@ namespace ganjoor.Audio_Support.TimingHelper
             }
         }
 
-        private void timerStartToSilence_Tick(object sender, System.EventArgs e)
+        private void timerStartToSilence_Tick(object sender, EventArgs e)
         {
             btnStart.Text = $"مصرع اول: {(DateTime.Now - _start).TotalSeconds}";
             Application.DoEvents();

@@ -8,8 +8,8 @@ namespace ganjoor
         public SndDownloadInfo(Dictionary<string, string> audioInfo)
         {
             InitializeComponent();
-            this.Tag = audioInfo;
-            this.lblSndName.Text = DownloadableAudioListProcessor.SuggestShortTitle(audioInfo);
+            Tag = audioInfo;
+            lblSndName.Text = DownloadableAudioListProcessor.SuggestShortTitle(audioInfo);
         }
 
         public int Progress

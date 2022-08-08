@@ -8,8 +8,8 @@ namespace ganjoor
         {
             InitializeComponent();
 
-            this.Tag = gdbInfo;
-            this.lblGdbName.Text = gdbInfo.CatName;
+            Tag = gdbInfo;
+            lblGdbName.Text = gdbInfo.CatName;
         }
 
         public int Progress

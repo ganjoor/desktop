@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ganjoor.Properties;
 
 namespace ganjoor.Audio_Support.TimingHelper
 {
@@ -7,11 +8,11 @@ namespace ganjoor.Audio_Support.TimingHelper
     {
         public THHelper(int nPoemId = 0)
         {
-            Font = Properties.Settings.Default.ViewFont;
+            Font = Settings.Default.ViewFont;
 
             InitializeComponent();
 
-            DbBrowser dbBrowser = new DbBrowser();
+            var dbBrowser = new DbBrowser();
 
             _Verses = dbBrowser.GetVerses(nPoemId);
 
@@ -29,10 +30,10 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         private bool _firstVerse = true;
 
-        private bool _started = false;
+        private bool _started;
         private TimingStep _step = TimingStep.NotStarted;
 
-        private int _CurVerse = 0;
+        private int _CurVerse;
 
 
         private List<GanjoorVerse> _Verses;
@@ -60,14 +61,14 @@ namespace ganjoor.Audio_Support.TimingHelper
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan span = DateTime.Now - _start;
+            var span = DateTime.Now - _start;
             switch (_step)
             {
                 case TimingStep.StartToSilence:
 
                     if (span >= StartToSilence)
                     {
-                        if ((_CurVerse + 1) >= _Verses.Count)
+                        if (_CurVerse + 1 >= _Verses.Count)
                         {
                             timer.Enabled = false;
                             progressBar.Value = 100;
@@ -82,8 +83,8 @@ namespace ganjoor.Audio_Support.TimingHelper
                     }
                     else
                     {
-                        double ratio = span.TotalMilliseconds / StartToSilence.TotalMilliseconds;
-                        string verse = lblVerse.Text;
+                        var ratio = span.TotalMilliseconds / StartToSilence.TotalMilliseconds;
+                        var verse = lblVerse.Text;
                         lblVerse.Keyword = verse.Substring(0, (int)(ratio * verse.Length));
                         lblVerse.Invalidate();
                         progressBar.Value = (int)(ratio * 100);
@@ -93,7 +94,7 @@ namespace ganjoor.Audio_Support.TimingHelper
                     if (
                         (_firstVerse && span >= SilenceToStop)
                         ||
-                        (!_firstVerse && span >= (SilenceToStop + SilenceToStop))
+                        (!_firstVerse && span >= SilenceToStop + SilenceToStop)
                         )
                     {
                         _CurVerse++;
@@ -101,7 +102,7 @@ namespace ganjoor.Audio_Support.TimingHelper
                         {
                             lblVerse.Text = _Verses[_CurVerse]._Text;
 
-                            if ((_CurVerse + 1) < _Verses.Count)
+                            if (_CurVerse + 1 < _Verses.Count)
                             {
                                 lblNextVerse.Text = _Verses[_CurVerse + 1]._Text;
                             }

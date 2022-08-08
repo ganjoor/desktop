@@ -12,9 +12,9 @@ namespace ganjoor
         }
         public ConflictingPoets(GanjoorPoet[] Poets) : this()
         {
-            foreach (GanjoorPoet Poet in Poets)
+            foreach (var Poet in Poets)
             {
-                int RowIndex = grdConflictingPoets.Rows.Add();
+                var RowIndex = grdConflictingPoets.Rows.Add();
                 grdConflictingPoets.Rows[RowIndex].Tag = Poet;
                 grdConflictingPoets.Rows[RowIndex].Cells[0].Value = Poet._Name;
                 grdConflictingPoets.Rows[RowIndex].Cells[1].Value = true;
@@ -25,12 +25,12 @@ namespace ganjoor
         {
             get
             {
-                List<GanjoorPoet> lstDelete = new List<GanjoorPoet>();
+                var lstDelete = new List<GanjoorPoet>();
 
                 foreach (DataGridViewRow Row in grdConflictingPoets.Rows)
                     if (Convert.ToBoolean(Row.Cells[1].Value))
-                        if (Row.Tag != null && Row.Tag is GanjoorPoet)
-                            lstDelete.Add(Row.Tag as GanjoorPoet);
+                        if (Row.Tag is GanjoorPoet tag)
+                            lstDelete.Add(tag);
                 return lstDelete.ToArray();
             }
         }

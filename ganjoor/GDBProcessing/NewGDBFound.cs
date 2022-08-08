@@ -10,9 +10,9 @@ namespace ganjoor
         public NewGDBFound(List<GDBInfo> Lst)
         {
             InitializeComponent();
-            foreach (GDBInfo gdbInfo in Lst)
+            foreach (var gdbInfo in Lst)
             {
-                int RowIndex = grdList.Rows.Add();
+                var RowIndex = grdList.Rows.Add();
                 grdList.Rows[RowIndex].Cells[GRDCLMN_CAT].Value = gdbInfo.CatName;
                 grdList.Rows[RowIndex].Cells[GRDCLMN_DWNLD].Value = "دریافت";
                 if (!string.IsNullOrEmpty(gdbInfo.BlogUrl))
@@ -31,7 +31,7 @@ namespace ganjoor
 
         private void grdList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            GDBInfo gdb = grdList.Rows[e.RowIndex].Tag as GDBInfo;
+            var gdb = grdList.Rows[e.RowIndex].Tag as GDBInfo;
             if (gdb != null)
                 try
                 {
@@ -46,7 +46,7 @@ namespace ganjoor
                                 Process.Start(gdb.BlogUrl);
                             break;
                         case GRDCLMN_IGNORE:
-                            grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !((bool)grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);//why do I need this?                            
+                            grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !(bool)grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;//why do I need this?                            
                             break;
                         case GRDCLMN_CHECK:
                             grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !Convert.ToBoolean(grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
@@ -64,11 +64,11 @@ namespace ganjoor
         {
             get
             {
-                List<int> Lst = new List<int>();
+                var Lst = new List<int>();
                 foreach (DataGridViewRow Row in grdList.Rows)
                     if ((bool)Row.Cells[GRDCLMN_IGNORE].Value)
                     {
-                        GDBInfo gdb = Row.Tag as GDBInfo;
+                        var gdb = Row.Tag as GDBInfo;
                         if (gdb != null)
                             Lst.Add(gdb.CatID);
                     }

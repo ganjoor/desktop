@@ -1,6 +1,6 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -18,7 +18,7 @@ namespace ganjoor
                 Settings.Default.IsNewVersion = false;
                 Settings.Default.Save();
             }
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.EnableVisualStyles();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.SetCompatibleTextRenderingDefault(false);

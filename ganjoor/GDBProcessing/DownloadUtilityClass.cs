@@ -27,35 +27,33 @@ namespace ganjoor
         {
             // first, we need to get the exact size (in bytes) of the file we are downloading
 
-            Uri url = new Uri(sUrlToReadFileFrom);
+            var url = new Uri(sUrlToReadFileFrom);
 
-            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-            if (req is System.Net.HttpWebRequest)
+            var req = WebRequest.Create(url);
+            if (req is HttpWebRequest request)
             {
-                System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)req;
-
-                System.Net.HttpWebResponse response;
+                HttpWebResponse response;
 
                 try
                 {
-                    response = (System.Net.HttpWebResponse)request.GetResponse();
+                    response = (HttpWebResponse)request.GetResponse();
                 }
                 catch (WebException)
                 {
                     sUrlToReadFileFrom = sUrlToReadFileFrom.Replace("https", "http"); // this is a workaround for https://i.ganjoor.net recent problems
                     url = new Uri(sUrlToReadFileFrom);
-                    req = System.Net.WebRequest.Create(url);
-                    request = (System.Net.HttpWebRequest)req;
-                    response = (System.Net.HttpWebResponse)request.GetResponse();
+                    req = WebRequest.Create(url);
+                    request = (HttpWebRequest)req;
+                    response = (HttpWebResponse)request.GetResponse();
                 }
 
                 response.Close();
 
-                string sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(response.ResponseUri.LocalPath));
+                var sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(response.ResponseUri.LocalPath));
 
                 // gets the size of the file in bytes
 
-                Int64 iSize = response.ContentLength;
+                var iSize = response.ContentLength;
 
 
 
@@ -67,83 +65,76 @@ namespace ganjoor
 
                 // use the webclient object to download the file
 
-                using (System.Net.WebClient client = new System.Net.WebClient())
+                using var client = new WebClient();
+                // open the file at the remote URL for reading
+
+                using var streamRemote = client.OpenRead(new Uri(sUrlToReadFileFrom));
+                // using the FileStream object, we can write the downloaded bytes to the file system
+
+                using (Stream streamLocal = new FileStream(sFilePathToWriteFileTo, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
 
-                    // open the file at the remote URL for reading
+                    // loop the stream and get the file into the byte buffer
 
-                    using (System.IO.Stream streamRemote = client.OpenRead(new Uri(sUrlToReadFileFrom)))
+                    var iByteSize = 0;
+
+                    var byteBuffer = new byte[iSize];
+
+                    while ((iByteSize = streamRemote.Read(byteBuffer, 0, byteBuffer.Length)) > 0)
                     {
 
-                        // using the FileStream object, we can write the downloaded bytes to the file system
+                        // write the bytes to the file system at the file path specified
 
-                        using (Stream streamLocal = new FileStream(sFilePathToWriteFileTo, FileMode.Create, FileAccess.Write, FileShare.None))
-                        {
+                        streamLocal.Write(byteBuffer, 0, iByteSize);
 
-                            // loop the stream and get the file into the byte buffer
-
-                            int iByteSize = 0;
-
-                            byte[] byteBuffer = new byte[iSize];
-
-                            while ((iByteSize = streamRemote.Read(byteBuffer, 0, byteBuffer.Length)) > 0)
-                            {
-
-                                // write the bytes to the file system at the file path specified
-
-                                streamLocal.Write(byteBuffer, 0, iByteSize);
-
-                                iRunningByteTotal += iByteSize;
+                        iRunningByteTotal += iByteSize;
 
 
 
-                                // calculate the progress out of a base "100"
+                        // calculate the progress out of a base "100"
 
-                                double dIndex = (double)(iRunningByteTotal);
+                        double dIndex = iRunningByteTotal;
 
-                                double dTotal = (double)byteBuffer.Length;
-
-
-                                double dProgressPercentage = (dIndex / dTotal);
-
-                                int iProgressPercentage = (int)(dProgressPercentage * 100);
+                        double dTotal = byteBuffer.Length;
 
 
+                        var dProgressPercentage = dIndex / dTotal;
 
-                                // update the progress bar
-
-                                backgroundWorker.ReportProgress(iProgressPercentage);
-
-                            }
+                        var iProgressPercentage = (int)(dProgressPercentage * 100);
 
 
 
-                            // clean up the file stream
+                        // update the progress bar
 
-                            streamLocal.Close();
-
-                        }
-
-
-
-                        // close the connection to the remote server
-
-                        streamRemote.Close();
+                        backgroundWorker.ReportProgress(iProgressPercentage);
 
                     }
 
+
+
+                    // clean up the file stream
+
+                    streamLocal.Close();
+
                 }
+
+
+
+                // close the connection to the remote server
+
+                streamRemote.Close();
+
                 return sFilePathToWriteFileTo;
             }
-            else
-                if (req is System.Net.FileWebRequest)
+
+            if (req is FileWebRequest)
             {
-                string sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(sUrlToReadFileFrom));
+                var sFilePathToWriteFileTo = Path.Combine(TargetDir, Path.GetFileName(sUrlToReadFileFrom));
                 File.Copy(sUrlToReadFileFrom, sFilePathToWriteFileTo, true);
                 return sFilePathToWriteFileTo;
             }
-            else
-                return string.Empty;
+
+            return string.Empty;
 
         }
     }

@@ -10,24 +10,20 @@ namespace ganjoor
             InitializeComponent();
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
+        private void btnOK_Click(object sender, EventArgs e) {
+            using var dlg = new OpenFileDialog();
+            dlg.Filter = "Unicode Text File (*.txt)|*.txt";
+            if (dlg.ShowDialog(this) != DialogResult.OK)
             {
-                dlg.Filter = "Unicode Text File (*.txt)|*.txt";
-                if (dlg.ShowDialog(this) != DialogResult.OK)
-                {
-                    DialogResult = DialogResult.None;
-                    return;
-                }
-
-                FileName = dlg.FileName;
-                MainCatText = txtMainCat.Text;
-                SubCatTexts = txtSubCats.Lines;
-                MaxVerseTextLength = (int)numMaxVerse.Value;
-                TabularVerses = chkTabularVerses.Checked;
-
+                DialogResult = DialogResult.None;
+                return;
             }
+
+            FileName = dlg.FileName;
+            MainCatText = txtMainCat.Text;
+            SubCatTexts = txtSubCats.Lines;
+            MaxVerseTextLength = (int)numMaxVerse.Value;
+            TabularVerses = chkTabularVerses.Checked;
         }
 
         public string FileName

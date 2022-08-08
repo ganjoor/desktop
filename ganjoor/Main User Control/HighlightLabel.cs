@@ -1,7 +1,7 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -44,49 +44,47 @@ namespace ganjoor
                 )
                )
             {
-                string txt = this.Text;
-                using (SolidBrush hbrsh = new(HighlightColor))
+                var txt = Text;
+                using SolidBrush hbrsh = new(HighlightColor);
+                float fx = e.ClipRectangle.Right;//only right to left text for now
+                float fy = e.ClipRectangle.Y;
+                while (txt.Length > 0)
                 {
-                    float fx = e.ClipRectangle.Right;//only right to left text for now
-                    float fy = e.ClipRectangle.Y;
-                    while (txt.Length > 0)
+                    var index = txt.IndexOf(Keyword);
+                    string thisPart;
+                    if (index == -1)
                     {
-                        int index = txt.IndexOf(Keyword);
-                        string thisPart;
-                        if (index == -1)
+                        thisPart = txt;
+                        txt = string.Empty;
+                    }
+                    else
+                    {
+                        if (index == 0)
                         {
-                            thisPart = txt;
-                            txt = string.Empty;
+                            thisPart = txt.Substring(0, Keyword.Length);
+                            if (txt == Keyword)
+                                txt = string.Empty;
+                            else
+                                txt = txt.Substring(Keyword.Length, txt.Length - Keyword.Length);
+
                         }
                         else
                         {
-                            if (index == 0)
-                            {
-                                thisPart = txt.Substring(0, Keyword.Length);
-                                if (txt == Keyword)
-                                    txt = string.Empty;
-                                else
-                                    txt = txt.Substring(Keyword.Length, txt.Length - Keyword.Length);
-
-                            }
-                            else
-                            {
-                                thisPart = txt.Substring(0, index);
-                                txt = txt.Substring(index);
-                            }
+                            thisPart = txt.Substring(0, index);
+                            txt = txt.Substring(index);
                         }
-                        SizeF sz = TextRenderer.MeasureText(thisPart, this.Font, Size.Empty, TextFormatFlags.TextBoxControl | TextFormatFlags.RightToLeft);
-                        if (index == 0)
-                        {
-                            e.Graphics.FillRectangle(hbrsh, new RectangleF(fx - sz.Width, fy, sz.Width, sz.Height));
-                        }
-                        fx -= sz.Width;
-                        if (fx <= 0)
-                        {//multiline label
-                            int nLines = (int)sz.Width / this.Width;
-                            fy += nLines * sz.Height;
-                            fx = e.ClipRectangle.Right - (sz.Width - nLines * this.Width);
-                        }
+                    }
+                    SizeF sz = TextRenderer.MeasureText(thisPart, Font, Size.Empty, TextFormatFlags.TextBoxControl | TextFormatFlags.RightToLeft);
+                    if (index == 0)
+                    {
+                        e.Graphics.FillRectangle(hbrsh, new RectangleF(fx - sz.Width, fy, sz.Width, sz.Height));
+                    }
+                    fx -= sz.Width;
+                    if (fx <= 0)
+                    {//multiline label
+                        var nLines = (int)sz.Width / Width;
+                        fy += nLines * sz.Height;
+                        fx = e.ClipRectangle.Right - (sz.Width - nLines * Width);
                     }
                 }
             }

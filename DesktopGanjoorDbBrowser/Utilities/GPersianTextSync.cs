@@ -35,13 +35,7 @@ namespace ganjoor
         /// <summary>
         /// list of persian letters
         /// </summary>
-        public static string PersianLetters
-        {
-            get
-            {
-                return "اآئأإءبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی";
-            }
-        }
+        public static string PersianLetters => "اآئأإءبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی";
 
         /// <summary>
         /// convert persian text to simple pinglish
@@ -50,9 +44,9 @@ namespace ganjoor
         /// <returns></returns>
         public static string Farglisize(string inputStr)
         {
-            string outStr = "";
+            var outStr = "";
             string s;
-            foreach (char c in inputStr)
+            foreach (var c in inputStr)
                 if (_PinglishDic.TryGetValue(c, out s))
                     outStr += s;
             return outStr;
@@ -61,8 +55,7 @@ namespace ganjoor
         /// <summary>
         /// equaivalnet for persian characters
         /// </summary>
-        private static Dictionary<char, string> _PinglishDic = new Dictionary<char, string>()
-        {
+        private static Dictionary<char, string> _PinglishDic = new() {
             {'ا', "a"},
             {'آ', "a"},
             {'ب', "b"},

@@ -1,20 +1,18 @@
-﻿using ganjoor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Windows.Forms;
+using ganjoor.Properties;
 
 namespace ganjoor
 {
     partial class WSInstallItems : WizardStage
     {
-        public WSInstallItems()
-            : base()
-        {
+        public WSInstallItems() {
             InitializeComponent();
 
-            this.InstalledFilesCount = 0;
+            InstalledFilesCount = 0;
 
         }
 
@@ -35,25 +33,22 @@ namespace ganjoor
 
         private void ImportGdb(string FileName, DbBrowser db)
         {
-            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
-            {
-                using (ZipStorer zip = ZipStorer.Open(FileName, FileAccess.Read))
+            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase)) {
+                using var zip = ZipStorer.Open(FileName, FileAccess.Read);
+                var dir = zip.ReadCentralDir();
+                foreach (var entry in dir)
                 {
-                    List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
-                    foreach (ZipStorer.ZipFileEntry entry in dir)
+                    var gdbFileName = Path.GetFileName(entry.FilenameInZip);
+                    if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
                     {
-                        string gdbFileName = Path.GetFileName(entry.FilenameInZip);
-                        if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
+                        var ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+                        if (!Directory.Exists(ganjoorPath))
+                            Directory.CreateDirectory(ganjoorPath);
+                        var gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
+                        if (zip.ExtractFile(entry, gdbExtractPath))
                         {
-                            string ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
-                            if (!Directory.Exists(ganjoorPath))
-                                Directory.CreateDirectory(ganjoorPath);
-                            string gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
-                            if (zip.ExtractFile(entry, gdbExtractPath))
-                            {
-                                ImportDb(gdbExtractPath, db);
-                                File.Delete(gdbExtractPath);
-                            }
+                            ImportDb(gdbExtractPath, db);
+                            File.Delete(gdbExtractPath);
                         }
                     }
                 }
@@ -64,37 +59,31 @@ namespace ganjoor
 
         public void ImportDb(string fileName, DbBrowser db)
         {
-            GanjoorPoet[] cnflts = db.GetConflictingPoets(fileName);
-            if (cnflts.Length > 0)
-            {
-                using (ConflictingPoets dlg = new ConflictingPoets(cnflts))
+            var cnflts = db.GetConflictingPoets(fileName);
+            if (cnflts.Length > 0) {
+                using var dlg = new ConflictingPoets(cnflts);
+                if (dlg.ShowDialog(Parent) == DialogResult.Cancel)
                 {
-                    if (dlg.ShowDialog(this.Parent) == DialogResult.Cancel)
-                    {
-                        grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "صرف نظر به علت تداخل شاعر";
-                        return;
-                    }
-                    cnflts = dlg.DeleteList;
-                    foreach (GanjoorPoet delPoet in cnflts)
-                        db.DeletePoet(delPoet._ID);
+                    grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "صرف نظر به علت تداخل شاعر";
+                    return;
                 }
+                cnflts = dlg.DeleteList;
+                foreach (var delPoet in cnflts)
+                    db.DeletePoet(delPoet._ID);
             }
-            GanjoorCat[] catCnlts = db.GetConflictingCats(fileName);
-            if (catCnlts.Length > 0)
-            {
-                using (ConflictingCats dlg = new ConflictingCats(catCnlts))
+            var catCnlts = db.GetConflictingCats(fileName);
+            if (catCnlts.Length > 0) {
+                using var dlg = new ConflictingCats(catCnlts);
+                if (dlg.ShowDialog(Parent) == DialogResult.Cancel)
                 {
-                    if (dlg.ShowDialog(this.Parent) == DialogResult.Cancel)
-                    {
-                        grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "صرف نظر به علت تداخل بخش";
-                        return;
-                    }
-                    catCnlts = dlg.DeleteList;
-                    foreach (GanjoorCat delCat in catCnlts)
-                        db.DeleteCat(delCat._ID);
+                    grdList.Rows[grdList.RowCount - 1].Cells[1].Value = "صرف نظر به علت تداخل بخش";
+                    return;
                 }
+                catCnlts = dlg.DeleteList;
+                foreach (var delCat in catCnlts)
+                    db.DeleteCat(delCat._ID);
             }
-            GanjoorCat[] missingPoets = db.GetCategoriesWithMissingPoet(fileName);
+            var missingPoets = db.GetCategoriesWithMissingPoet(fileName);
             if (missingPoets.Length > 0)
             {
                 if (MessageBox.Show(
@@ -129,12 +118,11 @@ namespace ganjoor
 
         public override void OnActivated()
         {
-            if (OnInstallStarted != null)
-                OnInstallStarted(this, new EventArgs());
-            DbBrowser db = new DbBrowser();
+            OnInstallStarted?.Invoke(this, EventArgs.Empty);
+            var db = new DbBrowser();
             Application.DoEvents();
             if (DownloadedFiles != null)
-                foreach (string gdb in DownloadedFiles)
+                foreach (var gdb in DownloadedFiles)
                 {
                     grdList.Rows[grdList.Rows.Add()].Cells[0].Value = Path.GetFileName(gdb);
                     ImportGdb(gdb, db);
@@ -143,12 +131,11 @@ namespace ganjoor
                     Application.DoEvents();
                 }
             db.CloseDb();
-            if (OnInstallFinished != null)
-                OnInstallFinished(this, new EventArgs());
+            OnInstallFinished?.Invoke(this, EventArgs.Empty);
         }
 
-        public event EventHandler OnInstallStarted = null;
-        public event EventHandler OnInstallFinished = null;
+        public event EventHandler OnInstallStarted;
+        public event EventHandler OnInstallFinished;
 
         public int InstalledFilesCount
         {

@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
+using ganjoor.Properties;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ganjoor.Audio_Support
 {
@@ -31,18 +32,17 @@ namespace ganjoor.Audio_Support
             Application.DoEvents();
 
             DialogResult = DialogResult.None;
-            LoginViewModel model = new LoginViewModel()
-            {
+            var model = new LoginViewModel {
                 Username = txtEmail.Text,
                 Password = txtPassword.Text,
                 ClientAppName = "Desktop Ganjoor",
                 Language = "fa-IR"
             };
 
-            using (HttpClient httpClient = new HttpClient())
+            using (var httpClient = new HttpClient())
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-                var loginUrl = $"{Properties.Settings.Default.GanjoorServiceUrl}/api/users/login";
+                var loginUrl = $"{Settings.Default.GanjoorServiceUrl}/api/users/login";
                 var response = await httpClient.PostAsync(loginUrl, stringContent);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -54,9 +54,9 @@ namespace ganjoor.Audio_Support
                 response.EnsureSuccessStatusCode();
 
                 var result = JObject.Parse(await response.Content.ReadAsStringAsync());
-                Properties.Settings.Default.MuseumToken = result["token"].ToString();
-                Properties.Settings.Default.SessionId = Guid.Parse(result["sessionId"].ToString());
-                Properties.Settings.Default.Save();
+                Settings.Default.MuseumToken = result["token"].ToString();
+                Settings.Default.SessionId = Guid.Parse(result["sessionId"].ToString());
+                Settings.Default.Save();
             }
 
             Enabled = true;
