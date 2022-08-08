@@ -147,11 +147,7 @@ namespace ganjoor
         /// تبدیل به رشته
         /// </summary>
         /// <returns>شرح</returns>
-        public override string ToString()
-        {
-            return Description;
-        }
-
+        public override string ToString() => Description;
 
         ///<remarks>
         ///Warning: not always filled
@@ -170,9 +166,5 @@ namespace ganjoor
             get;
             set;
         }
-
-
-
-
     }
 }
