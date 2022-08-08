@@ -1031,7 +1031,7 @@ namespace ganjoor
 
                 var preVerses = dbBrowser.GetVerses(prePoem._ID);
 
-                var verseOrder = preVerses[preVerses.Count - 1]._Order;
+                var verseOrder = preVerses[^1]._Order;
 
                 foreach (var verse in verses)
                 {

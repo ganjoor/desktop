@@ -2272,7 +2272,7 @@ namespace ganjoor
                 }
                 if (cats.Count - 1 >= 0)
                 {
-                    strQuery += cats[cats.Count - 1].ToString();
+                    strQuery += cats[^1].ToString();
                 }
                 strQuery += ");";
                 using var tbl = new DataTable();
@@ -2564,7 +2564,7 @@ namespace ganjoor
                             IsUploaded = Convert.ToInt32(row["isuploaded"]) == 1
                         }
                     );
-                    lstAudio[lstAudio.Count - 1].SyncArray = GetPoemSync(lstAudio[lstAudio.Count - 1]);
+                    lstAudio[^1].SyncArray = GetPoemSync(lstAudio[^1]);
 
                 }
             }

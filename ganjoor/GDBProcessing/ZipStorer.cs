@@ -208,7 +208,7 @@ namespace System.IO.Compression
                 offset = 0;
             else
             {
-                var last = Files[Files.Count - 1];
+                var last = Files[^1];
                 offset = last.HeaderOffset + last.HeaderSize;
             }
 
