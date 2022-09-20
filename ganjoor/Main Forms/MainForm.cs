@@ -100,7 +100,7 @@ namespace ganjoor
 
         private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string HighlightedText, object preItem, object nextItem)
         {
-            lblCurrentPage.Text = PageString.Length > 100 ? PageString.Substring(0, 100) + " ..." : PageString;
+            lblCurrentPage.Text = PageString.Length > 100 ? PageString[..100] + " ..." : PageString;
             if (HasComments)
             {
                 btnNextPoem.Text = "شعر بعد";

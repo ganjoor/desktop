@@ -57,10 +57,7 @@
         }
         #endregion
         #region Overrides
-        public override string ToString()
-        {
-            return _Text;
-        }
+        public override string ToString() => _Text;
         #endregion
     }
 }

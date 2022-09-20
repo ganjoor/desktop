@@ -22,7 +22,7 @@ namespace ganjoor
 
         private void FillTree(int PoetID)
         {
-            var db = _RefDb == null ? new DbBrowser() : _RefDb;
+            var db = _RefDb ?? new DbBrowser();
             treeCats.Nodes.Clear();
             if (PoetID == 0)
             {

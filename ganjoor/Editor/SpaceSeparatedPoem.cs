@@ -55,8 +55,8 @@ namespace ganjoor
                         var nIdx = txt.IndexOf('\t');
                         if (nIdx > 0)
                         {
-                            resultText += txt.Substring(0, nIdx).Trim() + "\r\n";
-                            resultText += txt.Substring(nIdx + 1).Trim() + "\r\n";
+                            resultText += txt[..nIdx].Trim() + "\r\n";
+                            resultText += txt[(nIdx + 1)..].Trim() + "\r\n";
                             bTabDoneIt = true;
                         }
                     }
@@ -68,8 +68,8 @@ namespace ganjoor
                     var nIdx = txt.IndexOf("   ");
                     if (nIdx > 0)
                     {
-                        resultText += txt.Substring(0, nIdx).Trim() + "\r\n";
-                        resultText += txt.Substring(nIdx + 1).Trim() + "\r\n";
+                        resultText += txt[..nIdx].Trim() + "\r\n";
+                        resultText += txt[(nIdx + 1)..].Trim() + "\r\n";
                         bDone = true;
                     }
                 }

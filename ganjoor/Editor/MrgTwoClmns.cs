@@ -46,7 +46,7 @@ namespace ganjoor
             var iLine2 = 0;
             var resultText = result.Text;
             if (!string.IsNullOrEmpty(resultText.Trim()))
-                if (resultText[resultText.Length - 1] != '\n')
+                if (resultText[^1] != '\n')
                     resultText += "\r\n";
             while (iLine1 < clmn1.Lines.Length)
             {

@@ -31,7 +31,7 @@ namespace ganjoor
                 if (secondPhase)
                 {
                     if (secondPhase)
-                        if (rhyme[rhyme.Length - 1] == 'ی')
+                        if (rhyme[^1] == 'ی')
                             rhyme = rhyme.Remove(rhyme.Length - 1);
                 }
 
@@ -40,7 +40,7 @@ namespace ganjoor
                     var verseText = PrepareTextForFindingRhyme(verseTextList[j]);
                     if (secondPhase)
                     {
-                        if (verseText[verseText.Length - 1] == 'ی')
+                        if (verseText[^1] == 'ی')
                         {
                             verseText = verseText.Remove(verseText.Length - 1);
                         }

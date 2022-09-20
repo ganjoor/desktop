@@ -12,30 +12,26 @@ namespace ganjoor
         public GINIParser(string filePath)
         {
             _Values = new Dictionary<string, Dictionary<string, string>>();
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath)) return;
+            var Lines = File.ReadAllLines(filePath);
+            var curSection = "";
+            foreach (var Line in Lines)
             {
-                var Lines = File.ReadAllLines(filePath);
-                var curSection = "";
-                foreach (var Line in Lines)
+                var trimedLine = Line.Trim();
+                var bracketStart = trimedLine.IndexOf('[');
+                var bracketEnd = trimedLine.IndexOf(']');
+                if (bracketStart != -1 && bracketEnd > bracketStart)
                 {
-                    var trimedLine = Line.Trim();
-                    var bracketStart = trimedLine.IndexOf('[');
-                    var bracketEnd = trimedLine.IndexOf(']');
-                    if (bracketStart != -1 && bracketEnd > bracketStart)
-                    {
-                        //section
-                        curSection = trimedLine.Substring(bracketStart + 1, bracketEnd - (bracketStart + 1));
-                    }
-                    else
-                    {
-                        var keyValue = trimedLine.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-                        if (keyValue.Length == 2)
-                        {
-                            var newKeyValue = new Dictionary<string, string>();
-                            newKeyValue.Add(keyValue[0].Trim(), keyValue[1].Trim());
-                            _Values.Add(curSection, newKeyValue);
-                        }
-                    }
+                    //section
+                    curSection = trimedLine.Substring(bracketStart + 1, bracketEnd - (bracketStart + 1));
+                }
+                else
+                {
+                    var keyValue = trimedLine.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (keyValue.Length != 2) continue;
+                    var newKeyValue = new Dictionary<string, string>();
+                    newKeyValue.Add(keyValue[0].Trim(), keyValue[1].Trim());
+                    _Values.Add(curSection, newKeyValue);
                 }
             }
         }

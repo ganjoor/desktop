@@ -32,7 +32,7 @@ namespace ganjoor
                 _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);
 
                 if (_VerseMilisecPositions.Count > 0 &&
-                    _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder != _PoemVerses[_PoemVerses.Length - 1]._Order - 1
+                    _VerseMilisecPositions[^1].VerseOrder != _PoemVerses[^1]._Order - 1
                     )
                 {
                     if (MessageBox.Show("آیا تمایل دارید همگامسازی را از آخرین نقطهٔ همگام شده ادامه دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
@@ -52,7 +52,7 @@ namespace ganjoor
                             trackBar.Maximum = _PoemAudioPlayer.TotalTimeInMiliseconds;
 
 
-                            _PoemAudioPlayer.PositionInMiliseconds = _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].AudioMiliseconds;
+                            _PoemAudioPlayer.PositionInMiliseconds = _VerseMilisecPositions[^1].AudioMiliseconds;
                             _TrackbarValueSetting = true;
                             trackBar.Value = _PoemAudioPlayer.PositionInMiliseconds;
                             _TrackbarValueSetting = false;
@@ -61,7 +61,7 @@ namespace ganjoor
 
 
 
-                            _SyncOrder = _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder;
+                            _SyncOrder = _VerseMilisecPositions[^1].VerseOrder;
 
                             if (_SyncOrder >= 0 && _SyncOrder < _PoemVerses.Length)
                             {

@@ -2264,17 +2264,7 @@ namespace ganjoor
             {
                 var cats = GetAllSubCats(MainCatID);
                 cats.Add(MainCatID);
-                var strQuery = "SELECT MIN(id) FROM poem WHERE cat_id IN (";
-                for (var i = 0; i < cats.Count - 1; i++)
-                {
-                    strQuery += cats[i].ToString();
-                    strQuery += ", ";
-                }
-                if (cats.Count - 1 >= 0)
-                {
-                    strQuery += cats[cats.Count - 1].ToString();
-                }
-                strQuery += ");";
+                var strQuery = "SELECT MIN(id) FROM poem WHERE cat_id IN (" + string.Join(", ", cats) + ");";
                 using var tbl = new DataTable();
                 using var da = new SQLiteDataAdapter(strQuery, _con);
                 da.Fill(tbl);
@@ -2564,7 +2554,7 @@ namespace ganjoor
                             IsUploaded = Convert.ToInt32(row["isuploaded"]) == 1
                         }
                     );
-                    lstAudio[lstAudio.Count - 1].SyncArray = GetPoemSync(lstAudio[lstAudio.Count - 1]);
+                    lstAudio[^1].SyncArray = GetPoemSync(lstAudio[^1]);
 
                 }
             }
