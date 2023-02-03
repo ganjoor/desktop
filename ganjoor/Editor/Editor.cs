@@ -1348,5 +1348,17 @@ namespace ganjoor
 
             dbBrowser.CloseDb();
         }
+
+        private void btnLineFeedToPara_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("از شکستن پاراگرافهای بخش اطمینان دارید؟",
+              "اخطار",
+              MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2,
+              MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.No)
+                return;
+            Enabled = false;
+            ganjoorView.BreakCatParagraphs();
+            Enabled = true;
+        }
     }
 }

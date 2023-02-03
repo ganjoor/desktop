@@ -9,7 +9,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
 using ganjoor.Properties;
 using ganjoor.Utilities;
-
+using System.Linq;
 
 namespace ganjoor
 {
@@ -3040,6 +3040,30 @@ namespace ganjoor
             _db.LastError = "این قابلیت فقط روی پاراگرافها کار می‌کند.";
             return false;
 
+        }
+
+        public bool BreakCatParagraphs()
+        {
+
+            foreach (var Poem in _db.GetPoems(_iCurCat))
+            {
+                var verses = _db.GetVerses(Poem._ID);
+                var paragraphs = verses.Where(v => v._Position == VersePosition.Paragraph && v._Text.Contains('\n')).ToList();
+                while (paragraphs.Count > 0)
+                {
+                    var paragraph = paragraphs.First();
+                    var text1 = paragraph._Text.Substring(0, paragraph._Text.IndexOf('\n')).Replace("\r", "");
+                    var text2 = paragraph._Text.Substring(paragraph._Text.IndexOf('\n')).Replace("\r", "");
+                    paragraph._Text = text1;
+                    _db.SetVerseText(Poem._ID, paragraph._Order, text1);
+                    var newVerse = _db.CreateNewVerse(Poem._ID, paragraph._Order + 1, VersePosition.Paragraph);
+                    _db.SetVerseText(Poem._ID, newVerse._Order, text2);
+                    paragraphs = verses.Where(v => v._Position == VersePosition.Paragraph && v._Text.Contains('\n')).ToList();
+                }
+
+            }
+
+            return true;
         }
 
 
