@@ -3058,6 +3058,7 @@ namespace ganjoor
                     _db.SetVerseText(Poem._ID, paragraph._Order, text1);
                     var newVerse = _db.CreateNewVerse(Poem._ID, paragraph._Order + 1, VersePosition.Paragraph);
                     _db.SetVerseText(Poem._ID, newVerse._Order, text2);
+                    verses = _db.GetVerses(Poem._ID);
                     paragraphs = verses.Where(v => v._Position == VersePosition.Paragraph && v._Text.Contains('\n')).ToList();
                 }
 
