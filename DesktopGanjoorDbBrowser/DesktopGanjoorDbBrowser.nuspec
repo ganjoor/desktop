@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DesktopGanjoorDbBrowser</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>Desktop Ganjoor DbBrowser</title>
     <authors>Ganjoor Development Team</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
