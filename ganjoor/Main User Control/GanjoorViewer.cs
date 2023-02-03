@@ -3055,9 +3055,12 @@ namespace ganjoor
                     var text1 = paragraph._Text.Substring(0, paragraph._Text.IndexOf('\n')).Replace("\r", "");
                     var text2 = paragraph._Text.Substring(paragraph._Text.IndexOf('\n')).Replace("\r", "");
                     paragraph._Text = text1;
-                    _db.SetVerseText(Poem._ID, paragraph._Order, text1);
-                    var newVerse = _db.CreateNewVerse(Poem._ID, paragraph._Order + 1, VersePosition.Paragraph);
-                    _db.SetVerseText(Poem._ID, newVerse._Order, text2);
+                    _db.SetVerseText(Poem._ID, paragraph._Order, text1.Trim());
+                    if(text2.Trim().Length > 0)
+                    {
+                        var newVerse = _db.CreateNewVerse(Poem._ID, paragraph._Order + 1, VersePosition.Paragraph);
+                        _db.SetVerseText(Poem._ID, newVerse._Order, text2.Trim());
+                    }
                     verses = _db.GetVerses(Poem._ID);
                     paragraphs = verses.Where(v => v._Position == VersePosition.Paragraph && v._Text.Contains('\n')).ToList();
                 }

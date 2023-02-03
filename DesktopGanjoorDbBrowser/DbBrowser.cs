@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace ganjoor
 {
@@ -2454,6 +2455,53 @@ namespace ganjoor
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+        public void ReplaceDoupleQuotes()
+        {
+            if (Connected)
+            {
+                using (DataTable tbl = new DataTable())
+                {
+
+                    string strQuery = "SELECT poem_id,vorder,position,text FROM verse WHERE text LIKE '%\"%'";
+                        
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(strQuery, _con))
+                    {
+                        da.Fill(tbl);
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            var v = new GanjoorVerse(
+                                Convert.ToInt32(row.ItemArray[0]),
+                                Convert.ToInt32(row.ItemArray[1]),
+                                (VersePosition)Convert.ToInt32(row.ItemArray[2]),
+                                row.ItemArray[3].ToString()
+                                );
+                            bool replaced = false;
+                            int startIndex = v._Text.IndexOf('"');
+                            while(startIndex != -1)
+                            {
+                                int endIndex = v._Text.IndexOf('"', startIndex + 1);
+                                if(endIndex == -1)
+                                {
+                                    break;
+                                }
+
+                                v._Text = v._Text.Substring(0, startIndex) + "«" + v._Text.Substring(startIndex + 1);
+                                v._Text = v._Text.Substring(0, endIndex) + "»" + v._Text.Substring(endIndex + 1);
+                                replaced = true;
+                                startIndex = v._Text.IndexOf('"');
+                            }
+
+                            if(replaced)
+                            {
+                                SetVerseText(v._PoemID, v._Order, v._Text);
+                            }
+                        }
+                    }
+                   
+                }
+            }
+            
         }
         #endregion
 

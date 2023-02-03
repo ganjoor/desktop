@@ -41,6 +41,7 @@
             this.txtFind = new System.Windows.Forms.TextBox();
             this.btnOther = new System.Windows.Forms.Button();
             this.chkOnlyPoemTitles = new System.Windows.Forms.CheckBox();
+            this.btnDoupleQuoteFix = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,7 +97,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtRep);
             this.groupBox1.Controls.Add(this.txtFind);
-            this.groupBox1.Location = new System.Drawing.Point(15, 171);
+            this.groupBox1.Location = new System.Drawing.Point(15, 185);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(597, 117);
             this.groupBox1.TabIndex = 0;
@@ -164,18 +165,30 @@
             // chkOnlyPoemTitles
             // 
             this.chkOnlyPoemTitles.AutoSize = true;
-            this.chkOnlyPoemTitles.Location = new System.Drawing.Point(20, 295);
+            this.chkOnlyPoemTitles.Location = new System.Drawing.Point(20, 309);
             this.chkOnlyPoemTitles.Name = "chkOnlyPoemTitles";
             this.chkOnlyPoemTitles.Size = new System.Drawing.Size(213, 17);
-            this.chkOnlyPoemTitles.TabIndex = 5;
+            this.chkOnlyPoemTitles.TabIndex = 6;
             this.chkOnlyPoemTitles.Text = "فقط در عنوان اشعار جایگزینی صورت گیرد";
             this.chkOnlyPoemTitles.UseVisualStyleBackColor = true;
+            // 
+            // btnDoupleQuoteFix
+            // 
+            this.btnDoupleQuoteFix.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDoupleQuoteFix.Location = new System.Drawing.Point(15, 153);
+            this.btnDoupleQuoteFix.Name = "btnDoupleQuoteFix";
+            this.btnDoupleQuoteFix.Size = new System.Drawing.Size(597, 23);
+            this.btnDoupleQuoteFix.TabIndex = 5;
+            this.btnDoupleQuoteFix.Text = "جایگزینی \" با گیومهٔ باز و بسته";
+            this.btnDoupleQuoteFix.UseVisualStyleBackColor = true;
+            this.btnDoupleQuoteFix.Click += new System.EventHandler(this.btnDoupleQuoteFix_Click);
             // 
             // ReplaceInDb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(627, 329);
+            this.ClientSize = new System.Drawing.Size(627, 345);
+            this.Controls.Add(this.btnDoupleQuoteFix);
             this.Controls.Add(this.chkOnlyPoemTitles);
             this.Controls.Add(this.btnOther);
             this.Controls.Add(this.groupBox1);
@@ -215,5 +228,6 @@
         private System.Windows.Forms.TextBox txtFind;
         private System.Windows.Forms.Button btnOther;
         private System.Windows.Forms.CheckBox chkOnlyPoemTitles;
+        private System.Windows.Forms.Button btnDoupleQuoteFix;
     }
 }

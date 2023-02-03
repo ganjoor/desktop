@@ -114,5 +114,24 @@ namespace ganjoor
             MessageBox.Show("انجام شد!", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1
                 , MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
+
+        private void btnDoupleQuoteFix_Click(object sender, EventArgs e)
+        {
+            _db.BeginBatchOperation();
+
+            try
+            {
+                _db.ReplaceDoupleQuotes();
+
+                _db.CommitBatchOperation();
+
+                MessageBox.Show("انجام شد!", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1
+                    , MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString(), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
