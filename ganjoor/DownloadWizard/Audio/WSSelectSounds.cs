@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ganjoor.Audio_Support;
-using ganjoor.Properties;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net;
 using Newtonsoft.Json.Linq;
 using RMuseum.Models.GanjoorAudio.ViewModels;
+using Newtonsoft.Json;
+using ganjoor.Audio_Support;
 
 namespace ganjoor
 {
@@ -63,7 +62,7 @@ namespace ganjoor
         {
             btnRefresh.Visible = false;
             tlbr.Enabled = false;
-            lblDesc.BackColor = SystemColors.Window;
+            lblDesc.BackColor = System.Drawing.SystemColors.Window;
             lblDesc.Text = "در حال دریافت اطلاعات ...";
             Cursor.Current = Cursors.WaitCursor;
             Application.DoEvents();
@@ -91,94 +90,98 @@ namespace ganjoor
 
         private List<Dictionary<string, string>> _Lst = new List<Dictionary<string, string>>();
 
-        private async Task<Tuple<List<Dictionary<string, string>>, string>> _RetrieveDictionaryListAsync() {
-            using var httpClient = new HttpClient();
-            Cursor = Cursors.WaitCursor;
-            Application.DoEvents();
-
-            var response = _PoemId == 0 ?
-                await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}")
-                :
-                await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/ganjoor/poem/{_PoemId}/recitations");
-
-            if (response.StatusCode != HttpStatusCode.OK)
+        private async Task<Tuple<List<Dictionary<string, string>>, string>> _RetrieveDictionaryListAsync()
+        {
+            using (HttpClient httpClient = new HttpClient())
             {
-                Cursor = Cursors.Default;
-                MessageBox.Show(await response.Content.ReadAsStringAsync());
-                return new Tuple<List<Dictionary<string, string>>, string>(null, await response.Content.ReadAsStringAsync());
-            }
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
 
-            response.EnsureSuccessStatusCode();
+                HttpResponseMessage response = _PoemId == 0 ?
+                    await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}")
+                    :
+                    await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/ganjoor/poem/{_PoemId}/recitations");
 
-            var list = new List<Dictionary<string, string>>();
-
-            var finished = _PoemId != 0;
-
-            do
-            {
-                foreach (var recitation in JArray.Parse(await response.Content.ReadAsStringAsync()).ToObject<List<PublicRecitationViewModel>>())
+                if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    //تبدیل شیئ به چیزی که کد قدیمی با آن کار می‌کرده!
-                    var dic = new Dictionary<string, string>();
-                    dic.Add("audio_post_ID", recitation.PoemId.ToString());
-                    dic.Add("audio_order", recitation.Id.ToString());
-                    dic.Add("audio_xml", $"{Settings.Default.GanjoorServiceUrl}/api/audio/file/{recitation.Id}.xml");
-                    dic.Add("audio_mp3", recitation.Mp3Url);
-                    dic.Add("audio_src", recitation.AudioSrc);
-                    dic.Add("audio_title", recitation.AudioTitle);
-                    dic.Add("audio_artist", recitation.AudioArtist);
-                    dic.Add("audio_artist_url", recitation.AudioArtistUrl);
-                    dic.Add("audio_guid", recitation.LegacyAudioGuid.ToString());
-                    dic.Add("audio_fchecksum", recitation.Mp3FileCheckSum);
-                    dic.Add("audio_mp3bsize", recitation.Mp3SizeInBytes.ToString());
-                    list.Add(dic);
+                    Cursor = Cursors.Default;
+                    MessageBox.Show(await response.Content.ReadAsStringAsync());
+                    return new Tuple<List<Dictionary<string, string>>, string>(null, await response.Content.ReadAsStringAsync());
                 }
 
-                if (_PoemId == 0)
+                response.EnsureSuccessStatusCode();
+
+                List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
+
+                bool finished = _PoemId != 0;
+
+                do
                 {
-                    //در این حالت اطلاعات به صورت صفحه بندی شده ارسال می‌شود
-                    var paginnationMetadata = response.Headers.GetValues("paging-headers").FirstOrDefault();
-                    if (!string.IsNullOrEmpty(paginnationMetadata))
+                    foreach (PublicRecitationViewModel recitation in JArray.Parse(await response.Content.ReadAsStringAsync()).ToObject<List<PublicRecitationViewModel>>())
                     {
-                        var paginationMetadata = JsonConvert.DeserializeObject<PaginationMetadata>(paginnationMetadata);
-                        if (paginationMetadata.totalPages == 0 || paginationMetadata.currentPage == paginationMetadata.totalPages)
+                        //تبدیل شیئ به چیزی که کد قدیمی با آن کار می‌کرده!
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        dic.Add("audio_post_ID", recitation.PoemId.ToString());
+                        dic.Add("audio_order", recitation.Id.ToString());
+                        dic.Add("audio_xml", $"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/file/{recitation.Id}.xml");
+                        dic.Add("audio_mp3", recitation.Mp3Url);
+                        dic.Add("audio_src", recitation.AudioSrc);
+                        dic.Add("audio_title", recitation.AudioTitle);
+                        dic.Add("audio_artist", recitation.AudioArtist);
+                        dic.Add("audio_artist_url", recitation.AudioArtistUrl);
+                        dic.Add("audio_guid", recitation.LegacyAudioGuid.ToString());
+                        dic.Add("audio_fchecksum", recitation.Mp3FileCheckSum);
+                        dic.Add("audio_mp3bsize", recitation.Mp3SizeInBytes.ToString());
+                        list.Add(dic);
+                    }
+
+                    if(_PoemId == 0)
+                    {
+                        //در این حالت اطلاعات به صورت صفحه بندی شده ارسال می‌شود
+                        string paginnationMetadata = response.Headers.GetValues("paging-headers").FirstOrDefault();
+                        if (!string.IsNullOrEmpty(paginnationMetadata))
                         {
-                            finished = true;
+                            PaginationMetadata paginationMetadata = JsonConvert.DeserializeObject<PaginationMetadata>(paginnationMetadata);
+                            if(paginationMetadata.totalPages == 0 || paginationMetadata.currentPage == paginationMetadata.totalPages)
+                            {
+                                finished = true;
+                            }
+                            else
+                            {
+                                lblDesc.Text = $"در حال دریافت اطلاعات (صفحهٔ {paginationMetadata.currentPage + 1} از {paginationMetadata.totalPages}) ...";
+                                Application.DoEvents();
+                                response = await httpClient.GetAsync($"{Properties.Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}&PageNumber={paginationMetadata.currentPage + 1}&PageSize={paginationMetadata.pageSize}");
+                                if (response.StatusCode != HttpStatusCode.OK)
+                                {
+                                    MessageBox.Show(await response.Content.ReadAsStringAsync());
+                                    break;
+                                }
+
+                                response.EnsureSuccessStatusCode();
+                            }
                         }
                         else
                         {
-                            lblDesc.Text = $"در حال دریافت اطلاعات (صفحهٔ {paginationMetadata.currentPage + 1} از {paginationMetadata.totalPages}) ...";
-                            Application.DoEvents();
-                            response = await httpClient.GetAsync($"{Settings.Default.GanjoorServiceUrl}/api/audio/published?searchTerm={_SearchTerm}&poetId={_PoetId}&catId={_CatId}&PageNumber={paginationMetadata.currentPage + 1}&PageSize={paginationMetadata.pageSize}");
-                            if (response.StatusCode != HttpStatusCode.OK)
-                            {
-                                MessageBox.Show(await response.Content.ReadAsStringAsync());
-                                break;
-                            }
-
-                            response.EnsureSuccessStatusCode();
+                            finished = true;
                         }
                     }
-                    else
-                    {
-                        finished = true;
-                    }
+
                 }
+                while (!finished);
+
+                
+
+                return new Tuple<List<Dictionary<string, string>>, string>(list, "");
 
             }
-            while (!finished);
-
-
-
-            return new Tuple<List<Dictionary<string, string>>, string>(list, "");
         }
 
         //دریافت فهرست
         private async Task<bool> RetrieveList()
         {
-            var reS = true;
+            bool reS = true;
             var r = await _RetrieveDictionaryListAsync();
-
+            
             if (!string.IsNullOrEmpty(r.Item2))
             {
                 MessageBox.Show(r.Item2, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -188,29 +191,29 @@ namespace ganjoor
             {
                 _Lst = r.Item1;
 
-                var db = new DbBrowser();
-
+                DbBrowser db = new DbBrowser();
+                
                 //در صورتی که تمام خوانشهای موجود را دریافت می‌کنیم برای تعیین وجود فایل صوتی از روش بهینه‌تری استفاده می‌کنیم.
                 PoemAudio[] poemAudios = null;
-                if (_PoemId == 0)
+                if(_PoemId == 0)
                 {
                     poemAudios = db.GetAllPoemAudioFiles();
                 }
 
                 grdList.Columns.Clear();
-                var tbl = new DataTable();
+                DataTable tbl = new DataTable();
                 tbl.Columns.Add("عنوان");
                 tbl.Columns.Add("اندازه");
                 tbl.Columns.Add("دریافت", typeof(bool));
 
-                var firstSuggestableDownload = -1;
-                var idx = -1;
+                int firstSuggestableDownload = -1;
+                int idx = -1;
 
-                foreach (var audioInfo in _Lst)
+                foreach (Dictionary<string, string> audioInfo in _Lst)
                 {
                     idx++;
-                    var nPoemId = Convert.ToInt32(audioInfo["audio_post_ID"]);
-                    var haveIt =
+                    int nPoemId = Convert.ToInt32(audioInfo["audio_post_ID"]);
+                    bool haveIt =
                         _PoemId == 0 ?
                         poemAudios.Where(p => p.SyncGuid.ToString() == audioInfo["audio_guid"]).FirstOrDefault() != null
                         :
@@ -235,8 +238,8 @@ namespace ganjoor
                 grdList.Columns[2].Width = 50;
 
                 foreach (DataGridViewRow row in grdList.Rows)
-                    row.Tag = !(bool)row.Cells[GRDCLMN_CHECK].Value;
-                if (firstSuggestableDownload != -1)
+                    row.Tag = !((bool)row.Cells[GRDCLMN_CHECK].Value);
+                if(firstSuggestableDownload != -1)
                 {
                     grdList.FirstDisplayedScrollingRowIndex = firstSuggestableDownload;
                 }
@@ -252,7 +255,7 @@ namespace ganjoor
         {
             if (grdList.Rows[e.RowIndex].Tag != null)
             {
-                e.CellStyle.BackColor = (bool)grdList.Rows[e.RowIndex].Tag ? Color.LightGray : Color.White;
+                e.CellStyle.BackColor = ((bool)grdList.Rows[e.RowIndex].Tag) ? Color.LightGray : Color.White;
             }
         }
 
@@ -272,7 +275,7 @@ namespace ganjoor
 
         private void btnMarkSelected_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in grdList.SelectedRows)
+            foreach(DataGridViewRow row in grdList.SelectedRows)
             {
                 row.Cells[GRDCLMN_CHECK].Value = true;
             }
@@ -298,12 +301,13 @@ namespace ganjoor
             foreach (DataGridViewRow Row in grdList.Rows)
                 if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
                 {
-                    OnEnableNextButton?.Invoke(this, EventArgs.Empty);
+                    if (OnEnableNextButton != null)
+                        OnEnableNextButton(this, new EventArgs());
                     return;
 
                 }
-
-            OnDisableNextButton?.Invoke(this, EventArgs.Empty);
+            if (OnDisableNextButton != null)
+                OnDisableNextButton(this, new EventArgs());
         }
 
 
@@ -321,8 +325,8 @@ namespace ganjoor
                     dwnldList.Add(_Lst[Row.Index]);
         }
 
-        public event EventHandler OnEnableNextButton;
-        public event EventHandler OnDisableNextButton;
+        public event EventHandler OnEnableNextButton = null;
+        public event EventHandler OnDisableNextButton = null;
 
         private void btnSelNone_Click(object sender, EventArgs e)
         {
@@ -338,7 +342,7 @@ namespace ganjoor
             if (grdList.IsCurrentCellInEditMode)
                 grdList.EndEdit();
             foreach (DataGridViewRow Row in grdList.Rows)
-                if (!(bool)Row.Tag)
+                if (!((bool)Row.Tag))
                     Row.Cells[GRDCLMN_CHECK].Value = true;
         }
 
@@ -348,18 +352,22 @@ namespace ganjoor
             await TryDownloadList();
         }
 
-        private async void btnAllDownloadable_Click(object sender, EventArgs e) {
-            using var audioDownloadMethod = new AudioDownloadMethod();
-            if (audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
+        private async void btnAllDownloadable_Click(object sender, EventArgs e)
+        {
+            using (AudioDownloadMethod audioDownloadMethod = new AudioDownloadMethod())
             {
-                _PoemId = 0;
-                _PoetId = audioDownloadMethod.PoetId;
-                _CatId = audioDownloadMethod.CatId;
-                Cursor.Current = Cursors.WaitCursor;
-                Application.DoEvents();
-                await TryDownloadList();
-                Cursor.Current = Cursors.Default;
+                if (audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
+                {
+                    _PoemId = 0;
+                    _PoetId = audioDownloadMethod.PoetId;
+                    _CatId = audioDownloadMethod.CatId;
+                    Cursor.Current = Cursors.WaitCursor;
+                    Application.DoEvents();
+                    await TryDownloadList();
+                    Cursor.Current = Cursors.Default;
+                }
             }
+            
         }
 
     }

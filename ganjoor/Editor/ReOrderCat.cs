@@ -19,12 +19,12 @@ namespace ganjoor
 
         private List<int> _IDs = new List<int>();
 
-        private const int ClmnTitle = 0;
-        private const int ClmnVerse1 = 1;
-        private const int ClmnVerse2 = 2;
-        private const int ClmnRAVI = 3;
-        private const int ClmnRAVIAX = 4;
-        private const int ClmnID = 5;
+        private const int ClmnTitle     = 0;
+        private const int ClmnVerse1    = 1;
+        private const int ClmnVerse2    = 2;
+        private const int ClmnRAVI      = 3;
+        private const int ClmnRAVIAX    = 4;
+        private const int ClmnID        = 5;
 
         private void ReOrderCat_Load(object sender, EventArgs e)
         {
@@ -39,11 +39,11 @@ namespace ganjoor
             _IDs.Clear();
             grdMain.Rows.Clear();
 
-            var Poems = _db.GetPoems(Settings.Default.LastCat);
+            List<GanjoorPoem> Poems = _db.GetPoems(Settings.Default.LastCat);
             grdMain.SuspendLayout();
-            foreach (var Poem in Poems)
+            foreach (GanjoorPoem Poem in Poems)
             {
-                var rowIndex = grdMain.Rows.Add();
+                int rowIndex = grdMain.Rows.Add();
 
                 _IDs.Add(Poem._ID);
 
@@ -51,7 +51,7 @@ namespace ganjoor
 
                 grdMain.Rows[rowIndex].Cells[ClmnTitle].Value = Poem._Title;
 
-                var Verses = _db.GetVerses(Poem._ID, 2);
+                List<GanjoorVerse> Verses = _db.GetVerses(Poem._ID, 2);
                 if (Verses.Count > 0)
                     grdMain.Rows[rowIndex].Cells[ClmnVerse1].Value = Verses[0]._Text;
                 if (Verses.Count > 1)
@@ -79,41 +79,41 @@ namespace ganjoor
 
         private void btnMoveFirst_Click(object sender, EventArgs e)
         {
-            var lstSelected = new List<DataGridViewRow>();
+            List<DataGridViewRow> lstSelected = new List<DataGridViewRow>();
             foreach (DataGridViewRow Row in grdMain.SelectedRows)
                 lstSelected.Add(Row);
-            foreach (var Row in lstSelected)
+            foreach (DataGridViewRow Row in lstSelected)
             {
                 grdMain.Rows.Remove(Row);
             }
             lstSelected.Sort(CompareGridRows);
             grdMain.Rows.Insert(0, lstSelected.Count);
             grdMain.ClearSelection();
-            for (var iRow = 0; iRow < lstSelected.Count; iRow++)
-            {
-                for (var iCell = 0; iCell < lstSelected[iRow].Cells.Count; iCell++)
+            for (int iRow = 0; iRow < lstSelected.Count ; iRow++)
+            {                
+                for (int iCell = 0; iCell < lstSelected[iRow].Cells.Count; iCell++)
                     grdMain.Rows[iRow].Cells[iCell].Value = lstSelected[iRow].Cells[iCell].Value;
                 grdMain.Rows[iRow].Selected = true;
             }
-
+            
         }
 
         private void btnMoveLast_Click(object sender, EventArgs e)
         {
-            var lstSelected = new List<DataGridViewRow>();
+            List<DataGridViewRow> lstSelected = new List<DataGridViewRow>();
             foreach (DataGridViewRow Row in grdMain.SelectedRows)
                 lstSelected.Add(Row);
-            foreach (var Row in lstSelected)
+            foreach (DataGridViewRow Row in lstSelected)
             {
                 grdMain.Rows.Remove(Row);
             }
             lstSelected.Sort(CompareGridRows);
-            var oldRowCount = grdMain.Rows.Count;
-            grdMain.Rows.Insert(oldRowCount, lstSelected.Count);
+            int oldRowCount = grdMain.Rows.Count;
+            grdMain.Rows.Insert(oldRowCount , lstSelected.Count);
             grdMain.ClearSelection();
-            for (var iRow = 0; iRow < lstSelected.Count; iRow++)
+            for (int iRow = 0; iRow < lstSelected.Count; iRow++)
             {
-                for (var iCell = 0; iCell < lstSelected[iRow].Cells.Count; iCell++)
+                for (int iCell = 0; iCell < lstSelected[iRow].Cells.Count; iCell++)
                     grdMain.Rows[iRow + oldRowCount].Cells[iCell].Value = lstSelected[iRow].Cells[iCell].Value;
                 grdMain.Rows[iRow + oldRowCount].Selected = true;
             }
@@ -121,66 +121,66 @@ namespace ganjoor
 
         private void btnMoveUp_Click(object sender, EventArgs e)
         {
-            var lstSelected = new List<DataGridViewRow>();
+            List<DataGridViewRow> lstSelected = new List<DataGridViewRow>();
             foreach (DataGridViewRow Row in grdMain.SelectedRows)
                 lstSelected.Add(Row);
-            var lstNewSelection = new List<DataGridViewRow>();
+            List<DataGridViewRow> lstNewSelection = new List<DataGridViewRow>();
             lstSelected.Sort(CompareGridRows);
-            foreach (var Row in lstSelected)
+            foreach (DataGridViewRow Row in lstSelected)
             {
-                var RowIndex = Row.Index;
+                int RowIndex = Row.Index;
                 if (RowIndex > 0)
                 {
                     RowIndex--;
                     grdMain.Rows.Insert(RowIndex, 1);
                     grdMain.Rows.Remove(Row);
 
-                    for (var iCell = 0; iCell < Row.Cells.Count; iCell++)
+                    for (int iCell = 0; iCell < Row.Cells.Count; iCell++)
                         grdMain.Rows[RowIndex].Cells[iCell].Value = Row.Cells[iCell].Value;
                 }
                 lstNewSelection.Add(grdMain.Rows[RowIndex]);
             }
             grdMain.ClearSelection();
-            foreach (var Row in lstNewSelection)
+            foreach (DataGridViewRow Row in lstNewSelection)
                 Row.Selected = true;
 
         }
 
         private void btnMoveDown_Click(object sender, EventArgs e)
         {
-            var lstSelected = new List<DataGridViewRow>();
+            List<DataGridViewRow> lstSelected = new List<DataGridViewRow>();
             foreach (DataGridViewRow Row in grdMain.SelectedRows)
                 lstSelected.Add(Row);
-            var lstNewSelection = new List<DataGridViewRow>();
+            List<DataGridViewRow> lstNewSelection = new List<DataGridViewRow>();
             lstSelected.Sort(CompareGridRowsReversed);
-            foreach (var Row in lstSelected)
+            foreach (DataGridViewRow Row in lstSelected)
             {
-                var RowIndex = Row.Index;
+                int RowIndex = Row.Index;
                 if (RowIndex < grdMain.RowCount - 1)
-                {
+                {                    
                     grdMain.Rows.Insert(RowIndex + 2, 1);
                     grdMain.Rows.Remove(Row);
 
                     RowIndex++;
 
 
-                    for (var iCell = 0; iCell < Row.Cells.Count; iCell++)
+                    for (int iCell = 0; iCell < Row.Cells.Count; iCell++)
                         grdMain.Rows[RowIndex].Cells[iCell].Value = Row.Cells[iCell].Value;
                     lstNewSelection.Add(grdMain.Rows[RowIndex]);
                 }
                 lstNewSelection.Add(grdMain.Rows[RowIndex]);
             }
             grdMain.ClearSelection();
-            foreach (var Row in lstNewSelection)
+            foreach (DataGridViewRow Row in lstNewSelection)
                 Row.Selected = true;
         }
 
         private void btnSaveOrder_Click(object sender, EventArgs e)
         {
             _db.BeginBatchOperation();
-            for (var iRow = 0; iRow < grdMain.RowCount; iRow++)
+            for (int iRow = 0; iRow < grdMain.RowCount; iRow++)
             {
-                var PoemID = Convert.ToInt32(grdMain.Rows[iRow].Cells[ClmnID].Value);
+                int PoemID = Convert.ToInt32(grdMain.Rows[iRow].Cells[ClmnID].Value);
                 _db.SetPoemID(PoemID, -_IDs[iRow]);
                 grdMain.Rows[iRow].Cells[ClmnID].Value = _IDs[iRow];
             }
@@ -188,7 +188,7 @@ namespace ganjoor
             _db.BeginBatchOperation();
             foreach (DataGridViewRow Row in grdMain.Rows)
             {
-                var PoemID = -Convert.ToInt32(Row.Cells[ClmnID].Value);
+                int PoemID = -Convert.ToInt32(Row.Cells[ClmnID].Value);
                 _db.SetPoemID(PoemID, -PoemID);
             }
             _db.CommitBatchOperation();
@@ -196,62 +196,64 @@ namespace ganjoor
 
         private void btnMoveToCat_Click(object sender, EventArgs e)
         {
-            var PoetId = _db.GetCategory(Settings.Default.LastCat)._PoetID;
-            using var dlg = new CategorySelector(PoetId);
-            if (dlg.ShowDialog(this) == DialogResult.OK)
+            int PoetId = _db.GetCategory(Settings.Default.LastCat)._PoetID;
+            using (CategorySelector dlg = new CategorySelector(PoetId))
             {
-                var NewCatId = dlg.SelectedCatID;
-                if (NewCatId == Settings.Default.LastCat)
-                    MessageBox.Show("شما بخش جاری را انتخاب کرده‌اید!");
-                else
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    var cat = _db.GetCategory(NewCatId);
-                    if (MessageBox.Show(string.Format("از انتقال {0} شعر انتخابی از بخش «{1}» به بخش «{2}» اطمینان دارید؟", grdMain.SelectedRows.Count, _db.GetCategory(Settings.Default.LastCat)._Text, cat._Text),
-                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
-                        return;
-                    _db.BeginBatchOperation();
-                    foreach (DataGridViewRow Row in grdMain.SelectedRows)
+                    int NewCatId = dlg.SelectedCatID;
+                    if (NewCatId == Settings.Default.LastCat)
+                        MessageBox.Show("شما بخش جاری را انتخاب کرده‌اید!");
+                    else
                     {
-                        var PoemID = Convert.ToInt32(Row.Cells[ClmnID].Value);
-                        _db.SetPoemCatID(PoemID, NewCatId);
+                        GanjoorCat cat = _db.GetCategory(NewCatId);
+                        if (MessageBox.Show(string.Format("از انتقال {0} شعر انتخابی از بخش «{1}» به بخش «{2}» اطمینان دارید؟", grdMain.SelectedRows.Count, _db.GetCategory(Settings.Default.LastCat)._Text, cat._Text),
+                            "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                            return;
+                        _db.BeginBatchOperation();
+                        foreach(DataGridViewRow Row in grdMain.SelectedRows)
+                        {
+                            int PoemID = Convert.ToInt32(Row.Cells[ClmnID].Value);
+                            _db.SetPoemCatID(PoemID, NewCatId);
+                        }
+                        _db.CommitBatchOperation();
+                        LoadGridData();
                     }
-                    _db.CommitBatchOperation();
-                    LoadGridData();
                 }
             }
         }
 
         private void btnGroupNaming_Click(object sender, EventArgs e)
         {
-            var bPrefix = MessageBox.Show("آیا تمایل دارید این نام به عنوان پیشوند به عنوان فعلی اضافه شود (در غیر این صورت عنوان فعلی حذف می‌شود)؟",
-                            "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.Yes;
+            bool bPrefix = MessageBox.Show("آیا تمایل دارید این نام به عنوان پیشوند به عنوان فعلی اضافه شود (در غیر این صورت عنوان فعلی حذف می‌شود)؟",
+                            "تأییدیه", MessageBoxButtons.YesNo) ==DialogResult.Yes;
 
             if (MessageBox.Show("آیا از ادامهٔ عملیات اطمینان دارید؟",
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
             _db.BeginBatchOperation();
-            var nNum = 0;
+            int nNum = 0;
             foreach (DataGridViewRow Row in grdMain.Rows)
             {
                 nNum++;
-                var newTitle = $"شمارهٔ {GPersianTextSync.Sync(nNum.ToString())}";
-                if (bPrefix)
+                string newTitle = $"شمارهٔ { GPersianTextSync.Sync(nNum.ToString())}";
+                if(bPrefix)
                 {
-                    var title = Row.Cells[ClmnTitle].Value.ToString().Trim();
-                    var verse1 = Row.Cells[ClmnVerse1].Value.ToString().Trim();
+                    string title = Row.Cells[ClmnTitle].Value.ToString().Trim();
+                    string verse1 = Row.Cells[ClmnVerse1].Value.ToString().Trim();
                     if (title == verse1)
                         title = "";
                     if (title.StartsWith("شمارهٔ "))
                     {
                         if (title.IndexOf(" - ") != -1)
                         {
-                            title = title[(title.IndexOf(" - ") + " - ".Length)..];
+                            title = title.Substring(title.IndexOf(" - ") + " - ".Length);
                             newTitle = $"{newTitle} - {title}";
                         }
                     }
                     else
-                    if (!string.IsNullOrEmpty(title))
+                    if(!string.IsNullOrEmpty(title))
                     {
                         newTitle = $"{newTitle} - {Row.Cells[ClmnTitle].Value}";
                     }
@@ -265,7 +267,7 @@ namespace ganjoor
 
         private static string Reverse(string s)
         {
-            var charArray = s.ToCharArray();
+            char[] charArray = s.ToCharArray();
             Array.Reverse(charArray);
             return new string(charArray);
         }
@@ -276,11 +278,11 @@ namespace ganjoor
             Application.DoEvents();
             foreach (DataGridViewRow Row in grdMain.Rows)
             {
-                var verses = _db.GetVerses((int)Row.Cells[ClmnID].Value);
+                List<GanjoorVerse> verses = _db.GetVerses((int)Row.Cells[ClmnID].Value);
                 try
                 {
-                    var ravi = RhymeFinder.FindRhyme(verses);
-                    if (!string.IsNullOrEmpty(ravi.Rhyme))
+                    var ravi = RhymeFinder.FindRhyme(verses, false);
+                    if(!string.IsNullOrEmpty(ravi.Rhyme))
                     {
                         Row.Cells[ClmnRAVI].Value = ravi.Rhyme;
                         Row.Cells[ClmnRAVIAX].Value = Reverse(ravi.Rhyme);
@@ -291,7 +293,7 @@ namespace ganjoor
                 {
                     MessageBox.Show(Row.Cells[ClmnTitle].Value.ToString());
                 }
-
+                
             }
             Enabled = true;
         }
@@ -303,7 +305,7 @@ namespace ganjoor
 
         private void btnSortOnRavi_Click(object sender, EventArgs e)
         {
-            var lstRows = new List<DataGridViewRow>();
+            List<DataGridViewRow> lstRows = new List<DataGridViewRow>();
             foreach (DataGridViewRow Row in grdMain.Rows)
                 lstRows.Add(Row);
 
@@ -324,10 +326,10 @@ namespace ganjoor
 
         private void btnFirstNoRavi_Click(object sender, EventArgs e)
         {
-            var start = grdMain.SelectedRows.Count == 0 ? 0 : grdMain.SelectedRows[0].Index;
-            for (var i = start; i < grdMain.Rows.Count; i++)
+            int start = grdMain.SelectedRows.Count == 0 ? 0 : grdMain.SelectedRows[0].Index;
+            for (int i = start; i < grdMain.Rows.Count; i++)
             {
-                if (grdMain.Rows[i].Cells[ClmnRAVIAX].Value == null || grdMain.Rows[i].Cells[ClmnRAVIAX].Value.ToString() == "")
+                if(grdMain.Rows[i].Cells[ClmnRAVIAX].Value == null || grdMain.Rows[i].Cells[ClmnRAVIAX].Value.ToString() == "")
                 {
                     grdMain.ClearSelection();
                     grdMain.Rows[i].Selected = true;
@@ -350,22 +352,22 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            Enabled = false;
+            this.Enabled = false;
             Application.DoEvents();
             foreach (DataGridViewRow row in grdMain.SelectedRows)
             {
                 Application.DoEvents();
-                var poemId = Convert.ToInt32(row.Cells[ClmnID].Value);
+                int poemId = Convert.ToInt32(row.Cells[ClmnID].Value);
                 var verses = _db.GetVerses(poemId);
 
-                var versesToDelete = new List<int>();
-                foreach (var Verse in verses)
+                List<int> versesToDelete = new List<int>();
+                foreach (GanjoorVerse Verse in verses)
                     versesToDelete.Add(Verse._Order);
 
                 if (_db.DeleteVerses(poemId, versesToDelete))
                 {
-                    var pos = VersePosition.Right;
-                    for (var i = 1; i < verses.Count; i++)
+                    VersePosition pos = VersePosition.Right;
+                    for (int i = 1; i < verses.Count; i++)
                     {
                         var v = _db.CreateNewVerse(poemId, i - 1, pos);
                         _db.SetVerseText(poemId, v._Order, verses[i]._Text);
@@ -376,7 +378,7 @@ namespace ganjoor
                 }
             }
 
-            Enabled = true;
+            this.Enabled = true;
 
             LoadGridData();
 
@@ -394,24 +396,24 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            Enabled = false;
+            this.Enabled = false;
             Application.DoEvents();
             foreach (DataGridViewRow row in grdMain.SelectedRows)
             {
                 Application.DoEvents();
-                var poemId = Convert.ToInt32(row.Cells[ClmnID].Value);
+                int poemId = Convert.ToInt32(row.Cells[ClmnID].Value);
                 var verses = _db.GetVerses(poemId);
 
-                if (verses.Any(v => v._Position != VersePosition.Right && v._Position != VersePosition.Left))
+                if(verses.Any(v => v._Position != VersePosition.Right && v._Position != VersePosition.Left))
                 {
-                    for (var i = 0; i < verses.Count; i++)
+                    for (int i = 0; i < verses.Count; i++)
                     {
                         _db.SetVersePosition(poemId, verses[i]._Order, i % 2 == 0 ? VersePosition.Right : VersePosition.Left);
                     }
                 }
             }
 
-            Enabled = true;
+            this.Enabled = true;
 
             LoadGridData();
         }
@@ -428,7 +430,7 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            Enabled = false;
+            this.Enabled = false;
             Application.DoEvents();
             List<GanjoorPoem> catPoems;
             bool breakHappened;
@@ -439,19 +441,19 @@ namespace ganjoor
                 foreach (var catPoem in catPoems)
                 {
                     Application.DoEvents();
-                    var poemId = catPoem._ID;
+                    int poemId = catPoem._ID;
                     var verses = _db.GetVerses(poemId);
                     if (verses.Count == 2) continue;
 
-                    var rhyme = RhymeFinder.FindRhyme(verses);
+                    var rhyme = RhymeFinder.FindRhyme(verses, false);
                     if (rhyme.FailVerseOrder != -1)
                     {
-                        var newPoem = _db.CreateNewPoem(catPoem._Title, Settings.Default.LastCat);
-                        var nNewPoemId = newPoem._ID;
-                        var deletingVOrders = new List<int>();
-                        for (var i = rhyme.FailVerseOrder; i < verses.Count; i++)
+                        GanjoorPoem newPoem = _db.CreateNewPoem(catPoem._Title, Settings.Default.LastCat);
+                        int nNewPoemId = newPoem._ID;
+                        List<int> deletingVOrders = new List<int>();
+                        for (int i = rhyme.FailVerseOrder; i < verses.Count; i++)
                         {
-                            var v = _db.CreateNewVerse(newPoem._ID, i - rhyme.FailVerseOrder, verses[i]._Position);
+                            GanjoorVerse v = _db.CreateNewVerse(newPoem._ID, i - rhyme.FailVerseOrder, verses[i]._Position);
                             _db.SetVerseText(newPoem._ID, v._Order, verses[i]._Text);
                             deletingVOrders.Add(verses[i]._Order);
                         }
@@ -463,13 +465,13 @@ namespace ganjoor
 
                         //Reorder poems so that the new one falls after current one
 
-                        var poems = _db.GetPoems(Settings.Default.LastCat);
+                        List<GanjoorPoem> poems = _db.GetPoems(Settings.Default.LastCat);
                         _db.BeginBatchOperation();
-                        var firstNextPoemMet = false;
+                        bool firstNextPoemMet = false;
 
-                        for (var i = 0; i < poems.Count; i++)
+                        for (int i = 0; i < poems.Count; i++)
                         {
-                            var poem = poems[i];
+                            GanjoorPoem poem = poems[i];
                             if (poem._ID > poemId && poem._ID != nNewPoemId)
                             {
                                 if (!firstNextPoemMet)
@@ -484,7 +486,7 @@ namespace ganjoor
 
                         poems = _db.GetPoems(Settings.Default.LastCat);
                         _db.BeginBatchOperation();
-                        foreach (var poem in poems)
+                        foreach (GanjoorPoem poem in poems)
                         {
                             if (poem._ID < 0)
                             {
@@ -500,7 +502,7 @@ namespace ganjoor
             }
             while (breakHappened);
 
-            Enabled = true;
+            this.Enabled = true;
             LoadGridData();
         }
 
@@ -519,18 +521,18 @@ namespace ganjoor
                             "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            Enabled = false;
+            this.Enabled = false;
             Application.DoEvents();
-            var poemIds = new List<int>();
+            List<int> poemIds = new List<int>();
             foreach (DataGridViewRow row in grdMain.SelectedRows)
             {
                 poemIds.Add(Convert.ToInt32(row.Cells[ClmnID].Value));
             }
             poemIds.Sort();
-            var i = 0;
+            int i = 0;
             while (i < poemIds.Count)
             {
-                var poemId = poemIds[i];
+                int poemId = poemIds[i];
                 var poem = _db.GetPoem(poemId);
                 if (!poem._Title.Contains("سؤال"))
                 {
@@ -539,13 +541,13 @@ namespace ganjoor
                 }
 
                 var verses1 = _db.GetVerses(poemId);
-                var v = _db.CreateNewVerse(poemId, verses1.Count, VersePosition.Paragraph);
+                GanjoorVerse v = _db.CreateNewVerse(poemId, verses1.Count, VersePosition.Paragraph);
                 _db.SetVerseText(poemId, v._Order, "در جواب او");
 
                 var verses2 = _db.GetVerses(poemId + 1);
                 foreach (var verse in verses2)
                 {
-                    var v2 = _db.CreateNewVerse(poemId, verses1.Count + 1 + verse._Order, verse._Position);
+                    GanjoorVerse v2 = _db.CreateNewVerse(poemId, verses1.Count + 1 + verse._Order, verse._Position);
                     _db.SetVerseText(poemId, v2._Order, verse._Text);
                 }
 
@@ -555,7 +557,7 @@ namespace ganjoor
 
             }
 
-            Enabled = true;
+            this.Enabled = true;
 
             LoadGridData();
         }

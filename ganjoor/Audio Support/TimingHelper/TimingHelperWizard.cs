@@ -8,10 +8,10 @@ namespace ganjoor.Audio_Support.TimingHelper
         {
             InitializeComponent();
 
-            var firstVerse = new THFirstVerse(nPoemId);
+            THFirstVerse firstVerse = new THFirstVerse(nPoemId);
             AddStage(firstVerse);
 
-            var mainStep = new THHelper(nPoemId);
+            THHelper mainStep = new THHelper(nPoemId);
             AddStage(mainStep);
         }
 

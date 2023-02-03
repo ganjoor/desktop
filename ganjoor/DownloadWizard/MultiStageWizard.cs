@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -10,7 +13,7 @@ namespace ganjoor
         public MultiStageWizard()
         {
             InitializeComponent();
-            Text = DownloadCaption;
+            this.Text = DownloadCaption;
         }
 
 
@@ -40,8 +43,8 @@ namespace ganjoor
                 }
 
 
-                btnNext.Visible = _Stages[StageIndex].NextStageButton && StageIndex < _Stages.Count - 1;
-                btnPrevious.Visible = _Stages[StageIndex].PreviousStageButton && StageIndex > 0;
+                btnNext.Visible = _Stages[StageIndex].NextStageButton && (StageIndex < (_Stages.Count - 1));
+                btnPrevious.Visible = _Stages[StageIndex].PreviousStageButton && (StageIndex > 0);
 
                 btnNext.Text = _Stages[StageIndex].NextStageText;
                 btnPrevious.Text = _Stages[StageIndex].PreviousStageText;
@@ -56,17 +59,17 @@ namespace ganjoor
                     btnNext.Location = new Point(btnPrevious.Left + btnNext.Width + 16, btnNext.Top);
                 }
                 else
-                    if (btnNext.Visible)
-                    btnNext.Location = new Point(16, btnNext.Top);
+                    if(btnNext.Visible)
+                        btnNext.Location = new Point(16, btnNext.Top);
 
                 PostDataToNextStage(StageIndex);
-                if (StageIndex == _Stages.Count - 1)
+                if (StageIndex == (_Stages.Count - 1))
                 {
                     btnCancel.Text = "تأیید";
-                    AcceptButton = btnCancel;
+                    this.AcceptButton = btnCancel;
                     btnCancel.Focus();
                 }
-                btnNext.Enabled = btnPrevious.Enabled = false; Application.DoEvents();
+                btnNext.Enabled = btnPrevious.Enabled = false;Application.DoEvents();
                 _Stages[StageIndex].OnBeforeActivate();
                 _Stages[StageIndex].Visible = true;
                 btnNext.Enabled = btnPrevious.Enabled = true; Application.DoEvents();

@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 using ganjoor.Properties;
+using System.Diagnostics;
 
 namespace ganjoor
 {
     partial class WSSelectItems : WizardStage
     {
-
-        public WSSelectItems() {
+   
+        public WSSelectItems()
+            : base()
+        {
             InitializeComponent();
         }
 
@@ -18,7 +21,8 @@ namespace ganjoor
         {
             tlbr.Enabled = false;
             lblDesc.Text = "در حال دریافت اطلاعات ...";
-            OnDisableNextButton?.Invoke(this, EventArgs.Empty);
+            if (OnDisableNextButton != null)
+                OnDisableNextButton(this, new EventArgs());
             if (DownloadList(Settings.Default.LastDownloadUrl))
                 lblDesc.Text = "ردیفهای سفیدرنگ نشانگر مجموعه‌هایی است که شما آنها را در گنجور رومیزی خود ندارید. با علامتگذاری ستون «دریافت» در هر ردیف؛ آن را به فهرست مجموعه‌هایی که می‌خواهید دریافت شوند اضافه کنید تا در مرحلهٔ بعد دریافت فهرست انتخابی شروع شود.";
             else
@@ -30,7 +34,7 @@ namespace ganjoor
 
         private bool DownloadList(string url)
         {
-            var reS = true;
+            bool reS = true;
             grdList.Rows.Clear();
             Application.DoEvents();
             string strException;
@@ -48,11 +52,11 @@ namespace ganjoor
 
             if (_Lst.Count > 0)
             {
-                var db = new DbBrowser();
-                foreach (var gdbInfo in _Lst)
+                DbBrowser db = new DbBrowser();
+                foreach (GDBInfo gdbInfo in _Lst)
                 {
-                    var RowIndex = grdList.Rows.Add();
-                    var haveIt = db.GetCategory(gdbInfo.CatID) != null;
+                    int RowIndex = grdList.Rows.Add();
+                    bool haveIt = (db.GetCategory(gdbInfo.CatID) != null);
                     grdList.Rows[RowIndex].Tag = haveIt;
                     if (haveIt)
                         grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
@@ -103,12 +107,13 @@ namespace ganjoor
             foreach (DataGridViewRow Row in grdList.Rows)
                 if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
                 {
-                    OnEnableNextButton?.Invoke(this, EventArgs.Empty);
+                    if (OnEnableNextButton != null)
+                        OnEnableNextButton(this, new EventArgs());
                     return;
 
                 }
-
-            OnDisableNextButton?.Invoke(this, EventArgs.Empty);
+            if (OnDisableNextButton != null)
+                OnDisableNextButton(this, new EventArgs());
         }
 
 
@@ -126,8 +131,8 @@ namespace ganjoor
                     dwnldList.Add(_Lst[Row.Index]);
         }
 
-        public event EventHandler OnEnableNextButton;
-        public event EventHandler OnDisableNextButton;
+        public event EventHandler OnEnableNextButton = null;
+        public event EventHandler OnDisableNextButton = null;
 
         private void btnSelNone_Click(object sender, EventArgs e)
         {
@@ -143,7 +148,7 @@ namespace ganjoor
             if (grdList.IsCurrentCellInEditMode)
                 grdList.EndEdit();
             foreach (DataGridViewRow Row in grdList.Rows)
-                if (!(bool)Row.Tag)
+                if (!((bool)Row.Tag))
                     Row.Cells[GRDCLMN_CHECK].Value = true;
         }
 

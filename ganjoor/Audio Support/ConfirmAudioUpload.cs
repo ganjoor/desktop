@@ -13,7 +13,7 @@ namespace ganjoor.Audio_Support
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (chkReplace.Checked)
+            if(chkReplace.Checked)
             {
                 DialogResult = DialogResult.Yes;
             }

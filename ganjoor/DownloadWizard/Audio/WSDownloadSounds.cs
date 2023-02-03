@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace ganjoor
 {
@@ -38,15 +42,15 @@ namespace ganjoor
         public override void OnActivated()
         {
             if (DownloadList != null)
-                foreach (var audioInfo in DownloadList)
+                foreach (Dictionary<string, string> audioInfo in DownloadList)
                 {
-                    var ctl = new SndDownloadInfo(audioInfo);
-                    pnlList.Controls.Add(ctl);
+                    SndDownloadInfo ctl = new SndDownloadInfo(audioInfo);
+                    this.pnlList.Controls.Add(ctl);
                     ctl.Dock = DockStyle.Top;
                     ctl.SendToBack();
                 }
 
-            (Parent.Parent as Form).AcceptButton = btnStop;
+            (this.Parent.Parent as Form).AcceptButton = btnStop;
             btnStop.Focus();
 
             BeginNextDownload();
@@ -54,15 +58,15 @@ namespace ganjoor
         }
 
         #region Automatic Next Stage Event
-        public event EventHandler OnStageDone;
+        public event EventHandler OnStageDone = null;
         #endregion
 
-        private int _DownloadIndex;
+        private int _DownloadIndex = 0;
         private int _RealDownloadIndex
         {
             get
             {
-                return pnlList.Controls.Count - 1 - _DownloadIndex;
+                return (this.pnlList.Controls.Count - 1 - _DownloadIndex);
             }
         }
         private List<Dictionary<string, string>> _DownloadedSounds = new List<Dictionary<string, string>>();
@@ -78,53 +82,56 @@ namespace ganjoor
 
         private void BeginNextDownload()
         {
-            if (_DownloadIndex < pnlList.Controls.Count)
+            if (_DownloadIndex < this.pnlList.Controls.Count)
             {
                 backgroundWorker.RunWorkerAsync();
             }
-            else {
-                OnStageDone?.Invoke(this, EventArgs.Empty);
-            }
+            else
+                if (this.OnStageDone != null)
+                    OnStageDone(this, new EventArgs());
+
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var targetDir = DownloadableAudioListProcessor.SoundsPath;
+            string targetDir = DownloadableAudioListProcessor.SoundsPath;
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
-            var audioInfo = (pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>;
+            Dictionary<string, string> audioInfo = (this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>;
             string strException;
             if (!DownloadableAudioListProcessor.DownloadAudioXml(audioInfo["audio_xml"], targetDir, true, out strException))
             {
-                MessageBox.Show(string.Format("دریافت فایل XML خوانش {0} با خطا مواجه شد.", DownloadableAudioListProcessor.SuggestTitle((pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>)), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(string.Format("دریافت فایل XML خوانش {0} با خطا مواجه شد.", DownloadableAudioListProcessor.SuggestTitle((this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>)), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
             else
             {
-                var sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
-                    ((pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>)["audio_mp3"],
+                string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
+                    ((this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>)["audio_mp3"],
                     targetDir,
-                    backgroundWorker, out var expString);
+                    this.backgroundWorker, out string expString);
                 if (!string.IsNullOrEmpty(sFileDownloaded))
                     _DownloadedSounds.Add(audioInfo);
                 else
                     if (_RealDownloadIndex >= 0)
-                    MessageBox.Show(string.Format("دریافت فایل صوتی خوانش {0} با خطا مواجه شد.\n{1}", DownloadableAudioListProcessor.SuggestTitle((pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>), expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        MessageBox.Show(string.Format("دریافت فایل صوتی خوانش {0} با خطا مواجه شد.\n{1}", DownloadableAudioListProcessor.SuggestTitle((this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Tag as Dictionary<string, string>), expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (_DownloadIndex < pnlList.Controls.Count)//شانسی که من دارم باید چک کنم ;)
+            if (_DownloadIndex < this.pnlList.Controls.Count)//شانسی که من دارم باید چک کنم ;)
             {
-                (pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Progress = e.ProgressPercentage;
+                (this.pnlList.Controls[_RealDownloadIndex] as SndDownloadInfo).Progress = e.ProgressPercentage;
                 Application.DoEvents();
             }
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Cancelled || !btnStop.Enabled) {
-                OnStageDone?.Invoke(this, EventArgs.Empty);
+            if (e.Cancelled || !btnStop.Enabled)
+            {
+                if (this.OnStageDone != null)
+                    OnStageDone(this, new EventArgs());
             }
             else
             {
@@ -137,7 +144,7 @@ namespace ganjoor
         {
             if (backgroundWorker.IsBusy)
             {
-                if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
                 {
                     lblMsg.Text = "لطفاً منتظر بمانید تا دریافت فایل جاری متوقف شود ...";
                     btnStop.Enabled = false;

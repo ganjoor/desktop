@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -24,9 +29,9 @@ namespace ganjoor
             btnMerge.Enabled = !string.IsNullOrEmpty(clmn1.Text.Trim()) && !string.IsNullOrEmpty(clmn2.Text.Trim());
             if (chkAutomaticFocus.Checked)
             {
-                if (sender is TextBox box)
+                if (sender is TextBox)
                 {
-                    if (box.Name == clmn1.Name)
+                    if ((sender as TextBox).Name == clmn1.Name)
                         clmn2.Focus();
                     else
                         btnMerge.Focus();
@@ -41,16 +46,16 @@ namespace ganjoor
 
         private void btnMerge_Click(object sender, EventArgs e)
         {
-            var err = false;
-            var iLine1 = 0;
-            var iLine2 = 0;
-            var resultText = result.Text;
+            bool err = false;
+            int iLine1 = 0;
+            int iLine2 = 0;
+            string resultText = result.Text;
             if (!string.IsNullOrEmpty(resultText.Trim()))
-                if (resultText[^1] != '\n')
+                if(resultText[resultText.Length - 1] != '\n')
                     resultText += "\r\n";
-            while (iLine1 < clmn1.Lines.Length)
+            while(iLine1 < clmn1.Lines.Length)
             {
-                var ignore = false;
+                bool ignore = false;
                 if (chkIgnoreBlankLines.Checked)
                 {
                     if (string.IsNullOrEmpty(clmn1.Lines[iLine1].Trim()))
@@ -58,7 +63,7 @@ namespace ganjoor
                 }
                 if (!ignore)
                 {
-                    resultText += clmn1.Lines[iLine1] + "\r\n";
+                    resultText += clmn1.Lines[iLine1] + "\r\n";                    
                 }
 
                 if (iLine2 >= clmn2.Lines.Length)
@@ -86,7 +91,7 @@ namespace ganjoor
             while (iLine2 < clmn2.Lines.Length)
             {
                 err = true;
-                var ignore = false;
+                bool ignore = false;
                 if (chkIgnoreBlankLines.Checked)
                 {
                     if (string.IsNullOrEmpty(clmn2.Lines[iLine2].Trim()))
@@ -94,7 +99,7 @@ namespace ganjoor
                 }
                 if (!ignore)
                 {
-                    resultText += clmn2.Lines[iLine2] + "\r\n";
+                    resultText += clmn2.Lines[iLine2] + "\r\n";                    
                 }
                 iLine2++;
             }
@@ -108,7 +113,7 @@ namespace ganjoor
                 clmn1.Text = clmn2.Text = "";
                 btnInsert.Focus();
             }
-
+            
         }
     }
 }

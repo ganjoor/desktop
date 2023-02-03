@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace ganjoor
 {
@@ -55,7 +55,13 @@ namespace ganjoor
         /// <summary>
         /// آیا همگام شده
         /// </summary>
-        public bool IsSynced => SyncArray != null;
+        public bool IsSynced
+        {
+            get
+            {
+                return SyncArray != null;
+            }
+        }
 
 
         /// <summary>
@@ -122,16 +128,23 @@ namespace ganjoor
         /// محاسبه چک سام فایل
         /// </summary>
         /// <param name="filePath"></param>
-        public static string ComputeCheckSum(string filePath) {
-            using var md5 = MD5.Create();
-            try {
-                using var stream = File.OpenRead(filePath);
-                return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
-            }
-            catch
+        public static string ComputeCheckSum(string filePath)
+        {
+            using (var md5 = MD5.Create())
             {
-                return ""; //problem with file
+                try
+                {
+                    using (var stream = File.OpenRead(filePath))
+                    {
+                        return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
+                    }
+                }
+                catch
+                {
+                    return ""; //problem with file
+                }
             }
+            
         }
 
         /// <summary>
@@ -147,7 +160,11 @@ namespace ganjoor
         /// تبدیل به رشته
         /// </summary>
         /// <returns>شرح</returns>
-        public override string ToString() => Description;
+        public override string ToString()
+        {
+            return this.Description;
+        }
+
 
         ///<remarks>
         ///Warning: not always filled
@@ -166,5 +183,9 @@ namespace ganjoor
             get;
             set;
         }
+
+
+
+
     }
 }

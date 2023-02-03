@@ -1,26 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System.Diagnostics;
 using System.IO;
-using NAudio.Wave;
+
 
 namespace ganjoor
 {
     public class PoemAudioPlayer
     {
+        #region Constructor
+        public PoemAudioPlayer()
+        {
+        }
+        #endregion
 
         #region Public / State Reporting Events
-        public event EventHandler PlaybackStarted;
-        public event EventHandler<StoppedEventArgs> PlaybackStopped;
-
+        public event EventHandler PlaybackStarted = null;
+        public event EventHandler<StoppedEventArgs> PlaybackStopped = null;
+        
         #endregion
 
         #region internal variables
-        private IWavePlayer wavePlayer;
-        private AudioFileReader file;
+        private IWavePlayer wavePlayer = null;
+        private AudioFileReader file = null;
         #endregion
 
         #region Main Methods
-
+     
 
         public PoemAudio PoemAudio;
         /// <summary>
@@ -29,7 +39,7 @@ namespace ganjoor
         /// <param name="poemAudio"></param>
         public bool BeginPlayback(PoemAudio poemAudio)
         {
-            if (wavePlayer != null)
+            if (this.wavePlayer != null)
             {
                 Debug.Assert(false);
                 return false;
@@ -38,14 +48,15 @@ namespace ganjoor
             {
                 return false;
             }
-            PoemAudio = poemAudio;
-            wavePlayer = new WaveOut();
-            file = new AudioFileReader(poemAudio.FilePath);
-            wavePlayer.Init(file);
-            wavePlayer.PlaybackStopped += wavePlayer_PlaybackStopped;
-            wavePlayer.Play();
+            this.PoemAudio = poemAudio;
+            this.wavePlayer = new WaveOut();
+            this.file = new AudioFileReader(poemAudio.FilePath);
+            this.wavePlayer.Init(file);
+            this.wavePlayer.PlaybackStopped += wavePlayer_PlaybackStopped;
+            this.wavePlayer.Play();
 
-            PlaybackStarted?.Invoke(this, EventArgs.Empty);
+            if (PlaybackStarted != null)
+                PlaybackStarted(this, new EventArgs());
             return true;
         }
 
@@ -55,9 +66,9 @@ namespace ganjoor
         /// <returns></returns>
         public bool PausePlayBack()
         {
-            if (wavePlayer == null)
+            if (this.wavePlayer == null)
                 return false;
-            wavePlayer.Pause();
+            this.wavePlayer.Pause();
             return true;
 
         }
@@ -68,9 +79,9 @@ namespace ganjoor
         /// <returns></returns>
         public bool ResumePlayBack()
         {
-            if (wavePlayer == null)
+            if (this.wavePlayer == null)
                 return false;
-            wavePlayer.Play();
+            this.wavePlayer.Play();
             return true;
         }
 
@@ -79,9 +90,9 @@ namespace ganjoor
         /// </summary>
         public bool StopPlayBack()
         {
-            if (wavePlayer == null)
+            if (this.wavePlayer == null)
                 return false;
-            wavePlayer.Stop();
+            this.wavePlayer.Stop();
             return true;
         }
 
@@ -89,23 +100,38 @@ namespace ganjoor
         /// آیا در حال پخش است؟
         /// </summary>
         /// <returns></returns>
-        public bool IsPlaying => wavePlayer is {PlaybackState: PlaybackState.Playing};
+        public bool IsPlaying
+        {
+            get
+            {
+                return this.wavePlayer != null && this.wavePlayer.PlaybackState == PlaybackState.Playing;
+            }
+        }
 
         /// <summary>
         /// آیا در حال توقف موقت است؟
         /// </summary>
         /// <returns></returns>
-        public bool IsInPauseState => wavePlayer is {PlaybackState: PlaybackState.Paused};
+        public bool IsInPauseState
+        {
+            get
+            {
+                return this.wavePlayer != null && this.wavePlayer.PlaybackState == PlaybackState.Paused;
+            }
+        }
 
         /// <summary>
         /// محل فعلی فایل صوتی بر حسب میلی ثانیه
         /// </summary>
         public int PositionInMiliseconds
         {
-            get => file == null ? 0 : (int)file.CurrentTime.TotalMilliseconds;
+            get
+            {
+                return this.file == null ? 0 : (int)file.CurrentTime.TotalMilliseconds;
+            }
             set
             {
-                if (file != null)
+                if (this.file != null)
                     file.CurrentTime = TimeSpan.FromMilliseconds(value);
             }
         }
@@ -113,22 +139,28 @@ namespace ganjoor
         /// <summary>
         /// طول فایل بر حسب میلی ثانیه
         /// </summary>
-        public int TotalTimeInMiliseconds => file == null ? 0 : (int)file.TotalTime.TotalMilliseconds;
+        public int TotalTimeInMiliseconds
+        {
+            get
+            {
+                return this.file == null ? 0 : (int)file.TotalTime.TotalMilliseconds;
+            }
+        }
 
         /// <summary>
         /// پاکسازی متغیرها
         /// </summary>
         public void CleanUp()
         {
-            if (file != null)
+            if (this.file != null)
             {
-                file.Dispose();
-                file = null;
+                this.file.Dispose();
+                this.file = null;
             }
-            if (wavePlayer != null)
+            if (this.wavePlayer != null)
             {
-                wavePlayer.Dispose();
-                wavePlayer = null;
+                this.wavePlayer.Dispose();
+                this.wavePlayer = null;
             }
         }
         #endregion
@@ -139,7 +171,8 @@ namespace ganjoor
         {
             // we want it to be safe to clean up input stream and playback device in the handler for PlaybackStopped
             CleanUp();
-            PlaybackStopped?.Invoke(sender, e);
+            if (this.PlaybackStopped != null)
+                this.PlaybackStopped(sender, e);
         }
         #endregion
 

@@ -1,4 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -14,33 +20,39 @@ namespace ganjoor
         public ItemSelector(string strCaption, object[] items, object selectedItem)
         {
             InitializeComponent();
-            Text = strCaption;
-            if (items != null)
+            this.Text = strCaption;
+            if(items != null)
                 lstItems.Items.AddRange(items);
             if (selectedItem != null)
                 lstItems.SelectedItem = selectedItem;
             else
-                if (lstItems.Items.Count > 0)
-                lstItems.SelectedIndex = 0;
+                if(lstItems.Items.Count > 0)
+                    lstItems.SelectedIndex = 0;
         }
 
 
-        public object SelectedItem => lstItems.SelectedItem;
+        public object SelectedItem
+        {
+            get
+            {
+                return lstItems.SelectedItem;
+            }
+        }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (SelectedItem == null)
+            if (this.SelectedItem == null)
             {
                 MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
-                DialogResult = DialogResult.None;
+                DialogResult = System.Windows.Forms.DialogResult.None;
             }
         }
 
         private void lstItems_DoubleClick(object sender, EventArgs e)
         {
-            if (SelectedItem != null)
-                DialogResult = DialogResult.OK;
+            if (this.SelectedItem != null)
+                DialogResult = System.Windows.Forms.DialogResult.OK;
         }
-
+    
     }
 }

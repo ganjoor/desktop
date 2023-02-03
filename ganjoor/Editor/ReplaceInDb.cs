@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -15,7 +20,7 @@ namespace ganjoor
         private DbBrowser _db;
 
         private void btnYaKaf_Click(object sender, EventArgs e)
-        {
+        {            
 
             _db.BeginBatchOperation();
             _db.Replace("ي", "ی", chkOnlyPoemTitles.Checked);
@@ -25,7 +30,7 @@ namespace ganjoor
 
             MessageBox.Show("انجام شد!", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1
                 , MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-
+            
         }
 
         private void btnHeye_Click(object sender, EventArgs e)

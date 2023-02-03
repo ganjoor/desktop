@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using System.Text;
 using System.Net;
 using System.Xml;
+using System.IO;
 using ganjoor.Properties;
+
 
 namespace ganjoor
 {
@@ -17,29 +20,29 @@ namespace ganjoor
         /// <returns></returns>
         public static List<Dictionary<string, string>> RetrieveList(string url, out string Exception)
         {
-            var lst = new List<Dictionary<string, string>>();
+            List<Dictionary<string, string>> lst = new List<Dictionary<string, string>>();
             try
             {
-                var req = WebRequest.Create(url);
+                WebRequest req = WebRequest.Create(url);
                 GConnectionManager.ConfigureProxy(ref req);
-                using (var response = req.GetResponse())
+                using (WebResponse response = req.GetResponse())
                 {
-                    using (var stream = response.GetResponseStream())
+                    using (Stream stream = response.GetResponseStream())
                     {
-                        using (var reader = new StreamReader(stream))
+                        using (StreamReader reader = new StreamReader(stream))
                         {
-                            var doc = new XmlDocument();
+                            XmlDocument doc = new XmlDocument();
                             doc.LoadXml(reader.ReadToEnd());
 
 
                             //Collect List:
-                            var paudioNodes = doc.GetElementsByTagName("PoemAudio");
+                            XmlNodeList paudioNodes = doc.GetElementsByTagName("PoemAudio");
                             foreach (XmlNode gdbNode in paudioNodes)
                             {
-                                var audioInfo = new Dictionary<string, string>();
+                                Dictionary<string, string> audioInfo = new Dictionary<string, string>();
                                 foreach (XmlNode Node in gdbNode.ChildNodes)
                                 {
-                                    audioInfo.Add(Node.Name, Node.InnerText);
+                                    audioInfo.Add(Node.Name, Node.InnerText);                                   
                                 }
                                 lst.Add(audioInfo);
                             }
@@ -69,12 +72,12 @@ namespace ganjoor
         public static bool DownloadAudioXml(string url, string targetDir, bool overwrite, out string Exception)
         {
             Exception = string.Empty;
-            var uri = new Uri(url);
-            var targetFilePath = Path.Combine(targetDir, Path.GetFileName(uri.LocalPath));
+            Uri uri = new Uri(url);
+            string targetFilePath = Path.Combine(targetDir, Path.GetFileName(uri.LocalPath));
 
             try
             {
-                if (File.Exists(targetFilePath))
+                if(File.Exists(targetFilePath))
                     if (!overwrite)
                     {
                         return true;
@@ -83,16 +86,23 @@ namespace ganjoor
                     {
                         File.Delete(targetFilePath);
                     }
-                var req = WebRequest.Create(url);
+                WebRequest req = WebRequest.Create(url);
                 GConnectionManager.ConfigureProxy(ref req);
-                using var response = req.GetResponse();
-                using var stream = response.GetResponseStream();
-                using var reader = new StreamReader(stream);
-                var doc = new XmlDocument(); //this is unnecessary, but at least does some kind of verification
-                doc.LoadXml(reader.ReadToEnd());
+                using (WebResponse response = req.GetResponse())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
 
-                doc.Save(targetFilePath);
+                            XmlDocument doc = new XmlDocument(); //this is unnecessary, but at least does some kind of verification
+                            doc.LoadXml(reader.ReadToEnd());                            
 
+                            doc.Save(targetFilePath);
+
+                        }
+                    }
+                }                
                 return true;
             }
             catch (Exception exp)
@@ -109,7 +119,7 @@ namespace ganjoor
         /// <returns>عنوان</returns>
         public static string SuggestTitle(Dictionary<string, string> audioInfo)
         {
-            var title = audioInfo["audio_title"];
+            string title = audioInfo["audio_title"];
             title += " - به روایت ";
             title += audioInfo["audio_artist"];
             if (!string.IsNullOrWhiteSpace(audioInfo["audio_src"]))
@@ -139,11 +149,11 @@ namespace ganjoor
         {
             get
             {
-                var reS = Settings.Default.SoundsPath;
+                string reS = Settings.Default.SoundsPath;
 
                 if (string.IsNullOrEmpty(reS))
                 {
-                    var ganjoorUserDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+                    string ganjoorUserDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
                     if (!Directory.Exists(ganjoorUserDir))
                         Directory.CreateDirectory(ganjoorUserDir);
                     reS = Path.Combine(ganjoorUserDir, "sounds");

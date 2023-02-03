@@ -16,14 +16,15 @@ namespace ganjoor
         /// <returns></returns>
         public static GanjooRhymeAnalysisResult FindRhyme(List<GanjoorVerse> verses, bool secondPhase = false)
         {
-            var verseTextList = verses.Count == 2 ? verses.Select(v => v._Text).ToList()
+            List<string> verseTextList = verses.Count == 2 ? verses.Select(v => v._Text).ToList()
                                                            : verses.Where(v => v._Position == VersePosition.Left).Select(v => v._Text).ToList();
             if (verseTextList.Count > 1)
             {
-                var rhyme = PrepareTextForFindingRhyme(verseTextList[0]);
+                string rhyme = PrepareTextForFindingRhyme(verseTextList[0]);
                 if (string.IsNullOrEmpty(rhyme))
                 {
-                    return new GanjooRhymeAnalysisResult {
+                    return new GanjooRhymeAnalysisResult()
+                    {
                         Rhyme = "",
                         FailVerse = verseTextList[0]
                     };
@@ -31,76 +32,76 @@ namespace ganjoor
                 if (secondPhase)
                 {
                     if (secondPhase)
-                        if (rhyme[^1] == 'ی')
+                        if (rhyme[rhyme.Length - 1] == 'ی')
                             rhyme = rhyme.Remove(rhyme.Length - 1);
                 }
 
-                for (var j = 1; j < verseTextList.Count; j++)
+                for (int j = 1; j < verseTextList.Count; j++)
                 {
-                    var verseText = PrepareTextForFindingRhyme(verseTextList[j]);
+                    string verseText = PrepareTextForFindingRhyme(verseTextList[j]);
                     if (secondPhase)
                     {
-                        if (verseText[^1] == 'ی')
+                        if (verseText[verseText.Length - 1] == 'ی')
                         {
                             verseText = verseText.Remove(verseText.Length - 1);
                         }
                     }
-                    var oldRhyme = rhyme;
+                    string oldRhyme = rhyme;
                     rhyme = "";
-                    var i = oldRhyme.Length - 1;
+                    int i = oldRhyme.Length - 1;
                     while (
-                        oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i]
+                        (oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i])
                         ||
                         (
-                        oldRhyme[i] == 'ذ'
+                        (oldRhyme[i] == 'ذ')
                         &&
-                        verseText[verseText.Length - oldRhyme.Length + i] == 'د'
+                        (verseText[verseText.Length - oldRhyme.Length + i] == 'د')
                         )
                         ||
                         (
-                        oldRhyme[i] == 'د'
+                        (oldRhyme[i] == 'د')
                         &&
-                        verseText[verseText.Length - oldRhyme.Length + i] == 'ذ'
+                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ذ')
                         )
                         ||
 
                         (
-                        oldRhyme[i] == 'ی'
+                        (oldRhyme[i] == 'ی')
                         &&
-                        verseText[verseText.Length - oldRhyme.Length + i] == 'ا'
+                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ا')
                         )
                         ||
                         (
-                        oldRhyme[i] == 'ا'
+                        (oldRhyme[i] == 'ا')
                         &&
-                        verseText[verseText.Length - oldRhyme.Length + i] == 'ی'
+                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ی')
                         )
 
                         ||
 
-                        oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i]
+                        (oldRhyme[i] == verseText[verseText.Length - oldRhyme.Length + i])
                         ||
                         (
-                        oldRhyme[i] == 'پ'
+                        (oldRhyme[i] == 'پ')
                         &&
-                        verseText[verseText.Length - oldRhyme.Length + i] == 'ب'
+                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ب')
                         )
                         ||
                         (
-                        oldRhyme[i] == 'ب'
+                        (oldRhyme[i] == 'ب')
                         &&
-                        verseText[verseText.Length - oldRhyme.Length + i] == 'پ'
+                        (verseText[verseText.Length - oldRhyme.Length + i] == 'پ')
                         )
 
                         ||
-                        oldRhyme[i] == 'ة'
+                        (oldRhyme[i] == 'ة')
                         &&
-                        verseText[verseText.Length - oldRhyme.Length + i] == 'ت'
+                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ت')
 
                         ||
-                        oldRhyme[i] == 'ت'
+                        (oldRhyme[i] == 'ت')
                         &&
-                        verseText[verseText.Length - oldRhyme.Length + i] == 'ة'
+                        (verseText[verseText.Length - oldRhyme.Length + i] == 'ة')
 
 
 
@@ -111,22 +112,27 @@ namespace ganjoor
                         if (i == -1)
                             break;
                     }
-                    if (rhyme.Length == 0) {
-                        if (verses.Count == 2 && verseTextList.Count == 2)
+                    if (rhyme.Length == 0)
+                    {
+                        if(verses.Count == 2 && verseTextList.Count == 2)
                         {
-                            return new GanjooRhymeAnalysisResult {
+                            return new GanjooRhymeAnalysisResult()
+                            {
                                 Rhyme = PrepareTextForFindingRhyme(verseTextList[1]),
                                 FailVerse = "",
                                 FailVerseOrder = -1,
                             };
                         }
-
-                        return new GanjooRhymeAnalysisResult {
-                            Rhyme = "",
-                            FailVerse = verseTextList[j],
-                            FailVerseOrder = 2 * j,
-                        };
-
+                        else
+                        {
+                            return new GanjooRhymeAnalysisResult()
+                            {
+                                Rhyme = "",
+                                FailVerse = verseTextList[j],
+                                FailVerseOrder = 2 * j,
+                            };
+                        }
+                       
                     }
 
                 }
@@ -139,7 +145,8 @@ namespace ganjoor
                     }
                 }
 
-                return new GanjooRhymeAnalysisResult {
+                return new GanjooRhymeAnalysisResult()
+                {
                     Rhyme = rhyme,
                     FailVerse = "",
                     FailVerseOrder = -1,
@@ -147,7 +154,7 @@ namespace ganjoor
 
             }
 
-            return new GanjooRhymeAnalysisResult { Rhyme = "", FailVerse = "", FailVerseOrder = -1 };
+            return new GanjooRhymeAnalysisResult() { Rhyme = "", FailVerse = "", FailVerseOrder = -1 };
         }
 
         /// <summary>

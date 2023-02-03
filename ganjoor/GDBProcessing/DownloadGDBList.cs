@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
+using System.Net;
+using System.Xml;
+using System.IO;
+using System.Diagnostics;
+
 
 namespace ganjoor
 {
@@ -18,7 +25,7 @@ namespace ganjoor
             DownloadList("http://i.ganjoor.net/android/androidgdbs.xml");
         }
 
-        private List<GDBInfo> _Lst = new List<GDBInfo>();
+        private List<GDBInfo> _Lst = new List<GDBInfo>();             
 
         private void DownloadList(string url)
         {
@@ -30,16 +37,16 @@ namespace ganjoor
             {
                 _Lst = new List<GDBInfo>();
             }
-            if (!string.IsNullOrEmpty(strException))
+            if(!string.IsNullOrEmpty(strException))
                 MessageBox.Show(strException, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-
+            
             if (_Lst.Count > 0)
             {
-                var db = new DbBrowser();
-                foreach (var gdbInfo in _Lst)
+                DbBrowser db = new DbBrowser();
+                foreach (GDBInfo gdbInfo in _Lst)
                 {
-                    var RowIndex = grdList.Rows.Add();
+                    int RowIndex = grdList.Rows.Add();
                     if (db.GetCategory(gdbInfo.CatID) != null)
                         grdList.Rows[RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
                     grdList.Rows[RowIndex].Cells[GRDCLMN_CAT].Value = gdbInfo.CatName;
@@ -49,7 +56,7 @@ namespace ganjoor
                     grdList.FirstDisplayedScrollingRowIndex = RowIndex;
                 }
                 db.CloseDb();
-            }
+            }            
 
         }
         private const int GRDCLMN_CAT = 0;
@@ -59,10 +66,10 @@ namespace ganjoor
 
         private void grdList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            switch (e.ColumnIndex)
+            switch(e.ColumnIndex)
             {
                 case GRDCLMN_DWNLD:
-                    if (!string.IsNullOrEmpty(_Lst[e.RowIndex].DownloadUrl))
+                    if(!string.IsNullOrEmpty(_Lst[e.RowIndex].DownloadUrl))
                         Process.Start(_Lst[e.RowIndex].DownloadUrl);
                     break;
                 case GRDCLMN_MORE:
@@ -83,8 +90,8 @@ namespace ganjoor
         }
 
         private void EnableDownloadCheckedButton()
-        {
-            foreach (DataGridViewRow Row in grdList.Rows)
+        {            
+            foreach(DataGridViewRow Row in grdList.Rows)
                 if (Convert.ToBoolean(Row.Cells[GRDCLMN_CHECK].Value))
                 {
                     btnDownloadChecked.Enabled = true;
@@ -108,9 +115,9 @@ namespace ganjoor
             set;
         }
 
+                
 
-
-
+        
 
 
 

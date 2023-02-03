@@ -1,4 +1,8 @@
-﻿namespace ganjoor
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ganjoor
 {
     /// <summary>
     /// اطلاعات بخشها

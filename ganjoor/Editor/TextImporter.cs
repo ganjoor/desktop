@@ -1,29 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
 {
-    public partial class TextImporter : Form
+    public partial class TextImporter: Form
     {
         public TextImporter()
         {
             InitializeComponent();
         }
 
-        private void btnOK_Click(object sender, EventArgs e) {
-            using var dlg = new OpenFileDialog();
-            dlg.Filter = "Unicode Text File (*.txt)|*.txt";
-            if (dlg.ShowDialog(this) != DialogResult.OK)
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                DialogResult = DialogResult.None;
-                return;
-            }
+                dlg.Filter = "Unicode Text File (*.txt)|*.txt";
+                if(dlg.ShowDialog(this)  != DialogResult.OK)
+                {
+                    DialogResult = DialogResult.None;
+                    return;
+                }
 
-            FileName = dlg.FileName;
-            MainCatText = txtMainCat.Text;
-            SubCatTexts = txtSubCats.Lines;
-            MaxVerseTextLength = (int)numMaxVerse.Value;
-            TabularVerses = chkTabularVerses.Checked;
+                FileName = dlg.FileName;
+                MainCatText = txtMainCat.Text;
+                SubCatTexts = txtSubCats.Lines;
+                MaxVerseTextLength = (int)numMaxVerse.Value;
+                TabularVerses = chkTabularVerses.Checked;
+
+            }
         }
 
         public string FileName

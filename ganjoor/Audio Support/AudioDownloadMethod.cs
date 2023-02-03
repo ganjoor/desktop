@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Windows.Forms;
 
 namespace ganjoor.Audio_Support
@@ -25,29 +26,32 @@ namespace ganjoor.Audio_Support
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            var db = new DbBrowser();
-            using var poetSeletor = new ItemSelector("انتخاب شاعر", db.Poets.ToArray(), null);
-            if (poetSeletor.ShowDialog(this) == DialogResult.OK)
+            DbBrowser db = new DbBrowser();
+            using (ItemSelector poetSeletor = new ItemSelector("انتخاب شاعر", db.Poets.ToArray(), null))
             {
-                var poet = poetSeletor.SelectedItem as GanjoorPoet;
-                PoetId = poet._ID;
-                txtSelectedPoetOrCategory.Text = poet._Name;
-                if (MessageBox.Show(
-                        $"آیا تمایل دارید خوانش‌های بخش خاصی از آثار {poet._Name} را دریافت کنید؟",
-                        "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
-                        MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
+                if (poetSeletor.ShowDialog(this) == DialogResult.OK)
                 {
-                    db.CloseDb();
+                    GanjoorPoet poet = poetSeletor.SelectedItem as GanjoorPoet;
+                    PoetId = poet._ID;
+                    txtSelectedPoetOrCategory.Text = poet._Name;
+                    if (MessageBox.Show(
+                    $"آیا تمایل دارید خوانش‌های بخش خاصی از آثار {poet._Name} را دریافت کنید؟",
+                    "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2,
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                    {
+                        db.CloseDb();
 
-                    return;
-                }
-
-                using var catSelector = new CategorySelector(poet._ID, db);
-                if (catSelector.ShowDialog(this) == DialogResult.OK)
-                {
-                    CatId = catSelector.SelectedCatID;
-                    txtSelectedPoetOrCategory.Text = $"{poet._Name} » {db.GetCategory(CatId)._Text}";
-                    db.CloseDb();
+                        return;
+                    }
+                    using (CategorySelector catSelector = new CategorySelector(poet._ID, db))
+                    {
+                        if (catSelector.ShowDialog(this) == DialogResult.OK)
+                        {
+                            CatId = catSelector.SelectedCatID;
+                            txtSelectedPoetOrCategory.Text = $"{poet._Name} » {db.GetCategory(CatId)._Text}";
+                            db.CloseDb();
+                        }
+                    }
                 }
             }
         }
@@ -55,7 +59,7 @@ namespace ganjoor.Audio_Support
         private void btnOK_Click(object sender, EventArgs e)
         {
             SearchTerm = txtSearchTerm.Text;
-            if (CatId != 0)
+            if(CatId != 0)
             {
                 PoetId = 0;
             }

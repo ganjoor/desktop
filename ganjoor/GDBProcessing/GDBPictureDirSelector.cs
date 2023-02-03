@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -37,10 +42,11 @@ namespace ganjoor
             grpPictures.Enabled = chkPicturesEnabled.Checked;
         }
 
-        private void btnSelectPath_Click(object sender, EventArgs e) {
-            using var dlg = new FolderBrowserDialog();
-            if (dlg.ShowDialog(this) == DialogResult.OK)
-                txtPath.Text = dlg.SelectedPath;
+        private void btnSelectPath_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                    txtPath.Text = dlg.SelectedPath;
         }
 
     }

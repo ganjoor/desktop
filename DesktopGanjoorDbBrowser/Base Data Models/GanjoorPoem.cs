@@ -1,4 +1,8 @@
-﻿namespace ganjoor
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ganjoor
 {
     /// <summary>
     /// اطلاعات شعر : مصاریع یا خطوط شعر با لیستی از نمونه های کلاس GanjoorVerse که _PoemId همه آنها برابر _ID نمونۀ این کلاس است مشخص می شود.
@@ -57,7 +61,7 @@
         /// </summary>
         public GanjoorPoem(int ID, int CatID, string Title, string Url, bool Faved)
             : this(ID, CatID, Title, Url, Faved, string.Empty)
-        {
+        {           
 
         }
         /// <summary>
@@ -75,7 +79,10 @@
         #endregion
 
         #region ToString
-        public override string ToString() => _Title;
+        public override string ToString()
+        {
+            return this._Title;
+        }
         #endregion
 
     }

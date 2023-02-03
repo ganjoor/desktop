@@ -37,18 +37,22 @@ namespace ganjoor
         }
 
 
-        private void btnOK_Click(object sender, EventArgs e) {
-            using var dlg = new OpenFileDialog();
-            dlg.Filter = "Unicode Text File (*.txt)|*.txt";
-            if (dlg.ShowDialog(this) != DialogResult.OK)
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                DialogResult = DialogResult.None;
-                return;
-            }
+                dlg.Filter = "Unicode Text File (*.txt)|*.txt";
+                if (dlg.ShowDialog(this) != DialogResult.OK)
+                {
+                    DialogResult = DialogResult.None;
+                    return;
+                }
 
-            FileName = dlg.FileName;
-            NextPoemStartText = txtNextPoemStartText.Text;
-            NextPoemStartIsAShortText = chkStartShort.Checked;
+                FileName = dlg.FileName;
+                NextPoemStartText = txtNextPoemStartText.Text;
+                NextPoemStartIsAShortText = chkStartShort.Checked;
+
+            }
         }
 
     }

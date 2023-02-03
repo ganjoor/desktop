@@ -1,4 +1,8 @@
-﻿namespace ganjoor
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ganjoor
 {
     /// <summary>
     /// اطلاعات مصرعهای اشعار، همینطور خطوط شعر نیمایی یا آزاد یا پاراگرافهای نثر در این ساختار نگهداری می شود.
@@ -6,7 +10,7 @@
     /// <dbtable>
     /// verse
     /// </dbtable>
-
+   
     public class GanjoorVerse
     {
         #region database fields
@@ -46,7 +50,7 @@
 
         public GanjoorVerse()
         {
-
+            
         }
         public GanjoorVerse(int PoemID, int Order, VersePosition Position, string Text)
         {
@@ -57,7 +61,10 @@
         }
         #endregion
         #region Overrides
-        public override string ToString() => _Text;
+        public override string ToString()
+        {
+            return _Text;
+        }
         #endregion
     }
 }

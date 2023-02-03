@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Text;
 using ganjoor.Properties;
+
 
 namespace ganjoor
 {
@@ -9,7 +10,7 @@ namespace ganjoor
     partial class WSSelectList : WizardStage
     {
 
-        public WSSelectList() { InitializeComponent(); }
+        public WSSelectList() : base() { InitializeComponent(); }
         public override void OnBeforeActivate()
         {
             InitiateList();
@@ -18,7 +19,7 @@ namespace ganjoor
         private void InitiateList()
         {
             cmbListUrl.Items.Clear();
-            foreach (var Url in DownloadListManager.Urls)
+            foreach (string Url in DownloadListManager.Urls)
                 cmbListUrl.Items.Add(Url);
             cmbListUrl.Text = Settings.Default.LastDownloadUrl;
         }
@@ -39,7 +40,7 @@ namespace ganjoor
         {
             lblListName.Text = DownloadListManager.GetListName(cmbListUrl.Text);
             lblListDescription.Text = DownloadListManager.GetListDescription(cmbListUrl.Text);
-            var moreInfoUrl = DownloadListManager.GetListMoreInfoUrl(cmbListUrl.Text);
+            string moreInfoUrl = DownloadListManager.GetListMoreInfoUrl(cmbListUrl.Text);
             if (lnkMoreInfo.Visible = !string.IsNullOrEmpty(moreInfoUrl))
             {
                 lnkMoreInfo.Tag = moreInfoUrl;
@@ -61,7 +62,7 @@ namespace ganjoor
 
         private void RetriveNameDesc(object sender, EventArgs e)
         {
-            if (cmbListUrl.SelectedIndex is >= 0 and < 3 && cmbListUrl.Text == cmbListUrl.Items[cmbListUrl.SelectedIndex].ToString())
+            if (cmbListUrl.SelectedIndex >= 0 &&cmbListUrl.SelectedIndex < 3 && cmbListUrl.Text == cmbListUrl.Items[cmbListUrl.SelectedIndex].ToString())
                 return;
             string Name, Desc, MoreInfoUrl;
             if (GDBListProcessor.RetrieveProperties(cmbListUrl.Text, out Name, out Desc, out MoreInfoUrl))
@@ -71,14 +72,15 @@ namespace ganjoor
             }
         }
 
-        private void lnkMoreInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void lnkMoreInfo_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-            if (lnkMoreInfo.Tag is string moreInfoUrl)
+            if(lnkMoreInfo.Tag != null && lnkMoreInfo.Tag is string)
             {
-                if (!string.IsNullOrEmpty(moreInfoUrl))
+                string moreInfoUrl = lnkMoreInfo.Tag as string;
+                if(!string.IsNullOrEmpty(moreInfoUrl))
                     try
                     {
-                        Process.Start(moreInfoUrl);
+                        System.Diagnostics.Process.Start(moreInfoUrl);
                     }
                     catch
                     {
@@ -89,6 +91,6 @@ namespace ganjoor
 
 
 
-
+        
     }
 }

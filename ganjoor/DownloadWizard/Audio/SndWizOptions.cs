@@ -1,7 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using System.IO;
 using ganjoor.Properties;
 
 namespace ganjoor
@@ -18,18 +23,21 @@ namespace ganjoor
             txtTempPath.Text = DownloadableAudioListProcessor.SoundsPath;
         }
 
-        private void btnSelectTempPath_Click(object sender, EventArgs e) {
-            using var dlg = new FolderBrowserDialog();
-            dlg.SelectedPath = txtTempPath.Text;
-            if (dlg.ShowDialog(this) == DialogResult.OK)
-                txtTempPath.Text = dlg.SelectedPath;
+        private void btnSelectTempPath_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+            {
+                dlg.SelectedPath = txtTempPath.Text;
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                    txtTempPath.Text = dlg.SelectedPath;
+            }
         }
 
         private void btnBrowseTempPath_Click(object sender, EventArgs e)
         {
             try
             {
-                Process.Start(txtTempPath.Text);
+                System.Diagnostics.Process.Start(txtTempPath.Text);
             }
             catch { }
         }

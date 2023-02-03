@@ -1,4 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -31,19 +37,19 @@ namespace ganjoor
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            var bTab = chkTab.Checked;
-            var bSpace = chkSpace.Checked;
-            var txtLines = mainText.Text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-            var resultText = "";
-            foreach (var txtLine in txtLines)
+            bool bTab = chkTab.Checked;
+            bool bSpace = chkSpace.Checked;
+            string[] txtLines = mainText.Text.Split(new char[]{'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
+            string resultText = "";
+            foreach (string txtLine in txtLines)
             {
-                var txt = txtLine.Trim();
+                string txt = txtLine.Trim();
                 if (txt.Length == 0)
-                    continue;
-                var bTabDoneIt = false;
-                if (bTab)
+                    continue;                
+                bool bTabDoneIt = false;
+                if(bTab)
                 {
-                    var tabSep = txt.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] tabSep = txt.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     if (tabSep.Length == 2)
                     {
                         resultText += tabSep[0].Trim() + "\r\n";
@@ -52,24 +58,24 @@ namespace ganjoor
                     }
                     else
                     {
-                        var nIdx = txt.IndexOf('\t');
+                        int nIdx = txt.IndexOf('\t');
                         if (nIdx > 0)
                         {
-                            resultText += txt[..nIdx].Trim() + "\r\n";
-                            resultText += txt[(nIdx + 1)..].Trim() + "\r\n";
+                            resultText += txt.Substring(0, nIdx).Trim() + "\r\n";
+                            resultText += txt.Substring(nIdx+1).Trim() + "\r\n";
                             bTabDoneIt = true;
                         }
                     }
                 }
 
-                var bDone = bTabDoneIt;
+                bool bDone = bTabDoneIt;
                 if (!bDone)
                 {
-                    var nIdx = txt.IndexOf("   ");
+                    int nIdx = txt.IndexOf("   ");
                     if (nIdx > 0)
                     {
-                        resultText += txt[..nIdx].Trim() + "\r\n";
-                        resultText += txt[(nIdx + 1)..].Trim() + "\r\n";
+                        resultText += txt.Substring(0, nIdx).Trim() + "\r\n";
+                        resultText += txt.Substring(nIdx + 1).Trim() + "\r\n";
                         bDone = true;
                     }
                 }

@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.Drawing.Printing;
-using System.IO;
-using System.IO.Compression;
-using System.Net;
-using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Printing;
+using System.Net;
 using System.Xml;
+using System.IO;
+using System.Reflection;
 using ganjoor.Properties;
+using System.IO.Compression;
+using System.Diagnostics;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
- * Hamid Reza Mohammadi https://ganjoor.net
+ * Hamid Reza Mohammadi http://ganjoor.net
  *
  * Version 1.0:
  *   Changelog (after a pre 1.0 release):   
@@ -33,13 +36,13 @@ namespace ganjoor
             tlbrSearch.BringToFront();
             ganjoorView.BringToFront();
 
-            Bounds = Screen.PrimaryScreen.Bounds;
+            this.Bounds = Screen.PrimaryScreen.Bounds;
             if (Settings.Default.WindowMaximized)
-                WindowState = FormWindowState.Maximized;
+                this.WindowState = FormWindowState.Maximized;
             else
                 if (Settings.Default.WindowSize.Width != 0)
             {
-                Bounds = new Rectangle(Settings.Default.WindowLocation, Settings.Default.WindowSize);
+                this.Bounds = new Rectangle(Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
             }
             ApplyUserSettings();
 
@@ -49,7 +52,7 @@ namespace ganjoor
         #region ReUsable Methods
         private void ApplyUserSettings()
         {
-            ganjoorView.CenteredView = (GanjoorViewMode)Settings.Default.ViewMode == GanjoorViewMode.Centered;
+            ganjoorView.CenteredView = (GanjoorViewMode)(Settings.Default.ViewMode) == GanjoorViewMode.Centered;
             ganjoorView.Font = Settings.Default.ViewFont;
             btnViewInSite.Visible = Settings.Default.BrowseButtonVisible;
             btnComments.Visible = Settings.Default.CommentsButtonVisible;
@@ -82,10 +85,10 @@ namespace ganjoor
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             ganjoorView.StoreSettings();
-            Settings.Default.WindowMaximized = WindowState == FormWindowState.Maximized;
-            Settings.Default.WindowLocation = Location;
-            Settings.Default.WindowSize = Size;
-            Settings.Default.Save();
+            Properties.Settings.Default.WindowMaximized = (this.WindowState == FormWindowState.Maximized);
+            Properties.Settings.Default.WindowLocation = this.Location;
+            Properties.Settings.Default.WindowSize = this.Size;
+            Properties.Settings.Default.Save();
             ganjoorView.StopPlayBack();
 
         }
@@ -100,7 +103,7 @@ namespace ganjoor
 
         private void ganjoorView_OnPageChanged(string PageString, bool HasComments, bool CanBrowse, bool IsFaved, bool FavsPage, string HighlightedText, object preItem, object nextItem)
         {
-            lblCurrentPage.Text = PageString.Length > 100 ? PageString[..100] + " ..." : PageString;
+            lblCurrentPage.Text = PageString.Length > 100 ? PageString.Substring(0, 100) + " ..." : PageString;
             if (HasComments)
             {
                 btnNextPoem.Text = "شعر بعد";
@@ -134,7 +137,7 @@ namespace ganjoor
 
             mnuShowFavs.Checked = btnFavs.Checked = FavsPage;
             mnuFavUnFav.Enabled = btnFavUnFav.Enabled = HasComments;
-            mnuFavUnFav.Image = btnFavUnFav.Image = IsFaved ? Resources.favorite_remove : Resources.favorite_add;
+            mnuFavUnFav.Image = btnFavUnFav.Image = IsFaved ? Properties.Resources.favorite_remove : Properties.Resources.favorite_add;
             mnuFavUnFav.Text = btnFavUnFav.Text = IsFaved ? "حذف نشانه" : "نشانه‌گذاری";
             mnuFavUnFav.Checked = btnFavUnFav.Checked = IsFaved;
 
@@ -149,7 +152,7 @@ namespace ganjoor
             mnuHighlight.Enabled = btnHighlight.Enabled;
 
 
-            var highlight = !string.IsNullOrEmpty(HighlightedText) && Settings.Default.ScrollToFavedVerse;
+            bool highlight = !string.IsNullOrEmpty(HighlightedText) && Properties.Settings.Default.ScrollToFavedVerse;
             if (highlight)
             {
                 if (GanjoorViewer.OnlyScrollString != HighlightedText)
@@ -219,7 +222,7 @@ namespace ganjoor
             else
                 try
                 {
-                    Process.Start(ganjoorView.CurrentPageGanjoorUrl);
+                    System.Diagnostics.Process.Start(ganjoorView.CurrentPageGanjoorUrl);
                 }
                 catch
                 {
@@ -235,31 +238,39 @@ namespace ganjoor
             else
                 try
                 {
-                    Process.Start(ganjoorView.CurrentPoemCommentsUrl);
+                    System.Diagnostics.Process.Start(ganjoorView.CurrentPoemCommentsUrl);
                 }
                 catch
                 {
                 }
         }
 
-        private void btnPrint_Click(object sender, EventArgs e) {
-            using var dlg = new PrintDialog();
-            using (dlg.Document = new PrintDocument())
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            using (PrintDialog dlg = new PrintDialog())
             {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
+                using (dlg.Document = new PrintDocument())
                 {
-                    ganjoorView.Print(dlg.Document);
+                    if (dlg.ShowDialog(this) == DialogResult.OK)
+                    {
+                        ganjoorView.Print(dlg.Document);
+                    }
                 }
             }
         }
 
-        private void mnuPrintPreview_Click(object sender, EventArgs e) {
-            using var dlg = new PrintPreviewDialog();
-            dlg.ShowIcon = false;
-            dlg.UseAntiAlias = true;
-            using var Document = ganjoorView.PrepareForPrintPreview();
-            dlg.Document = Document;
-            dlg.ShowDialog(this);
+        private void mnuPrintPreview_Click(object sender, EventArgs e)
+        {
+            using (PrintPreviewDialog dlg = new PrintPreviewDialog())
+            {
+                dlg.ShowIcon = false;
+                dlg.UseAntiAlias = true;
+                using (PrintDocument Document = ganjoorView.PrepareForPrintPreview())
+                {
+                    dlg.Document = Document;
+                    dlg.ShowDialog(this);
+                }
+            }
         }
 
         private void btnHistoryBack_Click(object sender, EventArgs e)
@@ -267,25 +278,31 @@ namespace ganjoor
             ganjoorView.GoBackInHistory();
         }
 
-        private void btnAbout_Click(object sender, EventArgs e) {
-            using var dlg = new AboutForm();
-            dlg.ShowDialog(this);
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            using (AboutForm dlg = new AboutForm())
+            {
+                dlg.ShowDialog(this);
+            }
         }
 
-        private void btnSearch_Click(object sender, EventArgs e) {
-            using var dlg = new Search();
-            dlg.Poets = ganjoorView.Poets;
-            dlg.PoetOrder = ganjoorView.GetPoetOrder(Settings.Default.LastSearchPoetID);
-            if (dlg.ShowDialog(this) == DialogResult.OK)
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            using (Search dlg = new Search())
             {
-                Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
-                Settings.Default.LastSearchPhrase = dlg.Phrase;
-                Settings.Default.LastSearchType = dlg.SearchType;
-                Settings.Default.LastSearchLocationType = dlg.SearchLocationType;
-                Settings.Default.SearchPageItems = dlg.ItemsInPage;
-                Settings.Default.Save();
+                dlg.Poets = ganjoorView.Poets;
+                dlg.PoetOrder = ganjoorView.GetPoetOrder(Properties.Settings.Default.LastSearchPoetID);
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    Properties.Settings.Default.LastSearchPoetID = ganjoorView.GetPoetID(dlg.PoetOrder);
+                    Properties.Settings.Default.LastSearchPhrase = dlg.Phrase;
+                    Properties.Settings.Default.LastSearchType = dlg.SearchType;
+                    Properties.Settings.Default.LastSearchLocationType = dlg.SearchLocationType;
+                    Properties.Settings.Default.SearchPageItems = dlg.ItemsInPage;
+                    Properties.Settings.Default.Save();
 
-                ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), searchType: dlg.SearchType, searchLocationType: dlg.SearchLocationType);
+                    ganjoorView.ShowSearchResults(dlg.Phrase, 0, dlg.ItemsInPage, ganjoorView.GetPoetID(dlg.PoetOrder), searchType: dlg.SearchType, searchLocationType:dlg.SearchLocationType);
+                }
             }
         }
 
@@ -294,11 +311,14 @@ namespace ganjoor
             ganjoorView.CopyText(ModifierKeys == Keys.Shift);
         }
 
-        private void btnOptions_Click(object sender, EventArgs e) {
-            using var dlg = new Options();
-            if (dlg.ShowDialog(this) == DialogResult.OK)
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            using (Options dlg = new Options())
             {
-                ApplyUserSettings();
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    ApplyUserSettings();
+                }
             }
         }
 
@@ -328,7 +348,7 @@ namespace ganjoor
 
         private void mnuExit_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         private void mnuHighlight_Click(object sender, EventArgs e)
@@ -338,7 +358,7 @@ namespace ganjoor
 
         #region Find In Page
         private bool processTextChanged = true;
-        private int iLastFoundItems;
+        private int iLastFoundItems = 0;
         private void txtHighlight_TextChanged(object sender, EventArgs e)
         {
             if (processTextChanged)
@@ -351,26 +371,26 @@ namespace ganjoor
 
             }
         }
-        private int iLastHighlightedFoundItem;
+        private int iLastHighlightedFoundItem = 0;
         private void btnScrollToNext_Click(object sender, EventArgs e)
         {
             iLastHighlightedFoundItem++;
             ganjoorView.HighlightText(GPersianTextSync.Sync(txtHighlight.Text), iLastHighlightedFoundItem);
-            btnScrollToNext.Visible = iLastHighlightedFoundItem + 1 < iLastFoundItems;
+            btnScrollToNext.Visible = (iLastHighlightedFoundItem + 1 < iLastFoundItems);
         }
         private void txtHighlight_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 if (btnScrollToNext.Visible)
-                    btnScrollToNext_Click(sender, EventArgs.Empty);
+                    btnScrollToNext_Click(sender, new EventArgs());
         }
         #endregion
 
 
         private void btnFavUnFav_Click(object sender, EventArgs e)
         {
-            var result = ganjoorView.ToggleFav();
-            mnuFavUnFav.Image = btnFavUnFav.Image = result ? Resources.favorite_remove : Resources.favorite_add;
+            bool result = ganjoorView.ToggleFav();
+            mnuFavUnFav.Image = btnFavUnFav.Image = result ? Properties.Resources.favorite_remove : Properties.Resources.favorite_add;
             mnuFavUnFav.Text = btnFavUnFav.Text = result ? "حذف نشانه" : "نشانه‌گذاری";
             mnuFavUnFav.Checked = btnFavUnFav.Checked = result;
         }
@@ -405,22 +425,22 @@ namespace ganjoor
         {
             try
             {
-                var req = WebRequest.Create("http://dg.ganjoor.net/version.xml");
+                WebRequest req = WebRequest.Create("http://dg.ganjoor.net/version.xml");
                 GConnectionManager.ConfigureProxy(ref req);
-                using (var response = req.GetResponse())
+                using (WebResponse response = req.GetResponse())
                 {
-                    using (var stream = response.GetResponseStream())
+                    using (Stream stream = response.GetResponseStream())
                     {
-                        using (var reader = new StreamReader(stream))
+                        using (StreamReader reader = new StreamReader(stream))
                         {
-                            var doc = new XmlDocument();
+                            XmlDocument doc = new XmlDocument();
                             doc.LoadXml(reader.ReadToEnd());
-                            var MyVersionMajor = Assembly.GetExecutingAssembly().GetName().Version.Major;
-                            var MyVersionMinor = Assembly.GetExecutingAssembly().GetName().Version.Minor;
-                            var VersionMajor = 0;
-                            var VersionMinor = 0;
-                            var updateUrl = string.Empty;
-                            var versionNode = doc.GetElementsByTagName("Version")[0];
+                            int MyVersionMajor = Assembly.GetExecutingAssembly().GetName().Version.Major;
+                            int MyVersionMinor = Assembly.GetExecutingAssembly().GetName().Version.Minor;
+                            int VersionMajor = 0;
+                            int VersionMinor = 0;
+                            string updateUrl = string.Empty;
+                            XmlNode versionNode = doc.GetElementsByTagName("Version")[0];
                             foreach (XmlNode Node in versionNode.ChildNodes)
                             {
                                 if (Node.Name == "Major")
@@ -449,12 +469,12 @@ namespace ganjoor
                             else
                             {
                                 if (
-                                MessageBox.Show("ویرایش جدیدتر " + VersionMajor + "." + VersionMinor + " از نرم‌افزار ارائه شده است. صفحهٔ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
+                                MessageBox.Show("ویرایش جدیدتر " + VersionMajor.ToString() + "." + VersionMinor.ToString() + " از نرم‌افزار ارائه شده است. صفحهٔ دریافت باز شود؟ ", "ویرایش جدید", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign)
                                    ==
                                    DialogResult.Yes
                                     )
                                 {
-                                    Process.Start(updateUrl);
+                                    System.Diagnostics.Process.Start(updateUrl);
                                     if (!Prompt)//check for new gdbs
                                         return;
                                 }
@@ -466,12 +486,12 @@ namespace ganjoor
                 if (!Prompt)//check for new gdbs
                 {
                     string strException;
-                    var Lst = GDBListProcessor.RetrieveList("http://i.ganjoor.net/android/androidgdbs.xml", out strException);
+                    List<GDBInfo> Lst = GDBListProcessor.RetrieveList("http://i.ganjoor.net/android/androidgdbs.xml", out strException);
                     if (Lst != null && string.IsNullOrEmpty(strException))
                     {
-                        var finalList = new List<GDBInfo>();
-                        var db = new DbBrowser();
-                        foreach (var gdb in Lst)
+                        List<GDBInfo> finalList = new List<GDBInfo>();
+                        DbBrowser db = new DbBrowser();
+                        foreach (GDBInfo gdb in Lst)
                             if (
                                 !db.IsInGDBIgnoreList(gdb.CatID)
                                 &&
@@ -480,19 +500,22 @@ namespace ganjoor
                             {
                                 finalList.Add(gdb);
                             }
-                        if (finalList.Count > 0) {
-                            using var dlg = new NewGDBFound(finalList);
-                            if (dlg.ShowDialog(this) == DialogResult.OK)
-                                using (var dwnDlg = new DownloadingGdbList(dlg.dwnldList))
-                                    if (dwnDlg.ShowDialog(this) == DialogResult.OK)
-                                        foreach (var DownloadedFile in dwnDlg.DownloadedFiles)
-                                        {
-                                            ImportGdb(DownloadedFile);
-                                            if (Settings.Default.DeleteDownloadedFiles)
-                                                File.Delete(DownloadedFile);
-                                        }
-                            foreach (var CatID in dlg.IgnoreList)
-                                db.AddToGDBIgnoreList(CatID);
+                        if (finalList.Count > 0)
+                        {
+                            using (NewGDBFound dlg = new NewGDBFound(finalList))
+                            {
+                                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                    using (DownloadingGdbList dwnDlg = new DownloadingGdbList(dlg.dwnldList))
+                                        if (dwnDlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                                            foreach (string DownloadedFile in dwnDlg.DownloadedFiles)
+                                            {
+                                                ImportGdb(DownloadedFile);
+                                                if (Settings.Default.DeleteDownloadedFiles)
+                                                    File.Delete(DownloadedFile);
+                                            }
+                                foreach (int CatID in dlg.IgnoreList)
+                                    db.AddToGDBIgnoreList(CatID);
+                            }
                         }
                     }
 
@@ -541,15 +564,18 @@ namespace ganjoor
             ganjoorView.Visible = true;
         }
 
-        private void mnuAdd_Click(object sender, EventArgs e) {
-            using var dlg = new OpenFileDialog();
-            dlg.Filter = "All Supported Packages|*.gdb;*.s3db;*.zip|GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db|Zipped GDB Files(*.zip)|*.zip";
-            dlg.Multiselect = true;
-            if (dlg.ShowDialog(this) == DialogResult.OK)
+        private void mnuAdd_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                foreach (var FileName in dlg.FileNames)
+                dlg.Filter = "All Supported Packages|*.gdb;*.s3db;*.zip|GDB Files(*.gdb)|*.gdb|Poem SQLite databases(*.s3db)|*.s3db|Zipped GDB Files(*.zip)|*.zip";
+                dlg.Multiselect = true;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    ImportGdb(FileName);
+                    foreach (string FileName in dlg.FileNames)
+                    {
+                        ImportGdb(FileName);
+                    }
                 }
             }
         }
@@ -578,22 +604,25 @@ namespace ganjoor
 
         private void ImportGdb(string FileName)
         {
-            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase)) {
-                using var zip = ZipStorer.Open(FileName, FileAccess.Read);
-                var dir = zip.ReadCentralDir();
-                foreach (var entry in dir)
+            if (Path.GetExtension(FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
+            {
+                using (ZipStorer zip = ZipStorer.Open(FileName, FileAccess.Read))
                 {
-                    var gdbFileName = Path.GetFileName(entry.FilenameInZip);
-                    if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
+                    List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
+                    foreach (ZipStorer.ZipFileEntry entry in dir)
                     {
-                        var ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
-                        if (!Directory.Exists(ganjoorPath))
-                            Directory.CreateDirectory(ganjoorPath);
-                        var gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
-                        if (zip.ExtractFile(entry, gdbExtractPath))
+                        string gdbFileName = Path.GetFileName(entry.FilenameInZip);
+                        if (Path.GetExtension(gdbFileName).Equals(".gdb") || Path.GetExtension(gdbFileName).Equals(".s3db"))
                         {
-                            ganjoorView.ImportDb(gdbExtractPath);
-                            File.Delete(gdbExtractPath);
+                            string ganjoorPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ganjoor");
+                            if (!Directory.Exists(ganjoorPath))
+                                Directory.CreateDirectory(ganjoorPath);
+                            string gdbExtractPath = Path.Combine(ganjoorPath, gdbFileName);
+                            if (zip.ExtractFile(entry, gdbExtractPath))
+                            {
+                                ganjoorView.ImportDb(gdbExtractPath);
+                                File.Delete(gdbExtractPath);
+                            }
                         }
                     }
                 }
@@ -602,43 +631,51 @@ namespace ganjoor
                 ganjoorView.ImportDb(FileName);
         }
 
-        private void mnuExportFavs_Click(object sender, EventArgs e) {
-            using var dlg = new SaveFileDialog();
-            dlg.Filter = "*.gdb|*.gdb";
-            dlg.FileName = "export.gdb";
-            if (dlg.ShowDialog(this) == DialogResult.OK)
-                ganjoorView.ExportFavs(dlg.FileName);
+        private void mnuExportFavs_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "*.gdb|*.gdb";
+                dlg.FileName = "export.gdb";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                    ganjoorView.ExportFavs(dlg.FileName);
+            }
         }
 
-        private void mnuImportFavs_Click(object sender, EventArgs e) {
-            using var dlg = new OpenFileDialog();
-            dlg.Filter = "*.gdb|*.gdb|*.*|*.*";
-            dlg.FileName = "export.gdb";
-            if (dlg.ShowDialog(this) == DialogResult.OK)
-                ganjoorView.ImportMixFavs(dlg.FileName);
+        private void mnuImportFavs_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "*.gdb|*.gdb|*.*|*.*";
+                dlg.FileName = "export.gdb";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                    ganjoorView.ImportMixFavs(dlg.FileName);
+            }
         }
 
         private void btnEditor_Click(object sender, EventArgs e)
         {
             ganjoorView.StoreSettings();
-            Hide();
-            using (var dlg = new Editor())
+            this.Hide();
+            using (Editor dlg = new Editor())
                 dlg.ShowDialog(this);
-            Show();
+            this.Show();
         }
 
         private void mnuAddUnsafe_Click(object sender, EventArgs e)
         {
             MessageBox.Show("در این روش اضافه کردن اشعار آزمونهای جلوگیری از خطا انجام نمی‌شود. به همین دلیل فرایند اضافه شدن شعرها سریع‌تر است. در صورت برخورد به خطا در هنگام استفاده از این روش، از فرمان استاندارد اضافه کردن اشعار استفاده کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            using var dlg = new OpenFileDialog();
-            dlg.Filter = "*.gdb|*.gdb|*.s3db|*.s3db";
-            dlg.FileName = "new.gdb";
-            if (dlg.ShowDialog(this) == DialogResult.OK)
-                ganjoorView.ImportDbUnsafe(dlg.FileName);
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "*.gdb|*.gdb|*.s3db|*.s3db";
+                dlg.FileName = "new.gdb";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                    ganjoorView.ImportDbUnsafe(dlg.FileName);
+            }
         }
 
         #region AutoScroll fix found at http://www.devnewsgroups.net/group/microsoft.public.dotnet.framework.windowsforms/topic22846.aspx
-        private Point thumbPos;
+        private Point thumbPos = new Point();
         private void MainForm_Deactivate(object sender, EventArgs e)
         {
             thumbPos = ganjoorView.AutoScrollPosition;
@@ -654,7 +691,7 @@ namespace ganjoor
 
         private void btnChangeLog_Click(object sender, EventArgs e)
         {
-            Process.Start("http://dg.ganjoor.net/changelog/");
+            System.Diagnostics.Process.Start("http://dg.ganjoor.net/changelog/");
         }
 
         private void btnDownload_VisibleChanged(object sender, EventArgs e)
@@ -662,14 +699,17 @@ namespace ganjoor
             sepDownloadOptions.Visible = btnDownload.Visible;
         }
 
-        private void btnDownload_Click(object sender, EventArgs e) {
-            using var wiz = new GDBDownloadWizard();
-            wiz.ShowDialog(this);
-            if (wiz.AnythingInstalled)
-                ganjoorView.ShowHome(true);
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            using (GDBDownloadWizard wiz = new GDBDownloadWizard())
+            {
+                wiz.ShowDialog(this);
+                if (wiz.AnythingInstalled)
+                    ganjoorView.ShowHome(true);
+            }
         }
 
-        private void ganjoorView_KeyPress(object sender, KeyPressEventArgs e)
+        private void ganjoorView_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             if (!btnHighlight.Checked)
             {
@@ -691,29 +731,29 @@ namespace ganjoor
             {
                 ganjoorView.Pause();
                 mnuPlayAudio.Text = btnPlayAudio.Text = "ادامه";
-                mnuPlayAudio.Image = btnPlayAudio.Image = Resources.play;
+                mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.play;
                 return;
             }
             if (ganjoorView.IsInPauseState)
             {
                 ganjoorView.Resume();
                 mnuPlayAudio.Text = btnPlayAudio.Text = "توقف";
-                mnuPlayAudio.Image = btnPlayAudio.Image = Resources.pause;
+                mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.pause;
                 return;
 
             }
-            var poemAudioFiles = ganjoorView.PoemAudioFiles;
+            PoemAudio[] poemAudioFiles = this.ganjoorView.PoemAudioFiles;
             if (poemAudioFiles.Length == 0)
             {
                 ManagePoemAudioFiles();
             }
             else
             {
-                var poemAudio = poemAudioFiles[0];
+                PoemAudio poemAudio = poemAudioFiles[0];
                 if (poemAudioFiles.Length > 1)
                 {
-                    var dlg = new ItemSelector("گزینش خوانش ...", poemAudioFiles, poemAudio);
-                    if (dlg.ShowDialog(this) == DialogResult.OK)
+                    ItemSelector dlg = new ItemSelector("گزینش خوانش ...", poemAudioFiles, poemAudio);
+                    if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                     {
                         poemAudio = dlg.SelectedItem as PoemAudio;
                     }
@@ -727,7 +767,7 @@ namespace ganjoor
         private void ganjoorView_PlaybackStarted(object sender, EventArgs e)
         {
             mnuPlayAudio.Text = btnPlayAudio.Text = "توقف";
-            mnuPlayAudio.Image = btnPlayAudio.Image = Resources.pause;
+            mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.pause;
             mnuAudioStop.Enabled = true;
 
         }
@@ -735,7 +775,7 @@ namespace ganjoor
         private void ganjoorView_PlaybackStopped(object sender, EventArgs e)
         {
             mnuPlayAudio.Text = btnPlayAudio.Text = "خوانش";
-            mnuPlayAudio.Image = btnPlayAudio.Image = Resources.sound;
+            mnuPlayAudio.Image = btnPlayAudio.Image = Properties.Resources.sound;
             mnuAudioStop.Enabled = false;
         }
 
@@ -747,8 +787,10 @@ namespace ganjoor
 
         private void ManagePoemAudioFiles()
         {
-            using AudioFiles dlg = new(ganjoorView.CurrentPoemId);
-            dlg.ShowDialog();
+            using (AudioFiles dlg = new AudioFiles(this.ganjoorView.CurrentPoemId))
+            {
+                dlg.ShowDialog();
+            }
         }
 
         private void mnuAudioFiles_Click(object sender, EventArgs e)
@@ -762,10 +804,12 @@ namespace ganjoor
 
         private void mnuAllAudioFile_Click(object sender, EventArgs e)
         {
-            using NarratedPoems dlg = new();
-            if (dlg.ShowDialog(this) == DialogResult.OK)
+            using (NarratedPoems dlg = new NarratedPoems())
             {
-                ganjoorView.ShowPoem(dlg.SelectedPoem, true);
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    ganjoorView.ShowPoem(dlg.SelectedPoem, true);
+                }
             }
         }
         #endregion

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.IO;
 
 namespace ganjoor
@@ -12,32 +13,42 @@ namespace ganjoor
         public GINIParser(string filePath)
         {
             _Values = new Dictionary<string, Dictionary<string, string>>();
-            if (!File.Exists(filePath)) return;
-            var Lines = File.ReadAllLines(filePath);
-            var curSection = "";
-            foreach (var Line in Lines)
+            if (File.Exists(filePath))
             {
-                var trimedLine = Line.Trim();
-                var bracketStart = trimedLine.IndexOf('[');
-                var bracketEnd = trimedLine.IndexOf(']');
-                if (bracketStart != -1 && bracketEnd > bracketStart)
+                string[] Lines = File.ReadAllLines(filePath);
+                string curSection = "";
+                foreach (string Line in Lines)
                 {
-                    //section
-                    curSection = trimedLine.Substring(bracketStart + 1, bracketEnd - (bracketStart + 1));
-                }
-                else
-                {
-                    var keyValue = trimedLine.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (keyValue.Length != 2) continue;
-                    var newKeyValue = new Dictionary<string, string>();
-                    newKeyValue.Add(keyValue[0].Trim(), keyValue[1].Trim());
-                    _Values.Add(curSection, newKeyValue);
+                    string trimedLine = Line.Trim();
+                    int bracketStart = trimedLine.IndexOf('[');
+                    int bracketEnd = trimedLine.IndexOf(']');
+                    if (bracketStart != -1 && bracketEnd > bracketStart)
+                    {
+                        //section
+                        curSection = trimedLine.Substring(bracketStart + 1, bracketEnd - (bracketStart + 1));
+                    }
+                    else
+                    {
+                        string[] keyValue = trimedLine.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (keyValue.Length == 2)
+                        {
+                            Dictionary<string, string> newKeyValue = new Dictionary<string,string>();
+                            newKeyValue.Add(keyValue[0].Trim(), keyValue[1].Trim());
+                            _Values.Add(curSection, newKeyValue);
+                        }
+                    }
                 }
             }
         }
 
         private Dictionary<string, Dictionary<string, string>> _Values;
 
-        public Dictionary<string, Dictionary<string, string>> Values => _Values;
+        public Dictionary<string, Dictionary<string, string>> Values
+        {
+            get
+            {
+                return _Values;
+            }
+        }
     }
 }

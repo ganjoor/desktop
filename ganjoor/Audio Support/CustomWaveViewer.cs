@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
+using System.Data;
 using System.Windows.Forms;
 using NAudio.Wave;
 
@@ -9,7 +11,7 @@ namespace ganjoor
     /// <summary>
     /// Control for viewing waveforms
     /// </summary>
-    public class CustomWaveViewer : UserControl
+    public class CustomWaveViewer : System.Windows.Forms.UserControl
     {
         public Color PenColor { get; set; }
         public float PenWidth { get; set; }
@@ -18,9 +20,9 @@ namespace ganjoor
         {
             if (waveStream == null) return;
 
-            var samples = (int)(waveStream.Length / bytesPerSample);
+            int samples = (int)(waveStream.Length / bytesPerSample);
             startPosition = 0;
-            SamplesPerPixel = samples / Width;
+            SamplesPerPixel = samples / this.Width;
             PreparePaintData();
             Invalidate();
 
@@ -29,19 +31,20 @@ namespace ganjoor
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 _CurrentPosition = e.X;
-                OnPositionChanged?.Invoke(this, EventArgs.Empty);
+                if (OnPositionChanged != null)
+                    OnPositionChanged(this, new EventArgs());
 
-                Invalidate();
+                this.Invalidate();
 
             }
 
             base.OnMouseDown(e);
         }
 
-        private int _CurrentPosition;
+        private int _CurrentPosition = 0;
 
         public int Position
         {
@@ -49,8 +52,8 @@ namespace ganjoor
             {
                 if (waveStream != null)
                 {
-                    var f = (float)(value / waveStream.TotalTime.TotalMilliseconds);
-                    _CurrentPosition = (int)(f * Width);
+                    float f = (float)(value / waveStream.TotalTime.TotalMilliseconds);
+                    _CurrentPosition = (int)(f * this.Width);
                     Invalidate();
                 }
             }
@@ -60,13 +63,13 @@ namespace ganjoor
             }
         }
 
-        public event EventHandler OnPositionChanged;
+        public event EventHandler OnPositionChanged = null;
 
 
+ 
 
 
-
-
+   
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -76,7 +79,7 @@ namespace ganjoor
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private Container components;
+        private System.ComponentModel.Container components = null;
         private WaveStream waveStream;
         private int samplesPerPixel = 128;
         private long startPosition;
@@ -88,10 +91,10 @@ namespace ganjoor
         {
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
-            DoubleBuffered = true;
+            this.DoubleBuffered = true;
 
-            PenColor = Color.DodgerBlue;
-            PenWidth = 1;
+            this.PenColor = Color.DodgerBlue;
+            this.PenWidth = 1;
         }
 
         /// <summary>
@@ -108,7 +111,7 @@ namespace ganjoor
                 waveStream = value;
                 if (waveStream != null)
                 {
-                    bytesPerSample = waveStream.WaveFormat.BitsPerSample / 8 * waveStream.WaveFormat.Channels;
+                    bytesPerSample = (waveStream.WaveFormat.BitsPerSample / 8) * waveStream.WaveFormat.Channels;
                 }
                 //this.Invalidate();
             }
@@ -126,7 +129,7 @@ namespace ganjoor
             set
             {
                 samplesPerPixel = Math.Max(1, value);
-                Invalidate();
+                this.Invalidate();
             }
         }
 
@@ -150,45 +153,49 @@ namespace ganjoor
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if (disposing) {
-                components?.Dispose();
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
 
-        private PointF[] _PrepareData;
+        private PointF[] _PrepareData = null;
 
         private void PreparePaintData()
         {
-
+        
             if (waveStream != null)
             {
-                var StartX = 0;
-                var EndX = Width;
+                int StartX = 0;
+                int EndX = this.Width;
                 _PrepareData = new PointF[EndX];
                 waveStream.Position = 0;
                 int bytesRead;
-                var waveData = new byte[samplesPerPixel * bytesPerSample];
-                waveStream.Position = startPosition + StartX * bytesPerSample * samplesPerPixel;
+                byte[] waveData = new byte[samplesPerPixel * bytesPerSample];
+                waveStream.Position = startPosition + (StartX * bytesPerSample * samplesPerPixel);
 
+                
 
-
-                for (var x = StartX; x < EndX; x++)
+                for (int x = StartX; x < EndX; x++)
                 {
                     short low = 0;
                     short high = 0;
                     bytesRead = waveStream.Read(waveData, 0, samplesPerPixel * bytesPerSample);
                     if (bytesRead == 0)
                         break;
-
-                    for (var n = 0; n < bytesRead; n += 2)
+                    
+                    for (int n = 0; n < bytesRead; n += 2)
                     {
-                        var sample = BitConverter.ToInt16(waveData, n);
+                        short sample = BitConverter.ToInt16(waveData, n);
                         if (sample < low) low = sample;
                         if (sample > high) high = sample;
                     }
-                    var lowPercent = ((float)low - short.MinValue) / ushort.MaxValue;
-                    var highPercent = ((float)high - short.MinValue) / ushort.MaxValue;
+                    float lowPercent = ((((float)low) - short.MinValue) / ushort.MaxValue);
+                    float highPercent = ((((float)high) - short.MinValue) / ushort.MaxValue);
                     _PrepareData[x] = new PointF(lowPercent, highPercent);
                 }
             }
@@ -203,17 +210,17 @@ namespace ganjoor
         {
             if (_PrepareData != null)
             {
-                using (var linePen = new Pen(PenColor, PenWidth))
+                using (Pen linePen = new Pen(PenColor, PenWidth))
                 {
-                    for (var x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x++)
+                    for (int x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x++)
                     {
                         if (x >= _PrepareData.Length)
                             break;
-                        e.Graphics.DrawLine(linePen, x, Height * _PrepareData[x].X, x, Height * _PrepareData[x].Y);
+                        e.Graphics.DrawLine(linePen, x, this.Height * _PrepareData[(int)x].X, x, this.Height * _PrepareData[(int)x].Y);
                     }
                 }
 
-                e.Graphics.DrawLine(Pens.Black, _CurrentPosition, 0, _CurrentPosition, Height);
+                e.Graphics.DrawLine(Pens.Black, _CurrentPosition, 0, _CurrentPosition, this.Height);
 
             }
 

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ganjoor
 {
@@ -10,9 +14,9 @@ namespace ganjoor
         public NewGDBFound(List<GDBInfo> Lst)
         {
             InitializeComponent();
-            foreach (var gdbInfo in Lst)
+            foreach (GDBInfo gdbInfo in Lst)
             {
-                var RowIndex = grdList.Rows.Add();
+                int RowIndex = grdList.Rows.Add();
                 grdList.Rows[RowIndex].Cells[GRDCLMN_CAT].Value = gdbInfo.CatName;
                 grdList.Rows[RowIndex].Cells[GRDCLMN_DWNLD].Value = "دریافت";
                 if (!string.IsNullOrEmpty(gdbInfo.BlogUrl))
@@ -31,8 +35,8 @@ namespace ganjoor
 
         private void grdList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var gdb = grdList.Rows[e.RowIndex].Tag as GDBInfo;
-            if (gdb != null)
+            GDBInfo gdb = grdList.Rows[e.RowIndex].Tag as GDBInfo;
+            if(gdb != null)
                 try
                 {
                     switch (e.ColumnIndex)
@@ -46,7 +50,7 @@ namespace ganjoor
                                 Process.Start(gdb.BlogUrl);
                             break;
                         case GRDCLMN_IGNORE:
-                            grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !(bool)grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;//why do I need this?                            
+                            grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !((bool)grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);//why do I need this?                            
                             break;
                         case GRDCLMN_CHECK:
                             grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !Convert.ToBoolean(grdList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
@@ -64,11 +68,11 @@ namespace ganjoor
         {
             get
             {
-                var Lst = new List<int>();
+                List<int> Lst = new List<int>();
                 foreach (DataGridViewRow Row in grdList.Rows)
-                    if ((bool)Row.Cells[GRDCLMN_IGNORE].Value)
+                    if((bool)Row.Cells[GRDCLMN_IGNORE].Value)
                     {
-                        var gdb = Row.Tag as GDBInfo;
+                        GDBInfo gdb = Row.Tag as GDBInfo;
                         if (gdb != null)
                             Lst.Add(gdb.CatID);
                     }

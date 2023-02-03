@@ -1,25 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
 {
     public class GDBDownloadWizard : MultiStageWizard
     {
-        public GDBDownloadWizard() {
+        public GDBDownloadWizard() : base()
+        {
 
             AnythingInstalled = false;
             AddStage(new WSSelectList());
-            var selStage = new WSSelectItems();
-            selStage.OnDisableNextButton += selStage_OnDisableNextButton;
-            selStage.OnEnableNextButton += selStage_OnEnableNextButton;
+            WSSelectItems selStage = new WSSelectItems();
+            selStage.OnDisableNextButton += new EventHandler(selStage_OnDisableNextButton);
+            selStage.OnEnableNextButton += new EventHandler(selStage_OnEnableNextButton);
             AddStage(selStage);
-            var dwnStage = new WSDownloadItems();
-            dwnStage.OnStageDone += dwnStage_OnStageDone;
+            WSDownloadItems dwnStage = new WSDownloadItems();
+            dwnStage.OnStageDone += new EventHandler(dwnStage_OnStageDone);
             AddStage(dwnStage);
-            var instStage = new WSInstallItems();
-            instStage.OnInstallStarted += instStage_OnInstallStarted;
-            instStage.OnInstallFinished += instStage_OnInstallFinished;
+            WSInstallItems instStage = new WSInstallItems();
+            instStage.OnInstallStarted += new EventHandler(instStage_OnInstallStarted);
+            instStage.OnInstallFinished += new EventHandler(instStage_OnInstallFinished);
             AddStage(instStage);
         }
 
@@ -30,7 +35,7 @@ namespace ganjoor
 
         private void instStage_OnInstallFinished(object sender, EventArgs e)
         {
-            AnythingInstalled = (_Stages[^1] as WSInstallItems).InstalledFilesCount > 0;
+            this.AnythingInstalled = ((_Stages[_Stages.Count - 1]) as WSInstallItems).InstalledFilesCount > 0;
             btnCancel.Enabled = true;
             btnCancel.Focus();
             Application.DoEvents();
@@ -38,16 +43,16 @@ namespace ganjoor
 
         private void selStage_OnEnableNextButton(object sender, EventArgs e)
         {
-            btnPrevious.Enabled = true;
-            btnNext.Enabled = true;
-            AcceptButton = btnNext;
-            btnNext.Focus();
+            this.btnPrevious.Enabled = true;
+            this.btnNext.Enabled = true;
+            this.AcceptButton = this.btnNext;
+            this.btnNext.Focus();
             Application.DoEvents();
         }
 
         private void selStage_OnDisableNextButton(object sender, EventArgs e)
         {
-            btnNext.Enabled = false; Application.DoEvents();
+            this.btnNext.Enabled = false; Application.DoEvents();
         }
 
         private void dwnStage_OnStageDone(object sender, EventArgs e)
@@ -55,8 +60,8 @@ namespace ganjoor
             ActivateStage(3);//Automatic transition from download to install
         }
 
-        private List<GDBInfo> _DownloadList;
-        private List<string> DownloadedFiles;
+        private List<GDBInfo> _DownloadList = null;
+        private List<string> DownloadedFiles = null;
 
         public bool AnythingInstalled
         {
@@ -64,7 +69,7 @@ namespace ganjoor
             private set;
         }
 
-        protected override void GetDataFromPreStage(int StageIndex)
+        protected override void GetDataFromPreStage(int StageIndex) 
         {
             if (_Stages[_CurrentStage] is WSSelectItems)
                 _DownloadList = (_Stages[_CurrentStage] as WSSelectItems).dwnldList;
@@ -88,9 +93,10 @@ namespace ganjoor
             }
         }
 
-        protected override void ShowSettings() {
-            using var dlg = new GDBWizOptions();
-            dlg.ShowDialog(this);
+        protected override void ShowSettings()
+        {
+            using (GDBWizOptions dlg = new GDBWizOptions())
+                dlg.ShowDialog(this); 
         }
 
 

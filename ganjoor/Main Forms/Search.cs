@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
-using ganjoor.Properties;
 
 namespace ganjoor
 {
@@ -9,10 +13,10 @@ namespace ganjoor
         public Search()
         {
             InitializeComponent();
-            numItemsInPage.Value = Settings.Default.SearchPageItems;
-            txtPhrase.Text = Settings.Default.LastSearchPhrase;
-            comboBoxSearchType.SelectedIndex = Settings.Default.LastSearchType;
-            comboBoxSearchLocationType.SelectedIndex = Settings.Default.LastSearchLocationType;
+            numItemsInPage.Value = Properties.Settings.Default.SearchPageItems;
+            txtPhrase.Text = Properties.Settings.Default.LastSearchPhrase;
+            comboBoxSearchType.SelectedIndex = Properties.Settings.Default.LastSearchType;
+            comboBoxSearchLocationType.SelectedIndex = Properties.Settings.Default.LastSearchLocationType;
         }
         public string Phrase
         {

@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.IO;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using System.IO;
 using ganjoor.Audio_Support;
 
 namespace ganjoor
@@ -39,7 +43,7 @@ namespace ganjoor
         {
             lblCount.Text = "0";
             grdList.Rows.Clear();
-            foreach (var Audio in _DbBrowser.GetAllPoemAudioFiles())
+            foreach (PoemAudio Audio in _DbBrowser.GetAllPoemAudioFiles())
             {
                 AddAudioInfoToGrid(Audio);
             }
@@ -52,7 +56,7 @@ namespace ganjoor
         /// <param name="Audio"></param>
         private int AddAudioInfoToGrid(PoemAudio Audio)
         {
-            var nRowIdx = grdList.Rows.Add();
+            int nRowIdx = grdList.Rows.Add();
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_POET].Value = Audio.PoetName;
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_TITLE].Value = Audio.PoemTitle;
             grdList.Rows[nRowIdx].Cells[GRDCOLUMN_IDX_DESC].Value = Audio.Description;
@@ -71,7 +75,7 @@ namespace ganjoor
             {
                 SelectedPoem = _DbBrowser.GetPoem((grdList.Rows[e.RowIndex].Tag as PoemAudio).PoemId);
                 if (SelectedPoem != null)
-                    DialogResult = DialogResult.OK;
+                    DialogResult = System.Windows.Forms.DialogResult.OK;
             }
         }
 
@@ -81,7 +85,7 @@ namespace ganjoor
             {
                 SelectedPoem = _DbBrowser.GetPoem((grdList.SelectedRows[0].Tag as PoemAudio).PoemId);
                 if (SelectedPoem != null)
-                    DialogResult = DialogResult.OK;
+                    DialogResult = System.Windows.Forms.DialogResult.OK;
             }
             else
             {
@@ -94,81 +98,85 @@ namespace ganjoor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnExport_Click(object sender, EventArgs e) {
-            using var dlg = new FolderBrowserDialog();
-            if (dlg.ShowDialog(this) == DialogResult.OK)
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
-                var strOutDir = dlg.SelectedPath;
-                var bIsEmpty = Directory.GetFiles(strOutDir).Length == 0;
-                if (!bIsEmpty)
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    if (MessageBox.Show("مسیر انتخاب شده خالی نیست. آیا از انتخاب این مسیر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == DialogResult.No)
+                    string strOutDir = dlg.SelectedPath;
+                    bool bIsEmpty = Directory.GetFiles(strOutDir).Length == 0;
+                    if (!bIsEmpty)
                     {
-                        return;
-                    }
-                }
-
-                prgss.Maximum = grdList.RowCount;
-                prgss.Value = 0;
-                Enabled = false;
-
-                foreach (DataGridViewRow Row in grdList.Rows)
-                {
-                    prgss.Value++;
-                    var bRes = true;
-                    Row.Selected = true;
-                    grdList.FirstDisplayedCell = Row.Cells[0];
-                    Application.DoEvents();
-                    var audio = Row.Tag as PoemAudio;
-                    if (audio == null)
-                        bRes = false;
-                    audio.SyncArray = _DbBrowser.GetPoemSync(audio);
-                    if (bRes)
-                    {
-                        var outFileName = Path.Combine(strOutDir, Path.GetFileName(audio.FilePath));
-                        if (!File.Exists(audio.FilePath))
-                            bRes = false;
-                        if (bRes)
+                        if(MessageBox.Show("مسیر انتخاب شده خالی نیست. آیا از انتخاب این مسیر اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
                         {
-                            if (File.Exists(outFileName))
-                                outFileName = Path.Combine(strOutDir, audio.PoemId + ".mp3");
-
-                            if (File.Exists(outFileName))
-                                outFileName = Path.Combine(strOutDir, audio.SyncGuid + ".mp3");
-
-                            var xmlFilePath = Path.Combine(strOutDir, Path.GetFileNameWithoutExtension(outFileName) + ".xml");
-                            if (bRes)
-                            {
-                                if (!PoemAudioListProcessor.Save(xmlFilePath, audio, false))
-                                {
-                                    bRes = false;
-                                }
-                            }
-
-                            if (bRes)
-                            {
-                                try
-                                {
-                                    File.Copy(audio.FilePath, outFileName, true);
-                                }
-                                catch
-                                {
-                                    bRes = false;
-                                    File.Delete(xmlFilePath);
-                                }
-                            }
-
+                            return;
                         }
                     }
 
-                    Row.DefaultCellStyle.BackColor = bRes ? Color.LightGreen : Color.Red;
+                    prgss.Maximum = grdList.RowCount;
+                    prgss.Value = 0;
+                    this.Enabled = false;
+                    
+                    foreach (DataGridViewRow Row in grdList.Rows)
+                    {
+                        prgss.Value++;
+                        bool bRes = true;
+                        Row.Selected = true;
+                        grdList.FirstDisplayedCell = Row.Cells[0];                        
+                        Application.DoEvents();
+                        PoemAudio audio = Row.Tag as PoemAudio;
+                        if (audio == null)
+                            bRes = false;
+                        audio.SyncArray = _DbBrowser.GetPoemSync(audio);
+                        if (bRes)
+                        {
+                            string outFileName = Path.Combine(strOutDir, Path.GetFileName(audio.FilePath));
+                            if (!File.Exists(audio.FilePath))
+                                bRes = false;
+                            if (bRes)
+                            {
+                                if (File.Exists(outFileName))
+                                    outFileName = Path.Combine(strOutDir, audio.PoemId.ToString() + ".mp3");
+
+                                if (File.Exists(outFileName))
+                                    outFileName = Path.Combine(strOutDir, audio.SyncGuid.ToString() + ".mp3");
+
+                                string xmlFilePath = Path.Combine(strOutDir, Path.GetFileNameWithoutExtension(outFileName) + ".xml");
+                                if (bRes)
+                                {
+                                    if (!PoemAudioListProcessor.Save(xmlFilePath, audio, false))
+                                    {
+                                        bRes = false;
+                                    }
+                                }
+
+                                if (bRes)
+                                {
+                                    try
+                                    {
+                                        File.Copy(audio.FilePath, outFileName, true);
+                                    }
+                                    catch
+                                    {
+                                        bRes = false;
+                                        File.Delete(xmlFilePath);
+                                    }
+                                }
+
+                            }
+                        }
+
+                        Row.DefaultCellStyle.BackColor = bRes ? Color.LightGreen : Color.Red;
+                    }
+
+                    this.Enabled = true;
+
+                    MessageBox.Show("فرایند پشتیبانگیری انجام شد. ردیفهای قرمزرنگ به دلایلی از قبیل عدم وجود فایل صوتی دارای اشکال بوده‌اند.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
                 }
-
-                Enabled = true;
-
-                MessageBox.Show("فرایند پشتیبانگیری انجام شد. ردیفهای قرمزرنگ به دلایلی از قبیل عدم وجود فایل صوتی دارای اشکال بوده‌اند.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-
             }
+
         }
 
         /// <summary>
@@ -176,82 +184,87 @@ namespace ganjoor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnImport_Click(object sender, EventArgs e) {
-            using var dlg = new FolderBrowserDialog();
-            if (dlg.ShowDialog(this) == DialogResult.OK)
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
-                var strInDir = dlg.SelectedPath;
-
-
-
-                var xmlFiles = Directory.GetFiles(strInDir, "*.xml");
-
-                if (xmlFiles.Length == 0)
+                if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    MessageBox.Show("در مسیر انتخابی فایل XML وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                    return;
-                }
+                    string strInDir = dlg.SelectedPath;
+                    
 
 
-                prgss.Maximum = xmlFiles.Length;
-                prgss.Value = 0;
+                    string[] xmlFiles = Directory.GetFiles(strInDir, "*.xml");
 
-                Enabled = false;
-
-                var nErr = 0;
-                foreach (var xmlFile in xmlFiles)
-                {
-                    prgss.Value++;
-                    Application.DoEvents();
-
-                    var lstPoemAudio = PoemAudioListProcessor.Load(xmlFile);
-
-                    if (lstPoemAudio.Count == 1)
+                    if(xmlFiles.Length == 0)
                     {
-                        foreach (var xmlAudio in lstPoemAudio)
-                        {
-                            var mp3FilePath = Path.Combine(strInDir, Path.GetFileNameWithoutExtension(xmlFile)) + Path.GetExtension(xmlAudio.FilePath);
-                            if (!File.Exists(mp3FilePath))
-                            {
-                                nErr++;
-                                break;
-                            }
+                        MessageBox.Show("در مسیر انتخابی فایل XML وجود ندارد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        return;
+                    }
 
-                            if (_DbBrowser.AddAudio(
+
+                    prgss.Maximum = xmlFiles.Length;
+                    prgss.Value = 0;
+
+                    this.Enabled = false;
+
+                    int nErr = 0;
+                    foreach (string xmlFile in xmlFiles)
+                    {
+                        prgss.Value++;
+                        Application.DoEvents();
+
+                        List<PoemAudio> lstPoemAudio = PoemAudioListProcessor.Load(xmlFile);
+
+                        if (lstPoemAudio.Count == 1)
+                        {
+                            foreach (PoemAudio xmlAudio in lstPoemAudio)
+                            {
+                                string mp3FilePath = Path.Combine(strInDir, Path.GetFileNameWithoutExtension(xmlFile)) + Path.GetExtension(xmlAudio.FilePath);
+                                if (!File.Exists(mp3FilePath))
+                                {
+                                    nErr++;
+                                    break;
+                                }
+                                
+                                if (_DbBrowser.AddAudio(
                                     mp3FilePath,
                                     xmlAudio
-                                )
-                                == null)
-                                nErr++;
+                                    )
+                                 == null)
+                                    nErr++;
+                            }
                         }
+                        else
+                        {
+                            nErr++;
+                        }
+
+
+
+
+                    }//foreach
+
+                    this.Enabled = true;
+
+                    FillGrid();
+
+                    if (nErr > 0)
+                    {
+                        MessageBox.Show(String.Format("خطا در اضافه کردن {0} مورد", nErr), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     }
                     else
                     {
-                        nErr++;
+                        MessageBox.Show("فرایند بازگشت پشتیبان خوانشها بدون خطا انجام شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     }
 
+                    
+                    
+
+                }//if
+            }//using
 
 
-
-                }//foreach
-
-                Enabled = true;
-
-                FillGrid();
-
-                if (nErr > 0)
-                {
-                    MessageBox.Show(String.Format("خطا در اضافه کردن {0} مورد", nErr), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                }
-                else
-                {
-                    MessageBox.Show("فرایند بازگشت پشتیبان خوانشها بدون خطا انجام شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                }
-
-
-
-
-            }//if
         }
 
         /// <summary>
@@ -259,21 +272,24 @@ namespace ganjoor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnAllDownloadable_Click(object sender, EventArgs e) {
-            using var audioDownloadMethod = new AudioDownloadMethod();
-            if (audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
+        private void btnAllDownloadable_Click(object sender, EventArgs e)
+        {
+            using(AudioDownloadMethod audioDownloadMethod = new AudioDownloadMethod())
             {
-                Cursor.Current = Cursors.WaitCursor;
-                Application.DoEvents();
-                using (var dlg = new SndDownloadWizard(0, audioDownloadMethod.PoetId, audioDownloadMethod.CatId, audioDownloadMethod.SearchTerm))
+                if(audioDownloadMethod.ShowDialog(this) == DialogResult.OK)
                 {
-                    dlg.ShowDialog(this);
-                    if (dlg.AnythingInstalled)
+                    Cursor.Current = Cursors.WaitCursor;
+                    Application.DoEvents();
+                    using (SndDownloadWizard dlg = new SndDownloadWizard(0, audioDownloadMethod.PoetId, audioDownloadMethod.CatId, audioDownloadMethod.SearchTerm))
                     {
-                        FillGrid();
+                        dlg.ShowDialog(this);
+                        if (dlg.AnythingInstalled)
+                        {
+                            FillGrid();
+                        }
                     }
+                    Cursor.Current = Cursors.Default;
                 }
-                Cursor.Current = Cursors.Default;
             }
         }
 

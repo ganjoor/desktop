@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -15,25 +20,25 @@ namespace ganjoor
         public ItemEditor(EditItemType ItemType, string caption, string itemname)
         {
             InitializeComponent();
-            txtName.Text = ItemName;
+            txtName.Text = this.ItemName;
             btnOK.Enabled = !string.IsNullOrEmpty(ItemName);
             if (ItemType == EditItemType.Category)
             {
-                Text = "ویرایش مشخصات بخش";
-                lblCat.Text = "نام بخش:";
+                this.Text = "ویرایش مشخصات بخش";
+                this.lblCat.Text = "نام بخش:";
             }
             else
                 if (ItemType == EditItemType.Poem)
-            {
-                Text = "ویرایش مشخصات شعر";
-                lblCat.Text = "نام شعر:";
-            }
-            else
+                {
+                    this.Text = "ویرایش مشخصات شعر";
+                    this.lblCat.Text = "نام شعر:";
+                }
+                else
                     if (ItemType == EditItemType.General)
-            {
-                Text = caption;
-                lblCat.Text = itemname;
-            }
+                    {
+                        this.Text = caption;
+                        this.lblCat.Text = itemname;
+                    }
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)
@@ -43,8 +48,8 @@ namespace ganjoor
 
         public string ItemName
         {
-            get => txtName.Text.Trim();
-            set => txtName.Text = value;
+            get { return txtName.Text.Trim(); }
+            set { txtName.Text = value; }
         }
 
 

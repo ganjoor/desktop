@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace ganjoor
 {
@@ -11,22 +14,22 @@ namespace ganjoor
         public DownloadingGdbList(List<GDBInfo> Lst)
         {
             InitializeComponent();
-            foreach (var gdbInfo in Lst)
+            foreach (GDBInfo gdbInfo in Lst)
             {
-                var ctl = new GdbDownloadInfo(gdbInfo);
-                pnlList.Controls.Add(ctl);
+                GdbDownloadInfo ctl = new GdbDownloadInfo(gdbInfo);
+                this.pnlList.Controls.Add(ctl);
                 ctl.Dock = DockStyle.Top;
                 ctl.SendToBack();
             }
         }
 
 
-        private int _DownloadIndex;
+        private int _DownloadIndex = 0;
         private int _RealDownloadIndex
         {
             get
             {
-                return pnlList.Controls.Count - 1 - _DownloadIndex;
+                return (this.pnlList.Controls.Count - 1 - _DownloadIndex);
             }
         }
         private List<string> _DownloadedFiles = new List<string>();
@@ -47,34 +50,34 @@ namespace ganjoor
 
         private void BeginNextDownload()
         {
-            if (_DownloadIndex < pnlList.Controls.Count)
+            if (_DownloadIndex < this.pnlList.Controls.Count)
             {
                 backgroundWorker.RunWorkerAsync();
             }
             else
-                DialogResult = DialogResult.OK;
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var targetDir = GDBListProcessor.DownloadPath;
+            string targetDir = GDBListProcessor.DownloadPath;
             if (!Directory.Exists(targetDir))
                 Directory.CreateDirectory(targetDir);
-            var sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
-                ((pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl,
+            string sFileDownloaded = DownloadUtilityClass.DownloadFileIgnoreFail(
+                ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).DownloadUrl, 
                 targetDir,
-                backgroundWorker, out var expString);
+                this.backgroundWorker, out string expString);
             if (!string.IsNullOrEmpty(sFileDownloaded))
                 _DownloadedFiles.Add(sFileDownloaded);
             else
-                MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.\n{1}", ((pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName, expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(string.Format("دریافت مجموعهٔ {0} با خطا مواجه شد.\n{1}", ((this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Tag as GDBInfo).CatName, expString), "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (_DownloadIndex < pnlList.Controls.Count)//شانسی که من دارم باید چک کنم ;)
+            if (_DownloadIndex < this.pnlList.Controls.Count)//شانسی که من دارم باید چک کنم ;)
             {
-                (pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Progress = e.ProgressPercentage;
+                (this.pnlList.Controls[_RealDownloadIndex] as GdbDownloadInfo).Progress = e.ProgressPercentage;
                 Application.DoEvents();
             }
         }
@@ -82,7 +85,7 @@ namespace ganjoor
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled || !btnStop.Enabled)
-                DialogResult = DialogResult.OK;
+                DialogResult = System.Windows.Forms.DialogResult.OK;
             else
             {
                 _DownloadIndex++;
@@ -95,19 +98,19 @@ namespace ganjoor
             if (backgroundWorker.IsBusy)
             {
                 e.Cancel = true;
-                if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                if (MessageBox.Show("از توقف دریافت مطمئنید؟", "پرسش", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
                 {
                     btnStop.Enabled = false;
                     backgroundWorker.CancelAsync();
                 }
             }
             else
-                DialogResult = DialogResult.OK;
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
         }
     }
 }

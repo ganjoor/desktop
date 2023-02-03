@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Drawing;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 using ganjoor.Properties;
 
 namespace ganjoor
@@ -35,56 +37,58 @@ namespace ganjoor
         }
         protected override void OnPaint(PaintEventArgs e)
         {
-
+                       
             if (!
                 (
                 string.IsNullOrEmpty(Keyword)
                 ||
-                Text.IndexOf(Keyword) == -1
+                this.Text.IndexOf(Keyword) == -1
                 )
                )
             {
-                var txt = Text;
-                using SolidBrush hbrsh = new(HighlightColor);
-                float fx = e.ClipRectangle.Right;//only right to left text for now
-                float fy = e.ClipRectangle.Y;
-                while (txt.Length > 0)
+                string txt = this.Text;
+                using (SolidBrush hbrsh = new SolidBrush(HighlightColor))
                 {
-                    var index = txt.IndexOf(Keyword);
-                    string thisPart;
-                    if (index == -1)
+                    float fx = e.ClipRectangle.Right;//only right to left text for now
+                    float fy = e.ClipRectangle.Y;
+                    while (txt.Length > 0)
                     {
-                        thisPart = txt;
-                        txt = string.Empty;
-                    }
-                    else
-                    {
-                        if (index == 0)
+                        int index = txt.IndexOf(Keyword);
+                        string thisPart;
+                        if (index == -1)
                         {
-                            thisPart = txt[..Keyword.Length];
-                            if (txt == Keyword)
-                                txt = string.Empty;
-                            else
-                                txt = txt.Substring(Keyword.Length, txt.Length - Keyword.Length);
-
+                            thisPart = txt;
+                            txt = string.Empty;
                         }
                         else
                         {
-                            thisPart = txt[..index];
-                            txt = txt[index..];
+                            if (index == 0)
+                            {
+                                thisPart = txt.Substring(0, Keyword.Length);
+                                if (txt == Keyword)
+                                    txt = string.Empty;
+                                else
+                                    txt = txt.Substring(Keyword.Length, txt.Length - Keyword.Length);
+
+                            }
+                            else
+                            {
+                                thisPart = txt.Substring(0, index);
+                                txt = txt.Substring(index);
+                            }
                         }
-                    }
-                    SizeF sz = TextRenderer.MeasureText(thisPart, Font, Size.Empty, TextFormatFlags.TextBoxControl | TextFormatFlags.RightToLeft);
-                    if (index == 0)
-                    {
-                        e.Graphics.FillRectangle(hbrsh, new RectangleF(fx - sz.Width, fy, sz.Width, sz.Height));
-                    }
-                    fx -= sz.Width;
-                    if (fx <= 0)
-                    {//multiline label
-                        var nLines = (int)sz.Width / Width;
-                        fy += nLines * sz.Height;
-                        fx = e.ClipRectangle.Right - (sz.Width - nLines * Width);
+                        SizeF sz = TextRenderer.MeasureText(thisPart, this.Font, Size.Empty, TextFormatFlags.TextBoxControl | TextFormatFlags.RightToLeft);
+                        if (index == 0)
+                        {
+                            e.Graphics.FillRectangle(hbrsh, new RectangleF(fx - sz.Width, fy, sz.Width, sz.Height));
+                        }
+                        fx -= sz.Width;
+                        if (fx <= 0)
+                        {//multiline label
+                            int nLines = (int)sz.Width / this.Width;
+                            fy += nLines * sz.Height;
+                            fx = e.ClipRectangle.Right - (sz.Width - nLines * this.Width);
+                        }
                     }
                 }
             }

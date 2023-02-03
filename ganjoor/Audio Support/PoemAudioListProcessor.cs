@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Xml;
+using System.Reflection;
+using System.IO;
 
 namespace ganjoor
 {
@@ -21,7 +21,7 @@ namespace ganjoor
         /// <returns></returns>
         public static bool Save(string FileName, PoemAudio poemAudio, bool oldVersion)
         {
-            var lst = new List<PoemAudio>();
+            List<PoemAudio> lst = new List<PoemAudio>();
             lst.Add(poemAudio);
             return Save(FileName, lst, oldVersion);
         }
@@ -35,21 +35,21 @@ namespace ganjoor
         /// <returns></returns>
         public static bool Save(string FileName, List<PoemAudio> List, bool oldVersion)
         {
-            var doc = new XmlDocument();
-            var poemAudioRootNode = doc.CreateNode(XmlNodeType.Element, "DesktopGanjoorPoemAudioList", "");
+            XmlDocument doc = new XmlDocument();
+            XmlNode poemAudioRootNode = doc.CreateNode(XmlNodeType.Element, "DesktopGanjoorPoemAudioList", "");
             doc.AppendChild(poemAudioRootNode);
-            foreach (var audio in List)
+            foreach (PoemAudio audio in List)
             {
-                var poemAudioNode = doc.CreateNode(XmlNodeType.Element, "PoemAudio", "");
-                foreach (var prop in typeof(PoemAudio).GetProperties())
+                XmlNode poemAudioNode = doc.CreateNode(XmlNodeType.Element, "PoemAudio", "");
+                foreach (PropertyInfo prop in typeof(PoemAudio).GetProperties())
                 {
                     if (!prop.CanWrite)
                         continue;
-                    var ignoreProp = false;
-                    var propNode = doc.CreateNode(XmlNodeType.Element, prop.Name, "");
+                    bool ignoreProp = false;
+                    XmlNode propNode = doc.CreateNode(XmlNodeType.Element, prop.Name, "");
                     if (prop.PropertyType == typeof(string))
                     {
-                        var value = prop.GetValue(audio, null) == null ? "" : prop.GetValue(audio, null).ToString();
+                        string value = prop.GetValue(audio, null) == null ? "" : prop.GetValue(audio, null).ToString();
                         if (string.IsNullOrEmpty(value))
                         {
                             ignoreProp = true;
@@ -59,66 +59,66 @@ namespace ganjoor
                     }
                     else
                         if (prop.PropertyType == typeof(Int32))
-                    {
-                        var value = Convert.ToInt32(prop.GetValue(audio, null));
-                        if (value == 0)
                         {
-                            ignoreProp = true;
+                            int value = Convert.ToInt32(prop.GetValue(audio, null));
+                            if (value == 0)
+                            {
+                                ignoreProp = true;
+                            }
+                            else
+                                propNode.InnerText = value.ToString();
                         }
                         else
-                            propNode.InnerText = value.ToString();
-                    }
-                    else
                             if (prop.PropertyType == typeof(bool))
-                    {
-                        var value = Convert.ToBoolean(prop.GetValue(audio, null));
-                        if (!value)
-                        {
-                            ignoreProp = true;
-                        }
-                        else
-                            propNode.InnerText = value.ToString();
-                    }
-                    else
+                            {
+                                bool value = Convert.ToBoolean(prop.GetValue(audio, null));
+                                if (!value)
+                                {
+                                    ignoreProp = true;
+                                }
+                                else
+                                    propNode.InnerText = value.ToString();
+                            }
+                           else
                                 if (prop.PropertyType == typeof(Guid))
-                    {
-                        var value = prop.GetValue(audio, null).ToString();
-                        if (string.IsNullOrEmpty(value))
-                        {
-                            ignoreProp = true;
-                        }
-                        else
-                            propNode.InnerText = value;
-                    }
-                    else
-                    {
-                        ignoreProp = true;
-                    }
+                                {
+                                    string value = prop.GetValue(audio, null).ToString();
+                                    if (string.IsNullOrEmpty(value))
+                                    {
+                                        ignoreProp = true;
+                                    }
+                                    else
+                                        propNode.InnerText = value;
+                                }
+                                else
+                                    {
+                                         ignoreProp = true;
+                                    }
 
                     if (!ignoreProp)
                         poemAudioNode.AppendChild(propNode);
                 }
                 //رفع اشکال نسخه قدیمی NAudio
-                var bugfixNode = doc.CreateNode(XmlNodeType.Element, "OneSecondBugFix", "");
+                XmlNode bugfixNode = doc.CreateNode(XmlNodeType.Element, "OneSecondBugFix", "");
                 bugfixNode.InnerText = "1000";
                 poemAudioNode.AppendChild(bugfixNode);
 
-                var syncInfoArrayNode = doc.CreateNode(XmlNodeType.Element, "SyncArray", "");
+                XmlNode syncInfoArrayNode = doc.CreateNode(XmlNodeType.Element, "SyncArray", "");
                 if (audio.SyncArray != null)
                 {
 
-                    foreach (var info in audio.SyncArray)
+                    foreach (PoemAudio.SyncInfo info in audio.SyncArray)
                     {
-                        var syncInfoNode = doc.CreateNode(XmlNodeType.Element, "SyncInfo", "");
+                        XmlNode syncInfoNode = doc.CreateNode(XmlNodeType.Element, "SyncInfo", "");
 
-                        var vOrderNode = doc.CreateNode(XmlNodeType.Element, "VerseOrder", "");
+                        XmlNode vOrderNode = doc.CreateNode(XmlNodeType.Element, "VerseOrder", "");
                         vOrderNode.InnerText = info.VerseOrder.ToString();
                         syncInfoNode.AppendChild(vOrderNode);
 
-                        var vAudioMiliseconds = doc.CreateNode(XmlNodeType.Element, "AudioMiliseconds", "");
+                        XmlNode vAudioMiliseconds = doc.CreateNode(XmlNodeType.Element, "AudioMiliseconds", "");
                         if (oldVersion)
                         {
-                            vAudioMiliseconds.InnerText = (info.AudioMiliseconds / 2).ToString();
+                            vAudioMiliseconds.InnerText = (info.AudioMiliseconds/2).ToString();
                         }
                         else
                             vAudioMiliseconds.InnerText = info.AudioMiliseconds.ToString();
@@ -152,16 +152,16 @@ namespace ganjoor
         /// <returns></returns>
         public static List<PoemAudio> Load(string FileName)
         {
-            var lstPoemAudio = new List<PoemAudio>();
+            List<PoemAudio> lstPoemAudio = new List<PoemAudio>();
 
-            var doc = new XmlDocument();
+            XmlDocument doc = new XmlDocument();
             doc.LoadXml(File.ReadAllText(FileName));
 
             //Collect List:
-            var poemAudioNodes = doc.GetElementsByTagName("PoemAudio");
+            XmlNodeList poemAudioNodes = doc.GetElementsByTagName("PoemAudio");
             foreach (XmlNode poemAudioNode in poemAudioNodes)
             {
-                var poemAudioInfo = new PoemAudio();
+                PoemAudio poemAudioInfo = new PoemAudio();
                 poemAudioInfo.IsDirectlyDownloadable = false;
                 poemAudioInfo.IsUploaded = false;
                 foreach (XmlNode Node in poemAudioNode.ChildNodes)
@@ -197,16 +197,17 @@ namespace ganjoor
                             break;
                         case "SyncArray":
                             {
-                                var syncInfoNodeList = Node.SelectNodes("SyncInfo");
+                                XmlNodeList syncInfoNodeList = Node.SelectNodes("SyncInfo");
                                 if (syncInfoNodeList != null)
                                 {
-                                    var lstSyncInfo = new List<PoemAudio.SyncInfo>();
+                                    List<PoemAudio.SyncInfo> lstSyncInfo = new List<PoemAudio.SyncInfo>();
 
                                     foreach (XmlNode nodeSyncIndo in syncInfoNodeList)
                                     {
 
                                         lstSyncInfo.Add(
-                                            new PoemAudio.SyncInfo {
+                                            new PoemAudio.SyncInfo()
+                                            {
                                                 VerseOrder = Convert.ToInt32(nodeSyncIndo.SelectSingleNode("VerseOrder").InnerText),
                                                 AudioMiliseconds = Convert.ToInt32(nodeSyncIndo.SelectSingleNode("AudioMiliseconds").InnerText),
                                             }

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace ganjoor
 {
@@ -8,17 +8,17 @@ namespace ganjoor
     {
         public static void AdviseOnUnhandledException(string exception)
         {
-            var expMessage = "خطای پیشبینی نشده‌ای روی سیستم شما رخ داد. لطفاً محتوای این پیغام را برای ایمیل ganjoor@ganjoor.net ارسال کنید تا دربارهٔ آن تحقیق شود: \r\n با زدن کلید Ctrl+C می‌توانید متن این پنجره را کپی کنید." + Environment.NewLine;
-            expMessage += "Application Version = " + Assembly.GetExecutingAssembly().GetName().Version + Environment.NewLine;
+            string expMessage = "خطای پیشبینی نشده‌ای روی سیستم شما رخ داد. لطفاً محتوای این پیغام را برای ایمیل ganjoor@ganjoor.net ارسال کنید تا دربارهٔ آن تحقیق شود: \r\n با زدن کلید Ctrl+C می‌توانید متن این پنجره را کپی کنید."+ Environment.NewLine;
+            expMessage += "Application Version = " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine;
             expMessage += "Application Path = " + Application.ExecutablePath + Environment.NewLine;
             expMessage += "Windows Version = " + Environment.OSVersion.VersionString + Environment.NewLine;
-            expMessage += (IntPtr.Size == 8 ? "64 bit mode" : IntPtr.Size == 4 ? "32 bit mode" : "unknown mode") + Environment.NewLine;
+            expMessage += ((IntPtr.Size == 8) ? "64 bit mode" : (IntPtr.Size == 4) ? "32 bit mode" : "unknown mode") + Environment.NewLine;
             expMessage += exception;
             MessageBox.Show(expMessage, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
         public static void AdviseOnSQLiteDllNotfound()
         {
-            var expMessage =
+            string expMessage =
                     "یکی از اجزای گنجور رومیزی روی سیستم شما وجود ندارد یا نوع آن متناسب با سیستم عامل شما نیست. "
                     +
                     "این خطا معمولاً زمانی رخ می‌دهد که شما به جای نصب گنجور رومیزی آن را با کپی روی سیستم خود اجرا کرده‌اید ."
@@ -33,7 +33,7 @@ namespace ganjoor
                     +
                     "این مشکل را حل کنید.";
 
-            MessageBox.Show(expMessage, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            MessageBox.Show(expMessage, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);            
         }
     }
 }

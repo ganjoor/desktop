@@ -1,4 +1,10 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Text;
+using System.Windows.Forms;
 
 namespace ganjoor
 {
@@ -8,8 +14,8 @@ namespace ganjoor
         {
             InitializeComponent();
 
-            Tag = gdbInfo;
-            lblGdbName.Text = gdbInfo.CatName;
+            this.Tag = gdbInfo;
+            this.lblGdbName.Text = gdbInfo.CatName;
         }
 
         public int Progress

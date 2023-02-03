@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
-using ganjoor.Properties;
-using NAudio.Wave;
+using NAudio;
 
 namespace ganjoor
 {
@@ -18,8 +22,8 @@ namespace ganjoor
             _PoemAudio = poemAudio;
 
             _PoemAudioPlayer = new PoemAudioPlayer();
-            _PoemAudioPlayer.PlaybackStarted += _PoemAudioPlayer_PlaybackStarted;
-            _PoemAudioPlayer.PlaybackStopped += _PoemAudioPlayer_PlaybackStopped;
+            _PoemAudioPlayer.PlaybackStarted += new EventHandler(_PoemAudioPlayer_PlaybackStarted);
+            _PoemAudioPlayer.PlaybackStopped += new EventHandler<NAudio.Wave.StoppedEventArgs>(_PoemAudioPlayer_PlaybackStopped);
 
             _Modified = false;
             _Saved = false;
@@ -28,11 +32,11 @@ namespace ganjoor
             _Modifying = false;
             _PoemVerses = _DbBrowser.GetVerses(poemAudio.PoemId).ToArray();
             if (poemAudio.SyncArray != null)
-            {
+            { 
                 _VerseMilisecPositions = new List<PoemAudio.SyncInfo>(poemAudio.SyncArray);
 
-                if (_VerseMilisecPositions.Count > 0 &&
-                    _VerseMilisecPositions[^1].VerseOrder != _PoemVerses[^1]._Order - 1
+                if(_VerseMilisecPositions.Count > 0 && 
+                    _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder != (_PoemVerses[_PoemVerses.Length - 1]._Order - 1)
                     )
                 {
                     if (MessageBox.Show("آیا تمایل دارید همگامسازی را از آخرین نقطهٔ همگام شده ادامه دهید؟", "تأییدیه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
@@ -40,19 +44,19 @@ namespace ganjoor
 
                         if (!_PoemAudioPlayer.BeginPlayback(_PoemAudio))
                         {
-                            MessageBox.Show("خطایی در پخش فایل صوتی رخ داد. لطفا چک کنید فایل در مسیر تعیین شده قرار داشته باشد.");
+                            MessageBox.Show("خطایی در پخش فایل صوتی رخ داد. لطفا چک کنید فایل در مسیر تعیین شده قرار داشته باشد.");                            
                         }
                         else
                         {
                             _Modifying = true;
 
                             btnPlayPause.Text = "توقف";
-                            btnPlayPause.Image = Resources.pause;
+                            btnPlayPause.Image = Properties.Resources.pause;
                             timer.Start();
                             trackBar.Maximum = _PoemAudioPlayer.TotalTimeInMiliseconds;
 
 
-                            _PoemAudioPlayer.PositionInMiliseconds = _VerseMilisecPositions[^1].AudioMiliseconds;
+                            _PoemAudioPlayer.PositionInMiliseconds = _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].AudioMiliseconds;                            
                             _TrackbarValueSetting = true;
                             trackBar.Value = _PoemAudioPlayer.PositionInMiliseconds;
                             _TrackbarValueSetting = false;
@@ -61,7 +65,7 @@ namespace ganjoor
 
 
 
-                            _SyncOrder = _VerseMilisecPositions[^1].VerseOrder;
+                            _SyncOrder = _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder;
 
                             if (_SyncOrder >= 0 && _SyncOrder < _PoemVerses.Length)
                             {
@@ -75,14 +79,14 @@ namespace ganjoor
 
                         }
                     }
-
+                   
                 }
 
             }
             else
                 _VerseMilisecPositions = new List<PoemAudio.SyncInfo>();
 
-
+           
 
             EnableButtons();
 
@@ -120,7 +124,7 @@ namespace ganjoor
         private void SyncPoemAudio_Load(object sender, EventArgs e)
         {
             DisplayWaveForm();
-            if (_PoemVerses.Length > 0)
+            if(_PoemVerses.Length > 0)
                 lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[0]._Text;
         }
 
@@ -148,25 +152,25 @@ namespace ganjoor
                 {
                     if (File.Exists(_PoemAudio.FilePath))
                     {
-                        Cursor = Cursors.WaitCursor;
+                        this.Cursor = Cursors.WaitCursor;
                         Application.DoEvents();
 
-
-                        var ext = Path.GetExtension(_PoemAudio.FilePath).ToLower();
+                        
+                        string ext = Path.GetExtension(_PoemAudio.FilePath).ToLower();
                         if (ext == ".mp3")
                         {
-                            waveViewer.WaveStream = new Mp3FileReader(_PoemAudio.FilePath);
+                            waveViewer.WaveStream = new NAudio.Wave.Mp3FileReader(_PoemAudio.FilePath);
                         }
                         else
                             if (ext == ".wav")
-                        {
-                            waveViewer.WaveStream = new WaveFileReader(_PoemAudio.FilePath);
-                        }
+                            {
+                                waveViewer.WaveStream = new NAudio.Wave.WaveFileReader(_PoemAudio.FilePath);
+                            }                       
 
                         //waveViewer.WaveStream = new NAudio.Wave.AudioFileReader(_PoemAudio.FilePath);
                         waveViewer.FitToScreen();
-                        waveViewer.OnPositionChanged += waveViewer_OnPositionChanged;
-                        Cursor = Cursors.Default;
+                        waveViewer.OnPositionChanged += new EventHandler(waveViewer_OnPositionChanged);
+                        this.Cursor = Cursors.Default;
                     }
                 }
             }
@@ -208,7 +212,8 @@ namespace ganjoor
                 {
                     _VerseMilisecPositions.Add
                         (
-                        new PoemAudio.SyncInfo {
+                        new PoemAudio.SyncInfo()
+                        {
                             VerseOrder = _SyncOrder,
                             AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
                         }
@@ -239,7 +244,8 @@ namespace ganjoor
                 {
                     _VerseMilisecPositions.Add
                         (
-                        new PoemAudio.SyncInfo {
+                        new PoemAudio.SyncInfo()
+                        {
                             VerseOrder = _SyncOrder,
                             AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
                         }
@@ -262,54 +268,59 @@ namespace ganjoor
 
         }
 
-        private void btnSearchText_Click(object sender, EventArgs e) {
-            using var itemEditor = new ItemEditor(EditItemType.General, "جستجوی بعدی", "متن:");
-            itemEditor.ItemName = _LastSearchText;
-            if (itemEditor.ShowDialog(this) == DialogResult.OK)
+        private void btnSearchText_Click(object sender, EventArgs e)
+        {
+            using (ItemEditor itemEditor = new ItemEditor(EditItemType.General, "جستجوی بعدی", "متن:"))
             {
-                _LastSearchText = itemEditor.ItemName;
-                var nStart = _SyncOrder;
-                for (var n = 0; n < 2; n++)
+                itemEditor.ItemName = _LastSearchText;
+                if (itemEditor.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    for (var i = nStart + 1; i < _PoemVerses.Length; i++)
-                        if (_PoemVerses[i]._Text.Contains(_LastSearchText))
-                        {
-                            _SyncOrder = i;
-
-                            if (btnTrack.Checked)
+                    _LastSearchText = itemEditor.ItemName;
+                    int nStart = _SyncOrder;
+                    for (int n = 0; n < 2; n++)
+                    {
+                        for (int i = nStart + 1; i < _PoemVerses.Length; i++)
+                            if (_PoemVerses[i]._Text.Contains(_LastSearchText))
                             {
-                                _VerseMilisecPositions.Add
-                                (
-                                    new PoemAudio.SyncInfo {
-                                        VerseOrder = _SyncOrder,
-                                        AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
-                                    }
-                                );
+                                _SyncOrder = i;
+
+                                if (btnTrack.Checked)
+                                {
+                                    _VerseMilisecPositions.Add
+                                        (
+                                        new PoemAudio.SyncInfo()
+                                        {
+                                            VerseOrder = _SyncOrder,
+                                            AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
+                                        }
+                                        );
+                                }
+
+                                lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
+
+                                if (_SyncOrder < _PoemVerses.Length - 1)
+                                    lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text;
+                                else
+                                    lblNextVerse.Text = "این مصرع آخر است.";
+                                _Modified = true;
+                                return;
                             }
-
-                            lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
-
-                            if (_SyncOrder < _PoemVerses.Length - 1)
-                                lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text;
-                            else
-                                lblNextVerse.Text = "این مصرع آخر است.";
-                            _Modified = true;
-                            return;
-                        }
-                    if (n == 0)
-                    {
-                        if (MessageBox.Show("متن یافت نشد. آیا تمایل دارید جستجو از ابتدای شعر صورت گیرد؟", "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                        if (n == 0)
                         {
-                            return;
+                            if (MessageBox.Show("متن یافت نشد. آیا تمایل دارید جستجو از ابتدای شعر صورت گیرد؟", "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                            {
+                                return;
+                            }
+                            nStart = -1;
                         }
-                        nStart = -1;
-                    }
-                    else
-                    {
-                        MessageBox.Show("متن یافت نشد.", "خطا", MessageBoxButtons.OK);
+                        else
+                        {
+                            MessageBox.Show("متن یافت نشد.", "خطا", MessageBoxButtons.OK);
+                        }
                     }
                 }
             }
+
         }
 
 
@@ -318,7 +329,7 @@ namespace ganjoor
         {
             if (_Modified)
             {
-                if (MessageBox.Show("تغییرات ذخیره نشده‌اند. فرم را می‌بندید؟", "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                if (MessageBox.Show("تغییرات ذخیره نشده‌اند. فرم را می‌بندید؟", "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                 {
                     e.Cancel = true;
                     return;
@@ -338,7 +349,7 @@ namespace ganjoor
 
         #region Audio Playback
         private PoemAudioPlayer _PoemAudioPlayer;
-        private bool _TrackbarValueSetting;
+        private bool _TrackbarValueSetting = false;
 
         private void btnPlayPause_Click(object sender, EventArgs e)
         {
@@ -347,14 +358,14 @@ namespace ganjoor
             {
                 _PoemAudioPlayer.PausePlayBack();
                 btnPlayPause.Text = "ادامۀ پخش";
-                btnPlayPause.Image = Resources.play;
+                btnPlayPause.Image = Properties.Resources.play;
                 btnSave.Enabled = true;
                 return;
             }
             if (_PoemAudioPlayer.IsInPauseState)
             {
                 btnPlayPause.Text = "توقف";
-                btnPlayPause.Image = Resources.pause;
+                btnPlayPause.Image = Properties.Resources.pause;
                 _PoemAudioPlayer.ResumePlayBack();
                 return;
             }
@@ -365,9 +376,9 @@ namespace ganjoor
                 return;
             }
 
-
+ 
             btnPlayPause.Text = "توقف";
-            btnPlayPause.Image = Resources.pause;
+            btnPlayPause.Image = Properties.Resources.pause;
             timer.Start();
             trackBar.Maximum = _PoemAudioPlayer.TotalTimeInMiliseconds;
             _TrackbarValueSetting = true;
@@ -377,19 +388,19 @@ namespace ganjoor
 
         }
 
-        private void _PoemAudioPlayer_PlaybackStopped(object sender, StoppedEventArgs e)
+        private void _PoemAudioPlayer_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
         {
             // we want to be always on the GUI thread and be able to change GUI components
-            Debug.Assert(!InvokeRequired, "PlaybackStopped on wrong thread");
+            Debug.Assert(!this.InvokeRequired, "PlaybackStopped on wrong thread");
             if (e.Exception != null)
             {
                 MessageBox.Show(String.Format("Playback Stopped due to an error {0}", e.Exception.Message));
             }
             btnPlayPause.Text = "پخش صدا";
-            btnPlayPause.Image = Resources.sound;
+            btnPlayPause.Image = Properties.Resources.sound;
 
             btnTest.Text = "آزمایش";
-            btnTest.Image = Resources.sound;
+            btnTest.Image = Properties.Resources.sound;
 
             _SyncOrder = -1;
 
@@ -404,7 +415,7 @@ namespace ganjoor
             _Testing = false;
             if (timer.Enabled)
                 timer.Stop();
-
+            
 
         }
 
@@ -417,14 +428,14 @@ namespace ganjoor
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-
+            
             if (_PoemAudioPlayer.IsPlaying || _PoemAudioPlayer.IsInPauseState)
             {
                 _PoemAudioPlayer.StopPlayBack();
                 _SyncOrder = -1;
                 return;
             }
-            btnPreVerse.Enabled = btnTrack.Enabled = btnStartFromHere.Enabled = btnPlayPause.Enabled = btnNextVerse.Enabled = btnStopHere.Enabled = false;
+            btnPreVerse.Enabled = btnTrack.Enabled =  btnStartFromHere.Enabled = btnPlayPause.Enabled = btnNextVerse.Enabled = btnStopHere.Enabled = false;
             btnReset.Enabled = false;
 
             if (!_PoemAudioPlayer.BeginPlayback(_PoemAudio))
@@ -435,12 +446,13 @@ namespace ganjoor
             }
 
             //رفع اشکال نسخه قدیمی NAudio           
-            var nLen = _VerseMilisecPositions.Count;
+            int nLen = _VerseMilisecPositions.Count;
             if (nLen > 0 && _VerseMilisecPositions[nLen - 1].AudioMiliseconds > _PoemAudioPlayer.TotalTimeInMiliseconds)
             {
-                for (var i = 0; i < nLen; i++)
+                for (int i = 0; i < nLen; i++)
                 {
-                    _VerseMilisecPositions[i] = new PoemAudio.SyncInfo {
+                    _VerseMilisecPositions[i] = new PoemAudio.SyncInfo()
+                    {
                         AudioMiliseconds = _VerseMilisecPositions[i].AudioMiliseconds / 2,
                         VerseOrder = _VerseMilisecPositions[i].VerseOrder
                     };
@@ -456,7 +468,7 @@ namespace ganjoor
             trackBar.Enabled = true;
             timer.Start();
             btnTest.Text = "توقف";
-            btnTest.Image = Resources.pause;
+            btnTest.Image = Properties.Resources.pause;
 
             if (_VerseMilisecPositions.Count > 0)
             {
@@ -475,12 +487,12 @@ namespace ganjoor
 
         }
 
-        private bool _Testing;
+        private bool _Testing = false;
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            var nPositionInMiliseconds = _PoemAudioPlayer.PositionInMiliseconds;
-            _TrackbarValueSetting = true;
+            int nPositionInMiliseconds = _PoemAudioPlayer.PositionInMiliseconds;
+             _TrackbarValueSetting = true;
             trackBar.Value = nPositionInMiliseconds;
             _TrackbarValueSetting = false;
             waveViewer.Position = nPositionInMiliseconds;
@@ -488,14 +500,14 @@ namespace ganjoor
             if (!_Testing)
                 return;
 
-            var nNextSyncOrder = _SyncOrder + 1;
+            int nNextSyncOrder = _SyncOrder + 1;
             if (nNextSyncOrder < _VerseMilisecPositions.Count)
             {
 
                 if (_PoemAudioPlayer.PositionInMiliseconds > _VerseMilisecPositions[nNextSyncOrder].AudioMiliseconds)
                     if (nNextSyncOrder < _PoemVerses.Length)
                     {
-                        if (_VerseMilisecPositions[nNextSyncOrder].VerseOrder < 0)
+                        if(_VerseMilisecPositions[nNextSyncOrder].VerseOrder< 0)
                         {
                             _PoemAudioPlayer.StopPlayBack();
                             return;
@@ -511,14 +523,14 @@ namespace ganjoor
                     {
                         lblVerse.Text = "پایان شعر";
                     }
-            }
+            }            
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (_VerseMilisecPositions.Count == 0)
             {
-                if (MessageBox.Show("ذخیره باعث از دست رفتن اطلاعات همگام‌سازی می شود. اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.No)
+                if (MessageBox.Show("ذخیره باعث از دست رفتن اطلاعات همگام‌سازی می شود. اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                 {
                     return;
                 }
@@ -530,19 +542,19 @@ namespace ganjoor
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("اطلاعات مکان مصرعها در فایل صوتی از بین خواهد رفت. اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                _SyncOrder = -1;
-                _VerseMilisecPositions = new List<PoemAudio.SyncInfo>();
-                lblVerse.Text = "هنوز شروع نشده!";
-                if (_PoemVerses.Length > 0)
-                    lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[0]._Text;
-                else
-                    lblNextVerse.Text = "این مصرع آخر است.";
+                if(MessageBox.Show("اطلاعات مکان مصرعها در فایل صوتی از بین خواهد رفت. اطمینان دارید؟", "تأییدیه", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    _SyncOrder = -1;
+                    _VerseMilisecPositions = new List<PoemAudio.SyncInfo>();
+                    lblVerse.Text = "هنوز شروع نشده!";
+                    if (_PoemVerses.Length > 0)
+                        lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[0]._Text;
+                    else
+                        lblNextVerse.Text = "این مصرع آخر است.";
 
-                _Modified = true;
-                EnableButtons();
-            }
+                    _Modified = true;                    
+                    EnableButtons();                    
+                }
         }
 
         private void btnStartFromHere_Click(object sender, EventArgs e)
@@ -551,7 +563,8 @@ namespace ganjoor
             {
                 _VerseMilisecPositions.Add
                     (
-                    new PoemAudio.SyncInfo {
+                    new PoemAudio.SyncInfo()
+                    {
                         VerseOrder = -1,
                         AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
                     }
@@ -570,7 +583,8 @@ namespace ganjoor
             {
                 _VerseMilisecPositions.Add
                     (
-                    new PoemAudio.SyncInfo {
+                    new PoemAudio.SyncInfo()
+                    {
                         VerseOrder = -2,
                         AudioMiliseconds = _PoemAudioPlayer.PositionInMiliseconds
                     }
@@ -592,7 +606,7 @@ namespace ganjoor
         private void btnTrack_Click(object sender, EventArgs e)
         {
             btnTrack.Checked = !btnTrack.Checked;
-            btnTrack.Image = btnTrack.Checked ? Resources.track32 : Resources.notrack32;
+            btnTrack.Image = btnTrack.Checked ? Properties.Resources.track32 : Properties.Resources.notrack32;
             btnTrack.Text = btnTrack.Checked ? "رهگیری" : "عدم رهگیری";
         }
 
@@ -602,29 +616,29 @@ namespace ganjoor
             {
                 if (e.Control)
                 {
-                    btnPreVerse_Click(sender, EventArgs.Empty);
+                    btnPreVerse_Click(sender, new EventArgs());
                 }
                 else
                 {
-                    btnNextVerse_Click(sender, EventArgs.Empty);
-                }
+                    btnNextVerse_Click(sender, new EventArgs());
+                }                
             }
             else
                 if (e.Control)
-            {
-                if (e.KeyCode == Keys.P)
                 {
-                    btnPlayPause_Click(sender, EventArgs.Empty);
+                    if (e.KeyCode == Keys.P)
+                    {
+                        btnPlayPause_Click(sender, new EventArgs());
+                    }
+                    else
+                        if (e.KeyCode == Keys.F)
+                        {
+                            btnSearchText_Click(sender, new EventArgs());
+                        }
                 }
-                else
-                    if (e.KeyCode == Keys.F)
-                {
-                    btnSearchText_Click(sender, EventArgs.Empty);
-                }
-            }
 
 
-
+                
         }
 
 

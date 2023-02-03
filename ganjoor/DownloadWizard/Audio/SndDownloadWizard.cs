@@ -11,22 +11,23 @@ namespace ganjoor
         {
         }
 
-        public SndDownloadWizard(int nPoemId, int nPoetId, int nCatId, string searchTerm) {
+        public SndDownloadWizard(int nPoemId, int nPoetId, int nCatId, string searchTerm) : base()
+        {
 
             AnythingInstalled = false;
 
-            var selStage = new WSSelectSounds(nPoemId, nPoetId, nCatId, searchTerm);
-            selStage.OnDisableNextButton += selStage_OnDisableNextButton;
-            selStage.OnEnableNextButton += selStage_OnEnableNextButton;
+            WSSelectSounds selStage = new WSSelectSounds(nPoemId, nPoetId, nCatId, searchTerm);
+            selStage.OnDisableNextButton += new EventHandler(selStage_OnDisableNextButton);
+            selStage.OnEnableNextButton += new EventHandler(selStage_OnEnableNextButton);
             AddStage(selStage);
 
-            var dwnStage = new WSDownloadSounds();
-            dwnStage.OnStageDone += dwnStage_OnStageDone;
+            WSDownloadSounds dwnStage = new WSDownloadSounds();
+            dwnStage.OnStageDone += new EventHandler(dwnStage_OnStageDone);
             AddStage(dwnStage);
 
-            var instStage = new WSInstallSounds();
-            instStage.OnInstallStarted += instStage_OnInstallStarted;
-            instStage.OnInstallFinished += instStage_OnInstallFinished;
+            WSInstallSounds instStage = new WSInstallSounds();
+            instStage.OnInstallStarted += new EventHandler(instStage_OnInstallStarted);
+            instStage.OnInstallFinished += new EventHandler(instStage_OnInstallFinished);
             AddStage(instStage);
 
 
@@ -34,16 +35,16 @@ namespace ganjoor
 
         private void selStage_OnEnableNextButton(object sender, EventArgs e)
         {
-            btnPrevious.Enabled = true;
-            btnNext.Enabled = true;
-            AcceptButton = btnNext;
-            btnNext.Focus();
+            this.btnPrevious.Enabled = true;
+            this.btnNext.Enabled = true;
+            this.AcceptButton = this.btnNext;
+            this.btnNext.Focus();
             Application.DoEvents();
         }
 
         private void selStage_OnDisableNextButton(object sender, EventArgs e)
         {
-            btnNext.Enabled = false; Application.DoEvents();
+            this.btnNext.Enabled = false; Application.DoEvents();
         }
 
         private void instStage_OnInstallStarted(object sender, EventArgs e)
@@ -53,7 +54,7 @@ namespace ganjoor
 
         private void instStage_OnInstallFinished(object sender, EventArgs e)
         {
-            AnythingInstalled = (_Stages[^1] as WSInstallSounds).InstalledFilesCount > 0;
+            this.AnythingInstalled = ((_Stages[_Stages.Count - 1]) as WSInstallSounds).InstalledFilesCount > 0;
             btnCancel.Enabled = true;
             btnCancel.Focus();
             Application.DoEvents();
@@ -65,15 +66,15 @@ namespace ganjoor
             ActivateStage(2);//Automatic transition from download to install
         }
 
-        private List<Dictionary<string, string>> _DownloadList;
-        private List<Dictionary<string, string>> _DownloadedList;
+        private List<Dictionary<string, string>> _DownloadList = null;
+        private List<Dictionary<string, string>> _DownloadedList = null;
         public bool AnythingInstalled
         {
             get;
             private set;
         }
 
-        protected override void GetDataFromPreStage(int StageIndex)
+        protected override void GetDataFromPreStage(int StageIndex) 
         {
             if (_Stages[_CurrentStage] is WSSelectSounds)
                 _DownloadList = (_Stages[_CurrentStage] as WSSelectSounds).dwnldList;
@@ -97,9 +98,10 @@ namespace ganjoor
             }
         }
 
-        protected override void ShowSettings() {
-            using var dlg = new SndWizOptions();
-            dlg.ShowDialog(this);
+        protected override void ShowSettings()
+        {
+            using (SndWizOptions dlg = new SndWizOptions())
+                dlg.ShowDialog(this);
         }
 
 

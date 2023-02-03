@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -8,8 +14,8 @@ namespace ganjoor
         public SndDownloadInfo(Dictionary<string, string> audioInfo)
         {
             InitializeComponent();
-            Tag = audioInfo;
-            lblSndName.Text = DownloadableAudioListProcessor.SuggestShortTitle(audioInfo);
+            this.Tag = audioInfo;
+            this.lblSndName.Text = DownloadableAudioListProcessor.SuggestShortTitle(audioInfo);
         }
 
         public int Progress
