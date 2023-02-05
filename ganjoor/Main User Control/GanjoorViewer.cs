@@ -3058,7 +3058,7 @@ namespace ganjoor
                     _db.SetVerseText(Poem._ID, paragraph._Order, text1.Trim());
                     if(text2.Trim().Length > 0)
                     {
-                        var newVerse = _db.CreateNewVerse(Poem._ID, paragraph._Order + 1, VersePosition.Paragraph);
+                        var newVerse = _db.CreateNewVerse(Poem._ID, paragraph._Order, VersePosition.Paragraph);
                         _db.SetVerseText(Poem._ID, newVerse._Order, text2.Trim());
                     }
                     verses = _db.GetVerses(Poem._ID);
