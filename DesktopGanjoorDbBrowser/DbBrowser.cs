@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
 using System.IO;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace ganjoor
 {
