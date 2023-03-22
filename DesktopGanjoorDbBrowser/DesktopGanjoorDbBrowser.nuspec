@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DesktopGanjoorDbBrowser</id>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <title>Desktop Ganjoor DbBrowser</title>
     <authors>Ganjoor Development Team</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,4 +13,7 @@
     <copyright>Public Domain</copyright>
     <tags>ganjoor.net ganjoor Persian literature</tags>
   </metadata>
+  <files>
+	<file src="README.md" />
+  </files>
 </package>
