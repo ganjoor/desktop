@@ -206,7 +206,6 @@
     <Compile Include="GDBProcessing\NewGDBFound.Designer.cs">
       <DependentUpon>NewGDBFound.cs</DependentUpon>
     </Compile>
-    <Compile Include="Audio Support\PoemAudioListProcessor.cs" />
     <Compile Include="Audio Support\NarratedPoems.cs">
       <SubType>Form</SubType>
     </Compile>

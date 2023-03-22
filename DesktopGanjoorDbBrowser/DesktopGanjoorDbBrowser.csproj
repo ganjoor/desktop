@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio Support\PoemAudio.cs" />
+    <Compile Include="Audio Support\PoemAudioListProcessor.cs" />
     <Compile Include="Audio Support\PoemAudioPlayer.cs" />
     <Compile Include="Base Data Models\GanjoorCat.cs" />
     <Compile Include="Base Data Models\GanjoorPoem.cs" />
