@@ -563,5 +563,17 @@ namespace ganjoor
             Properties.Settings.Default.Save();
             MessageBox.Show("از حساب پیشخان خود خارج شدید.");
         }
+
+        private void grdList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0)
+            {
+                try
+                {
+                    Process.Start(Path.GetDirectoryName(grdList.Rows[e.RowIndex].Cells[GRDCOLUMN_IDX_FILEPATH].Value.ToString()));
+                }
+                catch { }
+            }
+        }
     }
 }

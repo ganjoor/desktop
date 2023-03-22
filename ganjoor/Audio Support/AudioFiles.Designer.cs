@@ -42,9 +42,9 @@
             this.btnExport = new System.Windows.Forms.ToolStripButton();
             this.sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDownload = new System.Windows.Forms.ToolStripButton();
+            this.btnLogout = new System.Windows.Forms.ToolStripButton();
             this.btnMyUploadedNarrations = new System.Windows.Forms.ToolStripButton();
             this.btnUpload = new System.Windows.Forms.ToolStripButton();
-            this.btnLogout = new System.Windows.Forms.ToolStripButton();
             this.lblDesc = new System.Windows.Forms.Label();
             this.grdList = new System.Windows.Forms.DataGridView();
             this.clmnDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +58,7 @@
             // 
             this.tlbr.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tlbr.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.tlbr.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tlbr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
             this.sep1,
@@ -73,12 +74,11 @@
             this.btnDownload,
             this.btnLogout,
             this.btnMyUploadedNarrations,
-            this.btnUpload
-           });
-            this.tlbr.Location = new System.Drawing.Point(0, 66);
+            this.btnUpload});
+            this.tlbr.Location = new System.Drawing.Point(0, 98);
             this.tlbr.Name = "tlbr";
-            this.tlbr.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.tlbr.Size = new System.Drawing.Size(697, 25);
+            this.tlbr.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.tlbr.Size = new System.Drawing.Size(1046, 33);
             this.tlbr.TabIndex = 7;
             this.tlbr.Text = "نوار ابزار انتخاب";
             // 
@@ -87,21 +87,21 @@
             this.btnAdd.Image = global::ganjoor.Properties.Resources.sound_on;
             this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(100, 22);
+            this.btnAdd.Size = new System.Drawing.Size(142, 28);
             this.btnAdd.Text = "انتخاب فایل ...";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // sep1
             // 
             this.sep1.Name = "sep1";
-            this.sep1.Size = new System.Drawing.Size(6, 25);
+            this.sep1.Size = new System.Drawing.Size(6, 33);
             // 
             // btnPlayStop
             // 
             this.btnPlayStop.Image = global::ganjoor.Properties.Resources.play16;
             this.btnPlayStop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPlayStop.Name = "btnPlayStop";
-            this.btnPlayStop.Size = new System.Drawing.Size(54, 22);
+            this.btnPlayStop.Size = new System.Drawing.Size(78, 28);
             this.btnPlayStop.Text = "پخش";
             this.btnPlayStop.Click += new System.EventHandler(this.btnPlayStop_Click);
             // 
@@ -110,7 +110,7 @@
             this.btnSync.Image = global::ganjoor.Properties.Resources.clock;
             this.btnSync.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSync.Name = "btnSync";
-            this.btnSync.Size = new System.Drawing.Size(93, 22);
+            this.btnSync.Size = new System.Drawing.Size(139, 28);
             this.btnSync.Text = " همگام‌سازی";
             this.btnSync.Click += new System.EventHandler(this.btnSync_Click);
             // 
@@ -120,7 +120,7 @@
             this.btnMoveToTop.Image = global::ganjoor.Properties.Resources.up;
             this.btnMoveToTop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMoveToTop.Name = "btnMoveToTop";
-            this.btnMoveToTop.Size = new System.Drawing.Size(23, 22);
+            this.btnMoveToTop.Size = new System.Drawing.Size(34, 28);
             this.btnMoveToTop.Text = "انتقال فایل جاری به بالای فهرست";
             this.btnMoveToTop.Click += new System.EventHandler(this.btnMoveToTop_Click);
             // 
@@ -129,7 +129,7 @@
             this.btnDel.Image = global::ganjoor.Properties.Resources.sound_off;
             this.btnDel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(52, 22);
+            this.btnDel.Size = new System.Drawing.Size(76, 28);
             this.btnDel.Text = "حذف";
             this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
@@ -140,7 +140,7 @@
             this.btnFixExport.Image = global::ganjoor.Properties.Resources.gear16;
             this.btnFixExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnFixExport.Name = "btnFixExport";
-            this.btnFixExport.Size = new System.Drawing.Size(23, 22);
+            this.btnFixExport.Size = new System.Drawing.Size(34, 28);
             this.btnFixExport.Text = "رفع اشکال همگامسازیهای قدیمی با تقسیم شروع آنها بر ۲";
             this.btnFixExport.Click += new System.EventHandler(this.btnFixExport_Click);
             // 
@@ -151,7 +151,7 @@
             this.btnTimingHelper.Image = ((System.Drawing.Image)(resources.GetObject("btnTimingHelper.Image")));
             this.btnTimingHelper.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTimingHelper.Name = "btnTimingHelper";
-            this.btnTimingHelper.Size = new System.Drawing.Size(23, 22);
+            this.btnTimingHelper.Size = new System.Drawing.Size(34, 28);
             this.btnTimingHelper.Text = "دستیار خوانش";
             this.btnTimingHelper.Click += new System.EventHandler(this.btnTimingHelper_Click);
             // 
@@ -162,7 +162,7 @@
             this.btnImport.Image = global::ganjoor.Properties.Resources.folder_down;
             this.btnImport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(23, 22);
+            this.btnImport.Size = new System.Drawing.Size(34, 28);
             this.btnImport.Text = "بارگذاری اطلاعات همگام‌سازی از فایل XML";
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
@@ -173,23 +173,34 @@
             this.btnExport.Image = global::ganjoor.Properties.Resources.folder_up;
             this.btnExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(23, 22);
+            this.btnExport.Size = new System.Drawing.Size(34, 28);
             this.btnExport.Text = "ذخیرۀ اطلاعات همگام‌سازی در فایل XML";
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // sep2
             // 
             this.sep2.Name = "sep2";
-            this.sep2.Size = new System.Drawing.Size(6, 25);
+            this.sep2.Size = new System.Drawing.Size(6, 33);
             // 
             // btnDownload
             // 
             this.btnDownload.Image = global::ganjoor.Properties.Resources.down;
             this.btnDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(60, 22);
+            this.btnDownload.Size = new System.Drawing.Size(87, 28);
             this.btnDownload.Text = "دریافت";
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            // 
+            // btnLogout
+            // 
+            this.btnLogout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnLogout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnLogout.Image")));
+            this.btnLogout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(34, 28);
+            this.btnLogout.Text = "خروج از حساب کاربری";
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // btnMyUploadedNarrations
             // 
@@ -198,20 +209,9 @@
             this.btnMyUploadedNarrations.Image = ((System.Drawing.Image)(resources.GetObject("btnMyUploadedNarrations.Image")));
             this.btnMyUploadedNarrations.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMyUploadedNarrations.Name = "btnMyUploadedNarrations";
-            this.btnMyUploadedNarrations.Size = new System.Drawing.Size(23, 22);
+            this.btnMyUploadedNarrations.Size = new System.Drawing.Size(34, 28);
             this.btnMyUploadedNarrations.Text = "خوانشهای بارگذاری شده";
             this.btnMyUploadedNarrations.Click += new System.EventHandler(this.btnMyUploadedNarrations_Click);
-            //
-            // btnLogout
-            // 
-            this.btnLogout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnLogout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnLogout.Image")));
-            this.btnLogout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(23, 22);
-            this.btnLogout.Text = "خروج از حساب کاربری";
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // btnUpload
             // 
@@ -220,7 +220,7 @@
             this.btnUpload.Image = ((System.Drawing.Image)(resources.GetObject("btnUpload.Image")));
             this.btnUpload.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(23, 22);
+            this.btnUpload.Size = new System.Drawing.Size(34, 28);
             this.btnUpload.Text = "ارسال به سایت";
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_ClickAsync);
             // 
@@ -230,8 +230,9 @@
             this.lblDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblDesc.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblDesc.Location = new System.Drawing.Point(0, 0);
+            this.lblDesc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(697, 66);
+            this.lblDesc.Size = new System.Drawing.Size(1046, 98);
             this.lblDesc.TabIndex = 6;
             this.lblDesc.Text = resources.GetString("lblDesc.Text");
             this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -246,13 +247,15 @@
             this.clmnPath,
             this.clmnSynced});
             this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.Location = new System.Drawing.Point(0, 91);
+            this.grdList.Location = new System.Drawing.Point(0, 131);
+            this.grdList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grdList.MultiSelect = false;
             this.grdList.Name = "grdList";
             this.grdList.RowHeadersWidth = 62;
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdList.Size = new System.Drawing.Size(697, 314);
+            this.grdList.Size = new System.Drawing.Size(1046, 477);
             this.grdList.TabIndex = 5;
+            this.grdList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdList_CellContentDoubleClick);
             // 
             // clmnDesc
             // 
@@ -282,14 +285,15 @@
             // 
             // AudioFiles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(697, 405);
+            this.ClientSize = new System.Drawing.Size(1046, 608);
             this.Controls.Add(this.grdList);
             this.Controls.Add(this.tlbr);
             this.Controls.Add(this.lblDesc);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AudioFiles";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
