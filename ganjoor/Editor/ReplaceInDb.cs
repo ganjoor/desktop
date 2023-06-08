@@ -103,10 +103,12 @@ namespace ganjoor
             _db.BeginBatchOperation();
 
             _db.Replace("ـ", "", chkOnlyPoemTitles.Checked);
+            _db.Replace("‏", "‌", chkOnlyPoemTitles.Checked);
             _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked);
             _db.Replace(" !", "!", chkOnlyPoemTitles.Checked);
             _db.Replace(" ؟", "؟", chkOnlyPoemTitles.Checked);
             _db.Replace(" ،", "،", chkOnlyPoemTitles.Checked);
+            _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked); _db.Replace("  ", " ", chkOnlyPoemTitles.Checked);
 
 
             _db.CommitBatchOperation();
