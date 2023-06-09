@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ganjoor
@@ -24,6 +19,7 @@ namespace ganjoor
 
             _db.BeginBatchOperation();
             _db.Replace("ي", "ی", chkOnlyPoemTitles.Checked);
+            _db.Replace("ى", "ی", chkOnlyPoemTitles.Checked);
             _db.Replace("ك", "ک", chkOnlyPoemTitles.Checked);
 
             _db.CommitBatchOperation();
