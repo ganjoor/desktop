@@ -77,6 +77,33 @@ namespace ganjoor
             /// زمان در فایل صوتی بر حسب میلی ثانیه
             /// </summary>
             public int AudioMiliseconds;
+            /// <summary>
+            /// متن مصرع
+            /// </summary>
+            public string VerseText;
+
+            /// <summary>
+            /// to string
+            /// </summary>
+            /// <returns></returns>
+            public override string ToString()
+            {
+                string txt = "";
+                if(AudioMiliseconds >= 0)
+                {
+                    txt += $"{TimeSpan.FromMilliseconds(AudioMiliseconds)} - {VerseOrder}";
+                }
+                else
+                {
+                    txt += $"AudioMiliseconds: {AudioMiliseconds} - {VerseOrder}";
+                }
+               
+                if(!string.IsNullOrEmpty(VerseText))
+                {
+                    txt += $" - {VerseText}";
+                }
+                return txt;
+            }
         }
 
         /// <summary>
