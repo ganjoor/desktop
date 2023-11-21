@@ -144,6 +144,12 @@
       <DependentUpon>GLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Audio Support\LoginViewModel.cs" />
+    <Compile Include="Audio Support\SyncEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Audio Support\SyncEditor.Designer.cs">
+      <DependentUpon>SyncEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Audio Support\TimingHelper\THFirstVerse.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -412,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Audio Support\GLogin.resx">
       <DependentUpon>GLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Audio Support\SyncEditor.resx">
+      <DependentUpon>SyncEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Audio Support\TimingHelper\THFirstVerse.resx">
       <DependentUpon>THFirstVerse.cs</DependentUpon>

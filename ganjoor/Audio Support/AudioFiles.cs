@@ -575,5 +575,24 @@ namespace ganjoor
                 catch { }
             }
         }
+
+        private void btnEditSync_Click(object sender, EventArgs e)
+        {
+            if (grdList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("لطفاً ردیفی را انتخاب کنید.");
+                return;
+            }
+
+            if (_PoemAudioPlayer != null)
+            {
+                _PoemAudioPlayer.CleanUp();
+            }
+            PoemAudio poemAudio = grdList.SelectedRows[0].Tag as PoemAudio;
+            using (SyncEditor dlg = new SyncEditor(_DbBrowser, poemAudio))
+            {
+                dlg.ShowDialog(this);
+            }
+        }
     }
 }
