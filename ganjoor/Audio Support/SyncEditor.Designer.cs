@@ -38,6 +38,7 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.stsBar = new System.Windows.Forms.StatusStrip();
             this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnSelectPosition = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tlbr.SuspendLayout();
             this.stsBar.SuspendLayout();
@@ -53,6 +54,7 @@
             this.trackBar.Size = new System.Drawing.Size(800, 45);
             this.trackBar.TabIndex = 15;
             this.trackBar.TickFrequency = 60000;
+            this.trackBar.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // cmbAudioInMiliseconds
             // 
@@ -72,7 +74,8 @@
             this.tlbr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator1,
             this.btnPlayPause,
-            this.btnSave});
+            this.btnSave,
+            this.btnSelectPosition});
             this.tlbr.Location = new System.Drawing.Point(0, 66);
             this.tlbr.Name = "tlbr";
             this.tlbr.Size = new System.Drawing.Size(800, 53);
@@ -130,6 +133,17 @@
             this.lblTime.Size = new System.Drawing.Size(57, 17);
             this.lblTime.Text = "00:00:00";
             // 
+            // btnSelectPosition
+            // 
+            this.btnSelectPosition.Image = global::ganjoor.Properties.Resources.rewind;
+            this.btnSelectPosition.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSelectPosition.Name = "btnSelectPosition";
+            this.btnSelectPosition.Size = new System.Drawing.Size(188, 50);
+            this.btnSelectPosition.Text = "انتخاب موقعیت جدید برای این مصرع";
+            this.btnSelectPosition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSelectPosition.ToolTipText = "پخش صدا (Ctrl+P)";
+            this.btnSelectPosition.Click += new System.EventHandler(this.btnSelectPosition_Click);
+            // 
             // SyncEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -168,5 +182,6 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.StatusStrip stsBar;
         private System.Windows.Forms.ToolStripStatusLabel lblTime;
+        private System.Windows.Forms.ToolStripButton btnSelectPosition;
     }
 }
