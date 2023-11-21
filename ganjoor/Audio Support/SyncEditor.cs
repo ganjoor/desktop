@@ -1,12 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ganjoor.Audio_Support
@@ -32,7 +28,7 @@ namespace ganjoor.Audio_Support
             for(int i=0; i<_VerseMilisecPositions.Count; i++)
             {
                 var miliSec = _VerseMilisecPositions[i];
-                var verse = _PoemVerses.Where(v => v._Order == miliSec.VerseOrder).FirstOrDefault();
+                var verse = _PoemVerses.Where(v => v._Order == (miliSec.VerseOrder + 1)).FirstOrDefault();
                 if(verse != null)
                 {
                     miliSec.VerseText = verse._Text;
@@ -48,6 +44,11 @@ namespace ganjoor.Audio_Support
         #region Audio Playback
         private PoemAudioPlayer _PoemAudioPlayer;
         private bool _TrackbarValueSetting = false;
+
+        private void EnableButtons()
+        {
+            
+        }
 
         private void _PoemAudioPlayer_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
         {
@@ -71,5 +72,75 @@ namespace ganjoor.Audio_Support
 
 
         #endregion
+
+        private void btnPlayPause_Click(object sender, EventArgs e)
+        {
+            
+            if (_PoemAudioPlayer.IsPlaying)
+            {
+                _PoemAudioPlayer.PausePlayBack();
+                btnPlayPause.Text = "ادامۀ پخش";
+                btnPlayPause.Image = Properties.Resources.play;
+                btnSave.Enabled = true;
+                return;
+            }
+            if (_PoemAudioPlayer.IsInPauseState)
+            {
+                btnPlayPause.Text = "توقف";
+                btnPlayPause.Image = Properties.Resources.pause;
+                _PoemAudioPlayer.ResumePlayBack();
+                return;
+            }
+            if (!_PoemAudioPlayer.BeginPlayback(_PoemAudio))
+            {
+                MessageBox.Show("خطایی در پخش فایل صوتی رخ داد. لطفا چک کنید فایل در مسیر تعیین شده قرار داشته باشد.");
+                EnableButtons();
+                return;
+            }
+
+
+            btnPlayPause.Text = "توقف";
+            btnPlayPause.Image = Properties.Resources.pause;
+            timer.Start();
+            trackBar.Maximum = _PoemAudioPlayer.TotalTimeInMiliseconds;
+            _TrackbarValueSetting = true;
+            trackBar.Value = 0;
+            _TrackbarValueSetting = false;
+            trackBar.Enabled = true;
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            int nPositionInMiliseconds = _PoemAudioPlayer.PositionInMiliseconds;
+            _TrackbarValueSetting = true;
+            trackBar.Value = nPositionInMiliseconds;
+            _TrackbarValueSetting = false;
+            
+            lblTime.Text = TimeSpan.FromMilliseconds(nPositionInMiliseconds).ToString();
+
+            var selectedItem = cmbAudioInMiliseconds.SelectedItem;
+            foreach(var item in cmbAudioInMiliseconds.Items)
+            {
+                if((item as PoemAudio.SyncInfo?).Value.AudioMiliseconds < _PoemAudioPlayer.PositionInMiliseconds)
+                {
+                    selectedItem = item;
+                }
+            }
+            
+            if(selectedItem != cmbAudioInMiliseconds.SelectedItem)
+            {
+                cmbAudioInMiliseconds.SelectedItem = selectedItem;
+            }
+
+
+        }
+
+        private void SyncEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_PoemAudioPlayer.IsPlaying)
+            {
+                _PoemAudioPlayer.StopPlayBack();
+            }
+        }
     }
 }

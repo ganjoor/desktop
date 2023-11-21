@@ -28,14 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.cmbAudioInMiliseconds = new System.Windows.Forms.ComboBox();
             this.tlbr = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnPlayPause = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.stsBar = new System.Windows.Forms.StatusStrip();
+            this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tlbr.SuspendLayout();
+            this.stsBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // trackBar
@@ -88,6 +93,7 @@
             this.btnPlayPause.Text = "پخش صدا";
             this.btnPlayPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPlayPause.ToolTipText = "پخش صدا (Ctrl+P)";
+            this.btnPlayPause.Click += new System.EventHandler(this.btnPlayPause_Click);
             // 
             // btnSave
             // 
@@ -100,11 +106,36 @@
             this.btnSave.Text = "ذخیره";
             this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
+            // timer
+            // 
+            this.timer.Interval = 500;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // stsBar
+            // 
+            this.stsBar.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stsBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblTime});
+            this.stsBar.Location = new System.Drawing.Point(0, 428);
+            this.stsBar.Name = "stsBar";
+            this.stsBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
+            this.stsBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.stsBar.Size = new System.Drawing.Size(800, 22);
+            this.stsBar.SizingGrip = false;
+            this.stsBar.TabIndex = 18;
+            // 
+            // lblTime
+            // 
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(57, 17);
+            this.lblTime.Text = "00:00:00";
+            // 
             // SyncEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.stsBar);
             this.Controls.Add(this.tlbr);
             this.Controls.Add(this.cmbAudioInMiliseconds);
             this.Controls.Add(this.trackBar);
@@ -115,9 +146,12 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "ویرایشگر اطلاعات همگامسازی";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SyncEditor_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.tlbr.ResumeLayout(false);
             this.tlbr.PerformLayout();
+            this.stsBar.ResumeLayout(false);
+            this.stsBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,5 +165,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnPlayPause;
         private System.Windows.Forms.ToolStripButton btnSave;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.StatusStrip stsBar;
+        private System.Windows.Forms.ToolStripStatusLabel lblTime;
     }
 }
