@@ -33,6 +33,7 @@ namespace ganjoor.Audio_Support
             this.chkReplace = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.chkCommentary = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblMessage
@@ -60,7 +61,7 @@ namespace ganjoor.Audio_Support
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(398, 112);
+            this.btnOK.Location = new System.Drawing.Point(403, 162);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(99, 36);
             this.btnOK.TabIndex = 2;
@@ -71,12 +72,23 @@ namespace ganjoor.Audio_Support
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(514, 112);
+            this.btnCancel.Location = new System.Drawing.Point(519, 162);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(99, 36);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "انصراف";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // chkCommentary
+            // 
+            this.chkCommentary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCommentary.AutoSize = true;
+            this.chkCommentary.Location = new System.Drawing.Point(23, 113);
+            this.chkCommentary.Name = "chkCommentary";
+            this.chkCommentary.Size = new System.Drawing.Size(400, 23);
+            this.chkCommentary.TabIndex = 4;
+            this.chkCommentary.Text = "این یک روخوانی نیست و شامل شرح ابیات شعر است.";
+            this.chkCommentary.UseVisualStyleBackColor = true;
             // 
             // ConfirmAudioUpload
             // 
@@ -84,7 +96,8 @@ namespace ganjoor.Audio_Support
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(630, 165);
+            this.ClientSize = new System.Drawing.Size(630, 210);
+            this.Controls.Add(this.chkCommentary);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.chkReplace);
@@ -112,5 +125,6 @@ namespace ganjoor.Audio_Support
         private System.Windows.Forms.CheckBox chkReplace;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox chkCommentary;
     }
 }

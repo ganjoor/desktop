@@ -9,11 +9,23 @@ namespace ganjoor.Audio_Support
         {
             InitializeComponent();
             lblMessage.Text = $"آیا از ارسال خوانش انتخاب شده با نمایهٔ فعال «{profileName}» به سایت اطمینان دارید؟";
+            chkCommentary.Checked = _Commentary;
+        }
+
+        private static bool _Commentary = false;
+
+        public static bool Commentary 
+        {
+            get
+            {
+                return _Commentary;
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if(chkReplace.Checked)
+            _Commentary = chkCommentary.Checked;
+            if (chkReplace.Checked)
             {
                 DialogResult = DialogResult.Yes;
             }
