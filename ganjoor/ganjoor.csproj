@@ -678,6 +678,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesktopGanjoorDbBrowser\DesktopGanjoorDbBrowser.csproj">
+      <Project>{91c238cd-2544-4547-aa21-98ce8897105e}</Project>
+      <Name>DesktopGanjoorDbBrowser</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages/EntityFramework.6.5.1/build/EntityFramework.props" Condition="Exists('..\packages/EntityFramework.6.5.1/build/EntityFramework.props')" />
-  <Import Project="..\packages/EntityFramework.6.5.0/build/build/net6.0/EntityFramework.props" Condition="Exists('..\packages/EntityFramework.6.5.0/build/build/net6.0/EntityFramework.props')" />
-  <Import Project="..\packages/EntityFramework.6.5.0/build/build/EntityFramework.props" Condition="Exists('..\packages/EntityFramework.6.5.0/build/build/EntityFramework.props')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -39,13 +36,11 @@
     <NoWarn>NU5128</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\packages/EntityFramework.6.5.1/lib/net45/EntityFramework.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\packages/EntityFramework.6.5.1/lib/net45/EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
@@ -131,16 +126,7 @@
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
-    <Error Condition="!Exists('..\packages/EntityFramework.6.5.0/build/build/EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages/EntityFramework.6.5.0/build/build/EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages/EntityFramework.6.5.0/build/build/EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages/EntityFramework.6.5.0/build/build/EntityFramework.targets'))" />
-    <Error Condition="!Exists('..\packages/EntityFramework.6.5.0/build/build/net6.0/EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages/EntityFramework.6.5.0/build/build/net6.0/EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages/EntityFramework.6.5.0/build/build/net6.0/EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages/EntityFramework.6.5.0/build/build/net6.0/EntityFramework.targets'))" />
-    <Error Condition="!Exists('..\packages/EntityFramework.6.5.1/build/EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages/EntityFramework.6.5.1/build/EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages/EntityFramework.6.5.1/build/EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages/EntityFramework.6.5.1/build/EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
-  <Import Project="..\packages/EntityFramework.6.5.0/build/build/EntityFramework.targets" Condition="Exists('..\packages/EntityFramework.6.5.0/build/build/EntityFramework.targets')" />
-  <Import Project="..\packages/EntityFramework.6.5.0/build/build/net6.0/EntityFramework.targets" Condition="Exists('..\packages/EntityFramework.6.5.0/build/build/net6.0/EntityFramework.targets')" />
-  <Import Project="..\packages/EntityFramework.6.5.1/build/EntityFramework.targets" Condition="Exists('..\packages/EntityFramework.6.5.1/build/EntityFramework.targets')" />
 </Project>
