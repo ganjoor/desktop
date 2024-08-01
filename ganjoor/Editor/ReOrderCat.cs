@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Windows.Forms;
 using ganjoor.Properties;
+using Newtonsoft.Json.Linq;
 
 namespace ganjoor
 {
@@ -562,5 +565,35 @@ namespace ganjoor
             LoadGridData();
         }
 
+        private async void btnSearchInGanjoor_Click(object sender, EventArgs e)
+        {
+            using (ItemEditor dlgGanjoorCatId = new ItemEditor(EditItemType.General, "شناسهٔ بخش", "شناسهٔ بخش"))
+            {
+                if (dlgGanjoorCatId.ShowDialog(this) == DialogResult.OK)
+                {
+
+                    using (HttpClient client = new HttpClient())
+                    {
+                        Application.DoEvents();
+                        int i = 0;
+                        Enabled = false;
+                        foreach (DataGridViewRow row in grdMain.Rows)
+                        {
+                            string verse1 = row.Cells[ClmnVerse1].Value.ToString();
+                            HttpResponseMessage response = await client.GetAsync($"https://api.ganjoor.net/api/ganjoor/poems/search?catId={dlgGanjoorCatId.ItemName}&term={Uri.EscapeDataString(verse1)}");
+                            response.EnsureSuccessStatusCode();
+
+                            var res = JArray.Parse(await response.Content.ReadAsStringAsync()).ToObject<List<dynamic>>();
+                            row.Selected = (res.Count > 0);
+                            i++;
+                            lblPoemCount.Text = $"{i}";
+                            Application.DoEvents();
+                        }
+                        lblPoemCount.Text = String.Format("{0} شعر", grdMain.RowCount);
+                        Enabled = true;
+                    }
+                }
+            }
+        }
     }
 }
