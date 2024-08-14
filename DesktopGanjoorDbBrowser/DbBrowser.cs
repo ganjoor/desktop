@@ -165,7 +165,12 @@ namespace ganjoor
         private SQLiteConnection _con;
         public string LastError = string.Empty;
         private string _dbfilepath = string.Empty;
-        #endregion 
+        #endregion
+
+
+        #region Connection
+        public SQLiteConnection Connection { get { return _con; } }
+        #endregion
 
         #region Properties & Methods
         public string DbFilePath
