@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{91C238CD-2544-4547-AA21-98CE8897105E}</ProjectGuid>
@@ -15,6 +16,17 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.0.7</Version>
+    <Title>Desktop Ganjoor DbBrowser</Title>
+    <Authors>Ganjoor Development Team</Authors>
+    <Company>Ganjoor Development Team</Company>
+    <Description>base classes for working with Desktop Ganjoor sqlite database</Description>
+    <PackageProjectUrl>https://github.com/ganjoor/ganjoor/tree/master/DesktopGanjoorDbBrowser</PackageProjectUrl>
+    <Copyright>Public Domain</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/ganjoor/ganjoor/tree/master/DesktopGanjoorDbBrowser</RepositoryUrl>
+    <PackageTags>ganjoor.net ganjoor Persian literature</PackageTags>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,57 +80,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio Support\PoemAudio.cs" />
-    <Compile Include="Audio Support\PoemAudioListProcessor.cs" />
-    <Compile Include="Audio Support\PoemAudioPlayer.cs" />
-    <Compile Include="Base Data Models\GanjoorCat.cs" />
-    <Compile Include="Base Data Models\GanjoorPoem.cs" />
-    <Compile Include="Base Data Models\GanjoorPoet.cs" />
-    <Compile Include="Base Data Models\GanjoorVerse.cs" />
-    <Compile Include="Base Data Models\VersePosition.cs" />
-    <Compile Include="DbBrowser.cs" />
-    <Compile Include="Editor\EditItemType.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reusable Forms\CategorySelector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\CategorySelector.Designer.cs" />
-    <Compile Include="Reusable Forms\ItemEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\ItemEditor.Designer.cs" />
-    <Compile Include="Reusable Forms\ItemSelector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\ItemSelector.Designer.cs" />
-    <Compile Include="Reusable Forms\MemoEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\MemoEditor.Designer.cs" />
-    <Compile Include="Reusable Forms\WaitMsg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reusable Forms\WaitMsg.Designer.cs" />
-    <Compile Include="Utilities\GAdvisor.cs" />
-    <Compile Include="Utilities\GanjooRhymeAnalysisResult.cs" />
-    <Compile Include="Utilities\GINIParser.cs" />
-    <Compile Include="Utilities\GMessageBox.cs" />
-    <Compile Include="Utilities\GPersianTextSync.cs" />
-    <Compile Include="Utilities\RhymeFinder.cs" />
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="..\..\GanjoorService\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Reusable Forms\CategorySelector.resx" />
-    <EmbeddedResource Include="Reusable Forms\ItemEditor.resx" />
-    <EmbeddedResource Include="Reusable Forms\ItemSelector.resx" />
-    <EmbeddedResource Include="Reusable Forms\MemoEditor.resx" />
-    <EmbeddedResource Include="Reusable Forms\WaitMsg.resx" />
-  </ItemGroup>
+  </ItemGroup>  
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
