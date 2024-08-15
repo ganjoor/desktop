@@ -1946,10 +1946,12 @@ namespace ganjoor
             }
             return true;
         }
-        public GanjoorPoem CreateNewPoem(string PoemTitle, int CatID)
+        public GanjoorPoem CreateNewPoem(string PoemTitle, int CatID, int NewPoemID = 0)
         {
-
-            int NewPoemID = GenerateNewPoemID();
+            if(NewPoemID == 0)
+            {
+                NewPoemID = GenerateNewPoemID();
+            }
             using (SQLiteCommand cmd = new SQLiteCommand(_con))
             {
                 cmd.CommandText = String.Format(

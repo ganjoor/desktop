@@ -17,7 +17,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <Title>Desktop Ganjoor DbBrowser</Title>
     <Authors>Ganjoor Development Team</Authors>
     <Company>Ganjoor Development Team</Company>
