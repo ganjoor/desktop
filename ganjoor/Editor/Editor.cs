@@ -1058,6 +1058,58 @@ namespace ganjoor
                 int nPoemNo = 0;
                 int nLastPoemId = nPoemId;
 
+                /*
+                 
+                //temporary code:
+
+                int nIndex = 0;
+                List<int> verseIndices = new List<int>();
+                string poemTitle = "";
+                while (nIndex < verses.Count)
+                {
+                    if ("0123456789".IndexOf(verses[nIndex]._Text[0]) != -1)
+                    {
+                        if(verseIndices.Count > 0)
+                        {
+                            nPoemNo++;
+                            dbBrowser.BeginBatchOperation();
+                            GanjoorPoem newPoem = dbBrowser.CreateNewPoem(poemTitle, nCatId);
+                            nLastPoemId = newPoem._ID;
+                            for (int i = 0; i < verseIndices.Count; i++)
+                            {
+                                GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i, verses[verseIndices[i]]._Position);
+                                dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[verseIndices[i]]._Text);
+                            }
+                            dbBrowser.CommitBatchOperation();
+                        }
+                        poemTitle = "";
+                        if(verses[nIndex]._Text.Contains(":"))
+                        {
+                            poemTitle = verses[nIndex]._Text.Substring(0, verses[nIndex]._Text.IndexOf(":") + 1).Replace(":", "").Trim();
+                            verses[nIndex]._Text = verses[nIndex]._Text.Substring(verses[nIndex]._Text.IndexOf(":") + 1).Trim();
+                        }
+                        verseIndices = new List<int>();
+                        
+                    }
+                    verseIndices.Add(nIndex);
+                    nIndex++;
+                }
+                if (verseIndices.Count > 0)
+                {
+                    nPoemNo++;
+                    dbBrowser.BeginBatchOperation();
+                    GanjoorPoem newPoem = dbBrowser.CreateNewPoem(poemTitle, nCatId);
+                    nLastPoemId = newPoem._ID;
+                    for (int i = 0; i < verseIndices.Count; i++)
+                    {
+                        GanjoorVerse v = dbBrowser.CreateNewVerse(newPoem._ID, i, verses[verseIndices[i]]._Position);
+                        dbBrowser.SetVerseText(newPoem._ID, v._Order, verses[verseIndices[i]]._Text);
+                    }
+                    dbBrowser.CommitBatchOperation();
+                }
+                
+                */
+
                 for (int nIndex = 0; nIndex < verses.Count; nIndex += 4)
                 {
                     nPoemNo++;
