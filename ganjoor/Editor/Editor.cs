@@ -1162,7 +1162,7 @@ namespace ganjoor
 
                 foreach(var verse in verses)
                 {
-                    GanjoorVerse v = dbBrowser.CreateNewVerse(prePoem._ID, verseOrder + 1, verse._Position);
+                    GanjoorVerse v = dbBrowser.CreateNewVerse(prePoem._ID, verseOrder, verse._Position);
                     dbBrowser.SetVerseText(prePoem._ID, v._Order, verse._Text);
 
                     verseOrder = v._Order;
