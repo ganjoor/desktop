@@ -34,6 +34,7 @@
             this.tlbr = new System.Windows.Forms.ToolStrip();
             this.btnNextVerse = new System.Windows.Forms.ToolStripButton();
             this.btnPreVerse = new System.Windows.Forms.ToolStripButton();
+            this.btnSearchText = new System.Windows.Forms.ToolStripButton();
             this.btnTrack = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnPlayPause = new System.Windows.Forms.ToolStripButton();
@@ -52,8 +53,10 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.stsBar = new System.Windows.Forms.StatusStrip();
             this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnSearchText = new System.Windows.Forms.ToolStripButton();
             this.waveViewer = new ganjoor.CustomWaveViewer();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnConfig = new System.Windows.Forms.ToolStripSplitButton();
+            this.chkWordMode = new System.Windows.Forms.ToolStripMenuItem();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.stsBar.SuspendLayout();
@@ -112,6 +115,17 @@
             this.btnPreVerse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPreVerse.ToolTipText = "مصرع قبل (Ctrl +Space)";
             this.btnPreVerse.Click += new System.EventHandler(this.btnPreVerse_Click);
+            // 
+            // btnSearchText
+            // 
+            this.btnSearchText.Image = global::ganjoor.Properties.Resources.search;
+            this.btnSearchText.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearchText.Name = "btnSearchText";
+            this.btnSearchText.Size = new System.Drawing.Size(49, 50);
+            this.btnSearchText.Text = "جستجو";
+            this.btnSearchText.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSearchText.ToolTipText = "جستجو (Ctrl+F)";
+            this.btnSearchText.Click += new System.EventHandler(this.btnSearchText_Click);
             // 
             // btnTrack
             // 
@@ -277,7 +291,9 @@
             // 
             this.stsBar.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.stsBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblTime});
+            this.lblTime,
+            this.toolStripStatusLabel1,
+            this.btnConfig});
             this.stsBar.Location = new System.Drawing.Point(0, 440);
             this.stsBar.Name = "stsBar";
             this.stsBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
@@ -291,17 +307,6 @@
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(57, 17);
             this.lblTime.Text = "00:00:00";
-            // 
-            // btnSearchText
-            // 
-            this.btnSearchText.Image = global::ganjoor.Properties.Resources.search;
-            this.btnSearchText.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSearchText.Name = "btnSearchText";
-            this.btnSearchText.Size = new System.Drawing.Size(49, 50);
-            this.btnSearchText.Text = "جستجو";
-            this.btnSearchText.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSearchText.ToolTipText = "جستجو (Ctrl+F)";
-            this.btnSearchText.Click += new System.EventHandler(this.btnSearchText_Click);
             // 
             // waveViewer
             // 
@@ -317,6 +322,30 @@
             this.waveViewer.TabIndex = 12;
             this.waveViewer.Visible = false;
             this.waveViewer.WaveStream = null;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(629, 17);
+            this.toolStripStatusLabel1.Spring = true;
+            // 
+            // btnConfig
+            // 
+            this.btnConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnConfig.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chkWordMode});
+            this.btnConfig.Image = global::ganjoor.Properties.Resources.process;
+            this.btnConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(32, 20);
+            this.btnConfig.Text = "toolStripSplitButton1";
+            // 
+            // chkWordMode
+            // 
+            this.chkWordMode.Name = "chkWordMode";
+            this.chkWordMode.Size = new System.Drawing.Size(214, 22);
+            this.chkWordMode.Text = "همگامسازی بر اساس کلمه";
+            this.chkWordMode.Click += new System.EventHandler(this.chkWordMode_Click);
             // 
             // SyncPoemAudio
             // 
@@ -379,5 +408,8 @@
         private System.Windows.Forms.ToolStripButton btnPreVerse;
         private System.Windows.Forms.ToolStripButton btnTrack;
         private System.Windows.Forms.ToolStripButton btnSearchText;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripSplitButton btnConfig;
+        private System.Windows.Forms.ToolStripMenuItem chkWordMode;
     }
 }

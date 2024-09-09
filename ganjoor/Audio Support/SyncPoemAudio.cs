@@ -650,12 +650,10 @@ namespace ganjoor
                 
         }
 
-
-
-
-
-
-
-
+        private void chkWordMode_Click(object sender, EventArgs e)
+        {
+            _WordMode = !_WordMode;
+            chkWordMode.Checked = _WordMode;
+        }
     }
 }
