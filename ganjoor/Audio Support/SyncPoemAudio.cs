@@ -93,7 +93,9 @@ namespace ganjoor
             btnTest.Enabled = btnReset.Enabled = !btnNextVerse.Enabled;
         }
 
+        private bool _WordMode = false;
         private int _SyncOrder;
+        private int _WordOrder;
         private GanjoorVerse[] _PoemVerses;
         private List<PoemAudio.SyncInfo> _VerseMilisecPositions;
         private bool _Modified;
@@ -199,7 +201,20 @@ namespace ganjoor
         /// <param name="e"></param>
         private void btnNextVerse_Click(object sender, EventArgs e)
         {
-            _SyncOrder++;
+            bool increaseSyncOrder = true;
+            if(_WordMode && _SyncOrder != -1)
+            {
+                if(_WordOrder < (_PoemVerses[_SyncOrder]._Text.Split(' ').Length -1 ))
+                {
+                    _WordOrder++;
+                    increaseSyncOrder = false;
+                }
+            }
+            if(increaseSyncOrder)
+            {
+                _SyncOrder++;
+                _WordOrder = 0;
+            }
             if (_SyncOrder < _PoemVerses.Length)
             {
                 if (btnTrack.Checked)
@@ -214,7 +229,7 @@ namespace ganjoor
                         );
                 }
 
-                lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
+                lblVerse.Text = _WordMode ? _PoemVerses[_SyncOrder]._Text.Split(' ')[_WordOrder] :  _PoemVerses[_SyncOrder]._Text;
 
                 if (_SyncOrder < _PoemVerses.Length - 1)
                     lblNextVerse.Text = "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text;
