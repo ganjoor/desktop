@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using ganjoor.Properties;
+using NAudio.Wave;
+using System.Linq;
 
 namespace ganjoor
 {
@@ -655,5 +658,72 @@ namespace ganjoor
             _WordMode = !_WordMode;
             chkWordMode.Checked = _WordMode;
         }
+
+        private void btnSrtOutput_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "SRT Files (*.srt)|*.srt";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    CreateSubTitle(dlg.FileName);
+                }
+            }
+        }
+
+        private void CreateSubTitle(string outfilePath)
+        {
+
+            List<string> lines = CreateSubTitle();
+
+            if (lines != null)
+                File.WriteAllLines(outfilePath, lines.ToArray());
+
+
+
+            if (lines != null)
+                MessageBox.Show("زیرنویس ایجاد شد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
+        }
+
+        private List<string> CreateSubTitle()
+        {
+
+            Mp3FileReader r = new Mp3FileReader(_PoemAudio.FilePath);
+            int playtime = r.TotalTime.Milliseconds;
+
+            using (Mp3FileReader mp3 = new Mp3FileReader(_PoemAudio.FilePath))
+            {
+                playtime = (int)mp3.TotalTime.TotalMilliseconds;
+            }
+            List<string> lines = new List<string>();
+            int nIdxSrtLine = 0;
+            for (int i = 0; i < _VerseMilisecPositions.Count; i++)
+            {
+
+                nIdxSrtLine++;
+                DateTime dtStart = new DateTime(0).AddMilliseconds(_VerseMilisecPositions[i].AudioMiliseconds);
+                int duration = i != (_VerseMilisecPositions.Count - 1) ? _VerseMilisecPositions[i + 1].AudioMiliseconds  - _VerseMilisecPositions[i].AudioMiliseconds : (playtime - _VerseMilisecPositions[i].AudioMiliseconds);                
+                DateTime dtEnd = dtStart.AddMilliseconds(duration);
+
+
+                lines.Add(nIdxSrtLine.ToString());
+                lines.Add(
+                    dtStart.ToString("HH:mm:ss,fff")
+                    + " --> "
+                    + dtEnd.ToString("HH:mm:ss,fff")
+                    );
+                lines.Add(_PoemVerses.Where(v => v._Order == (_VerseMilisecPositions[i].VerseOrder + 1)).Any() ?
+                    _PoemVerses.Where(v => v._Order == (_VerseMilisecPositions[i].VerseOrder + 1)).First()._Text : "");
+                lines.Add("");
+
+
+
+            }
+
+            return lines;
+
+        }
+
     }
 }

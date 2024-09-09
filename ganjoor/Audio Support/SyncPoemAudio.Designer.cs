@@ -53,10 +53,11 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.stsBar = new System.Windows.Forms.StatusStrip();
             this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.waveViewer = new ganjoor.CustomWaveViewer();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnConfig = new System.Windows.Forms.ToolStripSplitButton();
             this.chkWordMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSrtOutput = new System.Windows.Forms.ToolStripMenuItem();
+            this.waveViewer = new ganjoor.CustomWaveViewer();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.stsBar.SuspendLayout();
@@ -308,6 +309,38 @@
             this.lblTime.Size = new System.Drawing.Size(57, 17);
             this.lblTime.Text = "00:00:00";
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(629, 17);
+            this.toolStripStatusLabel1.Spring = true;
+            // 
+            // btnConfig
+            // 
+            this.btnConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnConfig.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnSrtOutput,
+            this.chkWordMode});
+            this.btnConfig.Image = global::ganjoor.Properties.Resources.process;
+            this.btnConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(32, 20);
+            this.btnConfig.Text = "toolStripSplitButton1";
+            // 
+            // chkWordMode
+            // 
+            this.chkWordMode.Name = "chkWordMode";
+            this.chkWordMode.Size = new System.Drawing.Size(214, 22);
+            this.chkWordMode.Text = "همگامسازی بر اساس کلمه";
+            this.chkWordMode.Click += new System.EventHandler(this.chkWordMode_Click);
+            // 
+            // btnSrtOutput
+            // 
+            this.btnSrtOutput.Name = "btnSrtOutput";
+            this.btnSrtOutput.Size = new System.Drawing.Size(214, 22);
+            this.btnSrtOutput.Text = "خروجی srt";
+            this.btnSrtOutput.Click += new System.EventHandler(this.btnSrtOutput_Click);
+            // 
             // waveViewer
             // 
             this.waveViewer.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -322,30 +355,6 @@
             this.waveViewer.TabIndex = 12;
             this.waveViewer.Visible = false;
             this.waveViewer.WaveStream = null;
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(629, 17);
-            this.toolStripStatusLabel1.Spring = true;
-            // 
-            // btnConfig
-            // 
-            this.btnConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnConfig.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.chkWordMode});
-            this.btnConfig.Image = global::ganjoor.Properties.Resources.process;
-            this.btnConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(32, 20);
-            this.btnConfig.Text = "toolStripSplitButton1";
-            // 
-            // chkWordMode
-            // 
-            this.chkWordMode.Name = "chkWordMode";
-            this.chkWordMode.Size = new System.Drawing.Size(214, 22);
-            this.chkWordMode.Text = "همگامسازی بر اساس کلمه";
-            this.chkWordMode.Click += new System.EventHandler(this.chkWordMode_Click);
             // 
             // SyncPoemAudio
             // 
@@ -411,5 +420,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripSplitButton btnConfig;
         private System.Windows.Forms.ToolStripMenuItem chkWordMode;
+        private System.Windows.Forms.ToolStripMenuItem btnSrtOutput;
     }
 }
