@@ -6,6 +6,9 @@ using System.IO;
 using ganjoor.Properties;
 using NAudio.Wave;
 using System.Linq;
+using ganjoor.Audio_Support;
+using static System.Windows.Forms.LinkLabel;
+using Newtonsoft.Json;
 
 namespace ganjoor
 {
@@ -725,5 +728,82 @@ namespace ganjoor
 
         }
 
+        private void btnSaveJson_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "JSON Files (*.json)|*.json";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    Mp3FileReader r = new Mp3FileReader(_PoemAudio.FilePath);
+                    int playtime = r.TotalTime.Milliseconds;
+
+                    using (Mp3FileReader mp3 = new Mp3FileReader(_PoemAudio.FilePath))
+                    {
+                        playtime = (int)mp3.TotalTime.TotalMilliseconds;
+                    }
+                    var poem = _DbBrowser.GetPoem(_PoemAudio.PoemId);
+                    var cat = _DbBrowser.GetCategory(poem._CatID);
+                    var poet = _DbBrowser.GetPoet(cat._PoetID);
+                    LyricsModel model = new LyricsModel()
+                    {
+                        Title = poem._Title,
+                        Artist = poet._Name,
+                        Lines = new List<LyricsLineModel>(),
+                    };
+                    int verseOrder = -1;
+                    int wordOrder = 0;
+                    for (int i = 0; i < _VerseMilisecPositions.Count; i++)
+                    {
+                        string text = _PoemVerses.Where(v => v._Order == (_VerseMilisecPositions[i].VerseOrder + 1)).Any() ?
+                               _PoemVerses.Where(v => v._Order == (_VerseMilisecPositions[i].VerseOrder + 1)).First()._Text : "";
+
+                        int duration = i != (_VerseMilisecPositions.Count - 1) ? _VerseMilisecPositions[i + 1].AudioMiliseconds - _VerseMilisecPositions[i].AudioMiliseconds : (playtime - _VerseMilisecPositions[i].AudioMiliseconds);
+                        if (verseOrder != _VerseMilisecPositions[i].VerseOrder)
+                        {
+                            verseOrder = _VerseMilisecPositions[i].VerseOrder;
+                            wordOrder = 0;
+                           
+                            LyricsLineModel line = new LyricsLineModel()
+                            {
+                                Line = text,
+                                StartInMilliseconds = _VerseMilisecPositions[i].AudioMiliseconds,
+                                EndInMilliseconds = _VerseMilisecPositions[i].AudioMiliseconds + duration,
+                                Words = new List<LyricsWordModel>(),
+                            };
+                            line.Words.Add(
+                                 new LyricsWordModel()
+                                 {
+                                     Word = text.Split(' ')[wordOrder],
+                                     StartInMilliseconds = line.StartInMilliseconds,
+                                     EndInMilliseconds = line.EndInMilliseconds,
+                                 });
+                            model.Lines.Add(line);
+                        }
+                        else
+                        {
+                            wordOrder++;
+                            LyricsLineModel line = model.Lines[model.Lines.Count - 1];
+                            line.EndInMilliseconds += duration;
+                            line.Words.Add(
+                               new LyricsWordModel()
+                               {
+                                   Word = text.Split(' ')[wordOrder],
+                                   StartInMilliseconds = _VerseMilisecPositions[i].AudioMiliseconds,
+                                   EndInMilliseconds = _VerseMilisecPositions[i].AudioMiliseconds + duration,
+                               });
+                        }
+                    }
+                    using(StreamWriter tw = new StreamWriter(dlg.FileName))
+                    {
+                        var j = new JsonSerializer();
+                        j.Formatting = Formatting.Indented;
+                        j.Serialize(tw, model);
+                    }
+                    MessageBox.Show("خروجی تولید شد.");
+
+                }
+            }
+        }
     }
 }

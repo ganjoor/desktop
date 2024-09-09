@@ -145,6 +145,7 @@
       <DependentUpon>GLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Audio Support\LoginViewModel.cs" />
+    <Compile Include="Audio Support\LyricsModel.cs" />
     <Compile Include="Audio Support\SyncEditor.cs">
       <SubType>Form</SubType>
     </Compile>
