@@ -12,6 +12,7 @@ namespace ganjoor.Audio_Support
     public class LyricsLineModel
     {
         public string Line { get; set; }
+        public string Translation { get; set; }
         public int StartInMilliseconds { get; set; }
         public int EndInMilliseconds { get; set; }
         public List<LyricsWordModel> Words { get; set; }

@@ -735,6 +735,20 @@ namespace ganjoor
                 dlg.Filter = "JSON Files (*.json)|*.json";
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
+                    string[] translations = { };
+                    using(OpenFileDialog tlg = new OpenFileDialog())
+                    {
+                        tlg.Filter = "Text Files (*.txt)|*.txt";
+                        if(tlg.ShowDialog(this) == DialogResult.OK)
+                        {
+                            translations = File.ReadAllLines(tlg.FileName);
+                            if(translations.Length != _PoemVerses.Length)
+                            {
+                                MessageBox.Show("translations.Length != _PoemVerses.Length");
+                                return;
+                            }
+                        }
+                    }
                     Mp3FileReader r = new Mp3FileReader(_PoemAudio.FilePath);
                     int playtime = r.TotalTime.Milliseconds;
 
@@ -767,6 +781,7 @@ namespace ganjoor
                             LyricsLineModel line = new LyricsLineModel()
                             {
                                 Line = text,
+                                Translation = translations.Length > 0 ? translations[_PoemVerses.Where(v => v._Order == (_VerseMilisecPositions[i].VerseOrder + 1)).First()._Order - 1] : "",
                                 StartInMilliseconds = _VerseMilisecPositions[i].AudioMiliseconds,
                                 EndInMilliseconds = _VerseMilisecPositions[i].AudioMiliseconds + duration,
                                 Words = new List<LyricsWordModel>(),
