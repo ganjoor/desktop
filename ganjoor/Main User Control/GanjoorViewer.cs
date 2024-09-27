@@ -598,6 +598,8 @@ namespace ganjoor
                 {
                     if (verses[i]._Position == VersePosition.Comment)
                         lblVerse.BackColor = Color.LightGray;
+                    else if (verses[i]._Position == VersePosition.Single)
+                        lblVerse.BackColor = Color.LightYellow;
                     lblVerse.Leave += new EventHandler(lblVerse_Leave);
                     lblVerse.TextChanged += new EventHandler(lblVerse_TextChanged);
                     lblVerse.KeyDown += new KeyEventHandler(lblVerse_KeyDown);
