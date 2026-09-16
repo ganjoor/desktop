@@ -59,6 +59,7 @@
             this.chkWordMode = new System.Windows.Forms.ToolStripMenuItem();
             this.waveViewer = new ganjoor.CustomWaveViewer();
             this.btnSaveJson = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnImportAiSync = new System.Windows.Forms.ToolStripMenuItem();
             this.tlbr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.stsBar.SuspendLayout();
@@ -322,7 +323,8 @@
             this.btnConfig.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.chkWordMode,
             this.btnSrtOutput,
-            this.btnSaveJson});
+            this.btnSaveJson,
+            this.btnImportAiSync});
             this.btnConfig.Image = global::ganjoor.Properties.Resources.process;
             this.btnConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConfig.Name = "btnConfig";
@@ -364,6 +366,13 @@
             this.btnSaveJson.Size = new System.Drawing.Size(214, 22);
             this.btnSaveJson.Text = "ذخیره با پسوند json";
             this.btnSaveJson.Click += new System.EventHandler(this.btnSaveJson_Click);
+            // 
+            // btnImportAiSync
+            // 
+            this.btnImportAiSync.Name = "btnImportAiSync";
+            this.btnImportAiSync.Size = new System.Drawing.Size(214, 22);
+            this.btnImportAiSync.Text = "وارد کردن فایل همگام‌سازی هوش مصنوعی";
+            this.btnImportAiSync.Click += new System.EventHandler(this.btnImportAiSync_Click);
             // 
             // SyncPoemAudio
             // 
@@ -431,5 +440,6 @@
         private System.Windows.Forms.ToolStripMenuItem chkWordMode;
         private System.Windows.Forms.ToolStripMenuItem btnSrtOutput;
         private System.Windows.Forms.ToolStripMenuItem btnSaveJson;
+        private System.Windows.Forms.ToolStripMenuItem btnImportAiSync;
     }
 }

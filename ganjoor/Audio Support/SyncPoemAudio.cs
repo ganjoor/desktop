@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using ganjoor.Properties;
 using NAudio.Wave;
 using System.Linq;
@@ -818,6 +819,150 @@ namespace ganjoor
                     MessageBox.Show("خروجی تولید شد.");
 
                 }
+            }
+        }
+
+        /// <summary>
+        /// وارد کردن فایل متنی همگام‌سازی تولیدشده توسط هوش مصنوعی. هر سطر فایل باید به
+        /// صورت «زمان + فاصله + متن مصرع» باشد (مثال: 03:11  آن که از سنبل او غالیه تابی دارد).
+        /// چون ترتیب سطرهای چنین فایلی ممکن است دقیقاً با ترتیب مصرعهای شعر یکی نباشد،
+        /// تطبیق بر اساس متن هر مصرع انجام می‌شود، نه شمارهٔ سطر.
+        /// </summary>
+        private void btnImportAiSync_Click(object sender, EventArgs e)
+        {
+            if (_PoemAudioPlayer.IsPlaying || _PoemAudioPlayer.IsInPauseState)
+            {
+                _PoemAudioPlayer.StopPlayBack();
+            }
+
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+                if (dlg.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                AiSyncImportResult result;
+                try
+                {
+                    result = AiSyncTextImporter.Import(dlg.FileName, _PoemVerses);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("خطا در خواندن یا پردازش فایل: " + ex.Message);
+                    return;
+                }
+
+                if (result.TotalParsedLines == 0)
+                {
+                    MessageBox.Show("هیچ سطر زمان‌داری در فایل پیدا نشد. لطفاً قالب فایل را بررسی کنید (هر سطر باید با زمان مانند 03:11 آغاز شود و پس از آن متن مصرع بیاید).");
+                    return;
+                }
+
+                if (result.SyncArray.Count == 0)
+                {
+                    MessageBox.Show("هیچ‌یک از سطرهای فایل با مصرعهای این شعر تطبیق داده نشد. لطفاً از درست بودن فایل و شعر انتخاب‌شده اطمینان حاصل کنید.");
+                    return;
+                }
+
+                string summary = BuildImportSummary(result);
+
+                if (MessageBox.Show(
+                    summary + "\r\n\r\nآیا اطلاعات همگام‌سازی فعلی با نتیجهٔ این فایل جایگزین شود؟",
+                    "تأییدیه",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2,
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                _VerseMilisecPositions = result.SyncArray;
+                _SyncOrder = _VerseMilisecPositions.Count > 0 ? _VerseMilisecPositions[_VerseMilisecPositions.Count - 1].VerseOrder : -1;
+                _Modifying = false;
+                _Modified = true;
+                _Saved = false;
+
+                if (_SyncOrder >= 0 && _SyncOrder < _PoemVerses.Length)
+                {
+                    lblVerse.Text = _PoemVerses[_SyncOrder]._Text;
+                    lblNextVerse.Text = _SyncOrder < _PoemVerses.Length - 1
+                        ? "مصرع بعد: " + _PoemVerses[_SyncOrder + 1]._Text
+                        : "این مصرع آخر است.";
+                }
+
+                EnableButtons();
+
+                if (result.UnmatchedLines.Count > 0 || result.UnmatchedVerses.Count > 0 || result.ApproximateMatches.Count > 0)
+                {
+                    if (MessageBox.Show(
+                        "برخی موارد نیاز به بازبینی دارند. آیا می‌خواهید گزارش کامل در یک فایل متنی ذخیره شود؟",
+                        "اعلان",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                    {
+                        SaveImportReport(result);
+                    }
+                }
+            }
+        }
+
+        private string BuildImportSummary(AiSyncImportResult result)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(string.Format("سطرهای خوانده‌شده از فایل: {0}", result.TotalParsedLines));
+            sb.AppendLine(string.Format("مصرعهای تطبیق داده‌شده: {0} از {1}", result.SyncArray.Count, _PoemVerses.Length));
+            if (result.ApproximateMatches.Count > 0)
+                sb.AppendLine(string.Format("تطبیقهای تقریبی (نیازمند بازبینی): {0}", result.ApproximateMatches.Count));
+            if (result.UnmatchedLines.Count > 0)
+                sb.AppendLine(string.Format("سطرهای بدون تطبیق در فایل: {0}", result.UnmatchedLines.Count));
+            if (result.UnmatchedVerses.Count > 0)
+                sb.AppendLine(string.Format("مصرعهای بدون زمان در شعر: {0}", result.UnmatchedVerses.Count));
+            if (result.HasOutOfOrderTimes)
+                sb.AppendLine("هشدار: ترتیب برخی زمانهای تطبیق‌یافته با ترتیب شعر همخوانی ندارد؛ ممکن است تطبیق نادرستی رخ داده باشد.");
+            return sb.ToString();
+        }
+
+        private void SaveImportReport(AiSyncImportResult result)
+        {
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "Text Files (*.txt)|*.txt";
+                dlg.FileName = "ai-sync-import-report.txt";
+                if (dlg.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(BuildImportSummary(result));
+
+                if (result.ApproximateMatches.Count > 0)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("=== تطبیقهای تقریبی ===");
+                    foreach (string line in result.ApproximateMatches)
+                        sb.AppendLine(line);
+                }
+
+                if (result.UnmatchedLines.Count > 0)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("=== سطرهای بدون تطبیق در فایل ===");
+                    foreach (string line in result.UnmatchedLines)
+                        sb.AppendLine(line);
+                }
+
+                if (result.UnmatchedVerses.Count > 0)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("=== مصرعهای بدون زمان در شعر ===");
+                    foreach (GanjoorVerse verse in result.UnmatchedVerses)
+                        sb.AppendLine(verse._Text);
+                }
+
+                File.WriteAllText(dlg.FileName, sb.ToString(), Encoding.UTF8);
+                MessageBox.Show("گزارش ذخیره شد.");
             }
         }
     }
