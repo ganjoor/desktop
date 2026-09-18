@@ -656,7 +656,7 @@ namespace ganjoor
         }
 
         /// <summary>
-        /// ارسال نشانه‌های محلی به بوکمارکهای حساب کاربری در ganjoor.net
+        /// ارسال نشانه‌های محلی به فهرست نشان‌شده‌های حساب کاربری در ganjoor.net
         /// </summary>
         private async void mnuSendFavsToGanjoor_Click(object sender, EventArgs e)
         {
@@ -668,7 +668,7 @@ namespace ganjoor
             }
 
             if (MessageBox.Show(
-                "نشانه‌های محلی این برنامه به بوکمارکهای حساب کاربری شما در ganjoor.net افزوده خواهند شد. نشانه‌های مربوط به کل یک شعر (بدون مصرع مشخص) پشتیبانی نمی‌شوند و نادیده گرفته می‌شوند. آیا ادامه می‌دهید؟",
+                "نشانه‌های محلی این برنامه در حساب کاربری شما در ganjoor.net نشان‌شده خواهند شد. هر نشانهٔ مربوط به کل یک شعر، با نشان کردن بیت نخست همان شعر معادل‌سازی می‌شود. آیا ادامه می‌دهید؟",
                 "تأییدیه",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
@@ -724,13 +724,11 @@ namespace ganjoor
             }
 
             StringBuilder msg = new StringBuilder();
-            msg.AppendLine(string.Format("{0} نشانه با موفقیت به گنجور ارسال شد.", result.Sent));
-            if (result.SkippedWholePoem > 0)
-                msg.AppendLine(string.Format("{0} نشانهٔ «کل شعر» پشتیبانی نمی‌شود و نادیده گرفته شد.", result.SkippedWholePoem));
+            msg.AppendLine(string.Format("{0} نشانه با موفقیت در ganjoor.net نشان شد.", result.Sent));
             if (result.SkippedUnavailable > 0)
                 msg.AppendLine(string.Format("{0} نشانه به دلیل عدم امکان تطبیق مصرع نادیده گرفته شد.", result.SkippedUnavailable));
             if (result.Failed > 0)
-                msg.AppendLine(string.Format("{0} نشانه به دلیل خطا ارسال نشد.", result.Failed));
+                msg.AppendLine(string.Format("{0} نشانه به دلیل خطا نشان نشد.", result.Failed));
 
             MessageBox.Show(msg.ToString(), "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }

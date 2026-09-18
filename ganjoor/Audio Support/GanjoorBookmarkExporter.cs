@@ -10,22 +10,17 @@ using System.Threading.Tasks;
 namespace ganjoor.Audio_Support
 {
     /// <summary>
-    /// نتیجهٔ ارسال نشانه‌های محلی برنامه به بوکمارکهای حساب کاربری در ganjoor.net
+    /// نتیجهٔ ارسال نشانه‌های محلی برنامه به فهرست نشان‌شده‌های حساب کاربری در ganjoor.net
     /// </summary>
     public class BookmarkExportResult
     {
         /// <summary>
-        /// با موفقیت ارسال شد (یا پیشتر روی سایت وجود داشت)
+        /// با موفقیت نشان شد (یا پیشتر روی سایت نشان‌شده بود)
         /// </summary>
         public int Sent;
 
         /// <summary>
-        /// نشانه‌های «کل شعر» (بدون مصرع مشخص) که سامانهٔ نشانهٔ سایت معادلی برایشان ندارد
-        /// </summary>
-        public int SkippedWholePoem;
-
-        /// <summary>
-        /// مصرع متناظر در داده‌های شعر یافت نشد یا در سایت قابل نشانه‌گذاری نیست (مانند پاراگرافهای توضیحی)
+        /// مصرع متناظر در داده‌های شعر یافت نشد یا در سایت قابل نشان کردن نیست (مانند پاراگرافهای توضیحی)
         /// </summary>
         public int SkippedUnavailable;
 
@@ -39,7 +34,7 @@ namespace ganjoor.Audio_Support
         /// </summary>
         public List<string> FailureDetails = new List<string>();
 
-        public int TotalLocalFavs => Sent + SkippedWholePoem + SkippedUnavailable + Failed;
+        public int TotalLocalFavs => Sent + SkippedUnavailable + Failed;
     }
 
     /// <summary>
@@ -50,11 +45,13 @@ namespace ganjoor.Audio_Support
     }
 
     /// <summary>
-    /// ارسال نشانه‌های محلی برنامه (جدول fav) به بوکمارکهای حساب کاربری در ganjoor.net،
+    /// ارسال نشانه‌های محلی برنامه (جدول fav) به فهرست نشان‌شده‌های حساب کاربری در ganjoor.net،
     /// از طریق وب‌سرویس https://api.ganjoor.net/api/ganjoor/bookmark .
-    /// چون نشانه‌های محلی بر اساس شمارهٔ مصرع (vorder) هستند ولی نشانه‌های سایت بر اساس
-    /// شمارهٔ بیت (CoupletIndex، یک شمارهٔ مشترک برای هر دو مصرع یک بیت)، ابتدا باید
-    /// معادل الگوریتم _FillPoemCoupletIndices سمت سرور برای هر شعر اجرا شود.
+    /// چون نشانه‌های محلی بر اساس شمارهٔ مصرع (vorder) هستند ولی نشان‌شده‌های سایت بر اساس
+    /// شمارهٔ بیت (CoupletIndex، یک شمارهٔ مشترک برای هر دو مصرع یک بیت)، ابتدا باید معادل
+    /// الگوریتم _FillPoemCoupletIndices سمت سرور برای هر شعر اجرا شود. نشانهٔ «کل شعر» (بدون
+    /// مصرع مشخص) معادل نشان کردن مصرع نخست شعر است (بیت شمارهٔ ۰)، دقیقاً همان‌طور که در
+    /// ganjoor.net نشان کردن یک شعر عملاً بیت نخست آن را نشان می‌کند.
     /// </summary>
     public static class GanjoorBookmarkExporter
     {
@@ -63,7 +60,7 @@ namespace ganjoor.Audio_Support
         /// مصرعهای Left و CenteredVerse2 شمارهٔ بیت مصرع پیش از خود را می‌گیرند و مصرعهای Comment
         /// اصلاً بیت به‌حساب نمی‌آیند (خروجی null برای آنها).
         /// </summary>
-        /// <returns>نگاشت از _Order مصرع به شمارهٔ بیت متناظر (یا null اگر قابل نشانه‌گذاری در سایت نباشد)</returns>
+        /// <returns>نگاشت از _Order مصرع به شمارهٔ بیت متناظر (یا null اگر قابل نشان کردن در سایت نباشد)</returns>
         public static Dictionary<int, int?> ComputeCoupletIndices(IEnumerable<GanjoorVerse> poemVerses)
         {
             var result = new Dictionary<int, int?>();
@@ -79,8 +76,8 @@ namespace ganjoor.Audio_Support
         }
 
         /// <summary>
-        /// تمام نشانه‌های محلی را می‌خواند و برای هرکدام که معادل قابل نشانه‌گذاری در سایت دارد،
-        /// درخواست بوکمارک کردن را به ganjoor.net ارسال می‌کند.
+        /// تمام نشانه‌های محلی را می‌خواند و برای هرکدام که معادل قابل نشان کردن در سایت دارد،
+        /// درخواست نشان کردن را به ganjoor.net ارسال می‌کند.
         /// </summary>
         /// <param name="db">پایگاه دادهٔ محلی</param>
         /// <param name="baseUrl">آدرس پایهٔ وب‌سرویس (مثال: https://api.ganjoor.net)</param>
@@ -120,56 +117,60 @@ namespace ganjoor.Audio_Support
                     {
                         int verseId = Convert.ToInt32(row["verse_id"]);
 
+                        int? coupletIndex;
                         if (verseId == -1)
                         {
-                            // نشانهٔ کل شعر (بدون مصرع مشخص)؛ سامانهٔ نشانهٔ سایت معادلی ندارد
-                            result.SkippedWholePoem++;
-                            continue;
+                            // نشانهٔ کل شعر (بدون مصرع مشخص)؛ در ganjoor.net معادل نشان کردن بیت نخست شعر است
+                            coupletIndex = 0;
                         }
-
-                        if (!coupletIndices.TryGetValue(verseId, out int? coupletIndex) || coupletIndex == null)
+                        else if (!coupletIndices.TryGetValue(verseId, out coupletIndex) || coupletIndex == null)
                         {
-                            // مصرع دیگر وجود ندارد یا از نوع پاراگراف توضیحی است (قابل نشانه‌گذاری در سایت نیست)
+                            // مصرع دیگر وجود ندارد یا از نوع پاراگراف توضیحی است (قابل نشان کردن در سایت نیست)
                             result.SkippedUnavailable++;
                             continue;
                         }
 
-                        HttpResponseMessage response;
-                        try
-                        {
-                            response = await httpClient.PostAsync($"{baseUrl}/api/ganjoor/bookmark/{poemId}/{coupletIndex}", null);
-                        }
-                        catch (Exception ex)
-                        {
-                            result.Failed++;
-                            result.FailureDetails.Add(string.Format("شعر {0}، بیت {1}: {2}", poemId, coupletIndex, ex.Message));
-                            continue;
-                        }
-
-                        if (response.StatusCode == HttpStatusCode.Unauthorized)
-                        {
-                            throw new GanjoorTokenInvalidException();
-                        }
-
-                        if (response.StatusCode == HttpStatusCode.NotFound)
-                        {
-                            result.SkippedUnavailable++;
-                            continue;
-                        }
-
-                        if (response.StatusCode != HttpStatusCode.OK)
-                        {
-                            result.Failed++;
-                            result.FailureDetails.Add(string.Format("شعر {0}، بیت {1}: {2}", poemId, coupletIndex, await response.Content.ReadAsStringAsync()));
-                            continue;
-                        }
-
-                        result.Sent++;
+                        await PostBookmarkAsync(httpClient, baseUrl, poemId, coupletIndex.Value, result);
                     }
                 }
             }
 
             return result;
+        }
+
+        private static async Task PostBookmarkAsync(HttpClient httpClient, string baseUrl, int poemId, int coupletIndex, BookmarkExportResult result)
+        {
+            HttpResponseMessage response;
+            try
+            {
+                response = await httpClient.PostAsync($"{baseUrl}/api/ganjoor/bookmark/{poemId}/{coupletIndex}", null);
+            }
+            catch (Exception ex)
+            {
+                result.Failed++;
+                result.FailureDetails.Add(string.Format("شعر {0}، بیت {1}: {2}", poemId, coupletIndex, ex.Message));
+                return;
+            }
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new GanjoorTokenInvalidException();
+            }
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                result.SkippedUnavailable++;
+                return;
+            }
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                result.Failed++;
+                result.FailureDetails.Add(string.Format("شعر {0}، بیت {1}: {2}", poemId, coupletIndex, await response.Content.ReadAsStringAsync()));
+                return;
+            }
+
+            result.Sent++;
         }
     }
 }

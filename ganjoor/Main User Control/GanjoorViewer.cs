@@ -2014,7 +2014,7 @@ namespace ganjoor
             ShowFavs(0, Settings.Default.FavItemsInPage);
         }
         /// <summary>
-        /// ارسال نشانه‌های محلی به بوکمارکهای حساب کاربری در ganjoor.net
+        /// ارسال نشانه‌های محلی به فهرست نشان‌شده‌های حساب کاربری در ganjoor.net
         /// </summary>
         /// <param name="baseUrl">آدرس پایهٔ وب‌سرویس (مثال: https://api.ganjoor.net)</param>
         /// <param name="token">رمز ورود معتبر (Bearer token) کاربر</param>
