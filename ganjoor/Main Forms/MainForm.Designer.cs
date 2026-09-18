@@ -101,6 +101,7 @@
             this.mnuShowFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExportFavs = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSendFavsToGanjoor = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuImportFavs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuShowBeytNums = new System.Windows.Forms.ToolStripMenuItem();
@@ -773,6 +774,7 @@
             this.mnuShowFavs,
             this.toolStripSeparator16,
             this.mnuExportFavs,
+            this.mnuSendFavsToGanjoor,
             this.mnuImportFavs,
             this.toolStripSeparator3,
             this.mnuShowBeytNums});
@@ -811,6 +813,14 @@
             this.mnuExportFavs.Size = new System.Drawing.Size(233, 22);
             this.mnuExportFavs.Text = "برون‌ریزی نشانه‌ها";
             this.mnuExportFavs.Click += new System.EventHandler(this.mnuExportFavs_Click);
+            // 
+            // mnuSendFavsToGanjoor
+            // 
+            this.mnuSendFavsToGanjoor.Image = global::ganjoor.Properties.Resources.folder_up;
+            this.mnuSendFavsToGanjoor.Name = "mnuSendFavsToGanjoor";
+            this.mnuSendFavsToGanjoor.Size = new System.Drawing.Size(233, 22);
+            this.mnuSendFavsToGanjoor.Text = "ارسال به گنجور";
+            this.mnuSendFavsToGanjoor.Click += new System.EventHandler(this.mnuSendFavsToGanjoor_Click);
             // 
             // mnuImportFavs
             // 
@@ -1095,6 +1105,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuZoomOut;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem mnuExportFavs;
+        private System.Windows.Forms.ToolStripMenuItem mnuSendFavsToGanjoor;
         private System.Windows.Forms.ToolStripMenuItem mnuImportFavs;
         private System.Windows.Forms.ToolStripMenuItem mnuEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;

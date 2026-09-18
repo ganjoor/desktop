@@ -13,6 +13,8 @@ using System.Reflection;
 using ganjoor.Properties;
 using System.IO.Compression;
 using System.Diagnostics;
+using ganjoor.Audio_Support;
+using System.Threading.Tasks;
 
 /*
  * Version Pre 1.0 -> 1388/04/29
@@ -651,6 +653,86 @@ namespace ganjoor
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                     ganjoorView.ImportMixFavs(dlg.FileName);
             }
+        }
+
+        /// <summary>
+        /// ارسال نشانه‌های محلی به بوکمارکهای حساب کاربری در ganjoor.net
+        /// </summary>
+        private async void mnuSendFavsToGanjoor_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Settings.Default.MuseumToken))
+            {
+                using (GLogin gLogin = new GLogin())
+                    if (gLogin.ShowDialog(this) != DialogResult.OK)
+                        return;
+            }
+
+            if (MessageBox.Show(
+                "نشانه‌های محلی این برنامه به بوکمارکهای حساب کاربری شما در ganjoor.net افزوده خواهند شد. نشانه‌های مربوط به کل یک شعر (بدون مصرع مشخص) پشتیبانی نمی‌شوند و نادیده گرفته می‌شوند. آیا ادامه می‌دهید؟",
+                "تأییدیه",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            Cursor = Cursors.WaitCursor;
+            Application.DoEvents();
+
+            BookmarkExportResult result;
+            try
+            {
+                result = await ganjoorView.SendFavsToGanjoorAsync(Settings.Default.GanjoorServiceUrl, Settings.Default.MuseumToken);
+            }
+            catch (GanjoorTokenInvalidException)
+            {
+                Cursor = Cursors.Default;
+                MessageBox.Show("نشست ورود شما منقضی شده است. لطفاً دوباره وارد شوید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
+                using (GLogin gLogin = new GLogin())
+                    if (gLogin.ShowDialog(this) != DialogResult.OK)
+                        return;
+
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+                try
+                {
+                    result = await ganjoorView.SendFavsToGanjoorAsync(Settings.Default.GanjoorServiceUrl, Settings.Default.MuseumToken);
+                }
+                catch (Exception ex)
+                {
+                    Cursor = Cursors.Default;
+                    MessageBox.Show("ورود به حساب کاربری ناموفق بود یا خطایی رخ داد: " + ex.Message, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Cursor = Cursors.Default;
+                MessageBox.Show("خطا در ارتباط با سایت: " + ex.Message, "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            Cursor = Cursors.Default;
+
+            if (result.TotalLocalFavs == 0)
+            {
+                MessageBox.Show("هیچ نشانه‌ای برای ارسال وجود ندارد.", "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            StringBuilder msg = new StringBuilder();
+            msg.AppendLine(string.Format("{0} نشانه با موفقیت به گنجور ارسال شد.", result.Sent));
+            if (result.SkippedWholePoem > 0)
+                msg.AppendLine(string.Format("{0} نشانهٔ «کل شعر» پشتیبانی نمی‌شود و نادیده گرفته شد.", result.SkippedWholePoem));
+            if (result.SkippedUnavailable > 0)
+                msg.AppendLine(string.Format("{0} نشانه به دلیل عدم امکان تطبیق مصرع نادیده گرفته شد.", result.SkippedUnavailable));
+            if (result.Failed > 0)
+                msg.AppendLine(string.Format("{0} نشانه به دلیل خطا ارسال نشد.", result.Failed));
+
+            MessageBox.Show(msg.ToString(), "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
         private void btnEditor_Click(object sender, EventArgs e)

@@ -681,6 +681,22 @@ namespace ganjoor
             }
             return null;
         }
+        /// <summary>
+        /// تمام نشانه‌های محلی (بدون گروه‌بندی و بدون صفحه‌بندی)؛ برای مواردی مانند ارسال نشانه‌ها به ganjoor.net
+        /// </summary>
+        public DataTable GetAllFavs()
+        {
+            if (Connected)
+            {
+                DataTable tbl = new DataTable();
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT poem_id, verse_id, pos FROM fav ORDER BY pos", _con))
+                {
+                    da.Fill(tbl);
+                }
+                return tbl;
+            }
+            return null;
+        }
         public GanjoorVerse GetPreferablyAFavVerse(int PoemID)
         {
             List<GanjoorVerse> allVerses = GetVerses(PoemID);

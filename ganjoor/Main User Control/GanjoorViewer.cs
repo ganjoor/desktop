@@ -10,6 +10,7 @@ using System.Drawing.Printing;
 using ganjoor.Properties;
 using ganjoor.Utilities;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ganjoor
 {
@@ -2011,6 +2012,15 @@ namespace ganjoor
             int importedFavs = _db.ImportMixFavs(fileName, out ignoredFavs, out errFavs);
             MessageBox.Show(String.Format("{0} نشانه اضافه شد و از افزودن {1} نشانه به دلیل تکراری بودن و {2} به دلیل عدم وجود داده‌ها یا شاعر متناظر در داده‌های برنامه صرف نظر شد.", importedFavs, ignoredFavs, errFavs), "اعلان", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             ShowFavs(0, Settings.Default.FavItemsInPage);
+        }
+        /// <summary>
+        /// ارسال نشانه‌های محلی به بوکمارکهای حساب کاربری در ganjoor.net
+        /// </summary>
+        /// <param name="baseUrl">آدرس پایهٔ وب‌سرویس (مثال: https://api.ganjoor.net)</param>
+        /// <param name="token">رمز ورود معتبر (Bearer token) کاربر</param>
+        public Task<Audio_Support.BookmarkExportResult> SendFavsToGanjoorAsync(string baseUrl, string token)
+        {
+            return Audio_Support.GanjoorBookmarkExporter.ExportAsync(_db, baseUrl, token);
         }
         #endregion
 
