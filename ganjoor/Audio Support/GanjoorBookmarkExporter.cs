@@ -113,6 +113,10 @@ namespace ganjoor.Audio_Support
 
                     Dictionary<int, int?> coupletIndices = ComputeCoupletIndices(verses);
 
+                    // یک نشانهٔ کل شعر و نشانهٔ مصرع نخست همان شعر هر دو به بیت شمارهٔ ۰ می‌رسند؛
+                    // برای پرهیز از ارسال و شمارش دوباره، ابتدا شماره‌بیتهای یکتا را جمع می‌کنیم.
+                    var coupletsToSend = new HashSet<int>();
+
                     foreach (DataRow row in poemGroup)
                     {
                         int verseId = Convert.ToInt32(row["verse_id"]);
@@ -130,7 +134,12 @@ namespace ganjoor.Audio_Support
                             continue;
                         }
 
-                        await PostBookmarkAsync(httpClient, baseUrl, poemId, coupletIndex.Value, result);
+                        coupletsToSend.Add(coupletIndex.Value);
+                    }
+
+                    foreach (int coupletIndex in coupletsToSend)
+                    {
+                        await PostBookmarkAsync(httpClient, baseUrl, poemId, coupletIndex, result);
                     }
                 }
             }
