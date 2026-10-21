@@ -500,6 +500,28 @@ namespace ganjoor
             ganjoorView.ConvertLeftToRightLine();
         }
 
+        private void btnSwapCoupletTexts_Click(object sender, EventArgs e)
+        {
+            if (!ganjoorView.SwapCoupletTexts())
+            {
+                MessageBox.Show("جابه‌جایی انجام نشد. مکان‌نما باید روی یکی از مصرعهای یک بیت کامل باشد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            }
+        }
+
+        private void btnSwapPoemTexts_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("جای متن مصرع اول و دوم همهٔ بیتهای شعر جاری عوض می‌شود.\nادامه می‌دهید؟",
+                "اخطار",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2,
+                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.No)
+                return;
+            int n = ganjoorView.SwapPoemTexts();
+            if (n == 0)
+            {
+                MessageBox.Show("بیتی برای جابه‌جایی پیدا نشد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            }
+        }
+
         private void btnConvertVerseToPara_Click(object sender, EventArgs e)
         {
             ganjoorView.ConvertVerseToPara();

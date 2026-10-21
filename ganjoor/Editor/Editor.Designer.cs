@@ -86,6 +86,8 @@
             this.btnConvertBeytToBand = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertVerseToBand = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertLeftToRight = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSwapCoupletTexts = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSwapPoemTexts = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertVerseToPara = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertVerseToComment = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConvertToSingleToEnd = new System.Windows.Forms.ToolStripMenuItem();
@@ -506,6 +508,8 @@
             this.btnConvertBeytToBand,
             this.btnConvertVerseToBand,
             this.btnConvertLeftToRight,
+            this.btnSwapCoupletTexts,
+            this.btnSwapPoemTexts,
             this.btnConvertVerseToPara,
             this.btnConvertVerseToComment,
             this.btnConvertToSingleToEnd,
@@ -590,6 +594,20 @@
             this.btnConvertLeftToRight.Size = new System.Drawing.Size(264, 22);
             this.btnConvertLeftToRight.Text = "تبدیل مصرع دوم به مصرع اول";
             this.btnConvertLeftToRight.Click += new System.EventHandler(this.btnConvertLeftToRight_Click);
+            // 
+            // btnSwapCoupletTexts
+            // 
+            this.btnSwapCoupletTexts.Name = "btnSwapCoupletTexts";
+            this.btnSwapCoupletTexts.Size = new System.Drawing.Size(264, 22);
+            this.btnSwapCoupletTexts.Text = "جابه‌جایی متن مصرعهای بیت جاری";
+            this.btnSwapCoupletTexts.Click += new System.EventHandler(this.btnSwapCoupletTexts_Click);
+            // 
+            // btnSwapPoemTexts
+            // 
+            this.btnSwapPoemTexts.Name = "btnSwapPoemTexts";
+            this.btnSwapPoemTexts.Size = new System.Drawing.Size(264, 22);
+            this.btnSwapPoemTexts.Text = "جابه‌جایی متن مصرعهای همهٔ بیتهای شعر";
+            this.btnSwapPoemTexts.Click += new System.EventHandler(this.btnSwapPoemTexts_Click);
             // 
             // btnConvertVerseToPara
             // 
@@ -909,6 +927,8 @@
         private System.Windows.Forms.ToolStripMenuItem btnConvertBeytToBand;
         private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToBand;
         private System.Windows.Forms.ToolStripMenuItem btnConvertLeftToRight;
+        private System.Windows.Forms.ToolStripMenuItem btnSwapCoupletTexts;
+        private System.Windows.Forms.ToolStripMenuItem btnSwapPoemTexts;
         private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToPara;
         private System.Windows.Forms.ToolStripMenuItem mnuCorrectVerses;
         private System.Windows.Forms.ToolStripMenuItem btnSpaceTabText;

@@ -3124,6 +3124,106 @@ namespace ganjoor
             return true;
         }
 
+        /// <summary>
+        /// جای متن دو مصرع بیتی را که مکان‌نما در آن است عوض می‌کند (فقط متن؛ نوع و ترتیب مصرع‌ها دست نمی‌خورد).
+        /// </summary>
+        /// <returns>اگر مصرعی انتخاب نشده یا مصرع جفتی نداشته باشد false</returns>
+        public bool SwapCoupletTexts()
+        {
+            int nFocus = -1;
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl.Focused)
+                {
+                    if (ctl is TextBox)
+                        nFocus = (ctl.Tag as GanjoorVerse)._Order;
+                    break;
+                }
+            }
+            if (nFocus == -1)
+                return false;
+
+            Save(); //ویرایش‌های ذخیره‌نشده در دیتابیس اعمال شوند تا با تعویض از بین نروند
+
+            List<GanjoorVerse> verses = _db.GetVerses(_iCurPoem);
+            int idx = verses.FindIndex(v => v._Order == nFocus);
+            if (idx < 0)
+                return false;
+
+            int partner = -1;
+            switch (verses[idx]._Position)
+            {
+                case VersePosition.Right:
+                    if (idx + 1 < verses.Count && verses[idx + 1]._Position == VersePosition.Left)
+                        partner = idx + 1;
+                    break;
+                case VersePosition.Left:
+                    if (idx > 0 && verses[idx - 1]._Position == VersePosition.Right)
+                        partner = idx - 1;
+                    break;
+                case VersePosition.CenteredVerse1:
+                    if (idx + 1 < verses.Count && verses[idx + 1]._Position == VersePosition.CenteredVerse2)
+                        partner = idx + 1;
+                    break;
+                case VersePosition.CenteredVerse2:
+                    if (idx > 0 && verses[idx - 1]._Position == VersePosition.CenteredVerse1)
+                        partner = idx - 1;
+                    break;
+            }
+            if (partner < 0)
+                return false;
+
+            _db.BeginBatchOperation();
+            _db.SetVerseText(_iCurPoem, verses[idx]._Order, verses[partner]._Text);
+            _db.SetVerseText(_iCurPoem, verses[partner]._Order, verses[idx]._Text);
+            _db.CommitBatchOperation();
+
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            foreach (Control ctl in this.Controls)
+                if (ctl is TextBox)
+                {
+                    if ((ctl.Tag as GanjoorVerse)._Order == nFocus)
+                    {
+                        ctl.Focus();
+                        break;
+                    }
+                }
+            return true;
+        }
+
+        /// <summary>
+        /// جای متن دو مصرع همهٔ بیتهای شعر جاری را عوض می‌کند (فقط متن؛ نوع و ترتیب مصرع‌ها دست نمی‌خورد).
+        /// </summary>
+        /// <returns>تعداد بیتهایی که جای مصرعهایشان عوض شد</returns>
+        public int SwapPoemTexts()
+        {
+            if (_iCurPoem == 0)
+                return 0;
+
+            Save();
+
+            List<GanjoorVerse> verses = _db.GetVerses(_iCurPoem);
+            int swapped = 0;
+            _db.BeginBatchOperation();
+            for (int i = 0; i + 1 < verses.Count; i++)
+            {
+                bool isPair =
+                    (verses[i]._Position == VersePosition.Right && verses[i + 1]._Position == VersePosition.Left)
+                    ||
+                    (verses[i]._Position == VersePosition.CenteredVerse1 && verses[i + 1]._Position == VersePosition.CenteredVerse2);
+                if (!isPair)
+                    continue;
+                _db.SetVerseText(_iCurPoem, verses[i]._Order, verses[i + 1]._Text);
+                _db.SetVerseText(_iCurPoem, verses[i + 1]._Order, verses[i]._Text);
+                swapped++;
+                i++; //مصرع دوم این بیت دوباره بررسی نشود
+            }
+            _db.CommitBatchOperation();
+
+            ShowPoem(_db.GetPoem(_iCurPoem), false);
+            return swapped;
+        }
+
         public bool CurrectCurrentCatVerse()
         {
             _db.BeginBatchOperation();
