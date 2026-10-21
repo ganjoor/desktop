@@ -3224,6 +3224,38 @@ namespace ganjoor
             return swapped;
         }
 
+        /// <summary>
+        /// معادل «ساختار عادی» (دوتایی راست/چپ) برای تک‌تک شعرهای بخش جاری؛ مثل RestructureVerses(-1, true, -1, false) روی هر شعر.
+        /// </summary>
+        /// <returns>تعداد شعرهای پردازش‌شده؛ -1 اگر بخشی انتخاب نشده باشد</returns>
+        public int NormalRestructureCat()
+        {
+            if (_iCurCat == 0)
+                return -1;
+
+            Save(); //ویرایشهای ذخیره‌نشدهٔ شعر نمایش‌داده‌شده
+
+            int count = 0;
+            _db.BeginBatchOperation();
+            foreach (GanjoorPoem poem in _db.GetPoems(_iCurCat))
+            {
+                VersePosition position = VersePosition.Right;
+                foreach (GanjoorVerse verse in _db.GetVerses(poem._ID))
+                {
+                    _db.SetVersePosition(poem._ID, verse._Order, position);
+                    position = position == VersePosition.Right ? VersePosition.Left : VersePosition.Right;
+                }
+                count++;
+            }
+            _db.CommitBatchOperation();
+
+            if (_iCurPoem != 0)
+                ShowPoem(_db.GetPoem(_iCurPoem), false);
+            else
+                ShowCategory(_db.GetCategory(_iCurCat), false);
+            return count;
+        }
+
         public bool CurrectCurrentCatVerse()
         {
             _db.BeginBatchOperation();

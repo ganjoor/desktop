@@ -103,6 +103,7 @@
             this.btnReplaceInDb = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChangeIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCorrectVerses = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnNormalRestructureCat = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBio = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuImport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExport = new System.Windows.Forms.ToolStripMenuItem();
@@ -682,6 +683,7 @@
             this.btnReplaceInDb,
             this.btnChangeIDs,
             this.mnuCorrectVerses,
+            this.btnNormalRestructureCat,
             this.mnuBio,
             this.mnuImport,
             this.mnuExport,
@@ -733,6 +735,13 @@
             this.mnuCorrectVerses.Size = new System.Drawing.Size(317, 22);
             this.mnuCorrectVerses.Text = "تصحیح ترتیب مصاریع بخش";
             this.mnuCorrectVerses.Click += new System.EventHandler(this.mnuCorrectVerses_Click);
+            // 
+            // btnNormalRestructureCat
+            // 
+            this.btnNormalRestructureCat.Name = "btnNormalRestructureCat";
+            this.btnNormalRestructureCat.Size = new System.Drawing.Size(317, 22);
+            this.btnNormalRestructureCat.Text = "ساختار عادی برای همهٔ شعرهای بخش";
+            this.btnNormalRestructureCat.Click += new System.EventHandler(this.btnNormalRestructureCat_Click);
             // 
             // mnuBio
             // 
@@ -931,6 +940,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnSwapPoemTexts;
         private System.Windows.Forms.ToolStripMenuItem btnConvertVerseToPara;
         private System.Windows.Forms.ToolStripMenuItem mnuCorrectVerses;
+        private System.Windows.Forms.ToolStripMenuItem btnNormalRestructureCat;
         private System.Windows.Forms.ToolStripMenuItem btnSpaceTabText;
         private System.Windows.Forms.ToolStripMenuItem mnuBio;
         private System.Windows.Forms.ToolStripMenuItem mnuImport;

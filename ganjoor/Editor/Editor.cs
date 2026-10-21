@@ -481,6 +481,24 @@ namespace ganjoor
             ganjoorView.Save();
         }
 
+        private void btnNormalRestructureCat_Click(object sender, EventArgs e)
+        {
+            if (ganjoorView.CurrentCatId < 1)
+            {
+                MessageBox.Show("لطفا بخشی را انتخاب کنید.");
+                return;
+            }
+            if (MessageBox.Show("مصرعهای همهٔ شعرهای بخش جاری به صورت یک در میان مصرع اول و دوم درمی‌آیند (مثل «ساختار عادی» ولی برای همهٔ شعرها).\nنوع مصرعهای دیگر (بند، نیمایی، پاراگراف و ...) هم تغییر می‌کند.\nادامه می‌دهید؟",
+                "اخطار",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2,
+                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.No)
+                return;
+            this.Enabled = false;
+            int n = ganjoorView.NormalRestructureCat();
+            this.Enabled = true;
+            MessageBox.Show(string.Format("ساختار {0} شعر اصلاح شد.", n), "انجام شد", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+        }
+
         private void btnConvertBeytToBand_Click(object sender, EventArgs e)
         {
             if (!ganjoorView.ConvertLineToBandLine())
