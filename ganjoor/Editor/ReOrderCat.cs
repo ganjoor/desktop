@@ -61,12 +61,13 @@ namespace ganjoor
                     grdMain.Rows[rowIndex].Cells[ClmnVerse2].Value = Verses[1]._Text;
             }
             grdMain.ResumeLayout();
-            lblPoemCount.Text = String.Format("{0} شعر", grdMain.RowCount);
+            lblPoemCount.Text = String.Format("{0} شعر - ردیف {1}", grdMain.RowCount, grdMain.CurrentRow == null? -1 : grdMain.CurrentRow.Index + 1);
         }
 
         private void grdMain_SelectionChanged(object sender, EventArgs e)
         {
             llblSelectionCount.Text = String.Format("{0} عنوان انتخاب شده", grdMain.SelectedRows.Count);
+            lblPoemCount.Text = String.Format("{0} شعر - ردیف {1}", grdMain.RowCount, grdMain.CurrentRow == null ? -1 : grdMain.CurrentRow.Index + 1);
         }
 
         private static int CompareGridRows(DataGridViewRow Row1, DataGridViewRow Row2)
